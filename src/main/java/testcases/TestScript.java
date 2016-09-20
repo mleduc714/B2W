@@ -47,7 +47,7 @@ public class TestScript extends B2WTestCase {
 		String sLastName = getProperty("mleduc_test1");
 		test1();
 		//System.out.println(b2wNav.getUserName());
-		logCompare(true, b2wNav.openSetupUsers(),"Open");
+		//logCompare(true, b2wNav.openSetupUsers(),"Open");
 		logCompare(true, userTasks.enterTextAndClickSearch("WOOO"),"Enter Text");
 		
 //		logCompare(true, userTasks.enterTextAndClickSearch(sLastName)," Search for: "+sLastName);
