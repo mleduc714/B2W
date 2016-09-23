@@ -8,11 +8,10 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
 import appobjects.setup.B2WAccounts;
-import tasks.B2WSetupTasks;
 import tasks.BrowserUtils;
 import tasks.WebElementUtils;
 
-public class B2WAccountTasks extends B2WSetupTasks {
+public class B2WAccountTasks extends B2WResourceTasks {
 
 	Logger log = Logger.getLogger(B2WAccountTasks.class);
 
@@ -52,7 +51,7 @@ public class B2WAccountTasks extends B2WSetupTasks {
 
 	public boolean clickCreateNewProductionAccountButton() {
 		boolean bReturn = false;
-		if (WebElementUtils.clickElement(B2WAccounts.getNewProductionAccountButton())) {
+		if (WebElementUtils.clickElement(B2WAccounts.getNewProductionAccountButton())){
 			bReturn = WebElementUtils.waitAndFindDisplayedElement(B2WAccounts.getAccountDescription()) != null;
 		}
 		return bReturn;
@@ -60,129 +59,12 @@ public class B2WAccountTasks extends B2WSetupTasks {
 
 	public boolean clickCreateNewOverheadAccountButton() {
 		boolean bReturn = false;
-		if (WebElementUtils.clickElement(B2WAccounts.getNewOverheadAccountButton())) {
+		if (WebElementUtils.clickElement(B2WAccounts.getNewOverheadAccountButton())){
 			bReturn = WebElementUtils.waitAndFindDisplayedElement(B2WAccounts.getAccountDescription()) != null;
 		}
 		return bReturn;
 	}
 	
-	public boolean clickCreateNewMaterialsButton() {
-		boolean bReturn = false;
-		if (WebElementUtils.clickElement(B2WAccounts.getCreateNewMaterialsButton())){
-			bReturn = WebElementUtils.waitAndFindDisplayedElement(B2WAccounts.getAccountDescription()) != null;
-			}
-			return bReturn;
-	}
-
-	public boolean setDescription(String sDescription) {
-		WebElement el = WebElementUtils.findElement(B2WAccounts.getAccountDescription());
-		return WebElementUtils.sendKeys(el, sDescription);
-	}
-
-	public boolean setAccountID(String sText) {
-		WebElement el = WebElementUtils.findElement(B2WAccounts.getAccountID());
-		return WebElementUtils.sendKeys(el, sText);
-	}
-
-	public boolean checkTimeAndMaterials() {
-		boolean bReturn = false;
-		WebElement el = WebElementUtils.findElement(B2WAccounts.getTimeMaterialsCheckBox());
-		if (!WebElementUtils.isCheckboxChecked(el)) {
-			bReturn = WebElementUtils.clickElement(el);
-		}
-		return bReturn;
-	}
-
-	public boolean selectBusinessUnit(String sText) {
-		boolean bReturn = false;
-		WebElement el = WebElementUtils.findElement(B2WAccounts.getBusinessUnitDropDown());
-		List<WebElement> els = el.findElements(By.tagName("option"));
-		WebElement item = WebElementUtils.getElementWithMatchingText(els, sText, false);
-		if (item != null) {
-			bReturn = WebElementUtils.clickElement(item);
-		}
-		return bReturn;
-
-	}
-
-	public boolean selectBusinessUnit(int iSelect) {
-		boolean bReturn = false;
-		WebElement el = WebElementUtils.findElement(B2WAccounts.getBusinessUnitDropDown());
-		List<WebElement> els = el.findElements(By.tagName("option"));
-		WebElementUtils.selectElementFromDropDownList(els, iSelect);
-		return bReturn;
-	}
-
-	public boolean selectUnitOfMeasure(String sText) {
-		boolean bReturn = false;
-		WebElement el = WebElementUtils.findElement(B2WAccounts.getUnitOfMeasureDropDown());
-		List<WebElement> els = el.findElements(By.tagName("option"));
-		WebElement item = WebElementUtils.getElementWithMatchingText(els, sText, false);
-		if (item != null) {
-			bReturn = WebElementUtils.clickElement(item);
-		}
-		return bReturn;
-	}
-
-	public boolean selectUnitOfMeasure(int iSelect) {
-		boolean bReturn = false;
-		WebElement el = WebElementUtils.findElement(B2WAccounts.getUnitOfMeasureDropDown());
-		List<WebElement> els = el.findElements(By.tagName("option"));
-		WebElementUtils.selectElementFromDropDownList(els, iSelect);
-		return bReturn;
-	}
-
-	public String getSelectedBusinessUnit() {
-		String sSelection = null;
-		WebElement el = WebElementUtils.findElement(B2WAccounts.getBusinessUnitDropDown());
-		List<WebElement> els = el.findElements(By.tagName("option"));
-		sSelection = WebElementUtils.getSelectedTextFromDropDown(els);
-		return sSelection;
-	}
-
-	public String getSelectedUnitOfMeasure() {
-		String sSelection = null;
-		WebElement el = WebElementUtils.findElement(B2WAccounts.getUnitOfMeasureDropDown());
-		List<WebElement> els = el.findElements(By.tagName("option"));
-		sSelection = WebElementUtils.getSelectedTextFromDropDown(els);
-		return sSelection;
-	}
-
-	public boolean selectInactiveCheckBox(boolean bCheck) {
-		WebElement el = WebElementUtils.findElement(B2WAccounts.getInactiveCheckBox());
-		return checkBox(el, bCheck);
-
-	}
-
-	public boolean checkAppliesToEmployees(boolean bCheck) {
-		WebElement el = WebElementUtils.findElement(B2WAccounts.getAppliesToEmployeesCheckBox());
-		return checkBox(el, bCheck);
-	}
-
-	public boolean checkAppliesToEquipment(boolean bCheck) {
-		WebElement el = WebElementUtils.findElement(B2WAccounts.getAppliesToEmployeesCheckBox());
-		return checkBox(el, bCheck);
-	}
-
-	public boolean checkAppliesToMaterial(boolean bCheck) {
-		WebElement el = WebElementUtils.findElement(B2WAccounts.getAppliesToEmployeesCheckBox());
-		return checkBox(el, bCheck);
-	}
-
-	public boolean checkAppliesToMiscesllaneous(boolean bCheck) {
-		WebElement el = WebElementUtils.findElement(B2WAccounts.getAppliesToEmployeesCheckBox());
-		return checkBox(el, bCheck);
-	}
-
-	public boolean checkAppliesToTrucking(boolean bCheck) {
-		WebElement el = WebElementUtils.findElement(B2WAccounts.getAppliesToEmployeesCheckBox());
-		return checkBox(el, bCheck);
-	}
-
-	public boolean checkAppliesToSubcontractors(boolean bCheck) {
-		WebElement el = WebElementUtils.findElement(B2WAccounts.getAppliesToEmployeesCheckBox());
-		return checkBox(el, bCheck);
-	}
 
 	public boolean openProductionAccountByDescription(String sDescription) {
 		boolean bReturn = false;
@@ -206,7 +88,15 @@ public class B2WAccountTasks extends B2WSetupTasks {
 		return bReturn;
 
 	}
-
+	
+	public boolean clickSearchButton() {
+		return WebElementUtils.clickElement(B2WAccounts.getAccountSearchButton());
+	}
+	
+	@Override
+	public boolean clickSearchClear() {
+		return WebElementUtils.clickElement(B2WAccounts.getClearSearchButton());
+	}
 	public boolean openProductionAccountByAccountID(String sID) {
 		boolean bReturn = false;
 		enterInfoAndSearchForAccount(sID);
@@ -260,30 +150,43 @@ public class B2WAccountTasks extends B2WSetupTasks {
 		}
 		return bReturn;
 	}
-
-	public boolean clickSearchButton() {
-		return WebElementUtils.clickElement(B2WAccounts.getAccountSearchButton());
+	public boolean checkAppliesToEmployees(boolean bCheck) {
+		WebElement el = WebElementUtils.findElement(B2WAccounts.getAppliesToEmployeesCheckBox());
+		return checkBox(el, bCheck);
 	}
 
-	public boolean setNotes(String sText) {
-		return WebElementUtils.sendKeys(B2WAccounts.getGeneralInformationNotes(), sText);
+	public boolean checkAppliesToEquipment(boolean bCheck) {
+		WebElement el = WebElementUtils.findElement(B2WAccounts.getAppliesToEmployeesCheckBox());
+		return checkBox(el, bCheck);
 	}
 
-	public boolean setAlternateID(String sText) {
-		return WebElementUtils.sendKeys(B2WAccounts.getAccountAlterID(), sText);
+	public boolean checkAppliesToMaterial(boolean bCheck) {
+		WebElement el = WebElementUtils.findElement(B2WAccounts.getAppliesToEmployeesCheckBox());
+		return checkBox(el, bCheck);
 	}
 
-	public boolean setCategory(int iSelect) {
+	public boolean checkAppliesToMiscesllaneous(boolean bCheck) {
+		WebElement el = WebElementUtils.findElement(B2WAccounts.getAppliesToEmployeesCheckBox());
+		return checkBox(el, bCheck);
+	}
+
+	public boolean checkAppliesToTrucking(boolean bCheck) {
+		WebElement el = WebElementUtils.findElement(B2WAccounts.getAppliesToEmployeesCheckBox());
+		return checkBox(el, bCheck);
+	}
+
+	public boolean checkAppliesToSubcontractors(boolean bCheck) {
+		WebElement el = WebElementUtils.findElement(B2WAccounts.getAppliesToEmployeesCheckBox());
+		return checkBox(el, bCheck);
+	}
+	
+	public String getAppliesToTextLabel() {
+		return WebElementUtils.findElement(B2WAccounts.getAppliesToTextLabel()).getText();
+	}
+	
+	public boolean selectValueTypeFromDropDown(String sText){
 		boolean bReturn = false;
-		WebElement el = WebElementUtils.findElement(B2WAccounts.getUnitOfMeasureDropDown());
-		List<WebElement> els = el.findElements(By.tagName("option"));
-		WebElementUtils.selectElementFromDropDownList(els, iSelect);
-		return bReturn;
-	}
-
-	public boolean setCategory(String sText) {
-		boolean bReturn = false;
-		WebElement el = WebElementUtils.findElement(B2WAccounts.getBusinessUnitDropDown());
+		WebElement el = WebElementUtils.findElement(B2WAccounts.getAccountValueType());
 		List<WebElement> els = el.findElements(By.tagName("option"));
 		WebElement item = WebElementUtils.getElementWithMatchingText(els, sText, false);
 		if (item != null) {
@@ -292,21 +195,52 @@ public class B2WAccountTasks extends B2WSetupTasks {
 		return bReturn;
 	}
 	
-	public boolean checkTemporaryMaterial(boolean bCheck){
-		WebElement el = WebElementUtils.findElement(B2WAccounts.getTempMaterialCheckBox());
-		return checkBox(el, bCheck);
-	}
-	
-	public boolean checkTrackableMaterial(boolean bCheck){
-		WebElement el = WebElementUtils.waitAndFindElement(B2WAccounts.getTrackableMaterialCheckBox());
-		return checkBox(el, bCheck);
-	}
-	
-	public boolean setTotalCount(String iCount){
+	public boolean selectCostCalcTypePercentage(){
 		boolean bReturn = false;
-		WebElement el = WebElementUtils.waitAndFindElement(B2WAccounts.getTotalCount());
-		bReturn = WebElementUtils.sendKeys(el, iCount);
+		WebElement el = WebElementUtils.findElement(B2WAccounts.getAccountCostCalType());
+		List<WebElement> els = el.findElements(By.tagName("option"));
+		WebElementUtils.selectElementFromDropDownList(els, 1);
 		return bReturn;
+	}
+	
+	public boolean selectCostCalcTypeUnitCost() {
+		boolean bReturn = false;
+		WebElement el = WebElementUtils.findElement(B2WAccounts.getAccountCostCalType());
+		List<WebElement> els = el.findElements(By.tagName("option"));
+		WebElementUtils.selectElementFromDropDownList(els, 0);
+		return bReturn;
+	}
+	public String getAccountValueTypeText() {
+		return WebElementUtils.findElement(B2WAccounts.getAccountValueTypeLable()).getText();
+	}
+	public String getAccountInfoCostCalTypeLabel() {
+		return WebElementUtils.findElement(B2WAccounts.getAcccountInfoCostCalTypeLabel()).getText();
+	}
+	public String getAccountUnitCostLabel() {
+		return WebElementUtils.findElement(B2WAccounts.getAccountUnitCostLabel()).getText();
+	}
+	public String getAccountDefaultValueLabel() {
+		return WebElementUtils.findElement(B2WAccounts.getAccountDefaultValueLabel()).getText();
+	}
+	
+	public boolean createProductionAcccount(String sDesc, String accountID, String sBusinessUnit, String sUnitOfMeasure, String sNotes) {
+		clickCreateNewProductionAccountButton();
+		setDescription(sDesc);
+		setAccountID(accountID);
+		selectBusinessUnit(sBusinessUnit);
+		selectUnitOfMeasure(sUnitOfMeasure);
+		setNotes(sNotes);
+		return clickTopSaveButton();
+		
+	}
+	
+	public boolean createOverheadAcccount(String sDesc, String accountID, String sBusinessUnit, String sNotes) {
+		clickCreateNewOverheadAccountButton();
+		setDescription(sDesc);
+		setAccountID(accountID);
+		selectBusinessUnit(sBusinessUnit);
+		setNotes(sNotes);
+		return clickTopSaveButton();
 	}
 
 }

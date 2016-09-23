@@ -5,30 +5,36 @@ import com.b2w.test.B2WTestCase;
 import tasks.B2WNavigationTasks;
 import tasks.B2WSetupTasks;
 import tasks.resources.B2WAccountTasks;
+import tasks.resources.B2WMaterialsTasks;
 import tasks.setup.B2WUserTasks;
 import tasks.util.TaskUtils;
 
 public class OperationsSmokeB extends B2WTestCase {
-	
-	
+
 	B2WUserTasks userTasks = new B2WUserTasks();
 	B2WSetupTasks b2wSetup = new B2WSetupTasks();
 	B2WNavigationTasks b2wNav = new B2WNavigationTasks();
 	B2WAccountTasks b2wAct = new B2WAccountTasks();
+	B2WMaterialsTasks b2wMat = new B2WMaterialsTasks();
+	
+	String sProductionAccountDesc;
+	String sProductionAccountID;
+	String sProductionAccountBusinessUnit;
+	String sProductionAccountUnitOfMeasure;
+	String sProductionAccountNotes;
 
-	
-	
-/*	
- * Create new entities of the following types, through the Resources area
- * 
- *  a.Production Account
-	b.Overhead Account
-	c.Material
-	
-	
- * */
+	String sOverheadAccountDesc;
+	String sOverheadAccountID;
+	String sOverheadAccountBusinessUnit;
+	String sOverheadAccountNotes;
 
-
+	/*
+	 * Create new entities of the following types, through the Resources area
+	 * 
+	 * a.Production Account b.Overhead Account c.Material
+	 * 
+	 * 
+	 */
 
 	@Override
 	public String getAuthor() {
@@ -53,58 +59,62 @@ public class OperationsSmokeB extends B2WTestCase {
 		// Category of the within ops
 		return null;
 	}
-	
+
 	@Override
 	public void testSetUp() throws Throwable {
 		// TODO Auto-generated method stub
 		super.testSetUp();
+		sProductionAccountDesc = getProperty("productionaccountdescription");
+		sProductionAccountID = getProperty("productionaccountaccountid");
+		sProductionAccountBusinessUnit = getProperty("productionaccountbusinessunit");
+		sProductionAccountUnitOfMeasure = getProperty("productionaccountunitofmeasure");
+		sProductionAccountNotes = getProperty("productionacountnotes");
+		sOverheadAccountDesc = getProperty("overheadaccountdescription");
+		sOverheadAccountID = getProperty("overheadaccountaccountid");
+		sOverheadAccountBusinessUnit = getProperty("overheadaccountbusinessunit");
+		sOverheadAccountNotes = getProperty("overheadacountnotes");
+
 	}
 
 	public void testMain() throws Throwable {
-		// open resources
-		// check for expand or not
-		// create
-//		b2wNav.openAccounts();
-//		b2wAct.collapseProductionAccounts();
-//		b2wAct.clickCreateNewProductionAccountButton();
-//		b2wAct.setDescription("Automation Production Account");
-//		b2wAct.setAccountID("123-Auto");
-//		b2wAct.checkTimeAndMaterials();
-//		b2wAct.selectBusinessUnit(5);
-//		b2wAct.selectUnitOfMeasure("YARD");
-//		b2wAct.setNotes("This is test acccount for automation");
-//		b2wAct.clickTopSaveButton();
-//		b2wAct.collapseProductionAccounts();
-//		b2wAct.collapseOverheadAccounts();
-//		b2wAct.clickCreateNewOverheadAccountButton();
-//		b2wAct.setDescription("Automation Overhead Account");
-//		b2wAct.setAccountID("456-Auto");
-//		b2wAct.clickTopSaveButton();
-//		b2wAct.selectBusinessUnit(5);
-		
-		b2wNav.openMaterials();
-		b2wAct.clickCreateNewMaterialsButton();
-		b2wAct.setDescription("Paving Form");
-		b2wAct.selectUnitOfMeasure("EACH");
-		b2wAct.checkTemporaryMaterial(true);
-		b2wAct.checkTrackableMaterial(true);
-		b2wAct.setTotalCount("5");
-
-/*		Materiali.1 with the following properties:1.Description = "Paving Form"
-				2.Temporary Material = checked
-				3.Trackable Material = checked
-				4.Unit of Measure = EACH
-				5.Total Count = 5
-
-				ii.1 with the following properties1.Description = "Traffic Cone"
-				2.Temporary Material = checked
-				3.Unit of Measure = EACH
-
-				iii.1, named "Asphalt Base E190"
-				iv.1, named "Asphalt Base E550"*/
+		assertTrue("Open Accounts", b2wNav.openAccounts());
+		assertTrue("collapse production accounts", b2wAct.collapseProductionAccounts());
+		assertTrue("Create new production account", b2wAct.clickCreateNewProductionAccountButton());
+		logCompare(true, b2wAct.setDescription(sProductionAccountDesc), "Enter in description for account");
+		logCompare(true, b2wAct.setAccountID(sProductionAccountID), "Enter in Account ID");
+		logCompare(true, b2wAct.selectBusinessUnit(sProductionAccountBusinessUnit), "Enter Production Business Unit");
+		logCompare(true, b2wAct.selectUnitOfMeasure(sProductionAccountUnitOfMeasure), "Enter Unit of Measure");
+		logCompare(true, b2wAct.setNotes(sProductionAccountNotes), "Enter in Notes");
+		assertTrue("click save button",b2wAct.clickTopSaveButton());
+		// verify
+		b2wNav.clickHome();
+		b2wNav.openAccounts();
+		b2wAct.expandProductionAccounts();
+		b2wAct.enterSearchText(sProductionAccountDesc);
+		b2wAct.clickSearchButton();
+		b2wAct.openProductionAccountByAccountID(sProductionAccountID);
+		TaskUtils.sleep(5000);
+		logCompare(sProductionAccountDesc, b2wAct.getDescriptionText(), "Description");
+		logCompare(sProductionAccountID, b2wAct.getAccountIDText(), "Account ID");
+		logCompare(sProductionAccountBusinessUnit, b2wAct.getAccountBusinessUnitLink(), "Business Unit");
+		logCompare(sProductionAccountUnitOfMeasure, b2wAct.getAccountUnitofMeasureText(), "Unit of Measure");
 
 		
+	/*	assertTrue("collapse overhead accounts", b2wAct.collapseOverheadAccounts());		
+		logCompare(true, b2wAct.setDescription(sOverheadAccountDesc), "Set "+sOverheadAccountDesc);
+		logCompare(true, b2wAct.selectBusinessUnit(sOverheadAccountBusinessUnit), "Overhead Business Unit");
+		logCompare(true, b2wAct.setAccountID(sOverheadAccountID), "Overhead Account ID");
+		logCompare(true, b2wAct.setNotes(sOverheadAccountNotes), "Enter Notes");
+		assertTrue("click save button",b2wAct.clickTopSaveButton());
 		
+		//verify
+		b2wNav.clickHome();
+		b2wNav.openAccounts();
+		b2wAct.collapseProductionAccounts();
+		b2wAct.expandOverheadAccounts();
+		b2wAct.enterSearchText(sOverheadAccountDesc);
+		b2wAct.clickSearchButton();*/
+
 		
 	}
 }

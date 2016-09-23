@@ -4,8 +4,7 @@ import org.openqa.selenium.By;
 
 import appobjects.B2WUIMap;
 
-public class B2WAccounts {
-
+public class B2WAccounts extends B2WResources {
 	public static By getProductionAccountsHeader() {
 		return By.cssSelector(B2WUIMap.b2w_setup_productionaccounts);
 	}
@@ -17,18 +16,6 @@ public class B2WAccounts {
 	}
 	public static By getNewOverheadAccountButton() {
 		return By.cssSelector(B2WUIMap.b2w_setup_createoverheadaccount);
-	}
-	public static By getAccountDescription() {
-		return By.cssSelector(B2WUIMap.b2w_accountgeninfo_account_description);
-	}
-	public static By getAccountID() {
-		return By.cssSelector(B2WUIMap.b2w_accountgeninfo_account_ID);
-	}
-	public static By getTimeMaterialsCheckBox() {
-		return By.cssSelector(B2WUIMap.b2w_accountgeninfo_timematerialsonly);
-	}
-	public static By getInactiveCheckBox() {
-		return By.cssSelector(B2WUIMap.b2w_accountgeninfo_inactive);
 	}
 	public static By getAppliesToEmployeesCheckBox() {
 		return By.cssSelector(B2WUIMap.b2w_accountgeninfo_applies_to_employees);
@@ -48,15 +35,6 @@ public class B2WAccounts {
 	public static By getAppliesToSubContractorsCheckBox() {
 		return By.cssSelector(B2WUIMap.b2w_accountgeninfo_applies_to_subcontractors);
 	}
-	public static By getUnitOfMeasureDropDown() {
-		return By.cssSelector(B2WUIMap.b2w_accountgeninfo_unit_of_measure);
-	}
-	public static By getGeneralInformationNotes() {
-		return By.cssSelector(B2WUIMap.b2w_accountgeninfo_notes);
-	}
-	public static By getBusinessUnitDropDown() {
-		return By.cssSelector(B2WUIMap.b2w_accountgeninfo_businessunit);
-	}	
 	public static By getProductionAccountDescription() {
 		return By.cssSelector(B2WUIMap.b2w_setup_productionaccountdescription);
 	}
@@ -69,12 +47,6 @@ public class B2WAccounts {
 	public static By getOverheadAccountID() {
 		return By.cssSelector(B2WUIMap.b2w_setup_overheadaccountid);
 	}
-	public static By getPageTitleHeader() {
-		return By.cssSelector(B2WUIMap.b2w_accountgeninfopagetitlepanel);
-	}
-	public static By getAccountSearchButton() {
-		return By.cssSelector(B2WUIMap.b2w_setup_accountsearchbutton);
-	}	
 	public static By getAccountValueType() {
 		return By.cssSelector(B2WUIMap.b2w_accountgeninfovaluetype);
 	}
@@ -87,19 +59,26 @@ public class B2WAccounts {
 	public static By getAccountDefaultValue() {
 		return By.cssSelector(B2WUIMap.b2w_accountgeninfodefaultvalue);
 	}
-	public static By getAccountAlterID(){
-		return By.cssSelector(B2WUIMap.b2w_accountgeninfoalternateid);
+	public static By getAccountSearchButton() {
+		return By.cssSelector(B2WUIMap.b2w_setup_accountsearchbutton);
 	}
-	public static By getTempMaterialCheckBox() {
-		return By.cssSelector(B2WUIMap.b2w_accountgeninfotempmaterialcheckbox);
+	public static By getClearSearchButton() {
+		return By.cssSelector(B2WUIMap.b2w_setup_accountclearsearchbutton);
 	}
-	public static By getTrackableMaterialCheckBox() {
-		return By.cssSelector(B2WUIMap.b2w_accountgeninfotrackablematerialcheckbox);
+	public static By getAppliesToTextLabel() {
+		return By.cssSelector(B2WUIMap.b2w_accountappliestolabel);
 	}
-	public static By getCreateNewMaterialsButton() {
-		return By.cssSelector(B2WUIMap.b2w_setup_createnewmaterial);
+	public static By getAccountValueTypeLable() {
+		return By.cssSelector(B2WUIMap.b2w_accountinfovaluetypelabel);
 	}
-	public static By getTotalCount() {
-		return By.cssSelector(B2WUIMap.b2w_accountgeninfototalcount);
+	public static By getAcccountInfoCostCalTypeLabel() {
+		return By.cssSelector(B2WUIMap.b2w_accountinfocostcaltypelabel);
 	}
+	public static By getAccountUnitCostLabel() {
+		return By.cssSelector(B2WUIMap.b2w_accountunitcostlabel);
+	}
+	public static By getAccountDefaultValueLabel() {
+		return By.cssSelector(B2WUIMap.b2w_accountinfodefaultvalue);
+	}
+	
 }
