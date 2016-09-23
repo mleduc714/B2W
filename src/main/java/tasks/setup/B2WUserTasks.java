@@ -5,17 +5,20 @@ import java.util.List;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 
+import appobjects.setup.B2WSetup;
 import appobjects.setup.B2WSetupUsers;
 import tasks.B2WSetupTasks;
 import tasks.BrowserUtils;
 import tasks.WebElementUtils;
-import tasks.util.TaskUtils;
 
 public class B2WUserTasks extends B2WSetupTasks {
 	
 	public enum ACCESSLEVEL {NONE,FULL,READONLY};
 	
 	ACCESSLEVEL access;
+	public boolean clickSearchButton(){
+		return WebElementUtils.clickElement(B2WSetup.getB2WSearchButton());
+	}
 	
 
 	public boolean openUserByFirstName(String sFirstName){
@@ -42,15 +45,6 @@ public class B2WUserTasks extends B2WSetupTasks {
 		return bReturn;
 	}
 	
-	
-	
-	public boolean enterTextAndClickSearch(String sText) {
-		boolean bReturn = false;
-		enterSearchText(sText);
-		clickSearchButton();
-		bReturn = waitForProcessingDialogToClear();
-		return bReturn;
-	}
 	
 	public boolean isFirstNameInSearch(String sText) {
 		boolean bReturn = false;
@@ -180,27 +174,15 @@ public class B2WUserTasks extends B2WSetupTasks {
 		return true;
 		
 	}
-	public boolean clickTopSaveButton() {
+	public boolean enterTextAndClickSearch(String sText) {
 		boolean bReturn = false;
-		if (WebElementUtils.clickElement(B2WSetupUsers.getUserTopSaveButton())){
-			TaskUtils.sleep(1000);
+		if (enterSearchText(sText)){
+			clickSearchButton();
 			bReturn = waitForProcessingDialogToClear();
 		}
 		return bReturn;
 	}
-	public boolean clickBottomSaveButton() {
-		boolean bReturn = false;
-		if (WebElementUtils.clickElement(B2WSetupUsers.getUserBottomSaveButton())){
-			bReturn = waitForProcessingDialogToClear();
-		}
-		return bReturn;
-	}
-	public boolean clickTopCancelButton() {
-		return WebElementUtils.clickElement(B2WSetupUsers.getUserTopCancelButton());
-	}
-	public boolean clickBottomCancelButton() {
-		return WebElementUtils.clickElement(B2WSetupUsers.getUserBottomCancelButton());
-	}
+	
 
 
 }

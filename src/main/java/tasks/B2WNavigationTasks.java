@@ -91,24 +91,24 @@ public class B2WNavigationTasks implements Navigation {
 	
 	public boolean openSetup() {
 		boolean bReturn = false;
-		WebElement el = null;
 		if (WebElementUtils.clickElement(B2WNavigationPanel.getB2WSetupLink())){
-			el = WebElementUtils.waitAndFindDisplayedElement(B2WNavigationPanel.getB2WSetupPanel());
-			if (el!=null){
-				bReturn = el.isDisplayed();		
-				}
+			bReturn = true;
 		}
 		return bReturn;
 	}
 	
 	public boolean openResources() {
 		boolean bReturn = false;
-		WebElement el = null;
 		if (WebElementUtils.clickElement(B2WNavigationPanel.getB2WResourcesLink())){
-			el = WebElementUtils.waitAndFindDisplayedElement(B2WAccounts.getProductionAccountsHeader());
-			if (el!=null){
-				bReturn = el.isDisplayed();
-			}
+			bReturn = true;
+		}
+		return bReturn;
+	}
+	
+	public boolean openReports() {
+		boolean bReturn = false;
+		if (WebElementUtils.clickElement(B2WNavigationPanel.getB2WReportsLink())){
+			bReturn = true;
 		}
 		return bReturn;
 	}
@@ -126,6 +126,23 @@ public class B2WNavigationTasks implements Navigation {
 			
 		}
 		return bReturn;
+	}
+	
+	private boolean openResources(String sMenuItem, String sPanel){
+		boolean bReturn = false;
+		if (openResources()){
+			WebElementUtils.switchToFrame(B2WNavigationPanel.getB2WSetupNavigationPanel(), 1);
+			List<WebElement> items = BrowserUtils.getDriver().findElements(B2WNavigationPanel.getB2WSetupPopupItem());
+			WebElement item = WebElementUtils.getElementWithMatchingText(items, sMenuItem, true);
+			if (item != null){
+				item.click();
+				bReturn = new TaskUtils().waitForPageHeader(sPanel);
+			}
+			
+		}
+		return bReturn;
+	
+		
 	}
 	
 	public String getUserName() {
@@ -167,6 +184,14 @@ public class B2WNavigationTasks implements Navigation {
 	public boolean openSecurityRoles() {
 		return openSetup("Security Roles","Hierarchical Security Roles");
 	}
+	public boolean openAccounts() {
+		return openResources("Accounts","Production Accounts");
+	}
+	public boolean openEmployees() {
+		return openResources("Employees","Employees");
+	}
+	public boolean openMaterials() {
+		return openResources("Materials","Materials");
+	}
 	
-
 }

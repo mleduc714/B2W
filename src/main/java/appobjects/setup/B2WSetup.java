@@ -129,5 +129,29 @@ public class B2WSetup {
 	public static By getProcessingPanel() {
 		return By.cssSelector(B2WUIMap.b2w_page_processing);
 	}
+	public static By getTopSaveButton() {
+		return By.cssSelector(B2WUIMap.b2w_topsave);
+	}
+	public static By getTopCancelButton() {
+		return By.cssSelector(B2WUIMap.b2w_topcancel);
+	}
+	public static By getBottomSaveButton() {
+		return By.cssSelector(B2WUIMap.b2w_bottomsave);
+	}
+	public static By getBottomCancelButton() {
+		return By.cssSelector(B2WUIMap.b2w_bottomcancel);
+	}
+	public static By getTopEditButton() {
+		return By.cssSelector(B2WUIMap.b2w_topedit);
+	}
+	public static By getBottomEditButton() {
+		return By.cssSelector(B2WUIMap.b2w_bottomedit);
+	}
+	public static By getTopDeleteButton() {
+		return By.cssSelector(B2WUIMap.b2w_topdelete);
+	}
+	public static By getBottomDeleteButton() {
+		return By.cssSelector(B2WUIMap.b2w_bottomdelete);
+	}
 
 }

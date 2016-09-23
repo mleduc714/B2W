@@ -102,10 +102,15 @@ public class B2WUIMap {
 	public static final String b2w_user_maintainmanagerlicensedropdown = "select#PageContent_generalInformationPanel_MaintainManagerAccessDropDownList";
 	public static final String b2w_user_addsecurityrolebutton = "a#PageContent_AddSecurityRolesButton";
 	public static final String b2w_user_securityroletableview = "table#PageContent_SecurityRolesGridView";
-	public static final String b2w_user_bottom_save = "a#PageContent_BottomSaveButton";
-	public static final String b2w_user_bottom_cancel = "a#PageContent_BottomCancelButton";
-	public static final String b2w_user_top_save = "a#PageContent_TopSaveButton";
-	public static final String b2w_user_top_cancel = "a#PageContent_TopCancelButton";
+	public static final String b2w_bottomsave = "a#PageContent_BottomSaveButton";
+	public static final String b2w_bottomcancel = "a#PageContent_BottomCancelButton";
+	public static final String b2w_topsave = "a#PageContent_TopSaveButton";
+	public static final String b2w_topcancel = "a#PageContent_TopCancelButton";
+	public static final String b2w_topedit = "a#PageContent_TopEditButton";
+	public static final String b2w_bottomedit = "a#PageContent_BottomEditButton";
+	public static final String b2w_topdelete = "a#PageContent_TopDeleteButton";
+	public static final String b2w_bottomdelete = "a#PageContent_BottomDeleteButton";
+	
 	// user view fields
 	public static final String b2w_user_viewgeninfoHeader = "fieldset#generalInformation";
 	
@@ -151,19 +156,43 @@ public class B2WUIMap {
 	public static final String b2w_setup_overheadaccounts = "fieldset#OverheadAccounts";
 	public static final String b2w_setup_createproductionaccount = "a#PageContent_CreateNewProductionAccountButton";
 	public static final String b2w_setup_createoverheadaccount = "a#PageContent_CreateNewOverheadAccountButton";
+	public static final String b2w_setup_createnewmaterial = "a#PageContent_CreateNewMaterialButton";
+	public static final String b2w_setup_productionaccountid = "a[id^='PageContent_ProductionAccountListingGridView_AccountID']";
+	public static final String b2w_setup_productionaccountdescription = "a[id^='PageContent_ProductionAccountListingGridView_Description']";
+	public static final String b2w_setup_overheadaccountid = "a[id^=PageContent_OverheadAccountListingGridView_AccountID']";
+	public static final String b2w_setup_overheadaccountdescription = "a[id^=PageContent_OverheadAccountListingGridView_Description']";
+	public static final String b2w_setup_accountsearchbutton = "a#PageContent_AccountSearchControl_SearchButton";
 	
 	//create new account
-	public static final String b2w_accountgeninfo_account_description = "";
-	public static final String b2w_accountgeninfo_account_ID = "";
-	public static final String b2w_accountgeninfo_timematerialsonly = "";
-	public static final String b2w_accountgeninfo_inactive = "";
-	public static final String b2w_accountgeninfo_applies_to_employees = "";
-	public static final String b2w_accountgeninfo_applies_to_equipment = "";
-	public static final String b2w_accountgeninfo_applies_to_material = "";
-	public static final String b2w_accountgeninfo_applies_to_misc = "";
-	public static final String b2w_accountgeninfo_applies_to_trucking = "";
-	public static final String b2w_accountgeninfo_applies_to_subcontractors = "";
-	public static final String b2w_accountgeninfo_unit_of_measure = "";
-	public static final String b2w_accountgeninfo_notes = "";
+	public static final String b2w_accountgeninfo_account_description = "input#PageContent_generalInformationPanel_DescriptionTextBox";
+	public static final String b2w_accountgeninfo_account_ID = "input#PageContent_generalInformationPanel_IDTextBox";
+	public static final String b2w_accountgeninfo_timematerialsonly = "input#PageContent_generalInformationPanel_IsTimeAndMaterialsCheckBox";
+	public static final String b2w_accountgeninfo_inactive = "input#PageContent_generalInformationPanel_InactiveCheckBox";
+	public static final String b2w_accountgeninfo_applies_to_employees = "input#PageContent_generalInformationPanel_AppliesToEmployeesCheckBox";
+	public static final String b2w_accountgeninfo_applies_to_equipment = "input#PageContent_generalInformationPanel_AppliesToEquipmentCheckBox";
+	public static final String b2w_accountgeninfo_applies_to_material = "input#PageContent_generalInformationPanel_AppliesToMaterialCheckBox";
+	public static final String b2w_accountgeninfo_applies_to_misc = "input#PageContent_generalInformationPanel_AppliesToMiscellaneousCheckBox";
+	public static final String b2w_accountgeninfo_applies_to_trucking = "input#PageContent_generalInformationPanel_AppliesToTruckingCheckBox";
+	public static final String b2w_accountgeninfo_applies_to_subcontractors = "input#PageContent_generalInformationPanel_AppliesToSubcontractorsCheckBox";
+	public static final String b2w_accountparentofunitofmeasure = "td.controlContent";
+	public static final String b2w_accountgeninfo_unit_of_measure= "select[id^='PageContent_generalInformationPanel_Unit']";
+	//public static final String b2w_accountgeninfo_unit_of_measure = "select#PageContent_generalInformationPanel_UnitOfMeasureDropDownList";
+	public static final String b2w_accountgeninfo_notes = "textarea#PageContent_generalInformationPanel_NotesTextBox";
+	public static final String b2w_accountgeninfo_businessunit = "select#PageContent_generalInformationPanel_BusinessUnitDropDownList";
+	public static final String b2w_accountgeninfopagetitlepanel = "div#PageTitlePanel";
+	public static final String b2w_accountgeninfovaluetype = "select#PageContent_generalInformationPanel_ValueTypeDropDownList";
+	public static final String b2w_accountgeninfocostcalctype = "select#PageContent_generalInformationPanel_TotalCostCalculationTypeDropDownList";
+	public static final String b2w_accountgeninfoperunitpercent = "input#PageContent_generalInformationPanel_PerUnitPercentageTextBox_numVal";
+	public static final String b2w_accountgeninfodefaultvalue = "input#PageContent_generalInformationPanel_DefaultValueTextBox_numVal";
+	public static final String b2w_accountgeninfocategorydropdown = "select#PageContent_generalInformationPanel_CategoryDropDownList";
+	public static final String b2w_accountgeninfosubcategorydropdown = "select#PageContent_generalInformationPanel_SubcategoryDropDownList";
+	public static final String b2w_accountgeninfoalternateid = "input#PageContent_generalInformationPanel_AlternateMaterialIDTextBox";
+	public static final String b2w_accountgeninfotempmaterialcheckbox = "input#PageContent_generalInformationPanel_IsTemporaryMaterialCheckBox";
+	public static final String b2w_accountgeninfotrackablematerialcheckbox = "input#PageContent_generalInformationPanel_IsTrackableMaterialCheckBox";
+	public static final String b2w_accountgeninfototalcount = "input#PageContent_generalInformationPanel_NumberOfTextBox_numVal";	
+	//resources
+	public static final String b2w_resourcesequipmentpage = "table.item-overview";
+	
+	//places
 	
 }

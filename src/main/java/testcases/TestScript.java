@@ -3,8 +3,8 @@ package testcases;
 
 import com.b2w.test.B2WTestCase;
 
-import tasks.B2WHomeTasks;
 import tasks.B2WNavigationTasks;
+import tasks.resources.B2WAccountTasks;
 import tasks.setup.B2WUserTasks;
 
 
@@ -12,6 +12,7 @@ public class TestScript extends B2WTestCase {
 	
 	B2WNavigationTasks b2wNav = new B2WNavigationTasks();
 	B2WUserTasks userTasks = new B2WUserTasks();
+	B2WAccountTasks b2wAct = new B2WAccountTasks();
 
 
 	@Override
@@ -48,7 +49,7 @@ public class TestScript extends B2WTestCase {
 		test1();
 		//System.out.println(b2wNav.getUserName());
 		//logCompare(true, b2wNav.openSetupUsers(),"Open");
-		logCompare(true, userTasks.enterTextAndClickSearch("WOOO"),"Enter Text");
+		//0ogCompare(true, userTasks.enterTextAndClickSearch("WOOO"),"Enter Text");
 		
 //		logCompare(true, userTasks.enterTextAndClickSearch(sLastName)," Search for: "+sLastName);
 //		logCompare(true, userTasks.isLastNameInSearch(sLastName), "Found: "+sLastName);
@@ -62,7 +63,8 @@ public class TestScript extends B2WTestCase {
 	}
 	
 	public void test1() {
-		B2WHomeTasks b2wHome = new B2WHomeTasks();
+		b2wNav.openAccounts();
+		b2wAct.expandProductionAccounts();
 	}
 
 }

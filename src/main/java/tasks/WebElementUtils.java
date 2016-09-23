@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.regex.Pattern;
 
 import org.apache.log4j.Logger;
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.TimeoutException;
@@ -47,6 +48,29 @@ public class WebElementUtils {
 		} catch (NoSuchElementException nsee) {
 			log.warn("No child of the WebElement that matches " + child.toString());
 			
+		}
+		return el;
+	}
+	
+	public static WebElement getChildElement(List<WebElement> list, By child) {
+		WebElement el = null;
+		if (list.size() == 0) {
+			log.warn("The List is empty");
+		}
+
+		Iterator<WebElement> iter = list.iterator();
+		while (iter.hasNext()) {
+			WebElement temp = iter.next();
+			el = WebElementUtils.getChildElement(temp, child);
+			WebElement test = temp.findElement(By.cssSelector("*"));
+			if (test.getAttribute("id").endsWith("Panel_UnitOfMeasureDropDownList")){
+				System.out.println(test.getAttribute("id"));
+				el = BrowserUtils.getDriver().findElement(By.id(test.getAttribute("id")));
+			}
+			
+			if (el != null) {
+				break;
+			}
 		}
 		return el;
 	}
@@ -160,7 +184,18 @@ public class WebElementUtils {
 			return null;
 		}
 	}
+	
+	public static List<WebElement> findElements(By locator){
 
+		try {
+			return BrowserUtils.getDriver().findElements(locator);
+		} catch (NoSuchElementException e) {
+			log.debug("Element with Locator " + locator + " not found");
+			return null;
+		}
+	
+	}
+	
 	public static boolean sendKeys(By locator, String sText) {
 		boolean bReturn = false;
 		WebElement el = findElement(locator);
@@ -359,5 +394,47 @@ public class WebElementUtils {
 		    return bReturn;
 		  }
 
+	
+	public static boolean selectElementFromDropDownList(List<WebElement> els, int iSelect){
+		boolean bReturn = false;
+		if (iSelect <= els.size()-1){
+			log.debug("Total number of selections in the dropdown is: "+els.size());
+			bReturn = WebElementUtils.clickElement(els.get(iSelect));
+			log.debug("Selection from the dropdown: ");els.get(iSelect).getText();
+		}
+		
+		return bReturn;
+	}
+	
+	
+	public static String getSelectedTextFromDropDown(List<WebElement> els){
+		String sSelection = null;
+		Iterator<WebElement> iter = els.iterator();
+		while (iter.hasNext()){
+			WebElement el = iter.next();
+			if (el.getAttribute("selected") != null){
+				sSelection = el.getText();
+			}
+		}
+		return sSelection;
+		
+	}
+	
+	public static boolean isCheckboxChecked(WebElement el){
+		return new Boolean(el.getAttribute("checked"));
+	}
+	
+	public static Alert waitForAndGetAlertDialog(int timeOut) {
+		Alert ret = null;
+		try {
+			log.debug("Begin waitForAndGetAlertDialog() timeOut=" + timeOut);
+			WebDriverWait wait = new WebDriverWait(BrowserUtils.getDriver(), timeOut);
+			ret = wait.until(ExpectedConditions.alertIsPresent());
+			log.debug("Found Alter with message: " + ret.getText());
+		} catch (TimeoutException te) {
+			log.warn("No Alert was shown within " + timeOut + " seconds");
+		}
+		return ret;
+	}
 	
 }

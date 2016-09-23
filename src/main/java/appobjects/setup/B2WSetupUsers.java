@@ -128,16 +128,5 @@ public class B2WSetupUsers {
 	public static By getUserInformationHeader() {
 		return By.cssSelector(B2WUIMap.b2w_user_viewgeninfoHeader);
 	}
-	public static By getUserTopSaveButton() {
-		return By.cssSelector(B2WUIMap.b2w_user_top_save);
-	}
-	public static By getUserTopCancelButton() {
-		return By.cssSelector(B2WUIMap.b2w_user_top_cancel);
-	}
-	public static By getUserBottomSaveButton() {
-		return By.cssSelector(B2WUIMap.b2w_user_bottom_save);
-	}
-	public static By getUserBottomCancelButton() {
-		return By.cssSelector(B2WUIMap.b2w_user_bottom_cancel);
-	}
+
 }

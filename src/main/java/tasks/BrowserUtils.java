@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.log4j.Logger;
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
@@ -16,9 +17,12 @@ import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.firefox.FirefoxProfile;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.remote.RemoteWebDriver;
+import org.openqa.selenium.security.UserAndPassword;
 import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class BrowserUtils {
@@ -40,19 +44,34 @@ public class BrowserUtils {
     }
     public static Browser browser;
     
-    public static boolean loadURL(String url){
-        if(driver == null || ((RemoteWebDriver) driver).getSessionId() == null)
-          start();
-        if(driver != null){
-          driver.get(url);
-          maximize();
-          log.debug("Waiting for page to load after URL navigation: " + waitForPageLoaded());
-          return true;
-        }else{
-          log.error("The WebDriver instance (wdBrowser) is null (most likely missing or corrupt driver)");
-          return false;
-        }
-      }
+	public static boolean loadURL(String url) {
+		if (driver == null || ((RemoteWebDriver) driver).getSessionId() == null)
+			start();
+		if (driver != null) {
+			//driver.get(url);
+			driver.get(url);
+			
+			switch (browser) {
+			case CHROME:
+				break;
+			case FIREFOX:
+				break;
+			case EXPLORER:
+				break;
+			case SAFARI:
+				break;
+			case EDGE:
+				break;
+			}
+
+			maximize();
+			log.debug("Waiting for page to load after URL navigation: " + waitForPageLoaded());
+			return true;
+		} else {
+			log.error("The WebDriver instance (wdBrowser) is null (most likely missing or corrupt driver)");
+			return false;
+		}
+	}
     
     public static WebDriver getDriver() {
     	if (driver == null){
@@ -61,7 +80,7 @@ public class BrowserUtils {
     		setChromeDriver();
     		break;
     	case FIREFOX:
-    		driver = new FirefoxDriver();
+    		setFireFoxDriver();
     		break;
     	case EXPLORER:
     		break;
@@ -121,6 +140,10 @@ public class BrowserUtils {
 		 return browser.equals(Browser.EDGE);
 	 }
 	 public static void setFireFoxDriver() {
+		 FirefoxProfile profile = new FirefoxProfile();
+		 profile.setPreference("network.automatic-ntlm-auth.trusted-uris", "opsdeploy-4");
+
+		 driver = new FirefoxDriver(profile);
 		 driver = new FirefoxDriver();
 	 }
 
@@ -207,5 +230,20 @@ public class BrowserUtils {
 	      e.printStackTrace();
 	    }
 	  }
+	  
+	 
+
+		public static boolean waitForAuthenticationDialog(String sUserName, String sPassword){
+			boolean bReturn = false;
+			try {
+				WebDriverWait wait = new WebDriverWait(BrowserUtils.getDriver(), WebElementUtils.MEDIUM_TIME_OUT);      
+				Alert alert = wait.until(ExpectedConditions.alertIsPresent());
+				alert.authenticateUsing(new UserAndPassword(sUserName, sPassword));
+				bReturn = true;
+			}catch (TimeoutException toe){
+				log.warn("The Authentication Alert did not appear within the timeout of "+ WebElementUtils.MEDIUM_TIME_OUT);
+			}
+			return bReturn;
+		}
 
 }

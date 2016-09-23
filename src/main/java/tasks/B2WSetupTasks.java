@@ -1,6 +1,7 @@
 package tasks;
 
 import org.apache.log4j.Logger;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
 import appobjects.setup.B2WSetup;
@@ -298,10 +299,6 @@ public class B2WSetupTasks {
 		return bString;
 	}
 	
-	public boolean clickSearchButton(){
-		return WebElementUtils.clickElement(B2WSetup.getB2WSearchButton());
-	}
-	
 	public boolean clickSearchClear() {
 		return WebElementUtils.clickElement(B2WSetup.getB2WClearSearchButton());
 	}
@@ -316,9 +313,88 @@ public class B2WSetupTasks {
 		TaskUtils.sleep(1500);
 		return bReturn;
 	}
-	
-	
+	protected boolean checkBox(WebElement el, boolean bCheck){
+		boolean isChecked = WebElementUtils.isCheckboxChecked(el);
+		// if item is checked and need to uncheck
+		if (isChecked && !bCheck){
+			log.debug("Uncheck the checkbox");
+			WebElementUtils.clickElement(el);
+		}
+		// if item is unchecked and need to check
+		if (!isChecked && bCheck){
+			log.debug("Check the checkbox");
+			WebElementUtils.clickElement(el);
+		}
+		return bCheck == isChecked;
+	}
 
+	protected void clickOnTwistie(WebElement el) {
+		el.findElement(By.tagName("span")).click();
+
+	}
+	
+	protected boolean isSectionCollapsed(WebElement el) {
+		boolean bReturn = false;
+		String sStatus = el.findElement(By.tagName("h2")).getAttribute("class");
+		if (sStatus.equals("closed")) {
+			log.debug("The section is colapsed");
+			bReturn = true;
+		} else {
+			log.debug("The section is expanded");
+		}
+		return bReturn;
+	}
+	
+	public boolean clickTopCancelButton() {
+		return WebElementUtils.clickElement(B2WSetup.getTopCancelButton());
+	}
+	public boolean clickBottomCancelButton() {
+		return WebElementUtils.clickElement(B2WSetup.getBottomCancelButton());
+	}
+	public boolean clickTopSaveButton() {
+		boolean bReturn = false;
+		if (WebElementUtils.clickElement(B2WSetup.getTopSaveButton())){
+			TaskUtils.sleep(1000);
+			bReturn = waitForProcessingDialogToClear();
+		}
+		return bReturn;
+	}
+	public boolean clickBottomSaveButton() {
+		boolean bReturn = false;
+		if (WebElementUtils.clickElement(B2WSetup.getBottomSaveButton())){
+			bReturn = waitForProcessingDialogToClear();
+		}
+		return bReturn;
+	}
+	
+	public boolean clickTopDeleteButton() {
+		boolean bReturn = false;
+		if (WebElementUtils.clickElement(B2WSetup.getTopDeleteButton())){
+			
+		}
+		return bReturn;
+	}
+	public boolean clickBottomDeleteButton() {
+		boolean bReturn = false;
+		if (WebElementUtils.clickElement(B2WSetup.getBottomDeleteButton())){
+			
+		}
+		return bReturn;
+	}
+	public boolean clickTopEditButton() {
+		boolean bReturn = false;
+		if (WebElementUtils.clickElement(B2WSetup.getTopEditButton())){
+			
+		}
+		return bReturn;
+	}
+	public boolean clickBottomEditButton() {
+		boolean bReturn = false;
+		if (WebElementUtils.clickElement(B2WSetup.getTopEditButton())){
+			
+		}
+		return bReturn;
+	}
 	
 	
 }
