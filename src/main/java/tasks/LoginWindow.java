@@ -23,7 +23,7 @@ public class LoginWindow implements Runnable {
         Robot rb = new Robot();
 
         //Enter user name by ctrl-v
-        StringSelection username = new StringSelection("mleduc");
+        StringSelection username = new StringSelection("");
         Toolkit.getDefaultToolkit().getSystemClipboard().setContents(username, null);            
         rb.keyPress(KeyEvent.VK_CONTROL);
         rb.keyPress(KeyEvent.VK_V);
@@ -36,7 +36,7 @@ public class LoginWindow implements Runnable {
         Thread.sleep(2000);
 
         //Enter password by ctrl-v
-        StringSelection pwd = new StringSelection("Carry$4News!");
+        StringSelection pwd = new StringSelection("");
         Toolkit.getDefaultToolkit().getSystemClipboard().setContents(pwd, null);
         rb.keyPress(KeyEvent.VK_CONTROL);
         rb.keyPress(KeyEvent.VK_V);
