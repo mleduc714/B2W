@@ -35,7 +35,7 @@ public class B2WTestCase extends BaseTestCase {
 		} else if (BrowserUtils.isFirefox()) {
 			System.setProperty("webdriver.firefox.logfile", logFile.getAbsolutePath());
 		}
-		if (!BrowserUtils.loadURL(getEnvProperty("deploy"))) {
+		if (!BrowserUtils.loadURL(getEnvProperty("deploy"), getEnvProperty("username"), getEnvProperty("password"))) {
 			fail("Failed to load initial URL due to WebDriver issue");
 		}
 		BrowserUtils.moveMouseOffScreen();

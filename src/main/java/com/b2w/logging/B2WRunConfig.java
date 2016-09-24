@@ -92,7 +92,6 @@ public class B2WRunConfig implements HasProperties {
         log = Logger.getLogger(getClass());
         if (userConfig == null)
             log.warn("NOTE: User defined config file not found! Using default Selenium.properties from project resources package.");
-        
         setWebDriverProperty();
 		// Update the property cache with the formatted configprops
 		setProperties(userConfigLocation,configprops);

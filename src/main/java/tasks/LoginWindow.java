@@ -7,6 +7,14 @@ import java.awt.event.KeyEvent;
 
 public class LoginWindow implements Runnable {
     
+	String sUserName = "";
+	String sPassword = "";
+	
+	public LoginWindow(String sName, String sPwd){
+		sUserName = sName;
+		sPassword = sPwd;
+		
+	}
     @Override
     public void run() {
         try {
@@ -23,7 +31,7 @@ public class LoginWindow implements Runnable {
         Robot rb = new Robot();
 
         //Enter user name by ctrl-v
-        StringSelection username = new StringSelection("");
+        StringSelection username = new StringSelection(sUserName);
         Toolkit.getDefaultToolkit().getSystemClipboard().setContents(username, null);            
         rb.keyPress(KeyEvent.VK_CONTROL);
         rb.keyPress(KeyEvent.VK_V);
@@ -36,7 +44,7 @@ public class LoginWindow implements Runnable {
         Thread.sleep(2000);
 
         //Enter password by ctrl-v
-        StringSelection pwd = new StringSelection("");
+        StringSelection pwd = new StringSelection(sPassword);
         Toolkit.getDefaultToolkit().getSystemClipboard().setContents(pwd, null);
         rb.keyPress(KeyEvent.VK_CONTROL);
         rb.keyPress(KeyEvent.VK_V);

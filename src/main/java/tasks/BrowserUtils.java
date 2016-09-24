@@ -17,7 +17,6 @@ import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.firefox.FirefoxProfile;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.security.UserAndPassword;
@@ -44,7 +43,7 @@ public class BrowserUtils {
     }
     public static Browser browser;
     
-	public static boolean loadURL(String url) {
+	public static boolean loadURL(String url, String sUserName, String sPassword) {
 		if (driver == null || ((RemoteWebDriver) driver).getSessionId() == null)
 			start();
 		if (driver != null) {
@@ -53,8 +52,7 @@ public class BrowserUtils {
 			case CHROME:
 				break;
 			case FIREFOX:
-				// handle authentication
-			(new Thread(new LoginWindow())).start();   
+			(new Thread(new LoginWindow(sUserName,sPassword))).start();  
 				break;
 			case EXPLORER:
 				break;
