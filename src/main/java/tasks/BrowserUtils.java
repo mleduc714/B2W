@@ -48,13 +48,13 @@ public class BrowserUtils {
 		if (driver == null || ((RemoteWebDriver) driver).getSessionId() == null)
 			start();
 		if (driver != null) {
-			//driver.get(url);
-			driver.get(url);
-			
+		
 			switch (browser) {
 			case CHROME:
 				break;
 			case FIREFOX:
+				// handle authentication
+			(new Thread(new LoginWindow())).start();   
 				break;
 			case EXPLORER:
 				break;
@@ -63,7 +63,7 @@ public class BrowserUtils {
 			case EDGE:
 				break;
 			}
-
+			driver.get(url);
 			maximize();
 			log.debug("Waiting for page to load after URL navigation: " + waitForPageLoaded());
 			return true;
@@ -140,10 +140,6 @@ public class BrowserUtils {
 		 return browser.equals(Browser.EDGE);
 	 }
 	 public static void setFireFoxDriver() {
-		 FirefoxProfile profile = new FirefoxProfile();
-		 profile.setPreference("network.automatic-ntlm-auth.trusted-uris", "opsdeploy-4");
-
-		 driver = new FirefoxDriver(profile);
 		 driver = new FirefoxDriver();
 	 }
 
