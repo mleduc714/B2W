@@ -10,7 +10,6 @@ import appobjects.B2WCommonObjects;
 import appobjects.B2WHomePage;
 import appobjects.B2WNavigationPanel;
 import appobjects.maintain.B2WMaintain;
-import appobjects.setup.B2WResources;
 import tasks.util.TaskUtils;
 
 public class B2WNavigationTasks implements Navigation {

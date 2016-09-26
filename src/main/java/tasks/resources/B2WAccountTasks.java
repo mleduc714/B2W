@@ -222,6 +222,9 @@ public class B2WAccountTasks extends B2WResourceTasks {
 	public String getAccountDefaultValueLabel() {
 		return WebElementUtils.findElement(B2WAccounts.getAccountDefaultValueLabel()).getText();
 	}
+	public String getAccountNotesText() {
+		return WebElementUtils.findElement(B2WAccounts.getAccountNotesText()).getText();
+	}
 	
 	public boolean createProductionAcccount(String sDesc, String accountID, String sBusinessUnit, String sUnitOfMeasure, String sNotes) {
 		clickCreateNewProductionAccountButton();

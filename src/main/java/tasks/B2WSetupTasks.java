@@ -325,7 +325,7 @@ public class B2WSetupTasks {
 			log.debug("Check the checkbox");
 			WebElementUtils.clickElement(el);
 		}
-		return bCheck == isChecked;
+		return bCheck == WebElementUtils.isCheckboxChecked(el);
 	}
 
 	protected void clickOnTwistie(WebElement el) {

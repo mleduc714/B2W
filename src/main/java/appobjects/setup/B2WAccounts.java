@@ -80,5 +80,8 @@ public class B2WAccounts extends B2WResources {
 	public static By getAccountDefaultValueLabel() {
 		return By.cssSelector(B2WUIMap.b2w_accountinfodefaultvalue);
 	}
+	public static By getAccountNotesText() {
+		return By.cssSelector(B2WUIMap.b2w_accountgeninfo_notestext);
+	}
 	
 }
