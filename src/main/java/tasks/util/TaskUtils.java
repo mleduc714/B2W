@@ -46,6 +46,16 @@ public class TaskUtils extends BaseAssert {
 		return bReturn;
 
 	}
+	
+	public String getPageHeader() {
+		String sText = "";
+		WebElement el = WebElementUtils.findElement(B2WCommonObjects.getB2WPageContentDetailPanel());
+		if (el!=null){
+			sText = el.findElement(By.tagName("h2")).getText();
+		}
+		return sText;
+	}
+	
 
 	public boolean waitForProductPanel(String sProduct) {
 		boolean bReturn = false;
@@ -57,6 +67,7 @@ public class TaskUtils extends BaseAssert {
 		}
 		return bReturn;
 	}
+	
 
 	public String getTextOfCurrentSelectionFromDropDown(WebElement el) {
 		String sSelection = null;

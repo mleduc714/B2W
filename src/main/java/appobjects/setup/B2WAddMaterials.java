@@ -20,4 +20,19 @@ public class B2WAddMaterials {
 	public static By getAddButton() {
 		return By.cssSelector(B2WUIMap.b2w_addmaterialsaddbutton);
 	}
+	public static By getCancelButton() {
+		return By.cssSelector(B2WUIMap.b2w_addmaterialcancelbutton);
+	}
+	public static By getAddMaterialsCheckBox() {
+		return By.cssSelector(B2WUIMap.b2w_addmaterialcheckbox);
+	}
+	public static By getSearchButtonBar() {
+		return By.cssSelector(B2WUIMap.b2w_addmaterialsearchbar);
+	}
+	public static By getSearchIDBar() {
+		return By.cssSelector(B2WUIMap.b2w_selectbuttonbar);
+	}
+	public static By getCheckboxGrid() {
+		return By.cssSelector(B2WUIMap.b2w_addmaterialcheckboxgrid);
+	}
 }

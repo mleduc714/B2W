@@ -72,23 +72,16 @@ public class B2WAccountTasks extends B2WResourceTasks {
 		List<WebElement> list = BrowserUtils.getDriver().findElements(B2WAccounts.getProductionAccountDescription());
 		if (!list.isEmpty()) {
 			WebElement el = WebElementUtils.getElementWithMatchingText(list, sDescription, false);
-			WebElementUtils.clickElement(el);
-			WebElement waitForThis = WebElementUtils.waitAndFindDisplayedElement(B2WAccounts.getPageTitleHeader());
-			bReturn = waitForThis != null;
+			if (el != null) {
+				WebElementUtils.clickElement(el);
+				WebElement waitForThis = WebElementUtils.waitAndFindDisplayedElement(B2WAccounts.getPageTitleHeader());
+				bReturn = waitForThis != null;
+			}
 		}
 		return bReturn;
-	}
-
-	private boolean enterInfoAndSearchForAccount(String sText) {
-		boolean bReturn = false;
-		if (enterSearchText(sText)) {
-			clickSearchButton();
-			bReturn = waitForProcessingDialogToClear();
-		}
-		return bReturn;
-
 	}
 	
+	@Override
 	public boolean clickSearchButton() {
 		return WebElementUtils.clickElement(B2WAccounts.getAccountSearchButton());
 	}
@@ -143,6 +136,21 @@ public class B2WAccountTasks extends B2WResourceTasks {
 			Alert alert = WebElementUtils.waitForAndGetAlertDialog(WebElementUtils.MEDIUM_TIME_OUT);
 			if (alert != null) {
 				log.debug("Deleting Production Account " + sText);
+				alert.accept();
+				bReturn = waitForProcessingDialogToClear();
+			}
+
+		}
+		return bReturn;
+	}
+	
+	public boolean deleteOverheadAccountByDescription(String sText){
+		boolean bReturn = false;
+		if (openOverheadAccountByDescription(sText)) {
+			clickTopDeleteButton();
+			Alert alert = WebElementUtils.waitForAndGetAlertDialog(WebElementUtils.MEDIUM_TIME_OUT);
+			if (alert != null) {
+				log.debug("Deleting Overhead Account " + sText);
 				alert.accept();
 				bReturn = waitForProcessingDialogToClear();
 			}
@@ -217,7 +225,7 @@ public class B2WAccountTasks extends B2WResourceTasks {
 		return WebElementUtils.findElement(B2WAccounts.getAcccountInfoCostCalTypeLabel()).getText();
 	}
 	public String getAccountUnitCostLabel() {
-		return WebElementUtils.findElement(B2WAccounts.getAccountUnitCostLabel()).getText();
+		return WebElementUtils.findElement(B2WAccounts.getUnitCostLabel()).getText();
 	}
 	public String getAccountDefaultValueLabel() {
 		return WebElementUtils.findElement(B2WAccounts.getAccountDefaultValueLabel()).getText();

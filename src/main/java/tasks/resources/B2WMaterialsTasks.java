@@ -3,8 +3,8 @@ package tasks.resources;
 import org.openqa.selenium.WebElement;
 
 import appobjects.setup.B2WMaterials;
+import appobjects.setup.B2WResources;
 import tasks.WebElementUtils;
-import tasks.util.TaskUtils;
 
 public class B2WMaterialsTasks extends B2WResourceTasks {
 
@@ -33,13 +33,7 @@ public class B2WMaterialsTasks extends B2WResourceTasks {
 		return bReturn;
 	}
 
-	public boolean setTotalCost(String sCost) {
-		boolean bReturn = false;
-		WebElement el = WebElementUtils.waitAndFindDisplayedElement(B2WMaterials.getTotalCost());
-		bReturn = WebElementUtils.sendKeys(el, sCost);
-		return bReturn;
 
-	}
 	
 	public boolean setMaterialID(String sID){
 		boolean bReturn = false;
@@ -54,22 +48,90 @@ public class B2WMaterialsTasks extends B2WResourceTasks {
 		bReturn = WebElementUtils.sendKeys(el, sID);
 		return bReturn;
 	}
+
 	
-	public boolean createNewMaterial() {
-		clickCreateNewMaterialsButton();
-		boolean bReturn = false;
-		setDescription("TEST");
-		this.setMaterialID("ID");
-		this.setAlternateID("ALTID");
-		this.selectBusinessUnit("Northern Division\\Paving");
-		this.selectCategory("Asphalt");
-		TaskUtils.sleep(1000);
-		this.selectUnitOfMeasure("EACH");
-		this.checkTemporaryMaterial(true);
-		this.checkTrackableMaterial(true);
-		this.setTotalCount("5");
-		TaskUtils.sleep(5000);
-		return false;
+	public String getMaterialDescriptionText() {
+		String sText = "";
+		WebElement el =  WebElementUtils.waitAndFindDisplayedElement(B2WMaterials.getMaterialsDescriptionLabel());
+		if (el!=null){
+			sText = el.getText();
+		}
+		return sText;
 	}
+	
+	public String getMaterialIDText() {
+		String sText = "";
+		WebElement el =  WebElementUtils.waitAndFindDisplayedElement(B2WMaterials.getMaterialsIDLabel());
+		if (el!=null){
+			sText = el.getText();
+		}
+		return sText;
+	}
+	
+	public String getMaterialUnitOfMeasureText() {
+		String sText = "";
+		sText = WebElementUtils.waitAndFindDisplayedElement(B2WMaterials.getMaterialUnitOfMeasureLabel()).getText();
+		return sText;
+	}
+	
+	public String getMaterialTempMaterialText() {
+		String sText = "";
+		WebElement el = WebElementUtils.waitAndFindDisplayedElement(B2WMaterials.getMaterialTempMaterialText());
+		if (el != null){
+			sText = el.getText();
+		}
+		return sText;
+	}
+	public String getMaterialUnitCost() {
+		String sText = "";
+		sText = WebElementUtils.waitAndFindDisplayedElement(B2WMaterials.getUnitCostLabel()).getText();
+		return sText;
+	}
+
+	public String getMaterialTrackableText() {
+		String sText = "";
+		WebElement el = WebElementUtils.waitAndFindDisplayedElement(B2WMaterials.getMaterialTrackableText());
+		if (el != null){
+			sText = el.getText();
+		}
+		return sText;
+	}
+	
+	public String getMaterialTotalCountText() {
+		String sText = "";
+		WebElement el = WebElementUtils.waitAndFindDisplayedElement(B2WMaterials.getMaterialNumberOfText());
+		if (el != null){
+			sText = el.getText();
+		}
+		return sText;
+	}
+	
+	public String getAccountUnitofMeasureText() {
+		String sText = "";
+		WebElement el = WebElementUtils.findElement(B2WMaterials.getUnitOfMeasureLabel());
+		if (el != null){
+			sText = el.getText();
+		}
+		return sText;
+	}
+	
+	
+	
+	//public boolean createNewMaterial() {
+//		clickCreateNewMaterialsButton();
+//		boolean bReturn = false;
+//		setDescription("TEST");
+//		this.setMaterialID("ID");
+//		this.setAlternateID("ALTID");
+//		this.selectBusinessUnit("Northern Division\\Paving");
+//		this.selectCategory("Asphalt");
+//		TaskUtils.sleep(1000);
+//		this.selectUnitOfMeasure("EACH");
+//		this.checkTemporaryMaterial(true);
+//		this.checkTrackableMaterial(true);
+//		this.setTotalCount("5");
+//		TaskUtils.sleep(5000);
+//		return false;
+	
 
 }

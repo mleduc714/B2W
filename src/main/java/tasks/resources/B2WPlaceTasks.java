@@ -23,7 +23,7 @@ public class B2WPlaceTasks extends B2WResourceTasks {
 		boolean bReturn = false;
 		WebElement el = WebElementUtils.waitAndFindDisplayedElement(B2WPlaces.getPlaceID());
 		if (el != null) {
-			bReturn = WebElementUtils.sendKeys(B2WPlaces.getPlaceID(), sText);
+			bReturn = WebElementUtils.sendKeys(el, sText);
 		}
 		return bReturn;
 	}
@@ -32,7 +32,7 @@ public class B2WPlaceTasks extends B2WResourceTasks {
 		boolean bReturn = false;
 		WebElement el = WebElementUtils.waitAndFindDisplayedElement(B2WPlaces.getPlaceDescription());
 		if (el != null) {
-			bReturn = WebElementUtils.sendKeys(B2WPlaces.getPlaceID(), sText);
+			bReturn = WebElementUtils.sendKeys(el, sText);
 		}
 		return bReturn;
 
@@ -48,7 +48,6 @@ public class B2WPlaceTasks extends B2WResourceTasks {
 		WebElementUtils.clickElement(B2WPlaces.getPlaceCategory());
 		WebElement el = WebElementUtils.findElement(B2WPlaces.getPlaceCategoryColorDropDown());
 		List<WebElement> els = el.findElements(By.cssSelector("td.NameColumn"));
-		System.out.println("Size" + els.size());
 		WebElement item = WebElementUtils.getElementWithMatchingText(els, sText, false);
 		if (item != null) {
 			bReturn = WebElementUtils.clickElement(item);
@@ -56,65 +55,70 @@ public class B2WPlaceTasks extends B2WResourceTasks {
 		return bReturn;
 
 	}
-	
+
 	public boolean addMaterials() {
+		WebElementUtils.switchToFrame(B2WPlaces.getAddMaterialsButton(), WebElementUtils.SHORT_TIME_OUT);
 		boolean bReturn = false;
 		WebElement el = WebElementUtils.waitAndFindElement(B2WPlaces.getAddMaterialsButton());
-		if (el != null){
+		if (el != null) {
 			bReturn = WebElementUtils.clickElement(el);
-			bReturn &= WebElementUtils.switchToFrame(B2WAddMaterials.getMaterialsDialog(), WebElementUtils.SHORT_TIME_OUT);
-		}	
+			WebElementUtils.switchToFrame(B2WAddMaterials.getMaterialsDialog(), WebElementUtils.SHORT_TIME_OUT);
+			WebElementUtils.waitAndFindDisplayedElement(B2WAddMaterials.getCheckboxGrid(), WebElementUtils.LONG_TIME_OUT);
+			
+		}
 		return bReturn;
 	}
 
-	public boolean setStartDate(String startDate){
+	public boolean setStartDate(String startDate) {
 		boolean bReturn = false;
 		WebElement el = WebElementUtils.findElement(B2WPlaces.getStartDate());
-		if (el!=null){
+		if (el != null) {
 			bReturn = WebElementUtils.sendKeys(el, startDate);
 		}
 		return bReturn;
 	}
-	// public abstract boolean setSpecifyTimeCheckBox();
-	public boolean setNonWorkingDayMonday(boolean bCheck){
+
+	public boolean setNonWorkingDayMonday(boolean bCheck) {
 		WebElement el = WebElementUtils.findElement(B2WPlaces.getNonWorkingMonday());
 		return checkBox(el, bCheck);
 	}
-	public boolean setNonWorkingDayTuesday(boolean bCheck){
+
+	public boolean setNonWorkingDayTuesday(boolean bCheck) {
 		WebElement el = WebElementUtils.findElement(B2WPlaces.getNonWorkingTuesday());
 		return checkBox(el, bCheck);
 	}
-	public boolean setNonWorkingDayWednesday(boolean bCheck){
+
+	public boolean setNonWorkingDayWednesday(boolean bCheck) {
 		WebElement el = WebElementUtils.findElement(B2WPlaces.getNonWorkingWednesday());
 		return checkBox(el, bCheck);
 	}
-	public boolean setNonWorkingDayThursday(boolean bCheck){
+
+	public boolean setNonWorkingDayThursday(boolean bCheck) {
 		WebElement el = WebElementUtils.findElement(B2WPlaces.getNonWorkingThursday());
 		return checkBox(el, bCheck);
 	}
-	public boolean setNonWorkingDayFriday(boolean bCheck){
+
+	public boolean setNonWorkingDayFriday(boolean bCheck) {
 		WebElement el = WebElementUtils.findElement(B2WPlaces.getNonWorkingFriday());
 		return checkBox(el, bCheck);
 	}
-	public boolean setNonWorkingDaySaturday(boolean bCheck){
-		WebElement el = WebElementUtils.findElement(B2WPlaces.getNonWorkingSaturday());
+
+	public boolean setNonWorkingDaySaturday(boolean bCheck) {
+		WebElement el = WebElementUtils.waitAndFindDisplayedElement(B2WPlaces.getNonWorkingSaturday());
 		return checkBox(el, bCheck);
 	}
-	public boolean setNonWorkingDaySunday(boolean bCheck){
+
+	public boolean setNonWorkingDaySunday(boolean bCheck) {
 		WebElement el = WebElementUtils.findElement(B2WPlaces.getNonWorkingSunday());
 		return checkBox(el, bCheck);
 	}
-	
-	
-	
-	
-	
-	
+
 	// public abstract boolean setShowOnJobBoard();
 	public boolean checkProducesMaterials() {
 		return WebElementUtils.clickElement(B2WPlaces.getProducesMaterialsCheckBox());
 	}
-	public boolean setDurationType(String sText){
+
+	public boolean setDurationType(String sText) {
 		boolean bReturn = false;
 		WebElement el = WebElementUtils.waitAndFindDisplayedElement(B2WPlaces.getDurationTypeDropDown());
 		List<WebElement> els = el.findElements(By.tagName("option"));
@@ -124,19 +128,20 @@ public class B2WPlaceTasks extends B2WResourceTasks {
 		}
 		return bReturn;
 	}
-	
-	// public abstract boolean setShowOnMap();
-	 public boolean setLocationAddress1(String sText){
-			boolean bReturn = false;
-			WebElement el = WebElementUtils.waitAndFindDisplayedElement(B2WPlaces.getAddress1());
-			if (el != null) {
-				bReturn = WebElementUtils.sendKeys(B2WPlaces.getAddress1(), sText);
-			}
-			return bReturn;
 
+	// public abstract boolean setShowOnMap();
+	public boolean setLocationAddress1(String sText) {
+		boolean bReturn = false;
+		WebElement el = WebElementUtils.waitAndFindDisplayedElement(B2WPlaces.getAddress1());
+		if (el != null) {
+			bReturn = WebElementUtils.sendKeys(B2WPlaces.getAddress1(), sText);
 		}
+		return bReturn;
+
+	}
+
 	// public boolean setLocationAddress2();
-	public boolean setLocationCity(String sText){
+	public boolean setLocationCity(String sText) {
 		boolean bReturn = false;
 		WebElement el = WebElementUtils.waitAndFindDisplayedElement(B2WPlaces.getCity());
 		if (el != null) {
@@ -145,7 +150,8 @@ public class B2WPlaceTasks extends B2WResourceTasks {
 		return bReturn;
 
 	}
-	public boolean setLocationState(String sText){
+
+	public boolean setLocationState(String sText) {
 		boolean bReturn = false;
 		WebElement el = WebElementUtils.waitAndFindDisplayedElement(B2WPlaces.getState());
 		if (el != null) {
@@ -154,7 +160,8 @@ public class B2WPlaceTasks extends B2WResourceTasks {
 		return bReturn;
 
 	}
-	public boolean setLocationPostalCode(String sText){
+
+	public boolean setLocationPostalCode(String sText) {
 		boolean bReturn = false;
 		WebElement el = WebElementUtils.waitAndFindDisplayedElement(B2WPlaces.getZip());
 		if (el != null) {
@@ -163,7 +170,8 @@ public class B2WPlaceTasks extends B2WResourceTasks {
 		return bReturn;
 
 	}
-	public boolean setLocationCountry(String sText){
+
+	public boolean setLocationCountry(String sText) {
 
 		boolean bReturn = false;
 		WebElement el = WebElementUtils.waitAndFindDisplayedElement(B2WPlaces.getCountry());
@@ -173,45 +181,79 @@ public class B2WPlaceTasks extends B2WResourceTasks {
 		return bReturn;
 	}
 
-
-	public static String getPlaceIDText() {
+	public String getPlaceIDText() {
 		return WebElementUtils.findElement(B2WPlaces.getPlaceIDText()).getText();
 	}
-	public static String getPlaceDescText() {
+
+	public String getPlaceDescText() {
 		return WebElementUtils.findElement(B2WPlaces.getPlaceDescText()).getText();
 	}
-	public static String getPlaceCategoryLabel() {
+
+	public String getPlaceCategoryLabel() {
 		return WebElementUtils.findElement(B2WPlaces.getPlaceCategoryLabel()).getText();
 	}
 
-	public static String getStartDateText() {
+	public String getStartDateText() {
 		return WebElementUtils.findElement(B2WPlaces.getStartDateText()).getText();
 	}
-	public static String getEndDateText() {
+
+	public String getEndDateText() {
 		return WebElementUtils.findElement(B2WPlaces.getEndDateText()).getText();
 	}
-	public static String getNonWorkingDaysText() {
+
+	public String getNonWorkingDaysText() {
 		return WebElementUtils.findElement(B2WPlaces.getNonWorkingDaysText()).getText();
 	}
-	public static String getShowOnJobBoardText() {
+
+	public String getShowOnJobBoardText() {
 		return WebElementUtils.findElement(B2WPlaces.getShowOnJobBoardText()).getText();
 	}
-	public static String getCanProduceMaterialsText() {
+
+	public String getCanProduceMaterialsText() {
 		return WebElementUtils.findElement(B2WPlaces.getCanProduceMaterialsText()).getText();
 	}
-	public static String getPlaceAddressText(){
+
+	public String getPlaceAddressText() {
 		return WebElementUtils.findElement(B2WPlaces.getPlaceAddressText()).getText();
 	}
-	public static String getPlaceCityText() {
+
+	public String getPlaceCityText() {
 		return WebElementUtils.findElement(B2WPlaces.getPlaceCityText()).getText();
 	}
-	public static String getPlaceStateText() {
+
+	public String getPlaceStateText() {
 		return WebElementUtils.findElement(B2WPlaces.getPlaceStateText()).getText();
 	}
-	public static String getPlaceZipText() {
+
+	public String getPlaceZipText() {
 		return WebElementUtils.findElement(B2WPlaces.getPlaceZipText()).getText();
 	}
-	public static String getPlaceCountryText() {
+
+	public String getPlaceCountryText() {
 		return WebElementUtils.findElement(B2WPlaces.getPlaceCountryText()).getText();
 	}
+
+	public String getMaterialsGridText(int iRow) {
+		String sText = "";
+		try {
+			WebElement el = WebElementUtils.waitAndFindDisplayedElement(B2WPlaces.getMaterialsGrid());
+			if (el != null) {
+				WebElement body = el.findElement(By.tagName("tbody"));
+				List<WebElement> rows = body.findElements(By.tagName("tr"));
+				if (!rows.isEmpty()) {
+					WebElement row = rows.get(iRow);
+					if (row != null) {
+						sText = row.findElement(By.tagName("td")).getText();
+					}
+				}
+			}
+
+		} catch (IndexOutOfBoundsException e) {
+			log.debug("The row " + iRow + " is was not found");
+		}
+
+		return sText;
+
+	}
+
 }

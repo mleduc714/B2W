@@ -5,7 +5,9 @@ import com.b2w.test.B2WTestCase;
 
 import tasks.B2WNavigationTasks;
 import tasks.resources.B2WAccountTasks;
+import tasks.resources.B2WEquipmentTasks;
 import tasks.setup.B2WUserTasks;
+import tasks.util.TaskUtils;
 
 
 public class TestScript extends B2WTestCase {
@@ -13,6 +15,7 @@ public class TestScript extends B2WTestCase {
 	B2WNavigationTasks b2wNav = new B2WNavigationTasks();
 	B2WUserTasks userTasks = new B2WUserTasks();
 	B2WAccountTasks b2wAct = new B2WAccountTasks();
+	B2WEquipmentTasks b2wEquip = new B2WEquipmentTasks();
 
 
 	@Override
@@ -63,8 +66,16 @@ public class TestScript extends B2WTestCase {
 	}
 	
 	public void test1() {
-		b2wNav.openAccounts();
-		b2wAct.expandProductionAccounts();
+		b2wNav.openEquipment();
+//		b2wEquip.createNewEquipment();
+//		b2wEquip.setEquipmentDescription("TEST");
+//		b2wEquip.setEquipmentID("Equipment ID");
+//		b2wEquip.setEquipmentBusinessUnit("Hauling");
+//		b2wEquip.setMobilityTypeRequiresMove();
+//		b2wEquip.selectOwnershipTypeRented();
+//		TaskUtils.sleep(1000);
+		
+		
 	}
 
 }

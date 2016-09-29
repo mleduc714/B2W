@@ -9,6 +9,8 @@ import org.apache.log4j.Logger;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.NotFoundException;
+import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebDriverException;
@@ -17,6 +19,8 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
+import com.b2w.test.BaseAssert;
 
 public class WebElementUtils {
 
@@ -32,7 +36,7 @@ public class WebElementUtils {
 		try {
 			el = wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
 		} catch (TimeoutException e) {
-			log.warn("Element never displayed with in timeout of "+timeOut);
+			log.warn("Element never displayed with in timeout of " + timeOut);
 		}
 		return el;
 	}
@@ -41,17 +45,17 @@ public class WebElementUtils {
 		WebElement el = null;
 		if (parent == null) {
 			log.warn("The parent element is null.");
-			
+
 		}
 		try {
 			el = parent.findElement(child);
 		} catch (NoSuchElementException nsee) {
 			log.warn("No child of the WebElement that matches " + child.toString());
-			
+
 		}
 		return el;
 	}
-	
+
 	public static WebElement getChildElement(List<WebElement> list, By child) {
 		WebElement el = null;
 		if (list.size() == 0) {
@@ -63,11 +67,11 @@ public class WebElementUtils {
 			WebElement temp = iter.next();
 			el = WebElementUtils.getChildElement(temp, child);
 			WebElement test = temp.findElement(By.cssSelector("*"));
-			if (test.getAttribute("id").endsWith("Panel_UnitOfMeasureDropDownList")){
+			if (test.getAttribute("id").endsWith("Panel_UnitOfMeasureDropDownList")) {
 				System.out.println(test.getAttribute("id"));
 				el = BrowserUtils.getDriver().findElement(By.id(test.getAttribute("id")));
 			}
-			
+
 			if (el != null) {
 				break;
 			}
@@ -75,7 +79,7 @@ public class WebElementUtils {
 		return el;
 	}
 
-	// not checking if displayed. Could add that? 
+	// not checking if displayed. Could add that?
 	public static WebElement getElementWithMatchingChildElementText(By parentsBy, By childBy, String text) {
 		List<WebElement> parents = waitAndFindDisplayedElements(parentsBy);
 		return getElementWithMatchingChildElementText(parents, childBy, text);
@@ -96,7 +100,7 @@ public class WebElementUtils {
 			WebElement el = iter.next();
 			try {
 				WebElement child = waitForChildElement(el, childBy, SHORT_TIME_OUT);
-				if (text.equals(child.getText())){
+				if (text.equals(child.getText())) {
 					ret = el;
 					break;
 				}
@@ -139,7 +143,7 @@ public class WebElementUtils {
 
 	public static WebElement getElementWithMatchingText(List<WebElement> list, String text, boolean caseSensitive) {
 		Iterator<WebElement> iter = list.iterator();
-		log.debug("Number of Elements to search thru "+list.size());
+		log.debug("Number of Elements to search thru " + list.size());
 		WebElement ret = null;
 		while (iter.hasNext()) {
 			WebElement el = iter.next();
@@ -157,7 +161,39 @@ public class WebElementUtils {
 		}
 		return ret;
 	}
-	
+
+	public static WebElement getElementWithMatchingStartsWithText(List<WebElement> list, String sText) {
+		Iterator<WebElement> iter = list.iterator();
+		log.debug("Number of Elements to search thru " + list.size());
+		WebElement ret = null;
+		while (iter.hasNext()) {
+			WebElement el = iter.next();
+
+			if (el.getText().startsWith(sText)) {
+				ret = el;
+				break;
+			}
+
+		}
+		return ret;
+	}
+
+	public static WebElement getElementWithWithMatchingAttribute(List<WebElement> list, String sAttribute,
+			String sAttributeValue) {
+		Iterator<WebElement> iter = list.iterator();
+		log.debug("Number of Elements to search thru " + list.size());
+		WebElement ret = null;
+		while (iter.hasNext()) {
+			WebElement el = iter.next();
+			String sName = el.getAttribute(sAttribute);
+			if (sName.equals(sAttributeValue)) {
+				ret = el;
+				break;
+			}
+		}
+		return ret;
+	}
+
 	public static boolean switchToFrame(By locator, int timeout) {
 		boolean bReturn = false;
 		WebDriverWait wait = new WebDriverWait(BrowserUtils.getDriver(), timeout);
@@ -184,8 +220,8 @@ public class WebElementUtils {
 			return null;
 		}
 	}
-	
-	public static List<WebElement> findElements(By locator){
+
+	public static List<WebElement> findElements(By locator) {
 
 		try {
 			return BrowserUtils.getDriver().findElements(locator);
@@ -193,9 +229,9 @@ public class WebElementUtils {
 			log.debug("Element with Locator " + locator + " not found");
 			return null;
 		}
-	
+
 	}
-	
+
 	public static boolean sendKeys(By locator, String sText) {
 		boolean bReturn = false;
 		WebElement el = findElement(locator);
@@ -216,29 +252,29 @@ public class WebElementUtils {
 		}
 		return bReturn;
 	}
-	
-	public static boolean clickElement(By target){
-		return clickElement(target,SHORT_TIME_OUT);
-	}
-	public static boolean clickElement(By target, int timeout){
-	    WebElement element = null;
-	    boolean bReturn = false;
-	    try{
-	      WebDriverWait wait = new WebDriverWait(BrowserUtils.getDriver(), timeout);
-	      element = wait.until(ExpectedConditions.elementToBeClickable(target));
-	      if(!BrowserUtils.isSafari()){
-	        element.click();
-	      }else{
-	    	  //TODO
-	         //clickWithRobot(element);
-	      }
-	      bReturn = true;
-	    }catch(TimeoutException e){
-	      log.debug("Unable to click element " + target + "\n" + e);
-	    }
-	    return bReturn;
-	  }
 
+	public static boolean clickElement(By target) {
+		return clickElement(target, SHORT_TIME_OUT);
+	}
+
+	public static boolean clickElement(By target, int timeout) {
+		WebElement element = null;
+		boolean bReturn = false;
+		try {
+			WebDriverWait wait = new WebDriverWait(BrowserUtils.getDriver(), timeout);
+			element = wait.until(ExpectedConditions.elementToBeClickable(target));
+			if (!BrowserUtils.isSafari()) {
+				element.click();
+			} else {
+				// TODO
+				// clickWithRobot(element);
+			}
+			bReturn = true;
+		} catch (TimeoutException e) {
+			log.debug("Unable to click element " + target + "\n" + e);
+		}
+		return bReturn;
+	}
 
 	public static boolean clickElement(WebElement element) {
 		boolean bReturn = false;
@@ -256,12 +292,12 @@ public class WebElementUtils {
 						// Still not clickable, fail
 						log.debug("Retry click failed - Unable to click element " + element.getAttribute("class") + "\n"
 								+ e2);
-						
+
 					}
 				}
 			} else {
-				//clickWithRobot(element);
-				//TODO if we do safari requires robot
+				// clickWithRobot(element);
+				// TODO if we do safari requires robot
 			}
 		}
 		return bReturn;
@@ -329,51 +365,55 @@ public class WebElementUtils {
 		}
 		return bReturn;
 	}
-	private static ExpectedCondition<Boolean> attributeToHaveValue(final By locator, final String attribute,
-		      final String value, final boolean b){
-		
-		return new ExpectedCondition<Boolean>(){
 
-		      @Override
-		      public Boolean apply(WebDriver driver){
-		        try{
-		          String elementText = driver.findElement(locator).getAttribute(attribute);
-		          if(elementText != null){
-		            if(value != null){
-		              String pattern =
-		                  (attribute.equals("class")) ? ("(^|\\s)\\Q" + value.toUpperCase() + "\\E($|\\s)") : "\\Q"
-		                      + value.toUpperCase() + "\\E";
-		              // If value is not NULL, proceed with the comparison.
-		              elementText = elementText.replaceAll("\\xA0", " ").toUpperCase();
-		              Pattern patern = Pattern.compile(pattern);
-		              boolean found = patern.matcher(elementText).find();
-		              return b ? found : !found;
-		            }else{
-		              // If value is NULL, then the expected value does not match what was found.
-		              return !b;
-		            }
-		          }else{
-		            // The attribute returned null. Was the expected value also null? Did this match our
-		            // expectations?
-		            return (value == null) == b;
-		          }
-		        }catch(NoSuchElementException e){
-		          return !b;
-		        }catch(NullPointerException e){
-		          log.debug(e.getMessage());
-		          if(driver == null){
-		            log.debug("The driver is null");
-		          }else{
-		            log.debug(driver.findElement(locator).toString());
-		          }
-		          return null;
-		        }
-		      }
+	private static ExpectedCondition<Boolean> attributeToHaveValue(final By locator, final String attribute,
+			final String value, final boolean b) {
+
+		return new ExpectedCondition<Boolean>() {
+
+			@Override
+			public Boolean apply(WebDriver driver) {
+				try {
+					String elementText = driver.findElement(locator).getAttribute(attribute);
+					if (elementText != null) {
+						if (value != null) {
+							String pattern = (attribute.equals("class"))
+									? ("(^|\\s)\\Q" + value.toUpperCase() + "\\E($|\\s)")
+									: "\\Q" + value.toUpperCase() + "\\E";
+							// If value is not NULL, proceed with the
+							// comparison.
+							elementText = elementText.replaceAll("\\xA0", " ").toUpperCase();
+							Pattern patern = Pattern.compile(pattern);
+							boolean found = patern.matcher(elementText).find();
+							return b ? found : !found;
+						} else {
+							// If value is NULL, then the expected value does
+							// not match what was found.
+							return !b;
+						}
+					} else {
+						// The attribute returned null. Was the expected value
+						// also null? Did this match our
+						// expectations?
+						return (value == null) == b;
+					}
+				} catch (NoSuchElementException e) {
+					return !b;
+				} catch (NullPointerException e) {
+					log.debug(e.getMessage());
+					if (driver == null) {
+						log.debug("The driver is null");
+					} else {
+						log.debug(driver.findElement(locator).toString());
+					}
+					return null;
+				}
+			}
 		};
-	
+
 	}
-	
-	 /**
+
+	/**
 	 * @param by
 	 * @param attribute
 	 * @param value
@@ -382,48 +422,47 @@ public class WebElementUtils {
 	 * @return
 	 */
 	public static boolean waitForElementHasAttributeWithValue(By by, String attribute, String value, boolean expected,
-		      int timeOut){
-		 	boolean bReturn = false;
-		    try{
-		    WebDriverWait wait = new WebDriverWait(BrowserUtils.getDriver(), timeOut);
-		    bReturn = wait.until(attributeToHaveValue(by, attribute, value, expected));
-		    }catch(TimeoutException toe){
-		      log.warn("Element with locator '" + by.toString() + " " + attribute + " attribute "
-		          + (expected ? "never contained " : "never lost ") + value);
-		    }
-		    return bReturn;
-		  }
-
-	
-	public static boolean selectElementFromDropDownList(List<WebElement> els, int iSelect){
+			int timeOut) {
 		boolean bReturn = false;
-		if (iSelect <= els.size()-1){
-			log.debug("Total number of selections in the dropdown is: "+els.size());
-			bReturn = WebElementUtils.clickElement(els.get(iSelect));
-			log.debug("Selection from the dropdown: ");els.get(iSelect).getText();
+		try {
+			WebDriverWait wait = new WebDriverWait(BrowserUtils.getDriver(), timeOut);
+			bReturn = wait.until(attributeToHaveValue(by, attribute, value, expected));
+		} catch (TimeoutException toe) {
+			log.warn("Element with locator '" + by.toString() + " " + attribute + " attribute "
+					+ (expected ? "never contained " : "never lost ") + value);
 		}
-		
 		return bReturn;
 	}
-	
-	
-	public static String getSelectedTextFromDropDown(List<WebElement> els){
+
+	public static boolean selectElementFromDropDownList(List<WebElement> els, int iSelect) {
+		boolean bReturn = false;
+		if (iSelect <= els.size() - 1) {
+			log.debug("Total number of selections in the dropdown is: " + els.size());
+			bReturn = WebElementUtils.clickElement(els.get(iSelect));
+			log.debug("Selection from the dropdown: ");
+			els.get(iSelect).getText();
+		}
+
+		return bReturn;
+	}
+
+	public static String getSelectedTextFromDropDown(List<WebElement> els) {
 		String sSelection = null;
 		Iterator<WebElement> iter = els.iterator();
-		while (iter.hasNext()){
+		while (iter.hasNext()) {
 			WebElement el = iter.next();
-			if (el.getAttribute("selected") != null){
+			if (el.getAttribute("selected") != null) {
 				sSelection = el.getText();
 			}
 		}
 		return sSelection;
-		
+
 	}
-	
-	public static boolean isCheckboxChecked(WebElement el){
+
+	public static boolean isCheckboxChecked(WebElement el) {
 		return new Boolean(el.getAttribute("checked"));
 	}
-	
+
 	public static Alert waitForAndGetAlertDialog(int timeOut) {
 		Alert ret = null;
 		try {
@@ -436,5 +475,11 @@ public class WebElementUtils {
 		}
 		return ret;
 	}
-	
+
+	public static boolean waitForElementIsDisplayed(WebElement el, int iTimeout) {
+		WebDriverWait wait = new WebDriverWait(BrowserUtils.getDriver(), iTimeout);
+		wait.until(ExpectedConditions.visibilityOf(el));
+		return el.isDisplayed();
+	}
+
 }

@@ -74,9 +74,6 @@ public class B2WAccounts extends B2WResources {
 	public static By getAcccountInfoCostCalTypeLabel() {
 		return By.cssSelector(B2WUIMap.b2w_accountinfocostcaltypelabel);
 	}
-	public static By getAccountUnitCostLabel() {
-		return By.cssSelector(B2WUIMap.b2w_accountunitcostlabel);
-	}
 	public static By getAccountDefaultValueLabel() {
 		return By.cssSelector(B2WUIMap.b2w_accountinfodefaultvalue);
 	}

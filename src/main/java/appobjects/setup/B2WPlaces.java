@@ -41,6 +41,10 @@ public class B2WPlaces extends B2WResources {
 	public static By getStartDate() {
 		return By.cssSelector(B2WUIMap.b2w_newplace_generalinfo_placestartdate);
 	}
+	
+	public static By getEndDate() {
+		return By.cssSelector(B2WUIMap.b2w_newplace_generalinfo_placeenddate);
+	}
 
 	public static By getNonWorkingMonday() {
 		return By.cssSelector(B2WUIMap.b2w_newplace_generalinfo_nonworkingmonday);
@@ -148,5 +152,21 @@ public class B2WPlaces extends B2WResources {
 	public static By getPlaceCountryText() {
 		return By.cssSelector(B2WUIMap.b2w_place_country);
 	}
+	public static By getSpecifyStartTimeCheckBox() {
+		return By.cssSelector(B2WUIMap.b2w_place_specifystarttimecheckbox);
+	}
+	public static By getSpecifyEndTimeCheckBox() {
+		return By.cssSelector(B2WUIMap.b2w_place_specifyendtimecheckbox);
+	}
+	public static By getSpecifyStartTimeText() {
+		return By.cssSelector(B2WUIMap.b2w_place_setstarttimetext);
+	}
+	public static By getSpecifyEndTimeText() {
+		return By.cssSelector(B2WUIMap.b2w_place_setendtimetext);
+	}
+	public static By getMaterialsGrid() {
+		return By.cssSelector(B2WUIMap.b2w_placematerialsgrid);
+	}
+
 
 }

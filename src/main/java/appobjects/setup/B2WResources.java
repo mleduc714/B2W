@@ -58,7 +58,22 @@ public abstract class B2WResources {
 	public static By getUnitOfMeasureLabel() {
 		return By.cssSelector(B2WUIMap.b2w_accountunitofmeasurelabel);
 	}
-	//public static By getNotesText() {
-	// }
-
+	public static By getTotalCost() {
+		return By.cssSelector(B2WUIMap.b2w_accountgeninfototalcost);
+	}
+	public static By getResourcesSearchText() {
+		return By.cssSelector(B2WUIMap.b2w_employeesearchtext);
+	}
+	public static By getResourcesSearchButton() {
+		return By.cssSelector(B2WUIMap.b2w_employeesearchbutton);
+	}
+	public static By getResourcesClearSearchButton() {
+		return By.cssSelector(B2WUIMap.b2w_employeeclearsearchbutton);
+	}
+	public static By getDescriptionList() {
+		return By.cssSelector(B2WUIMap.b2w_materialsdescriptiongrid);
+	}
+	public static By getUnitCostLabel() {
+		return By.cssSelector(B2WUIMap.b2w_accountunitcostlabel);
+	}
 }

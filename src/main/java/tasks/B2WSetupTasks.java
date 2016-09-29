@@ -279,13 +279,16 @@ public class B2WSetupTasks {
 	
 	public boolean enterSearchText(String sText) {
 		boolean bReturn = false;
+		String sValue = "";
 		WebElement el = WebElementUtils.findElement(B2WSetup.getB2WSearchText());
 		if (el != null) {
-			if (el.getAttribute("value").length()!=0) {
-				log.debug("Search Currently has text of: " + el.getText());
+			sValue = el.getAttribute("value");
+			if (sValue.length()>0) {
 				log.debug("Clearing the text");
 				clickSearchClear();
+				TaskUtils.sleep(1000);
 			}
+			el = WebElementUtils.findElement(B2WSetup.getB2WSearchText());
 			WebElementUtils.sendKeys(el, sText);
 			bReturn = true;
 		}
@@ -314,6 +317,9 @@ public class B2WSetupTasks {
 		return bReturn;
 	}
 	protected boolean checkBox(WebElement el, boolean bCheck){
+		if (el == null){
+			return false;
+		}
 		boolean isChecked = WebElementUtils.isCheckboxChecked(el);
 		// if item is checked and need to uncheck
 		if (isChecked && !bCheck){
