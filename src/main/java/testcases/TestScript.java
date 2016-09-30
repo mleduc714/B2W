@@ -7,7 +7,6 @@ import tasks.B2WNavigationTasks;
 import tasks.resources.B2WAccountTasks;
 import tasks.resources.B2WEquipmentTasks;
 import tasks.setup.B2WUserTasks;
-import tasks.util.TaskUtils;
 
 
 public class TestScript extends B2WTestCase {
@@ -48,7 +47,7 @@ public class TestScript extends B2WTestCase {
 		// Steps would be open jobs, click on sort, etc
 		
 		//String sLastName = getEnvProperty("lastname");
-		String sLastName = getProperty("mleduc_test1");
+		//String sLastName = getProperty("mleduc_test1");
 		test1();
 		//System.out.println(b2wNav.getUserName());
 		//logCompare(true, b2wNav.openSetupUsers(),"Open");

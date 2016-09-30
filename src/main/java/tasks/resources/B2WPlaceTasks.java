@@ -5,8 +5,8 @@ import java.util.List;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
-import appobjects.setup.B2WAddMaterials;
-import appobjects.setup.B2WPlaces;
+import appobjects.resources.B2WAddMaterials;
+import appobjects.resources.B2WPlaces;
 import tasks.WebElementUtils;
 
 public class B2WPlaceTasks extends B2WResourceTasks {

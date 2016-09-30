@@ -1,4 +1,4 @@
-package appobjects.setup;
+package appobjects.resources;
 
 import org.openqa.selenium.By;
 
@@ -81,7 +81,7 @@ public class B2WEmployees {
 		return By.cssSelector(B2WUIMap.b2w_employeeaddcertifications);
 	}
 	public static By getEmployeeSearchText() {
-		return By.cssSelector(B2WUIMap.b2w_employeesearchtext);
+		return By.cssSelector(B2WUIMap.b2w_resourcesearchtext);
 	}
 	public static By getEmployeeSearchButton() {
 		return By.cssSelector(B2WUIMap.b2w_employeesearchbutton);
@@ -90,10 +90,45 @@ public class B2WEmployees {
 		return By.cssSelector(B2WUIMap.b2w_employeeclearsearchbutton);
 	}
 	public static By getEmployeeByLastNameGrid() {
+		return By.cssSelector(B2WUIMap.b2w_employeelastnamegrid);
+	}
+	public static By getEmployeeByFirstNameGrid() {
 		return By.cssSelector(B2WUIMap.b2w_employeefirstnamegrid);
+	}
+	public static By getEmployeeByIDGrid() {
+		return By.cssSelector(B2WUIMap.b2w_employeeidgrid);
 	}
 	public static By getEmployeeLastNameText() {
 		return By.cssSelector(B2WUIMap.b2w_employeelastnamelabel);
 	}
-	
+	public static By getEmployeeFirstNameText() {
+		return By.cssSelector(B2WUIMap.b2w_employeefirstnamelabel);
+	}
+	public static By getEmployeeRoles() {
+		return By.cssSelector(B2WUIMap.b2w_employeeroleslabel);
+	}
+	public static By getEmployeeLaborTypesByName() {
+		return By.cssSelector(B2WUIMap.b2w_employeelabortypegridname);
+	}
+	public static By getEmploeeLaborTypesByID() {
+		return By.cssSelector(B2WUIMap.b2w_employeelabortypegridid);
+	}
+	public static By getEmployeeIDText() {
+		return By.cssSelector(B2WUIMap.b2w_employeeidlabel);
+	}
+	public static By getEmployeeEmailText() {
+		return By.cssSelector(B2WUIMap.b2w_employeeemailtext);
+	}
+	public static By getEmployeeWorkPhoneText() {
+		return By.cssSelector(B2WUIMap.b2w_employeeworkphonetext);
+	}
+	public static By getEmployeeTitleText() {
+		return By.cssSelector(B2WUIMap.b2w_employeetitletext);
+	}
+	public static By getEmployeeCellPhoneText() {
+		return By.cssSelector(B2WUIMap.b2w_employeecellphonetext);
+	}
+	public static By getEmployeeHomePhoneText() {
+		return By.cssSelector(B2WUIMap.b2w_employeehomephonetext);
+	}
 }

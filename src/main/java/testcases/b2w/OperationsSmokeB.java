@@ -29,6 +29,7 @@ public class OperationsSmokeB extends B2WTestCase {
 	B2WAddMaterialsTasks b2wAdd = new B2WAddMaterialsTasks();
 	B2WNewLaborTypeTasks b2wLaborType = new B2WNewLaborTypeTasks();
 	B2WEmployeeTasks b2wEmp = new B2WEmployeeTasks();
+	B2WAddLaborTypeTasks b2wAddLabor = new B2WAddLaborTypeTasks();
 	
 	SimpleDateFormat format = new SimpleDateFormat("M/d/yyyy");
 
@@ -202,38 +203,24 @@ public class OperationsSmokeB extends B2WTestCase {
 	
 
 		sLaborRateClass = getProperty("laborrateclass");
+		
 
 	}
 
 	public void testMain() throws Throwable {
 
-//		deleteAll();
-//		createProductionAccount();
-//		verifyProductionAccount();
-//		assertTrue("Click Home", b2wNav.clickHome());
-//		createOverheadAccount();
-//		verifyOverheadAccount();
-//		createMaterialsA();
-//		createMaterialsB();
-//		createMaterialsC();
-//		createMaterialsD();
-//		createPlace();
-//		createLaborType();
-		// create material
-		// create place
-		// create labor type
-		// create employees
-		// create equipment types
-		// create labor rate class
-		// create categories
-		// create parts
-		// create place
-		// create equipment
-		// create organization
-		// create T&M Price sheets
-		// createPlace();
-		// createLaborType();
-		createEmployees();
+
+		createProductionAccount();
+		verifyProductionAccount();
+		assertTrue("Click Home", b2wNav.clickHome());
+		createOverheadAccount();
+		verifyOverheadAccount();
+		createMaterialsA();
+		createMaterialsB();
+		createMaterialsC();
+		createMaterialsD();
+		createPlace();
+		deleteAll();
 	}
 
 	public void createProductionAccount() {
@@ -265,13 +252,6 @@ public class OperationsSmokeB extends B2WTestCase {
 
 	public void verifyProductionAccount() {
 
-		// b2wNav.clickHome();
-		// b2wNav.openAccounts();
-		// b2wAct.expandProductionAccounts();
-		// b2wAct.enterSearchText(sProductionAccountDesc);
-		// b2wAct.clickSearchButton();
-		// b2wAct.openProductionAccountByAccountID(sProductionAccountID);
-		// TaskUtils.sleep(5000);
 		logCompare(sProductionAccountDesc, b2wAct.getDescriptionText(), "Description");
 		logCompare(sProductionAccountID, b2wAct.getAccountIDText(), "Account ID");
 		logCompare(sProductionAccountBusinessUnit, b2wAct.getAccountBusinessUnitLink(), "Business Unit");
@@ -282,18 +262,6 @@ public class OperationsSmokeB extends B2WTestCase {
 
 	public void verifyOverheadAccount() {
 
-		// assertTrue("Click Home", b2wNav.clickHome());
-		// assertTrue("Open Account",b2wNav.openAccounts());
-		// assertTrue("Collapse Production Accounts",
-		// b2wAct.collapseProductionAccounts());
-		// assertTrue("Expand Overhead accouns",
-		// b2wAct.expandOverheadAccounts());
-		// assertTrue("Search for overhead account",
-		// b2wAct.enterSearchText(sOverheadAccountDesc));
-		// assertTrue("Click Search", b2wAct.clickSearchButton());
-		//
-		// assertTrue("Open Overhead Account",
-		// b2wAct.openOverheadAccountByAccountID(sOverheadAccountID));
 		logCompare(sOverheadAccountDesc, b2wAct.getDescriptionText(), "Description");
 		logCompare(sOverheadAccountID, b2wAct.getAccountIDText(), "Account ID");
 		logCompare(sOverheadAccountBusinessUnit, b2wAct.getAccountBusinessUnitLink(), "Business Unit");
@@ -431,34 +399,7 @@ public class OperationsSmokeB extends B2WTestCase {
 		
 	}
 
-	public void createLaborType() {
 
-		b2wNav.openLaborTypes();
-		b2wLaborType.createNewLaborType();
-		b2wLaborType.setLaborType(sLaborTypeA);
-		b2wLaborType.setLaborID(sLaborTypeIDA);
-		TaskUtils.sleep(5000);
-	}
-
-	public void createEmployees() {
-		b2wNav.openEmployees();
-		b2wEmp.createNewEmployeeButton();
-		b2wEmp.setEmployeeFirstName(sEmployeeFirstNameA);
-		b2wEmp.setEmployeeLastName(sEmployeeLastNameA);
-		b2wEmp.setEmployeeID(sEmployeeIDA);
-		b2wEmp.openAddLaborTypeDialog();
-		new B2WAddLaborTypeTasks().selectCheckBox("Certified Flagger");
-		new B2WAddLaborTypeTasks().clickAddButton();
-		TaskUtils.sleep(10000);
-		
-		
-
-
-	}
-
-	public void createEquipmentTypes() {
-
-	}
 
 	public void deleteProductionAccount() {
 		assertTrue("Open Accounts", b2wNav.openAccounts());
@@ -477,18 +418,18 @@ public class OperationsSmokeB extends B2WTestCase {
 				"Deleted " + sOverheadAccountDesc);
 
 	}
-
 	public void deletePlace() {
 		b2wNav.openPlaces();
 		b2wPlaces.searchOpenResourceByDescription(sPlaceDescription);
 		b2wPlaces.deleteResource();
 	}
 	
+	
 	public void deleteAll() {
 		deleteProductionAccount();
 		deleteOverheadAccount();
-		assertTrue("Click Home", b2wNav.clickHome());
 		deletePlace();
+		assertTrue("Click Home", b2wNav.clickHome());
 		deleteMaterial(sMaterialsDescriptionA);
 		deleteMaterial(sMaterialsDescriptionB);
 		deleteMaterial(sMaterialsDescriptionC);

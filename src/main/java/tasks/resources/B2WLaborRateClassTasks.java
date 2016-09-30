@@ -2,7 +2,7 @@ package tasks.resources;
 
 import org.openqa.selenium.WebElement;
 
-import appobjects.setup.B2WLaborRateClasses;
+import appobjects.resources.B2WLaborRateClasses;
 import tasks.WebElementUtils;
 
 public class B2WLaborRateClassTasks extends B2WResourceTasks {

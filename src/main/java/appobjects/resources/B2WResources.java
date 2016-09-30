@@ -1,4 +1,4 @@
-package appobjects.setup;
+package appobjects.resources;
 
 import org.openqa.selenium.By;
 
@@ -62,7 +62,7 @@ public abstract class B2WResources {
 		return By.cssSelector(B2WUIMap.b2w_accountgeninfototalcost);
 	}
 	public static By getResourcesSearchText() {
-		return By.cssSelector(B2WUIMap.b2w_employeesearchtext);
+		return By.cssSelector(B2WUIMap.b2w_resourcesearchtext);
 	}
 	public static By getResourcesSearchButton() {
 		return By.cssSelector(B2WUIMap.b2w_employeesearchbutton);

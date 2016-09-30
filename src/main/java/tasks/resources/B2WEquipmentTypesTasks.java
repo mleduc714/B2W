@@ -5,7 +5,7 @@ import java.util.List;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
-import appobjects.setup.B2WEquipmentType;
+import appobjects.resources.B2WEquipmentType;
 import tasks.WebElementUtils;
 
 public class B2WEquipmentTypesTasks extends B2WResourceTasks {

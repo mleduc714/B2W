@@ -1,4 +1,4 @@
-package appobjects.setup;
+package appobjects.resources;
 
 import org.openqa.selenium.By;
 

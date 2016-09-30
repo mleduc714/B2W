@@ -7,7 +7,7 @@ import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
-import appobjects.setup.B2WAccounts;
+import appobjects.resources.B2WAccounts;
 import tasks.BrowserUtils;
 import tasks.WebElementUtils;
 

@@ -5,7 +5,7 @@ import java.util.List;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
-import appobjects.setup.B2WAddLaborTypes;
+import appobjects.resources.B2WAddLaborTypes;
 import tasks.WebElementUtils;
 import tasks.util.TaskUtils;
 
@@ -46,12 +46,11 @@ public class B2WAddLaborTypeTasks {
 		boolean bReturn = false;
 		WebElement gridHeader = WebElementUtils.findElement(B2WAddLaborTypes.getAddLaborGridHeader());
 		List<WebElement> gridText = gridHeader.findElements(B2WAddLaborTypes.getAddLaborNameText());
-		
 		for (int i = 0; i < gridText.size()-1; i++){
 			System.out.println(gridText.get(i).getText());
 			if (gridText.get(i).getText().equals(sText)){
 				WebElement parentElement = gridText.get(i).findElement(By.xpath("./.."));
-				WebElement el = parentElement.findElement(B2WAddLaborTypes.getAddLaborNameCheckBox());
+				WebElement el = parentElement.findElement(B2WAddLaborTypes.getAddLaborTypeCheckBoxGrid());
 				bReturn = WebElementUtils.clickElement(el);
 				break;
 			}

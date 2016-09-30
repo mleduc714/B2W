@@ -5,7 +5,7 @@ import java.util.List;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
-import appobjects.setup.B2WCategories;
+import appobjects.resources.B2WCategories;
 import appobjects.setup.B2WSetupUsers;
 import tasks.WebElementUtils;
 

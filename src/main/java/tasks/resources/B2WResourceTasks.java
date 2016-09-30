@@ -7,10 +7,9 @@ import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
-import appobjects.setup.B2WMaterials;
-import appobjects.setup.B2WResources;
+import appobjects.resources.B2WMaterials;
+import appobjects.resources.B2WResources;
 import tasks.B2WSetupTasks;
-import tasks.BrowserUtils;
 import tasks.WebElementUtils;
 import tasks.util.TaskUtils;
 
@@ -24,7 +23,12 @@ public abstract class B2WResourceTasks extends B2WSetupTasks {
 	}
 	
 	public String getDescriptionText(){
-		return WebElementUtils.findElement(B2WResources.getAccountDescriptionLabel()).getText();
+		String sText = "";
+		WebElement el = WebElementUtils.findElement(B2WResources.getAccountDescriptionLabel());
+		if (el != null){
+			sText = el.getText();
+		}
+		return sText;
 	}
 	
 	public boolean setAccountID(String sText) {
@@ -192,6 +196,7 @@ public abstract class B2WResourceTasks extends B2WSetupTasks {
 	public boolean clickClearSearchButton() {
 		boolean bReturn = false;
 		bReturn = WebElementUtils.clickElement(WebElementUtils.findElement(B2WMaterials.getResourcesClearSearchButton()));
+		
 		return bReturn;
 	}
 	

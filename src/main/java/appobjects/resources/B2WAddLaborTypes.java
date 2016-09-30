@@ -1,4 +1,4 @@
-package appobjects.setup;
+package appobjects.resources;
 
 import org.openqa.selenium.By;
 
@@ -37,5 +37,6 @@ public class B2WAddLaborTypes {
 	public static By getAddLaborGridHeader() {
 		return By.cssSelector(B2WUIMap.b2w_addlaborgridheader);
 	}
+
 
 }

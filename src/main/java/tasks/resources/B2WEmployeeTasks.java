@@ -1,13 +1,15 @@
 package tasks.resources;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.openqa.selenium.WebElement;
 
-import appobjects.setup.B2WAccounts;
-import appobjects.setup.B2WAddLaborTypes;
-import appobjects.setup.B2WEmployees;
+import appobjects.resources.B2WAccounts;
+import appobjects.resources.B2WAddLaborTypes;
+import appobjects.resources.B2WEmployees;
 import tasks.BrowserUtils;
 import tasks.WebElementUtils;
 
@@ -132,9 +134,12 @@ public class B2WEmployeeTasks extends B2WResourceTasks {
 		WebElement el = WebElementUtils.findElement(B2WEmployees.getAddLaborTypeButton());
 		if (el != null) {
 			if (WebElementUtils.clickElement(el)) {
-				bReturn = WebElementUtils.switchToFrame(B2WAddLaborTypes.getAddLaborTypesDialog(),
+				WebElementUtils.switchToFrame(B2WAddLaborTypes.getAddLaborTypesDialog(),
 						WebElementUtils.SHORT_TIME_OUT);
-
+				WebElement button = WebElementUtils.findElement(B2WAddLaborTypes.getAddLaborTypeSearchButton());
+				if (button != null){
+					bReturn = true;
+				}
 			}
 		}
 		return bReturn;
@@ -178,5 +183,127 @@ public class B2WEmployeeTasks extends B2WResourceTasks {
 			bReturn = waitForThis != null;
 		}
 		return bReturn;
+	}
+	
+	public boolean openEmployeeByID(String sID){
+		boolean bReturn = false;
+		List<WebElement> list = BrowserUtils.getDriver().findElements(B2WEmployees.getEmployeeByIDGrid());
+		if (!list.isEmpty()) {
+			WebElement el = WebElementUtils.getElementWithMatchingText(list, sID, false);
+			WebElementUtils.clickElement(el);
+			WebElement waitForThis = WebElementUtils.waitAndFindDisplayedElement(B2WEmployees.getEmployeeLastNameText());
+			bReturn = waitForThis != null;
+		}
+		return bReturn;
+	}
+	
+	public boolean openEmployeeByFirstName(String sText){
+		boolean bReturn = false;
+		List<WebElement> list = BrowserUtils.getDriver().findElements(B2WEmployees.getEmployeeByFirstNameGrid());
+		if (!list.isEmpty()) {
+			WebElement el = WebElementUtils.getElementWithMatchingText(list, sText, false);
+			WebElementUtils.clickElement(el);
+			WebElement waitForThis = WebElementUtils.waitAndFindDisplayedElement(B2WEmployees.getEmployeeLastNameText());
+			bReturn = waitForThis != null;
+		}
+		return bReturn;
+	}
+	
+	public String getEmployeeRolesText() {
+		String sText = "";
+		WebElement el = WebElementUtils.waitAndFindDisplayedElement(B2WEmployees.getEmployeeRoles());
+		if (el!=null){
+			sText = el.getText();
+		}
+		return sText;
+	}
+	
+	public ArrayList<String> getEmployeeLaborTypeName() {
+		ArrayList<String> laborTypes = new ArrayList<String>();
+		List<WebElement> ls = WebElementUtils.findElements(B2WEmployees.getEmployeeLaborTypesByName());
+		if (!ls.isEmpty()){
+			Iterator<WebElement> iter = ls.iterator();
+			while (iter.hasNext()){
+				WebElement el = iter.next();
+				laborTypes.add(el.getText());
+			}
+		}
+		return laborTypes;
+	}
+	
+
+	public ArrayList<String> getEmployeeLaborTypeID() {
+		ArrayList<String> laborTypesID = new ArrayList<String>();
+		List<WebElement> ls = WebElementUtils.findElements(B2WEmployees.getEmploeeLaborTypesByID());
+		if (!ls.isEmpty()){
+			Iterator<WebElement> iter = ls.iterator();
+			while (iter.hasNext()){
+				WebElement el = iter.next();
+				laborTypesID.add(el.getText());
+			}
+		}
+		return laborTypesID;
+	}
+	
+	public String getEmployeeFirstNameText() {
+		String sText = "";
+		WebElement el = WebElementUtils.findElement(B2WEmployees.getEmployeeFirstNameText());
+		if (el != null){
+			sText = el.getText();
+		}
+		return sText;
+	}
+	
+	public String getEmployeeLastNameText() {
+		String sText = "";
+		WebElement el = WebElementUtils.findElement(B2WEmployees.getEmployeeLastNameText());
+		if (el != null){
+			sText = el.getText();
+		}
+		return sText;
+	}
+	public String getEmployeeIDText() {
+		String sText = "";
+		WebElement el = WebElementUtils.findElement(B2WEmployees.getEmployeeIDText());
+		if (el != null){
+			sText = el.getText();
+		}
+		return sText;
+	}
+	
+	public String getEmployeeEmailText() {
+		String sText = "";
+		WebElement el = WebElementUtils.findElement(B2WEmployees.getEmployeeEmailText());
+		if (el != null){
+			sText = el.getText();
+		}
+		return sText;
+	}
+	
+	public String getEmployeeWorkPhoneText() {
+		String sText = "";
+		WebElement el = WebElementUtils.findElement(B2WEmployees.getEmployeeWorkPhoneText());
+		if (el != null){
+			sText = el.getText();
+		}
+		return sText;
+	}
+	
+	public String getEmployeeHomePhoneText() {
+		String sText = "";
+		WebElement el = WebElementUtils.findElement(B2WEmployees.getEmployeeHomePhoneText());
+		if (el != null){
+			sText = el.getText();
+		}
+		return sText;
+	}
+	
+	public String getEmployeeJobTitleText() {
+		String sText = "";
+		WebElement el = WebElementUtils.findElement(B2WEmployees.getEmployeeTitleText());
+		if (el != null){
+			sText = el.getText();
+		}
+		return sText;
 	}
 }

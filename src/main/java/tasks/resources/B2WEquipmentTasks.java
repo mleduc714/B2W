@@ -5,7 +5,7 @@ import java.util.List;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.WebElement;
 
-import appobjects.setup.B2WEquipment;
+import appobjects.resources.B2WEquipment;
 import tasks.WebElementUtils;
 
 public class B2WEquipmentTasks extends B2WResourceTasks {

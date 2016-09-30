@@ -2,7 +2,7 @@ package tasks.resources;
 
 import org.openqa.selenium.WebElement;
 
-import appobjects.setup.B2WParts;
+import appobjects.resources.B2WParts;
 import tasks.WebElementUtils;
 
 public class B2WPartTasks extends B2WResourceTasks {

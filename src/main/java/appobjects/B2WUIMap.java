@@ -1,8 +1,5 @@
 package appobjects;
 
-import appobjects.setup.B2WPlaces;
-import tasks.WebElementUtils;
-
 public class B2WUIMap {
 	
 	
@@ -167,7 +164,7 @@ public class B2WUIMap {
 	public static final String b2w_setup_overheadaccountdescription = "a[id^='PageContent_OverheadAccountListingGridView_Description']";
 	public static final String b2w_setup_accountsearchbutton = "a#PageContent_AccountSearchControl_SearchButton";
 	public static final String b2w_setup_accountclearsearchbutton = "a#PageContent_AccountSearchControl_ClearSearchButton";
-	public static final String b2w_categories_listview = "a[id^=PageContent_ListingGridView_Name']";
+	public static final String b2w_categories_listview = "a[id^='PageContent_ListingGridView_Name']";
 	public static final String b2w_categories_categorynametext = "span#PageContent_generalInformationPanel_NameValueLabel";
 	
 	//create new account
@@ -285,6 +282,21 @@ public class B2WUIMap {
 	public static String b2w_placematerialsgrid = "table#MaterialsGrid";
 	public static String b2w_addmaterialcheckboxgrid = "div.k-grid-content";
 	public static String b2w_addmaterialrowgroup = "tbody";
+	public static String b2w_employeeroleslabel = "span#PageContent_generalInformationPanel_RolesLabel";
+	public static String b2w_employeelabortypegridid = "a[id^='PageContent_LaborTypeGrid_ID']";
+	
+	
+	public static String b2w_resourcesearchtext = "input.search-textbox";
+														 
+	public static String b2w_labornamegrid = "a[id^='PageContent_ListingGridView_FirstName']";
+	public static String b2w_labortypegridid = "a[id^='PageContent_ListingGridView_LaborTypeID']";
+	public static String b2w_employeeemailtext = "a#PageContent_generalInformationPanel_EMailHyperlink";
+	public static String b2w_employeeworkphonetext = "span#PageContent_generalInformationPanel_WorkPhoneLabel";
+	public static String b2w_employeetitletext = "span#PageContent_generalInformationPanel_JobTitleLabel";
+	public static String b2w_employeehomephonetext = "span#PageContent_generalInformationPanel_HomePhoneLabel";
+	public static String b2w_employeecellphonetext = "span#PageContent_generalInformationPanel_CellPhoneLabel";
+	
+	
 	//add materials dialog
 	public static final String b2w_addmaterialsdialog = "div#addMaterialDialog";
 	public static final String b2w_addmaterialsearchbar = "div.search-button-bar";
@@ -335,6 +347,7 @@ public class B2WUIMap {
 	public static final String b2w_addlaborgridheader = "table#PageContent_AddLaborTypeDialog_GridView";
 	public static final String b2w_addlaborgridtext = "td.gridText";
 	public static final String b2w_addlaborgridcheckbox = "td.checkbox";
+	public static final String b2w_addlabortypenamelabel = "span#PageContent_generalInformationPanel_NameLabel";
 	
 	//new equipment
 	public static final String b2w_newequipmentdescription = "input.k-textbox";
@@ -364,9 +377,14 @@ public class B2WUIMap {
 	public static final String b2w_employeesearchtext = "input#PageContent_searchControl_SearchTextBox";
 	public static final String b2w_employeesearchbutton = "a#PageContent_searchControl_SearchButton";
 	public static final String b2w_employeeclearsearchbutton = "a#PageContent_searchControl_ClearSearchButton";
-	public static final String b2w_employeefirstnamelabel = "id#PageContent_generalInformationPanel_FirstNameLabel";
-	public static final String b2w_employeefirstnamegrid = "a[id^='PageContent_ListingGridView_LastName']";
+	public static final String b2w_employeefirstnamelabel = "span#PageContent_generalInformationPanel_FirstNameLabel";
+	public static final String b2w_employeelastnamegrid = "a[id^='PageContent_ListingGridView_LastName']";
+	public static final String b2w_employeefirstnamegrid = "a[id^='PageContent_ListingGridView_FirstName']";
+	public static final String b2w_employeeidgrid = "a[id^='PageContent_ListingGridView_ID']";
+	public static final String b2w_employeeidlabel = "span#PageContent_generalInformationPanel_EmployeeIDLabel";
 	public static final String b2w_employeelastnamelabel = "span#PageContent_generalInformationPanel_LastNameLabel";
+	public static final String b2w_employeelabortypegrid = "a#PageContent_LaborTypeGrid";
+	public static final String b2w_employeelabortypegridname = "a[id^='PageContent_LaborTypeGrid_Name']";
 	
 	public static final String b2w_materialsdescriptiongrid = "a[id^='PageContent_ListingGridView_Description']";
 	

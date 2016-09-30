@@ -1,11 +1,9 @@
 package tasks.resources;
 
 import org.apache.log4j.Logger;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
-import appobjects.setup.B2WAddMaterials;
-import appobjects.setup.B2WMaterials;
+import appobjects.resources.B2WAddMaterials;
 import tasks.WebElementUtils;
 
 public class B2WAddMaterialsTasks {
@@ -88,14 +86,6 @@ public class B2WAddMaterialsTasks {
 			
 		}
 		return bReturn;
-		
-	}
-	
-	public boolean test() {
-		boolean bReturn = false;
-		WebElement el = WebElementUtils.waitAndFindDisplayedElement(B2WAddMaterials.getSearchButtonBar());
-		WebElementUtils.sendKeys(el, "WOOODDS");
-		return false;
 		
 	}
 	
