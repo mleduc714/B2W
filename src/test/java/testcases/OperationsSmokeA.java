@@ -1,4 +1,4 @@
-package testcases.b2w;
+package testcases;
 
 import com.b2w.test.B2WTestCase;
 
