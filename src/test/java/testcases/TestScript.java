@@ -66,7 +66,8 @@ public class TestScript extends B2WTestCase {
 	
 	public void test1() {
 		b2wNav.openEquipment();
-//		b2wEquip.createNewEquipment();
+		b2wEquip.createNewEquipment();
+		logScreenCapture();
 //		b2wEquip.setEquipmentDescription("TEST");
 //		b2wEquip.setEquipmentID("Equipment ID");
 //		b2wEquip.setEquipmentBusinessUnit("Hauling");

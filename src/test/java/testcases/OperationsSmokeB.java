@@ -1,4 +1,4 @@
-package testcases.b2w;
+package testcases;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
