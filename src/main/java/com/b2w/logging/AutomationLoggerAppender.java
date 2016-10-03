@@ -288,7 +288,9 @@ public class AutomationLoggerAppender implements Appender, OptionHandler{
             "icon_win.png"
         };
         for (String filepath : filepaths) {
-            InputStream in = getClass().getResourceAsStream(filepath);
+        	
+        	InputStream in = ClassLoader.getSystemResourceAsStream(filepath);
+            //InputStream in = getClass().getResourceAsStream(filepath);
             try {
                 FileOutputStream out = new FileOutputStream(new File(_logDir, filepath));
                 byte[] buf = new byte[1024];
