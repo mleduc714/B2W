@@ -76,7 +76,7 @@ public class TestScript extends B2WTestCase {
 		b2wEquip.createNewEquipment();
 		File src = ((TakesScreenshot)BrowserUtils.getDriver()).getScreenshotAs(OutputType.FILE);
 		try {
-		 FileUtils.copyFile(src, new File("D:\\screenshot.png"));
+		 FileUtils.copyFile(src, new File("C:\\temp\\screenshot.png"));
 		}catch (Exception e){
 			
 		}
