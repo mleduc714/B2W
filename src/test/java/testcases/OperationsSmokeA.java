@@ -52,7 +52,7 @@ public class OperationsSmokeA extends B2WTestCase {
 	@Override
 	public void testSetUp() throws Throwable {
 		// TODO Auto-generated method stub
-		sLastName = "LeDuc";
+		sLastName = "Service";
 		super.testSetUp();
 		//check do I need to remove access
 		//removeAllAccess();
@@ -170,13 +170,11 @@ public class OperationsSmokeA extends B2WTestCase {
 	
 	public void removeAllAccess() {
 		assertTrue("Open Setup Users", b2wNav.openSetupUsers());
-		logCompare("Michael LeDuc",b2wNav.getUserName(), "User Names");
-		TaskUtils.logScreenCapture();
+		//logCompare("Michael LeDuc",b2wNav.getUserName(), "User Names");
+		//TaskUtils.logScreenCapture();
 		assertTrue("Search for Last Name",userTasks.enterTextAndClickSearch(sLastName));
 		assertTrue("Open the user",userTasks.openUserByLastName(sLastName));
 		assertTrue("Edit the User",userTasks.clickEditButton());
-	
-		
 		logCompare(true,userTasks.changeDispatchAccessToNone(),"Remove Dispatch");		
 		logCompare(true,userTasks.changeMaintainManagerAccessToNone(),"Remove Maintain Manager Access");
 		logCompare(true,userTasks.changeMaintainMechanicAccessToNone(),"Remove Maintain Mechanic Access");
