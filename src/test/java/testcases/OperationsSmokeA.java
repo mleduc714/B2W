@@ -17,6 +17,14 @@ public class OperationsSmokeA extends B2WTestCase {
 	
 	B2WHomeTasks b2wHome = new B2WHomeTasks();
 
+	
+	
+	@Override
+	public void testTearDown() throws Throwable {
+		
+		
+	}
+
 	@Override
 	public String getAuthor() {
 		// TODO Auto-generated method stub
@@ -44,7 +52,7 @@ public class OperationsSmokeA extends B2WTestCase {
 	@Override
 	public void testSetUp() throws Throwable {
 		// TODO Auto-generated method stub
-		sLastName = "Service";
+		sLastName = "LeDuc";
 		super.testSetUp();
 		//check do I need to remove access
 		//removeAllAccess();
@@ -127,8 +135,8 @@ public class OperationsSmokeA extends B2WTestCase {
 		assertTrue("Add Full Track Access", userTasks.changeDispatchAccessToFullAccess());
 		assertTrue("Save the user", userTasks.clickTopSaveButton());
 		assertTrue("Go back to home screen", b2wNav.clickHome());	
-		assertTrue("Open Dispatch from Navigation", b2wNav.openDispatch());
-		assertTrue("Go back to home screen", b2wNav.clickHome());
+//		assertTrue("Open Dispatch from Navigation", b2wNav.openDispatch());
+//		assertTrue("Go back to home screen", b2wNav.clickHome());
 		assertTrue("Open dispatch link to job board", b2wHome.openDispatchJobBoard());
 		assertTrue("Go back to home screen", b2wNav.clickHome());
 		assertTrue("Open dispatch link to Delivery Orders",b2wHome.openDispatchDeliveryOrders());
@@ -176,6 +184,18 @@ public class OperationsSmokeA extends B2WTestCase {
 		logCompare(true,userTasks.clickTopSaveButton(), "Save the user");
 		assertTrue("Go Home",b2wNav.clickHome());
 
+	}
+	
+	public void addAllAccess() {
+		b2wNav.openSetupUsers();
+		userTasks.openUserByLastName(sLastName);
+		userTasks.clickEditButton();
+		userTasks.changeDispatchAccessToFullAccess();
+		userTasks.changeTrackAccessToFullAccess();
+		userTasks.changeMaintainManagerAccessToFullAccess();
+		userTasks.changeMaintainMechanicAccessToFullAccess();
+		userTasks.clickTopSaveButton();
+		b2wNav.clickHome();
 	}
 	
 	
