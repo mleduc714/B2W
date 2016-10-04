@@ -1,9 +1,16 @@
 package testcases;
 
 
+import java.io.File;
+
+import org.apache.commons.io.FileUtils;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
+
 import com.b2w.test.B2WTestCase;
 
 import tasks.B2WNavigationTasks;
+import tasks.BrowserUtils;
 import tasks.resources.B2WAccountTasks;
 import tasks.resources.B2WEquipmentTasks;
 import tasks.setup.B2WUserTasks;
@@ -67,7 +74,12 @@ public class TestScript extends B2WTestCase {
 	public void test1() {
 		b2wNav.openEquipment();
 		b2wEquip.createNewEquipment();
-		logScreenCapture();
+		File src = ((TakesScreenshot)BrowserUtils.getDriver()).getScreenshotAs(OutputType.FILE);
+		try {
+		 FileUtils.copyFile(src, new File("D:\\screenshot.png"));
+		}catch (Exception e){
+			
+		}
 //		b2wEquip.setEquipmentDescription("TEST");
 //		b2wEquip.setEquipmentID("Equipment ID");
 //		b2wEquip.setEquipmentBusinessUnit("Hauling");
