@@ -74,12 +74,7 @@ public class TestScript extends B2WTestCase {
 	public void test1() {
 		b2wNav.openEquipment();
 		b2wEquip.createNewEquipment();
-		File src = ((TakesScreenshot)BrowserUtils.getDriver()).getScreenshotAs(OutputType.FILE);
-		try {
-		 FileUtils.copyFile(src, new File("C:\\temp\\screenshot.png"));
-		}catch (Exception e){
-			
-		}
+		assertTrue("TESTING", false);
 //		b2wEquip.setEquipmentDescription("TEST");
 //		b2wEquip.setEquipmentID("Equipment ID");
 //		b2wEquip.setEquipmentBusinessUnit("Hauling");

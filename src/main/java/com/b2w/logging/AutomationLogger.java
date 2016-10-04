@@ -1,15 +1,8 @@
 package com.b2w.logging;
-import java.awt.Dimension;
-import java.awt.Rectangle;
-import java.awt.Robot;
-import java.awt.Toolkit;
-import java.awt.image.BufferedImage;
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -19,15 +12,18 @@ import java.util.Properties;
 import java.util.TimeZone;
 import java.util.Vector;
 
-import javax.imageio.ImageIO;
-
+import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 
 import com.b2w.test.LogLevel;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
+
+import tasks.BrowserUtils;
 
 
 
@@ -380,14 +376,16 @@ public class AutomationLogger {
 		
 		if(type == LogLevel.IMAGE) {
 			try {
+				
+				File src = ((TakesScreenshot)BrowserUtils.getDriver()).getScreenshotAs(OutputType.FILE);
 				String filename = "SCREEN_CAPTURE_" +System.currentTimeMillis() + ".png";
 				filename = filename.replaceAll("[^0-9a-zA-Z\\.]", "_");
 				File file = new File(logsDir.getAbsolutePath()
 						+ File.separator + 
 						AutomationLoggerAppender.IMAGES_DIR + 
 						File.separator + filename);
-
-				Toolkit toolkit = Toolkit.getDefaultToolkit();  
+				FileUtils.copyFile(src,file);
+/*				Toolkit toolkit = Toolkit.getDefaultToolkit();  
 				Dimension screenSize = toolkit.getScreenSize();  
 				Rectangle screenRect = new Rectangle(screenSize);  
 				// create screen shot  
@@ -398,7 +396,7 @@ public class AutomationLogger {
 				byte[] data = new byte[(int)file.length()];
 				InputStream in = new FileInputStream(file);
 				in.read(data, 0, (int)file.length());
-				in.close();
+				in.close();*/
 				messageHTML = messageHTML + String.format("</br></br><a href=\"%s/%s\" target=_blank><img width='100%%' src=\"%s/%s\"></a>", AutomationLoggerAppender.IMAGES_DIR, filename, AutomationLoggerAppender.IMAGES_DIR, filename);
 				
 			} catch (Exception e) {
