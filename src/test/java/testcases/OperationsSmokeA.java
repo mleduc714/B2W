@@ -44,7 +44,7 @@ public class OperationsSmokeA extends B2WTestCase {
 	@Override
 	public void testSetUp() throws Throwable {
 		// TODO Auto-generated method stub
-		sLastName = getEnvProperty("lastname");
+		sLastName = "Service";
 		super.testSetUp();
 		//check do I need to remove access
 		//removeAllAccess();
