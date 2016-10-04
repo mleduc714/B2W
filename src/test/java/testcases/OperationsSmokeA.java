@@ -162,6 +162,7 @@ public class OperationsSmokeA extends B2WTestCase {
 	
 	public void removeAllAccess() {
 		assertTrue("Open Setup Users", b2wNav.openSetupUsers());
+		TaskUtils.logScreenCapture();
 		assertTrue("Search for Last Name",userTasks.enterTextAndClickSearch(sLastName));
 		assertTrue("Open the user",userTasks.openUserByLastName(sLastName));
 		assertTrue("Edit the User",userTasks.clickEditButton());
