@@ -4,6 +4,7 @@ import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
+import appobjects.B2WUIMap;
 import appobjects.setup.B2WSetup;
 import tasks.util.TaskUtils;
 
@@ -278,21 +279,7 @@ public class B2WSetupTasks {
 	}
 	
 	public boolean enterSearchText(String sText) {
-		boolean bReturn = false;
-		String sValue = "";
-		WebElement el = WebElementUtils.findElement(B2WSetup.getB2WSearchText());
-		if (el != null) {
-			sValue = el.getAttribute("value");
-			if (sValue.length()>0) {
-				log.debug("Clearing the text");
-				clickSearchClear();
-				TaskUtils.sleep(1000);
-			}
-			el = WebElementUtils.findElement(B2WSetup.getB2WSearchText());
-			WebElementUtils.sendKeys(el, sText);
-			bReturn = true;
-		}
-		return bReturn;
+		return WebElementUtils.setAttributeWithJS(B2WUIMap.b2w_setup_searchtextboxjs, "value", sText);
 	}
 	
 	public String getSearchText() {

@@ -209,7 +209,6 @@ public class OperationsSmokeB extends B2WTestCase {
 
 	public void testMain() throws Throwable {
 
-
 		createProductionAccount();
 		verifyProductionAccount();
 		assertTrue("Click Home", b2wNav.clickHome());

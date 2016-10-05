@@ -287,6 +287,7 @@ public class B2WUIMap {
 	
 	
 	public static String b2w_resourcesearchtext = "input.search-textbox";
+	public static String b2w_resourcesearchtextjs = "PageContent_searchControl_SearchTextBox";
 														 
 	public static String b2w_labornamegrid = "a[id^='PageContent_ListingGridView_FirstName']";
 	public static String b2w_labortypegridid = "a[id^='PageContent_ListingGridView_LaborTypeID']";
@@ -295,6 +296,7 @@ public class B2WUIMap {
 	public static String b2w_employeetitletext = "span#PageContent_generalInformationPanel_JobTitleLabel";
 	public static String b2w_employeehomephonetext = "span#PageContent_generalInformationPanel_HomePhoneLabel";
 	public static String b2w_employeecellphonetext = "span#PageContent_generalInformationPanel_CellPhoneLabel";
+	public static String b2w_newequipmentcapacitylist = "fieldset#CapacityList";
 	
 	
 	//add materials dialog
@@ -390,5 +392,6 @@ public class B2WUIMap {
 	
 	public static final String b2w_newequipmentypebutton = "a#PageContent_CreateNewEquipmentTypeButton";
 	
-	
+	// id's for java script
+	public static final String b2w_setup_searchtextboxjs = "PageContent_SearchControl_SearchTextBox";
 }

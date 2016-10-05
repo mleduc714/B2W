@@ -7,6 +7,7 @@ import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
+import appobjects.B2WUIMap;
 import appobjects.resources.B2WMaterials;
 import appobjects.resources.B2WResources;
 import tasks.B2WSetupTasks;
@@ -41,14 +42,7 @@ public abstract class B2WResourceTasks extends B2WSetupTasks {
 	}
 	
 	public boolean selectBusinessUnit(String sText) {
-		boolean bReturn = false;
-		WebElement el = WebElementUtils.findElement(B2WResources.getBusinessUnitDropDown());
-		List<WebElement> els = el.findElements(By.tagName("option"));
-		WebElement item = WebElementUtils.getElementWithMatchingText(els, sText, false);
-		if (item != null) {
-			bReturn = WebElementUtils.clickElement(item);
-		}
-		return bReturn;
+		return WebElementUtils.selectItemFromOpsDropDownMenu(B2WResources.getBusinessUnitDropDown(), sText);
 
 	}
 
@@ -202,29 +196,30 @@ public abstract class B2WResourceTasks extends B2WSetupTasks {
 	
 	
 	public boolean enterSearchForResourceText(String sText){
-		boolean bReturn = false;
-		String value = "";
-		
-		WebElement el = WebElementUtils.waitAndFindDisplayedElement(B2WMaterials.getResourcesSearchText());
-		if (el != null) {
-			value = el.getAttribute("value");
-			log.debug("The Value currently is " + value);
-			log.debug("The length of value is " +value.length());
-			if (value.length() > 0) {
-				log.debug("The Search needs to be cleared");
-				clickClearSearchButton();
-				// need to retrieve webelement again
-				TaskUtils.sleep(1000);
-				el = WebElementUtils.waitAndFindDisplayedElement(B2WMaterials.getResourcesSearchText());
-				log.debug("After the searched has been cleared" +el.getAttribute("value"));
-						
-			
-
-			}
-			bReturn = WebElementUtils.sendKeys(el, sText);
-		}
-		
-		return bReturn;
+		return WebElementUtils.setAttributeWithJS(B2WUIMap.b2w_resourcesearchtextjs, "value", sText);
+//		boolean bReturn = false;
+//		String value = "";
+//		
+//		WebElement el = WebElementUtils.waitAndFindDisplayedElement(B2WMaterials.getResourcesSearchText());
+//		if (el != null) {
+//			value = el.getAttribute("value");
+//			log.debug("The Value currently is " + value);
+//			log.debug("The length of value is " +value.length());
+//			if (value.length() > 0) {
+//				log.debug("The Search needs to be cleared");
+//				clickClearSearchButton();
+//				// need to retrieve webelement again
+//				TaskUtils.sleep(1000);
+//				el = WebElementUtils.waitAndFindDisplayedElement(B2WMaterials.getResourcesSearchText());
+//				log.debug("After the searched has been cleared" +el.getAttribute("value"));
+//						
+//			
+//
+//			}
+//			bReturn = WebElementUtils.sendKeys(el, sText);
+//		}
+//		
+//		return bReturn;
 	}
 	
 	public boolean searchOpenResourceByDescription(String sDescription){

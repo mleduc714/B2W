@@ -130,7 +130,6 @@ public class OperationsSmokeC extends B2WTestCase {
 		createEmployeeC();
 		createEmployeeD();
 		createEmployeeE();
-		deleteAll();
 	}
 
 
@@ -251,34 +250,34 @@ public class OperationsSmokeC extends B2WTestCase {
 
 	public void deleteAll() {
 		
-		assertTrue("Open Employees", b2wNav.openEmployees());
-		logCompare(true,b2wEmp.enterTextandSearchForEmployee(sEmployeeIDA), "Employee A");
-		logCompare(true,b2wEmp.openEmployeeByID(sEmployeeIDA), "Open Employee");
-		logCompare(true,b2wEmp.deleteResource(), "Delete");
-		TaskUtils.sleep(1000);
-		logCompare(true,b2wEmp.clickClearSearchButton(), "Clear Search");
-		TaskUtils.sleep(1000);
-		logCompare(true,b2wEmp.enterTextandSearchForEmployee(sEmployeeIDB), "Employee B");
-		logCompare(true,b2wEmp.openEmployeeByID(sEmployeeIDB), "Employee B");
-		logCompare(true,b2wEmp.deleteResource(), "Delete B");
-		TaskUtils.sleep(1000);
-		logCompare(true,b2wEmp.clickClearSearchButton(), "Clear");
-		TaskUtils.sleep(1000);
-		logCompare(true,b2wEmp.enterTextandSearchForEmployee(sEmployeeIDC), "Employee C");
-		logCompare(true,b2wEmp.openEmployeeByID(sEmployeeIDC), "Employee C");
-		logCompare(true,b2wEmp.deleteResource(), "Delete");
-		TaskUtils.sleep(1000);
-		logCompare(true,b2wEmp.clickClearSearchButton(), "Clear");
-		TaskUtils.sleep(1000);
-		logCompare(true,b2wEmp.enterTextandSearchForEmployee(sEmployeeIDD), "Employee D");
-		logCompare(true,b2wEmp.openEmployeeByID(sEmployeeIDD), "Employee D");
-		logCompare(true,b2wEmp.deleteResource(), "Employee D");
-		TaskUtils.sleep(1000);
-		logCompare(true,b2wEmp.clickClearSearchButton(), "Clear");
-		TaskUtils.sleep(1000);
-		logCompare(true,b2wEmp.enterTextandSearchForEmployee(sEmployeeIDE), "Employee E");
-		logCompare(true,b2wEmp.openEmployeeByID(sEmployeeIDE), "Employee E");
-		logCompare(true,b2wEmp.deleteResource(), "Delete");
+//		assertTrue("Open Employees", b2wNav.openEmployees());
+//		logCompare(true,b2wEmp.enterTextandSearchForEmployee(sEmployeeIDA), "Employee A");
+//		logCompare(true,b2wEmp.openEmployeeByID(sEmployeeIDA), "Open Employee");
+//		logCompare(true,b2wEmp.deleteResource(), "Delete");
+//		TaskUtils.sleep(1000);
+//		logCompare(true,b2wEmp.clickClearSearchButton(), "Clear Search");
+//		TaskUtils.sleep(1000);
+//		logCompare(true,b2wEmp.enterTextandSearchForEmployee(sEmployeeIDB), "Employee B");
+//		logCompare(true,b2wEmp.openEmployeeByID(sEmployeeIDB), "Employee B");
+//		logCompare(true,b2wEmp.deleteResource(), "Delete B");
+//		TaskUtils.sleep(1000);
+//		logCompare(true,b2wEmp.clickClearSearchButton(), "Clear");
+//		TaskUtils.sleep(1000);
+//		logCompare(true,b2wEmp.enterTextandSearchForEmployee(sEmployeeIDC), "Employee C");
+//		logCompare(true,b2wEmp.openEmployeeByID(sEmployeeIDC), "Employee C");
+//		logCompare(true,b2wEmp.deleteResource(), "Delete");
+//		TaskUtils.sleep(1000);
+//		logCompare(true,b2wEmp.clickClearSearchButton(), "Clear");
+//		TaskUtils.sleep(1000);
+//		logCompare(true,b2wEmp.enterTextandSearchForEmployee(sEmployeeIDD), "Employee D");
+//		logCompare(true,b2wEmp.openEmployeeByID(sEmployeeIDD), "Employee D");
+//		logCompare(true,b2wEmp.deleteResource(), "Employee D");
+//		TaskUtils.sleep(1000);
+//		logCompare(true,b2wEmp.clickClearSearchButton(), "Clear");
+//		TaskUtils.sleep(1000);
+//		logCompare(true,b2wEmp.enterTextandSearchForEmployee(sEmployeeIDE), "Employee E");
+//		logCompare(true,b2wEmp.openEmployeeByID(sEmployeeIDE), "Employee E");
+//		logCompare(true,b2wEmp.deleteResource(), "Delete");
 //		TaskUtils.sleep(1000);
 //		logCompare(true,b2wEmp.clickClearSearchButton(), "Clear Search");
 //		TaskUtils.sleep(1000);

@@ -8,7 +8,9 @@ import java.util.regex.Pattern;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebDriverException;
@@ -139,7 +141,7 @@ public class WebElementUtils {
 
 	public static WebElement getElementWithMatchingText(List<WebElement> list, String text, boolean caseSensitive) {
 		Iterator<WebElement> iter = list.iterator();
-		log.debug("Number of Elements to search thru " + list.size());
+		log.debug("Number of Elements to search thru " + list.size() + " to find "+text);
 		WebElement ret = null;
 		while (iter.hasNext()) {
 			WebElement el = iter.next();
@@ -421,6 +423,7 @@ public class WebElementUtils {
 			int timeOut) {
 		boolean bReturn = false;
 		try {
+			log.info("The Value now is: "+WebElementUtils.findElement(by).getAttribute(attribute));
 			WebDriverWait wait = new WebDriverWait(BrowserUtils.getDriver(), timeOut);
 			bReturn = wait.until(attributeToHaveValue(by, attribute, value, expected));
 		} catch (TimeoutException toe) {
@@ -476,6 +479,55 @@ public class WebElementUtils {
 		WebDriverWait wait = new WebDriverWait(BrowserUtils.getDriver(), iTimeout);
 		wait.until(ExpectedConditions.visibilityOf(el));
 		return el.isDisplayed();
+	}
+	
+	public static boolean selectItemFromOpsDropDownMenu(By by, String sText){
+		boolean bReturn = false;
+		try{
+			WebElement el = WebElementUtils.findElement(by);
+			List<WebElement> els = el.findElements(By.tagName("option"));
+			WebElement item = WebElementUtils.getElementWithMatchingText(els, sText, false);
+		if (item != null) {
+			bReturn = WebElementUtils.clickElement(item);
+		}else{
+			log.warn("The Item is Null: "+sText);
+		}
+		}catch (StaleElementReferenceException e){
+			log.warn("Caught Stale Element Exception!!");
+			selectItemFromOpsDropDownMenu(by, sText);
+		}
+		return bReturn;
+	
+	}
+	
+	public static boolean waitForElementStale(WebElement el, int timeOut){
+	    boolean isStale = false;
+	    // If the WebElement is null, do not attempt this method
+	    if(el == null){
+	      log.warn("The provided WebElement was NULL.");
+	    }else{
+	      try{
+	        WebDriverWait wait = new WebDriverWait(BrowserUtils.getDriver(), timeOut);
+	        isStale = wait.until(ExpectedConditions.stalenessOf(el));
+	      }catch(TimeoutException toe){
+	        log.debug("Element was not found to be Stale in time");
+	      }
+	    }
+	    return isStale;
+	  }
+
+	public static boolean setAttributeWithJS(String sID, String sAttribute, String sValue) {
+		boolean bReturn = false;
+		String sExecute = "document.getElementById('" + sID + "').setAttribute('" + sAttribute + "', '" + sValue + "')";
+		try {
+			JavascriptExecutor js = (JavascriptExecutor) BrowserUtils.getDriver();
+			js.executeScript(sExecute);
+			bReturn = true;
+		} catch (Exception e) {
+			log.warn("Found Exception in executing javascript");
+		}
+		return bReturn;
+
 	}
 
 }
