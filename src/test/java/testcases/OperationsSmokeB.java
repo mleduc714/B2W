@@ -170,7 +170,7 @@ public class OperationsSmokeB extends B2WTestCase {
 		sMaterialsDescriptionD = getProperty("materialdescriptionD");
 		sMaterialsIDD = getProperty("materialIDD") + n;
 
-		sPlaceDescription = getProperty("place");
+		sPlaceDescription = getProperty("place") +n;
 		sPlaceID = getProperty("placeID") + n;
 		sPlaceBusinessUnit = getProperty("placebusinessunit");
 		sPlaceCategory = getProperty("placecategory");
@@ -219,7 +219,8 @@ public class OperationsSmokeB extends B2WTestCase {
 		createMaterialsC();
 		createMaterialsD();
 		createPlace();
-		deleteAll();
+		deletePlace();
+		
 	}
 
 	public void createProductionAccount() {

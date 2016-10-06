@@ -6,7 +6,6 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
 import appobjects.resources.B2WCategories;
-import appobjects.setup.B2WSetupUsers;
 import tasks.WebElementUtils;
 
 public class B2WCategoriesTasks {

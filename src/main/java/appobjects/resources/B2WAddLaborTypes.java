@@ -13,9 +13,7 @@ public class B2WAddLaborTypes {
 	public static By getAddLaborTypeSearchText() {
 		return By.cssSelector(B2WUIMap.b2w_addlabortypesearch);
 	}
-	public static By getAddLaborTypeCheckBoxGrid() {
-		return By.cssSelector(B2WUIMap.b2w_addlabortypecheckboxgrid);
-	}
+
 	public static By getAddLaborTypeAddButton() {
 		return By.cssSelector(B2WUIMap.b2w_addlabortypeaddbutton);
 	}
@@ -33,6 +31,9 @@ public class B2WAddLaborTypes {
 	}
 	public static By getAddLaborNameCheckBox() {
 		return By.cssSelector(B2WUIMap.b2w_addlaborgridcheckbox);
+	}
+	public static By getAddLaborNameCheckBoxFromGridView() {
+		return By.cssSelector(B2WUIMap.b2w_addlabortypecheckboxgrid);
 	}
 	public static By getAddLaborGridHeader() {
 		return By.cssSelector(B2WUIMap.b2w_addlaborgridheader);

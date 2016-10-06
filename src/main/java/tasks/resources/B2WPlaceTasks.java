@@ -10,6 +10,8 @@ import appobjects.resources.B2WPlaces;
 import tasks.WebElementUtils;
 
 public class B2WPlaceTasks extends B2WResourceTasks {
+	
+	
 
 	public boolean createNewPlaceButton() {
 		boolean bReturn = false;
@@ -63,7 +65,10 @@ public class B2WPlaceTasks extends B2WResourceTasks {
 		if (el != null) {
 			bReturn = WebElementUtils.clickElement(el);
 			WebElementUtils.switchToFrame(B2WAddMaterials.getMaterialsDialog(), WebElementUtils.SHORT_TIME_OUT);
-			WebElementUtils.waitAndFindDisplayedElement(B2WAddMaterials.getCheckboxGrid(), WebElementUtils.LONG_TIME_OUT);
+			if (WebElementUtils.waitAndFindDisplayedElement(B2WAddMaterials.getCheckboxGrid(), WebElementUtils.LONG_TIME_OUT) != null){
+				B2WAddMaterialsTasks.setCountOfMaterialsinDialog();
+			}
+			
 			
 		}
 		return bReturn;

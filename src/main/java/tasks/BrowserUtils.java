@@ -6,6 +6,7 @@ import java.awt.Toolkit;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.log4j.Logger;
@@ -238,6 +239,10 @@ public class BrowserUtils {
 				log.warn("The Authentication Alert did not appear within the timeout of "+ WebElementUtils.MEDIUM_TIME_OUT);
 			}
 			return bReturn;
+		}
+		
+		 public static Set<String> getWindowHandles(){
+			    return getDriver().getWindowHandles();
 		}
 
 }

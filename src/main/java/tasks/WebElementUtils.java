@@ -1,5 +1,7 @@
 package tasks;
 
+import java.awt.AWTException;
+import java.awt.Robot;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -53,6 +55,8 @@ public class WebElementUtils {
 		}
 		return el;
 	}
+	
+	
 
 	public static WebElement getChildElement(List<WebElement> list, By child) {
 		WebElement el = null;
@@ -141,7 +145,7 @@ public class WebElementUtils {
 
 	public static WebElement getElementWithMatchingText(List<WebElement> list, String text, boolean caseSensitive) {
 		Iterator<WebElement> iter = list.iterator();
-		log.debug("Number of Elements to search thru " + list.size() + " to find "+text);
+		log.debug("Number of Elements to search thru " + list.size() + " to find " + text);
 		WebElement ret = null;
 		while (iter.hasNext()) {
 			WebElement el = iter.next();
@@ -249,6 +253,25 @@ public class WebElementUtils {
 			log.debug("Exception Throws using native sendKeys. " + wde.getMessage());
 		}
 		return bReturn;
+	}
+
+	public static boolean setTextWithJS(By by, String text) {
+		boolean bReturn = false;
+		WebElement el = findElement(by);
+		if (el == null) {
+			log.debug("Unable to find element with locator " + by);
+
+		} else {
+			setTextWithJS(el, text);
+			bReturn = true;
+		}
+		return bReturn;
+	}
+
+	public static void setTextWithJS(WebElement el, String text) {
+		text = text.replace("\\", "\\\\");
+		((JavascriptExecutor) BrowserUtils.getDriver())
+				.executeScript("arguments[0].setAttribute('value', '" + text + "')", el);
 	}
 
 	public static boolean clickElement(By target) {
@@ -423,7 +446,7 @@ public class WebElementUtils {
 			int timeOut) {
 		boolean bReturn = false;
 		try {
-			log.info("The Value now is: "+WebElementUtils.findElement(by).getAttribute(attribute));
+			log.info("The Value now is: " + WebElementUtils.findElement(by).getAttribute(attribute));
 			WebDriverWait wait = new WebDriverWait(BrowserUtils.getDriver(), timeOut);
 			bReturn = wait.until(attributeToHaveValue(by, attribute, value, expected));
 		} catch (TimeoutException toe) {
@@ -480,41 +503,41 @@ public class WebElementUtils {
 		wait.until(ExpectedConditions.visibilityOf(el));
 		return el.isDisplayed();
 	}
-	
-	public static boolean selectItemFromOpsDropDownMenu(By by, String sText){
+
+	public static boolean selectItemFromOpsDropDownMenu(By by, String sText) {
 		boolean bReturn = false;
-		try{
+		try {
 			WebElement el = WebElementUtils.findElement(by);
 			List<WebElement> els = el.findElements(By.tagName("option"));
 			WebElement item = WebElementUtils.getElementWithMatchingText(els, sText, false);
-		if (item != null) {
-			bReturn = WebElementUtils.clickElement(item);
-		}else{
-			log.warn("The Item is Null: "+sText);
-		}
-		}catch (StaleElementReferenceException e){
+			if (item != null) {
+				bReturn = WebElementUtils.clickElement(item);
+			} else {
+				log.warn("The Item is Null: " + sText);
+			}
+		} catch (StaleElementReferenceException e) {
 			log.warn("Caught Stale Element Exception!!");
 			selectItemFromOpsDropDownMenu(by, sText);
 		}
 		return bReturn;
-	
+
 	}
-	
-	public static boolean waitForElementStale(WebElement el, int timeOut){
-	    boolean isStale = false;
-	    // If the WebElement is null, do not attempt this method
-	    if(el == null){
-	      log.warn("The provided WebElement was NULL.");
-	    }else{
-	      try{
-	        WebDriverWait wait = new WebDriverWait(BrowserUtils.getDriver(), timeOut);
-	        isStale = wait.until(ExpectedConditions.stalenessOf(el));
-	      }catch(TimeoutException toe){
-	        log.debug("Element was not found to be Stale in time");
-	      }
-	    }
-	    return isStale;
-	  }
+
+	public static boolean waitForElementStale(WebElement el, int timeOut) {
+		boolean isStale = false;
+		// If the WebElement is null, do not attempt this method
+		if (el == null) {
+			log.warn("The provided WebElement was NULL.");
+		} else {
+			try {
+				WebDriverWait wait = new WebDriverWait(BrowserUtils.getDriver(), timeOut);
+				isStale = wait.until(ExpectedConditions.stalenessOf(el));
+			} catch (TimeoutException toe) {
+				log.debug("Element was not found to be Stale in time");
+			}
+		}
+		return isStale;
+	}
 
 	public static boolean setAttributeWithJS(String sID, String sAttribute, String sValue) {
 		boolean bReturn = false;
@@ -529,5 +552,31 @@ public class WebElementUtils {
 		return bReturn;
 
 	}
+	
+
+	  public static void moveVirtualMouseOverElement(WebElement el){
+	    if(el == null){
+	      log.warn("The provided WebElement was NULL.");
+	    }else{
+	      if(!BrowserUtils.isSafari()){
+	        Actions action = new Actions(BrowserUtils.getDriver());
+	        action.moveToElement(el);
+	        action.perform();
+	      }else{
+	        try{
+	          Robot robot = new Robot();
+	          robot.setAutoDelay(1000);
+	          int targetX = el.getLocation().x + el.getSize().width / 2;
+	          int targetY = el.getLocation().y + el.getSize().height / 2;
+	          robot.mouseMove(targetX, targetY);
+	        }catch(AWTException e){
+	          log.warn(e.getMessage());
+	        }
+	      }
+	    }
+	  }
+	  
+	 
+
 
 }

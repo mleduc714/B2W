@@ -58,4 +58,7 @@ public class B2WHomePage {
 	public static By getB2WHomeMarketingPage() {
 		return By.cssSelector(B2WUIMap.b2w_home_marketing);
 	}
+	public static By getB2WFrame() {
+		return By.cssSelector(B2WUIMap.b2w_frame);
+	}
 }

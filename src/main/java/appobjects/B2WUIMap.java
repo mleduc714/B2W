@@ -3,6 +3,7 @@ package appobjects;
 public class B2WUIMap {
 	
 	
+	public static final String b2w_frame = "body#Build2Win";
 	public static final String b2w_icon = "a.b2w-software-logo";
 	public static final String b2w_home = "li#nHome";
 	public static final String b2w_jobs = "li#nJobs";

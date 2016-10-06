@@ -347,8 +347,9 @@ public class B2WSetupTasks {
 	public boolean clickTopSaveButton() {
 		boolean bReturn = false;
 		if (WebElementUtils.clickElement(B2WSetup.getTopSaveButton())){
-			TaskUtils.sleep(1000);
 			bReturn = waitForProcessingDialogToClear();
+			
+			
 		}
 		return bReturn;
 	}

@@ -1,8 +1,5 @@
 package tasks.resources;
 
-import java.util.List;
-
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
 import appobjects.resources.B2WEquipmentType;
@@ -18,18 +15,11 @@ public class B2WEquipmentTypesTasks extends B2WResourceTasks {
 		return bReturn;
 	}
 	
-	public boolean selectEquipmentCategory(String sText) {
-		boolean bReturn = false;
-		WebElement el = WebElementUtils.waitAndFindDisplayedElement(B2WEquipmentType.getNewEquipmentCategoryDropDown());
-		List<WebElement> els = el.findElements(By.tagName("option"));
-		WebElement item = WebElementUtils.getElementWithMatchingText(els, sText, false);
-		if (item != null) {
-			bReturn = WebElementUtils.clickElement(item);
-		}
-		return bReturn;
+	public boolean selectEquipmentTypeCategory(String sText) {
+		return WebElementUtils.selectItemFromOpsDropDownMenu(B2WEquipmentType.getNewEquipmentTypeCategoryDropDown(), sText);
 	}
 	
-	public boolean setEquipmentType(String sText){
+	public boolean setEquipmentTypeName(String sText){
 		WebElement el = WebElementUtils.findElement(B2WEquipmentType.getNewEquipmentTypeName());
 		return WebElementUtils.sendKeys(el, sText);
 	}
@@ -40,8 +30,22 @@ public class B2WEquipmentTypesTasks extends B2WResourceTasks {
 	}
 	
 	public boolean setEquipmentTypeTransportsMaterials(boolean bCheck){
-		WebElement el = WebElementUtils.findElement(B2WEquipmentType.getNewEquipmentTransportsMaterialsCheckBox());
-		return checkBox(el, bCheck);
+		boolean bReturn = false;
+		WebElement el = WebElementUtils.findElement(B2WEquipmentType.getNewEquipmentTypeTransportsMaterialsCheckBox());
+		checkBox(el, bCheck);
+		if (bCheck){
+			WebElement list = WebElementUtils.waitAndFindDisplayedElement(B2WEquipmentType.getNewEquipmentCapacityList());
+			if (list != null){
+				bReturn = true;
+			}
+		}else{
+			bReturn = true;
+		}
+		return bReturn;
+	}
+	
+	public boolean setEquipmentTypeBusinessUnit(String sCategory) {
+		return selectBusinessUnit(sCategory);
 	}
 	
 }

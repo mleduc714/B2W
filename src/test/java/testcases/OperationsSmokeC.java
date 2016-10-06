@@ -15,7 +15,6 @@ import tasks.resources.B2WMaterialsTasks;
 import tasks.resources.B2WNewLaborTypeTasks;
 import tasks.resources.B2WPlaceTasks;
 import tasks.setup.B2WUserTasks;
-import tasks.util.TaskUtils;
 
 public class OperationsSmokeC extends B2WTestCase {
 
@@ -156,22 +155,18 @@ public class OperationsSmokeC extends B2WTestCase {
 	public void createEmployeeA() {
 		assertTrue("Open Employees", b2wNav.openEmployees());
 		assertTrue("Create New Employee",b2wEmp.createNewEmployeeButton());
-	
 		logCompare(true, b2wEmp.setEmployeeFirstName(sEmployeeFirstNameA), "Set First Name");
 		logCompare(true, b2wEmp.setEmployeeLastName(sEmployeeLastNameA), "Set Last Name");
+		logCompare(true, b2wEmp.openAddLaborTypeDialog(), "Open Labor Dialog");
+		logCompare(true, b2wAddLabor.setSearchText(sLaborTypeIDA), "Search for Labor");
+		logCompare(true, b2wAddLabor.clickSearchButton(), "Click Search Button");
+		logCompare(true, b2wAddLabor.selectCheckBox(sLaborTypeA), "Select Labor Type");
+		logCompare(true, b2wAddLabor.clickAddButton(), "Select Add Button");
 		logCompare(true, b2wEmp.setEmployeeID(sEmployeeIDA), "Set Employee ID");
 		logCompare(true, b2wEmp.setEmployeeEmail(sEmployeeFirstNameA+"@gmail.com"), "Set Email");
 		logCompare(true, b2wEmp.setEmployeeHomePhone("603-555-2312"), "Home Phone");
 		logCompare(true, b2wEmp.setEmployeeTitle("Title"), "Title");
-		logCompare(true, b2wEmp.openAddLaborTypeDialog(), "Open Labor Dialog");
-		logCompare(true, b2wAddLabor.setSearchText(sLaborTypeA), "Search for Labor");
-		TaskUtils.sleep(500);
-		logCompare(true, b2wAddLabor.clickSearchButton(), "Click Search Button");
-		TaskUtils.sleep(500);
-		logCompare(true, b2wAddLabor.selectCheckBox(sLaborTypeA), "Select Labor Type");
-		logCompare(true, b2wAddLabor.clickAddButton(), "Select Add Button");
-		TaskUtils.sleep(500);
-		logCompare(true, b2wEmp.clickTopSaveButton(), "Click Top Save Button");
+		logCompare(true, b2wEmp.clickBottomSaveButton(), "Click Top Save Button");
 		logCompare(true, b2wEmp.getEmployeeLaborTypeName().contains(sLaborTypeA), "Labor Type A");
 		logCompare(true, b2wEmp.getEmployeeLaborTypeID().contains(sLaborTypeIDA), "Labor ID A");
 		logCompare("603-555-2312",b2wEmp.getEmployeeHomePhoneText(), "Home Phone#");
@@ -201,7 +196,7 @@ public class OperationsSmokeC extends B2WTestCase {
 		logCompare(true, b2wEmp.setFieldEmployeeCheckBox(false), "Uncheck employee");
 		logCompare(true, b2wEmp.setTruckDriverCheckBox(true), "Set Driver Checkbox");
 		logCompare(true, b2wEmp.clickTopSaveButton(), "Click Top Save Button");
-		logCompare("Truck Driver",b2wEmp.getEmployeeRolesText(), "get the role");
+		logCompare("Truck Driver ",b2wEmp.getEmployeeRolesText(), "get the role");
 
 	}
 	
@@ -214,14 +209,13 @@ public class OperationsSmokeC extends B2WTestCase {
 		logCompare(true, b2wEmp.setFieldEmployeeCheckBox(false), "Uncheck employee");
 		logCompare(true, b2wEmp.setMechanicCheckBox(true), "Set Driver Checkbox");
 		logCompare(true, b2wEmp.openAddLaborTypeDialog(), "Open Labor Dialog");
-		logCompare(true, b2wAddLabor.setSearchText(sLaborTypeB), "Search for Labor");
-		TaskUtils.sleep(500);
+		logCompare(true, b2wAddLabor.setSearchText(sLaborTypeIDB), "Search for Labor");
 		logCompare(true, b2wAddLabor.clickSearchButton(), "Click Search Button");
-		TaskUtils.sleep(500);
 		logCompare(true, b2wAddLabor.selectCheckBox(sLaborTypeB), "Select Labor Type");
 		logCompare(true, b2wAddLabor.clickAddButton(), "Select Add Button");
-		TaskUtils.sleep(500);
-		logCompare(true, b2wEmp.clickTopSaveButton(), "Click Top Save Button");
+		logCompare(true, b2wEmp.setEmployeeHomePhone("603-555-5312"), "Home Phone");
+		logCompare(true, b2wEmp.setEmployeeTitle("Junior"), "Title");
+		logCompare(true, b2wEmp.clickBottomSaveButton(), "Click Top Save Button");
 		logCompare("Mechanic",b2wEmp.getEmployeeRolesText(), "get the role");
 		logCompare(true, b2wEmp.getEmployeeLaborTypeName().contains(sLaborTypeB), "Labor Type B");
 		logCompare(true, b2wEmp.getEmployeeLaborTypeID().contains(sLaborTypeIDB), "Labor ID B");

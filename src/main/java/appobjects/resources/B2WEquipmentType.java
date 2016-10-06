@@ -17,11 +17,13 @@ public class B2WEquipmentType {
 	public static By getNewEquipmentTypeID() {
 		return By.cssSelector(B2WUIMap.b2w_newequipmenttypeid);
 	}
-	public static By getNewEquipmentTransportsMaterialsCheckBox() {
+	public static By getNewEquipmentTypeTransportsMaterialsCheckBox() {
 		return By.cssSelector(B2WUIMap.b2w_newequipmenttypetransportscb);
 	}
-	public static By getNewEquipmentCategoryDropDown() {
+	public static By getNewEquipmentTypeCategoryDropDown() {
 		return By.cssSelector(B2WUIMap.b2w_newequipmentcategory);
 	}
-	
+	public static By getNewEquipmentCapacityList(){
+		return By.cssSelector(B2WUIMap.b2w_newequipmentcapacitylist);
+	}
 }
