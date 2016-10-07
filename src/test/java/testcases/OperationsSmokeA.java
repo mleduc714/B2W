@@ -192,10 +192,10 @@ public class OperationsSmokeA extends B2WTestCase {
 		assertTrue("Search for Last Name",userTasks.enterTextAndClickSearch(sLastName));
 		assertTrue("Open the user",userTasks.openUserByLastName(sLastName));
 		assertTrue("Edit the User",userTasks.clickEditButton());
-		logCompare(true,userTasks.changeDispatchAccessToFullAccess(),"Remove Dispatch");		
-		logCompare(true,userTasks.changeMaintainManagerAccessToFullAccess(),"Remove Maintain Manager Access");
-		logCompare(true,userTasks.changeMaintainMechanicAccessToFullAccess(),"Remove Maintain Mechanic Access");
-		logCompare(true,userTasks.changeTrackAccessToFullAccess(), "Remove Track Access");
+		logCompare(true,userTasks.changeDispatchAccessToFullAccess(),"Restore Dispatch");		
+		logCompare(true,userTasks.changeMaintainManagerAccessToFullAccess(),"Restore Maintain Manager Access");
+		logCompare(true,userTasks.changeMaintainMechanicAccessToFullAccess(),"Restore Maintain Mechanic Access");
+		logCompare(true,userTasks.changeTrackAccessToFullAccess(), "Restore Track Access");
 		logCompare(true,userTasks.clickTopSaveButton(), "Save the user");
 		assertTrue("Go Home",b2wNav.clickHome());
 
