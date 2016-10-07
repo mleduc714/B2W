@@ -393,6 +393,7 @@ public class B2WSetupTasks {
 		if (enterSearchText(sText)){
 			clickSearchButton();
 			bReturn = waitForProcessingDialogToClear();
+			TaskUtils.sleep(1000);
 		}
 		return bReturn;
 	}
