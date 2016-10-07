@@ -219,7 +219,6 @@ public class OperationsSmokeB extends B2WTestCase {
 		createMaterialsC();
 		createMaterialsD();
 		createPlace();
-		deletePlace();
 		
 	}
 
