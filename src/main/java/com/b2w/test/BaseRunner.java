@@ -105,8 +105,9 @@ public abstract class BaseRunner extends ParentRunner<BaseTestCase> implements T
 			try {
 				if (child.isSupported() || bStarted){
 					log.info("TESTCOMPLETE;" + child.getClass().getName());
-					BrowserUtils.getDriver().quit();
+					
 					child.after();
+					BrowserUtils.getDriver().quit();
 				}
 			} catch (Throwable t) {
 				log.error(t);
