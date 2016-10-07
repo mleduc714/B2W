@@ -6,6 +6,7 @@ import org.openqa.selenium.WebElement;
 
 import appobjects.B2WUIMap;
 import appobjects.setup.B2WSetup;
+import tasks.util.TaskUtils;
 
 public class B2WSetupTasks {
 	
@@ -346,8 +347,7 @@ public class B2WSetupTasks {
 		boolean bReturn = false;
 		if (WebElementUtils.clickElement(B2WSetup.getTopSaveButton())){
 			bReturn = waitForProcessingDialogToClear();
-			
-			
+			TaskUtils.sleep(2000);
 		}
 		return bReturn;
 	}
@@ -355,6 +355,7 @@ public class B2WSetupTasks {
 		boolean bReturn = false;
 		if (WebElementUtils.clickElement(B2WSetup.getBottomSaveButton())){
 			bReturn = waitForProcessingDialogToClear();
+			TaskUtils.sleep(2000);
 		}
 		return bReturn;
 	}
