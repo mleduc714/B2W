@@ -21,7 +21,8 @@ public class OperationsSmokeA extends B2WTestCase {
 	
 	@Override
 	public void testTearDown() throws Throwable {
-		
+		super.testTearDown();
+		addAllAccess();
 		
 	}
 
@@ -185,15 +186,19 @@ public class OperationsSmokeA extends B2WTestCase {
 	}
 	
 	public void addAllAccess() {
-		b2wNav.openSetupUsers();
-		userTasks.openUserByLastName(sLastName);
-		userTasks.clickEditButton();
-		userTasks.changeDispatchAccessToFullAccess();
-		userTasks.changeTrackAccessToFullAccess();
-		userTasks.changeMaintainManagerAccessToFullAccess();
-		userTasks.changeMaintainMechanicAccessToFullAccess();
-		userTasks.clickTopSaveButton();
-		b2wNav.clickHome();
+		assertTrue("Open Setup Users", b2wNav.openSetupUsers());
+		//logCompare("Michael LeDuc",b2wNav.getUserName(), "User Names");
+		//TaskUtils.logScreenCapture();
+		assertTrue("Search for Last Name",userTasks.enterTextAndClickSearch(sLastName));
+		assertTrue("Open the user",userTasks.openUserByLastName(sLastName));
+		assertTrue("Edit the User",userTasks.clickEditButton());
+		logCompare(true,userTasks.changeDispatchAccessToFullAccess(),"Remove Dispatch");		
+		logCompare(true,userTasks.changeMaintainManagerAccessToFullAccess(),"Remove Maintain Manager Access");
+		logCompare(true,userTasks.changeMaintainMechanicAccessToFullAccess(),"Remove Maintain Mechanic Access");
+		logCompare(true,userTasks.changeTrackAccessToFullAccess(), "Remove Track Access");
+		logCompare(true,userTasks.clickTopSaveButton(), "Save the user");
+		assertTrue("Go Home",b2wNav.clickHome());
+
 	}
 	
 	
