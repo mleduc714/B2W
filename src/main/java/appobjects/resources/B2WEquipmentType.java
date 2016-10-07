@@ -24,6 +24,6 @@ public class B2WEquipmentType {
 		return By.cssSelector(B2WUIMap.b2w_newequipmentcategory);
 	}
 	public static By getNewEquipmentCapacityList(){
-		return By.cssSelector(B2WUIMap.b2w_newequipmentcapacitylist);
+		return By.cssSelector(B2WUIMap.b2w_newequipmentcapacitygrid);
 	}
 }

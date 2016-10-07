@@ -7,7 +7,7 @@ import tasks.WebElementUtils;
 
 public class B2WEquipmentTypesTasks extends B2WResourceTasks {
 
-	public boolean createNewEquipmentTypeButton() {
+	public boolean createNewEquipmentType() {
 		boolean bReturn = false;
 		if (WebElementUtils.clickElement(B2WEquipmentType.getNewEquipmentTypeButton())) {
 			bReturn = WebElementUtils.waitAndFindDisplayedElement(B2WEquipmentType.getNewEquipmentTypeName()) != null;
@@ -16,7 +16,8 @@ public class B2WEquipmentTypesTasks extends B2WResourceTasks {
 	}
 	
 	public boolean selectEquipmentTypeCategory(String sText) {
-		return WebElementUtils.selectItemFromOpsDropDownMenu(B2WEquipmentType.getNewEquipmentTypeCategoryDropDown(), sText);
+		WebElementUtils.selectItemFromOpsDropDownMenu(B2WEquipmentType.getNewEquipmentTypeCategoryDropDown(), sText);
+		return sText.equals(WebElementUtils.getSelectedTextFromDropDown(B2WEquipmentType.getNewEquipmentTypeCategoryDropDown()));
 	}
 	
 	public boolean setEquipmentTypeName(String sText){

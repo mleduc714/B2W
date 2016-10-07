@@ -26,18 +26,15 @@ public class B2WPartTasks extends B2WResourceTasks {
 			bReturn = WebElementUtils.sendKeys(el, sPartID);
 		}
 		return bReturn;
-
 	}
 
 	public boolean setPartDescription(String sText) {
 		boolean bReturn = false;
-
 		WebElement el = WebElementUtils.findElement(B2WParts.getPartDescription());
 		if (el != null) {
 			bReturn = WebElementUtils.sendKeys(el, sText);
 		}
 		return bReturn;
-
 	}
 
 	public boolean setPartManufacter(String sManufacturer) {
@@ -61,6 +58,14 @@ public class B2WPartTasks extends B2WResourceTasks {
 
 	public boolean setPartCategory(String sText) {
 		return setCategory(sText);
+	}
+	
+	public boolean createNewPart() {
+		boolean bReturn = false;
+		if (WebElementUtils.clickElement(B2WParts.getCreateNewPartButton())) {
+			bReturn = WebElementUtils.waitAndFindDisplayedElement(B2WParts.getPartDescription()) != null;
+		}
+		return bReturn;
 	}
 
 }

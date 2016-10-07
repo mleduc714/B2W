@@ -29,4 +29,11 @@ public class B2WCategories {
 	public static By getCategoryNameText() {
 		return By.cssSelector(B2WUIMap.b2w_categories_categorynametext);
 	}
+	public static By getCategoryColorDropDown() {
+		return By.cssSelector(B2WUIMap.b2w_categoriescolordropdown);
+	}
+	
+	public static By getCategoryAssociatedColor() {
+		return By.cssSelector(B2WUIMap.b2w_categoriesassociatedcolor);
+	}
 }

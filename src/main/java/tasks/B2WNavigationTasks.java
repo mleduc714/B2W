@@ -202,6 +202,9 @@ public class B2WNavigationTasks implements Navigation {
 	public boolean openPlaces() {
 		return openResources("Places","Places");
 	}
+	public boolean openParts() {
+		return openResources("Parts","Parts");
+	}
 	public boolean openEquipmentTypes() {
 		return openResources("Equipment Types", "Equipment Types");
 	}
@@ -226,6 +229,9 @@ public class B2WNavigationTasks implements Navigation {
 	}
 	public boolean openEquipmentRateClasses() {
 		return openResources("Equipment Rate Classes","Equipment Rate Classes");
+	}
+	public boolean openLaborRateClasses() {
+		return openResources("Labor Rate Classes", "Labor Rate Classes");
 	}
 	
 }

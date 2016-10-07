@@ -6,7 +6,6 @@ import org.openqa.selenium.WebElement;
 
 import appobjects.B2WUIMap;
 import appobjects.setup.B2WSetup;
-import tasks.util.TaskUtils;
 
 public class B2WSetupTasks {
 	
@@ -300,7 +299,6 @@ public class B2WSetupTasks {
 	public boolean waitForProcessingDialogToClear() {
 		boolean bReturn = false;
 		bReturn = WebElementUtils.waitForElementHasAttributeWithValue(B2WSetup.getProcessingPanel(), "class", "hidden", true, WebElementUtils.LONG_TIME_OUT);
-		TaskUtils.sleep(1500);
 		return bReturn;
 	}
 	protected boolean checkBox(WebElement el, boolean bCheck){
@@ -389,6 +387,16 @@ public class B2WSetupTasks {
 		}
 		return bReturn;
 	}
-	
+	public boolean enterTextAndClickSearch(String sText) {
+		boolean bReturn = false;
+		if (enterSearchText(sText)){
+			clickSearchButton();
+			bReturn = waitForProcessingDialogToClear();
+		}
+		return bReturn;
+	}
+	public boolean clickSearchButton(){
+		return WebElementUtils.clickElement(B2WSetup.getB2WSearchButton());
+	}
 	
 }

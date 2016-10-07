@@ -42,7 +42,8 @@ public abstract class B2WResourceTasks extends B2WSetupTasks {
 	}
 	
 	public boolean selectBusinessUnit(String sText) {
-		return WebElementUtils.selectItemFromOpsDropDownMenu(B2WResources.getBusinessUnitDropDown(), sText);
+		WebElementUtils.selectItemFromOpsDropDownMenu(B2WResources.getBusinessUnitDropDown(), sText);
+		return sText.equals(WebElementUtils.getSelectedTextFromDropDown(B2WResources.getBusinessUnitDropDown()));
 
 	}
 
@@ -72,14 +73,16 @@ public abstract class B2WResourceTasks extends B2WSetupTasks {
 		return bReturn;
 	}
 	public boolean selectUnitOfMeasure(String sText) {
-		boolean bReturn = false;
-		WebElement el = WebElementUtils.waitAndFindDisplayedElement(B2WResources.getUnitOfMeasureDropDown());
-		List<WebElement> els = el.findElements(By.tagName("option"));
-		WebElement item = WebElementUtils.getElementWithMatchingText(els, sText, false);
-		if (item != null) {
-			bReturn = WebElementUtils.clickElement(item);
-		}
-		return bReturn;
+		WebElementUtils.selectItemFromOpsDropDownMenu(B2WResources.getUnitOfMeasureDropDown(), sText);
+		return sText.equals(getSelectedUnitOfMeasure());
+		
+//		WebElement el = WebElementUtils.waitAndFindDisplayedElement(B2WResources.getUnitOfMeasureDropDown());
+//		List<WebElement> els = el.findElements(By.tagName("option"));
+//		WebElement item = WebElementUtils.getElementWithMatchingText(els, sText, false);
+//		if (item != null) {
+//			bReturn = WebElementUtils.clickElement(item);
+//		}
+//		return bReturn;
 	}
 
 	public boolean selectUnitOfMeasure(int iSelect) {
@@ -91,19 +94,11 @@ public abstract class B2WResourceTasks extends B2WSetupTasks {
 	}
 	
 	public String getSelectedBusinessUnit() {
-		String sSelection = null;
-		WebElement el = WebElementUtils.findElement(B2WResources.getBusinessUnitDropDown());
-		List<WebElement> els = el.findElements(By.tagName("option"));
-		sSelection = WebElementUtils.getSelectedTextFromDropDown(els);
-		return sSelection;
+		return WebElementUtils.getSelectedTextFromDropDown(B2WResources.getBusinessUnitDropDown());
 	}
 
 	public String getSelectedUnitOfMeasure() {
-		String sSelection = null;
-		WebElement el = WebElementUtils.findElement(B2WResources.getUnitOfMeasureDropDown());
-		List<WebElement> els = el.findElements(By.tagName("option"));
-		sSelection = WebElementUtils.getSelectedTextFromDropDown(els);
-		return sSelection;
+		return WebElementUtils.getSelectedTextFromDropDown(B2WResources.getUnitOfMeasureDropDown());
 	}
 	
 	public String getAccountUnitofMeasureText() {

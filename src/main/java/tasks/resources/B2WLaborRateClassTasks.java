@@ -29,4 +29,12 @@ public class B2WLaborRateClassTasks extends B2WResourceTasks {
 		return selectBusinessUnit(sText);
 	}
 	
+	public boolean createNewLaborRateClass() {
+		boolean bReturn = false;
+		if (WebElementUtils.clickElement(B2WLaborRateClasses.getCreateNewLaborRateClassButton())) {
+			bReturn = WebElementUtils.waitAndFindDisplayedElement(B2WLaborRateClasses.getLaborRateName()) != null;
+		}
+		return bReturn;
+	}
+	
 }

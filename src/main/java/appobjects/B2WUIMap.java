@@ -297,7 +297,6 @@ public class B2WUIMap {
 	public static String b2w_employeetitletext = "span#PageContent_generalInformationPanel_JobTitleLabel";
 	public static String b2w_employeehomephonetext = "span#PageContent_generalInformationPanel_HomePhoneLabel";
 	public static String b2w_employeecellphonetext = "span#PageContent_generalInformationPanel_CellPhoneLabel";
-	public static String b2w_newequipmentcapacitylist = "fieldset#CapacityList";
 	
 	
 	//add materials dialog
@@ -359,6 +358,7 @@ public class B2WUIMap {
 	public static final String b2w_newequipmentsave = "div.btn-form large save";
 	public static final String b2w_newequipmentformrequired = ".form-required";
 	public static final String b2w_newequipmentselectfromdropdown = "li.k-item";
+	public static final String b2w_newequipmentcapacitygrid= "table#PageContent_CapacityGrid";
 	
 	//new equipment type
 	public static final String b2w_newequipmenttypebutton = "a#PageContent_CreateNewEquipmentTypeButton";
@@ -367,6 +367,9 @@ public class B2WUIMap {
 	public static final String b2w_categoriesdropdown = "select#PageContent_ViewCategoryDropDownList";
 	public static final String b2w_createnewcategorybutton = "a#PageContent_CreateNewCategoryButton";
 	public static final String b2w_categoriesrequestcalificationtype = "select#PageContent_generalInformationPanel_RequestClassificationTypeDropDown";
+	public static final String b2w_categoriescolordropdown = ".colorSelectButtonDiv";
+	public static final String b2w_categoriesassociatedcolor = "div#PageContent_generalInformationPanel_ColorDropDownListdivWrapper";
+	
 	
 	public static final String b2w_createnewlaborrateclass = "a#PageContent_CreateNewLaborRateClassButton";
 	public static final String b2w_newlaborrateid = "input#PageContent_generalInformationPanel_RateClassIDTextBox";

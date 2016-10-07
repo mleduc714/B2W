@@ -452,6 +452,9 @@ public class WebElementUtils {
 		} catch (TimeoutException toe) {
 			log.warn("Element with locator '" + by.toString() + " " + attribute + " attribute "
 					+ (expected ? "never contained " : "never lost ") + value);
+		} catch (StaleElementReferenceException e){
+			log.warn("Stale Element Exception");
+			waitForElementHasAttributeWithValue(by, attribute, value, expected, timeOut);
 		}
 		return bReturn;
 	}
@@ -468,13 +471,17 @@ public class WebElementUtils {
 		return bReturn;
 	}
 
-	public static String getSelectedTextFromDropDown(List<WebElement> els) {
+	public static String getSelectedTextFromDropDown(By by) {
 		String sSelection = null;
+		WebElement dd = WebElementUtils.findElement(by);
+		List<WebElement> els = dd.findElements(By.tagName("option"));
 		Iterator<WebElement> iter = els.iterator();
 		while (iter.hasNext()) {
 			WebElement el = iter.next();
 			if (el.getAttribute("selected") != null) {
-				sSelection = el.getText();
+				String sText = el.getText();
+				log.debug("Selected Text from DD: "+sText);
+				sSelection = sText;
 			}
 		}
 		return sSelection;
@@ -504,14 +511,13 @@ public class WebElementUtils {
 		return el.isDisplayed();
 	}
 
-	public static boolean selectItemFromOpsDropDownMenu(By by, String sText) {
-		boolean bReturn = false;
+	public static void selectItemFromOpsDropDownMenu(By by, String sText) {
 		try {
 			WebElement el = WebElementUtils.findElement(by);
 			List<WebElement> els = el.findElements(By.tagName("option"));
 			WebElement item = WebElementUtils.getElementWithMatchingText(els, sText, false);
 			if (item != null) {
-				bReturn = WebElementUtils.clickElement(item);
+				WebElementUtils.clickElement(item);
 			} else {
 				log.warn("The Item is Null: " + sText);
 			}
@@ -519,8 +525,6 @@ public class WebElementUtils {
 			log.warn("Caught Stale Element Exception!!");
 			selectItemFromOpsDropDownMenu(by, sText);
 		}
-		return bReturn;
-
 	}
 
 	public static boolean waitForElementStale(WebElement el, int timeOut) {

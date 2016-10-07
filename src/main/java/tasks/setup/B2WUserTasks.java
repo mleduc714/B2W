@@ -174,14 +174,7 @@ public class B2WUserTasks extends B2WSetupTasks {
 		return true;
 		
 	}
-	public boolean enterTextAndClickSearch(String sText) {
-		boolean bReturn = false;
-		if (enterSearchText(sText)){
-			clickSearchButton();
-			bReturn = waitForProcessingDialogToClear();
-		}
-		return bReturn;
-	}
+	
 	
 
 
