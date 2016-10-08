@@ -203,7 +203,7 @@ public class B2WAccountTasks extends B2WResourceTasks {
 		return bReturn;
 	}
 	
-	public boolean selectCostCalcTypePercentage(){
+	public boolean selectCostCalcTypePercentageFromDropDown(){
 		boolean bReturn = false;
 		WebElement el = WebElementUtils.findElement(B2WAccounts.getAccountCostCalType());
 		List<WebElement> els = el.findElements(By.tagName("option"));
@@ -211,7 +211,7 @@ public class B2WAccountTasks extends B2WResourceTasks {
 		return bReturn;
 	}
 	
-	public boolean selectCostCalcTypeUnitCost() {
+	public boolean selectCostCalcTypeUnitCostFromDropDown() {
 		boolean bReturn = false;
 		WebElement el = WebElementUtils.findElement(B2WAccounts.getAccountCostCalType());
 		List<WebElement> els = el.findElements(By.tagName("option"));

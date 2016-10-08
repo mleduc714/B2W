@@ -45,13 +45,11 @@ public class WebElementUtils {
 		WebElement el = null;
 		if (parent == null) {
 			log.warn("The parent element is null.");
-
 		}
 		try {
 			el = parent.findElement(child);
 		} catch (NoSuchElementException nsee) {
 			log.warn("No child of the WebElement that matches " + child.toString());
-
 		}
 		return el;
 	}
@@ -149,13 +147,14 @@ public class WebElementUtils {
 		WebElement ret = null;
 		while (iter.hasNext()) {
 			WebElement el = iter.next();
+			String elementText = el.getText();
 			if (caseSensitive) {
-				if (text.equals(el.getText())) {
+				if (text.equals(elementText)) {
 					ret = el;
 					break;
 				}
 			} else {
-				if (text.equalsIgnoreCase(el.getText())) {
+				if (text.equalsIgnoreCase(elementText)) {
 					ret = el;
 					break;
 				}
@@ -170,12 +169,11 @@ public class WebElementUtils {
 		WebElement ret = null;
 		while (iter.hasNext()) {
 			WebElement el = iter.next();
-
-			if (el.getText().startsWith(sText)) {
+			String sElementText = el.getText();
+			if (sElementText.startsWith(sText)) {
 				ret = el;
 				break;
 			}
-
 		}
 		return ret;
 	}
@@ -580,7 +578,14 @@ public class WebElementUtils {
 	    }
 	  }
 	  
-	 
+//		public void getAllInfo(WebElement el) {
+//		JavascriptExecutor executor = (JavascriptExecutor) BrowserUtils.getDriver();
+//		Object aa = executor.executeScript(
+//				"var items = {}; for (index = 0; index < arguments[0].attributes.length; ++index) { items[arguments[0].attributes[index].name] = arguments[0].attributes[index].value }; return items;",
+//				el);
+//		System.out.println(aa.toString());
+//	}
+	
 
 
 }

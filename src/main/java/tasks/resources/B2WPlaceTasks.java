@@ -58,7 +58,7 @@ public class B2WPlaceTasks extends B2WResourceTasks {
 
 	}
 
-	public boolean addMaterials() {
+	public boolean clickAddMaterialsButton() {
 		WebElementUtils.switchToFrame(B2WPlaces.getAddMaterialsButton(), WebElementUtils.SHORT_TIME_OUT);
 		boolean bReturn = false;
 		WebElement el = WebElementUtils.waitAndFindElement(B2WPlaces.getAddMaterialsButton());
@@ -259,6 +259,40 @@ public class B2WPlaceTasks extends B2WResourceTasks {
 
 		return sText;
 
+	}
+	
+	public boolean createBin() {
+		boolean bReturn = false;
+		WebElement el = WebElementUtils.findElement(B2WPlaces.getAddBinButton());
+		if (el!=null){
+			bReturn = WebElementUtils.clickElement(el);
+			bReturn = WebElementUtils.waitAndFindDisplayedElement(B2WPlaces.getNewPlaceBinDescription()) != null;
+		}
+		
+		return bReturn;
+	}
+	
+	public boolean setPlaceBinDescription(String sText) {
+		boolean bReturn = false;
+		WebElement el = WebElementUtils.findElement(B2WPlaces.getNewPlaceBinDescription());
+		if (el != null){
+			bReturn = WebElementUtils.sendKeys(el, sText);
+		}
+		return bReturn;
+	}
+	
+	public boolean clickSaveBin() {
+		boolean bReturn = false;
+		WebElement el = WebElementUtils.findElement(B2WPlaces.getTopSavePanel());
+		if (el!=null){
+			bReturn = WebElementUtils.clickElement(el);
+			bReturn &= WebElementUtils.waitAndFindDisplayedElement(B2WPlaces.getPlaceCityText()) != null;
+		}
+		return bReturn;
+	}
+	
+	public String getInventoryBinDescription() {
+		return WebElementUtils.findElement(B2WPlaces.getInventoryBinDescription()).getText();
 	}
 
 }

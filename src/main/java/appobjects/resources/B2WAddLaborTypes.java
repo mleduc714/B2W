@@ -9,11 +9,9 @@ public class B2WAddLaborTypes {
 	public static By getAddLaborTypesDialog() {
 		return By.cssSelector(B2WUIMap.b2w_addlabortypesdialog);
 	}
-	
 	public static By getAddLaborTypeSearchText() {
 		return By.cssSelector(B2WUIMap.b2w_addlabortypesearch);
 	}
-
 	public static By getAddLaborTypeAddButton() {
 		return By.cssSelector(B2WUIMap.b2w_addlabortypeaddbutton);
 	}
@@ -38,6 +36,5 @@ public class B2WAddLaborTypes {
 	public static By getAddLaborGridHeader() {
 		return By.cssSelector(B2WUIMap.b2w_addlaborgridheader);
 	}
-
 
 }

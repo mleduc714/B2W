@@ -285,7 +285,7 @@ public class B2WUIMap {
 	public static String b2w_addmaterialrowgroup = "tbody";
 	public static String b2w_employeeroleslabel = "span#PageContent_generalInformationPanel_RolesLabel";
 	public static String b2w_employeelabortypegridid = "a[id^='PageContent_LaborTypeGrid_ID']";
-	
+	public static String b2w_addbinbutton = "a#PageContent_AddBinsButton";
 	
 	public static String b2w_resourcesearchtext = "input.search-textbox";
 	public static String b2w_resourcesearchtextjs = "PageContent_searchControl_SearchTextBox";
@@ -297,6 +297,9 @@ public class B2WUIMap {
 	public static String b2w_employeetitletext = "span#PageContent_generalInformationPanel_JobTitleLabel";
 	public static String b2w_employeehomephonetext = "span#PageContent_generalInformationPanel_HomePhoneLabel";
 	public static String b2w_employeecellphonetext = "span#PageContent_generalInformationPanel_CellPhoneLabel";
+	public static String b2w_toppanelsavebutton = "a#PageContent_TopSavePanel";
+	public static String b2w_inventorybins = "table#PageContent_BinsGrid";
+	public static String b2w_inventorydescription = "a[id^='PageContent_BinsGrid_BinDescription']";
 	
 	
 	//add materials dialog
@@ -354,11 +357,15 @@ public class B2WUIMap {
 	//new equipment
 	public static final String b2w_newequipmentdescription = "input.k-textbox";
 	public static final String b2w_newequipmentbutton = "a.btn-orig";
-	public static final String b2w_newequipmentbusinessunit = "span.k-dropdown-wrap k-state-default";
+	public static final String b2w_newequipmentdropdown = ".k-input";
 	public static final String b2w_newequipmentsave = "div.btn-form large save";
 	public static final String b2w_newequipmentformrequired = ".form-required";
+	public static final String b2w_newequiopmentnamevaluepair = ".namevalue-pair";
 	public static final String b2w_newequipmentselectfromdropdown = "li.k-item";
 	public static final String b2w_newequipmentcapacitygrid= "table#PageContent_CapacityGrid";
+	public static final String b2w_newequipmentlistofitemsfromdd = ".k-reset";
+	public static final String b2w_newequipmentformfooter = ".edit-form-footer";
+	public static final String b2w_newequipmentsavebutton = "div.btn-form.large.save";
 	
 	//new equipment type
 	public static final String b2w_newequipmenttypebutton = "a#PageContent_CreateNewEquipmentTypeButton";

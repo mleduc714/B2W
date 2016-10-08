@@ -167,6 +167,21 @@ public class B2WPlaces extends B2WResources {
 	public static By getMaterialsGrid() {
 		return By.cssSelector(B2WUIMap.b2w_placematerialsgrid);
 	}
+	public static By getAddBinButton() {
+		return By.cssSelector(B2WUIMap.b2w_addbinbutton);
+	}
+	public static By getNewPlaceBinDescription() {
+		return By.cssSelector(B2WUIMap.b2w_partdescription);
+	}
+	public static By getTopSavePanel() {
+		return By.cssSelector(B2WUIMap.b2w_toppanelsavebutton);
+	}
+	public static By getInventoryBin() {
+		return By.cssSelector(B2WUIMap.b2w_inventorybins);
+	}
+	public static By getInventoryBinDescription() {
+		return By.cssSelector(B2WUIMap.b2w_inventorydescription);
+	}
 
 
 }

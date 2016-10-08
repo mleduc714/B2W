@@ -13,7 +13,7 @@ import appobjects.resources.B2WAddMaterials;
 import tasks.WebElementUtils;
 import tasks.util.TaskUtils;
 
-public class B2WAddMaterialsTasks extends B2WDialogTasks {
+public class B2WAddMaterialsTasks {
 	
 	private static int COUNTOFMATERIALS = 10;
 	Logger log = Logger.getLogger(B2WAddMaterialsTasks.class);
@@ -28,7 +28,7 @@ public class B2WAddMaterialsTasks extends B2WDialogTasks {
 			String sValue = el.getAttribute("value");
 			log.debug("The Value in Search Box is: "+sValue);
 			bReturn &= sValue.equals(sText);
-			bReturn &= waitForCountToChange();
+			bReturn &= waitForNumberOfItemsInDialogToChange();
 		}
 		return bReturn;
 	}
@@ -117,7 +117,12 @@ public class B2WAddMaterialsTasks extends B2WDialogTasks {
 		return i;
 	}
 	
-	private boolean waitForCountToChange() {
+	public List<WebElement> getRowsFromDialog() {
+		WebElement grid = WebElementUtils.waitAndFindDisplayedElement(B2WAddMaterials.getCheckboxGrid());
+		return grid.findElement(By.tagName("tbody")).findElements(By.tagName("tr"));
+	}
+	
+	private boolean waitForNumberOfItemsInDialogToChange() {
 		boolean bReturn = false;
 		int iWait = 0;
 		int iItems = getNumberOfMaterialsinAddMaterialsDialog();

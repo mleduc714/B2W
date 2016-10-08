@@ -1,5 +1,6 @@
 package tasks.resources;
 
+import java.util.Iterator;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -8,7 +9,7 @@ import org.openqa.selenium.WebElement;
 import appobjects.resources.B2WEquipment;
 import tasks.WebElementUtils;
 
-public class B2WEquipmentTasks extends B2WResourceTasks {
+public class B2WEquipmentTasks {
 	
 	Logger log = Logger.getLogger(B2WEquipment.class);
 
@@ -19,7 +20,7 @@ public class B2WEquipmentTasks extends B2WResourceTasks {
 			WebElement el = WebElementUtils.getElementWithMatchingText(els, "New Equipment", true);
 			if (el != null) {
 				bReturn = WebElementUtils.clickElement(el);
-
+				bReturn = WebElementUtils.waitAndFindDisplayedElement(B2WEquipment.getNewEquipmentFooter(), WebElementUtils.MEDIUM_TIME_OUT) != null;
 			}
 		}
 		return bReturn;
@@ -55,114 +56,78 @@ public class B2WEquipmentTasks extends B2WResourceTasks {
 		return bReturn;
 	}
 	
-	public boolean setEquipmentBusinessUnit(String sText){
+	public boolean selectNewEquipmentBusinessUnitFromDropDown(String sText){
 		String sBusinessUnit = "Business Unit";
+		return selectNewEquipmentDropDownItem(sBusinessUnit,sText);
+	}
+	
+	public boolean selectNewEquipmentTypeFromDropDown(String sText) {
+		String sEquipmentType = "Equipment Type";
+		return selectNewEquipmentDropDownItem(sEquipmentType, sText);
+	}
+	
+	public boolean selectMobilityTypeSelfMobileFromDropDown(){
+		String sMobilityType = "Mobility Type";
+		return selectNewEquipmentDropDownItem(sMobilityType,"Self Mobile");
+	}
+	
+	public boolean selectMobilityTypeMovesOtherEquipmentFromDropDown(){
+		String sMobilityType = "Mobility Type";
+		return selectNewEquipmentDropDownItem(sMobilityType,"Moves Other Equipment");
+	}
+	
+	public boolean selectMobilityTypeRequiresMoveFromDropDown() {
+		String sMobilityType = "Mobility Type";
+		return selectNewEquipmentDropDownItem(sMobilityType,"Requires Move");
+	}
+	
+	private boolean selectNewEquipmentDropDownItem(String sText, String sItem) {
 		boolean bReturn = false;
-		List<WebElement> ls = WebElementUtils.findElements(B2WEquipment.getNewEquipmentRequiredForms());
-		WebElement dd = WebElementUtils.getElementWithMatchingStartsWithText(ls, sBusinessUnit);
-		if (dd != null) {
-			WebElementUtils.clickElement(dd);
-			List<WebElement> el = WebElementUtils.findElements(B2WEquipment.getNewEquipmentDropDownItem());
-			WebElement item = WebElementUtils.getElementWithMatchingText(el, sText, false);
-			if (item != null) {
-				bReturn = WebElementUtils.clickElement(item);
+		List<WebElement> ls = WebElementUtils.findElements(B2WEquipment.getNewEquipmentNameValuePair());
+		WebElement el = WebElementUtils.getElementWithMatchingStartsWithText(ls, sText);
+		WebElement dd = WebElementUtils.getChildElement(el, B2WEquipment.getNewEquipmentDropDown());
+		if (WebElementUtils.clickElement(dd)) {
+			// when we click we need to find the visble list
+			List<WebElement> list = WebElementUtils.findElements(B2WEquipment.getNewEquipmentLists());
+			Iterator<WebElement> iter = list.iterator();
+			while (iter.hasNext()) {
+				WebElement els = iter.next();
+				String hidden = els.getAttribute("aria-hidden");
+				if (hidden != null && hidden.equals("false")) {
+					List<WebElement> items = els.findElements(B2WEquipment.getNewEquipmentDropDownItem());
+					WebElement item = WebElementUtils.getElementWithMatchingText(items, sItem, false);
+					if (item != null) {
+						bReturn = WebElementUtils.clickElement(item);
+					}else{
+						log.debug("Item with could not be found matching "+sItem);
+					}
+				}
 			}
-		}else{
-			log.debug("Business Unit was not found in Equipment");
 		}
 		return bReturn;
 	}
 	
-	public boolean setMobiltyTypeSelfMobile(){
-		String sMobilityType = "Mobility Type";
-		boolean bReturn = false;
-		List<WebElement> ls = WebElementUtils.findElements(B2WEquipment.getNewEquipmentRequiredForms());
-		WebElement dd = WebElementUtils.getElementWithMatchingStartsWithText(ls, sMobilityType);
-		if (dd != null) {
-			bReturn = getNewEquipmentDropDownItem(dd, "Self Mobile");
-		}else{
-			log.debug("Business Unit was not found in Equipment");
-		}
-		return bReturn;
-	}
-	
-	public boolean setMobilityTypeMovesOtherEquipment(){
-		String sMobilityType = "Mobility Type";
-		boolean bReturn = false;
-		List<WebElement> ls = WebElementUtils.findElements(B2WEquipment.getNewEquipmentRequiredForms());
-		WebElement dd = WebElementUtils.getElementWithMatchingStartsWithText(ls, sMobilityType);
-		if (dd != null) {
-			bReturn = getNewEquipmentDropDownItem(dd, "Moves Other Equipment");
-		}else{
-			log.debug("Mobility Type was not found in Equipment");
-		}
-		return bReturn;
-	}
-	
-	public boolean setMobilityTypeRequiresMove() {
-		String sMobilityType = "Mobility Type";
-		boolean bReturn = false;
-		List<WebElement> ls = WebElementUtils.findElements(B2WEquipment.getNewEquipmentRequiredForms());
-		WebElement dd = WebElementUtils.getElementWithMatchingStartsWithText(ls, sMobilityType);
-		if (dd != null) {
-			bReturn = getNewEquipmentDropDownItem(dd, "Requires Move");
-		}else{
-			log.debug("Mobility Type was not found in Equipment");
-		}
-		return bReturn;
-	}
-	
-	private boolean getNewEquipmentDropDownItem(WebElement el, String sText){
-		boolean bReturn = false;
-		if (el != null) {
-			WebElementUtils.clickElement(el);
-			List<WebElement> dd = WebElementUtils.findElements(B2WEquipment.getNewEquipmentDropDownItem());
-			WebElement item = WebElementUtils.getElementWithMatchingText(dd, sText, false);
-			if (item != null) {
-				bReturn = WebElementUtils.clickElement(item);
-			}
-		}else{
-			log.debug("Element is null");
-		}
-		return bReturn;
-	}
-	
-	public boolean selectOwnershipTypeSubcontracted() {
+	public boolean selectOwnershipTypeSubcontractedFromDropDown() {
 		String sOwnershipTypeString = "Ownership Type";
-		boolean bReturn = false;
-		List<WebElement> ls = WebElementUtils.findElements(B2WEquipment.getNewEquipmentRequiredForms());
-		WebElement dd = WebElementUtils.getElementWithMatchingStartsWithText(ls, sOwnershipTypeString);
-		if (dd != null) {
-			bReturn = getNewEquipmentDropDownItem(dd, "Subcontracted");
-		}else{
-			log.debug("Ownership Type not found");
-		}
-		return bReturn;
+		return selectNewEquipmentDropDownItem(sOwnershipTypeString,"Subcontracted");
 	}
-	public boolean selectOwnershipTypeOwned() {
+	public boolean selectOwnershipTypeOwnedFromDropDown() {
 		String sOwnershipTypeString = "Ownership Type";
-		boolean bReturn = false;
-		List<WebElement> ls = WebElementUtils.findElements(B2WEquipment.getNewEquipmentRequiredForms());
-		WebElement dd = WebElementUtils.getElementWithMatchingStartsWithText(ls, sOwnershipTypeString);
-		if (dd != null) {
-			bReturn = getNewEquipmentDropDownItem(dd, "Owned");
-		}else{
-			log.debug("Ownership Type not found");
-		}
-		return bReturn;
+		return selectNewEquipmentDropDownItem(sOwnershipTypeString,"Owned");
 	}
-	public boolean selectOwnershipTypeRented() {
+	public boolean selectOwnershipTypeRentedFromDropDown() {
 		String sOwnershipTypeString = "Ownership Type";
-		boolean bReturn = false;
-		List<WebElement> ls = WebElementUtils.findElements(B2WEquipment.getNewEquipmentRequiredForms());
-		WebElement dd = WebElementUtils.getElementWithMatchingStartsWithText(ls, sOwnershipTypeString);
-		if (dd != null) {
-			bReturn = getNewEquipmentDropDownItem(dd, "Rented");
-		}else{
-			log.debug("Ownership Type not found");
-		}
-		return bReturn;
+		return selectNewEquipmentDropDownItem(sOwnershipTypeString,"Rented");
 	}
 
-
+	public boolean saveNewEquipment() {
+		boolean bReturn = false;
+		WebElement el = WebElementUtils.findElement(B2WEquipment.getNewEquipmentFooter());
+		if (el != null){
+			WebElement button = WebElementUtils.getChildElement(el, B2WEquipment.getNewEquipmentSaveButton());
+			bReturn = WebElementUtils.clickElement(button);
+		}
+		return bReturn;
+	}
+	
 }

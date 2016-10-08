@@ -24,7 +24,7 @@ public class B2WAddLaborTypeTasks {
 
 		if (el != null) {
 			bReturn = WebElementUtils.clickElement(el);
-			bReturn &= waitForCountToChange(iCurrentCount);
+			bReturn &= waitForTheNumberOfItemsInDialogToChange(iCurrentCount);
 		}
 		return bReturn;
 	}
@@ -70,7 +70,7 @@ public class B2WAddLaborTypeTasks {
 		return iCount;
 	}
 
-	private boolean waitForCountToChange(int iCurrentCount) {
+	private boolean waitForTheNumberOfItemsInDialogToChange(int iCurrentCount) {
 		boolean bReturn = false;
 		int iWait = 0;
 		int iItems = getNumberOfLaborTypesInView();
