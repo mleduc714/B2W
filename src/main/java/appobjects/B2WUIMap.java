@@ -1,8 +1,7 @@
 package appobjects;
 
 public class B2WUIMap {
-	
-	
+
 	public static final String b2w_frame = "body#Build2Win";
 	public static final String b2w_icon = "a.b2w-software-logo";
 	public static final String b2w_home = "li#nHome";
@@ -20,8 +19,8 @@ public class B2WUIMap {
 	public static final String b2w_dispatchpanel = "div#PageContent_DispatchModule_ProductModulePanel";
 	public static final String b2w_maintainpanel = "div#PageContent_MaintenanceModule_ProductModulePanel";
 	public static final String b2w_username = "span#UserNameLabel";
-	
-	//home page Administration
+
+	// home page Administration
 	public static final String b2w_home_admin_reports = "a#PageContent_ReportListingLink";
 	public static final String b2w_home_admin_managebusinessunits = "a#PageContent_ManageBusinessUnitLink";
 	public static final String b2w_home_admin_adduser = "a#PageContent_AddUserLink";
@@ -31,30 +30,30 @@ public class B2WUIMap {
 	public static final String b2w_home_track_createfieldLogs = "a#PageContent_TrackingModule_ModuleNavigationList_ModuleNavigationLink_0";
 	public static final String b2w_home_track_viewfieldlogs = "a#PageContent_TrackingModule_ModuleNavigationList_ModuleNavigationLink_1";
 	public static final String b2w_home_track_viewjobs = "a#PageContent_TrackingModule_ModuleNavigationList_ModuleNavigationLink_2";
-	//home page dispatch
+	// home page dispatch
 	public static final String b2w_home_dispatch_viewjobboard = "a#PageContent_DispatchModule_ModuleNavigationList_ModuleNavigationLink_0";
 	public static final String b2w_home_dispatch_equipmentmoves = "a#PageContent_DispatchModule_ModuleNavigationList_ModuleNavigationLink_1";
 	public static final String b2w_home_dispatch_truckingorders = "a#PageContent_DispatchModule_ModuleNavigationList_ModuleNavigationLink_2";
 	public static final String b2w_home_dispatch_deliveryorders = "a#PageContent_DispatchModule_ModuleNavigationList_ModuleNavigationLink_3";
 	public static final String b2w_home_dispatch_viewmap = "a#PageContent_DispatchModule_ModuleNavigationList_ModuleNavigationLink_4";
-	//homr page mantain
+	// homr page mantain
 	public static final String b2w_home_maintain_viewmaintainrequests = "a#PageContent_MaintenanceModule_ModuleNavigationList_ModuleNavigationLink_0";
 	public static final String b2w_home_maintain_viewworkorders = "a#PageContent_MaintenanceModule_ModuleNavigationList_ModuleNavigationLink_1";
 	public static final String b2w_home_maintain_scheduleworkorders = "a#PageContent_MaintenanceModule_ModuleNavigationList_ModuleNavigationLink_2";
 	public static final String b2w_home_maintain_viewequipment = "a#PageContent_MaintenanceModule_ModuleNavigationList_ModuleNavigationLink_3";
 	// home page marketing
 	public static final String b2w_home_marketing = "div#PageContent_MarketingArea";
-	
-	//jobs
+
+	// jobs
 	public static final String b2w_pagecontentlistinggridview = "table#PageContent_ListingGridView";
 	public static final String b2w_pagecontentdetailpanel = "div#PageContent_DetailPanel";
 	public static final String b2w_pageproductpanel = "div#ProductPanel";
 	public static final String b2w_pagecontentcontentdetailpanel = "div#PageContent_PageContent_DetailPanel";
-	
-	//maintain
+
+	// maintain
 	public static final String b2w_maintain_grid_content = "div.k-grid-content";
-		
-	//setup
+
+	// setup
 	public static final String b2w_setupLink = "a#SetupHeaderButton";
 	public static final String b2w_resourcesLink = "a#ResourcesHeaderButton";
 	public static final String b2w_reportsLink = "a#ReportsHeaderButton";
@@ -67,10 +66,10 @@ public class B2WUIMap {
 	public static final String b2w_setup_searchbutton = "a#PageContent_SearchControl_SearchButton";
 	public static final String b2w_setup_searchtextbox = "input.search-textbox";
 	public static final String b2w_setup_gridview = "table#PageContent_ListingGridView";
-	
+
 	public static final String b2w_setup_cancelbutton = "a#PageContent_CancelButton";
 
-	//user listing view
+	// user listing view
 	public static final String b2w_users_createuser = "a#PageContent_CreateNewUserButton";
 	public static final String b2w_users_inactivecheckbox = "input#PageContent_ShowInactiveCheckBox";
 	public static final String b2w_user_lastname = "a[id^='PageContent_ListingGridView_LastName']";
@@ -80,8 +79,7 @@ public class B2WUIMap {
 	public static final String b2w_user_inactive = "a[id^='PageContent_ListingGridView_Inactive']";
 	public static final String b2w_user_edit = "a[id^='PageContent_ListingGridView_Edit']";
 	public static final String b2w_user_delete = "a[id^='PageContent_ListingGridView_Delete']";
-	
-	
+
 	public static final String b2w_user_view_user_list = "a#PageContent_TopListingButton";
 	public static final String b2w_user_view_edit = "a#PageContent_TopEditButton";
 	public static final String b2w_user_view_delete = "a#PageContent_TopDeleteButton";
@@ -111,15 +109,13 @@ public class B2WUIMap {
 	public static final String b2w_bottomedit = "a#PageContent_BottomEditButton";
 	public static final String b2w_topdelete = "a#PageContent_TopDeleteButton";
 	public static final String b2w_bottomdelete = "a#PageContent_BottomDeleteButton";
-	
+
 	// user view fields
 	public static final String b2w_user_viewgeninfoHeader = "fieldset#generalInformation";
-	
-	
-	
-	//add-ins
-	
-	//page filter
+
+	// add-ins
+
+	// page filter
 	public static final String b2w_page_filter_letterA = "a#PageContent_FilterControl_AButton";
 	public static final String b2w_page_filter_letterB = "a#PageContent_FilterControl_BButton";
 	public static final String b2w_page_filter_letterC = "a#PageContent_FilterControl_CButton";
@@ -146,13 +142,13 @@ public class B2WUIMap {
 	public static final String b2w_page_filter_letterX = "a#PageContent_FilterControl_XButton";
 	public static final String b2w_page_filter_letterY = "a#PageContent_FilterControl_YButton";
 	public static final String b2w_page_filter_letterZ = "a#PageContent_FilterControl_ZButton";
-	
+
 	public static final String b2w_page_processing = "div#ProcessingMessage1";
-	
-	//reports
+
+	// reports
 	public static final String b2w_reportspage = "div#PageContent_ReportsContainer";
 
-	//account
+	// account
 	public static final String b2w_setup_productionaccounts = "fieldset#ProductionAccounts";
 	public static final String b2w_setup_overheadaccounts = "fieldset#OverheadAccounts";
 	public static final String b2w_setup_createproductionaccount = "a#PageContent_CreateNewProductionAccountButton";
@@ -161,20 +157,20 @@ public class B2WUIMap {
 	public static final String b2w_setup_productionaccountid = "a[id^='PageContent_ProductionAccountListingGridView_AccountID']";
 	public static final String b2w_setup_productionaccountdescription = "a[id^='PageContent_ProductionAccountListingGridView_Description']";
 	public static final String b2w_setup_overheadaccountid = "a[id^='PageContent_OverheadAccountListingGridView_AccountID']";
-	//public static final String b2w_setup_overheadaccountid = "a#PageContent_OverheadAccountListingGridView_AccountID_0";
+	// public static final String b2w_setup_overheadaccountid =
+	// "a#PageContent_OverheadAccountListingGridView_AccountID_0";
 	public static final String b2w_setup_overheadaccountdescription = "a[id^='PageContent_OverheadAccountListingGridView_Description']";
 	public static final String b2w_setup_accountsearchbutton = "a#PageContent_AccountSearchControl_SearchButton";
 	public static final String b2w_setup_accountclearsearchbutton = "a#PageContent_AccountSearchControl_ClearSearchButton";
 	public static final String b2w_categories_listview = "a[id^='PageContent_ListingGridView_Name']";
 	public static final String b2w_categories_categorynametext = "span#PageContent_generalInformationPanel_NameValueLabel";
-	
-	//create new account
+
+	// create new account
 	public static final String b2w_accountgeninfo_account_description = "input#PageContent_generalInformationPanel_DescriptionTextBox";
 	public static final String b2w_accountgeninfo_account_descriptionlabel = "span#PageContent_generalInformationPanel_DescriptionLabel";
 	public static final String b2w_accountgeninfo_account_ID = "input#PageContent_generalInformationPanel_IDTextBox";
-	public static final String b2w_accountgeninfo_account_IDLabel ="span#PageContent_generalInformationPanel_IDLabel";
-	
-	
+	public static final String b2w_accountgeninfo_account_IDLabel = "span#PageContent_generalInformationPanel_IDLabel";
+
 	public static final String b2w_accountgeninfo_timematerialsonly = "input#PageContent_generalInformationPanel_IsTimeAndMaterialsCheckBox";
 	public static final String b2w_accountgeninfo_inactive = "input#PageContent_generalInformationPanel_InactiveCheckBox";
 	public static final String b2w_accountgeninfo_applies_to_employees = "input#PageContent_generalInformationPanel_AppliesToEmployeesCheckBox";
@@ -184,9 +180,10 @@ public class B2WUIMap {
 	public static final String b2w_accountgeninfo_applies_to_trucking = "input#PageContent_generalInformationPanel_AppliesToTruckingCheckBox";
 	public static final String b2w_accountgeninfo_applies_to_subcontractors = "input#PageContent_generalInformationPanel_AppliesToSubcontractorsCheckBox";
 	public static final String b2w_accountparentofunitofmeasure = "td.controlContent";
-	//PageContent_generalInformationPanel_UnitOfMeasureDropDownList
-	public static final String b2w_accountgeninfo_unit_of_measure= "select[id^='PageContent_generalInformationPanel_Unit']";
-	//public static final String b2w_accountgeninfo_unit_of_measure = "select#PageContent_generalInformationPanel_UnitOfMeasureDropDownList";
+	// PageContent_generalInformationPanel_UnitOfMeasureDropDownList
+	public static final String b2w_accountgeninfo_unit_of_measure = "select[id^='PageContent_generalInformationPanel_Unit']";
+	// public static final String b2w_accountgeninfo_unit_of_measure =
+	// "select#PageContent_generalInformationPanel_UnitOfMeasureDropDownList";
 	public static final String b2w_accountgeninfo_notes = "textarea#PageContent_generalInformationPanel_NotesTextBox";
 	public static final String b2w_accountgeninfo_notestext = "pre.note";
 	public static final String b2w_accountgeninfo_businessunit = "select#PageContent_generalInformationPanel_BusinessUnitDropDownList";
@@ -201,52 +198,53 @@ public class B2WUIMap {
 	public static final String b2w_accountgeninfoalternateid = "input#PageContent_generalInformationPanel_AlternateMaterialIDTextBox";
 	public static final String b2w_accountgeninfotempmaterialcheckbox = "input#PageContent_generalInformationPanel_IsTemporaryMaterialCheckBox";
 	public static final String b2w_accountgeninfotrackablematerialcheckbox = "input#PageContent_generalInformationPanel_IsTrackableMaterialCheckBox";
-	public static final String b2w_accountgeninfototalcount = "input#PageContent_generalInformationPanel_NumberOfTextBox_numVal";	
+	public static final String b2w_accountgeninfototalcount = "input#PageContent_generalInformationPanel_NumberOfTextBox_numVal";
 	public static final String b2w_accountgeninfototalcost = "input#PageContent_generalInformationPanel_UnitCostTextBox_numVal";
-	
+
 	public static final String b2w_accountintegrationkeylabel = "span#PageContent_generalInformationPanel_Integration Key";
 	public static final String b2w_accountinactivelabel = "span#PageContent_generalInformationPanel_IsInactiveLabel";
 	public static final String b2w_accountunitofmeasurelabel = "span#PageContent_generalInformationPanel_UnitofMeasureLabel";
 	public static final String b2w_materialsunitofmeasurelabel = "span#PageContent_generalInformationPanel_UnitOfMeasureLabel";
 	public static final String b2w_accountappliestolabel = "span#PageContent_generalInformationPanel_AppliesToLabel";
-	
+	public static final String b2w_accountgeninfocategorylabel = "span#PageContent_generalInformationPanel_CategoryLabel";
+
 	public static final String b2w_accountinfovaluetypelabel = "span#PageContent_generalInformationPanel_ValueTypeLabel";
 	public static final String b2w_accountinfocostcaltypelabel = "span#PageContent_generalInformationPanel_TotalCostCalculationTypeLabel";
 	public static final String b2w_accountunitcostlabel = "span#PageContent_generalInformationPanel_UnitCostLabel";
 	public static final String b2w_accountinfodefaultvalue = "span#PageContent_generalInformationPanel_DefaultValueLabel";
-	
-	//resources
+
+	// resources
 	public static final String b2w_resourcesequipmentpage = "table.item-overview";
 	public static final String b2w_accountmaterialsid = "input#PageContent_generalInformationPanel_MaterialIDTextBox";
 	public static final String b2w_accountmaterialaltid = "input#PageContent_generalInformationPanel_AlternateMaterialIDTextBox";
 
-	//places
+	// places
 	public static final String b2w_createnewplacebutton = "a#PageContent_CreateNewPlaceButton";
-	public static final String b2w_newplace_generalinfo_placeid ="input#PageContent_generalInformationPanel_PlaceIDTextBox";
-	public static final String b2w_newplace_generalinfo_placedesc ="input#PageContent_generalInformationPanel_DescriptionTextBox";
-	public static final String b2w_newplace_generalinfo_durationdd="select#PageContent_generalInformationPanel_DurationTypeDropDownList";
-	public static final String b2w_newplace_generalinfo_placestartdate="input#PageContent_generalInformationPanel_startDate";
-	public static final String b2w_newplace_generalinfo_nonworkingmonday="input#PageContent_generalInformationPanel_IsMondayNonWorkingCheckBox";
-	public static final String b2w_newplace_generalinfo_nonworkingtuesday="input#PageContent_generalInformationPanel_IsTuesdayNonWorkingCheckBox";
-	public static final String b2w_newplace_generalinfo_nonworkingwednesday="input#PageContent_generalInformationPanel_IsWednesdayNonWorkingCheckBox";
-	public static final String b2w_newplace_generalinfo_nonworkingthursday="input#PageContent_generalInformationPanel_IsThursdayNonWorkingCheckBox";
-	public static final String b2w_newplace_generalinfo_nonworkingfriday="input#PageContent_generalInformationPanel_IsFridayNonWorkingCheckBox";
-	public static final String b2w_newplace_generalinfo_nonworkingsat="input#PageContent_generalInformationPanel_IsSaturdayNonWorkingCheckBox";
-	public static final String b2w_newplace_generalinfo_nonworkingsun="input#PageContent_generalInformationPanel_IsSundayNonWorkingCheckBox";
-	public static final String b2w_newplace_generalinfo_showonjobboard="input#PageContent_generalInformationPanel_ShowOnJobBoard";
-	public static final String b2w_newplace_generalinfo_showonmap="input#PageContent_generalInformationPanel_ShowOnMap";
-	public static final String b2w_newplace_generalinfo_canproducematerials="input#PageContent_generalInformationPanel_CanProduceMaterials";
-	public static final String b2w_newplace_generalinfo_placeadd1="input#PageContent_locationDetailPanel_Address1TextBox";
-	public static final String b2w_newplace_generalinfo_placeadd2="input#PageContent_locationDetailPanel_Address2TextBox";
-	public static final String b2w_newplace_generalinfo_placecity="input#PageContent_locationDetailPanel_CityTextBox";
-	public static final String b2w_newplace_generalinfo_placestate="input#PageContent_locationDetailPanel_StateTextBox";
-	public static final String b2w_newplace_generalinfo_placezip="input#PageContent_locationDetailPanel_PostalCodeTextBox";
-	public static final String b2w_newplace_generalinfo_placecountry="input#PageContent_locationDetailPanel_CountryTextBox";
-	public static final String b2w_newplace_generalinfo_geocode="input#PageContent_locationDetailPanel_GeoCodeAutoUpdateCheckBox";
+	public static final String b2w_newplace_generalinfo_placeid = "input#PageContent_generalInformationPanel_PlaceIDTextBox";
+	public static final String b2w_newplace_generalinfo_placedesc = "input#PageContent_generalInformationPanel_DescriptionTextBox";
+	public static final String b2w_newplace_generalinfo_durationdd = "select#PageContent_generalInformationPanel_DurationTypeDropDownList";
+	public static final String b2w_newplace_generalinfo_placestartdate = "input#PageContent_generalInformationPanel_startDate";
+	public static final String b2w_newplace_generalinfo_nonworkingmonday = "input#PageContent_generalInformationPanel_IsMondayNonWorkingCheckBox";
+	public static final String b2w_newplace_generalinfo_nonworkingtuesday = "input#PageContent_generalInformationPanel_IsTuesdayNonWorkingCheckBox";
+	public static final String b2w_newplace_generalinfo_nonworkingwednesday = "input#PageContent_generalInformationPanel_IsWednesdayNonWorkingCheckBox";
+	public static final String b2w_newplace_generalinfo_nonworkingthursday = "input#PageContent_generalInformationPanel_IsThursdayNonWorkingCheckBox";
+	public static final String b2w_newplace_generalinfo_nonworkingfriday = "input#PageContent_generalInformationPanel_IsFridayNonWorkingCheckBox";
+	public static final String b2w_newplace_generalinfo_nonworkingsat = "input#PageContent_generalInformationPanel_IsSaturdayNonWorkingCheckBox";
+	public static final String b2w_newplace_generalinfo_nonworkingsun = "input#PageContent_generalInformationPanel_IsSundayNonWorkingCheckBox";
+	public static final String b2w_newplace_generalinfo_showonjobboard = "input#PageContent_generalInformationPanel_ShowOnJobBoard";
+	public static final String b2w_newplace_generalinfo_showonmap = "input#PageContent_generalInformationPanel_ShowOnMap";
+	public static final String b2w_newplace_generalinfo_canproducematerials = "input#PageContent_generalInformationPanel_CanProduceMaterials";
+	public static final String b2w_newplace_generalinfo_placeadd1 = "input#PageContent_locationDetailPanel_Address1TextBox";
+	public static final String b2w_newplace_generalinfo_placeadd2 = "input#PageContent_locationDetailPanel_Address2TextBox";
+	public static final String b2w_newplace_generalinfo_placecity = "input#PageContent_locationDetailPanel_CityTextBox";
+	public static final String b2w_newplace_generalinfo_placestate = "input#PageContent_locationDetailPanel_StateTextBox";
+	public static final String b2w_newplace_generalinfo_placezip = "input#PageContent_locationDetailPanel_PostalCodeTextBox";
+	public static final String b2w_newplace_generalinfo_placecountry = "input#PageContent_locationDetailPanel_CountryTextBox";
+	public static final String b2w_newplace_generalinfo_geocode = "input#PageContent_locationDetailPanel_GeoCodeAutoUpdateCheckBox";
 	public static final String b2w_newplace_generalinfo_catcolor = "div#PageContent_generalInformationPanel_ColorDropDownListdivWrapper";
 	public static final String b2w_newplace_categorydropdown = "div#PageContent_generalInformationPanel_ColorDropDownListbuttonId";
-	public static final String b2w_newplace_addmaterialsbutton =" sectionheader";
-	
+	public static final String b2w_newplace_addmaterialsbutton = " sectionheader";
+
 	public static String b2w_place_id = "span#PageContent_generalInformationPanel_PlaceIDLabel";
 	public static String b2w_place_description = "span#PageContent_generalInformationPanel_DescriptionLabel";
 	public static String b2w_place_categorylabel = "div.ColoredLabelPanel";
@@ -271,9 +269,12 @@ public class B2WUIMap {
 	public static String b2w_place_specifyendtimecheckbox = "input#PageContent_generalInformationPanel_hasEndTimeCheckbox";
 	public static String b2w_place_setstarttimetext = "input#PageContent_generalInformationPanel_startTime";
 	public static String b2w_place_setendtimetext = "input#PageContent_generalInformationPanel_endTime";
+
 	public static String b2w_newequipmenttypeid = "input#PageContent_generalInformationPanel_EquipmentTypeIDTextBox";
 	public static String b2w_newequipmenttypetransportscb = "input#PageContent_generalInformationPanel_CanTransportMaterialsCheckBox";
 	public static String b2w_newequipmentcategory = "select#PageContent_generalInformationPanel_EquipmentCategoryDropDownList";
+	public static String b2w_newequipmenttypetransportmaterialtext = "span#PageContent_generalInformationPanel_CanTransportMaterialLabel";
+
 	public static String b2w_materialsdesclabel = "span#PageContent_generalInformationPanel_DescriptionLabel";
 	public static String b2w_materialidlabel = "span#PageContent_generalInformationPanel_MaterialIDLabel";
 	public static String b2w_materialunitofmeasurelabel = "span#PageContent_generalInformationPanel_UnitOfMeasureLabel";
@@ -286,10 +287,10 @@ public class B2WUIMap {
 	public static String b2w_employeeroleslabel = "span#PageContent_generalInformationPanel_RolesLabel";
 	public static String b2w_employeelabortypegridid = "a[id^='PageContent_LaborTypeGrid_ID']";
 	public static String b2w_addbinbutton = "a#PageContent_AddBinsButton";
-	
+
 	public static String b2w_resourcesearchtext = "input.search-textbox";
-	public static String b2w_resourcesearchtextjs = "PageContent_searchControl_SearchTextBox";
-														 
+	public static String b2w_resourcesearchtextjs = "input#PageContent_searchControl_SearchTextBox";
+
 	public static String b2w_labornamegrid = "a[id^='PageContent_ListingGridView_FirstName']";
 	public static String b2w_labortypegridid = "a[id^='PageContent_ListingGridView_LaborTypeID']";
 	public static String b2w_employeeemailtext = "a#PageContent_generalInformationPanel_EMailHyperlink";
@@ -299,10 +300,10 @@ public class B2WUIMap {
 	public static String b2w_employeecellphonetext = "span#PageContent_generalInformationPanel_CellPhoneLabel";
 	public static String b2w_toppanelsavebutton = "a#PageContent_TopSavePanel";
 	public static String b2w_inventorybins = "table#PageContent_BinsGrid";
-	public static String b2w_inventorydescription = "a[id^='PageContent_BinsGrid_BinDescription']";
-	
-	
-	//add materials dialog
+	public static String b2w_inventorydescription = "span[id^='PageContent_BinsGrid_BinDescription']";
+	public static String b2w_equipmentlistview = "div.list-view";
+
+	// add materials dialog
 	public static final String b2w_addmaterialsdialog = "div#addMaterialDialog";
 	public static final String b2w_addmaterialsearchbar = "div.search-button-bar";
 	public static final String b2w_selectbuttonbar = "div.select-button-bar";
@@ -312,11 +313,11 @@ public class B2WUIMap {
 	public static final String b2w_addmaterialsaddbutton = "a.btn-form.large";
 	public static final String b2w_addmaterialcancelbutton = "a.btn-form";
 	public static final String b2w_addmaterialcheckbox = "input.checkbox";
-	
+
 	public static final String b2w_createnewlabortype = "a#PageContent_CreateNewLaborTypeButton";
 	public static final String b2w_labortypeid = "input#PageContent_generalInformationPanel_LaborTypeIDTextBox";
 	public static final String b2w_generalinfoname = "input#PageContent_generalInformationPanel_NameTextBox";
-	
+
 	public static final String b2w_createnewemployee = "a#PageContent_CreateNewEmployeeButton";
 	public static final String b2w_employeefirstname = "input#PageContent_generalInformationPanel_FirstNameTextBox";
 	public static final String b2w_employeelastname = "input#PageContent_generalInformationPanel_LastNameTextBox";
@@ -329,7 +330,7 @@ public class B2WUIMap {
 	public static final String b2w_employeehomephone = "input#PageContent_generalInformationPanel_HomePhoneTextBox";
 	public static final String b2w_employeeworkphone = "input#PageContent_generalInformationPanel_WorkPhoneTextBox";
 	public static final String b2w_employeeemail = "input#PageContent_generalInformationPanel_EMailTextBox";
-	
+
 	public static final String b2w_fieldemployeecheckbox = "input#PageContent_generalInformationPanel_FieldEmployeeCheckBox";
 	public static final String b2w_drivercheckbox = "input#PageContent_generalInformationPanel_DriverCheckBox";
 	public static final String b2w_trucckdrivercheckbox = "input#PageContent_generalInformationPanel_TruckDriverCheckBox";
@@ -341,7 +342,7 @@ public class B2WUIMap {
 	public static final String b2w_purchaseorderapprovercheckbox = "input#PageContent_generalInformationPanel_ApprovePurchaseOrdersCheckBox";
 	public static final String b2w_employeeaddlabortype = "a#PageContent_AddLaborTypesButton";
 	public static final String b2w_employeeaddcertifications = "a#PageContent_AddCertificationsButton";
-	
+
 	public static final String b2w_addlabortypesdialog = "div#PageContent_AddLaborTypeDialog_DialogPanel";
 	public static final String b2w_addlabortypesearch = "input#PageContent_AddLaborTypeDialog_SearchControl_SearchTextBox";
 	public static final String b2w_addlabortypecheckboxgrid = "input[id^='PageContent_AddLaborTypeDialog_GridView_SelectedCheckBox']";
@@ -352,9 +353,11 @@ public class B2WUIMap {
 	public static final String b2w_addlaborgridheader = "table#PageContent_AddLaborTypeDialog_GridView";
 	public static final String b2w_addlaborgridtext = "td.gridText";
 	public static final String b2w_addlaborgridcheckbox = "td.checkbox";
-	public static final String b2w_addlabortypenamelabel = "span#PageContent_generalInformationPanel_NameLabel";
-	
-	//new equipment
+
+	public static final String b2w_resourcesnamelabel = "span#PageContent_generalInformationPanel_NameLabel";
+	public static final String b2w_accountinfonamevaluelabel = "span#PageContent_generalInformationPanel_NameValueLabel";
+
+	// new equipment
 	public static final String b2w_newequipmentdescription = "input.k-textbox";
 	public static final String b2w_newequipmentbutton = "a.btn-orig";
 	public static final String b2w_newequipmentdropdown = ".k-input";
@@ -362,22 +365,30 @@ public class B2WUIMap {
 	public static final String b2w_newequipmentformrequired = ".form-required";
 	public static final String b2w_newequiopmentnamevaluepair = ".namevalue-pair";
 	public static final String b2w_newequipmentselectfromdropdown = "li.k-item";
-	public static final String b2w_newequipmentcapacitygrid= "table#PageContent_CapacityGrid";
+	public static final String b2w_newequipmentcapacitygrid = "table#PageContent_CapacityGrid";
 	public static final String b2w_newequipmentlistofitemsfromdd = ".k-reset";
 	public static final String b2w_newequipmentformfooter = ".edit-form-footer";
 	public static final String b2w_newequipmentsavebutton = "div.btn-form.large.save";
-	
-	//new equipment type
+	public static final String b2w_newequipmentfilterbydd = "div.k-multiselect-wrap.k-floatwrap";
+	public static final String b2w_equipmentgridcontent = "div.k-grid-content";
+	public static final String b2w_equipmentselecteditem = "div.k-state-selected";
+	public static final String b2w_equipmentitems = ".k-alt";
+	public static final String b2w_equipmentcontent = "div.box-content";
+	public static final String b2w_equipmentheaders = "span.k-link.k-header";
+	public static final String b2w_equipmentheadline = "td.headline";
+	public static final String b2w_equipmentactionbuttons = "div.item-actions";
+	public static final String b2w_equipmentloadpage = "div.k-loading-mask";
+
+	// new equipment type
 	public static final String b2w_newequipmenttypebutton = "a#PageContent_CreateNewEquipmentTypeButton";
-	
+
 	// categories
 	public static final String b2w_categoriesdropdown = "select#PageContent_ViewCategoryDropDownList";
 	public static final String b2w_createnewcategorybutton = "a#PageContent_CreateNewCategoryButton";
 	public static final String b2w_categoriesrequestcalificationtype = "select#PageContent_generalInformationPanel_RequestClassificationTypeDropDown";
 	public static final String b2w_categoriescolordropdown = ".colorSelectButtonDiv";
 	public static final String b2w_categoriesassociatedcolor = "div#PageContent_generalInformationPanel_ColorDropDownListdivWrapper";
-	
-	
+
 	public static final String b2w_createnewlaborrateclass = "a#PageContent_CreateNewLaborRateClassButton";
 	public static final String b2w_newlaborrateid = "input#PageContent_generalInformationPanel_RateClassIDTextBox";
 
@@ -386,7 +397,7 @@ public class B2WUIMap {
 	public static final String b2w_partaltidtext = "input#PageContent_generalInformationPanel_AlternateIDTextBox";
 	public static final String b2w_partdescription = "input#PageContent_generalInformationPanel_DescriptionTextBox";
 	public static final String b2w_partmanufacturer = "input#PageContent_generalInformationPanel_ManufacturerTextBox";
-	
+
 	public static final String b2w_employeesearchtext = "input#PageContent_searchControl_SearchTextBox";
 	public static final String b2w_employeesearchbutton = "a#PageContent_searchControl_SearchButton";
 	public static final String b2w_employeeclearsearchbutton = "a#PageContent_searchControl_ClearSearchButton";
@@ -398,11 +409,35 @@ public class B2WUIMap {
 	public static final String b2w_employeelastnamelabel = "span#PageContent_generalInformationPanel_LastNameLabel";
 	public static final String b2w_employeelabortypegrid = "a#PageContent_LaborTypeGrid";
 	public static final String b2w_employeelabortypegridname = "a[id^='PageContent_LaborTypeGrid_Name']";
-	
+
 	public static final String b2w_materialsdescriptiongrid = "a[id^='PageContent_ListingGridView_Description']";
-	
+
 	public static final String b2w_newequipmentypebutton = "a#PageContent_CreateNewEquipmentTypeButton";
-	
+
 	// id's for java script
-	public static final String b2w_setup_searchtextboxjs = "PageContent_SearchControl_SearchTextBox";
+	public static final String b2w_setup_searchtextboxjs = "input#PageContent_SearchControl_SearchTextBox";
+
+	// organization
+	public static final String b2w_organizationcompanyname = "input#PageContent_generalInformationPanel_CompanyNameTextBox";
+	public static final String b2w_organizationorganizationid = "input#PageContent_generalInformationPanel_OrganizationIDTextBox";
+	public static final String b2w_organizationaltid = "input#PageContent_generalInformationPanel_AlternateOrganizationIDTextBox";
+	public static final String b2w_organizationaddress1 = "input#PageContent_generalInformationPanel_Address1TextBox";
+	public static final String b2w_organizationaddress2 = "input#PageContent_generalInformationPanel_Address2TextBox";
+	public static final String b2w_organizationcity = "input#PageContent_generalInformationPanel_CityTextBox";
+	public static final String b2w_organizationzipcode = "input#PageContent_generalInformationPanel_PostalCodeTextBox";
+	public static final String b2w_organizationphone = "input#PageContent_generalInformationPanel_PhoneTextBox";
+	public static final String b2w_organizationstate = "input#PageContent_generalInformationPanel_StateTextBox";
+	public static final String b2w_organizationcountry = "input#PageContent_generalInformationPanel_CountryTextBox";
+	public static final String b2w_organizationfax = "input#PageContent_generalInformationPanel_FaxTextBox";
+	public static final String b2w_organizationprovidesequipchkbox = "input#PageContent_generalInformationPanel_CanProvideEquipmentCheckBox";
+	public static final String b2w_organizationpaymentterms = "input#PageContent_generalInformationPanel_PaymentTermsTextBox";
+	public static final String b2w_organizationcustomerchkbox = "input#PageContent_generalInformationPanel_CustomerCheckBox";
+	public static final String b2w_organizationsubcntrchkbox = "input#PageContent_generalInformationPanel_SubcontractorCheckBox";
+	public static final String b2w_organizationtrucksubchkbox = "input#PageContent_generalInformationPanel_IsTruckingSubcontractorCheckBox";
+	public static final String b2w_organizationvendorchkbox = "input#PageContent_generalInformationPanel_VendorCheckBox";
+	public static final String b2w_organizationpartvendorchkbox = "input#PageContent_generalInformationPanel_PartsVendorCheckBox";
+	public static final String b2w_organizationexternalshopchkbox = "input#PageContent_generalInformationPanel_ExternalShopCheckBox";
+	public static final String b2w_organizationownedchkbox = "input#PageContent_generalInformationPanel_OwnedCheckBox";
+	public static final String b2w_createneworganizationbutton = "a#PageContent_CreateNewOrganizationButton";
+
 }

@@ -76,4 +76,11 @@ public abstract class B2WResources {
 	public static By getUnitCostLabel() {
 		return By.cssSelector(B2WUIMap.b2w_accountunitcostlabel);
 	}
+	public static By getNameTextLabel() {
+		return By.cssSelector(B2WUIMap.b2w_resourcesnamelabel);
+	}
+	public static By getCategoryTextLabel() {
+		return By.cssSelector(B2WUIMap.b2w_accountgeninfocategorylabel);
+	}
+	
 }

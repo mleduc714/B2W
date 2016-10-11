@@ -53,8 +53,19 @@ public class WebElementUtils {
 		}
 		return el;
 	}
-	
-	
+
+	public static List<WebElement> getChildElements(WebElement parent, By child) {
+		List<WebElement> list = null;
+		if (parent == null) {
+			log.warn("The parent element is null.");
+		}
+		try {
+			list = parent.findElements(child);
+		} catch (NoSuchElementException nsee) {
+			log.warn("No child of the WebElement that matches " + child.toString());
+		}
+		return list;
+	}
 
 	public static WebElement getChildElement(List<WebElement> list, By child) {
 		WebElement el = null;
@@ -147,6 +158,7 @@ public class WebElementUtils {
 		WebElement ret = null;
 		while (iter.hasNext()) {
 			WebElement el = iter.next();
+			// getAllInfo(el);
 			String elementText = el.getText();
 			if (caseSensitive) {
 				if (text.equals(elementText)) {
@@ -450,7 +462,7 @@ public class WebElementUtils {
 		} catch (TimeoutException toe) {
 			log.warn("Element with locator '" + by.toString() + " " + attribute + " attribute "
 					+ (expected ? "never contained " : "never lost ") + value);
-		} catch (StaleElementReferenceException e){
+		} catch (StaleElementReferenceException e) {
 			log.warn("Stale Element Exception");
 			waitForElementHasAttributeWithValue(by, attribute, value, expected, timeOut);
 		}
@@ -470,19 +482,21 @@ public class WebElementUtils {
 	}
 
 	public static String getSelectedTextFromDropDown(By by) {
-		String sSelection = null;
-		WebElement dd = WebElementUtils.findElement(by);
-		List<WebElement> els = dd.findElements(By.tagName("option"));
-		Iterator<WebElement> iter = els.iterator();
-		while (iter.hasNext()) {
-			WebElement el = iter.next();
-			if (el.getAttribute("selected") != null) {
-				String sText = el.getText();
-				log.debug("Selected Text from DD: "+sText);
-				sSelection = sText;
+		try {
+			WebElement dd = WebElementUtils.findElement(by);
+			List<WebElement> els = dd.findElements(By.tagName("option"));
+			Iterator<WebElement> iter = els.iterator();
+			while (iter.hasNext()) {
+				WebElement el = iter.next();
+				if (el.getAttribute("selected") != null) {
+					return el.getText();
+				}
 			}
+		} catch (StaleElementReferenceException e) {
+			log.warn("Found Stale Element Exception");
+			getSelectedTextFromDropDown(by);
 		}
-		return sSelection;
+		return "";
 
 	}
 
@@ -524,6 +538,26 @@ public class WebElementUtils {
 			selectItemFromOpsDropDownMenu(by, sText);
 		}
 	}
+	
+	public static String selectItemFromOpsDropDownMenuByNumber(By by, int iNumber) {
+		String sCategory = "";
+		try {
+			WebElement el = WebElementUtils.findElement(by);
+			List<WebElement> els = el.findElements(By.tagName("option"));
+			if (els.size() != 0) {
+				if (!(iNumber > (els.size() -1))){
+					sCategory = els.get(iNumber).getText();
+					WebElementUtils.clickElement(els.get(iNumber));
+				}
+			} else {
+				log.warn("The Number was not found");
+			}
+		} catch (StaleElementReferenceException e) {
+			log.warn("Caught Stale Element Exception!!");
+			selectItemFromOpsDropDownMenuByNumber(by, iNumber);
+		}
+		return sCategory;
+	}
 
 	public static boolean waitForElementStale(WebElement el, int timeOut) {
 		boolean isStale = false;
@@ -554,38 +588,41 @@ public class WebElementUtils {
 		return bReturn;
 
 	}
-	
 
-	  public static void moveVirtualMouseOverElement(WebElement el){
-	    if(el == null){
-	      log.warn("The provided WebElement was NULL.");
-	    }else{
-	      if(!BrowserUtils.isSafari()){
-	        Actions action = new Actions(BrowserUtils.getDriver());
-	        action.moveToElement(el);
-	        action.perform();
-	      }else{
-	        try{
-	          Robot robot = new Robot();
-	          robot.setAutoDelay(1000);
-	          int targetX = el.getLocation().x + el.getSize().width / 2;
-	          int targetY = el.getLocation().y + el.getSize().height / 2;
-	          robot.mouseMove(targetX, targetY);
-	        }catch(AWTException e){
-	          log.warn(e.getMessage());
-	        }
-	      }
-	    }
-	  }
-	  
-//		public void getAllInfo(WebElement el) {
-//		JavascriptExecutor executor = (JavascriptExecutor) BrowserUtils.getDriver();
-//		Object aa = executor.executeScript(
-//				"var items = {}; for (index = 0; index < arguments[0].attributes.length; ++index) { items[arguments[0].attributes[index].name] = arguments[0].attributes[index].value }; return items;",
-//				el);
-//		System.out.println(aa.toString());
-//	}
-	
+	public static void moveVirtualMouseOverElement(WebElement el) {
+		if (el == null) {
+			log.warn("The provided WebElement was NULL.");
+		} else {
+			if (!BrowserUtils.isSafari()) {
+				Actions action = new Actions(BrowserUtils.getDriver());
+				action.moveToElement(el);
+				action.perform();
+			} else {
+				try {
+					Robot robot = new Robot();
+					robot.setAutoDelay(1000);
+					int targetX = el.getLocation().x + el.getSize().width / 2;
+					int targetY = el.getLocation().y + el.getSize().height / 2;
+					robot.mouseMove(targetX, targetY);
+				} catch (AWTException e) {
+					log.warn(e.getMessage());
+				}
+			}
+		}
+	}
 
+	public static void getAllInfo(WebElement el) {
+		JavascriptExecutor executor = (JavascriptExecutor) BrowserUtils.getDriver();
+		Object aa = executor.executeScript(
+				"var items = {}; for (index = 0; index < arguments[0].attributes.length; ++index) { items[arguments[0].attributes[index].name] = arguments[0].attributes[index].value }; return items;",
+				el);
+		System.out.println(aa.toString());
+	}
+
+	public static WebElement getParentElement(WebElement el) {
+		JavascriptExecutor executor = (JavascriptExecutor) BrowserUtils.getDriver();
+		WebElement parentElement = (WebElement) executor.executeScript("return arguments[0].parentNode;", el);
+		return parentElement;
+	}
 
 }

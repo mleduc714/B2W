@@ -37,7 +37,7 @@ public abstract class B2WResourceTasks extends B2WSetupTasks {
 		return WebElementUtils.sendKeys(el, sText);
 	}
 	
-	public String getAccountIDText() {
+	public String getGenInfoAccountIDLabel() {
 		return WebElementUtils.findElement(B2WResources.getAccountIDLabel()).getText();
 	}
 	
@@ -176,12 +176,12 @@ public abstract class B2WResourceTasks extends B2WSetupTasks {
 		return bReturn;
 
 	}
-	public boolean clickSearchButton(){
-		boolean bReturn = false;
-		bReturn = WebElementUtils.clickElement(WebElementUtils.findElement(B2WMaterials.getResourcesSearchButton()));
-		return bReturn;
-	}
-	
+//	public boolean clickSearchButton(){
+//		boolean bReturn = false;
+//		bReturn = WebElementUtils.clickElement(WebElementUtils.findElement(B2WMaterials.getResourcesSearchButton()));
+//		return bReturn;
+//	}
+//	
 	public boolean clickClearSearchButton() {
 		boolean bReturn = false;
 		bReturn = WebElementUtils.clickElement(WebElementUtils.findElement(B2WMaterials.getResourcesClearSearchButton()));
@@ -254,4 +254,21 @@ public abstract class B2WResourceTasks extends B2WSetupTasks {
 		return bReturn;
 	}
 
+	public String getGenInfoNameLabel() {
+		String sText = "";
+		WebElement el = WebElementUtils.waitAndFindDisplayedElement(B2WResources.getNameTextLabel());
+		if (el!=null){
+			sText = el.getText();
+		}
+		return sText;
+	}
+	public String getGenInfoCatgoryLabel() {
+		String sText = "";
+		WebElement el = WebElementUtils.waitAndFindDisplayedElement(B2WResources.getCategoryTextLabel());
+		if (el!=null){
+			sText = el.getText();
+		}
+		return sText;
+	}
+	
 }

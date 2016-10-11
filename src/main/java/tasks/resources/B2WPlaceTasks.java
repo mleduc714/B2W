@@ -292,7 +292,12 @@ public class B2WPlaceTasks extends B2WResourceTasks {
 	}
 	
 	public String getInventoryBinDescription() {
-		return WebElementUtils.findElement(B2WPlaces.getInventoryBinDescription()).getText();
+		String sText = "";
+		WebElement el = WebElementUtils.findElement(B2WPlaces.getInventoryBinDescription());
+		if (el != null){
+			sText = el.getText();
+		}
+		return sText;
 	}
 
 }

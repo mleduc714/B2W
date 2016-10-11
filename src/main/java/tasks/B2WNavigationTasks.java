@@ -11,6 +11,7 @@ import appobjects.B2WHomePage;
 import appobjects.B2WNavigationPanel;
 import appobjects.maintain.B2WMaintain;
 import appobjects.resources.B2WEquipment;
+import tasks.resources.B2WEquipmentTasks;
 import tasks.util.TaskUtils;
 
 public class B2WNavigationTasks implements Navigation {
@@ -208,21 +209,23 @@ public class B2WNavigationTasks implements Navigation {
 	public boolean openEquipmentTypes() {
 		return openResources("Equipment Types", "Equipment Types");
 	}
+
 	public boolean openEquipment() {
 		boolean bReturn = false;
-		if (openResources()){
+		if (openResources()) {
 			WebElementUtils.switchToFrame(B2WNavigationPanel.getB2WSetupNavigationPanel(), 1);
 			List<WebElement> items = BrowserUtils.getDriver().findElements(B2WNavigationPanel.getB2WSetupPopupItem());
 			WebElement item = WebElementUtils.getElementWithMatchingText(items, "Equipment", true);
-			if (item != null){
+			if (item != null) {
 				item.click();
 				WebElement el = WebElementUtils.waitAndFindDisplayedElement(B2WEquipment.getNewEquipmentButton());
-				if (el!=null){
+				if (el != null) {
 					bReturn = true;
+					bReturn &= new B2WEquipmentTasks().waitForEquipmentPageNoBusy();
 				}
 			}
 		}
-		return bReturn;	
+		return bReturn;
 	}
 	public boolean openLaborTypes() {
 		return openResources("Labor Types", "Labor Types");

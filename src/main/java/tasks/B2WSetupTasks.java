@@ -347,7 +347,7 @@ public class B2WSetupTasks {
 		boolean bReturn = false;
 		if (WebElementUtils.clickElement(B2WSetup.getTopSaveButton())){
 			bReturn = waitForProcessingDialogToClear();
-			TaskUtils.sleep(2000);
+			bReturn &= WebElementUtils.waitAndFindDisplayedElement(B2WSetup.getTopEditButton()) != null;
 		}
 		return bReturn;
 	}
@@ -391,7 +391,7 @@ public class B2WSetupTasks {
 	public boolean enterTextAndClickSearch(String sText) {
 		boolean bReturn = false;
 		if (enterSearchText(sText)){
-			clickSearchButton();
+			this.clickSearchButton();
 			bReturn = waitForProcessingDialogToClear();
 			TaskUtils.sleep(1000);
 		}
@@ -399,6 +399,14 @@ public class B2WSetupTasks {
 	}
 	public boolean clickSearchButton(){
 		return WebElementUtils.clickElement(B2WSetup.getB2WSearchButton());
+	}
+	public String getGenInfoNameValueLabel() {
+		String sText = "";
+		WebElement el = WebElementUtils.waitAndFindDisplayedElement(B2WSetup.getGenInfoNameValueLabel());
+		if (el!=null){
+			sText = el.getText();
+		}
+		return sText;
 	}
 	
 }

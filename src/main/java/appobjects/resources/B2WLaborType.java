@@ -16,10 +16,7 @@ public class B2WLaborType extends B2WResources
 		public static By getCreateLabelTypeButton() {
 			return By.cssSelector(B2WUIMap.b2w_createnewlabortype);
 		}
-		public static By getAddLaborNameTextLabel() {
-			return By.cssSelector(B2WUIMap.b2w_addlabortypenamelabel);
-		}
-	
+		
 		public static By getLaborTypeViewGridName() {
 			return By.cssSelector(B2WUIMap.b2w_categories_listview);
 		}

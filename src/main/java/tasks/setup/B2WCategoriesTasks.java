@@ -5,7 +5,7 @@ import java.util.List;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
-import appobjects.resources.B2WCategories;
+import appobjects.setup.B2WCategories;
 import tasks.B2WSetupTasks;
 import tasks.WebElementUtils;
 
@@ -21,7 +21,7 @@ public class B2WCategoriesTasks extends B2WSetupTasks {
 	String EMPLOYEEEVENT = "Employee Event";
 	String EMPLOYEEINACTIVEREASON = "Employee Inactive Reason";
 	String EQUIPMENTASSIGNMENTSTATUS = "Employee Assignment Status";
-	String EQUIPMENTCATEGORY = "Employee Category";
+	String EQUIPMENTCATEGORY = "Equipment Category";
 	String EQUIPMENTEVENT = "Equipment Event";
 	String EQUIPMENTTAG = "Equipment Tag";
 	String FUELTYPE = "Fuel Type";
@@ -45,9 +45,9 @@ public class B2WCategoriesTasks extends B2WSetupTasks {
 	String PLANNED = "Planned";
 	String UNPLANNED = "Unplanned";
 	
-	public boolean selectCategoryFromDropDown(String sText) {
+	public void selectCategoryFromDropDown(String sText) {
 		WebElementUtils.selectItemFromOpsDropDownMenu(B2WCategories.getCategoryDropDownList(), sText);
-		return sText.equals(WebElementUtils.getSelectedTextFromDropDown(B2WCategories.getCategoryDropDownList()));
+
 	}
 	
 	public boolean selectRequestClassificiationTypePreventive() {
@@ -133,22 +133,30 @@ public class B2WCategoriesTasks extends B2WSetupTasks {
 	}
 	
 	
-	public boolean selectBreakType() {
-		return selectCategoryFromDropDown(BRAKETYPE);
+	public void selectBreakType() {
+		selectCategoryFromDropDown(BRAKETYPE);
 	}
-	public boolean selectPartCategory() {
-		return selectCategoryFromDropDown(PARTCATEGORY);
+	public void selectPartCategory() {
+		selectCategoryFromDropDown(PARTCATEGORY);
 	}
-	public boolean selectMeterCategory() {
-		return selectCategoryFromDropDown(METERCATEGORY);
+	public void selectMeterCategory() {
+		selectCategoryFromDropDown(METERCATEGORY);
 	}
-	public boolean selectMaintenanceRequestType() {
-		return selectCategoryFromDropDown(MAINTENANCEREQUESTTYPE);
+	public void selectMaintenanceRequestType() {
+		selectCategoryFromDropDown(MAINTENANCEREQUESTTYPE);
 	}
-	public boolean selectMaintenanceRequestPriority() {
-		return selectCategoryFromDropDown(MAINTENANCEREQUESTPRIORITY);
+	public void selectMaintenanceRequestPriority() {
+		selectCategoryFromDropDown(MAINTENANCEREQUESTPRIORITY);
 	}
-	public boolean selectWorkOrderPriority() {
-		return selectCategoryFromDropDown(WORKORDERPRIORITY);
+	public void selectWorkOrderPriority() {
+		selectCategoryFromDropDown(WORKORDERPRIORITY);
 	}
+	public void selectEquipmentCategory() {
+		selectCategoryFromDropDown(EQUIPMENTCATEGORY);
+	}
+	public String getAccountUnitOfMeasureText() {
+		return WebElementUtils.findElement(By.cssSelector("span#PageContent_generalInformationPanel_UnitOfMeasure")).getText();
+	}
+
+	
 }

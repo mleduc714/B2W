@@ -20,6 +20,11 @@ public class B2WEquipmentTypesTasks extends B2WResourceTasks {
 		return sText.equals(WebElementUtils.getSelectedTextFromDropDown(B2WEquipmentType.getNewEquipmentTypeCategoryDropDown()));
 	}
 	
+	public String selectEquipmentTypeCategory(int iCategory){
+		return WebElementUtils.selectItemFromOpsDropDownMenuByNumber(B2WEquipmentType.getNewEquipmentTypeCategoryDropDown(), iCategory);
+
+	}
+	
 	public boolean setEquipmentTypeName(String sText){
 		WebElement el = WebElementUtils.findElement(B2WEquipmentType.getNewEquipmentTypeName());
 		return WebElementUtils.sendKeys(el, sText);
@@ -47,6 +52,9 @@ public class B2WEquipmentTypesTasks extends B2WResourceTasks {
 	
 	public boolean setEquipmentTypeBusinessUnit(String sCategory) {
 		return selectBusinessUnit(sCategory);
+	}
+	public String getEquipmentTypeTransportsMaterialsText() {
+		return WebElementUtils.findElement(B2WEquipmentType.getNewEquipmentTypeTransportsMaterialsText()).getText();
 	}
 	
 }

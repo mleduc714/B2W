@@ -139,15 +139,15 @@ public class OperationsSmokeC extends B2WTestCase {
 		logCompare(true,b2wLaborType.setLaborType(sLaborTypeA), "Set Labor Type");
 		logCompare(true,b2wLaborType.setLaborID(sLaborTypeIDA), "Set Labor Type ID");
 		logCompare(true,b2wLaborType.clickTopSaveButton(),"Click Save Button");
-		logCompare(sLaborTypeIDA, b2wAct.getAccountIDText(), "Account ID");
-		logCompare(sLaborTypeA, b2wLaborType.getLaborTypeTextLabel(), "Labor Type");
+		logCompare(sLaborTypeIDA, b2wAct.getGenInfoAccountIDLabel(), "Account ID");
+		logCompare(sLaborTypeA, b2wLaborType.getGenInfoNameLabel(), "Labor Type");
 		b2wNav.openLaborTypes();
 		logCompare(true,b2wLaborType.createNewLaborType(),"Create Labor Type");
 		logCompare(true,b2wLaborType.setLaborType(sLaborTypeB), "Set Labor Type");
 		logCompare(true,b2wLaborType.setLaborID(sLaborTypeIDB), "Set Labor ID");
 		logCompare(true,b2wLaborType.clickTopSaveButton(),"Click Save Button");
-		logCompare(sLaborTypeIDB, b2wAct.getAccountIDText(), "Account ID");
-		logCompare(sLaborTypeB, b2wLaborType.getLaborTypeTextLabel(), "Labor Type");
+		logCompare(sLaborTypeIDB, b2wAct.getGenInfoAccountIDLabel(), "Account ID");
+		logCompare(sLaborTypeB, b2wLaborType.getGenInfoNameLabel(), "Labor Type");
 		
 		
 	}

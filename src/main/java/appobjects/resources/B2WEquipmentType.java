@@ -26,4 +26,8 @@ public class B2WEquipmentType {
 	public static By getNewEquipmentCapacityList(){
 		return By.cssSelector(B2WUIMap.b2w_newequipmentcapacitygrid);
 	}
+	public static By getNewEquipmentTypeTransportsMaterialsText() {
+		return By.cssSelector(B2WUIMap.b2w_newequipmenttypetransportmaterialtext);
+	}
+	
 }

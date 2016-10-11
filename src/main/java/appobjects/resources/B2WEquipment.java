@@ -33,5 +33,31 @@ public class B2WEquipment {
 	public static By getNewEquipmentSaveButton() {
 		return By.cssSelector(B2WUIMap.b2w_newequipmentsavebutton);
 	}
-	
+	public static By getEquipmentListView() {
+		return By.cssSelector(B2WUIMap.b2w_equipmentlistview);
+	}
+	public static By getEquipmentFilterByDD() {
+		return By.cssSelector(B2WUIMap.b2w_newequipmentfilterbydd);
+	}
+	public static By getEquipmentGridContent() {
+		return By.cssSelector(B2WUIMap.b2w_equipmentgridcontent);
+	}
+	public static By getEquipmentItems() {
+		return By.cssSelector(B2WUIMap.b2w_equipmentitems);
+	}
+	public static By getEquipmentBoxContent() {
+		return By.cssSelector(B2WUIMap.b2w_equipmentcontent);
+	}
+	public static By getEquipmentHeadersFromView() {
+		return By.cssSelector(B2WUIMap.b2w_equipmentheaders);
+	}
+	public static By getEquipmentHeadline() {
+		return By.cssSelector(B2WUIMap.b2w_equipmentheadline);
+	}
+	public static By getEquipmentItemAction() {
+		return By.cssSelector(B2WUIMap.b2w_equipmentactionbuttons);
+	}
+	public static By getEquipmentPageLoading() {
+		return By.cssSelector(B2WUIMap.b2w_equipmentloadpage);
+	}
 }

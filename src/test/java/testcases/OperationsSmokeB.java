@@ -252,7 +252,7 @@ public class OperationsSmokeB extends B2WTestCase {
 	public void verifyProductionAccount() {
 
 		logCompare(sProductionAccountDesc, b2wAct.getDescriptionText(), "Description");
-		logCompare(sProductionAccountID, b2wAct.getAccountIDText(), "Account ID");
+		logCompare(sProductionAccountID, b2wAct.getGenInfoAccountIDLabel(), "Account ID");
 		logCompare(sProductionAccountBusinessUnit, b2wAct.getAccountBusinessUnitLink(), "Business Unit");
 		logCompare(sProductionAccountUnitOfMeasure, b2wAct.getAccountUnitofMeasureText(), "Unit of Measure");
 		logCompare(sProductionAccountNotes, b2wAct.getAccountNotesText(), "Notes for account");
@@ -262,7 +262,7 @@ public class OperationsSmokeB extends B2WTestCase {
 	public void verifyOverheadAccount() {
 
 		logCompare(sOverheadAccountDesc, b2wAct.getDescriptionText(), "Description");
-		logCompare(sOverheadAccountID, b2wAct.getAccountIDText(), "Account ID");
+		logCompare(sOverheadAccountID, b2wAct.getGenInfoAccountIDLabel(), "Account ID");
 		logCompare(sOverheadAccountBusinessUnit, b2wAct.getAccountBusinessUnitLink(), "Business Unit");
 		logCompare(sOverheadAccountNotes, b2wAct.getAccountNotesText(), "Notes Account");
 
