@@ -205,7 +205,7 @@ public class OperationsSmokeE extends B2WTestCase {
 
 	public void testMain() throws Throwable {
 
-/*	    createLaborRateClass(sLaborRate, sLaborRateID, "Hauling");
+	    createLaborRateClass(sLaborRate, sLaborRateID, "Hauling");
 		createTrackPart();
 		createMeter();
 		createMaintenanceRequests();
@@ -214,14 +214,8 @@ public class OperationsSmokeE extends B2WTestCase {
 		createPart(sPartC, sPartIDC, sCategoryA);
 		createPlace();
 		createOrganizations();
-		createPriceSheets();*/
-		assertTrue("Open Time Sheets",b2wNav.openTimeSheets());
-		logCompare(true,b2wTS.createNewPriceSheetForEquipment(),"Create new time sheet for equipment");
-		logCompare(true,b2wTS.setEquipmentRatesName(sEquipmentPriceSheet), "Set Equipment PS");
-		logCompare(true,b2wTS.setEquipmentRatesID(sEquipmentPriceSheetID), "Set ID");
-		logCompare(true,b2wTS.selectEquipmentBusinessUnitFromDD(sEquipmentPriceSheetBusinessCategory), "Set Business Unit");
-		logCompare(true,b2wTS.setRateSourceNoRateSource(), "Set No Rates");
-		//logCompare(true,b2wTS.clickApply(), "Apply the deal");
+		createPriceSheets();
+
 
 		
 
