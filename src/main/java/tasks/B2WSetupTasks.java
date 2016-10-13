@@ -1,12 +1,14 @@
 package tasks;
 
 import org.apache.log4j.Logger;
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
+import com.b2w.test.BaseAssert;
+
 import appobjects.B2WUIMap;
 import appobjects.setup.B2WSetup;
-import tasks.util.TaskUtils;
 
 public class B2WSetupTasks {
 	
@@ -346,16 +348,36 @@ public class B2WSetupTasks {
 	public boolean clickTopSaveButton() {
 		boolean bReturn = false;
 		if (WebElementUtils.clickElement(B2WSetup.getTopSaveButton())){
-			bReturn = waitForProcessingDialogToClear();
-			bReturn &= WebElementUtils.waitAndFindDisplayedElement(B2WSetup.getTopEditButton()) != null;
+			if (WebElementUtils.waitAndFindDisplayedElement(By.cssSelector("div#PageContent_errorMessageControl_ErrorPanel")) != null){
+				BaseAssert.logScreenCapture();
+				clickTopCancelButton();
+				Alert alert = WebElementUtils.waitForAndGetAlertDialog(WebElementUtils.MEDIUM_TIME_OUT);
+				if (alert != null) {
+					alert.accept();
+					waitForProcessingDialogToClear();
+				}
+			}else{
+				bReturn = waitForProcessingDialogToClear();
+				bReturn &= WebElementUtils.waitAndFindDisplayedElement(B2WSetup.getTopEditButton()) != null;
+			}
 		}
 		return bReturn;
 	}
 	public boolean clickBottomSaveButton() {
 		boolean bReturn = false;
 		if (WebElementUtils.clickElement(B2WSetup.getBottomSaveButton())){
-			bReturn = waitForProcessingDialogToClear();
-			TaskUtils.sleep(2000);
+			if (WebElementUtils.waitAndFindDisplayedElement(By.cssSelector("div#PageContent_errorMessageControl_ErrorPanel")) != null){
+				BaseAssert.logScreenCapture();
+				clickTopCancelButton();
+				Alert alert = WebElementUtils.waitForAndGetAlertDialog(WebElementUtils.MEDIUM_TIME_OUT);
+				if (alert != null) {
+					alert.accept();
+					waitForProcessingDialogToClear();
+				}
+			}else{
+				bReturn = waitForProcessingDialogToClear();
+				bReturn &= WebElementUtils.waitAndFindDisplayedElement(B2WSetup.getTopEditButton()) != null;
+			}
 		}
 		return bReturn;
 	}

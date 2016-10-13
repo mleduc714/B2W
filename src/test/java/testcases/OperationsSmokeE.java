@@ -216,7 +216,6 @@ public class OperationsSmokeE extends B2WTestCase {
 		createOrganizations();
 		createPriceSheets();
 
-	
 		
 
 	}

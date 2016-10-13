@@ -49,6 +49,7 @@ public class B2WUIMap {
 	public static final String b2w_pagecontentdetailpanel = "div#PageContent_DetailPanel";
 	public static final String b2w_pageproductpanel = "div#ProductPanel";
 	public static final String b2w_pagecontentcontentdetailpanel = "div#PageContent_PageContent_DetailPanel";
+	
 
 	// maintain
 	public static final String b2w_maintain_grid_content = "div.k-grid-content";
@@ -274,6 +275,8 @@ public class B2WUIMap {
 	public static String b2w_newequipmenttypetransportscb = "input#PageContent_generalInformationPanel_CanTransportMaterialsCheckBox";
 	public static String b2w_newequipmentcategory = "select#PageContent_generalInformationPanel_EquipmentCategoryDropDownList";
 	public static String b2w_newequipmenttypetransportmaterialtext = "span#PageContent_generalInformationPanel_CanTransportMaterialLabel";
+	
+	public static String b2w_categoriesunitofmeasure = "span#PageContent_generalInformationPanel_UnitOfMeasure";
 
 	public static String b2w_materialsdesclabel = "span#PageContent_generalInformationPanel_DescriptionLabel";
 	public static String b2w_materialidlabel = "span#PageContent_generalInformationPanel_MaterialIDLabel";

@@ -6,6 +6,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
 import appobjects.B2WCommonObjects;
+import appobjects.B2WUIMap;
 import appobjects.setup.B2WCategories;
 import tasks.B2WSetupTasks;
 import tasks.WebElementUtils;
@@ -168,7 +169,12 @@ public class B2WCategoriesTasks extends B2WSetupTasks {
 		selectCategoryFromDropDown(EQUIPMENTCATEGORY);
 	}
 	public String getAccountUnitOfMeasureText() {
-		return WebElementUtils.findElement(By.cssSelector("span#PageContent_generalInformationPanel_UnitOfMeasure")).getText();
+		String sUnitOfMeasureText = "";
+		WebElement el = WebElementUtils.findElement(By.cssSelector(B2WUIMap.b2w_categoriesunitofmeasure));
+		if (el != null){
+			sUnitOfMeasureText = el.getText();
+		}
+		return sUnitOfMeasureText;
 	}
 
 	
