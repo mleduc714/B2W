@@ -186,7 +186,7 @@ public class WebElementUtils {
 
 				if (element.getText().equalsIgnoreCase(text)) {
 					ret = element;
-					break;
+					return ret;
 				}
 
 			}
