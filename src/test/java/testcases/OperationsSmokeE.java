@@ -99,7 +99,7 @@ public class OperationsSmokeE extends B2WTestCase {
 	String sOrganizationCompanyZipB;
 	String sOrganizationCompanyCountryB;
 	String sOrganizationCompanyPhoneB;
-	
+
 	String sEquipmentPriceSheet;
 	String sEquipmentPriceSheetID;
 	String sEquipmentPriceSheetBusinessCategory;
@@ -146,8 +146,8 @@ public class OperationsSmokeE extends B2WTestCase {
 		int n = rand.nextInt(10000) + 1;
 		sLaborRate = getProperty("laborrateclass") + n;
 		sLaborRateID = getProperty("laborrateclassid") + n;
-		sCategoryA = getProperty("categoryNameA");
-		sCategoryB = getProperty("categoryNameB");
+		sCategoryA = getProperty("categoryNameA") + n;
+		sCategoryB = getProperty("categoryNameB") + n;
 		sCategoryC = getProperty("categoryNameC");
 		sCategoryD = getProperty("categoryNameD");
 		sPartA = getProperty("partA");
@@ -179,7 +179,7 @@ public class OperationsSmokeE extends B2WTestCase {
 		sOrganizationCompanyPhoneA = getProperty("sOrganizationCompanyPhoneA");
 
 		sOrganizationCompanyNameB = getProperty("sOrganizationCompanyNameB");
-		sOrganizationCompanyIDB = getProperty("sOrganizationCompanyIDB")+ n;
+		sOrganizationCompanyIDB = getProperty("sOrganizationCompanyIDB") + n;
 		sOrganizationCompanyBusinessUnitB = getProperty("");
 		sOrganizationCompanyAddressB = getProperty("sOrganizationCompanyBusinessUnitB");
 		sOrganizationCompanyCityB = getProperty("sOrganizationCompanyCityB");
@@ -187,16 +187,16 @@ public class OperationsSmokeE extends B2WTestCase {
 		sOrganizationCompanyZipB = getProperty("sOrganizationCompanyZipB");
 		sOrganizationCompanyCountryB = getProperty("sOrganizationCompanyCountryB");
 		sOrganizationCompanyPhoneB = getProperty("sOrganizationCompanyPhoneB");
-		
+
 		sEquipmentPriceSheet = getProperty("sEquipmentPriceSheet");
 		sEquipmentPriceSheetID = getProperty("sEquipmentPriceSheetID") + n;
 		sMiscPriceSheetBusinessCategory = getProperty("sMiscPriceSheetBusinessCategory");
 		sLaborPriceSheet = getProperty("sLaborPriceSheet");
-		sLaborPriceSheetID = getProperty("sLaborPriceSheetID") +n;
+		sLaborPriceSheetID = getProperty("sLaborPriceSheetID") + n;
 		sMaterialsPriceSheet = getProperty("sMaterialsPriceSheet");
-		sMaterialsPriceSheetID = getProperty("sMaterialsPriceSheetID") +n;
+		sMaterialsPriceSheetID = getProperty("sMaterialsPriceSheetID") + n;
 		sMiscPriceSheet = getProperty("sMiscPriceSheet");
-		sMiscPriceSheetID = getProperty("sMiscPriceSheetID") +n;
+		sMiscPriceSheetID = getProperty("sMiscPriceSheetID") + n;
 		sEquipmentPriceSheetBusinessCategory = getProperty("sEquipmentPriceSheetBusinessCategory");
 		sMaterialsPriceSheetBusinessCategory = getProperty("sMaterialsPriceSheetBusinessCategory");
 		sLaborPriceSheetBusinessCategory = getProperty("sLaborPriceSheetBusinessCategory");
@@ -205,19 +205,16 @@ public class OperationsSmokeE extends B2WTestCase {
 
 	public void testMain() throws Throwable {
 
-	    createLaborRateClass(sLaborRate, sLaborRateID, "Hauling");
+		createLaborRateClass(sLaborRate, sLaborRateID, "Hauling");
 		createTrackPart();
 		createMeter();
 		createMaintenanceRequests();
 		createPart(sPartA, sPartIDA, sCategoryA);
 		createPart(sPartB, sPartIDB, sCategoryA);
 		createPart(sPartC, sPartIDC, sCategoryA);
-		createPlace();
-		createOrganizations();
-		createPriceSheets();
-
-
-		
+//		createPlace();
+//		createOrganizations();
+//		createPriceSheets();
 
 	}
 
@@ -230,28 +227,29 @@ public class OperationsSmokeE extends B2WTestCase {
 	public void createTrackPart() {
 		logCompare(true, b2wNav.openCategories(), "Open Categories");
 		b2wCatTasks.selectPartCategory();
-		logCompare(true, b2wCatTasks.enterTextAndClickSearch(sCategoryA), "search for category");
-		if (!b2wCatTasks.isCategoryInListing(sCategoryA)) {
-			logCompare(true, b2wCatTasks.clickCreateNewCategory(), "Create new category");
-			logCompare(true, b2wCatTasks.setCategoryName(sCategoryA), "Set Category Name");
-			logCompare(true, b2wCatTasks.clickTopSaveButton(), "Save Category");
-			logCompare(sCategoryA, b2wCatTasks.getGenInfoNameValueLabel(), "Category Name");
-		}
+		// logCompare(true, b2wCatTasks.enterTextAndClickSearch(sCategoryA),
+		// "search for category");
+		// if (!b2wCatTasks.isCategoryInListing(sCategoryA)) {
+		logCompare(true, b2wCatTasks.clickCreateNewCategory(), "Create new category");
+		logCompare(true, b2wCatTasks.setCategoryName(sCategoryA), "Set Category Name");
+		logCompare(true, b2wCatTasks.clickTopSaveButton(), "Save Category");
+		logCompare(sCategoryA, b2wCatTasks.getGenInfoNameValueLabel(), "Category Name");
 
 	}
 
 	public void createMeter() {
 		logCompare(true, b2wNav.openCategories(), "Open Catgories");
 		b2wCatTasks.selectMeterCategory();
-		logCompare(true, b2wCatTasks.enterTextAndClickSearch(sCategoryB), "Search for Category");
-		if (!b2wCatTasks.isCategoryInListing(sCategoryB)) {
-			logCompare(true, b2wCatTasks.clickCreateNewCategory(), "Create new category");
-			logCompare(true, b2wCatTasks.setCategoryName(sCategoryB), "Set Category Name");
-			logCompare(true, b2wAct.selectUnitOfMeasure("HR"), "Select Unit of measure");
-			logCompare(true, b2wCatTasks.clickTopSaveButton(), "Save Category");
-			logCompare("HR", b2wCatTasks.getAccountUnitOfMeasureText(), "Unit of Measure");
-			logCompare(sCategoryB, b2wCatTasks.getGenInfoNameValueLabel(), "Meter Name");
-		}
+		// logCompare(true, b2wCatTasks.enterTextAndClickSearch(sCategoryB),
+		// "Search for Category");
+		// if (!b2wCatTasks.isCategoryInListing(sCategoryB)) {
+		logCompare(true, b2wCatTasks.clickCreateNewCategory(), "Create new category");
+		logCompare(true, b2wCatTasks.setCategoryName(sCategoryB), "Set Category Name");
+		logCompare(true, b2wAct.selectUnitOfMeasure("HR"), "Select Unit of measure");
+		logCompare(true, b2wCatTasks.clickTopSaveButton(), "Save Category");
+		logCompare("HR", b2wCatTasks.getAccountUnitOfMeasureText(), "Unit of Measure");
+		logCompare(sCategoryB, b2wCatTasks.getGenInfoNameValueLabel(), "Meter Name");
+		// }
 	}
 
 	public void createMaintenanceRequests() {
@@ -361,107 +359,108 @@ public class OperationsSmokeE extends B2WTestCase {
 		logCompare(true, b2wPlaces.clickSaveBin(), "Save Bin");
 		logCompare(sPlaceBin, b2wPlaces.getInventoryBinDescription(), "Inventory Description");
 	}
-	
+
 	public void createPriceSheets() {
-		assertTrue("Open Time Sheets",b2wNav.openTimeSheets());
-		logCompare(true,b2wTS.createNewPriceSheetForEquipment(),"Create new time sheet for equipment");
-		logCompare(true,b2wTS.setEquipmentRatesName(sEquipmentPriceSheet), "Set Equipment PS");
-		logCompare(true,b2wTS.setEquipmentRatesID(sEquipmentPriceSheetID), "Set ID");
-		logCompare(true,b2wTS.selectEquipmentBusinessUnitFromDD(sEquipmentPriceSheetBusinessCategory), "Set Business Unit");
-		logCompare(true,b2wTS.setRateSourceNoRateSource(), "Set No Rates");
-		logCompare(true,b2wTS.clickApply(), "Apply the deal");
-		logCompare(true,b2wTS.selectPriceSheetByID(sEquipmentPriceSheetID), "Select the new price sheet");
-		logCompare("No Rate Source (Rates Entered Manually)",b2wTS.getRateSourceDescription(), "Rate Source Desc");
-		logCompare("No",b2wTS.getUseOperatedRates(), "Operated Rates");
+		assertTrue("Open Time Sheets", b2wNav.openTimeSheets());
+		logCompare(true, b2wTS.createNewPriceSheetForEquipment(), "Create new time sheet for equipment");
+		logCompare(true, b2wTS.setEquipmentRatesName(sEquipmentPriceSheet), "Set Equipment PS");
+		logCompare(true, b2wTS.setEquipmentRatesID(sEquipmentPriceSheetID), "Set ID");
+		logCompare(true, b2wTS.selectEquipmentBusinessUnitFromDD(sEquipmentPriceSheetBusinessCategory),
+				"Set Business Unit");
+		logCompare(true, b2wTS.setRateSourceNoRateSource(), "Set No Rates");
+		logCompare(true, b2wTS.clickApply(), "Apply the deal");
+		logCompare(true, b2wTS.selectPriceSheetByID(sEquipmentPriceSheetID), "Select the new price sheet");
+		logCompare("No Rate Source (Rates Entered Manually)", b2wTS.getRateSourceDescription(), "Rate Source Desc");
+		logCompare("No", b2wTS.getUseOperatedRates(), "Operated Rates");
 		logCompare(sEquipmentPriceSheetBusinessCategory, b2wTS.getBusinessUnit(), "Verify Business Unit");
-		
-		assertTrue("Open Time Sheets",b2wNav.openTimeSheets());
-		logCompare(true,b2wTS.createNewPriceSheetForLabor(),"Create new time sheet for equipment");
-		logCompare(true,b2wTS.setEquipmentRatesName(sLaborPriceSheet), "Set Equipment PS");
-		logCompare(true,b2wTS.setEquipmentRatesID(sLaborPriceSheetID), "Set ID");
-		logCompare(true,b2wTS.selectEquipmentBusinessUnitFromDD(sLaborPriceSheetBusinessCategory), "Set Business Unit");
-		logCompare(true,b2wTS.setRateSourceNoRateSource(), "Set No Rates");
-		logCompare(true,b2wTS.clickApply(), "Apply the deal");
-		logCompare(true,b2wTS.selectPriceSheetByID(sLaborPriceSheetID), "Select the new price sheet");
-		logCompare("No Rate Source (Rates Entered Manually)",b2wTS.getRateSourceDescription(), "Rate Source Desc");
+
+		assertTrue("Open Time Sheets", b2wNav.openTimeSheets());
+		logCompare(true, b2wTS.createNewPriceSheetForLabor(), "Create new time sheet for equipment");
+		logCompare(true, b2wTS.setEquipmentRatesName(sLaborPriceSheet), "Set Equipment PS");
+		logCompare(true, b2wTS.setEquipmentRatesID(sLaborPriceSheetID), "Set ID");
+		logCompare(true, b2wTS.selectEquipmentBusinessUnitFromDD(sLaborPriceSheetBusinessCategory),
+				"Set Business Unit");
+		logCompare(true, b2wTS.setRateSourceNoRateSource(), "Set No Rates");
+		logCompare(true, b2wTS.clickApply(), "Apply the deal");
+		logCompare(true, b2wTS.selectPriceSheetByID(sLaborPriceSheetID), "Select the new price sheet");
+		logCompare("No Rate Source (Rates Entered Manually)", b2wTS.getRateSourceDescription(), "Rate Source Desc");
 		logCompare(sLaborPriceSheetBusinessCategory, b2wTS.getBusinessUnit(), "Verify Business Unit");
-		
-		assertTrue("Open Time Sheets",b2wNav.openTimeSheets());
-		logCompare(true,b2wTS.createNewPriceSheetForMaterials(),"Create new time sheet for equipment");
-		logCompare(true,b2wTS.setEquipmentRatesName(sMaterialsPriceSheet), "Set Equipment PS");
-		logCompare(true,b2wTS.setEquipmentRatesID(sMaterialsPriceSheetID), "Set ID");
-		logCompare(true,b2wTS.selectEquipmentBusinessUnitFromDD(sMaterialsPriceSheetBusinessCategory), "Set Business Unit");
-		logCompare(true,b2wTS.setRateSourceNoRateSource(), "Set No Rates");
-		logCompare(true,b2wTS.clickApply(), "Apply the deal");
-		logCompare(true,b2wTS.selectPriceSheetByID(sMaterialsPriceSheetID), "Select the new price sheet");
-		logCompare("No Rate Source (Rates Entered Manually)",b2wTS.getRateSourceDescription(), "Rate Source Desc");
+
+		assertTrue("Open Time Sheets", b2wNav.openTimeSheets());
+		logCompare(true, b2wTS.createNewPriceSheetForMaterials(), "Create new time sheet for equipment");
+		logCompare(true, b2wTS.setEquipmentRatesName(sMaterialsPriceSheet), "Set Equipment PS");
+		logCompare(true, b2wTS.setEquipmentRatesID(sMaterialsPriceSheetID), "Set ID");
+		logCompare(true, b2wTS.selectEquipmentBusinessUnitFromDD(sMaterialsPriceSheetBusinessCategory),
+				"Set Business Unit");
+		logCompare(true, b2wTS.setRateSourceNoRateSource(), "Set No Rates");
+		logCompare(true, b2wTS.clickApply(), "Apply the deal");
+		logCompare(true, b2wTS.selectPriceSheetByID(sMaterialsPriceSheetID), "Select the new price sheet");
+		logCompare("No Rate Source (Rates Entered Manually)", b2wTS.getRateSourceDescription(), "Rate Source Desc");
 		logCompare(sMaterialsPriceSheetBusinessCategory, b2wTS.getBusinessUnit(), "Verify Business Unit");
-		
-		assertTrue("Open Time Sheets",b2wNav.openTimeSheets());
-		logCompare(true,b2wTS.createNewPriceSheetForMaterials(),"Create new time sheet for equipment");
-		logCompare(true,b2wTS.setEquipmentRatesName(sMiscPriceSheet), "Set Equipment PS");
-		logCompare(true,b2wTS.setEquipmentRatesID(sMiscPriceSheetID), "Set ID");
-		logCompare(true,b2wTS.selectEquipmentBusinessUnitFromDD(sMiscPriceSheetBusinessCategory), "Set Business Unit");
-		logCompare(true,b2wTS.setRateSourceNoRateSource(), "Set No Rates");
-		logCompare(true,b2wTS.clickApply(), "Apply the deal");
-		logCompare(true,b2wTS.selectPriceSheetByID(sMiscPriceSheetID), "Select the new price sheet");
-		logCompare("No Rate Source (Rates Entered Manually)",b2wTS.getRateSourceDescription(), "Rate Source Desc");
+
+		assertTrue("Open Time Sheets", b2wNav.openTimeSheets());
+		logCompare(true, b2wTS.createNewPriceSheetForMaterials(), "Create new time sheet for equipment");
+		logCompare(true, b2wTS.setEquipmentRatesName(sMiscPriceSheet), "Set Equipment PS");
+		logCompare(true, b2wTS.setEquipmentRatesID(sMiscPriceSheetID), "Set ID");
+		logCompare(true, b2wTS.selectEquipmentBusinessUnitFromDD(sMiscPriceSheetBusinessCategory), "Set Business Unit");
+		logCompare(true, b2wTS.setRateSourceNoRateSource(), "Set No Rates");
+		logCompare(true, b2wTS.clickApply(), "Apply the deal");
+		logCompare(true, b2wTS.selectPriceSheetByID(sMiscPriceSheetID), "Select the new price sheet");
+		logCompare("No Rate Source (Rates Entered Manually)", b2wTS.getRateSourceDescription(), "Rate Source Desc");
 		logCompare(sMaterialsPriceSheetBusinessCategory, b2wTS.getBusinessUnit(), "Verify Business Unit");
-		
+
 	}
 
 	public void createOrganizations() {
-		logCompare(true,b2wNav.openOrganizations(),"open organizations");
-		assertTrue("Create Organization",b2wOrg.createNewOrganization());
-		logCompare(true,b2wOrg.setCompanyName(sOrganizationCompanyNameA), "Set Company name");
-		logCompare(true,b2wOrg.setCompanyID(sOrganizationCompanyIDA), "Set Company ID");
-		logCompare(true,b2wOrg.setCompanyAddress1(sOrganizationCompanyAddressA), "Set Company Address");
-		logCompare(true,b2wOrg.selectBusinessUnit(sOrganizationCompanyBusinessUnitA), "Set Business Unit");
-		logCompare(true,b2wOrg.setCompanyCity(sOrganizationCompanyCityA), "Set City");
-		logCompare(true,b2wOrg.setCompanyState(sOrganizationCompanyStateA), "Set State");
-		logCompare(true,b2wOrg.setCompanyZip(sOrganizationCompanyZipA), "Set Zip");
-		logCompare(true,b2wOrg.setCompanyCountry(sOrganizationCompanyCountryA), "Set Country");
-		logCompare(true,b2wOrg.setCompanyPhone(sOrganizationCompanyPhoneA), "Set Phone");
-		logCompare(true,b2wOrg.setOrganizationTypeSubContractor(true), "Set Subcontractor");
-		logCompare(true,b2wOrg.clickTopSaveButton(), "Save Organization");
-		
-		
-		logCompare(sOrganizationCompanyNameA,b2wOrg.getCompanyName(), "Verify Company name");
-		logCompare(sOrganizationCompanyIDA,b2wOrg.getCompanyID(), "Verify Company ID");
-		logCompare(sOrganizationCompanyAddressA,b2wOrg.getCompanyAddress(), "Verify Company Address");
-		logCompare(sOrganizationCompanyBusinessUnitA,b2wOrg.getAccountBusinessUnitLink(), "Verify Business Unit");
-		logCompare(sOrganizationCompanyCityA,b2wOrg.getCompanyCity(), "Verify City");
-		logCompare(sOrganizationCompanyStateA,b2wOrg.getCompanyState(), "Verify State");
-		logCompare(sOrganizationCompanyZipA,b2wOrg.getCompanyZip(), "Verify Zip");
-		logCompare(sOrganizationCompanyCountryA,b2wOrg.getCompanyCountry(), "Verify Country");
-		logCompare(sOrganizationCompanyPhoneA,b2wOrg.getCompanyPhone(), "Verify Phone");
-		logCompare("Subcontractor",b2wOrg.getOrganizationType(),"Verify Subcontractor");
-		
-		logCompare(true,b2wNav.openOrganizations(),"open organizations");
-		assertTrue("Create Organization",b2wOrg.createNewOrganization());
-		logCompare(true,b2wOrg.setCompanyName(sOrganizationCompanyNameB), "Set Company name");
-		logCompare(true,b2wOrg.setCompanyID(sOrganizationCompanyIDB), "Set Company ID");
-		logCompare(true,b2wOrg.setCompanyAddress1(sOrganizationCompanyAddressB), "Set Company Address");
-		logCompare(true,b2wOrg.selectBusinessUnit("Hauling"), "Set Business Unit");
-		logCompare(true,b2wOrg.setCompanyCity(sOrganizationCompanyCityB), "Set City");
-		logCompare(true,b2wOrg.setCompanyState(sOrganizationCompanyStateB), "Set State");
-		logCompare(true,b2wOrg.setCompanyZip(sOrganizationCompanyZipB), "Set Zip");
-		logCompare(true,b2wOrg.setCompanyCountry(sOrganizationCompanyCountryB), "Set Country");
-		logCompare(true,b2wOrg.setCompanyPhone(sOrganizationCompanyPhoneB), "Set Phone");
-		logCompare(true,b2wOrg.setOrganizationTypeTruckingSubcontractor(true), "Set Trucking Subcontractor");
-		logCompare(true,b2wOrg.clickTopSaveButton(), "Save Organization");
-		
-		
-		logCompare(sOrganizationCompanyNameB,b2wOrg.getCompanyName(), "Verify Company name");
-		logCompare(sOrganizationCompanyIDB,b2wOrg.getCompanyID(), "Verify Company ID");
-		logCompare(sOrganizationCompanyAddressB,b2wOrg.getCompanyAddress(), "Verify Company Address");
-		logCompare("Hauling",b2wOrg.getAccountBusinessUnitLink(), "Verify Business Unit");
-		logCompare(sOrganizationCompanyCityB,b2wOrg.getCompanyCity(), "Verify City");
-		logCompare(sOrganizationCompanyStateB,b2wOrg.getCompanyState(), "Verify State");
-		logCompare(sOrganizationCompanyZipB,b2wOrg.getCompanyZip(), "Verify Zip");
-		logCompare(sOrganizationCompanyCountryB,b2wOrg.getCompanyCountry(), "Verify Country");
-		logCompare(sOrganizationCompanyPhoneB,b2wOrg.getCompanyPhone(), "Verify Phone");
-		logCompare("Trucking Subcontractor",b2wOrg.getOrganizationType(),"Verify Subcontractor");
+		logCompare(true, b2wNav.openOrganizations(), "open organizations");
+		assertTrue("Create Organization", b2wOrg.createNewOrganization());
+		logCompare(true, b2wOrg.setCompanyName(sOrganizationCompanyNameA), "Set Company name");
+		logCompare(true, b2wOrg.setCompanyID(sOrganizationCompanyIDA), "Set Company ID");
+		logCompare(true, b2wOrg.setCompanyAddress1(sOrganizationCompanyAddressA), "Set Company Address");
+		logCompare(true, b2wOrg.selectBusinessUnit(sOrganizationCompanyBusinessUnitA), "Set Business Unit");
+		logCompare(true, b2wOrg.setCompanyCity(sOrganizationCompanyCityA), "Set City");
+		logCompare(true, b2wOrg.setCompanyState(sOrganizationCompanyStateA), "Set State");
+		logCompare(true, b2wOrg.setCompanyZip(sOrganizationCompanyZipA), "Set Zip");
+		logCompare(true, b2wOrg.setCompanyCountry(sOrganizationCompanyCountryA), "Set Country");
+		logCompare(true, b2wOrg.setCompanyPhone(sOrganizationCompanyPhoneA), "Set Phone");
+		logCompare(true, b2wOrg.setOrganizationTypeSubContractor(true), "Set Subcontractor");
+		logCompare(true, b2wOrg.clickTopSaveButton(), "Save Organization");
+
+		logCompare(sOrganizationCompanyNameA, b2wOrg.getCompanyName(), "Verify Company name");
+		logCompare(sOrganizationCompanyIDA, b2wOrg.getCompanyID(), "Verify Company ID");
+		logCompare(sOrganizationCompanyAddressA, b2wOrg.getCompanyAddress(), "Verify Company Address");
+		logCompare(sOrganizationCompanyBusinessUnitA, b2wOrg.getAccountBusinessUnitLink(), "Verify Business Unit");
+		logCompare(sOrganizationCompanyCityA, b2wOrg.getCompanyCity(), "Verify City");
+		logCompare(sOrganizationCompanyStateA, b2wOrg.getCompanyState(), "Verify State");
+		logCompare(sOrganizationCompanyZipA, b2wOrg.getCompanyZip(), "Verify Zip");
+		logCompare(sOrganizationCompanyCountryA, b2wOrg.getCompanyCountry(), "Verify Country");
+		logCompare(sOrganizationCompanyPhoneA, b2wOrg.getCompanyPhone(), "Verify Phone");
+		logCompare("Subcontractor", b2wOrg.getOrganizationType(), "Verify Subcontractor");
+
+		logCompare(true, b2wNav.openOrganizations(), "open organizations");
+		assertTrue("Create Organization", b2wOrg.createNewOrganization());
+		logCompare(true, b2wOrg.setCompanyName(sOrganizationCompanyNameB), "Set Company name");
+		logCompare(true, b2wOrg.setCompanyID(sOrganizationCompanyIDB), "Set Company ID");
+		logCompare(true, b2wOrg.setCompanyAddress1(sOrganizationCompanyAddressB), "Set Company Address");
+		logCompare(true, b2wOrg.selectBusinessUnit("Hauling"), "Set Business Unit");
+		logCompare(true, b2wOrg.setCompanyCity(sOrganizationCompanyCityB), "Set City");
+		logCompare(true, b2wOrg.setCompanyState(sOrganizationCompanyStateB), "Set State");
+		logCompare(true, b2wOrg.setCompanyZip(sOrganizationCompanyZipB), "Set Zip");
+		logCompare(true, b2wOrg.setCompanyCountry(sOrganizationCompanyCountryB), "Set Country");
+		logCompare(true, b2wOrg.setCompanyPhone(sOrganizationCompanyPhoneB), "Set Phone");
+		logCompare(true, b2wOrg.setOrganizationTypeTruckingSubcontractor(true), "Set Trucking Subcontractor");
+		logCompare(true, b2wOrg.clickTopSaveButton(), "Save Organization");
+
+		logCompare(sOrganizationCompanyNameB, b2wOrg.getCompanyName(), "Verify Company name");
+		logCompare(sOrganizationCompanyIDB, b2wOrg.getCompanyID(), "Verify Company ID");
+		logCompare(sOrganizationCompanyAddressB, b2wOrg.getCompanyAddress(), "Verify Company Address");
+		logCompare("Hauling", b2wOrg.getAccountBusinessUnitLink(), "Verify Business Unit");
+		logCompare(sOrganizationCompanyCityB, b2wOrg.getCompanyCity(), "Verify City");
+		logCompare(sOrganizationCompanyStateB, b2wOrg.getCompanyState(), "Verify State");
+		logCompare(sOrganizationCompanyZipB, b2wOrg.getCompanyZip(), "Verify Zip");
+		logCompare(sOrganizationCompanyCountryB, b2wOrg.getCompanyCountry(), "Verify Country");
+		logCompare(sOrganizationCompanyPhoneB, b2wOrg.getCompanyPhone(), "Verify Phone");
+		logCompare("Trucking Subcontractor", b2wOrg.getOrganizationType(), "Verify Subcontractor");
 
 	}
 
