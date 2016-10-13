@@ -5,6 +5,7 @@ import java.util.List;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
+import appobjects.B2WCommonObjects;
 import appobjects.setup.B2WCategories;
 import tasks.B2WSetupTasks;
 import tasks.WebElementUtils;
@@ -133,6 +134,18 @@ public class B2WCategoriesTasks extends B2WSetupTasks {
 	}
 	
 	
+	@Override
+	public boolean enterTextAndClickSearch(String sText) {
+		boolean bReturn = false;
+		// TODO Auto-generated method stub
+		WebElement el = WebElementUtils.findElement(B2WCommonObjects.getB2WPageContentGrid());
+		bReturn = super.enterTextAndClickSearch(sText);
+		bReturn &= WebElementUtils.waitForElementStale(el, WebElementUtils.MEDIUM_TIME_OUT);
+		return bReturn;
+		
+		
+	}
+
 	public void selectBreakType() {
 		selectCategoryFromDropDown(BRAKETYPE);
 	}

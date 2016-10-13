@@ -395,9 +395,6 @@ public class B2WSetupTasks {
 		if (enterSearchText(sText)){
 			this.clickSearchButton();
 			bReturn = waitForProcessingDialogToClear();
-			TaskUtils.sleep(2000);
-			BaseAssert.logScreenCapture();
-			
 		}
 		return bReturn;
 	}
