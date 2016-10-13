@@ -4,8 +4,6 @@ import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
-import com.b2w.test.BaseAssert;
-
 import appobjects.B2WUIMap;
 import appobjects.setup.B2WSetup;
 import tasks.util.TaskUtils;

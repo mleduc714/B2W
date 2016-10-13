@@ -291,6 +291,7 @@ public class WebElementUtils {
 	public static boolean clickElement(By target, int timeout) {
 		WebElement element = null;
 		boolean bReturn = false;
+		long start = System.currentTimeMillis();
 		try {
 			WebDriverWait wait = new WebDriverWait(BrowserUtils.getDriver(), timeout);
 			element = wait.until(ExpectedConditions.elementToBeClickable(target));
@@ -303,6 +304,22 @@ public class WebElementUtils {
 			bReturn = true;
 		} catch (TimeoutException e) {
 			log.debug("Unable to click element " + target + "\n" + e);
+		} catch(StaleElementReferenceException e2){
+			try {
+				int remaining = (int) Math.floor(timeout - ((System.currentTimeMillis() - start) / 1000.0));
+				log.debug("Stale Reference caught - Waiting additonal " + remaining + " seconds for element clikcable");
+				if (remaining > 0) {
+					WebDriverWait wait = new WebDriverWait(BrowserUtils.getDriver(), remaining);
+					element = wait.until(ExpectedConditions.elementToBeClickable(target));
+					element.click();
+					return true;
+				} else {
+					return false;
+				}
+			}catch(WebDriverException e3){
+		          log.debug("Unable to click element " + target + "\n" + e2);
+		          return false;
+		        }
 		}
 		return bReturn;
 	}
