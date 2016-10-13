@@ -37,7 +37,7 @@ public class TaskUtils extends BaseAssert {
 	 */
 	public boolean waitForPageHeader(String sHeader) {
 		boolean bReturn = false;
-		WebElement panel = WebElementUtils.waitAndFindDisplayedElement(B2WCommonObjects.getB2WPageContentDetailPanel());
+		WebElement panel = WebElementUtils.waitAndFindDisplayedElement(B2WCommonObjects.getB2WPageContentDetailPanel(), WebElementUtils.MEDIUM_TIME_OUT);
 		String sText = panel.findElement(By.tagName("h2")).getText();
 		log.debug("Panel is " + sText);
 		if (sText.equals(sHeader)) {

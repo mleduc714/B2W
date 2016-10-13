@@ -93,8 +93,15 @@ public class B2WNavigationTasks implements Navigation {
 	
 	public boolean openSetup() {
 		boolean bReturn = false;
-		if (WebElementUtils.clickElement(B2WNavigationPanel.getB2WSetupLink())){
-			bReturn = true;
+		if (WebElementUtils.clickElement(B2WNavigationPanel.getB2WSetupLink())) {
+			WebElement el = WebElementUtils.waitAndFindDisplayedElement(B2WNavigationPanel.getB2WSetupNavigationPanel(),
+					WebElementUtils.SHORT_TIME_OUT);
+			if (el != null) {
+				bReturn = true;
+			} else {
+				log.debug("Open Resources is returning a null on Navigation Panel");
+			}
+
 		}
 		return bReturn;
 	}
@@ -102,7 +109,12 @@ public class B2WNavigationTasks implements Navigation {
 	public boolean openResources() {
 		boolean bReturn = false;
 		if (WebElementUtils.clickElement(B2WNavigationPanel.getB2WResourcesLink())){
-			bReturn = true;
+			WebElement el = WebElementUtils.waitAndFindDisplayedElement(B2WNavigationPanel.getB2WSetupNavigationPanel(), WebElementUtils.SHORT_TIME_OUT);
+			if (el != null){
+				bReturn = true;
+			}else{
+				log.debug("Open Resources is returning a null on Navigation Panel");
+			}
 		}
 		return bReturn;
 	}
@@ -130,25 +142,26 @@ public class B2WNavigationTasks implements Navigation {
 		return bReturn;
 	}
 	
-	private boolean openResources(String sMenuItem, String sPanel){
+	private boolean openResources(String sMenuItem, String sPanel) {
 		boolean bReturn = false;
-		if (!sPanel.equals(new TaskUtils().getPageHeader())){
-		if (openResources()){
-			WebElementUtils.switchToFrame(B2WNavigationPanel.getB2WSetupNavigationPanel(), 1);
-			List<WebElement> items = BrowserUtils.getDriver().findElements(B2WNavigationPanel.getB2WSetupPopupItem());
-			WebElement item = WebElementUtils.getElementWithMatchingText(items, sMenuItem, true);
-			if (item != null){
-				item.click();
-				bReturn = new TaskUtils().waitForPageHeader(sPanel);
+		if (!sPanel.equals(new TaskUtils().getPageHeader())) {
+			if (openResources()) {
+				WebElementUtils.switchToFrame(B2WNavigationPanel.getB2WSetupNavigationPanel(), 1);
+				List<WebElement> items = BrowserUtils.getDriver()
+						.findElements(B2WNavigationPanel.getB2WSetupPopupItem());
+				WebElement item = WebElementUtils.getElementWithMatchingText(items, sMenuItem, true);
+				if (item != null) {
+					item.click();
+					bReturn = new TaskUtils().waitForPageHeader(sPanel);
+				}
+
 			}
-			
-		}
-		
-		}else{
-			log.debug("The "+sMenuItem + " is Opened");
+
+		} else {
+			log.debug("The " + sMenuItem + " is Opened");
 			bReturn = true;
 		}
-	
+
 		return bReturn;
 	}
 	
