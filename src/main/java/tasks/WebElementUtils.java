@@ -543,7 +543,7 @@ public class WebElementUtils {
 					+ (expected ? "never contained " : "never lost ") + value);
 		} catch (StaleElementReferenceException e) {
 			log.warn("Stale Element Exception");
-			waitForElementHasAttributeWithValue(by, attribute, value, expected, timeOut);
+			return waitForElementHasAttributeWithValue(by, attribute, value, expected, timeOut);
 		}
 		return bReturn;
 	}
@@ -560,7 +560,7 @@ public class WebElementUtils {
 					+ (expected ? "never contained " : "never lost ") + value);
 		} catch (StaleElementReferenceException e) {
 			log.warn("Stale Element Exception");
-			waitForElementHasAttributeWithValue(el, attribute, value, expected, timeOut);
+			return waitForElementHasAttributeWithValue(el, attribute, value, expected, timeOut);
 		}
 		return bReturn;
 	}
@@ -651,7 +651,7 @@ public class WebElementUtils {
 			}
 		} catch (StaleElementReferenceException e) {
 			log.warn("Caught Stale Element Exception!!");
-			selectItemFromOpsDropDownMenuByNumber(by, iNumber);
+			return selectItemFromOpsDropDownMenuByNumber(by, iNumber);
 		}
 		return sCategory;
 	}
