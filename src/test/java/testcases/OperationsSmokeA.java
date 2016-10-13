@@ -173,7 +173,7 @@ public class OperationsSmokeA extends B2WTestCase {
 		assertTrue("Open Setup Users", b2wNav.openSetupUsers());
 		//logCompare("Michael LeDuc",b2wNav.getUserName(), "User Names");
 		//TaskUtils.logScreenCapture();
-		assertTrue("Search for Last Name",userTasks.enterTextAndClickSearch(sLastName));
+		assertTrue("Search for Last Name",userTasks.openUserByLastName(sLastName));
 		assertTrue("Open the user",userTasks.openUserByLastName(sLastName));
 		assertTrue("Edit the User",userTasks.clickEditButton());
 		logCompare(true,userTasks.changeDispatchAccessToNone(),"Remove Dispatch");		

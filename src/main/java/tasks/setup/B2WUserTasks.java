@@ -35,13 +35,10 @@ public class B2WUserTasks extends B2WSetupTasks {
 	
 	public boolean openUserByLastName(String sLastName){
 		boolean bReturn = false;
-		List<WebElement> list = BrowserUtils.getDriver().findElements(B2WSetupUsers.getB2WUserListingLastName());
-		if (!list.isEmpty()){
-			WebElement el = WebElementUtils.getElementWithMatchingText(list, sLastName, false);
-			WebElementUtils.clickElement(el);
-			WebElement waitForThis = WebElementUtils.waitAndFindDisplayedElement(B2WSetupUsers.getUserInformationHeader());
-			bReturn = waitForThis!=null;
-		}
+		WebElement el = WebElementUtils.getElementWithMatchingText(B2WSetupUsers.getB2WUserListingLastName(), sLastName);
+		WebElementUtils.clickElement(el);
+		WebElement waitForThis = WebElementUtils.waitAndFindDisplayedElement(B2WSetupUsers.getUserInformationHeader());
+		bReturn = waitForThis!=null;
 		return bReturn;
 	}
 	

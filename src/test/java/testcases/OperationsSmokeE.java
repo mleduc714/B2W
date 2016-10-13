@@ -374,7 +374,6 @@ public class OperationsSmokeE extends B2WTestCase {
 		logCompare("No", b2wTS.getUseOperatedRates(), "Operated Rates");
 		logCompare(sEquipmentPriceSheetBusinessCategory, b2wTS.getBusinessUnit(), "Verify Business Unit");
 
-		assertTrue("Open Time Sheets", b2wNav.openTimeSheets());
 		logCompare(true, b2wTS.createNewPriceSheetForLabor(), "Create new time sheet for equipment");
 		logCompare(true, b2wTS.setEquipmentRatesName(sLaborPriceSheet), "Set Equipment PS");
 		logCompare(true, b2wTS.setEquipmentRatesID(sLaborPriceSheetID), "Set ID");
@@ -386,7 +385,6 @@ public class OperationsSmokeE extends B2WTestCase {
 		logCompare("No Rate Source (Rates Entered Manually)", b2wTS.getRateSourceDescription(), "Rate Source Desc");
 		logCompare(sLaborPriceSheetBusinessCategory, b2wTS.getBusinessUnit(), "Verify Business Unit");
 
-		assertTrue("Open Time Sheets", b2wNav.openTimeSheets());
 		logCompare(true, b2wTS.createNewPriceSheetForMaterials(), "Create new time sheet for equipment");
 		logCompare(true, b2wTS.setEquipmentRatesName(sMaterialsPriceSheet), "Set Equipment PS");
 		logCompare(true, b2wTS.setEquipmentRatesID(sMaterialsPriceSheetID), "Set ID");
@@ -398,8 +396,7 @@ public class OperationsSmokeE extends B2WTestCase {
 		logCompare("No Rate Source (Rates Entered Manually)", b2wTS.getRateSourceDescription(), "Rate Source Desc");
 		logCompare(sMaterialsPriceSheetBusinessCategory, b2wTS.getBusinessUnit(), "Verify Business Unit");
 
-		assertTrue("Open Time Sheets", b2wNav.openTimeSheets());
-		logCompare(true, b2wTS.createNewPriceSheetForMaterials(), "Create new time sheet for equipment");
+		logCompare(true, b2wTS.createNewPriceSheetForMiscellaneous(), "Create new time sheet for equipment");
 		logCompare(true, b2wTS.setEquipmentRatesName(sMiscPriceSheet), "Set Equipment PS");
 		logCompare(true, b2wTS.setEquipmentRatesID(sMiscPriceSheetID), "Set ID");
 		logCompare(true, b2wTS.selectEquipmentBusinessUnitFromDD(sMiscPriceSheetBusinessCategory), "Set Business Unit");
