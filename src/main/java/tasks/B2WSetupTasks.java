@@ -4,6 +4,8 @@ import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
+import com.b2w.test.BaseAssert;
+
 import appobjects.B2WUIMap;
 import appobjects.setup.B2WSetup;
 import tasks.util.TaskUtils;
@@ -393,7 +395,9 @@ public class B2WSetupTasks {
 		if (enterSearchText(sText)){
 			this.clickSearchButton();
 			bReturn = waitForProcessingDialogToClear();
-			TaskUtils.sleep(1000);
+			TaskUtils.sleep(2000);
+			BaseAssert.logScreenCapture();
+			
 		}
 		return bReturn;
 	}

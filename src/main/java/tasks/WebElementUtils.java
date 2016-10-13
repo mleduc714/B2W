@@ -443,15 +443,55 @@ public class WebElementUtils {
 		};
 
 	}
+	
+	
+	private static ExpectedCondition<Boolean> attributeToHaveValue(final WebElement el, final String attribute,
+			final String value, final boolean b) {
 
-	/**
-	 * @param by
-	 * @param attribute
-	 * @param value
-	 * @param expected
-	 * @param timeOut
-	 * @return
-	 */
+		return new ExpectedCondition<Boolean>() {
+
+			@Override
+			public Boolean apply(WebDriver driver) {
+				try {
+					String elementText = el.getAttribute(attribute);
+					if (elementText != null) {
+						if (value != null) {
+							String pattern = (attribute.equals("class"))
+									? ("(^|\\s)\\Q" + value.toUpperCase() + "\\E($|\\s)")
+									: "\\Q" + value.toUpperCase() + "\\E";
+							// If value is not NULL, proceed with the
+							// comparison.
+							elementText = elementText.replaceAll("\\xA0", " ").toUpperCase();
+							Pattern patern = Pattern.compile(pattern);
+							boolean found = patern.matcher(elementText).find();
+							return b ? found : !found;
+						} else {
+							// If value is NULL, then the expected value does
+							// not match what was found.
+							return !b;
+						}
+					} else {
+						// The attribute returned null. Was the expected value
+						// also null? Did this match our
+						// expectations?
+						return (value == null) == b;
+					}
+				} catch (NoSuchElementException e) {
+					return !b;
+				} catch (NullPointerException e) {
+					log.debug(e.getMessage());
+					if (driver == null) {
+						log.debug("The driver is null");
+					} else {
+						log.debug(el.toString());
+					}
+					return null;
+				}
+			}
+		};
+
+	}
+
 	public static boolean waitForElementHasAttributeWithValue(By by, String attribute, String value, boolean expected,
 			int timeOut) {
 		boolean bReturn = false;
@@ -468,6 +508,24 @@ public class WebElementUtils {
 		}
 		return bReturn;
 	}
+	
+	public static boolean waitForElementHasAttributeWithValue(WebElement el, String attribute, String value, boolean expected,
+			int timeOut) {
+		boolean bReturn = false;
+		try {
+			log.info("The Value now is: " + el.getAttribute(attribute));
+			WebDriverWait wait = new WebDriverWait(BrowserUtils.getDriver(), timeOut);
+			bReturn = wait.until(attributeToHaveValue(el, attribute, value, expected));
+		} catch (TimeoutException toe) {
+			log.warn("Element with locator '" + el.toString() + " " + attribute + " attribute "
+					+ (expected ? "never contained " : "never lost ") + value);
+		} catch (StaleElementReferenceException e) {
+			log.warn("Stale Element Exception");
+			waitForElementHasAttributeWithValue(el, attribute, value, expected, timeOut);
+		}
+		return bReturn;
+	}
+	
 
 	public static boolean selectElementFromDropDownList(List<WebElement> els, int iSelect) {
 		boolean bReturn = false;
@@ -584,6 +642,7 @@ public class WebElementUtils {
 			bReturn = true;
 		} catch (Exception e) {
 			log.warn("Found Exception in executing javascript");
+			e.printStackTrace();
 		}
 		return bReturn;
 

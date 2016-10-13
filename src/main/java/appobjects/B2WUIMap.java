@@ -302,6 +302,9 @@ public class B2WUIMap {
 	public static String b2w_inventorybins = "table#PageContent_BinsGrid";
 	public static String b2w_inventorydescription = "span[id^='PageContent_BinsGrid_BinDescription']";
 	public static String b2w_equipmentlistview = "div.list-view";
+	public static String b2w_pricesheetitemintro = "div.item-intro";
+	public static String b2w_pricesheetleftcolumn = "div#left-column";
+	public static String b2w_pricesheetrightcolumn = "div#right-column";
 
 	// add materials dialog
 	public static final String b2w_addmaterialsdialog = "div#addMaterialDialog";
@@ -358,26 +361,7 @@ public class B2WUIMap {
 	public static final String b2w_accountinfonamevaluelabel = "span#PageContent_generalInformationPanel_NameValueLabel";
 
 	// new equipment
-	public static final String b2w_newequipmentdescription = "input.k-textbox";
-	public static final String b2w_newequipmentbutton = "a.btn-orig";
-	public static final String b2w_newequipmentdropdown = ".k-input";
-	public static final String b2w_newequipmentsave = "div.btn-form large save";
-	public static final String b2w_newequipmentformrequired = ".form-required";
-	public static final String b2w_newequiopmentnamevaluepair = ".namevalue-pair";
-	public static final String b2w_newequipmentselectfromdropdown = "li.k-item";
-	public static final String b2w_newequipmentcapacitygrid = "table#PageContent_CapacityGrid";
-	public static final String b2w_newequipmentlistofitemsfromdd = ".k-reset";
-	public static final String b2w_newequipmentformfooter = ".edit-form-footer";
-	public static final String b2w_newequipmentsavebutton = "div.btn-form.large.save";
-	public static final String b2w_newequipmentfilterbydd = "div.k-multiselect-wrap.k-floatwrap";
-	public static final String b2w_equipmentgridcontent = "div.k-grid-content";
-	public static final String b2w_equipmentselecteditem = "div.k-state-selected";
-	public static final String b2w_equipmentitems = ".k-alt";
-	public static final String b2w_equipmentcontent = "div.box-content";
-	public static final String b2w_equipmentheaders = "span.k-link.k-header";
-	public static final String b2w_equipmentheadline = "td.headline";
-	public static final String b2w_equipmentactionbuttons = "div.item-actions";
-	public static final String b2w_equipmentloadpage = "div.k-loading-mask";
+
 
 	// new equipment type
 	public static final String b2w_newequipmenttypebutton = "a#PageContent_CreateNewEquipmentTypeButton";
@@ -415,7 +399,7 @@ public class B2WUIMap {
 	public static final String b2w_newequipmentypebutton = "a#PageContent_CreateNewEquipmentTypeButton";
 
 	// id's for java script
-	public static final String b2w_setup_searchtextboxjs = "input#PageContent_SearchControl_SearchTextBox";
+	public static final String b2w_setup_searchtextboxjs = "PageContent_SearchControl_SearchTextBox";
 
 	// organization
 	public static final String b2w_organizationcompanyname = "input#PageContent_generalInformationPanel_CompanyNameTextBox";
@@ -439,5 +423,60 @@ public class B2WUIMap {
 	public static final String b2w_organizationexternalshopchkbox = "input#PageContent_generalInformationPanel_ExternalShopCheckBox";
 	public static final String b2w_organizationownedchkbox = "input#PageContent_generalInformationPanel_OwnedCheckBox";
 	public static final String b2w_createneworganizationbutton = "a#PageContent_CreateNewOrganizationButton";
+	
+	public static final String b2w_organizationcompanynametext = "span#PageContent_generalInformationPanel_CompanyNameLabel";
+	public static final String b2w_organizationorganizationidtext = "span#PageContent_generalInformationPanel_OrganizationIDLabel";
+	public static final String b2w_organizationaddress1text = "span#PageContent_generalInformationPanel_AddressLabel";
+	public static final String b2w_organizationcitytext = "span#PageContent_generalInformationPanel_CityLabel";
+	public static final String b2w_organizationzipcodetext = "span#PageContent_generalInformationPanel_PostalCodeLabel";
+	public static final String b2w_organizationphonetext = "span#PageContent_generalInformationPanel_PhoneLabel";
+	public static final String b2w_organizationstatetext = "span#PageContent_generalInformationPanel_StateLabel";
+	public static final String b2w_organizationcountrytext = "span#PageContent_generalInformationPanel_CountryLabel";
+	public static final String b2w_organizationtypelabel = "span#PageContent_generalInformationPanel_OrganizationTypeLabel";
+	public static final String b2w_organizationpaymenttermstext = "span#PageContent_generalInformationPanel_PaymentTerms";
+	public static final String b2w_organizationaltidtext = "span#PageContent_generalInformationPanel_AlternateOrganizationIDLabel";
+	public static final String b2w_organizationalprovidesequipmenttext = "spanPageContent_generalInformationPanel_CanProvideEquipmentLabel";
 
+
+	//T&M Price Sheets
+	public static final String b2w_createnewpricesheetbutton = "a#createPriceSheet";
+	public static final String b2w_b2wmessenger = "div.B2WMessenger";
+	public static final String b2w_formvalidator = "div.b2wformvalidator";
+	public static final String b2w_ratesheader = "div#ratesHeader";
+	public static final String b2w_copyrateform = "div#copyRateForm";
+	
+	
+	public static final String b2w_kendoinputtexbox = "input.k-textbox";
+	public static final String b2w_newequipmentbutton = "a.btn-orig";
+	public static final String b2w_kendoinput = ".k-input";
+	public static final String b2w_newequipmentsave = "div.btn-form large save";
+	public static final String b2w_newequipmentformrequired = ".form-required";
+	public static final String b2w_kendonamevaluepair = ".namevalue-pair";
+	public static final String b2w_kendodropdownitem = "li.k-item";
+	public static final String b2w_newequipmentcapacitygrid = "table#PageContent_CapacityGrid";
+	public static final String b2w_kendolistofitems = ".k-reset";
+	public static final String b2w_newequipmentformfooter = ".edit-form-footer";
+	public static final String b2w_newequipmentsavebutton = "div.btn-form.large.save";
+	public static final String b2w_kendofilterbydd = "div.k-multiselect-wrap.k-floatwrap";
+	public static final String b2w_kendogridcontent = "div.k-grid-content";
+	public static final String b2w_kendoselected = "div.k-state-selected";
+	public static final String b2w_kendoitems = ".k-alt";
+	public static final String b2w_equipmentcontent = "div.box-content";
+	public static final String b2w_kendoheaders = "span.k-link.k-header";
+	public static final String b2w_equipmentheadline = "td.headline";
+	public static final String b2w_equipmentactionbuttons = "div.item-actions";
+	public static final String b2w_kendoloadpage = "div.k-loading-mask";
+	public static final String b2w_kendoinputtextbox = "input.k-input.k-textbox";
+	public static final String b2w_kendolabel = "div.label";
+	public static final String b2w_kendoformatedvalue = "input.k-formatted-value.k-input";
+	public static final String b2w_tmpricesheetapplybutton = "button.btn-form.large";
+	public static final String b2w_pricesheetdetails = "div.price-sheet-details";
+	public static final String b2w_kendodata = "div.data";
+	
+	public static final String b2w_tmpricesheeteditbutton = "a#editPriceSheet.btn-orig";
+	public static final String b2w_tmpricesheetmodifyratesourcebutton = "a#modifyPriceSheetRates.btn-orig";
+	public static final String b2w_tmpricesheetcopypricesheet = "a#copyPriceSheet.btn-orig";
+	public static final String b2w_tmpricesheetdeletebutton = "a#deletePriceSheet.btn-orig";
+	public static final String b2w_tmpricesheetbusinessunitdropdown = "span.k-widget.k-dropdown.k-header";
+	public static final String b2w_tmpricesheetratessourcedropdown = "span.k-widget.k-dropdown.k-header.k-state-border-down";
 }

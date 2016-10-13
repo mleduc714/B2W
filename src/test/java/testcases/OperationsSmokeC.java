@@ -17,6 +17,10 @@ import tasks.resources.B2WPlaceTasks;
 import tasks.setup.B2WUserTasks;
 
 public class OperationsSmokeC extends B2WTestCase {
+	
+	
+/*	1) Create Labor Types
+	2) Create 5 employees*/
 
 	B2WUserTasks userTasks = new B2WUserTasks();
 	B2WSetupTasks b2wSetup = new B2WSetupTasks();
@@ -59,13 +63,6 @@ public class OperationsSmokeC extends B2WTestCase {
 
 	String sLaborRateClass;
 
-	/*
-	 * Create new entities of the following types, through the Resources area
-	 * 
-	 * a.Production Account b.Overhead Account c.Material
-	 * 
-	 * 
-	 */
 
 	@Override
 	public String getAuthor() {

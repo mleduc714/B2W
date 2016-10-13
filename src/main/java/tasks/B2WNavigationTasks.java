@@ -11,6 +11,7 @@ import appobjects.B2WHomePage;
 import appobjects.B2WNavigationPanel;
 import appobjects.maintain.B2WMaintain;
 import appobjects.resources.B2WEquipment;
+import appobjects.resources.B2WTMPriceSheets;
 import tasks.resources.B2WEquipmentTasks;
 import tasks.util.TaskUtils;
 
@@ -203,6 +204,9 @@ public class B2WNavigationTasks implements Navigation {
 	public boolean openPlaces() {
 		return openResources("Places","Places");
 	}
+	public boolean openOrganizations() {
+		return openResources("Organizations","Organizations");
+	}
 	public boolean openParts() {
 		return openResources("Parts","Parts");
 	}
@@ -219,6 +223,24 @@ public class B2WNavigationTasks implements Navigation {
 			if (item != null) {
 				item.click();
 				WebElement el = WebElementUtils.waitAndFindDisplayedElement(B2WEquipment.getNewEquipmentButton());
+				if (el != null) {
+					bReturn = true;
+					bReturn &= new B2WEquipmentTasks().waitForEquipmentPageNoBusy();
+				}
+			}
+		}
+		return bReturn;
+	}
+	
+	public boolean openTimeSheets() {
+		boolean bReturn = false;
+		if (openResources()) {
+			WebElementUtils.switchToFrame(B2WNavigationPanel.getB2WSetupNavigationPanel(), 1);
+			List<WebElement> items = BrowserUtils.getDriver().findElements(B2WNavigationPanel.getB2WSetupPopupItem());
+			WebElement item = WebElementUtils.getElementWithMatchingText(items, "T&M Price Sheets", true);
+			if (item != null) {
+				item.click();
+				WebElement el = WebElementUtils.waitAndFindDisplayedElement(B2WTMPriceSheets.getNewPriceSheetButton());
 				if (el != null) {
 					bReturn = true;
 					bReturn &= new B2WEquipmentTasks().waitForEquipmentPageNoBusy();

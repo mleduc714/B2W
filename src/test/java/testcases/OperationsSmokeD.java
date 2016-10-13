@@ -22,7 +22,11 @@ import tasks.setup.B2WCategoriesTasks;
 import tasks.setup.B2WUserTasks;
 
 public class OperationsSmokeD extends B2WTestCase {
-
+	
+/*	1) Create Equipment Category
+	2) Create 4 Different Equipment Types
+    3) Create 4 Different Pieces of Equipment
+*/
 	B2WUserTasks userTasks = new B2WUserTasks();
 	B2WSetupTasks b2wSetup = new B2WSetupTasks();
 	B2WNavigationTasks b2wNav = new B2WNavigationTasks();

@@ -19,6 +19,15 @@ import tasks.setup.B2WUserTasks;
 import tasks.util.TaskUtils;
 
 public class OperationsSmokeB extends B2WTestCase {
+	
+	
+	
+/*	
+	1) Create Production Account
+	2) Create Overhead Account
+	3) Create Materials
+	4) Create Place with materials*/
+	
 
 	B2WUserTasks userTasks = new B2WUserTasks();
 	B2WSetupTasks b2wSetup = new B2WSetupTasks();

@@ -136,4 +136,93 @@ public class B2WOrganizationTasks extends B2WResourceTasks {
 		WebElement el = WebElementUtils.findElement(B2WOrganization.getB2WOrganizationprovidesequipchkbox());
 		return checkBox(el, bCheck);
 	}
+	public String getCompanyName() {
+		String sText = "";
+		WebElement el = WebElementUtils.findElement(B2WOrganization.getB2WOrganizationcompanynametext());
+		if (el != null){
+			sText = el.getText();
+		}
+		return sText;
+	}
+	public String getCompanyID() {
+		String sText = "";
+		WebElement el = WebElementUtils.findElement(B2WOrganization.getB2WOrganizationorganizationidtext());
+		if (el != null){
+			sText = el.getText();
+		}
+		return sText;
+	}
+	public String getCompanyAltID() {
+		String sText = "";
+		WebElement el = WebElementUtils.findElement(B2WOrganization.getB2WOrganizationaltidtext());
+		if (el != null){
+			sText = el.getText();
+		}
+		return sText;
+	}
+	public String getCompanyAddress() {
+		String sText = "";
+		WebElement el = WebElementUtils.findElement(B2WOrganization.getB2WOrganizationaddress1text());
+		if (el != null){
+			sText = el.getText();
+		}
+		return sText;
+	}
+	
+	public String getCompanyCity() {
+		String sText = "";
+		WebElement el = WebElementUtils.findElement(B2WOrganization.getB2WOrganizationcitytext());
+		if (el != null){
+			sText = el.getText();
+		}
+		return sText;
+	}
+	public String getCompanyZip() {
+		String sText = "";
+		WebElement el = WebElementUtils.findElement(B2WOrganization.getB2WOrganizationzipcodetext());
+		if (el != null){
+			sText = el.getText();
+		}
+		return sText;
+	}
+	public String getCompanyPhone() {
+		String sText = "";
+		WebElement el = WebElementUtils.findElement(B2WOrganization.getB2WOrganizationphonetext());
+		if (el != null){
+			sText = el.getText();
+		}
+		return sText;
+	}
+	public String getCompanyState() {
+		String sText = "";
+		WebElement el = WebElementUtils.findElement(B2WOrganization.getB2WOrganizationstatetext());
+		if (el != null){
+			sText = el.getText();
+		}
+		return sText;
+	}
+	public String getCompanyCountry() {
+		String sText = "";
+		WebElement el = WebElementUtils.findElement(B2WOrganization.getB2WOrganizationcountrytext());
+		if (el != null){
+			sText = el.getText();
+		}
+		return sText;
+	}
+	public String getOrganizationPaymentTerms() {
+		String sText = "";
+		WebElement el = WebElementUtils.findElement(B2WOrganization.getB2WOrganizationpaymenttermsText());
+		if (el != null){
+			sText = el.getText();
+		}
+		return sText;
+	}
+	public String getOrganizationType() {
+		String sText = "";
+		WebElement el = WebElementUtils.findElement(B2WOrganization.getB2WOrgainzationTypeText());
+		if (el != null){
+			sText = el.getText();
+		}
+		return sText;
+	}
 }
