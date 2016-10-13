@@ -174,6 +174,29 @@ public class WebElementUtils {
 		}
 		return ret;
 	}
+	
+	public static WebElement getElementWithMatchingText(By by, String text) {
+		WebElement ret = null;
+		try {
+			List<WebElement> list = WebElementUtils.findElements(by);
+			Iterator<WebElement> iter = list.iterator();
+			log.debug("Number of Elements to search thru " + list.size() + " to find " + text);
+			while (iter.hasNext()) {
+				WebElement element = iter.next();
+
+				if (element.getText().equalsIgnoreCase(text)) {
+					ret = element;
+					break;
+				}
+
+			}
+		} catch (StaleElementReferenceException e) {
+			log.warn("Caught Stale Element Exception");
+			getElementWithMatchingText(by, text);
+		}
+
+		return ret;
+	}
 
 	public static WebElement getElementWithMatchingStartsWithText(List<WebElement> list, String sText) {
 		Iterator<WebElement> iter = list.iterator();

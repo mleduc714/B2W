@@ -101,13 +101,10 @@ public class B2WCategoriesTasks extends B2WSetupTasks {
 	
 	public boolean isCategoryInListing(String sName){
 		boolean bReturn = false;
-		List<WebElement> list = WebElementUtils.findElements(B2WCategories.getCatgoriesGridViewName());
-		if (!list.isEmpty()){
-			WebElement el = WebElementUtils.getElementWithMatchingText(list, sName, false);
-			if (el!=null){
-				bReturn = true;
-				}
-			}
+		WebElement el = WebElementUtils.getElementWithMatchingText(B2WCategories.getCatgoriesGridViewName(), sName);
+		if (el!=null){
+			bReturn = true;
+		}
 		return bReturn;
 	}
 		
