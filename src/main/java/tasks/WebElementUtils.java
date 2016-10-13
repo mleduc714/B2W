@@ -186,13 +186,12 @@ public class WebElementUtils {
 
 				if (element.getText().equalsIgnoreCase(text)) {
 					ret = element;
-					return ret;
 				}
 
 			}
 		} catch (StaleElementReferenceException e) {
 			log.warn("Caught Stale Element Exception");
-			getElementWithMatchingText(by, text);
+			return getElementWithMatchingText(by, text);
 		}
 
 		return ret;
