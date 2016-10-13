@@ -212,9 +212,9 @@ public class OperationsSmokeE extends B2WTestCase {
 		createPart(sPartA, sPartIDA, sCategoryA);
 		createPart(sPartB, sPartIDB, sCategoryA);
 		createPart(sPartC, sPartIDC, sCategoryA);
-//		createPlace();
-//		createOrganizations();
-//		createPriceSheets();
+		createPlace();
+		createOrganizations();
+		createPriceSheets();
 
 	}
 
