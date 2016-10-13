@@ -72,15 +72,19 @@ public class B2WTMPriceSheetsTasks extends B2WKendoTasks {
 	private boolean selectRateSourceFromDD(String sText) {
 		boolean bReturn = false;
 		List<WebElement> ls = WebElementUtils.findElements(B2WTMPriceSheets.getKendoDropDown());
-		WebElement rDD = WebElementUtils.findElement(B2WTMPriceSheets.getRatesSourceDropDown());
+		List<WebElement> dds = WebElementUtils.findElements(B2WTMPriceSheets.getKDropDown());
+		for (int i = 0; i < dds.size() - 1; i++) {
+			System.out.println(dds.get(i).getText());
+		}
 		Iterator<WebElement> iter = ls.iterator();
 		while (iter.hasNext()) {
 			WebElement el = iter.next();
 			if (el.getText().equals(SOURCEOFRATES)) {
 				if (WebElementUtils.clickElement(el)) {
 					bReturn = selectItemFromDropDown(sText);
-					bReturn &= WebElementUtils.waitForElementHasAttributeWithValue(rDD, "aria-expanded", "false", true,
-							WebElementUtils.SHORT_TIME_OUT);
+					bReturn &= WebElementUtils.waitForElementHasAttributeWithValue(
+							WebElementUtils.getParentElement(WebElementUtils.getParentElement(el)), "aria-expanded",
+							"false", true, WebElementUtils.SHORT_TIME_OUT);
 				}
 			}
 		}
@@ -204,8 +208,8 @@ public class B2WTMPriceSheetsTasks extends B2WKendoTasks {
 		}
 		return bReturn;
 	}
-	
-	public boolean selectPriceSheetByID(String sID){
+
+	public boolean selectPriceSheetByID(String sID) {
 
 		boolean bReturn = false;
 
@@ -236,8 +240,7 @@ public class B2WTMPriceSheetsTasks extends B2WKendoTasks {
 			}
 		}
 		return bReturn;
-	
-		
+
 	}
 
 	public String getRateSourceDescription() {
@@ -268,10 +271,9 @@ public class B2WTMPriceSheetsTasks extends B2WKendoTasks {
 			Iterator<WebElement> iter = ls.iterator();
 			while (iter.hasNext()) {
 				i++;
-				if (iter.next().getText().equals(sLabel)){
+				if (iter.next().getText().equals(sLabel)) {
 					break;
 				}
-				
 
 			}
 		}

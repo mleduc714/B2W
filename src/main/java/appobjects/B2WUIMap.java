@@ -475,6 +475,7 @@ public class B2WUIMap {
 	public static final String b2w_tmpricesheetapplybutton = "button.btn-form.large";
 	public static final String b2w_pricesheetdetails = "div.price-sheet-details";
 	public static final String b2w_kendodata = "div.data";
+	public static final String b2w_kendokdropdown = ".k-dropdown-wrap";
 	
 	public static final String b2w_tmpricesheeteditbutton = "a#editPriceSheet.btn-orig";
 	public static final String b2w_tmpricesheetmodifyratesourcebutton = "a#modifyPriceSheetRates.btn-orig";

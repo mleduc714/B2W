@@ -58,4 +58,8 @@ public class B2WTMPriceSheets extends KendoUI {
 	public static By getRatesSourceDropDown() {
 		return By.cssSelector(B2WUIMap.b2w_tmpricesheetratessourcedropdown);
 	}
+	public static By getKDropDown() {
+		return By.cssSelector(B2WUIMap.b2w_kendokdropdown);
+	}
+	
 }
