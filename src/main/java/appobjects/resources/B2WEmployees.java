@@ -83,9 +83,6 @@ public class B2WEmployees {
 	public static By getEmployeeSearchText() {
 		return By.cssSelector(B2WUIMap.b2w_resourcesearchtext);
 	}
-	public static By getEmployeeSearchButton() {
-		return By.cssSelector(B2WUIMap.b2w_employeesearchbutton);
-	}
 	public static By getEmployeeClearSearchButton() {
 		return By.cssSelector(B2WUIMap.b2w_employeeclearsearchbutton);
 	}

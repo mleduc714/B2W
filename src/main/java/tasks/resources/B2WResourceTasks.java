@@ -7,20 +7,22 @@ import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
-import appobjects.B2WUIMap;
 import appobjects.resources.B2WMaterials;
 import appobjects.resources.B2WResources;
 import tasks.B2WSetupTasks;
 import tasks.WebElementUtils;
-import tasks.util.TaskUtils;
 
 public abstract class B2WResourceTasks extends B2WSetupTasks {
 	
 	Logger log = Logger.getLogger(B2WResourceTasks.class);
 
 	public boolean setDescription(String sDescription) {
+		boolean bReturn = false;
 		WebElement el = WebElementUtils.findElement(B2WResources.getAccountDescription());
-		return WebElementUtils.sendKeys(el, sDescription);
+		if (el != null){
+			bReturn = WebElementUtils.sendKeys(el, sDescription);
+		}
+		return bReturn;
 	}
 	
 	public String getDescriptionText(){
@@ -33,8 +35,12 @@ public abstract class B2WResourceTasks extends B2WSetupTasks {
 	}
 	
 	public boolean setAccountID(String sText) {
+		boolean bReturn = false;
 		WebElement el = WebElementUtils.findElement(B2WResources.getAccountID());
-		return WebElementUtils.sendKeys(el, sText);
+		if (el != null) {
+			bReturn = WebElementUtils.sendKeys(el, sText);
+		}
+		return bReturn;
 	}
 	
 	public String getGenInfoAccountIDLabel() {
@@ -167,7 +173,7 @@ public abstract class B2WResourceTasks extends B2WSetupTasks {
 		return bReturn;
 
 	}
-	public boolean enterInfoAndSearchForAccount(String sText) {
+	public boolean enterInfoAndSearchForResource(String sText) {
 		boolean bReturn = false;
 		if (enterSearchText(sText)) {
 			clickSearchButton();
@@ -190,8 +196,8 @@ public abstract class B2WResourceTasks extends B2WSetupTasks {
 	}
 	
 	
-	public boolean enterSearchForResourceText(String sText){
-		return WebElementUtils.setAttributeWithJS(B2WUIMap.b2w_resourcesearchtextjs, "value", sText);
+//	public boolean enterSearchForResourceText(String sText){
+//		return WebElementUtils.setAttributeWithJS(B2WUIMap.b2w_resourcesearchtextjs, "value", sText);
 //		boolean bReturn = false;
 //		String value = "";
 //		
@@ -215,34 +221,8 @@ public abstract class B2WResourceTasks extends B2WSetupTasks {
 //		}
 //		
 //		return bReturn;
-	}
+//	}
 	
-	public boolean searchOpenResourceByDescription(String sDescription){
-
-		boolean bReturn = false;
-		enterInfoAndSearchForResource(sDescription);
-		TaskUtils.sleep(1000);
-		List<WebElement> list = WebElementUtils.findElements(B2WResources.getDescriptionList());
-		if (!list.isEmpty()) {
-			WebElement el = WebElementUtils.getElementWithMatchingText(list, sDescription, false);
-			if (el!=null){
-				WebElementUtils.clickElement(el);
-				WebElement waitForThis = WebElementUtils.waitAndFindDisplayedElement(B2WResources.getAccountDescriptionLabel());
-				bReturn = waitForThis != null;
-			}
-		}
-		return bReturn;
-	
-	}
-	
-	private boolean enterInfoAndSearchForResource(String sDescription) {
-		boolean bReturn = false;
-		if (enterSearchForResourceText(sDescription)){
-			bReturn = clickSearchButton();
-		}
-		return bReturn;
-	}
-
 	public boolean deleteResource() {
 		boolean bReturn = false;
 		clickTopDeleteButton();

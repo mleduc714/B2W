@@ -68,7 +68,7 @@ public class B2WAccountTasks extends B2WResourceTasks {
 
 	public boolean openProductionAccountByDescription(String sDescription) {
 		boolean bReturn = false;
-		enterInfoAndSearchForAccount(sDescription);
+		enterInfoAndSearchForResource(sDescription);
 		List<WebElement> list = BrowserUtils.getDriver().findElements(B2WAccounts.getProductionAccountDescription());
 		if (!list.isEmpty()) {
 			WebElement el = WebElementUtils.getElementWithMatchingText(list, sDescription, false);
@@ -92,7 +92,7 @@ public class B2WAccountTasks extends B2WResourceTasks {
 	}
 	public boolean openProductionAccountByAccountID(String sID) {
 		boolean bReturn = false;
-		enterInfoAndSearchForAccount(sID);
+		enterInfoAndSearchForResource(sID);
 		List<WebElement> list = BrowserUtils.getDriver().findElements(B2WAccounts.getProductionAccountID());
 		if (!list.isEmpty()) {
 			WebElement el = WebElementUtils.getElementWithMatchingText(list, sID, false);
@@ -105,7 +105,7 @@ public class B2WAccountTasks extends B2WResourceTasks {
 
 	public boolean openOverheadAccountByDescription(String sDescription) {
 		boolean bReturn = false;
-		enterInfoAndSearchForAccount(sDescription);
+		enterInfoAndSearchForResource(sDescription);
 		List<WebElement> list = BrowserUtils.getDriver().findElements(B2WAccounts.getOverheadAccountDescription());
 		if (!list.isEmpty()) {
 			WebElement el = WebElementUtils.getElementWithMatchingText(list, sDescription, false);
@@ -118,7 +118,7 @@ public class B2WAccountTasks extends B2WResourceTasks {
 
 	public boolean openOverheadAccountByAccountID(String sID) {
 		boolean bReturn = false;
-		enterInfoAndSearchForAccount(sID);
+		enterInfoAndSearchForResource(sID);
 		List<WebElement> list = BrowserUtils.getDriver().findElements(B2WAccounts.getOverheadAccountID());
 		if (!list.isEmpty()) {
 			WebElement el = WebElementUtils.getElementWithMatchingText(list, sID, false);

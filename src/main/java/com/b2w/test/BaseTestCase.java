@@ -1,5 +1,7 @@
 package com.b2w.test;
 
+import java.util.Random;
+
 import org.apache.log4j.Logger;
 import org.junit.After;
 import org.junit.Before;
@@ -14,6 +16,7 @@ public abstract class BaseTestCase extends BaseAssert implements BaseTestCaseInt
     private boolean _rerun = false; 
     protected String dataFile = "";
     protected String uniqueInstance;
+    private static int randnumber = 0;
     
     public BaseTestCase() {
         log = Logger.getLogger(getClass());
@@ -64,4 +67,14 @@ public abstract class BaseTestCase extends BaseAssert implements BaseTestCaseInt
     public String getInstance() {
     	return uniqueInstance;
     }
+    
+	 
+	public static int getRandomNumber() {
+		if (randnumber == 0) {
+			Random rand = new Random();
+
+			randnumber = rand.nextInt(10000) + 1;
+		}
+		return randnumber;
+	}
 }

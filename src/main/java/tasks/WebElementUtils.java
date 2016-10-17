@@ -248,6 +248,7 @@ public class WebElementUtils {
 
 	public static WebElement findElement(By locator) {
 		try {
+			log.debug("Looking for element "+locator.toString());
 			return BrowserUtils.getDriver().findElement(locator);
 		} catch (NoSuchElementException e) {
 			log.debug("Element with Locator " + locator + " not found");
@@ -280,6 +281,7 @@ public class WebElementUtils {
 		boolean bReturn = false;
 		try {
 			el.sendKeys(keysToSend);
+			log.debug("Sending "+keysToSend+ " to: " +el.toString());
 			bReturn = true;
 		} catch (WebDriverException wde) {
 			log.debug("Exception Throws using native sendKeys. " + wde.getMessage());
@@ -620,11 +622,32 @@ public class WebElementUtils {
 		return el.isDisplayed();
 	}
 
-	public static void selectItemFromOpsDropDownMenu(By by, String sText) {
+	public static boolean selectItemFromOpsDropDownMenu(By by, String sText) {
+		boolean bReturn = false;
+		try {
+			WebElement el = WebElementUtils.findElement(by);
+			if (el != null) {
+				List<WebElement> els = el.findElements(By.tagName("option"));
+				WebElement item = WebElementUtils.getElementWithMatchingText(els, sText, false);
+				if (item != null) {
+					WebElementUtils.clickElement(item);
+					bReturn = true;
+				} else {
+					log.warn("The Item is Null: " + sText);
+				}
+			}
+		} catch (StaleElementReferenceException e) {
+			log.warn("Caught Stale Element Exception!!");
+			return selectItemFromOpsDropDownMenu(by, sText);
+		}
+		return bReturn;
+	}
+	
+	public static void selectItemFromOpsDropDownMenuByStartsWithText(By by, String sText) {
 		try {
 			WebElement el = WebElementUtils.findElement(by);
 			List<WebElement> els = el.findElements(By.tagName("option"));
-			WebElement item = WebElementUtils.getElementWithMatchingText(els, sText, false);
+			WebElement item = WebElementUtils.getElementWithMatchingStartsWithText(els, sText);
 			if (item != null) {
 				WebElementUtils.clickElement(item);
 			} else {
@@ -680,12 +703,12 @@ public class WebElementUtils {
 			js.executeScript(sExecute);
 			bReturn = true;
 		} catch (Exception e) {
-			log.warn("Found Exception in executing javascript");
-			e.printStackTrace();
+			//log.warn("Found Exception in executing javascript");
 		}
 		return bReturn;
 
 	}
+	
 
 	public static void moveVirtualMouseOverElement(WebElement el) {
 		if (el == null) {

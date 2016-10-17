@@ -38,6 +38,7 @@ public class B2WAddMaterialsTasks {
 		WebElement bar = WebElementUtils.waitAndFindDisplayedElement(B2WAddMaterials.getSearchIDBar());
 		WebElement el = WebElementUtils.getChildElement(bar, B2WAddMaterials.getAddMaterialsIDToSelect());
 		if (el!=null){
+			// if the id is in the dialog, enter in the id in the field and then select
 			if (getMaterialIDTextFromGrid().contains(sText)){
 				bReturn = WebElementUtils.sendKeys(el, sText);
 				String sValue = el.getAttribute("value");

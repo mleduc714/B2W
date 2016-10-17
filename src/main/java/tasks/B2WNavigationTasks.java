@@ -46,7 +46,7 @@ public class B2WNavigationTasks implements Navigation {
 				WebElement jobsGrid = WebElementUtils
 						.waitAndFindDisplayedElement(B2WCommonObjects.getB2WPageContentGrid());
 				if (jobsGrid != null) {
-					bReturn = el.isDisplayed();
+					bReturn = true;
 				}
 			}
 		}
@@ -173,6 +173,18 @@ public class B2WNavigationTasks implements Navigation {
 			sUserName = el.getText();
 		}
 		return sUserName;
+	}
+	
+	public String getLastNameOfUser() {
+		String sLastName = "";
+		String userName = getUserName();
+		for (int i = 0; i < userName.length(); i++) {
+			if (Character.isWhitespace(userName.charAt(i))) {
+				sLastName = userName.substring(++i, userName.length());
+				break;
+			}
+		}
+		return sLastName;
 	}
 
 	public boolean openSetupUsers() {

@@ -10,6 +10,7 @@ import org.openqa.selenium.WebElement;
 import appobjects.resources.B2WAccounts;
 import appobjects.resources.B2WAddLaborTypes;
 import appobjects.resources.B2WEmployees;
+import appobjects.setup.B2WSetup;
 import tasks.BrowserUtils;
 import tasks.WebElementUtils;
 
@@ -167,7 +168,7 @@ public class B2WEmployeeTasks extends B2WResourceTasks {
 		WebElement el = WebElementUtils.findElement(B2WEmployees.getEmployeeSearchText());
 		if (el!=null){
 			bReturn =WebElementUtils.sendKeys(el, sText);
-			bReturn &= WebElementUtils.clickElement(B2WEmployees.getEmployeeSearchButton());
+			bReturn &= WebElementUtils.clickElement(B2WSetup.getB2WSearchButton());
 			bReturn &= waitForProcessingDialogToClear();
 		}
 		return bReturn;

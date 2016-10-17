@@ -128,5 +128,7 @@ public class B2WSetupUsers {
 	public static By getUserInformationHeader() {
 		return By.cssSelector(B2WUIMap.b2w_user_viewgeninfoHeader);
 	}
-
+	public static By getEmployeeHyperLink() {
+		return By.cssSelector(B2WUIMap.b2w_user_employeehyperlink);
+	}
 }

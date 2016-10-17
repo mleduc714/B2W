@@ -1,7 +1,6 @@
 package testcases;
 
 import java.text.SimpleDateFormat;
-import java.util.Random;
 
 import com.b2w.test.B2WTestCase;
 
@@ -100,9 +99,8 @@ public class OperationsSmokeD extends B2WTestCase {
 	public void testSetUp() throws Throwable {
 		// TODO Auto-generated method stub
 		super.testSetUp();
-		Random rand = new Random();
+		int  n = getRandomNumber();
 
-		int n = rand.nextInt(10000) + 1;
 		sEquipmentTypeNameA = getProperty("equipmenttypeA");
 		sEquipmentTypeIDA = getProperty("equipmenttypeidA") + n;
 		sEquipmentTypeNameB = getProperty("equipmenttypeB");

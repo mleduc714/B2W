@@ -1,7 +1,6 @@
 package testcases;
 
 import java.text.SimpleDateFormat;
-import java.util.Random;
 
 import com.b2w.test.B2WTestCase;
 
@@ -92,8 +91,7 @@ public class OperationsSmokeC extends B2WTestCase {
 	public void testSetUp() throws Throwable {
 		// TODO Auto-generated method stub
 		super.testSetUp();
-		Random rand = new Random();
-		int  n = rand.nextInt(10000) + 1;
+		int  n = getRandomNumber();
 		sLaborTypeA = getProperty("labortypeA");
 		sLaborTypeIDA = getProperty("labortypeIDA")+ n;
 		sLaborTypeB = getProperty("labortypeB");
@@ -230,56 +228,6 @@ public class OperationsSmokeC extends B2WTestCase {
 		logCompare(true, b2wEmp.clickTopSaveButton(), "Click Top Save Button");
 		logCompare("Foreman",b2wEmp.getEmployeeRolesText(), "get the role");
 
-	}
-
-	public void createEquipmentTypes() {
-
-	}
-
-
-
-
-	public void deleteAll() {
-		
-//		assertTrue("Open Employees", b2wNav.openEmployees());
-//		logCompare(true,b2wEmp.enterTextandSearchForEmployee(sEmployeeIDA), "Employee A");
-//		logCompare(true,b2wEmp.openEmployeeByID(sEmployeeIDA), "Open Employee");
-//		logCompare(true,b2wEmp.deleteResource(), "Delete");
-//		TaskUtils.sleep(1000);
-//		logCompare(true,b2wEmp.clickClearSearchButton(), "Clear Search");
-//		TaskUtils.sleep(1000);
-//		logCompare(true,b2wEmp.enterTextandSearchForEmployee(sEmployeeIDB), "Employee B");
-//		logCompare(true,b2wEmp.openEmployeeByID(sEmployeeIDB), "Employee B");
-//		logCompare(true,b2wEmp.deleteResource(), "Delete B");
-//		TaskUtils.sleep(1000);
-//		logCompare(true,b2wEmp.clickClearSearchButton(), "Clear");
-//		TaskUtils.sleep(1000);
-//		logCompare(true,b2wEmp.enterTextandSearchForEmployee(sEmployeeIDC), "Employee C");
-//		logCompare(true,b2wEmp.openEmployeeByID(sEmployeeIDC), "Employee C");
-//		logCompare(true,b2wEmp.deleteResource(), "Delete");
-//		TaskUtils.sleep(1000);
-//		logCompare(true,b2wEmp.clickClearSearchButton(), "Clear");
-//		TaskUtils.sleep(1000);
-//		logCompare(true,b2wEmp.enterTextandSearchForEmployee(sEmployeeIDD), "Employee D");
-//		logCompare(true,b2wEmp.openEmployeeByID(sEmployeeIDD), "Employee D");
-//		logCompare(true,b2wEmp.deleteResource(), "Employee D");
-//		TaskUtils.sleep(1000);
-//		logCompare(true,b2wEmp.clickClearSearchButton(), "Clear");
-//		TaskUtils.sleep(1000);
-//		logCompare(true,b2wEmp.enterTextandSearchForEmployee(sEmployeeIDE), "Employee E");
-//		logCompare(true,b2wEmp.openEmployeeByID(sEmployeeIDE), "Employee E");
-//		logCompare(true,b2wEmp.deleteResource(), "Delete");
-//		TaskUtils.sleep(1000);
-//		logCompare(true,b2wEmp.clickClearSearchButton(), "Clear Search");
-//		TaskUtils.sleep(1000);
-//		assertTrue("Open Labor", b2wNav.openLaborTypes());
-//		logCompare(true,b2wLaborType.searchAndOpenLaborTypeByName(sLaborTypeA), "Open Labor Type A");
-//		logCompare(true,b2wLaborType.clickTopDeleteButton(), "Delete");
-//		TaskUtils.sleep(1000);
-//		logCompare(true,b2wLaborType.clickClearSearchButton(), "Clear");
-//		TaskUtils.sleep(1000);
-//		logCompare(true,b2wLaborType.searchAndOpenLaborTypeByName(sLaborTypeB),"open labor");
-//		logCompare(true,b2wLaborType.clickTopDeleteButton(), "Delete");
 	}
 
 	@Override

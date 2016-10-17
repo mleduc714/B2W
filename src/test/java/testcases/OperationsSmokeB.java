@@ -2,7 +2,6 @@ package testcases;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Random;
 
 import com.b2w.test.B2WTestCase;
 
@@ -146,9 +145,7 @@ public class OperationsSmokeB extends B2WTestCase {
 	public void testSetUp() throws Throwable {
 		// TODO Auto-generated method stub
 		super.testSetUp();
-		Random rand = new Random();
-
-		int  n = rand.nextInt(10000) + 1;
+		int  n = getRandomNumber();
 		
 		
 		Calendar cal = Calendar.getInstance();
@@ -298,7 +295,7 @@ public class OperationsSmokeB extends B2WTestCase {
 		}
 
 	}
-
+/*
 	public void deleteMaterial(String sDesc) {
 
 		assertTrue("Open Materials", b2wNav.openMaterials());
@@ -307,7 +304,7 @@ public class OperationsSmokeB extends B2WTestCase {
 		}
 
 	}
-
+*/
 	public void createMaterialsB() {
 
 		assertTrue("Open Materials", b2wNav.openMaterials());
@@ -412,7 +409,7 @@ public class OperationsSmokeB extends B2WTestCase {
 	}
 
 
-
+/*
 	public void deleteProductionAccount() {
 		assertTrue("Open Accounts", b2wNav.openAccounts());
 		b2wAct.collapseOverheadAccounts();
@@ -447,7 +444,7 @@ public class OperationsSmokeB extends B2WTestCase {
 		deleteMaterial(sMaterialsDescriptionC);
 		deleteMaterial(sMaterialsDescriptionD);
 
-	}
+	}*/
 
 	@Override
 	public void testTearDown() throws Throwable {

@@ -7,7 +7,7 @@ import org.openqa.selenium.WebElement;
 
 import com.b2w.test.BaseAssert;
 
-import appobjects.B2WUIMap;
+import appobjects.resources.B2WResources;
 import appobjects.setup.B2WSetup;
 
 public class B2WSetupTasks {
@@ -281,7 +281,10 @@ public class B2WSetupTasks {
 	}
 	
 	public boolean enterSearchText(String sText) {
-		return WebElementUtils.setAttributeWithJS(B2WUIMap.b2w_setup_searchtextboxjs, "value", sText);
+		// the id's are different sometimes. Need to get the ID
+		WebElement el = WebElementUtils.findElement(B2WResources.getB2WSearchText());
+		String searchID = el.getAttribute("id");
+		return WebElementUtils.setAttributeWithJS(searchID, "value", sText);
 	}
 	
 	public String getSearchText() {

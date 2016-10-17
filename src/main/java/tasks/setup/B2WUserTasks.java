@@ -36,9 +36,11 @@ public class B2WUserTasks extends B2WSetupTasks {
 	public boolean openUserByLastName(String sLastName){
 		boolean bReturn = false;
 		WebElement el = WebElementUtils.getElementWithMatchingText(B2WSetupUsers.getB2WUserListingLastName(), sLastName);
-		WebElementUtils.clickElement(el);
-		WebElement waitForThis = WebElementUtils.waitAndFindDisplayedElement(B2WSetupUsers.getUserInformationHeader());
-		bReturn = waitForThis!=null;
+		if (el != null){
+			WebElementUtils.clickElement(el);
+			WebElement waitForThis = WebElementUtils.waitAndFindDisplayedElement(B2WSetupUsers.getUserInformationHeader());
+			bReturn = waitForThis!=null;
+		}
 		return bReturn;
 	}
 	
@@ -172,6 +174,20 @@ public class B2WUserTasks extends B2WSetupTasks {
 		
 	}
 	
+	public void selectEmployeeFromDD(String sEmployeeName){
+		
+		WebElementUtils.selectItemFromOpsDropDownMenuByStartsWithText(B2WSetupUsers.getB2WEmployeeDropDown(), sEmployeeName);
+		
+	}
+	
+	public String getEmployeeText(){
+		String sEmployee = "";
+		WebElement el = WebElementUtils.findElement(B2WSetupUsers.getEmployeeHyperLink());
+		if (el != null){
+			sEmployee = el.getText();
+		}
+		return sEmployee;
+	}
 	
 
 

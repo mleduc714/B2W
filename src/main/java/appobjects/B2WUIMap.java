@@ -44,7 +44,7 @@ public class B2WUIMap {
 	// home page marketing
 	public static final String b2w_home_marketing = "div#PageContent_MarketingArea";
 
-	// jobs
+	// jobs list view
 	public static final String b2w_pagecontentlistinggridview = "table#PageContent_ListingGridView";
 	public static final String b2w_pagecontentdetailpanel = "div#PageContent_DetailPanel";
 	public static final String b2w_pageproductpanel = "div#ProductPanel";
@@ -64,7 +64,7 @@ public class B2WUIMap {
 	public static final String b2w_setup_item = "li.nav-popup-item";
 
 	public static final String b2w_setup_clearsearchbutton = "a#PageContent_SearchControl_ClearSearchButton";
-	public static final String b2w_setup_searchbutton = "a#PageContent_SearchControl_SearchButton";
+	public static final String b2w_setup_searchbutton = "a[id$='earchControl_SearchButton']";
 	public static final String b2w_setup_searchtextbox = "input.search-textbox";
 	public static final String b2w_setup_gridview = "table#PageContent_ListingGridView";
 
@@ -93,6 +93,7 @@ public class B2WUIMap {
 	public static final String b2w_user_integrationmapping = "input#PageContent_generalInformationPanel_IntegrationTextBox";
 	public static final String b2w_user_inactivecheckbox = "input#PageContent_generalInformationPanel_IsInactiveCheckBox";
 	public static final String b2w_user_employeedropdown = "select#PageContent_generalInformationPanel_EmployeeDropDownList";
+	public static final String b2w_user_employeehyperlink = "a#PageContent_generalInformationPanel_EmployeeHyperLink";
 	public static final String b2w_user_title = "input#PageContent_generalInformationPanel_TitleTextBox";
 	public static final String b2w_user_emailaddress = "input#PageContent_generalInformationPanel_EmailAddressTextBox";
 	public static final String b2w_user_mobiledevicepincheckbox = "input#PageContent_generalInformationPanel_HasMobileDevicePinCheckbox";
@@ -246,68 +247,68 @@ public class B2WUIMap {
 	public static final String b2w_newplace_categorydropdown = "div#PageContent_generalInformationPanel_ColorDropDownListbuttonId";
 	public static final String b2w_newplace_addmaterialsbutton = " sectionheader";
 
-	public static String b2w_place_id = "span#PageContent_generalInformationPanel_PlaceIDLabel";
-	public static String b2w_place_description = "span#PageContent_generalInformationPanel_DescriptionLabel";
-	public static String b2w_place_categorylabel = "div.ColoredLabelPanel";
-	public static String b2w_place_businssunit = "span#PageContent_generalInformationPanel_DurationType";
-	public static String b2w_place_startdate = "span#PageContent_generalInformationPanel_Start";
-	public static String b2w_place_enddate = "span#PageContent_generalInformationPanel_EndLabeld";
-	public static String b2w_place_nonworking = "span#PageContent_generalInformationPanel_NonWorkingDaysLabel";
-	public static String b2w_place_showonboard = "span#PageContent_generalInformationPanel_ShowOnJobBoardLabel";
-	public static String b2w_place_canproduce = "span#PageContent_generalInformationPanel_CanProduceMaterials";
-	public static String b2w_place_address1 = "span#PageContent_locationDetailPanel_Addresslabel";
-	public static String b2w_place_city = "span#PageContent_locationDetailPanel_CityLabel";
-	public static String b2w_place_state = "span#PageContent_locationDetailPanel_StateProvinceLabel";
-	public static String b2w_place_zip = "span#PageContent_locationDetailPanel_PostalCodeLabel";
-	public static String b2w_place_country = "span#PageContent_locationDetailPanel_CountryLabel";
-	public static String b2w_place_materialsdescription = "a[id^='PageContent_MaterialGrid_Description']";
-	public static String b2w_place_materialid = "a[id^='PageContent_MaterialGrid_MaterialID']";
-	public static String b2w_place_materialcategory = "a[id^='PageContent_MaterialGrid_CategoryName']";
-	public static String b2w_place_materialsubcategory = "a[id^='PageContent_MaterialGrid_SubcategoryName']";
-	public static String b2w_place_materialunitofmeasureabbrev = "a[id^='PageContent_MaterialGrid_UnitOfMeasureAbbreviation']";
-	public static String b2w_newplace_generalinfo_placeenddate = "input#PageContent_generalInformationPanel_endDate";
-	public static String b2w_place_specifystarttimecheckbox = "input#PageContent_generalInformationPanel_hasStartTimeCheckbox";
-	public static String b2w_place_specifyendtimecheckbox = "input#PageContent_generalInformationPanel_hasEndTimeCheckbox";
-	public static String b2w_place_setstarttimetext = "input#PageContent_generalInformationPanel_startTime";
-	public static String b2w_place_setendtimetext = "input#PageContent_generalInformationPanel_endTime";
+	public static final String b2w_place_id = "span#PageContent_generalInformationPanel_PlaceIDLabel";
+	public static final String b2w_place_description = "span#PageContent_generalInformationPanel_DescriptionLabel";
+	public static final String b2w_place_categorylabel = "div.ColoredLabelPanel";
+	public static final String b2w_place_businssunit = "span#PageContent_generalInformationPanel_DurationType";
+	public static final String b2w_place_startdate = "span#PageContent_generalInformationPanel_Start";
+	public static final String b2w_place_enddate = "span#PageContent_generalInformationPanel_EndLabeld";
+	public static final String b2w_place_nonworking = "span#PageContent_generalInformationPanel_NonWorkingDaysLabel";
+	public static final String b2w_place_showonboard = "span#PageContent_generalInformationPanel_ShowOnJobBoardLabel";
+	public static final String b2w_place_canproduce = "span#PageContent_generalInformationPanel_CanProduceMaterials";
+	public static final String b2w_place_address1 = "span#PageContent_locationDetailPanel_Addresslabel";
+	public static final String b2w_place_city = "span#PageContent_locationDetailPanel_CityLabel";
+	public static final String b2w_place_state = "span#PageContent_locationDetailPanel_StateProvinceLabel";
+	public static final String b2w_place_zip = "span#PageContent_locationDetailPanel_PostalCodeLabel";
+	public static final String b2w_place_country = "span#PageContent_locationDetailPanel_CountryLabel";
+	public static final String b2w_place_materialsdescription = "a[id^='PageContent_MaterialGrid_Description']";
+	public static final String b2w_place_materialid = "a[id^='PageContent_MaterialGrid_MaterialID']";
+	public static final String b2w_place_materialcategory = "a[id^='PageContent_MaterialGrid_CategoryName']";
+	public static final String b2w_place_materialsubcategory = "a[id^='PageContent_MaterialGrid_SubcategoryName']";
+	public static final String b2w_place_materialunitofmeasureabbrev = "a[id^='PageContent_MaterialGrid_UnitOfMeasureAbbreviation']";
+	public static final String b2w_newplace_generalinfo_placeenddate = "input#PageContent_generalInformationPanel_endDate";
+	public static final String b2w_place_specifystarttimecheckbox = "input#PageContent_generalInformationPanel_hasStartTimeCheckbox";
+	public static final String b2w_place_specifyendtimecheckbox = "input#PageContent_generalInformationPanel_hasEndTimeCheckbox";
+	public static final String b2w_place_setstarttimetext = "input#PageContent_generalInformationPanel_startTime";
+	public static final String b2w_place_setendtimetext = "input#PageContent_generalInformationPanel_endTime";
 
-	public static String b2w_newequipmenttypeid = "input#PageContent_generalInformationPanel_EquipmentTypeIDTextBox";
-	public static String b2w_newequipmenttypetransportscb = "input#PageContent_generalInformationPanel_CanTransportMaterialsCheckBox";
-	public static String b2w_newequipmentcategory = "select#PageContent_generalInformationPanel_EquipmentCategoryDropDownList";
-	public static String b2w_newequipmenttypetransportmaterialtext = "span#PageContent_generalInformationPanel_CanTransportMaterialLabel";
+	public static final String b2w_newequipmenttypeid = "input#PageContent_generalInformationPanel_EquipmentTypeIDTextBox";
+	public static final String b2w_newequipmenttypetransportscb = "input#PageContent_generalInformationPanel_CanTransportMaterialsCheckBox";
+	public static final String b2w_newequipmentcategory = "select#PageContent_generalInformationPanel_EquipmentCategoryDropDownList";
+	public static final String b2w_newequipmenttypetransportmaterialtext = "span#PageContent_generalInformationPanel_CanTransportMaterialLabel";
 	
-	public static String b2w_categoriesunitofmeasure = "span#PageContent_generalInformationPanel_UnitOfMeasure";
+	public static final String b2w_categoriesunitofmeasure = "span#PageContent_generalInformationPanel_UnitOfMeasure";
 
-	public static String b2w_materialsdesclabel = "span#PageContent_generalInformationPanel_DescriptionLabel";
-	public static String b2w_materialidlabel = "span#PageContent_generalInformationPanel_MaterialIDLabel";
-	public static String b2w_materialunitofmeasurelabel = "span#PageContent_generalInformationPanel_UnitOfMeasureLabel";
-	public static String b2w_materialtempmaterialtext = "span#PageContent_generalInformationPanel_IsTemporaryMaterialLabel";
-	public static String b2w_materialtrackabletext = "span#PageContent_generalInformationPanel_IsTrackableMaterialLabel";
-	public static String b2w_materialnumberoflabel = "span#PageContent_generalInformationPanel_NumberOfLabel";
-	public static String b2w_placematerialsgrid = "table#MaterialsGrid";
-	public static String b2w_addmaterialcheckboxgrid = "div.k-grid-content";
-	public static String b2w_addmaterialrowgroup = "tbody";
-	public static String b2w_employeeroleslabel = "span#PageContent_generalInformationPanel_RolesLabel";
-	public static String b2w_employeelabortypegridid = "a[id^='PageContent_LaborTypeGrid_ID']";
-	public static String b2w_addbinbutton = "a#PageContent_AddBinsButton";
+	public static final String b2w_materialsdesclabel = "span#PageContent_generalInformationPanel_DescriptionLabel";
+	public static final String b2w_materialidlabel = "span#PageContent_generalInformationPanel_MaterialIDLabel";
+	public static final String b2w_materialunitofmeasurelabel = "span#PageContent_generalInformationPanel_UnitOfMeasureLabel";
+	public static final String b2w_materialtempmaterialtext = "span#PageContent_generalInformationPanel_IsTemporaryMaterialLabel";
+	public static final String b2w_materialtrackabletext = "span#PageContent_generalInformationPanel_IsTrackableMaterialLabel";
+	public static final String b2w_materialnumberoflabel = "span#PageContent_generalInformationPanel_NumberOfLabel";
+	public static final String b2w_placematerialsgrid = "table#MaterialsGrid";
+	public static final String b2w_addmaterialcheckboxgrid = "div.k-grid-content";
+	public static final String b2w_addmaterialrowgroup = "tbody";
+	public static final String b2w_employeeroleslabel = "span#PageContent_generalInformationPanel_RolesLabel";
+	public static final String b2w_employeelabortypegridid = "a[id^='PageContent_LaborTypeGrid_ID']";
+	public static final String b2w_addbinbutton = "a#PageContent_AddBinsButton";
 
-	public static String b2w_resourcesearchtext = "input.search-textbox";
-	public static String b2w_resourcesearchtextjs = "input#PageContent_searchControl_SearchTextBox";
+	public static final String b2w_resourcesearchtext = "input.search-textbox";
+	public static final String b2w_resourcesearchtextjs = "PageContent_searchControl_SearchTextBox";
 
-	public static String b2w_labornamegrid = "a[id^='PageContent_ListingGridView_FirstName']";
-	public static String b2w_labortypegridid = "a[id^='PageContent_ListingGridView_LaborTypeID']";
-	public static String b2w_employeeemailtext = "a#PageContent_generalInformationPanel_EMailHyperlink";
-	public static String b2w_employeeworkphonetext = "span#PageContent_generalInformationPanel_WorkPhoneLabel";
-	public static String b2w_employeetitletext = "span#PageContent_generalInformationPanel_JobTitleLabel";
-	public static String b2w_employeehomephonetext = "span#PageContent_generalInformationPanel_HomePhoneLabel";
-	public static String b2w_employeecellphonetext = "span#PageContent_generalInformationPanel_CellPhoneLabel";
-	public static String b2w_toppanelsavebutton = "a#PageContent_TopSavePanel";
-	public static String b2w_inventorybins = "table#PageContent_BinsGrid";
-	public static String b2w_inventorydescription = "span[id^='PageContent_BinsGrid_BinDescription']";
-	public static String b2w_equipmentlistview = "div.list-view";
-	public static String b2w_pricesheetitemintro = "div.item-intro";
-	public static String b2w_pricesheetleftcolumn = "div#left-column";
-	public static String b2w_pricesheetrightcolumn = "div#right-column";
+	public static final String b2w_labornamegrid = "a[id^='PageContent_ListingGridView_FirstName']";
+	public static final String b2w_labortypegridid = "a[id^='PageContent_ListingGridView_LaborTypeID']";
+	public static final String b2w_employeeemailtext = "a#PageContent_generalInformationPanel_EMailHyperlink";
+	public static final String b2w_employeeworkphonetext = "span#PageContent_generalInformationPanel_WorkPhoneLabel";
+	public static final String b2w_employeetitletext = "span#PageContent_generalInformationPanel_JobTitleLabel";
+	public static final String b2w_employeehomephonetext = "span#PageContent_generalInformationPanel_HomePhoneLabel";
+	public static final String b2w_employeecellphonetext = "span#PageContent_generalInformationPanel_CellPhoneLabel";
+	public static final String b2w_toppanelsavebutton = "a#PageContent_TopSavePanel";
+	public static final String b2w_inventorybins = "table#PageContent_BinsGrid";
+	public static final String b2w_inventorydescription = "span[id^='PageContent_BinsGrid_BinDescription']";
+	public static final String b2w_equipmentlistview = "div.list-view";
+	public static final String b2w_pricesheetitemintro = "div.item-intro";
+	public static final String b2w_pricesheetleftcolumn = "div#left-column";
+	public static final String b2w_pricesheetrightcolumn = "div#right-column";
 
 	// add materials dialog
 	public static final String b2w_addmaterialsdialog = "div#addMaterialDialog";
@@ -483,4 +484,165 @@ public class B2WUIMap {
 	public static final String b2w_tmpricesheetdeletebutton = "a#deletePriceSheet.btn-orig";
 	public static final String b2w_tmpricesheetbusinessunitdropdown = "span.k-widget.k-dropdown.k-header";
 	public static final String b2w_tmpricesheetratessourcedropdown = "span.k-widget.k-dropdown.k-header.k-state-border-down";
+	
+	//jobs
+	public static final String b2w_createnewjobbutton = "a#PageContent_CreateNewJobButton";
+	public static final String b2w_jobnumber = "input#PageContent_generalInformationPanel_JobNumberTextBox";
+	public static final String b2w_jobtitle = "input#PageContent_generalInformationPanel_JobTitleTextBox";
+	public static final String b2w_jobprojectmanagerdd = "select#PageContent_generalInformationPanel_ProjectManagerDropDownList";
+	public static final String b2w_jobprojectname = "input#PageContent_generalInformationPanel_ProjectNameTextBox";
+	public static final String b2w_jobstatusdd = "select#PageContent_generalInformationPanel_JobStatusDropDownList";
+	public static final String b2w_jobcustomerdd = "select#PageContent_generalInformationPanel_CustomerDropDownList";
+	public static final String b2w_jobdefaultlaborrateclassdd = "select#PageContent_generalInformationPanel_DefaultLaborRateClassDropDownList";
+	public static final String b2w_jobdefaultequipmentrateclass = "select#PageContent_generalInformationPanel_DefaultEquipmentRateClassDropDownList";
+	public static final String b2w_jobaddlaborrateclassesbutton = "a#PageContent_AddLaborRateClassesButton";
+	
+	public static final String b2w_jobnumbertext = "span#PageContent_generalInformationPanel_JobNumberLabel";
+	public static final String b2w_jobtitletext = "span#PageContent_generalInformationPanel_JobTitleLabel";
+	public static final String b2w_jopprojectmanagertext = "a#PageContent_generalInformationPanel_ProjectManagerHyperLink";
+	public static final String b2w_jobprojectnametext = "span#PageContent_generalInformationPanel_ProjectNameLabel";
+	public static final String b2w_jobstatustext = "span#PageContent_generalInformationPanel_StatusLabel";
+	public static final String b2w_jobcustomertext = "a#PageContent_generalInformationPanel_CustomerHyperLink";
+	public static final String b2w_jobdefaultlaborrateclasstext = "span#PageContent_generalInformationPanel_DefaultLaborRateClassLabel";
+	public static final String b2w_jobdefaultequipmentrateclasstext = "span#PageContent_generalInformationPanel_DefaultEquipmentRateClassLabel";
+	
+	public static final String b2w_jobsattachmentslist = "img[id^='PageContent_ListingGridView_ContainsAttachments']";
+	public static final String b2w_jobsjobnumberlist = "a[id^='PageContent_ListingGridView_JobNumber']";
+	public static final String b2w_jobstitlelist = "a[id^='PageContent_ListingGridView_Title']";
+	public static final String b2w_jobsbusinessunitnamelist = "span[id^='PageContent_ListingGridView_BusinessUnitName']";
+	public static final String b2w_jobsprojectmanagerfullnamelist = "span[id^='PageContent_ListingGridView_ProjectManagerFullName']";
+	public static final String b2w_jobsstatuslist = "span[id^='PageContent_ListingGridView_JobStatusName']";
+	public static final String b2w_jobseditlist = "a[id^='PageContent_ListingGridView_Edit']";
+	
+	public static final String b2w_jobsestimateitemid = "a[id^='PageContent_ListingGridView_ItemID']";
+	public static final String b2w_jobsestimateitemnumber = "span[id^='PageContent_ListingGridView_ItemNumber']";
+	public static final String b2w_jobsestimatedescription = "a[id^='PageContent_ListingGridView_Description']";
+	public static final String b2w_jobsestimateoriginalquantity = "span[id^='PageContent_ListingGridView_OriginalEstimatedQuantity']";
+	public static final String b2w_jobestimatechangeorderquanity = "span[id^='PageContent_ListingGridView_ChangeOrderQuantity']";
+	public static final String b2w_jobsestimatequantity = "span[id^='PageContent_ListingGridView_EstimatedQuantity']";
+	public static final String b2w_jobsestimateunitofmeasure = "span[id^='PageContent_ListingGridView_UnitOfMeasure']";
+	public static final String b2w_jobestimatereportquanity = "span[id^='PageContent_ListingGridView_ReportedQuantity']";
+	public static final String b2w_jobsestimateremainingquanity = "span[id^='PageContent_ListingGridView_RemainingQuantity']";
+	public static final String b2w_jobsestimateunitprice = "span[id^='PageContent_ListingGridView_UnitPrice']";
+	public static final String b2w_jobsestimatetotalprice = "span[id^='PageContent_ListingGridView_TotalPrice']";
+	public static final String b2w_jobsestimatebillrevenue = "span[id^='PageContent_ListingGridView_BillableRevenue']";
+	public static final String b2w_jobsestimateviewedit = "a[id^='PageContent_ListingGridView_Edit']";
+	public static final String b2w_jobestimateviewdelete = "a[id^='PageContent_ListingGridView_Delete']";
+	
+	public static final String b2w_jobstrackacctstrackingid = "a[id^='PageContent_ProductionAccountGridView_TrackingID']";
+	public static final String b2w_jobstrackacctsaccountid = "span[id^='PageContent_ProductionAccountGridView_AccountID']";
+	public static final String b2w_jobstrackacctsdesc = "a[id^='PageContent_ProductionAccountGridView_Description']";
+	public static final String b2w_jobstrackacctsestquanity = "span[id^='PageContent_ProductionAccountGridView_OriginalEstimatedQuantity']";
+	public static final String b2w_jobstrackacctschangeorderquanity = "span[id^='PageContent_ProductionAccountGridView_ChangeOrderQuantity']";
+	public static final String b2w_jobstrackacctsestimatedquanity = "span[id^='PageContent_ProductionAccountGridView_EstimatedQuantity']";
+	public static final String b2w_jobstrackacctsproducedquantity = "span[id^='PageContent_ProductionAccountGridView_ProducedQuantity']";
+	public static final String b2w_jobstrackacctsunitofmeasure = "span[id^='PageContent_ProductionAccountGridView_UnitOfMeasure']";
+	public static final String b2w_jobstrackacctspecentcomp = "span[id^='PageContent_ProductionAccountGridView_PercentComplete']";
+	public static final String b2w_jobstrackacctsviewcomplete = "span[id^='PageContent_ProductionAccountGridView_Complete']";
+	public static final String b2w_jobstrackacctsestunitcost = "span[id^='PageContent_ProductionAccountGridView_EstimatedUnitCost']";
+	public static final String b2w_jobstrackacctsreportedunitcost = "span[id^='PageContent_ProductionAccountGridView_ReportedUnitCost']";
+	public static final String b2w_jobstrackacctsestimatedprodrate = "span[id^='PageContent_ProductionAccountGridView_EstimatedProductionRate']";
+	public static final String b2w_jobstrackacctsviewedit = "a[id^='PageContent_ProductionAccountGridView_Edit']";
+	public static final String b2w_jobstrackacctsviewdelete = "a[id^='PageContent_ProductionAccountGridView_Delete']";
+	
+	public static final String b2w_jobsmaterialsdesc = "a[id^='PageContent_JobMaterialGridView_Description']";
+	public static final String b2w_jobsmaterialsmaterialid = "a[id^='PageContent_JobMaterialGridView_MaterialID']";
+	public static final String b2w_jobsmaterialsunitcost = "span[id^='PageContent_JobMaterialGridView_UnitCost']";
+	public static final String b2w_jobsmaterialsunitmeasure = "span[id^='PageContent_JobMaterialGridView_UnitOfMeasure']";
+	public static final String b2w_jobsmaterialsspacercolumn = "span[id^='PageContent_JobMaterialGridView_spacerColumn']";
+	public static final String b2w_jobsmaterialsviewdelete = "a[id^='PageContent_JobMaterialGridView_Delete']";
+	
+	public static final String b2w_jobssubsvendorscompname = "a[id^='PageContent_SubcontractorGridView_CompanyName']";
+	public static final String b2w_jobssubsvendorscompid = "a[id^='PageContent_SubcontractorGridView_CompanyID']";
+	public static final String b2w_jobssubsvendorscomptype = "span[id^='PageContent_SubcontractorGridView_CompanyType']";
+	public static final String b2w_jobssubsvendorsdelete = "a[id^='PageContent_SubcontractorGridView_Delete']";
+	
+	public static final String b2w_jobstruckingsubscompanyname= "a[id^='PageContent_TruckingGridView_CompanyName']";
+	public static final String b2w_jobstruckingsubscompanyid = "a[id^='PageContent_TruckingGridView_CompanyID']";
+	public static final String b2w_jobstruckingsubscompanytype = "span[id^='PageContent_TruckingGridView_CompanyType']";
+	public static final String b2w_jobstruckingsubsdelete = "a[id^='PageContent_TruckingGridView_Delete']";
+
+	public static final String b2w_jobsvendorscompname = "a[id^='PageContent_VendorGridView_CompanyName']";
+	public static final String b2w_jobsvendorscompid = "a[id^='PageContent_VendorGridView_CompanyID']";
+	public static final String b2w_jobsvendorscomptype = "span[id^='PageContent_VendorGridView_CompanyType']";
+	public static final String b2w_jobsvendorsdelete = "a[id^='PageContent_VendorGridView_Delete']";
+	
+	public static final String b2w_jobsactivitydatetime = "span[id^='PageContent_FieldLogsGridView_ActivityDateTime']";
+	public static final String b2w_jobsactivityidtext = "a[id^='PageContent_FieldLogsGridView_ActivityIDText']";
+	public static final String b2w_jobsactivityformeanfullname = "span[id^='PageContent_FieldLogsGridView_ForemanFullName']";
+	public static final String b2w_jobsactivitysupervisorfullname = "span[id^='PageContent_FieldLogsGridView_SupervisorFullName']";
+	public static final String b2w_jobsactivityviewstatus = "span[id^='PageContent_FieldLogsGridView_Status']";
+	public static final String b2w_jobsactivitylaborhours = "span[id^='PageContent_FieldLogsGridView_LaborHours']";
+	public static final String b2w_jobsactivityequipmenthours = "span[id^='PageContent_FieldLogsGridView_EquipmentHours']";
+	public static final String b2w_jobsactivitylaborcost = "span[id^='PageContent_FieldLogsGridView_LaborCost']";
+	public static final String b2w_jobsactivityequipcost = "span[id^='PageContent_FieldLogsGridView_EquipmentCost']";
+	public static final String b2w_jobsactivitymaterialcost = "span[id^='PageContent_FieldLogsGridView_MaterialCost']";
+	public static final String b2w_jobsactivitytruckingcost = "span[id^='PageContent_FieldLogsGridView_TruckingCost']";
+	public static final String b2w_jobsactivitysubcost = "span[id^='PageContent_FieldLogsGridView_SubCost']";
+	public static final String b2w_jobsactivitymisccost = "span[id^='PageContent_FieldLogsGridView_MiscCost']";
+	public static final String b2w_jobsactivityoverallcost = "span[id^='PageContent_FieldLogsGridView_OverallCost']";
+	
+	public static final String b2w_jobschangeordercreatedon = "span[id^='PageContent_ListingGridView_CreatedOn']";
+	public static final String b2w_jobschangeorderchangeorderid = "a[id^='PageContent_ListingGridView_ChangeOrderID']";
+	public static final String b2w_jobschangeorderaltorderid = "span[id^='PageContent_ListingGridView_AlternateChangeOrderID']";
+	public static final String b2w_jobschangeorderdesc = "a[id^='PageContent_ListingGridView_Description']";
+	public static final String b2w_jobschangeorderviewstatus = "span[id^='PageContent_ListingGridView_Status']";
+	public static final String b2w_jobschangeordertype = "span[id^='PageContent_ListingGridView_Type']";
+	public static final String b2w_jobschangeorderestquanity = "span[id^='PageContent_ListingGridView_EstimatedQuantity']";
+	public static final String b2w_jobschangeorderunitofmeasure = "span[id^='PageContent_ListingGridView_UnitOfMeasure']";
+	public static final String b2w_jobschangeorderestimatedtotalcost = "span[id^='PageContent_ListingGridView_EstimatedTotalCost']";
+	public static final String b2w_jobschangeordertotalprice = "span[id^='PageContent_ListingGridView_EstimatedTotalPrice']";
+	public static final String b2w_jobschangeorderedit = "a[id^='PageContent_ListingGridView_Edit']";
+	public static final String b2w_jobschangeorderdelete = "a[id^='PageContent_ListingGridView_Delete']";
+	
+	public static final String b2w_jobssitesupervisor = "select#PageContent_generalInformationPanel_SupervisorDropDownList";
+	
+	public static final String b2w_jobsaddjobsite = "a#PageContent_AddJobSiteButton";
+	
+	public static final String b2w_jobproductionaccountbutton = "a#PageContent_AddProductionAccountsButton";
+	public static final String b2w_jobproductionaccounttrackingid = "input#PageContent_ProductionTrackingIDTextBox";
+	public static final String b2w_jobproductionaccountiddropdown = "select#PageContent_ProductionAccountIDDropDownList";
+	public static final String b2w_jobproductiondescriptiontextbox = "input#PageContent_ProductionDescriptionTextBox";
+	public static final String b2w_jobproductionunitofmeasuredd = "select#PageContent_ProductionUnitofMeasureDropDownList";
+	public static final String b2w_jobproductionestimatedproductiondd = "select#PageContent_EstimatedProductionMethodDropDownList";
+	public static final String b2w_jobproductionestimatedunitofmeasuredd= "select#PageContent_EstimatedProductionUnitOfMeasureDropDownList";
+	public static final String b2w_jobproductionsupervisorprojectedunitcost = "input#PageContent_ProductionSupervisorProjectedUnitCostTextBox_numVal";
+	public static final String b2w_jobproductionmanagerprojectedunitcost = "input#PageContent_ProductionManagerProjectedUnitCostTextBox_numVal";
+	public static final String b2w_jobproductionmanagerestimatedquanity = "input#PageContent_ProductionEstimatedQuantityTextBox_numVal";
+	public static final String b2w_jobproductionchangeorderquanitytextbox = "input#PageContent_ProductionChangeOrderQuantityTextBox_numVal";
+	public static final String b2w_jobproductioncompletecheckbox = "input#PageContent_IsProductionJobCompletedCheckBox";
+	
+	public static final String b2w_joboverheadaccountbutton = "a#PageContent_AddOverheadAccountsButton";
+	public static final String b2w_joboverheadaccountiddropdown = "select#PageContent_OverheadAccountIDDropDownList";
+	public static final String b2w_joboverheadtrackingidtextbox = "input#PageContent_OverheadTrackingIDTextBox";
+	public static final String b2w_joboverheaddescriptiontextbox = "input#PageContent_OverheadDescriptionTextBox";
+	public static final String b2w_joboverheadvaluetypedropdown = "select#PageContent_ValueTypeDropDownList";
+	public static final String b2w_joboverheadtotalcostcalcdd = "select#PageContent_TotalCostCalculationTypeDropDownList";
+	public static final String b2w_joboverheaddefaultvalue = "input#PageContent_DefaultValueTextBox_numVal";
+	public static final String b2w_joboverheadestimatedunittextbox = "input#PageContent_OverheadEstimatedUnitsTextBox_numVal";
+	public static final String b2w_joboverheadchangeorderunittextbox = "input#PageContent_OverheadChangeOrderUnitsTextBox_numVal";
+	public static final String b2w_joboverheadperunitpercentagetextbox = "input#PageContent_PerUnitPercentageTextBox_numVal";
+	public static final String b2w_joboverheadcompletecheckbox = "input#PageContent_IsOverheadJobCompletedCheckBox";
+	
+	public static final String b2w_joboverheadaddestimateitemcostbutton = "a#PageContent_AddEstimateItemCostBreakdownButton";
+	public static final String b2w_joboverheadaddchangeordercostbutton = "a#PageContent_AddChangeOrderCostBreakdownButton";
+
+	public static final String b2w_jobtopsavebutton = "a#PageContent_TopSaveButtun";
+	
+	public static final String b2w_jobstabestimateitems = "li#nEstimateItems";
+	public static final String b2w_jobstabtrackingaccounts = "li#nTrackingAccounts";
+	public static final String b2w_jobstabmaterials = "li#nJobMaterials";
+	public static final String b2w_jobsaddmaterials = "a#PageContent_AddJobMaterialsButton";
+	public static final String b2w_jobstabsubvendors = "li#nSubsAndVendors";
+	public static final String b2w_jobstabsactivity = "li#nActivity";
+	public static final String b2w_jobstabchangeorders = "li#nChangeOrders";
+	public static final String b2w_jobstmwork = "li#nTimeAndMaterials";
+	public static final String b2w_jobsgeneralinformation = "li#nGeneralInformation";
+	public static final String b2w_jobscreatenewestimateitem = "a#PageContent_CreateNewEstimateItemButton";
+	public static final String b2w_jobsaddsubcontractors = "a#PageContent_AddSubcontractorButton";
+	public static final String b2w_jobaddtruckingsubcontractors = "a#PageContent_AddTruckingSubcontractorButton";
+	public static final String b2w_jobaddvendors = "a#PageContent_AddVendorButton";
+	
+	
+	
 }

@@ -2,7 +2,6 @@ package testcases;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Random;
 
 import com.b2w.test.B2WTestCase;
 
@@ -141,9 +140,7 @@ public class OperationsSmokeE extends B2WTestCase {
 	public void testSetUp() throws Throwable {
 		// TODO Auto-generated method stub
 		super.testSetUp();
-		Random rand = new Random();
-
-		int n = rand.nextInt(10000) + 1;
+		int  n = getRandomNumber();
 		sLaborRate = getProperty("laborrateclass") + n;
 		sLaborRateID = getProperty("laborrateclassid") + n;
 		sCategoryA = getProperty("categoryNameA") + n;

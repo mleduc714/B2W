@@ -64,9 +64,6 @@ public abstract class B2WResources {
 	public static By getResourcesSearchText() {
 		return By.cssSelector(B2WUIMap.b2w_resourcesearchtext);
 	}
-	public static By getResourcesSearchButton() {
-		return By.cssSelector(B2WUIMap.b2w_employeesearchbutton);
-	}
 	public static By getResourcesClearSearchButton() {
 		return By.cssSelector(B2WUIMap.b2w_employeeclearsearchbutton);
 	}
@@ -82,5 +79,9 @@ public abstract class B2WResources {
 	public static By getCategoryTextLabel() {
 		return By.cssSelector(B2WUIMap.b2w_accountgeninfocategorylabel);
 	}
+	public static By getB2WSearchText() {
+		return By.cssSelector(B2WUIMap.b2w_setup_searchtextbox);
+	}
+	
 	
 }
