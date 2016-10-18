@@ -33,24 +33,23 @@ public class B2WAddMaterialsTasks {
 		return bReturn;
 	}
 	
-	public boolean setIDToSelect(String sText){
+	public boolean setIDToSelect(String sText) {
 		boolean bReturn = false;
 		WebElement bar = WebElementUtils.waitAndFindDisplayedElement(B2WAddMaterials.getSearchIDBar());
 		WebElement el = WebElementUtils.getChildElement(bar, B2WAddMaterials.getAddMaterialsIDToSelect());
-		if (el!=null){
-			// if the id is in the dialog, enter in the id in the field and then select
-			if (getMaterialIDTextFromGrid().contains(sText)){
-				bReturn = WebElementUtils.sendKeys(el, sText);
-				String sValue = el.getAttribute("value");
-				log.debug("The Value to ID is: "+sValue);
-				bReturn &= sValue.equals(sText);
-			}else{
-				log.debug("Did not find the "+sText+ " in the material id list");
-			}
-		}else{
+		if (el != null) {
+			// if the id is in the dialog, enter in the id in the field and then
+			// select
+			log.debug("Does MaterialsID exist in the grid: " + getMaterialIDTextFromGrid().contains(sText));
+			bReturn = WebElementUtils.sendKeys(el, sText);
+			String sValue = el.getAttribute("value");
+			log.debug("The Value to ID is: " + sValue);
+			bReturn &= sValue.equals(sText);
+
+		} else {
 			log.debug("The Materials To To Select TextBox is returning as null");
 		}
-		
+
 		return bReturn;
 	}
 	
