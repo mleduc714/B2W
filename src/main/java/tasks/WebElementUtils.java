@@ -5,6 +5,7 @@ import java.awt.Robot;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Random;
 import java.util.regex.Pattern;
 
 import org.apache.log4j.Logger;
@@ -642,6 +643,31 @@ public class WebElementUtils {
 		}
 		return bReturn;
 	}
+	
+	public static String selectAnyItemFromOpsDropDownMenu(By by){
+		String sItem = "";
+		try {
+			WebElement el = WebElementUtils.findElement(by);
+			if (el != null) {
+				List<WebElement> els = el.findElements(By.tagName("option"));
+				Random rand = new Random();
+
+				int randnumber = rand.nextInt(els.size()-1);
+				WebElement item = els.get(randnumber);
+				if (item != null) {
+					WebElementUtils.clickElement(item);
+					sItem = item.getText();
+				} else {
+					log.warn("The Item is Null");
+				}
+			}
+		} catch (StaleElementReferenceException e) {
+			log.warn("Caught Stale Element Exception!!");
+			return selectAnyItemFromOpsDropDownMenu(by);
+		}
+		return sItem;
+	}
+	
 	
 	public static void selectItemFromOpsDropDownMenuByStartsWithText(By by, String sText) {
 		try {
