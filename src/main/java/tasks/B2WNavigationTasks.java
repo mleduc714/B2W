@@ -2,6 +2,7 @@ package tasks;
 
 import java.util.List;
 
+import appobjects.scheduler.B2WScheduleAssignments;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -13,6 +14,7 @@ import appobjects.maintain.B2WMaintain;
 import appobjects.resources.B2WEquipment;
 import appobjects.resources.B2WTMPriceSheets;
 import tasks.resources.B2WEquipmentTasks;
+import tasks.scheduler.B2WSchedulerTasks;
 import tasks.util.TaskUtils;
 
 public class B2WNavigationTasks implements Navigation {
@@ -90,7 +92,22 @@ public class B2WNavigationTasks implements Navigation {
 		}
 		return bReturn;
 	}
-	
+
+	public boolean openSchedule() {
+		boolean bReturn = false;
+		WebElement el = WebElementUtils.findElement(B2WNavigationPanel.getB2WSchedule());
+		if (el != null) {
+			if (WebElementUtils.clickElement(el)) {
+				bReturn &= new B2WSchedulerTasks().waitForSchedulePageNoBusy();
+				WebElement grid = WebElementUtils.waitAndFindDisplayedElement(B2WScheduleAssignments.getScheduleCenterPanel());
+				if (grid != null) {
+					bReturn = grid.isDisplayed();
+				}
+			}
+		}
+		return bReturn;
+	}
+
 	public boolean openSetup() {
 		boolean bReturn = false;
 		if (WebElementUtils.clickElement(B2WNavigationPanel.getB2WSetupLink())) {
