@@ -180,7 +180,7 @@ public class OperationsSmokeF extends B2WTestCase {
 		logCompare(true,b2wJobs.setJobProductionAccountTrackingIDText(sNewJobProductionAccountTrackID), "Set Account tracking ID");
 		logCompare(true,b2wJobs.setJobProductionAccountDescriptionText(sNewJobProductionAccountDescription), "Job Production Desc");
 		logCompare(true,b2wJobs.selectJobProductionAccountIDFromDD(sProductionAccountID + " - "+ sProductionAccountDesc), "Select Production Account ID");
-		logCompare(true, b2wJobs.clickTopSaveButton(), "save account");
+		logCompare(true,b2wJobs.clickTopSaveButton(), "save account");
 		
 	}
 	
