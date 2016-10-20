@@ -121,6 +121,7 @@ public class OperationsSmokeF extends B2WTestCase {
 
 	public void testMain() throws Throwable {
 		// associate test user with current user
+		addEmployeeToUser();
 		createJob();
 		addJobSite();
 		createNewJobProductionAccount();
@@ -178,7 +179,7 @@ public class OperationsSmokeF extends B2WTestCase {
 		logCompare(true,b2wJobs.clickAddNewJobProductionAccount(), "Click Add New Job Production Account");
 		logCompare(true,b2wJobs.setJobProductionAccountTrackingIDText(sNewJobProductionAccountTrackID), "Set Account tracking ID");
 		logCompare(true,b2wJobs.setJobProductionAccountDescriptionText(sNewJobProductionAccountDescription), "Job Production Desc");
-		b2wJobs.selectJobProductionAccountID();
+		logCompare(true,b2wJobs.selectJobProductionAccountIDFromDD(sProductionAccountID + " - "+ sProductionAccountDesc), "Select Production Account ID");
 		logCompare(true, b2wJobs.clickTopSaveButton(), "save account");
 		
 	}
@@ -187,7 +188,7 @@ public class OperationsSmokeF extends B2WTestCase {
 		logCompare(true,b2wJobs.clickAddNewOverheadAccount(), "Create New Overhead Account");
 		logCompare(true,b2wJobs.setJobOverheadDescription(sNewJobOverheadAccountDescription), "Overhead acocunt description");
 		logCompare(true,b2wJobs.setJobOverheadTrackingID(sNewJobOverheadAccountTrackID), "Overhead account tracking id");
-		b2wJobs.selectJobOverheadAccountID();
+		logCompare(true,b2wJobs.selectJobOverheadAccountIDFromDD(sOverheadAccountID + " - "+ sOverheadAccountDesc), "Select Account ID");
 		logCompare(true,b2wJobs.clickTopSaveButton(), "Save Overhead account");
 		
 	}
