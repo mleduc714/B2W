@@ -14,6 +14,7 @@ public class B2WNavigationPanel {
 	 public static By getB2WJobs() {
 		 	return By.cssSelector(B2WUIMap.b2w_jobs);
 	 }
+	 public static By getB2WSchedule() {return By.cssSelector(B2WUIMap.b2w_schedule);}
 	 public static By getB2WTrack() {
 		 	return By.cssSelector(B2WUIMap.b2w_track);
 	 }
