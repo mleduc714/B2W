@@ -6,6 +6,7 @@ public class B2WUIMap {
 	public static final String b2w_icon = "a.b2w-software-logo";
 	public static final String b2w_home = "li#nHome";
 	public static final String b2w_jobs = "li#nJobs";
+	public static final String b2w_schedule = "li#nSchedule";
 	public static final String b2w_track = "li#nTrack";
 	public static final String b2w_dispatch = "li#nDispatch";
 	public static final String b2w_maintain = "li#nMaintain";
@@ -479,7 +480,7 @@ public class B2WUIMap {
 	public static final String b2w_kendodata = "div.data";
 	public static final String b2w_kendokdropdown = ".k-dropdown-wrap";
 	public static final String b2w_kendotmtabdropdown = "span.k-widget.k-dropdown.k-header";
-	
+
 	public static final String b2w_tmpricesheeteditbutton = "a#editPriceSheet.btn-orig";
 	public static final String b2w_tmpricesheetmodifyratesourcebutton = "a#modifyPriceSheetRates.btn-orig";
 	public static final String b2w_tmpricesheetcopypricesheet = "a#copyPriceSheet.btn-orig";
@@ -561,7 +562,7 @@ public class B2WUIMap {
 	public static final String b2w_jobssitecity = "span[id^='PageContent_JobSitesGrid_City']";
 	public static final String b2w_jobssitestate = "a[id^='PageContent_JobSitesGrid_StateProvince']";
 
-	
+
 	public static final String b2w_jobssubsvendorscompname = "a[id^='PageContent_SubcontractorGridView_CompanyName']";
 	public static final String b2w_jobssubsvendorscompid = "a[id^='PageContent_SubcontractorGridView_CompanyID']";
 	public static final String b2w_jobssubsvendorscomptype = "span[id^='PageContent_SubcontractorGridView_CompanyType']";
@@ -653,7 +654,7 @@ public class B2WUIMap {
 	public static final String b2w_jobaddtruckingsubcontractors = "a#PageContent_AddTruckingSubcontractorButton";
 	public static final String b2w_jobaddvendors = "a#PageContent_AddVendorButton";
 	
-	
+
 	public static final String b2w_jobsadddialogsearchclass = ".search-textbox";
 	public static final String b2w_jobsadddialogselectclass = ".select-textbox";
 	public static final String b2w_jobsaddselectbutton = "a[id$='SelectControl_SelectButton']";
@@ -661,7 +662,7 @@ public class B2WUIMap {
 	public static final String b2w_jobsaddbutton = "a[id$='Dialog_AddButton']";
 	public static final String b2w_jobscancelbutton = "a[id$='Dialog_CancelButton']";
 	public static final String b2w_jobsgridview = "a[id$='Dialog_GridView']";
-	
+
 	//public static final String b2w_jobsaddmaterialssearchjs = "PageContent_AddMaterialDialog_SearchControl_SearchTextBox";
 	//public static final String b2w_jobsaddmaterialsidjs = "PageContent_AddMaterialDialog_SelectControl_SelectTextBox";
 //	public static final String b2w_jobsaddmaterialssearchbutton = "a#PageContent_AddMaterialDialog_SearchControl_SearchButton";
@@ -669,7 +670,7 @@ public class B2WUIMap {
 //	public static final String b2w_jobsaddmaterialsaddbutton = "a#PageContent_AddMaterialDialog_AddButton";
 	public static final String b2w_jobsaddmaterialsgridview = "table#PageContent_AddMaterialDialog_GridView";
 	public static final String b2w_jobsaddmaterialgridviewcheckbox = "input[id^='PageContent_AddMaterialDialog_GridView_SelectedCheckBox']";
-	
+
 	//public static final String b2w_jobsaddsubcontractorssearch = "PageContent_AddSubcontractorDialog_SearchControl_SearchTextBox";
 	//public static final String b2w_jobsaddsubcontractorsid = "PageContent_AddSubcontractorDialog_SelectControl_SelectTextBox";
 //	public static final String b2w_jobsaddsubcontractorssearchbutton = "a#PageContent_AddSubcontractorDialog_SearchControl_SearchButton";
@@ -685,21 +686,23 @@ public class B2WUIMap {
 //	public static final String b2w_jobsaddtrucksubcontractorsaddbutton = "a#PageContent_AddTruckingSubcontractorDialog_AddButton";
 	public static final String b2w_jobsaddtrucksubcontractorsgridview = "table#PageContent_AddTruckingSubcontractorDialog_GridView";
 	public static final String b2w_jobsaddtrucksubcontractorgridviewcheckbox = "input[id^='PageContent_AddTruckingSubcontractorDialog_GridView_SelectedCheckBox']";
-	
+
 	public static final String b2w_jobsaddvendorsgridview = "table#PageContent_AddVendorDialog_GridView";
 	public static final String b2w_jobsaddvendorsgridviewcheckbox = "input[id^='PageContent_AddVendorDialog_GridView_SelectedCheckBox']";
-	
+
 	public static final String b2w_jobsmaterialgridview = "table#PageContent_JobMaterialGridView";
 	public static final String b2w_jobsvendorsgridview = "table#PageContent_VendorGridView";
 	public static final String b2w_jobstruckinggridview = "table#PageContent_TruckingGridView";
 	public static final String b2w_jobssubcontractorsview = "table#PageContent_SubcontractorGridView";
 	public static final String b2w_jobscreatenewtmworkitembutton = "a#CreateWorkItemsButton";
-	
+
 	public static final String b2w_jobstmworkitemgrid = "table#JobTnMWorkItemTable";
 	public static final String b2w_jobstmworkitemcompletecheckbox = "input#IsComplete";
 	public static final String b2w_jobstmworkitempricelimitcheckbox = "input#HasPriceLimit";
 	public static final String b2w_jobstmworkitemsavebutton = "div#SaveButton.btn-form.large";
-	
-	
-	
+	//Schedule Assignments
+	public static final String b2w_schedulecenterpanel = "b2w-panel-center";
+	public static final String b2w_scheduleproductpageicon = "a#ProductPageIcon";
+	public static final String b2w_scheduleviewnavigatemenu = ".nav-popup-menu.scrollable.k-popup.k-group.k-reset.k-state-border-up";
+
 }
