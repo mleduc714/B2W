@@ -45,4 +45,10 @@ public abstract class KendoUI {
 	public static By getKendoFormattedValue() {
 		return By.cssSelector(B2WUIMap.b2w_kendoformatedvalue);
 	}
+	public static By getKendoDropDownForTMTab() {
+		return By.cssSelector(B2WUIMap.b2w_kendotmtabdropdown);
+	}
+	public static By getKendoWorkItemTable() {
+		return By.cssSelector(B2WUIMap.b2w_jobstmworkitemgrid);
+	}
 }

@@ -3,8 +3,9 @@ package appobjects.jobs;
 import org.openqa.selenium.By;
 
 import appobjects.B2WUIMap;
+import appobjects.resources.KendoUI;
 
-public class B2WJobs {
+public class B2WJobs extends KendoUI {
 	
 
 	public static By getB2WJobnumber() {
@@ -193,4 +194,35 @@ public class B2WJobs {
 	public static By getB2WJobsAddVendorButton() {
 		return By.cssSelector(B2WUIMap.b2w_jobaddvendors);
 	}
+	public static By getB2WJobsSiteState() {
+		return By.cssSelector(B2WUIMap.b2w_jobsite_placestate);
+	}
+	public static By getB2wJobssitedesc() {
+		return By.cssSelector(B2WUIMap.b2w_jobssitedesc);
+	}
+	public static By getB2wJobssitesitesupervisor() {
+		return By.cssSelector(B2WUIMap.b2w_jobssitesitesupervisor);
+	}
+	public static By getB2wJobssiteaddress() {
+		return By.cssSelector(B2WUIMap.b2w_jobssiteaddress);
+	}
+	public static By getB2wJobssitecity() {
+		return By.cssSelector(B2WUIMap.b2w_jobssitecity);
+	}
+	public static By getB2wJobssitestate() {
+		return By.cssSelector(B2WUIMap.b2w_jobssitestate);
+	}
+	public static By getB2WJobAddNewTMWorkItemButton(){
+		return By.cssSelector(B2WUIMap.b2w_jobscreatenewtmworkitembutton);
+	}
+	public static By getB2WJobTMWorkItemCompleteCheckbox() {
+		return By.cssSelector(B2WUIMap.b2w_jobstmworkitemcompletecheckbox);
+	}
+	public static By getB2WJobTMWorkItemPriceLimitCheckbox() {
+		return By.cssSelector(B2WUIMap.b2w_jobstmworkitempricelimitcheckbox);
+	}
+	public static By getB2WJobTMWorkItemSaveButton() {
+		return By.cssSelector(B2WUIMap.b2w_jobstmworkitemsavebutton);
+	}
+
 }
