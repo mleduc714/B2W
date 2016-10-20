@@ -121,7 +121,7 @@ public class OperationsSmokeF extends B2WTestCase {
 
 	public void testMain() throws Throwable {
 		// associate test user with current user
-		addEmployeeToUser();
+		//addEmployeeToUser();
 		createJob();
 		addJobSite();
 		createNewJobProductionAccount();
