@@ -605,7 +605,8 @@ public class WebElementUtils {
 	}
 
 	public static boolean isCheckboxChecked(By by) {
-		return new Boolean(WebElementUtils.findElement(by).getAttribute("checked"));
+		WebElement el = WebElementUtils.waitAndFindDisplayedElement(by);
+		return new Boolean(el.getAttribute("checked"));
 	}
 
 	public static Alert waitForAndGetAlertDialog(int timeOut) {
