@@ -309,16 +309,19 @@ public class B2WSetupTasks {
 	}
 	protected boolean checkBox(By by, boolean bCheck){
 		
+		WebElement el = WebElementUtils.findElement(by);
 		boolean isChecked = WebElementUtils.isCheckboxChecked(by);
 		// if item is checked and need to uncheck
 		if (isChecked && !bCheck){
 			log.debug("Uncheck the checkbox");
 			WebElementUtils.clickElement(by);
+			WebElementUtils.waitForElementStale(el, WebElementUtils.SHORT_TIME_OUT);
 		}
 		// if item is unchecked and need to check
 		if (!isChecked && bCheck){
 			log.debug("Check the checkbox");
 			WebElementUtils.clickElement(by);
+			WebElementUtils.waitForElementStale(el, WebElementUtils.SHORT_TIME_OUT);
 		}
 		return bCheck == WebElementUtils.isCheckboxChecked(by);
 	}
