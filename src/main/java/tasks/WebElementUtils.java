@@ -37,7 +37,7 @@ public class WebElementUtils {
 		try {
 			el = wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
 		} catch (TimeoutException e) {
-			log.warn("Element never displayed with in timeout of " + timeOut);
+			log.warn("Element "+ locator.toString() +"never displayed with in timeout of " + timeOut);
 		}
 		return el;
 	}
