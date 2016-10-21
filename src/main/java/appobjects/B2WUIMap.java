@@ -704,5 +704,8 @@ public class B2WUIMap {
 	public static final String b2w_schedulecenterpanel = "b2w-panel-center";
 	public static final String b2w_scheduleproductpageicon = "a#ProductPageIcon";
 	public static final String b2w_scheduleviewnavigatemenu = ".nav-popup-menu.scrollable.k-popup.k-group.k-reset.k-state-border-up";
-
+	public static final String b2w_schedulecreationsection = "b2w-create-action";
+	public static final String b2w_scheduleassignmentwindow = ".k-widget.k-window.close-button";
+	public static final String b2w_schedulefieldslabel = "label";
+	public static final String b2w_scheduleaddtoschedulebtn = ".btn-form.large";
 }

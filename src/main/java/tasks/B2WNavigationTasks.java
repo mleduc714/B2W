@@ -98,9 +98,9 @@ public class B2WNavigationTasks implements Navigation {
 		WebElement el = WebElementUtils.findElement(B2WNavigationPanel.getB2WSchedule());
 		if (el != null) {
 			if (WebElementUtils.clickElement(el)) {
-				bReturn &= new B2WSchedulerTasks().waitForSchedulePageNoBusy();
 				WebElement grid = WebElementUtils.waitAndFindDisplayedElement(B2WScheduleAssignments.getScheduleCenterPanel());
 				if (grid != null) {
+					new B2WSchedulerTasks().waitForSchedulePageNoBusy();
 					bReturn = grid.isDisplayed();
 				}
 			}

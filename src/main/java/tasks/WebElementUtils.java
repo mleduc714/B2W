@@ -42,6 +42,10 @@ public class WebElementUtils {
 		return el;
 	}
 
+	public static WebElement waitAndFindDisplayedElement(By locator) {
+		return waitAndFindDisplayedElement(locator, SHORT_TIME_OUT);
+	}
+
 	public static WebElement getChildElement(WebElement parent, By child) {
 		WebElement el = null;
 		if (parent == null) {
@@ -125,7 +129,7 @@ public class WebElementUtils {
 		return ret;
 	}
 
-	public static WebElement waitAndFindDisplayedElement(By locator) {
+	public static WebElement waitAndFindDisplayedEletment(By locator) {
 		return waitAndFindDisplayedElement(locator, SHORT_TIME_OUT);
 	}
 
@@ -773,6 +777,32 @@ public class WebElementUtils {
 		JavascriptExecutor executor = (JavascriptExecutor) BrowserUtils.getDriver();
 		WebElement parentElement = (WebElement) executor.executeScript("return arguments[0].parentNode;", el);
 		return parentElement;
+	}
+
+	public static boolean waitForElementInvisible(WebElement element, int timeout, boolean expectedClickable) {
+		boolean bReturn = false;
+		if (element == null) {
+			log.warn("The provided WebElement was null");
+		}
+		try {
+			WebDriverWait wait = new WebDriverWait(BrowserUtils.getDriver(), timeout);
+			List<WebElement> list = new ArrayList<WebElement>();
+			list.add(element);
+			wait.until(ExpectedConditions.invisibilityOfAllElements(list));
+			bReturn = true;
+		} catch (TimeoutException e) {
+			if (!expectedClickable) {
+				bReturn = true;
+			} else {
+				log.warn("Element with locator '" + element + "' is not Invisible");
+
+			}
+		}
+		return bReturn;
+	}
+
+	public static boolean waitForElementInvisible(WebElement element) {
+		return waitForElementInvisible(element, MEDIUM_TIME_OUT, true);
 	}
 
 }
