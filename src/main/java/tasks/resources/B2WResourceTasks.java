@@ -126,8 +126,7 @@ public abstract class B2WResourceTasks extends B2WSetupTasks {
 	}
 
 	public boolean selectInactiveCheckBox(boolean bCheck) {
-		WebElement el = WebElementUtils.findElement(B2WResources.getInactiveCheckBox());
-		return checkBox(el, bCheck);
+		return checkBox(B2WResources.getInactiveCheckBox(), bCheck);
 	}
 
 	public boolean setNotes(String sText) {
@@ -159,9 +158,8 @@ public abstract class B2WResourceTasks extends B2WSetupTasks {
 	
 	public boolean checkTimeAndMaterials() {
 		boolean bReturn = false;
-		WebElement el = WebElementUtils.findElement(B2WResources.getTimeMaterialsCheckBox());
-		if (!WebElementUtils.isCheckboxChecked(el)) {
-			bReturn = WebElementUtils.clickElement(el);
+		if (!WebElementUtils.isCheckboxChecked(B2WResources.getTimeMaterialsCheckBox())) {
+			bReturn = WebElementUtils.clickElement(B2WResources.getTimeMaterialsCheckBox());
 		}
 		return bReturn;
 	}

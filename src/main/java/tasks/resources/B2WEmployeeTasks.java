@@ -51,8 +51,7 @@ public class B2WEmployeeTasks extends B2WResourceTasks {
 	}
 
 	public boolean setFieldLogReviewerCheckBox(boolean bCheck) {
-		WebElement el = WebElementUtils.findElement(B2WEmployees.getFieldLogReviewer());
-		return checkBox(el, bCheck);
+		return checkBox(B2WEmployees.getFieldLogReviewer(), bCheck);
 	}
 
 	public boolean setEmployeeTitle(String sTitle) {
@@ -86,48 +85,39 @@ public class B2WEmployeeTasks extends B2WResourceTasks {
 	}
 
 	public boolean setFieldEmployeeCheckBox(boolean bCheck) {
-		WebElement el = WebElementUtils.findElement(B2WEmployees.getFieldEmployeeCheckBox());
-		return checkBox(el, bCheck);
+		return checkBox(B2WEmployees.getFieldEmployeeCheckBox(), bCheck);
 	}
 
 	public boolean setDriverCheckBox(boolean bCheck) {
-		WebElement el = WebElementUtils.findElement(B2WEmployees.getDriverCheckBox());
-		return checkBox(el, bCheck);
+		return checkBox(B2WEmployees.getDriverCheckBox(), bCheck);
 	}
 
 	public boolean setTruckDriverCheckBox(boolean bCheck) {
-		WebElement el = WebElementUtils.findElement(B2WEmployees.getTruckDriverCheckBox());
-		return checkBox(el, bCheck);
+		return checkBox(B2WEmployees.getTruckDriverCheckBox(), bCheck);
 	}
 
 	public boolean setForemanCheckBox(boolean bCheck) {
-		WebElement el = WebElementUtils.findElement(B2WEmployees.getForemanCheckBox());
-		return checkBox(el, bCheck);
+		return checkBox(B2WEmployees.getForemanCheckBox(), bCheck);
 	}
 
 	public boolean setSupervisorCheckBox(boolean bCheck) {
-		WebElement el = WebElementUtils.findElement(B2WEmployees.getSupervisorheckBox());
-		return checkBox(el, bCheck);
+		return checkBox(B2WEmployees.getSupervisorheckBox(), bCheck);
 	}
 
 	public boolean setProjectManagerCheckBox(boolean bCheck) {
-		WebElement el = WebElementUtils.findElement(B2WEmployees.getProjectManagerCheckBox());
-		return checkBox(el, bCheck);
+		return checkBox(B2WEmployees.getProjectManagerCheckBox(), bCheck);
 	}
 
 	public boolean setMechanicCheckBox(boolean bCheck) {
-		WebElement el = WebElementUtils.findElement(B2WEmployees.getMechanicCheckBox());
-		return checkBox(el, bCheck);
+		return checkBox(B2WEmployees.getMechanicCheckBox(), bCheck);
 	}
 
 	public boolean setBuyerCheckBox(boolean bCheck) {
-		WebElement el = WebElementUtils.findElement(B2WEmployees.getBuyerCheckBox());
-		return checkBox(el, bCheck);
+		return checkBox(B2WEmployees.getBuyerCheckBox(), bCheck);
 	}
 
 	public boolean setPurchaseOrderApproverCheckBox(boolean bCheck) {
-		WebElement el = WebElementUtils.findElement(B2WEmployees.getPurchaseOrderApproverCheckBox());
-		return checkBox(el, bCheck);
+		return checkBox(B2WEmployees.getPurchaseOrderApproverCheckBox(), bCheck);
 	}
 
 	public boolean openAddLaborTypeDialog() {

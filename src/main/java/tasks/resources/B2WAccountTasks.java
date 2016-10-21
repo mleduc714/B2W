@@ -159,33 +159,27 @@ public class B2WAccountTasks extends B2WResourceTasks {
 		return bReturn;
 	}
 	public boolean checkAppliesToEmployees(boolean bCheck) {
-		WebElement el = WebElementUtils.findElement(B2WAccounts.getAppliesToEmployeesCheckBox());
-		return checkBox(el, bCheck);
+		return checkBox(B2WAccounts.getAppliesToEmployeesCheckBox(),bCheck);
 	}
 
 	public boolean checkAppliesToEquipment(boolean bCheck) {
-		WebElement el = WebElementUtils.findElement(B2WAccounts.getAppliesToEmployeesCheckBox());
-		return checkBox(el, bCheck);
+		return checkBox(B2WAccounts.getAppliesToEmployeesCheckBox(), bCheck);
 	}
 
 	public boolean checkAppliesToMaterial(boolean bCheck) {
-		WebElement el = WebElementUtils.findElement(B2WAccounts.getAppliesToEmployeesCheckBox());
-		return checkBox(el, bCheck);
+		return checkBox(B2WAccounts.getAppliesToEmployeesCheckBox(), bCheck);
 	}
 
 	public boolean checkAppliesToMiscesllaneous(boolean bCheck) {
-		WebElement el = WebElementUtils.findElement(B2WAccounts.getAppliesToEmployeesCheckBox());
-		return checkBox(el, bCheck);
+		return checkBox(B2WAccounts.getAppliesToEmployeesCheckBox(), bCheck);
 	}
 
 	public boolean checkAppliesToTrucking(boolean bCheck) {
-		WebElement el = WebElementUtils.findElement(B2WAccounts.getAppliesToEmployeesCheckBox());
-		return checkBox(el, bCheck);
+		return checkBox(B2WAccounts.getAppliesToEmployeesCheckBox(), bCheck);
 	}
 
 	public boolean checkAppliesToSubcontractors(boolean bCheck) {
-		WebElement el = WebElementUtils.findElement(B2WAccounts.getAppliesToEmployeesCheckBox());
-		return checkBox(el, bCheck);
+		return checkBox(B2WAccounts.getAppliesToEmployeesCheckBox(), bCheck);
 	}
 	
 	public String getAppliesToTextLabel() {

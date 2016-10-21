@@ -105,36 +105,28 @@ public class B2WOrganizationTasks extends B2WResourceTasks {
 		return bReturn;
 	}
 	public boolean setOrganizationTypeCustomer(boolean bCheck){
-		WebElement el = WebElementUtils.findElement(B2WOrganization.getB2WOrganizationcustomerchkbox());
-		return checkBox(el, bCheck);
+		return checkBox(B2WOrganization.getB2WOrganizationcustomerchkbox(), bCheck);
 	}
 	public boolean setOrganizationTypeSubContractor(boolean bCheck){
-		WebElement el = WebElementUtils.findElement(B2WOrganization.getB2WOrganizationsubcntrchkbox());
-		return checkBox(el, bCheck);
+		return checkBox(B2WOrganization.getB2WOrganizationsubcntrchkbox(), bCheck);
 	}	
 	public boolean setOrganizationTypeTruckingSubcontractor(boolean bCheck){
-		WebElement el = WebElementUtils.findElement(B2WOrganization.getB2WOrganizationtrucksubchkbox());
-		return checkBox(el, bCheck);
+		return checkBox(B2WOrganization.getB2WOrganizationtrucksubchkbox(), bCheck);
 	}
 	public boolean setOrganizationTypeVendor(boolean bCheck){
-		WebElement el = WebElementUtils.findElement(B2WOrganization.getB2WOrganizationvendorchkbox());
-		return checkBox(el, bCheck);
+		return checkBox(B2WOrganization.getB2WOrganizationvendorchkbox(), bCheck);
 	}
 	public boolean setOrganizationTypePartsVendor(boolean bCheck){
-		WebElement el = WebElementUtils.findElement(B2WOrganization.getB2WOrganizationpartvendorchkbox());
-		return checkBox(el, bCheck);
+		return checkBox(B2WOrganization.getB2WOrganizationpartvendorchkbox(), bCheck);
 	}
 	public boolean setOrganizationTypeExternalShop(boolean bCheck){
-		WebElement el = WebElementUtils.findElement(B2WOrganization.getB2WOrganizationexternalshopchkbox());
-		return checkBox(el, bCheck);
+		return checkBox(B2WOrganization.getB2WOrganizationexternalshopchkbox(), bCheck);
 	}
 	public boolean setOrganizationTypeOwned(boolean bCheck){
-		WebElement el = WebElementUtils.findElement(B2WOrganization.getB2WOrganizationownedchkbox());
-		return checkBox(el, bCheck);
+		return checkBox(B2WOrganization.getB2WOrganizationownedchkbox(), bCheck);
 	}
 	public boolean setOrganizationProvidesEquipment(boolean bCheck){
-		WebElement el = WebElementUtils.findElement(B2WOrganization.getB2WOrganizationprovidesequipchkbox());
-		return checkBox(el, bCheck);
+		return checkBox(B2WOrganization.getB2WOrganizationprovidesequipchkbox(), bCheck);
 	}
 	public String getCompanyName() {
 		String sText = "";

@@ -191,8 +191,7 @@ public class B2WJobsTasks extends B2WResourceTasks {
 		return b2wPlace.setNonWorkingDaySunday(bCheck);
 	}
 	public boolean setShowOnJobBoard(boolean bCheck){
-		WebElement el = WebElementUtils.findElement(B2WJobs.getB2WJobSiteShowOnJobBoard());
-		return checkBox(el, bCheck);
+		return checkBox(B2WJobs.getB2WJobSiteShowOnJobBoard(),bCheck);
 	}
 	public boolean setJobSiteAddress(String sText){
 		return b2wPlace.setLocationAddress1(sText);
@@ -313,8 +312,7 @@ public class B2WJobsTasks extends B2WResourceTasks {
 	}
 	
 	public boolean setJobProductionAccountComplete(boolean bCheck){
-		WebElement el = WebElementUtils.findElement(B2WJobs.getB2WJobProductionCompleteCheckBox());
-		return checkBox(el, bCheck);
+		return checkBox(B2WJobs.getB2WJobProductionCompleteCheckBox(), bCheck);
 	}
 	
 	public boolean setJobOverheadTrackingID(String sText){
@@ -382,8 +380,7 @@ public class B2WJobsTasks extends B2WResourceTasks {
 		return bReturn;
 	}
 	public boolean setJobOverheadAccountComplete(boolean bCheck){
-		WebElement el = WebElementUtils.findElement(B2WJobs.getB2WJobOverheadCompleteCheckBox());
-		return checkBox(el, bCheck);
+		return checkBox(B2WJobs.getB2WJobOverheadCompleteCheckBox(), bCheck);
 	}
 	public boolean clickAddEstimateItemCostBreakdown(){
 		return WebElementUtils.clickElement(B2WJobs.getB2WAddEstimateItemCostBreakdownButton());

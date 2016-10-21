@@ -37,8 +37,7 @@ public class B2WEquipmentTypesTasks extends B2WResourceTasks {
 	
 	public boolean setEquipmentTypeTransportsMaterials(boolean bCheck){
 		boolean bReturn = false;
-		WebElement el = WebElementUtils.findElement(B2WEquipmentType.getNewEquipmentTypeTransportsMaterialsCheckBox());
-		checkBox(el, bCheck);
+		checkBox(B2WEquipmentType.getNewEquipmentTypeTransportsMaterialsCheckBox(), bCheck);
 		if (bCheck){
 			WebElement list = WebElementUtils.waitAndFindDisplayedElement(B2WEquipmentType.getNewEquipmentCapacityList());
 			if (list != null){
