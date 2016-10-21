@@ -27,7 +27,7 @@ public class WebElementUtils {
 
 	public static final int LONG_TIME_OUT = 30;
 	public static final int MEDIUM_TIME_OUT = 10;
-	public static final int SHORT_TIME_OUT = 2;
+	public static final int SHORT_TIME_OUT = 5;
 
 	private static Logger log = Logger.getLogger(WebElementUtils.class);
 
