@@ -27,7 +27,7 @@ public class WebElementUtils {
 
 	public static final int LONG_TIME_OUT = 30;
 	public static final int MEDIUM_TIME_OUT = 10;
-	public static final int SHORT_TIME_OUT = 2;
+	public static final int SHORT_TIME_OUT = 5;
 
 	private static Logger log = Logger.getLogger(WebElementUtils.class);
 
@@ -360,6 +360,9 @@ public class WebElementUtils {
 				try {
 					element.click();
 					bReturn = true;
+				} catch (StaleElementReferenceException e){
+					log.warn("Caught a stale element exception in the click");
+					return clickElement(element);
 				} catch (WebDriverException e) {
 					try {
 						log.debug("First click failed - " + e.getMessage());
@@ -369,9 +372,9 @@ public class WebElementUtils {
 						// Still not clickable, fail
 						log.debug("Retry click failed - Unable to click element " + element.getAttribute("class") + "\n"
 								+ e2);
-
 					}
-				}
+				} 
+				
 			} else {
 				// clickWithRobot(element);
 				// TODO if we do safari requires robot
