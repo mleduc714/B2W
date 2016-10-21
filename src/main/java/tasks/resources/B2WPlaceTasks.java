@@ -84,38 +84,31 @@ public class B2WPlaceTasks extends B2WResourceTasks {
 	}
 
 	public boolean setNonWorkingDayMonday(boolean bCheck) {
-		WebElement el = WebElementUtils.findElement(B2WPlaces.getNonWorkingMonday());
-		return checkBox(el, bCheck);
+		return checkBox(B2WPlaces.getNonWorkingMonday(), bCheck);
 	}
 
 	public boolean setNonWorkingDayTuesday(boolean bCheck) {
-		WebElement el = WebElementUtils.findElement(B2WPlaces.getNonWorkingTuesday());
-		return checkBox(el, bCheck);
+		return checkBox(B2WPlaces.getNonWorkingTuesday(), bCheck);
 	}
 
 	public boolean setNonWorkingDayWednesday(boolean bCheck) {
-		WebElement el = WebElementUtils.findElement(B2WPlaces.getNonWorkingWednesday());
-		return checkBox(el, bCheck);
+		return checkBox(B2WPlaces.getNonWorkingWednesday(), bCheck);
 	}
 
 	public boolean setNonWorkingDayThursday(boolean bCheck) {
-		WebElement el = WebElementUtils.findElement(B2WPlaces.getNonWorkingThursday());
-		return checkBox(el, bCheck);
+		return checkBox(B2WPlaces.getNonWorkingThursday(), bCheck);
 	}
 
 	public boolean setNonWorkingDayFriday(boolean bCheck) {
-		WebElement el = WebElementUtils.findElement(B2WPlaces.getNonWorkingFriday());
-		return checkBox(el, bCheck);
+		return checkBox(B2WPlaces.getNonWorkingFriday(), bCheck);
 	}
 
 	public boolean setNonWorkingDaySaturday(boolean bCheck) {
-		WebElement el = WebElementUtils.waitAndFindDisplayedElement(B2WPlaces.getNonWorkingSaturday());
-		return checkBox(el, bCheck);
+		return checkBox(B2WPlaces.getNonWorkingSaturday(), bCheck);
 	}
 
 	public boolean setNonWorkingDaySunday(boolean bCheck) {
-		WebElement el = WebElementUtils.findElement(B2WPlaces.getNonWorkingSunday());
-		return checkBox(el, bCheck);
+		return checkBox(B2WPlaces.getNonWorkingSunday(), bCheck);
 	}
 
 	// public abstract boolean setShowOnJobBoard();

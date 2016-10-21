@@ -16,13 +16,11 @@ public class B2WMaterialsTasks extends B2WResourceTasks {
 	}
 
 	public boolean checkTemporaryMaterial(boolean bCheck) {
-		WebElement el = WebElementUtils.findElement(B2WMaterials.getTempMaterialCheckBox());
-		return checkBox(el, bCheck);
+		return checkBox(B2WMaterials.getTempMaterialCheckBox(), bCheck);
 	}
 
 	public boolean checkTrackableMaterial(boolean bCheck) {
-		WebElement el = WebElementUtils.waitAndFindElement(B2WMaterials.getTrackableMaterialCheckBox());
-		return checkBox(el, bCheck);
+		return checkBox(B2WMaterials.getTrackableMaterialCheckBox(), bCheck);
 	}
 
 	public boolean setTotalCount(String iCount) {

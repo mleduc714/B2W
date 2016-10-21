@@ -307,22 +307,20 @@ public class B2WSetupTasks {
 		bReturn = WebElementUtils.waitForElementHasAttributeWithValue(B2WSetup.getProcessingPanel(), "class", "hidden", true, WebElementUtils.LONG_TIME_OUT);
 		return bReturn;
 	}
-	protected boolean checkBox(WebElement el, boolean bCheck){
-		if (el == null){
-			return false;
-		}
-		boolean isChecked = WebElementUtils.isCheckboxChecked(el);
+	protected boolean checkBox(By by, boolean bCheck){
+		
+		boolean isChecked = WebElementUtils.isCheckboxChecked(by);
 		// if item is checked and need to uncheck
 		if (isChecked && !bCheck){
 			log.debug("Uncheck the checkbox");
-			WebElementUtils.clickElement(el);
+			WebElementUtils.clickElement(by);
 		}
 		// if item is unchecked and need to check
 		if (!isChecked && bCheck){
 			log.debug("Check the checkbox");
-			WebElementUtils.clickElement(el);
+			WebElementUtils.clickElement(by);
 		}
-		return bCheck == WebElementUtils.isCheckboxChecked(el);
+		return bCheck == WebElementUtils.isCheckboxChecked(by);
 	}
 
 	protected void clickOnTwistie(WebElement el) {
