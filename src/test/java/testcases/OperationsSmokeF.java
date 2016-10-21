@@ -7,6 +7,7 @@ import tasks.jobs.B2WAddToJobs;
 import tasks.jobs.B2WJobsTasks;
 import tasks.jobs.B2WTMWorkItemTab;
 import tasks.setup.B2WUserTasks;
+import tasks.util.TaskUtils;
 
 public class OperationsSmokeF extends B2WTestCase {
 
@@ -44,6 +45,8 @@ public class OperationsSmokeF extends B2WTestCase {
 			sNewJobProductionAccountDescription,
 			sNewJobOverheadAccountTrackID,
 			sNewJobOverheadAccountDescription;
+	
+	String sTMWorkItemDescription, sTMWorkItemDateAdded, sTMWorkItemTrackingID, sTMWorkItemAccountID, sTMWorkItemRequestedBy;
 	
 	public B2WAddToJobs b2wJobsAdd = new B2WAddToJobs(B2WJobsTasks.JOBSDIALOG.ADDSUBCONTRACTORS);
 	
@@ -116,25 +119,39 @@ public class OperationsSmokeF extends B2WTestCase {
 		sNewJobProductionAccountDescription  = getProperty("sNewJobProductionAccountDescription");
 		sNewJobOverheadAccountTrackID = getProperty("sNewJobOverheadAccountTrackID") + n;
 		sNewJobOverheadAccountDescription = getProperty("sNewJobOverheadAccountDescription");
+		sTMWorkItemDescription = getProperty("sTMWorkItemDescription");
+		sTMWorkItemDateAdded = getProperty("sTMWorkItemDateAdded");
+		sTMWorkItemTrackingID = getProperty("sTMWorkItemTrackingID");
+		sTMWorkItemAccountID = getProperty("sTMWorkItemAccountID");
+		sTMWorkItemRequestedBy = getProperty("sTMWorkItemRequestedBy");
+
 	
 	}
 
 	public void testMain() throws Throwable {
 		// associate test user with current user
 		//addEmployeeToUser();
-		createJob();
-		addJobSite();
-		createNewJobProductionAccount();
-		createNewJobOverheadAccount();
-		addMaterials();
-		addSubsAndVendors();
-		//addCreateNewTMWorkItem();
+		testOpen();
+		//createJob();
+		//addJobSite();
+		//createNewJobProductionAccount();
+		//createNewJobOverheadAccount();
+		//addMaterials();
+		//addSubsAndVendors();
+		addCreateNewTMWorkItem();
 	}
 
 	@Override
 	public void testTearDown() throws Throwable {
 		// TODO Auto-generated method stub
 		super.testTearDown();
+	}
+	
+	public void testOpen() {
+		logCompare(true,b2wNT.openJobs(),"Open Jobs");
+		logCompare(true,b2wJobs.enterInfoAndSearchForResource("2007-0009"), "OPen Job");
+		logCompare(true, b2wJobs.openJobByJobNumber("2007-0009"), "Open job");
+		TaskUtils.sleep(5000);
 	}
 	
 	public void createJob() {
@@ -260,11 +277,14 @@ public class OperationsSmokeF extends B2WTestCase {
 	
 	public void addCreateNewTMWorkItem() {
 		B2WTMWorkItemTab b2wTM = new B2WTMWorkItemTab();
-		b2wJobs.clickTMWorkTab();
-		b2wJobs.clickCreateNewTMWorkItemButton();
-		b2wTM.setTMWorkItemDescription("Silver Gold");
-		b2wTM.selectRequestedByFromDD("Ted Arnold");
-		b2wTM.saveTMWorkItem();
+		logCompare(true,b2wJobs.clickTMWorkTab(), "Click TM Work Item Tab");
+		logCompare(true,b2wJobs.clickCreateNewTMWorkItemButton(),"Click create new TM Work Item button");
+		logCompare(true,b2wTM.setTMWorkItemDescription(sTMWorkItemDescription), "Set TM Work Item Desc");
+		logCompare(true,b2wTM.setTMWorkItemTrackingID(sTMWorkItemTrackingID), "Set Tracking ID");
+		b2wTM.selectRandomRequestedByFromDD();
+		b2wTM.selectRandomAccountIDFromDD();
+		logCompare(true,b2wTM.saveTMWorkItem(), "Save TM Work Item");
+
 		
 	}
 

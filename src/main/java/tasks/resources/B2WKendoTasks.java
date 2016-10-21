@@ -53,7 +53,11 @@ public abstract class B2WKendoTasks {
 		}
 		double iSec = (iTrys * 100);
 		double iSeconds = iSec / 1000;
-		log.info("Page is done loading. waited: "+iSeconds + " Seconds");
+		if (!bReturn){
+			log.info("Page waited as long as: "+iSeconds + " Seconds");
+		}else{
+			log.info("Page is done loading. waited: "+iSeconds + " Seconds");
+		}
 		return bReturn;
 	}
 	

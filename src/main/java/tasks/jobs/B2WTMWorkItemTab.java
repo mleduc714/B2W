@@ -2,6 +2,7 @@ package tasks.jobs;
 
 import java.util.Iterator;
 import java.util.List;
+import java.util.Random;
 
 import org.apache.log4j.Logger;
 import org.openqa.selenium.WebElement;
@@ -28,7 +29,7 @@ public class B2WTMWorkItemTab extends B2WKendoTasks {
 	public boolean setNotes(String sText){
 		return setText(sText,"Notes");
 	}
-	public boolean selectAccountID(String sText) {
+	public boolean selectAccountIDFromDD(String sText) {
 		boolean bReturn = false;
 		WebElement dropdown = findDropDown(true);
 		if (WebElementUtils.clickElement(dropdown)) {
@@ -53,6 +54,34 @@ public class B2WTMWorkItemTab extends B2WKendoTasks {
 		return bReturn;
 	}
 
+	public String selectRandomAccountIDFromDD() {
+		String sAccountID = "";
+		WebElement dropdown = findDropDown(true);
+		if (WebElementUtils.clickElement(dropdown)) {
+			// when we click we need to find the visble list
+			List<WebElement> list = WebElementUtils.findElements(KendoUI.getKendoLists());
+			Iterator<WebElement> iter = list.iterator();
+			while (iter.hasNext()) {
+				WebElement els = iter.next();
+				String hidden = els.getAttribute("aria-hidden");
+				if (hidden != null && hidden.equals("false")) {
+					List<WebElement> items = els.findElements(KendoUI.getKendoDropDownItem());
+					Random rand = new Random();
+					WebElement item = items.get(rand.nextInt(items.size()-1));
+					if (item != null) {
+						if (WebElementUtils.clickElement(item)){
+							sAccountID = item.getText();
+						}
+					}
+
+				}
+			}
+		}
+
+		return sAccountID;
+	}
+
+	
 	public boolean selectRequestedByFromDD(String sText) {
 		boolean bReturn = false;
 		WebElement dropdown = findDropDown(false);
@@ -78,6 +107,36 @@ public class B2WTMWorkItemTab extends B2WKendoTasks {
 		return bReturn;
 	}
 
+	public String selectRandomRequestedByFromDD() {
+		String sName = "";
+		WebElement dropdown = findDropDown(false);
+		if (WebElementUtils.clickElement(dropdown)) {
+			// when we click we need to find the visble list
+			List<WebElement> list = WebElementUtils.findElements(KendoUI.getKendoLists());
+			Iterator<WebElement> iter = list.iterator();
+			while (iter.hasNext()) {
+				WebElement els = iter.next();
+				String hidden = els.getAttribute("aria-hidden");
+				if (hidden != null && hidden.equals("false")) {
+					List<WebElement> items = els.findElements(KendoUI.getKendoDropDownItem());
+					System.out.println(items.size());
+					Random rand = new Random();
+					 
+					WebElement item = items.get(rand.nextInt(items.size()-1));
+					if (item != null) {
+						if (WebElementUtils.clickElement(item)){
+							sName = item.getText();
+						}
+					} else {
+						log.debug("Item with could not be found matching");
+					}
+				}
+			}
+		}
+
+		return sName;
+	}
+	
 	private WebElement findDropDown(boolean bAccountID) {
 		WebElement dropdown = null;
 
