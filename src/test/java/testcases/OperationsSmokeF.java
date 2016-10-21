@@ -230,6 +230,7 @@ public class OperationsSmokeF extends B2WTestCase {
 			b2wJobsAdd.clickCancelButton();
 		}
 		
+		
 	}
 	
 	public void addSubsAndVendors() {
