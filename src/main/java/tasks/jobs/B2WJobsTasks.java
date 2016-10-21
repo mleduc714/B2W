@@ -1,5 +1,7 @@
 package tasks.jobs;
 
+import java.util.ArrayList;
+
 import org.openqa.selenium.WebElement;
 
 import appobjects.B2WCommonObjects;
@@ -464,5 +466,19 @@ public class B2WJobsTasks extends B2WResourceTasks {
 		}
 		return bReturn;
 	}
-	
+	public ArrayList<String> getJobSiteDescription() {
+		return TaskUtils.getTextFromElements(B2WJobs.getB2WJobssitedesc());
+	}
+	public ArrayList<String> getJobSiteSupervisor() {
+		return TaskUtils.getTextFromElements(B2WJobs.getB2WJobssitesitesupervisor());
+	}
+	public ArrayList<String> getJobSiteAddress() {
+		return TaskUtils.getTextFromElements(B2WJobs.getB2WJobssiteaddress());
+	}
+	public ArrayList<String> getJobSiteCity() {
+		return TaskUtils.getTextFromElements(B2WJobs.getB2WJobssitecity());
+	}
+	public ArrayList<String> getJobSiteState() {
+		return TaskUtils.getTextFromElements(B2WJobs.getB2WJobssitestate());
+	}
 }

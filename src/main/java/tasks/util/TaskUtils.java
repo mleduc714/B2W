@@ -1,5 +1,6 @@
 package tasks.util;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -137,5 +138,18 @@ public class TaskUtils extends BaseAssert {
 		}
 		return bReturn;
 	}
+	
+	public static ArrayList<String> getTextFromElements(By by) {
+		ArrayList<String> al = new ArrayList<String>();
+		List<WebElement> ls = WebElementUtils.findElements(by);
+		if (!ls.isEmpty()) {
+			Iterator<WebElement> iter = ls.iterator();
+			while (iter.hasNext()) {
+				WebElement el = iter.next();
+				al.add(el.getText());
+			}
+		}
+		return al;
 
+	}
 }
