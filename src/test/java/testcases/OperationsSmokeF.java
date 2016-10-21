@@ -208,7 +208,6 @@ public class OperationsSmokeF extends B2WTestCase {
 		logCompare(true,b2wJobs.setJobOverheadTrackingID(sNewJobOverheadAccountTrackID), "Overhead account tracking id");
 		logCompare(true,b2wJobs.selectJobOverheadAccountIDFromDD(sOverheadAccountID + " - "+ sOverheadAccountDesc), "Select Account ID");
 		//b2wJobs.selectJobOverheadAccountID();
-		logCompare(true,b2wJobs.clickTopSaveButton(), "Save Overhead account");
 		assertTrue("Create New Job Overhead", b2wJobs.clickTopSaveButton());
 		
 	}
