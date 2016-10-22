@@ -9,8 +9,9 @@ import org.junit.runners.model.InitializationError;
 
 import com.b2w.logging.B2WRunConfig;
 import com.b2w.test.B2WTestCase;
-import com.b2w.test.BaseAssert;
 import com.b2w.test.BaseTestCase;
+
+import tasks.util.TaskUtils;
 
 public class B2WTestSuiteRunner extends BaseSuiteRunner {
 
@@ -100,7 +101,8 @@ public class B2WTestSuiteRunner extends BaseSuiteRunner {
 	}
 
 	public void onTestFail(BaseTestCase test, Throwable t) {
-		BaseAssert.logScreenCapture("Screen Shot"+test.getClass().getName());
+		TaskUtils.logScreenCapture("Screen Shot"+test.getClass().getName());
+		TaskUtils.dismissAlert();
 		
 	}
 
