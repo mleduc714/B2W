@@ -174,5 +174,8 @@ public class B2WCategoriesTasks extends B2WSetupTasks {
 		return sUnitOfMeasureText;
 	}
 
+	public String getSelectedCategoryFromDropDown() {
+		return WebElementUtils.getSelectedTextFromDropDown(B2WCategories.getCategoryDropDownList());
+	}
 	
 }

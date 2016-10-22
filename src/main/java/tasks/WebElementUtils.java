@@ -598,7 +598,7 @@ public class WebElementUtils {
 			}
 		} catch (StaleElementReferenceException e) {
 			log.warn("Found Stale Element Exception");
-			getSelectedTextFromDropDown(by);
+			return getSelectedTextFromDropDown(by);
 		}
 		return "";
 
