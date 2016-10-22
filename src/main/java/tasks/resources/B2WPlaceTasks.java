@@ -65,10 +65,7 @@ public class B2WPlaceTasks extends B2WResourceTasks {
 		if (el != null) {
 			bReturn = WebElementUtils.clickElement(el);
 			WebElementUtils.switchToFrame(B2WAddMaterials.getMaterialsDialog(), WebElementUtils.SHORT_TIME_OUT);
-			if (WebElementUtils.waitAndFindDisplayedElement(B2WAddMaterials.getCheckboxGrid(), WebElementUtils.LONG_TIME_OUT) != null){
-				B2WAddMaterialsTasks.setCountOfMaterialsinDialog();
-			}
-			
+			bReturn = WebElementUtils.waitAndFindDisplayedElement(B2WAddMaterials.getCheckboxGrid(), WebElementUtils.LONG_TIME_OUT) != null;
 			
 		}
 		return bReturn;
