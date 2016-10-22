@@ -7,6 +7,7 @@ import org.openqa.selenium.WebElement;
 
 import com.b2w.test.BaseAssert;
 
+import appobjects.B2WCommonObjects;
 import appobjects.resources.B2WResources;
 import appobjects.setup.B2WSetup;
 
@@ -348,36 +349,43 @@ public class B2WSetupTasks {
 	}
 	public boolean clickTopSaveButton() {
 		boolean bReturn = false;
-		if (WebElementUtils.clickElement(B2WSetup.getTopSaveButton())){
-			if (WebElementUtils.waitAndFindDisplayedElement(By.cssSelector("div#PageContent_errorMessageControl_ErrorPanel")) != null){
-				BaseAssert.logScreenCapture();
-				clickTopCancelButton();
-				Alert alert = WebElementUtils.waitForAndGetAlertDialog(WebElementUtils.MEDIUM_TIME_OUT);
-				if (alert != null) {
-					alert.accept();
-					waitForProcessingDialogToClear();
+		if (WebElementUtils.clickElement(B2WSetup.getTopSaveButton())) {
+			bReturn = waitForProcessingDialogToClear();
+			bReturn &= WebElementUtils.waitAndFindDisplayedElement(B2WSetup.getTopEditButton()) != null;
+			if (!bReturn) {
+				if (WebElementUtils.waitAndFindDisplayedElement(B2WCommonObjects.getB2WPagePanelError(), 1) != null) {
+					log.debug("***Error saving item***");
+					BaseAssert.logScreenCapture();
+					clickTopCancelButton();
+					Alert alert = WebElementUtils.waitForAndGetAlertDialog(WebElementUtils.MEDIUM_TIME_OUT);
+					if (alert != null) {
+						alert.accept();
+						waitForProcessingDialogToClear();
+					}
 				}
-			}else{
-				bReturn = waitForProcessingDialogToClear();
-				bReturn &= WebElementUtils.waitAndFindDisplayedElement(B2WSetup.getTopEditButton()) != null;
+
 			}
 		}
 		return bReturn;
 	}
+
 	public boolean clickBottomSaveButton() {
 		boolean bReturn = false;
-		if (WebElementUtils.clickElement(B2WSetup.getBottomSaveButton())){
-			if (WebElementUtils.waitAndFindDisplayedElement(By.cssSelector("div#PageContent_errorMessageControl_ErrorPanel")) != null){
-				BaseAssert.logScreenCapture();
-				clickTopCancelButton();
-				Alert alert = WebElementUtils.waitForAndGetAlertDialog(WebElementUtils.MEDIUM_TIME_OUT);
-				if (alert != null) {
-					alert.accept();
-					waitForProcessingDialogToClear();
+		if (WebElementUtils.clickElement(B2WSetup.getBottomSaveButton())) {
+			bReturn = waitForProcessingDialogToClear();
+			bReturn &= WebElementUtils.waitAndFindDisplayedElement(B2WSetup.getTopEditButton()) != null;
+			if (!bReturn) {
+				if (WebElementUtils.waitAndFindDisplayedElement(B2WCommonObjects.getB2WPagePanelError(), 1) != null) {
+					log.debug("***Error saving item***");
+					BaseAssert.logScreenCapture();
+					clickTopCancelButton();
+					Alert alert = WebElementUtils.waitForAndGetAlertDialog(WebElementUtils.MEDIUM_TIME_OUT);
+					if (alert != null) {
+						alert.accept();
+						waitForProcessingDialogToClear();
+					}
 				}
-			}else{
-				bReturn = waitForProcessingDialogToClear();
-				bReturn &= WebElementUtils.waitAndFindDisplayedElement(B2WSetup.getTopEditButton()) != null;
+
 			}
 		}
 		return bReturn;
@@ -386,28 +394,28 @@ public class B2WSetupTasks {
 	public boolean clickTopDeleteButton() {
 		boolean bReturn = false;
 		if (WebElementUtils.clickElement(B2WSetup.getTopDeleteButton())){
-			
+			bReturn = true;
 		}
 		return bReturn;
 	}
 	public boolean clickBottomDeleteButton() {
 		boolean bReturn = false;
 		if (WebElementUtils.clickElement(B2WSetup.getBottomDeleteButton())){
-			
+			bReturn = true;
 		}
 		return bReturn;
 	}
 	public boolean clickTopEditButton() {
 		boolean bReturn = false;
 		if (WebElementUtils.clickElement(B2WSetup.getTopEditButton())){
-			
+			bReturn = true;
 		}
 		return bReturn;
 	}
 	public boolean clickBottomEditButton() {
 		boolean bReturn = false;
 		if (WebElementUtils.clickElement(B2WSetup.getTopEditButton())){
-			
+			bReturn = true;
 		}
 		return bReturn;
 	}
