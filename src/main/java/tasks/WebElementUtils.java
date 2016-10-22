@@ -605,8 +605,15 @@ public class WebElementUtils {
 	}
 
 	public static boolean isCheckboxChecked(By by) {
+		boolean bReturn = false;
+		try{
 		WebElement el = WebElementUtils.waitAndFindDisplayedElement(by);
-		return new Boolean(el.getAttribute("checked"));
+		bReturn = new Boolean(el.getAttribute("checked"));
+		}catch (StaleElementReferenceException e){
+			log.warn("Caught stale element exception in checking box");
+			return isCheckboxChecked(by);
+		}
+		return bReturn;
 	}
 
 	public static Alert waitForAndGetAlertDialog(int timeOut) {
