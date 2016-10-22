@@ -11,24 +11,25 @@ import org.openqa.selenium.WebElement;
 
 import appobjects.resources.B2WAddMaterials;
 import tasks.WebElementUtils;
-import tasks.util.TaskUtils;
 
 public class B2WAddMaterialsTasks {
 	
-	private static int COUNTOFMATERIALS = 10;
 	Logger log = Logger.getLogger(B2WAddMaterialsTasks.class);
 	
 	public boolean setSearchMaterialsText(String sText){
 		
 		boolean bReturn = false;
+		WebElement grid = WebElementUtils.findElement(B2WAddMaterials.getCheckboxGrid());
 		WebElement bar = WebElementUtils.waitAndFindDisplayedElement(B2WAddMaterials.getSearchButtonBar());
 		WebElement el = WebElementUtils.getChildElement(bar, B2WAddMaterials.getAddMaterialsSearchText());
 		if (el!=null){
+			
 			bReturn = WebElementUtils.sendKeys(el, sText);
+			WebElementUtils.waitForElementStale(grid,2);
 			String sValue = el.getAttribute("value");
 			log.debug("The Value in Search Box is: "+sValue);
 			bReturn &= sValue.equals(sText);
-			bReturn &= waitForNumberOfItemsInDialogToChange();
+			
 		}
 		return bReturn;
 	}
@@ -107,37 +108,13 @@ public class B2WAddMaterialsTasks {
 //		System.out.println(aa.toString());
 //	}
 	
-	private int getNumberOfMaterialsinAddMaterialsDialog() {
-		int i = 0;
-		WebElement grid = WebElementUtils.waitAndFindDisplayedElement(B2WAddMaterials.getCheckboxGrid());
-		if (grid != null) {
-			i = getRowsFromDialog().size();
-			log.info("Number of materials in the dialog is: "+i);
-		}
-		return i;
-	}
 	
 	public List<WebElement> getRowsFromDialog() {
 		WebElement grid = WebElementUtils.waitAndFindDisplayedElement(B2WAddMaterials.getCheckboxGrid());
 		return grid.findElement(By.tagName("tbody")).findElements(By.tagName("tr"));
 	}
 	
-	private boolean waitForNumberOfItemsInDialogToChange() {
-		boolean bReturn = false;
-		int iWait = 0;
-		int iItems = getNumberOfMaterialsinAddMaterialsDialog();
-		while ((COUNTOFMATERIALS == iItems) && (iWait < 20)){
-			TaskUtils.sleep(100);
-			iItems = getNumberOfMaterialsinAddMaterialsDialog();
-			iWait++;
-		}
-		if (iWait < 20){
-			bReturn = true;
-		}
-		COUNTOFMATERIALS = iItems;
-		return bReturn;
-		
-	}
+
 	
 	public ArrayList<String> getMaterialIDTextFromGrid() {
 		ArrayList<String> sMaterialIDs = new ArrayList<String>();
@@ -157,14 +134,6 @@ public class B2WAddMaterialsTasks {
 			getMaterialIDTextFromGrid();
 		}
 		return sMaterialIDs;
-	}
-		
-	
-	
-
-	
-	public static void setCountOfMaterialsinDialog() {
-		COUNTOFMATERIALS = new B2WAddMaterialsTasks().getNumberOfMaterialsinAddMaterialsDialog();
 	}
 	
 	
