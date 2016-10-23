@@ -102,7 +102,6 @@ public class B2WTestSuiteRunner extends BaseSuiteRunner {
 
 	public void onTestFail(BaseTestCase test, Throwable t) {
 		TaskUtils.logScreenCapture("Screen Shot"+test.getClass().getName());
-		TaskUtils.dismissAlert();
 		
 	}
 
