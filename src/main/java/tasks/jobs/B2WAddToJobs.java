@@ -65,7 +65,7 @@ public class B2WAddToJobs {
 		boolean bReturn = false;
 		WebElement el = findTheDisplayedElement(WebElementUtils.findElements(search));
 		if (el != null) {
-			searchID = el.getAttribute("id");
+			searchID = WebElementUtils.getElementValueByAttribute(search, "id");
 			bReturn = WebElementUtils.setAttributeWithJS(searchID, "value", sText);
 		}
 		return bReturn;
@@ -74,7 +74,7 @@ public class B2WAddToJobs {
 		boolean bReturn = false;
 		WebElement el = findTheDisplayedElement(WebElementUtils.findElements(select));
 		if (el != null) {
-			selectID = el.getAttribute("id");
+			selectID = WebElementUtils.getElementValueByAttribute(select, "id");
 			bReturn = WebElementUtils.setAttributeWithJS(selectID, "value", sText);
 		}
 		return bReturn;

@@ -809,5 +809,17 @@ public class WebElementUtils {
 	public static boolean waitForElementInvisible(WebElement element) {
 		return waitForElementInvisible(element, MEDIUM_TIME_OUT, true);
 	}
+	
+	public static String getElementValueByAttribute(By by, String sAttribute){
+		String sValue = "";
+		try {
+			WebElement el = WebElementUtils.findElement(by);
+			sValue = el.getAttribute(sAttribute);
+		}catch (StaleElementReferenceException e){
+			log.warn("Caught Stale Element Exception in trying to obtain value of attribute");
+			return getElementValueByAttribute(by, sAttribute);
+		}
+		return sValue;
+	}
 
 }

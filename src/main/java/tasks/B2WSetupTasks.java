@@ -8,7 +8,6 @@ import org.openqa.selenium.WebElement;
 import com.b2w.test.BaseAssert;
 
 import appobjects.B2WCommonObjects;
-import appobjects.resources.B2WResources;
 import appobjects.setup.B2WSetup;
 
 public class B2WSetupTasks {
@@ -282,17 +281,12 @@ public class B2WSetupTasks {
 	}
 	
 	public boolean enterSearchText(String sText) {
-		// the id's are different sometimes. Need to get the ID
-		WebElement el = WebElementUtils.findElement(B2WResources.getB2WSearchText());
-		String searchID = el.getAttribute("id");
+		String searchID = WebElementUtils.getElementValueByAttribute(B2WSetup.getB2WSearchText(),"id");
 		return WebElementUtils.setAttributeWithJS(searchID, "value", sText);
 	}
 	
 	public String getSearchText() {
-		String bString = "";
-		WebElement el = WebElementUtils.findElement(B2WSetup.getB2WSearchText());
-		System.out.println("Value:"+ el.getAttribute("value"));
-		return bString;
+		return WebElementUtils.getElementValueByAttribute(B2WSetup.getB2WSearchText(),"value");
 	}
 	
 	public boolean clickSearchClear() {
