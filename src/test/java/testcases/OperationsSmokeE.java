@@ -224,13 +224,12 @@ public class OperationsSmokeE extends B2WTestCase {
 	public void createTrackPart() {
 		logCompare(true, b2wNav.openCategories(), "Open Categories");
 		b2wCatTasks.selectPartCategory();
-		// logCompare(true, b2wCatTasks.enterTextAndClickSearch(sCategoryA),
-		// "search for category");
-		// if (!b2wCatTasks.isCategoryInListing(sCategoryA)) {
-		logCompare(true, b2wCatTasks.clickCreateNewCategory(), "Create new category");
-		logCompare(true, b2wCatTasks.setCategoryName(sCategoryA), "Set Category Name");
-		logCompare(true, b2wCatTasks.clickTopSaveButton(), "Save Category");
-		logCompare(sCategoryA, b2wCatTasks.getGenInfoNameValueLabel(), "Category Name");
+		logCompare("Part Category", b2wCatTasks.getSelectedCategoryFromDropDown(),"Selected Parts from DD");
+		if (logCompare(true, b2wCatTasks.clickCreateNewCategory(), "Create new category")){
+			logCompare(true, b2wCatTasks.setCategoryName(sCategoryA), "Set Category Name");
+			logCompare(true, b2wCatTasks.clickTopSaveButton(), "Save Category");
+			logCompare(sCategoryA, b2wCatTasks.getGenInfoNameValueLabel(), "Category Name");
+		}
 
 	}
 
