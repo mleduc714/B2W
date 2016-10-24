@@ -1,10 +1,10 @@
 package tasks.scheduler;
 
 import appobjects.resources.B2WEquipment;
+import appobjects.resources.KendoUI;
 import appobjects.scheduler.B2WScheduleAssignments;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
-import tasks.BrowserUtils;
 import tasks.resources.B2WKendoTasks;
 import tasks.WebElementUtils;
 import org.openqa.selenium.WebElement;
@@ -28,6 +28,7 @@ public class B2WSchedulerTasks extends B2WKendoTasks {
         return waitForPageNotBusy();
     }
 
+    //Navigate and Select Menu section
     public boolean navigateToScheduleView(String sViewName, String sPanel) {
         boolean bReturn = false;
 
@@ -57,34 +58,16 @@ public class B2WSchedulerTasks extends B2WKendoTasks {
         }
         return bReturn;
     }
-
     public boolean openCreateDialog(String sItem) {
-        boolean bReturn = false;
+        boolean bReturn;
+        WebElementUtils.switchToFrame(B2WScheduleAssignments.getCreationSection(), 1);
         WebElement creationSection = WebElementUtils.findElement(B2WScheduleAssignments.getCreationSection());
         WebElement dropDownMenu = WebElementUtils.getChildElement(creationSection, B2WScheduleAssignments.getKendoDropDown());
-        if (WebElementUtils.clickElement(dropDownMenu)) {
-            // when we click we need to find the visible list
-            List<WebElement> list = WebElementUtils.findElements(B2WScheduleAssignments.getKendoLists());
-            Iterator<WebElement> iter = list.iterator();
-            while (iter.hasNext() && !bReturn) {
-                WebElement els = iter.next();
-                String hidden = els.getAttribute("aria-hidden");
-                //if (hidden != null && hidden.equals("false")) {
-                if (hidden != null) {
-                    List<WebElement> items = els.findElements(B2WScheduleAssignments.getKendoDropDownItem());
-                    WebElement item = WebElementUtils.getElementWithMatchingText(items, sItem, false);
-                    if (item != null) {
-                        WebElementUtils.waitForElementHasAttributeWithValue(els, "aria-hidden", "false", true, WebElementUtils.MEDIUM_TIME_OUT);
-                        bReturn = WebElementUtils.clickElement(item);
-                    }else{
-                        log.debug("Item with could not be found matching " + sItem);
-                    }
-                }
-            }
-        }
+        bReturn = clickAndSelectValueFromKendoFDD(dropDownMenu, sItem);
         return bReturn;
     }
 
+    //Select Options from 'New' Menu
     public boolean createNewEmployeeAssignment() {
         return openCreateDialog(ASSIGNMENT);
     }
@@ -110,7 +93,10 @@ public class B2WSchedulerTasks extends B2WKendoTasks {
         return openCreateDialog(MOVEORDER);
     }
     public boolean createNewEmployeeEvent() {
-        return openCreateDialog(EVENT);
+        boolean bResult;
+        bResult = openCreateDialog(EVENT);
+
+        return bResult;
     }
     public boolean createNewEquipmentEvent() {
         return openCreateDialog(EVENT);
@@ -119,81 +105,199 @@ public class B2WSchedulerTasks extends B2WKendoTasks {
         return openCreateDialog(EVENT);
     }
 
+    // Set value to fields: Equipment, Employee, Equipment Need, Employee Need
+    public boolean setFields(String sFieldName, String sValue) {
+        boolean bReturn = false;
+        WebElement assignmentWindow = WebElementUtils.waitAndFindElement(B2WScheduleAssignments.getAssignmentWindow());
+        WebElementUtils.switchToFrame(B2WScheduleAssignments.getAssignmentWindow(), 1);
+        if (assignmentWindow != null) {
+            WebElement employeeAssignment = WebElementUtils.getKendoFDDElementByLabel(sFieldName);
+            bReturn = sendTextAndSelectValueFromKendoFDD(employeeAssignment, sValue);
+        } else {
+            log.debug("Create Assignment Window could not be found");
+        }
+        return bReturn;
+    }
+
     public boolean setJobSite(String sValue) {
-        boolean bReturn = false;
-        WebElement assignmentWindow = WebElementUtils.waitAndFindElement(B2WScheduleAssignments.getAssignmentWindow());
-        WebElementUtils.switchToFrame(B2WScheduleAssignments.getAssignmentWindow(), 1);
-        if (assignmentWindow != null) {
-            WebElement jobSite = WebElementUtils.getChildElement(assignmentWindow, B2WEquipment.getKendoDropDown());
-            if (WebElementUtils.sendKeys(jobSite, sValue)) {
-                List<WebElement> list = WebElementUtils.findElements(B2WScheduleAssignments.getKendoLists());
-                Iterator<WebElement> iter = list.iterator();
-                while (iter.hasNext() && !bReturn) {
-                    WebElement els = iter.next();
-                    String hidden = els.getAttribute("aria-hidden");
-                    if (hidden != null) {
-                        List<WebElement> items = els.findElements(B2WScheduleAssignments.getKendoDropDownItem());
-                        WebElement item = WebElementUtils.getElementWithMatchingText(items, sValue, false);
-                        if (item != null) {
-                            WebElementUtils.waitForElementHasAttributeWithValue(els, "aria-hidden", "false", true, WebElementUtils.MEDIUM_TIME_OUT);
-                            bReturn = WebElementUtils.clickElement(item);
-                        }else{
-                            log.debug("Item with could not be found matching " + sValue);
-                        }
-                    }
-                }
-                if (!bReturn) log.debug("Element with value" + sValue + " could not be found.");
-            }
+        return setFields("Job Site/Place", sValue);
+    }
+    public boolean setEmployee(String sValue) {
+        return setFields("Employees", sValue);
+    }
+    public boolean setEmployeeNeed(String sValue) {
+        return setFields("Employee Needs", sValue);
+    }
+    public boolean setEquipment(String sValue) {
+        return setFields("Equipment", sValue);
+    }
+    public boolean setEquipmentNeed(String sValue) {
+        return setFields("Equipment Needs", sValue);
+    }
+    public boolean setCrew(String sValue) {
+        return setFields("Crew", sValue);
+    }
+    public boolean setCrewNeed(String sValue) {
+        return setFields("Crew Need", sValue);
+    }
+    public boolean setPickupLocation(String sPickupType, List<String> sPickupDetails) {
+        boolean bResult = false;
+        //ToDo
+        return bResult;
+    }
+    public boolean setPickupLocation(String sPickupType, String sPickupJobSiteName) {
+        boolean bResult;
+        WebElement dropDown = WebElementUtils.getKendoFDDElementByLabel("Pickup Location");
+        bResult = clickAndSelectValueFromKendoFDD(dropDown, sPickupType);
+
+        List<WebElement> inputList = WebElementUtils.findElements(B2WScheduleAssignments.getFieldLabel());
+        WebElement el = WebElementUtils.getElementWithMatchingText(inputList, "Pickup Location", false);
+        WebElement parent = WebElementUtils.getParentElement(el);
+        WebElement elContolPanel = WebElementUtils.getChildElement(parent, B2WScheduleAssignments.getControlPanel());
+        WebElement jobSite = WebElementUtils.getChildElement(elContolPanel, KendoUI.getKendoDropDown());
+        if (jobSite != null) {
+            bResult &= sendTextAndSelectValueFromKendoFDD(jobSite, sPickupJobSiteName);
         } else {
-            log.debug("Create Assignment Window could not be found");
+            bResult = false;
+            log.debug("Job Site/Place field could not be found for Pickup Location.");
         }
-        return bReturn;
+        return bResult;
+    }
+    public boolean setDropoffLocation(String sDropoffType, List<String> sDropoffDetails) {
+        boolean bResult = false;
+        //ToDo
+        return bResult;
+    }
+    public boolean setDropoffLocation(String sDropoffType, String sDropoffJobSiteName) {
+        boolean bResult;
+        WebElement dropDown = WebElementUtils.getKendoFDDElementByLabel("Drop-off Location");
+        bResult = clickAndSelectValueFromKendoFDD(dropDown, sDropoffType);
+
+        List<WebElement> inputList = WebElementUtils.findElements(B2WScheduleAssignments.getFieldLabel());
+        WebElement el = WebElementUtils.getElementWithMatchingText(inputList, "Drop-off Location", false);
+        WebElement parent = WebElementUtils.getParentElement(el);
+        WebElement elContolPanel = WebElementUtils.getChildElement(parent, B2WScheduleAssignments.getControlPanel());
+        WebElement jobSite = WebElementUtils.getChildElement(elContolPanel, KendoUI.getKendoDropDown());
+        if (jobSite != null) {
+            bResult &= sendTextAndSelectValueFromKendoFDD(jobSite, sDropoffJobSiteName);
+        } else {
+            bResult = false;
+            log.debug("Job Site/Place field could not be found for Drop-off Location.");
+        }
+        return bResult;
+    }
+    public boolean selectCrew(String sCrewName) {
+        //ToDo
+        boolean bResult;
+        bResult = clickSelectCrewBtn();
+        return bResult;
     }
 
-    public boolean setEmployee(String sFieldName, String sValue) {
-        boolean bReturn = false;
+    public boolean clickSelectCrewBtn() {
+        boolean bResult = false;
         WebElement assignmentWindow = WebElementUtils.waitAndFindElement(B2WScheduleAssignments.getAssignmentWindow());
         WebElementUtils.switchToFrame(B2WScheduleAssignments.getAssignmentWindow(), 1);
-        if (assignmentWindow != null) {
-            List<WebElement> inputList = WebElementUtils.findElements(B2WScheduleAssignments.getFieldLabel());
-            WebElement el = WebElementUtils.getElementWithMatchingText(inputList, sFieldName, false);
-            WebElement employeeAssignment = WebElementUtils.getChildElement(WebElementUtils.getParentElement(el), B2WScheduleAssignments.getKendoFilterByDD());
-            if (WebElementUtils.clickElement(employeeAssignment)) {
-                List<WebElement> list = WebElementUtils.findElements(B2WScheduleAssignments.getKendoLists());
-                Iterator<WebElement> iter = list.iterator();
-                while (iter.hasNext() && !bReturn) {
-                    WebElement els = iter.next();
-                    String hidden = els.getAttribute("aria-hidden");
-                    if (hidden != null && hidden.equals("false")) {
-                        List<WebElement> items = els.findElements(B2WScheduleAssignments.getKendoDropDownItem());
-                        WebElement item = WebElementUtils.getElementWithMatchingStartsWithText(items, sValue);
-                        if (item != null) {
-                            bReturn = WebElementUtils.clickElement(item);
-                        }else{
-                            log.debug("Item with could not be found matching " + sValue);
-                        }
-                    }
-                }
-            }
+        WebElement selectBtn = WebElementUtils.getChildElement(assignmentWindow, B2WScheduleAssignments.getSelectCrewBtn());
+        if (selectBtn != null) {
+            bResult = WebElementUtils.clickElement(selectBtn);
+            bResult &= WebElementUtils.getKendoFDDElementByLabel("Crew") != null;
         } else {
-            log.debug("Create Assignment Window could not be found");
+            log.debug("Select Crew button could not be found.");
         }
-        return bReturn;
+        return bResult;
     }
 
-    public boolean saveEmployeeAssignment() {
-        boolean bReturn = false;
+    public boolean saveAssignment() {
+        /*
+         * 1. Click on Add to Schedule button
+         * 2. Check that Schedule View is displayed.
+         */
+        boolean bResult = false;
         WebElement assignmentWindow = WebElementUtils.waitAndFindElement(B2WScheduleAssignments.getAssignmentWindow());
         WebElementUtils.switchToFrame(B2WScheduleAssignments.getAssignmentWindow(), 1);
         WebElement saveBtn = WebElementUtils.getChildElement(assignmentWindow, B2WScheduleAssignments.getAddToScheduleBtn());
         if (saveBtn != null) {
-            bReturn = WebElementUtils.clickElement(saveBtn);
+            bResult = WebElementUtils.clickElement(saveBtn);
             waitForSchedulePageNoBusy();
             WebElementUtils.switchToFrame(B2WScheduleAssignments.getScheduleProductPageIcon(), 1);
-            bReturn &= WebElementUtils.waitAndFindDisplayedElement(B2WScheduleAssignments.getScheduleProductPageIcon()) != null;
+            bResult &= WebElementUtils.waitAndFindDisplayedElement(B2WScheduleAssignments.getScheduleProductPageIcon()) != null;
         } else {
             log.debug("Add to Schedule button could not be found.");
         }
-        return bReturn;
+        return bResult;
+    }
+    public boolean saveEmployeeAssignment() {
+        //ToDo
+        boolean bResult;
+        bResult = saveAssignment();
+        //bResult &= checkAssignmentExist();
+        return bResult;
+    }
+    public boolean saveEquipmentAssignment() {
+        //ToDo
+        boolean bResult;
+        bResult = saveAssignment();
+        //bResult &= checkAssignmentExist();
+        return bResult;
+    }
+    public boolean saveEmployeeNeedAssignment() {
+        //ToDo
+        boolean bResult;
+        bResult = saveAssignment();
+        //bResult &= checkAssignmentExist();
+        return bResult;
+    }
+    public boolean saveEquipmentNeedAssignment() {
+        //ToDo
+        boolean bResult;
+        bResult = saveAssignment();
+        //bResult &= checkAssignmentExist();
+        return bResult;
+    }
+    public boolean saveCrewAssignment() {
+        //ToDo
+        boolean bResult;
+        bResult = saveAssignment();
+        //bResult &= checkAssignmentExist();
+        return bResult;
+    }
+    public boolean saveCrewNeedAssignment() {
+        //ToDo
+        boolean bResult;
+        bResult = saveAssignment();
+        //bResult &= checkAssignmentExist();
+        return bResult;
+    }
+    public boolean saveMoveAssignment() {
+        //ToDo
+        boolean bResult = false;
+        WebElement el = WebElementUtils.findElement(B2WScheduleAssignments.getCreateAssignmentBtn());
+        if (el != null) {
+            bResult = WebElementUtils.clickElement(el);
+            waitForSchedulePageNoBusy();
+            WebElementUtils.switchToFrame(B2WScheduleAssignments.getScheduleProductPageIcon(), 1);
+            bResult &= WebElementUtils.waitAndFindDisplayedElement(B2WScheduleAssignments.getScheduleProductPageIcon()) != null;
+        } else {
+            log.debug("Create Assignment Button could not be found.");
+        }
+
+        //bResult &= checkAssignmentExist();
+        return bResult;
+    }
+    public boolean saveMoveOrder() {
+        //ToDo
+        boolean bResult = false;
+        WebElement el = WebElementUtils.findElement(B2WScheduleAssignments.getCreateMoveOrderBtn());
+        if (el != null) {
+            bResult = WebElementUtils.clickElement(el);
+            waitForSchedulePageNoBusy();
+            WebElementUtils.switchToFrame(B2WScheduleAssignments.getScheduleProductPageIcon(), 1);
+            bResult &= WebElementUtils.waitAndFindDisplayedElement(B2WScheduleAssignments.getScheduleProductPageIcon()) != null;
+        } else {
+            log.debug("Create Move Order Button could not be found.");
+        }
+
+        //bResult &= checkAssignmentExist();
+        return bResult;
     }
 }
