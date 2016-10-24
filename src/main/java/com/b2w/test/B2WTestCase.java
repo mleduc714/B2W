@@ -6,12 +6,8 @@ import java.util.Properties;
 import org.junit.runner.RunWith;
 
 import com.b2w.logging.B2WRunConfig;
-import com.b2w.test.B2WTestRunner;
-import com.b2w.test.BaseTestCase;
 
-import tasks.B2WNavigationTasks;
 import tasks.BrowserUtils;
-import tasks.util.TaskUtils;
 
 @RunWith(B2WTestRunner.class)
 public class B2WTestCase extends BaseTestCase {
@@ -52,7 +48,7 @@ public class B2WTestCase extends BaseTestCase {
 
 	public void testTearDown() throws Throwable {
 		// TODO Auto-generated method stub
-		B2WNavigationTasks b2wNav = new B2WNavigationTasks();
+		//B2WNavigationTasks b2wNav = new B2WNavigationTasks();
 		//b2wNav.clickHome();
 		// this in case of
 		//TaskUtils.dismissAlert();
