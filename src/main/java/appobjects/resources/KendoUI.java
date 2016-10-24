@@ -51,4 +51,10 @@ public abstract class KendoUI {
 	public static By getKendoWorkItemTable() {
 		return By.cssSelector(B2WUIMap.b2w_jobstmworkitemgrid);
 	}
+	public static By getKendoButton() {
+		return By.cssSelector(B2WUIMap.b2w_kendobutton);
+	}
+	public static By getKendoFooter(){
+		return By.cssSelector(B2WUIMap.b2w_kendofooter);
+	}
 }

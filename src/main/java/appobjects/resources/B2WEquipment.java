@@ -6,14 +6,9 @@ import appobjects.B2WUIMap;
 
 public class B2WEquipment extends KendoUI {
 
-	public static By getNewEquipmentButton() {
-		return By.cssSelector(B2WUIMap.b2w_newequipmentbutton);
-	}
+
 	public static By getNewEquipmentRequiredForms() {
 		return By.cssSelector(B2WUIMap.b2w_newequipmentformrequired);
-	}
-	public static By getNewEquipmentFooter() {
-		return By.cssSelector(B2WUIMap.b2w_newequipmentformfooter);
 	}
 	public static By getNewEquipmentSaveButton() {
 		return By.cssSelector(B2WUIMap.b2w_newequipmentsavebutton);

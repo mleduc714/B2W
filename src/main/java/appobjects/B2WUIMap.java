@@ -720,6 +720,11 @@ public class B2WUIMap {
 	public static final String b2w_scheduleassignmentwindow = ".k-widget.k-window.close-button";
 	public static final String b2w_schedulefieldslabel = "label";
 	public static final String b2w_scheduleaddtoschedulebtn = ".btn-form.large";
+	public static final String b2w_schedulecontrolpanel = ".control-panel";
+	public static final String b2w_scheduleselectcrewbtn = ".btn-form.large";
+	public static final String b2w_schedulebuttoncontainer = ".button-container";
+	public static final String b2w_schedulecreateassignmentbtn = "//span[text()='Create Assignment']";
+	public static final String b2w_schedulecreatemoveorderbtn = "//span[text()='Create Move Order']";
 
 	// Maintain
 	public static final String b2w_maintainpagemenu = "ul#SubNavMenu_MaintainPageMenu.MaintainPageMenu";
@@ -741,6 +746,4 @@ public class B2WUIMap {
 	public static final String b2w_maintainadditemsavebutton = "a.btn-form.large.save";
 	
 
-	
-	
 }

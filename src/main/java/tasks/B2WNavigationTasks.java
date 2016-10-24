@@ -264,7 +264,7 @@ public class B2WNavigationTasks implements Navigation {
 			WebElement item = WebElementUtils.getElementWithMatchingText(items, "Equipment", true);
 			if (item != null) {
 				item.click();
-				WebElement el = WebElementUtils.waitAndFindDisplayedElement(B2WEquipment.getNewEquipmentButton());
+				WebElement el = WebElementUtils.waitAndFindDisplayedElement(B2WEquipment.getKendoButton());
 				if (el != null) {
 					bReturn = true;
 					bReturn &= new B2WEquipmentTasks().waitForEquipmentPageNoBusy();

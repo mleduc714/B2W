@@ -18,4 +18,9 @@ public class B2WScheduleAssignments extends KendoUI {
     public static By getAssignmentWindow() { return By.cssSelector(B2WUIMap.b2w_scheduleassignmentwindow); }
     public static By getFieldLabel() { return By.cssSelector(B2WUIMap.b2w_schedulefieldslabel); }
     public static By getAddToScheduleBtn() { return By.cssSelector(B2WUIMap.b2w_scheduleaddtoschedulebtn); }
+    public static By getControlPanel() { return By.cssSelector(B2WUIMap.b2w_schedulecontrolpanel); }
+    public static By getSelectCrewBtn() { return By.cssSelector(B2WUIMap.b2w_scheduleselectcrewbtn); }
+    public static By getButtonContainer() { return By.cssSelector(B2WUIMap.b2w_schedulebuttoncontainer); }
+    public static By getCreateAssignmentBtn() { return By.xpath(B2WUIMap.b2w_schedulecreateassignmentbtn); }
+    public static By getCreateMoveOrderBtn() { return By.xpath(B2WUIMap.b2w_schedulecreatemoveorderbtn); }
 }

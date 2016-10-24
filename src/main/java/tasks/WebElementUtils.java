@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.regex.Pattern;
 
+import appobjects.resources.KendoUI;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
@@ -554,7 +555,7 @@ public class WebElementUtils {
 		}
 		return bReturn;
 	}
-	
+
 	public static boolean waitForElementHasAttributeWithValue(WebElement el, String attribute, String value, boolean expected,
 			int timeOut) {
 		boolean bReturn = false;
@@ -822,4 +823,17 @@ public class WebElementUtils {
 		return sValue;
 	}
 
+	public static WebElement getKendoFDDElementByLabel(String sText) {
+		try {
+			List<WebElement> inputList = WebElementUtils.findElements(By.cssSelector("label"));
+			WebElement el = getElementWithMatchingText(inputList, sText, false);
+			WebElement parent = getParentElement(el);
+			WebElement elResult = getChildElement(parent, KendoUI.getKendoDropDown());
+			return elResult;
+		} catch (TimeoutException e) {
+			log.warn("Could not find element with text " + sText);
+			return null;
+		}
+
+	}
 }

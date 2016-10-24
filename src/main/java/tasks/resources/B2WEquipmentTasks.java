@@ -31,16 +31,16 @@ public class B2WEquipmentTasks extends B2WKendoTasks {
 	public String LOCATION = "Location";
 	
 	
-	Logger log = Logger.getLogger(B2WEquipment.class);
+	Logger log = Logger.getLogger(B2WEquipmentTasks.class);
 
 	public boolean createNewEquipment() {
 		boolean bReturn = false;
-		List<WebElement> els = WebElementUtils.findElements(B2WEquipment.getNewEquipmentButton());
+		List<WebElement> els = WebElementUtils.findElements(B2WEquipment.getKendoButton());
 		if (els.size() > 0) {
 			WebElement el = WebElementUtils.getElementWithMatchingText(els, "New Equipment", true);
 			if (el != null) {
 				bReturn = WebElementUtils.clickElement(el);
-				bReturn = WebElementUtils.waitAndFindDisplayedElement(B2WEquipment.getNewEquipmentFooter(), WebElementUtils.MEDIUM_TIME_OUT) != null;
+				bReturn = WebElementUtils.waitAndFindDisplayedElement(B2WEquipment.getKendoFooter(), WebElementUtils.MEDIUM_TIME_OUT) != null;
 			}
 		}
 		return bReturn;
@@ -142,7 +142,7 @@ public class B2WEquipmentTasks extends B2WKendoTasks {
 
 	public boolean saveNewEquipment() {
 		boolean bReturn = false;
-		WebElement el = WebElementUtils.findElement(B2WEquipment.getNewEquipmentFooter());
+		WebElement el = WebElementUtils.findElement(B2WEquipment.getKendoFooter());
 		if (el != null) {
 			WebElement button = WebElementUtils.getChildElement(el, B2WEquipment.getNewEquipmentSaveButton());
 			bReturn = WebElementUtils.clickElement(button);

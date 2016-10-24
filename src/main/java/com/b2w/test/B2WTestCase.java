@@ -53,9 +53,9 @@ public class B2WTestCase extends BaseTestCase {
 	public void testTearDown() throws Throwable {
 		// TODO Auto-generated method stub
 		B2WNavigationTasks b2wNav = new B2WNavigationTasks();
-		b2wNav.clickHome();
+		//b2wNav.clickHome();
 		// this in case of
-		TaskUtils.dismissAlert();
+		//TaskUtils.dismissAlert();
 		//BrowserUtils.getDriver().quit();
 
 	}
