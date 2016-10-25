@@ -224,23 +224,23 @@ public class OperationsSmokeE extends B2WTestCase {
 	public void createTrackPart() {
 		logCompare(true, b2wNav.openCategories(), "Open Categories");
 		b2wCatTasks.selectPartCategory();
-		// logCompare(true, b2wCatTasks.enterTextAndClickSearch(sCategoryA),
-		// "search for category");
-		// if (!b2wCatTasks.isCategoryInListing(sCategoryA)) {
-		logCompare(true, b2wCatTasks.clickCreateNewCategory(), "Create new category");
-		logCompare(true, b2wCatTasks.setCategoryName(sCategoryA), "Set Category Name");
-		logCompare(true, b2wCatTasks.clickTopSaveButton(), "Save Category");
-		logCompare(sCategoryA, b2wCatTasks.getGenInfoNameValueLabel(), "Category Name");
+		logCompare("Part Category", b2wCatTasks.getSelectedCategoryFromDropDown(),"Selected Parts from DD");
+		if (logCompare(true, b2wCatTasks.clickCreateNewCategory(), "Create new category")){
+			logCompare(true, b2wCatTasks.setCategoryName(sCategoryA), "Set Category Name");
+			logCompare(true, b2wCatTasks.clickTopSaveButton(), "Save Category");
+			logCompare(sCategoryA, b2wCatTasks.getGenInfoNameValueLabel(), "Category Name");
+		}
 
 	}
 
 	public void createMeter() {
-		logCompare(true, b2wNav.openCategories(), "Open Catgories");
+		logCompare(true, b2wNav.openCategories(), "Open Categories");
 		b2wCatTasks.selectMeterCategory();
 		// logCompare(true, b2wCatTasks.enterTextAndClickSearch(sCategoryB),
 		// "Search for Category");
 		// if (!b2wCatTasks.isCategoryInListing(sCategoryB)) {
-		logCompare(true, b2wCatTasks.clickCreateNewCategory(), "Create new category");
+		logCompare("Meter Category", b2wCatTasks.getSelectedCategoryFromDropDown(),"Meter category is selected");
+		assertTrue("Create new category",b2wCatTasks.clickCreateNewCategory());
 		logCompare(true, b2wCatTasks.setCategoryName(sCategoryB), "Set Category Name");
 		logCompare(true, b2wAct.selectUnitOfMeasure("HR"), "Select Unit of measure");
 		logCompare(true, b2wCatTasks.clickTopSaveButton(), "Save Category");

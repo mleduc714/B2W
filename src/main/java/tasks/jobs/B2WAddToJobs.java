@@ -65,7 +65,7 @@ public class B2WAddToJobs {
 		boolean bReturn = false;
 		WebElement el = findTheDisplayedElement(WebElementUtils.findElements(search));
 		if (el != null) {
-			searchID = el.getAttribute("id");
+			searchID = WebElementUtils.getElementValueByAttribute(search, "id");
 			bReturn = WebElementUtils.setAttributeWithJS(searchID, "value", sText);
 		}
 		return bReturn;
@@ -74,7 +74,7 @@ public class B2WAddToJobs {
 		boolean bReturn = false;
 		WebElement el = findTheDisplayedElement(WebElementUtils.findElements(select));
 		if (el != null) {
-			selectID = el.getAttribute("id");
+			selectID = WebElementUtils.getElementValueByAttribute(select, "id");
 			bReturn = WebElementUtils.setAttributeWithJS(selectID, "value", sText);
 		}
 		return bReturn;
@@ -108,12 +108,8 @@ public class B2WAddToJobs {
 	public void clickAddButton() {
 		WebElement grid = WebElementUtils.findElement(By.className("grid"));
 		WebElement el = findTheDisplayedElement(WebElementUtils.findElements(addbutton));
-		if (WebElementUtils.clickElement(el)){
-			// when this is stale it means that grid has been updated
-			WebElementUtils.waitForElementStale(grid, WebElementUtils.LONG_TIME_OUT);
-			
-		}
-
+		WebElementUtils.clickElement(el);
+		WebElementUtils.waitForElementStale(grid, WebElementUtils.LONG_TIME_OUT);
 	}
 	
 	public void clickCancelButton() {

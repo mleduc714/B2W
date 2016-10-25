@@ -282,16 +282,18 @@ public class OperationsSmokeB extends B2WTestCase {
 		assertTrue("Set Material ID", b2wMat.setMaterialID(sMaterialsIDA));
 		assertTrue("Set Unit Of Measure", b2wMat.selectUnitOfMeasure(sMaterialsUnitOfMeasureA));
 		assertTrue("Set Category", b2wMat.selectCategory("Asphalt"));
-		logCompare(true, b2wMat.checkTemporaryMaterial(true), "Check Temp Material");
-		logCompare(true, b2wMat.checkTrackableMaterial(true), "Trackable Material");
-		logCompare(true, b2wMat.setTotalCount(sMaterialsTotalCountA), "Set Total Cost");
-		if (logCompare(true, b2wAct.clickTopSaveButton(), "Save the Material")) {
-			logCompare(sMaterialsDescriptionA, b2wMat.getMaterialDescriptionText(), "Verify Text");
-			logCompare(sMaterialsIDA, b2wMat.getMaterialIDText(), "Verify ID");
-			logCompare(sMaterialsUnitOfMeasureA, b2wMat.getAccountUnitofMeasureText(), "Unit of Measure");
-			logCompare("Yes", b2wMat.getMaterialTempMaterialText(), "Temp Material");
-			logCompare("Yes", b2wMat.getMaterialTrackableText(), "Material is Trackable");
-			logCompare(sMaterialsTotalCountA, b2wMat.getMaterialTotalCountText(), "Total Count");
+		b2wMat.setAlternateID("Alt-"+sMaterialsIDD);
+		if (logCompare(true, b2wMat.checkTemporaryMaterial(true), "Check Temp Material")) {
+			logCompare(true, b2wMat.checkTrackableMaterial(true), "Trackable Material");
+			logCompare(true, b2wMat.setTotalCount(sMaterialsTotalCountA), "Set Total Cost");
+			if (logCompare(true, b2wAct.clickTopSaveButton(), "Save the Material")) {
+				logCompare(sMaterialsDescriptionA, b2wMat.getMaterialDescriptionText(), "Verify Text");
+				logCompare(sMaterialsIDA, b2wMat.getMaterialIDText(), "Verify ID");
+				logCompare(sMaterialsUnitOfMeasureA, b2wMat.getAccountUnitofMeasureText(), "Unit of Measure");
+				logCompare("Yes", b2wMat.getMaterialTempMaterialText(), "Temp Material");
+				logCompare("Yes", b2wMat.getMaterialTrackableText(), "Material is Trackable");
+				logCompare(sMaterialsTotalCountA, b2wMat.getMaterialTotalCountText(), "Total Count");
+			}
 		}
 
 	}
@@ -313,6 +315,7 @@ public class OperationsSmokeB extends B2WTestCase {
 		assertTrue("Set Material ID", b2wMat.setMaterialID(sMaterialsIDB));
 		assertTrue("Set Unit Of Measure", b2wMat.selectUnitOfMeasure(sMaterialsUnitOfMeasureB));
 		assertTrue("Set Category", b2wMat.selectCategory("Asphalt"));
+		b2wMat.setAlternateID("Alt-"+sMaterialsIDD);
 		logCompare(true, b2wMat.checkTemporaryMaterial(true), "Check Temp Material");
 		if (logCompare(true, b2wAct.clickTopSaveButton(), "Save the Material")) {
 			logCompare(sMaterialsDescriptionB, b2wMat.getMaterialDescriptionText(), "Verify Text");
@@ -330,6 +333,7 @@ public class OperationsSmokeB extends B2WTestCase {
 		assertTrue("Set Material ID", b2wMat.setMaterialID(sMaterialsIDC));
 		assertTrue("Set Unit Of Measure", b2wMat.selectUnitOfMeasure(sMaterialsUnitOfMeasureA));
 		assertTrue("Set Category", b2wMat.selectCategory("Asphalt"));
+		b2wMat.setAlternateID("Alt-"+sMaterialsIDD);
 		if (logCompare(true, b2wAct.clickTopSaveButton(), "Save the Material")) {
 			logCompare(sMaterialsDescriptionC, b2wMat.getMaterialDescriptionText(), "Verify Text");
 			logCompare(sMaterialsIDC, b2wMat.getMaterialIDText(), "Verify ID");
@@ -347,6 +351,7 @@ public class OperationsSmokeB extends B2WTestCase {
 		assertTrue("Set Material ID", b2wMat.setMaterialID(sMaterialsIDD));
 		assertTrue("Set Unit Of Measure", b2wMat.selectUnitOfMeasure(sMaterialsUnitOfMeasureA));
 		assertTrue("Set Category", b2wMat.selectCategory("Asphalt"));
+		b2wMat.setAlternateID("Alt-"+sMaterialsIDD);
 		if (logCompare(true, b2wAct.clickTopSaveButton(), "Save the Material")) {
 			logCompare(sMaterialsDescriptionD, b2wMat.getMaterialDescriptionText(), "Verify Text");
 			logCompare(sMaterialsIDD, b2wMat.getMaterialIDText(), "Verify ID");

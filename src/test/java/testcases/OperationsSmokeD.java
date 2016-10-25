@@ -150,11 +150,11 @@ public class OperationsSmokeD extends B2WTestCase {
 	
 
 	public void createEquipmentCategory(String sCategory){
-		b2wNav.openCategories();
+		logCompare(true,b2wNav.openCategories(),"Open Categories");
 		b2wCatTasks.selectEquipmentCategory();
-		b2wCatTasks.clickCreateNewCategory();
-		b2wCatTasks.setCategoryName(sCategory);
-		b2wCatTasks.clickTopSaveButton();
+		logCompare(true,b2wCatTasks.clickCreateNewCategory(),"Create New Category Name");
+		logCompare(true,b2wCatTasks.setCategoryName(sCategory), "Set Category Name");
+		logCompare(true,b2wCatTasks.clickTopSaveButton(), "Save Category");
 		
 	}
 	

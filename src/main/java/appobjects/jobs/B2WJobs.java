@@ -197,7 +197,7 @@ public class B2WJobs extends KendoUI {
 	public static By getB2WJobsSiteState() {
 		return By.cssSelector(B2WUIMap.b2w_jobsite_placestate);
 	}
-	public static By getB2wJobssitedesc() {
+	public static By getB2WJobssitedesc() {
 		return By.cssSelector(B2WUIMap.b2w_jobssitedesc);
 	}
 	public static By getB2wJobssitesitesupervisor() {

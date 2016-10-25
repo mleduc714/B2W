@@ -8,7 +8,6 @@ import org.openqa.selenium.WebElement;
 import appobjects.resources.B2WAddLaborTypes;
 import appobjects.resources.B2WEmployees;
 import tasks.WebElementUtils;
-import tasks.util.TaskUtils;
 
 public class B2WAddLaborTypeTasks {
 	
@@ -18,13 +17,12 @@ public class B2WAddLaborTypeTasks {
 	}
 
 	public boolean clickSearchButton() {
-		int iCurrentCount = getNumberOfLaborTypesInView();
 		boolean bReturn = false;
-		WebElement el = WebElementUtils.findElement(B2WAddLaborTypes.getAddLaborTypeSearchButton());
-
-		if (el != null) {
-			bReturn = WebElementUtils.clickElement(el);
-			bReturn &= waitForTheNumberOfItemsInDialogToChange(iCurrentCount);
+		WebElement el = WebElementUtils.waitAndFindDisplayedElement(B2WAddLaborTypes.getAddLaborGridHeader());
+		WebElement search = WebElementUtils.findElement(B2WAddLaborTypes.getAddLaborTypeSearchButton());
+		if (search != null) {
+			bReturn = WebElementUtils.clickElement(search);
+			bReturn &= WebElementUtils.waitForElementStale(el, WebElementUtils.SHORT_TIME_OUT);
 		}
 		return bReturn;
 	}
@@ -62,28 +60,7 @@ public class B2WAddLaborTypeTasks {
 		}
 		return bReturn;
 	}
-	
-	public int getNumberOfLaborTypesInView() {
-		int iCount = 0;
-		WebElement el = WebElementUtils.findElement(B2WAddLaborTypes.getAddLaborGridHeader());
-		iCount = el.findElements(B2WAddLaborTypes.getAddLaborNameCheckBox()).size();
-		return iCount;
-	}
 
-	private boolean waitForTheNumberOfItemsInDialogToChange(int iCurrentCount) {
-		boolean bReturn = false;
-		int iWait = 0;
-		int iItems = getNumberOfLaborTypesInView();
-		while ((iCurrentCount == iItems) && (iWait < 20)){
-			TaskUtils.sleep(100);
-			iItems = getNumberOfLaborTypesInView();
-			iWait++;
-		}
-		if (iWait < 20){
-			bReturn = true;
-		}
-		iCurrentCount = iItems;
-		return bReturn;
-	}
+	
 
 }

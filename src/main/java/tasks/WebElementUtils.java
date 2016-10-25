@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.regex.Pattern;
 
+import appobjects.resources.KendoUI;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
@@ -27,7 +28,7 @@ public class WebElementUtils {
 
 	public static final int LONG_TIME_OUT = 30;
 	public static final int MEDIUM_TIME_OUT = 10;
-	public static final int SHORT_TIME_OUT = 2;
+	public static final int SHORT_TIME_OUT = 5;
 
 	private static Logger log = Logger.getLogger(WebElementUtils.class);
 
@@ -37,9 +38,13 @@ public class WebElementUtils {
 		try {
 			el = wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
 		} catch (TimeoutException e) {
-			log.warn("Element never displayed with in timeout of " + timeOut);
+			log.warn("Element "+ locator.toString() +" never displayed with in timeout of " + timeOut);
 		}
 		return el;
+	}
+
+	public static WebElement waitAndFindDisplayedElement(By locator) {
+		return waitAndFindDisplayedElement(locator, SHORT_TIME_OUT);
 	}
 
 	public static WebElement getChildElement(WebElement parent, By child) {
@@ -125,7 +130,7 @@ public class WebElementUtils {
 		return ret;
 	}
 
-	public static WebElement waitAndFindDisplayedElement(By locator) {
+	public static WebElement waitAndFindDisplayedEletment(By locator) {
 		return waitAndFindDisplayedElement(locator, SHORT_TIME_OUT);
 	}
 
@@ -365,9 +370,9 @@ public class WebElementUtils {
 						// Still not clickable, fail
 						log.debug("Retry click failed - Unable to click element " + element.getAttribute("class") + "\n"
 								+ e2);
-
 					}
-				}
+				} 
+				
 			} else {
 				// clickWithRobot(element);
 				// TODO if we do safari requires robot
@@ -550,7 +555,7 @@ public class WebElementUtils {
 		}
 		return bReturn;
 	}
-	
+
 	public static boolean waitForElementHasAttributeWithValue(WebElement el, String attribute, String value, boolean expected,
 			int timeOut) {
 		boolean bReturn = false;
@@ -594,14 +599,22 @@ public class WebElementUtils {
 			}
 		} catch (StaleElementReferenceException e) {
 			log.warn("Found Stale Element Exception");
-			getSelectedTextFromDropDown(by);
+			return getSelectedTextFromDropDown(by);
 		}
 		return "";
 
 	}
 
-	public static boolean isCheckboxChecked(WebElement el) {
-		return new Boolean(el.getAttribute("checked"));
+	public static boolean isCheckboxChecked(By by) {
+		boolean bReturn = false;
+		try{
+		WebElement el = WebElementUtils.waitAndFindDisplayedElement(by);
+		bReturn = new Boolean(el.getAttribute("checked"));
+		}catch (StaleElementReferenceException e){
+			log.warn("Caught stale element exception in checking box");
+			return isCheckboxChecked(by);
+		}
+		return bReturn;
 	}
 
 	public static Alert waitForAndGetAlertDialog(int timeOut) {
@@ -772,4 +785,60 @@ public class WebElementUtils {
 		return parentElement;
 	}
 
+	public static boolean waitForElementInvisible(WebElement element, int timeout, boolean expectedClickable) {
+		boolean bReturn = false;
+		if (element == null) {
+			log.warn("The provided WebElement was null");
+		}
+		try {
+			WebDriverWait wait = new WebDriverWait(BrowserUtils.getDriver(), timeout);
+			List<WebElement> list = new ArrayList<WebElement>();
+			list.add(element);
+			wait.until(ExpectedConditions.invisibilityOfAllElements(list));
+			bReturn = true;
+		} catch (TimeoutException e) {
+			if (!expectedClickable) {
+				bReturn = true;
+			} else {
+				log.warn("Element with locator '" + element + "' is not Invisible");
+
+			}
+		}
+		return bReturn;
+	}
+
+	public static boolean waitForElementInvisible(WebElement element) {
+		return waitForElementInvisible(element, MEDIUM_TIME_OUT, true);
+	}
+	
+	public static String getElementValueByAttribute(By by, String sAttribute){
+		String sValue = "";
+		try {
+			WebElement el = WebElementUtils.findElement(by);
+			sValue = el.getAttribute(sAttribute);
+		}catch (StaleElementReferenceException e){
+			log.warn("Caught Stale Element Exception in trying to obtain value of attribute");
+			return getElementValueByAttribute(by, sAttribute);
+		}
+		return sValue;
+	}
+
+	public static WebElement getKendoFDDElementByLabel(String sText) {
+		try {
+			List<WebElement> inputList = WebElementUtils.findElements(By.cssSelector("label"));
+			WebElement el = getElementWithMatchingText(inputList, sText, false);
+			if (el != null) {
+				WebElement parent = getParentElement(el);
+				WebElement elResult = getChildElement(parent, KendoUI.getKendoDropDown());
+				return elResult;
+			} else {
+				log.debug(sText + " could not be found on the Page.");
+				return null;
+			}
+		} catch (TimeoutException e) {
+			log.warn("Could not find element with text " + sText);
+			return null;
+		}
+
+	}
 }

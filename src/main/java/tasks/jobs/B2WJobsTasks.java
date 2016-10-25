@@ -1,5 +1,7 @@
 package tasks.jobs;
 
+import java.util.ArrayList;
+
 import org.openqa.selenium.WebElement;
 
 import appobjects.B2WCommonObjects;
@@ -189,8 +191,7 @@ public class B2WJobsTasks extends B2WResourceTasks {
 		return b2wPlace.setNonWorkingDaySunday(bCheck);
 	}
 	public boolean setShowOnJobBoard(boolean bCheck){
-		WebElement el = WebElementUtils.findElement(B2WJobs.getB2WJobSiteShowOnJobBoard());
-		return checkBox(el, bCheck);
+		return checkBox(B2WJobs.getB2WJobSiteShowOnJobBoard(),bCheck);
 	}
 	public boolean setJobSiteAddress(String sText){
 		return b2wPlace.setLocationAddress1(sText);
@@ -311,8 +312,7 @@ public class B2WJobsTasks extends B2WResourceTasks {
 	}
 	
 	public boolean setJobProductionAccountComplete(boolean bCheck){
-		WebElement el = WebElementUtils.findElement(B2WJobs.getB2WJobProductionCompleteCheckBox());
-		return checkBox(el, bCheck);
+		return checkBox(B2WJobs.getB2WJobProductionCompleteCheckBox(), bCheck);
 	}
 	
 	public boolean setJobOverheadTrackingID(String sText){
@@ -380,8 +380,7 @@ public class B2WJobsTasks extends B2WResourceTasks {
 		return bReturn;
 	}
 	public boolean setJobOverheadAccountComplete(boolean bCheck){
-		WebElement el = WebElementUtils.findElement(B2WJobs.getB2WJobOverheadCompleteCheckBox());
-		return checkBox(el, bCheck);
+		return checkBox(B2WJobs.getB2WJobOverheadCompleteCheckBox(), bCheck);
 	}
 	public boolean clickAddEstimateItemCostBreakdown(){
 		return WebElementUtils.clickElement(B2WJobs.getB2WAddEstimateItemCostBreakdownButton());
@@ -463,6 +462,60 @@ public class B2WJobsTasks extends B2WResourceTasks {
 			bReturn = new B2WTMWorkItemTab().waitForPageNotBusy();
 		}
 		return bReturn;
+	}
+	public ArrayList<String> getJobSiteDescriptionFromGrid() {
+		return TaskUtils.getTextFromElements(B2WJobs.getB2WJobssitedesc());
+	}
+	public ArrayList<String> getJobSiteSupervisorFromGrid() {
+		return TaskUtils.getTextFromElements(B2WJobs.getB2WJobssitesitesupervisor());
+	}
+	public ArrayList<String> getJobSiteAddressFromGrid() {
+		return TaskUtils.getTextFromElements(B2WJobs.getB2WJobssiteaddress());
+	}
+	public ArrayList<String> getJobSiteCityFromGrid() {
+		return TaskUtils.getTextFromElements(B2WJobs.getB2WJobssitecity());
+	}
+	public ArrayList<String> getJobSiteStateFromGrid() {
+		return TaskUtils.getTextFromElements(B2WJobs.getB2WJobssitestate());
+	}
+	public ArrayList<String> getJobMaterialsDescriptionFromGrid() {
+		return TaskUtils.getTextFromElements(B2WJobs.getB2WJobsmaterialsdescFromGrid());
+	}
+	public ArrayList<String> getJobMaterialsIDFromGrid() {
+		return TaskUtils.getTextFromElements(B2WJobs.getB2WJobsmaterialsmaterialidFromGrid());
+	}
+	public ArrayList<String> getJobMaterialsUnitCostFromGrid() {
+		return TaskUtils.getTextFromElements(B2WJobs.getB2WJobsmaterialsunitcostFromGrid());
+	}
+	public ArrayList<String> getJobMaterialsUnitMeasureFromGrid() {
+		return TaskUtils.getTextFromElements(B2WJobs.getB2WJobsmaterialsunitmeasureFromGrid());
+	}
+	public ArrayList<String> getJobSubcontractorCompanyNameFromGrid() {
+		return TaskUtils.getTextFromElements(B2WJobs.getB2WJobssubsvendorscompnameFromGrid());
+	}
+	public ArrayList<String> getJobSubcontractorCompanyIDFromGrid() {
+		return TaskUtils.getTextFromElements(B2WJobs.getB2WJobssubsvendorscompidFromGrid());
+	}
+	public ArrayList<String> getJobSubcontractorCompanyTypeFromGrid() {
+		return TaskUtils.getTextFromElements(B2WJobs.getB2WJobssubsvendorscomptypeFromGrid());
+	}
+	public ArrayList<String> getJobTruckingSubcontractorCompanyNameFromGrid() {
+		return TaskUtils.getTextFromElements(B2WJobs.getB2WJobstruckingsubscompanynameFromGrid());
+	}
+	public ArrayList<String> getJobTruckingSubcontractorCompanyIDFromGrid() {
+		return TaskUtils.getTextFromElements(B2WJobs.getB2WJobstruckingsubscompanyidFromGrid());
+	}
+	public ArrayList<String> getJobTruckingSubcontractorCompanyTypeFromGrid() {
+		return TaskUtils.getTextFromElements(B2WJobs.getB2WJobstruckingsubscompanytypeFromGrid());
+	}
+	public ArrayList<String> getJobVendorCompanyNameFromGrid() {
+		return TaskUtils.getTextFromElements(B2WJobs.getB2WJobsvendorscompnameFromGrid());
+	}
+	public ArrayList<String> getJobVendorCompanyIDFromGrid() {
+		return TaskUtils.getTextFromElements(B2WJobs.getB2WJobsvendorscompidFromGrid());
+	}
+	public ArrayList<String> getJobVendorCompanyTypeFromGrid() {
+		return TaskUtils.getTextFromElements(B2WJobs.getB2WJobsvendorscomptypeFromGrid());
 	}
 	
 	

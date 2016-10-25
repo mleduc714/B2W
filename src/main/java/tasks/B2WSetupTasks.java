@@ -7,7 +7,7 @@ import org.openqa.selenium.WebElement;
 
 import com.b2w.test.BaseAssert;
 
-import appobjects.resources.B2WResources;
+import appobjects.B2WCommonObjects;
 import appobjects.setup.B2WSetup;
 
 public class B2WSetupTasks {
@@ -281,17 +281,12 @@ public class B2WSetupTasks {
 	}
 	
 	public boolean enterSearchText(String sText) {
-		// the id's are different sometimes. Need to get the ID
-		WebElement el = WebElementUtils.findElement(B2WResources.getB2WSearchText());
-		String searchID = el.getAttribute("id");
+		String searchID = WebElementUtils.getElementValueByAttribute(B2WSetup.getB2WSearchText(),"id");
 		return WebElementUtils.setAttributeWithJS(searchID, "value", sText);
 	}
 	
 	public String getSearchText() {
-		String bString = "";
-		WebElement el = WebElementUtils.findElement(B2WSetup.getB2WSearchText());
-		System.out.println("Value:"+ el.getAttribute("value"));
-		return bString;
+		return WebElementUtils.getElementValueByAttribute(B2WSetup.getB2WSearchText(),"value");
 	}
 	
 	public boolean clickSearchClear() {
@@ -307,22 +302,20 @@ public class B2WSetupTasks {
 		bReturn = WebElementUtils.waitForElementHasAttributeWithValue(B2WSetup.getProcessingPanel(), "class", "hidden", true, WebElementUtils.LONG_TIME_OUT);
 		return bReturn;
 	}
-	protected boolean checkBox(WebElement el, boolean bCheck){
-		if (el == null){
-			return false;
-		}
-		boolean isChecked = WebElementUtils.isCheckboxChecked(el);
+	protected boolean checkBox(By by, boolean bCheck){
+		
+		boolean isChecked = WebElementUtils.isCheckboxChecked(by);
 		// if item is checked and need to uncheck
 		if (isChecked && !bCheck){
 			log.debug("Uncheck the checkbox");
-			WebElementUtils.clickElement(el);
+			WebElementUtils.clickElement(by);
 		}
 		// if item is unchecked and need to check
 		if (!isChecked && bCheck){
 			log.debug("Check the checkbox");
-			WebElementUtils.clickElement(el);
+			WebElementUtils.clickElement(by);
 		}
-		return bCheck == WebElementUtils.isCheckboxChecked(el);
+		return bCheck == WebElementUtils.isCheckboxChecked(by);
 	}
 
 	protected void clickOnTwistie(WebElement el) {
@@ -350,36 +343,43 @@ public class B2WSetupTasks {
 	}
 	public boolean clickTopSaveButton() {
 		boolean bReturn = false;
-		if (WebElementUtils.clickElement(B2WSetup.getTopSaveButton())){
-			if (WebElementUtils.waitAndFindDisplayedElement(By.cssSelector("div#PageContent_errorMessageControl_ErrorPanel")) != null){
-				BaseAssert.logScreenCapture();
-				clickTopCancelButton();
-				Alert alert = WebElementUtils.waitForAndGetAlertDialog(WebElementUtils.MEDIUM_TIME_OUT);
-				if (alert != null) {
-					alert.accept();
-					waitForProcessingDialogToClear();
+		if (WebElementUtils.clickElement(B2WSetup.getTopSaveButton())) {
+			bReturn = waitForProcessingDialogToClear();
+			bReturn &= WebElementUtils.waitAndFindDisplayedElement(B2WSetup.getTopEditButton()) != null;
+			if (!bReturn) {
+				if (WebElementUtils.waitAndFindDisplayedElement(B2WCommonObjects.getB2WPagePanelError(), 1) != null) {
+					log.debug("***Error saving item***");
+					BaseAssert.logScreenCapture();
+					clickTopCancelButton();
+					Alert alert = WebElementUtils.waitForAndGetAlertDialog(WebElementUtils.MEDIUM_TIME_OUT);
+					if (alert != null) {
+						alert.accept();
+						waitForProcessingDialogToClear();
+					}
 				}
-			}else{
-				bReturn = waitForProcessingDialogToClear();
-				bReturn &= WebElementUtils.waitAndFindDisplayedElement(B2WSetup.getTopEditButton()) != null;
+
 			}
 		}
 		return bReturn;
 	}
+
 	public boolean clickBottomSaveButton() {
 		boolean bReturn = false;
-		if (WebElementUtils.clickElement(B2WSetup.getBottomSaveButton())){
-			if (WebElementUtils.waitAndFindDisplayedElement(By.cssSelector("div#PageContent_errorMessageControl_ErrorPanel")) != null){
-				BaseAssert.logScreenCapture();
-				clickTopCancelButton();
-				Alert alert = WebElementUtils.waitForAndGetAlertDialog(WebElementUtils.MEDIUM_TIME_OUT);
-				if (alert != null) {
-					alert.accept();
-					waitForProcessingDialogToClear();
+		if (WebElementUtils.clickElement(B2WSetup.getBottomSaveButton())) {
+			bReturn = waitForProcessingDialogToClear();
+			bReturn &= WebElementUtils.waitAndFindDisplayedElement(B2WSetup.getTopEditButton()) != null;
+			if (!bReturn) {
+				if (WebElementUtils.waitAndFindDisplayedElement(B2WCommonObjects.getB2WPagePanelError(), 1) != null) {
+					log.debug("***Error saving item***");
+					BaseAssert.logScreenCapture();
+					clickTopCancelButton();
+					Alert alert = WebElementUtils.waitForAndGetAlertDialog(WebElementUtils.MEDIUM_TIME_OUT);
+					if (alert != null) {
+						alert.accept();
+						waitForProcessingDialogToClear();
+					}
 				}
-			}else{
-				bReturn = waitForProcessingDialogToClear();
-				bReturn &= WebElementUtils.waitAndFindDisplayedElement(B2WSetup.getTopEditButton()) != null;
+
 			}
 		}
 		return bReturn;
@@ -388,28 +388,28 @@ public class B2WSetupTasks {
 	public boolean clickTopDeleteButton() {
 		boolean bReturn = false;
 		if (WebElementUtils.clickElement(B2WSetup.getTopDeleteButton())){
-			
+			bReturn = true;
 		}
 		return bReturn;
 	}
 	public boolean clickBottomDeleteButton() {
 		boolean bReturn = false;
 		if (WebElementUtils.clickElement(B2WSetup.getBottomDeleteButton())){
-			
+			bReturn = true;
 		}
 		return bReturn;
 	}
 	public boolean clickTopEditButton() {
 		boolean bReturn = false;
 		if (WebElementUtils.clickElement(B2WSetup.getTopEditButton())){
-			
+			bReturn = true;
 		}
 		return bReturn;
 	}
 	public boolean clickBottomEditButton() {
 		boolean bReturn = false;
 		if (WebElementUtils.clickElement(B2WSetup.getTopEditButton())){
-			
+			bReturn = true;
 		}
 		return bReturn;
 	}
