@@ -712,6 +712,7 @@ public class B2WUIMap {
 	public static final String b2w_jobstmworkitemcompletecheckbox = "input#IsComplete";
 	public static final String b2w_jobstmworkitempricelimitcheckbox = "input#HasPriceLimit";
 	public static final String b2w_jobstmworkitemsavebutton = "div#SaveButton.btn-form.large";
+
 	// Schedule Assignments
 	public static final String b2w_schedulecenterpanel = "b2w-panel-center";
 	public static final String b2w_scheduleproductpageicon = "a#ProductPageIcon";
@@ -723,8 +724,11 @@ public class B2WUIMap {
 	public static final String b2w_schedulecontrolpanel = ".control-panel";
 	public static final String b2w_scheduleselectcrewbtn = ".btn-form.large";
 	public static final String b2w_schedulebuttoncontainer = ".button-container";
-	public static final String b2w_schedulecreateassignmentbtn = "//span[text()='Create Assignment']";
-	public static final String b2w_schedulecreatemoveorderbtn = "//span[text()='Create Move Order']";
+	public static final String b2w_schedulecreateassignmentbtn = ".//span[text()='Create Assignment']";
+	public static final String b2w_schedulecreatemoveorderbtn = ".//span[text()='Create Move Order']";
+	public static final String b2w_scheduleanimationcontainer = ".k-animation-container";
+	public static final String b2w_schedulelinks = "span.k-link";
+	public static final String b2w_scheduleeventtypedropdown = ".//select[@kendo-b2w-drop-down-list = 'eventTypes']";
 
 	// Maintain
 	public static final String b2w_maintainpagemenu = "ul#SubNavMenu_MaintainPageMenu.MaintainPageMenu";
