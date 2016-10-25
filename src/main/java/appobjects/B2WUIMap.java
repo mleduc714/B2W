@@ -740,6 +740,16 @@ public class B2WUIMap {
 	public static final String b2w_maintainparts = "li#SubNavMenu_PartsMenuItem";
 	public static final String b2w_maintaininventory = "li#SubNavMenu_InventoryMenuItem";
 	public static final String b2w_maintainpurchasing = "li#SubNavMenu_PurchasingMenuItem";
+	public static final String b2w_maintainkendocontentform = "div.box-content.form";
+	public static final String b2w_maintainkendodialogcontentform = "div.dialog-content";
+	public static final String b2w_maintainkendoitemsbuttoncontainer = "div.work-order-items-button-container";
+	public static final String b2w_maintainadditemsdialog = "div.wizard-dialog.add-request-template-popup.k-window-content.k-content";
+	public static final String b2w_maintainadditemsavebutton = "a.btn-form.large.save";
+	
+	public static final String b2w_maintainnewintervalbutton = "a.btn-orig.new-interval-button";
+
+
+
 	
 	public static final String b2w_jobscreatenewestimatebutton = "a#PageContent_CreateNewEstimateItemButton";
 	public static final String b2w_newjobestimateitemnumber = "input#PageContent_ItemNumberTextBox";
