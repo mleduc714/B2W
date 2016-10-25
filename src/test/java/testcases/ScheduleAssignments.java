@@ -24,20 +24,36 @@ public class ScheduleAssignments extends B2WTestCase {
     B2WSchedulerTasks b2wScheduler = new B2WSchedulerTasks();
 
     // Property
+    // Schedule View
     String sEmployeeView;
     String sEquipmentView;
     String sCrewView;
     String sLocationView;
-    String sEmployeeName;
-    String sEquipmentName;
-    String sEmployeeNeedName;
-    String sEquipmentNeedName;
+
+    // Assignment
     String sJobSiteName;
+
+    // Employee
+    String sEmployeeName;
+    String sEmployeeNeedName;
+
+    // Equipment
+    String sEquipmentName;
+    String sEquipmentNeedName;
+
+    // Crew
     String sCrewName;
     String sCrewNeedName;
+
+    // Move
     String sPickupJobSiteName;
     String sDropoffJobSiteName;
     String sTransportationCrewName;
+
+    // Event
+    String sEmployeeEventType;
+    String sEquipmentEventType;
+    String sLocationEventType;
 
 
     @Override
@@ -85,25 +101,26 @@ public class ScheduleAssignments extends B2WTestCase {
         sPickupJobSiteName = getProperty("sPickupJobSiteName");
         sDropoffJobSiteName = getProperty("sDropoffJobSiteName");
         sTransportationCrewName = getProperty("sTransportationCrewName");
+        sEmployeeEventType = getProperty("sEmployeeEventType");
+        sEquipmentEventType = getProperty("sEquipmentEventType");
+        sLocationEventType = getProperty("sLocationEventType");
 
     }
 
     public void testMain() throws Throwable {
-        /*
+
         createEmployeeAssignment();
         createEquipmentAssignment();
         createEmployeeNeed();
         createEquipmentNeed();
         createCrewAssignment();
         createCrewNeed();
+
         createMoveAssignment();
         createMoveOrder();
-        */
         createEmployeeEvent();
-        /*
         createEquipmentEvent();
         createLocationEvent();
-        */
     }
 
     @Override
@@ -203,20 +220,28 @@ public class ScheduleAssignments extends B2WTestCase {
         logCompare(true, b2wNav.openSchedule(), "Open Schedule View");
         logCompare(true, b2wScheduler.navigateToScheduleView(sEmployeeView, sEmployeeView), "Open Employee Schedule View");
         logCompare(true, b2wScheduler.createNewEmployeeEvent(), "Open Create Employee Event Dialog");
-
+        logCompare(true, b2wScheduler.setEventEmployee(sEmployeeName), "Set Employee");
+        logCompare(true, b2wScheduler.setEventType(sEmployeeEventType), "Set Employee Event Type");
+        logCompare(true, b2wScheduler.saveEvent(), "Save New Employee Event Type");
     }
 
     public void createEquipmentEvent() {
         //ToDo createEquipmentEvent
         logCompare(true, b2wNav.openSchedule(), "Open Schedule View");
         logCompare(true, b2wScheduler.navigateToScheduleView(sEquipmentView, sEquipmentView), "Open Equipment Schedule View");
-        logCompare(true, b2wScheduler.createNewEquipmentEvent(), "Create Equipment Event");
+        logCompare(true, b2wScheduler.createNewEquipmentEvent(), "Open Create Equipment Event Dialog");
+        logCompare(true, b2wScheduler.setEventEquipment(sEquipmentName), "Set Equipment");
+        logCompare(true, b2wScheduler.setEventType(sEquipmentEventType), "Set Equipment Event Type");
+        logCompare(true, b2wScheduler.saveEvent(), "Save New Equipment Event Type");
     }
 
     public void createLocationEvent() {
         //ToDo createLocationEvent
         logCompare(true, b2wNav.openSchedule(), "Open Schedule View");
         logCompare(true, b2wScheduler.navigateToScheduleView(sLocationView, sLocationView), "Open Places Schedule View");
-        logCompare(true, b2wScheduler.createNewLocationEvent(), "Create Location Event");
+        logCompare(true, b2wScheduler.createNewLocationEvent(), "Open Create Location Event Dialog");
+        logCompare(true, b2wScheduler.setEventLocation(sJobSiteName), "Set Job Site");
+        logCompare(true, b2wScheduler.setEventType(sLocationEventType), "Set Location Event Type");
+        logCompare(true, b2wScheduler.saveEvent(), "Save New Location Event Type");
     }
 }
