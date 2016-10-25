@@ -741,14 +741,31 @@ public class B2WUIMap {
 	public static final String b2w_maintaininventory = "li#SubNavMenu_InventoryMenuItem";
 	public static final String b2w_maintainpurchasing = "li#SubNavMenu_PurchasingMenuItem";
 	
-	public static final String b2w_maintainkendocontentform = "div.box-content.form";
-	public static final String b2w_maintainkendodialogcontentform = "div.dialog-content";
-	public static final String b2w_maintainkendoitemsbuttoncontainer = "div.work-order-items-button-container";
-	public static final String b2w_maintainadditemsdialog = "div.wizard-dialog.add-request-template-popup.k-window-content.k-content";
-	public static final String b2w_maintainadditemsavebutton = "a.btn-form.large.save";
+	public static final String b2w_jobscreatenewestimatebutton = "a#PageContent_CreateNewEstimateItemButton";
+	public static final String b2w_newjobestimateitemnumber = "input#PageContent_ItemNumberTextBox";
+	public static final String b2w_newjobestimateitemid = "input#PageContent_ItemIDTextBox";
+	public static final String b2w_newjobestimatedescription = "input#PageContent_DescriptionTextBox";
+	public static final String b2w_newjobestimateunitofmeasure = "select#PageContent_UnitofMeasureDropDownList";
+	public static final String b2w_newjobestimateestimatedquantity = "input#PageContent_EstimatedQuantityTextBox_numVal";
+	public static final String b2w_newjobestimatechangeorderquantity = "input#PageContent_ChangeOrderQuantityTextBox_numVal";
+	public static final String b2w_newjobestimateunitbidpriceestimated = "input#PageContent_UnitBidPriceTextBox_numVal";
+	public static final String b2w_newjobestimateunitbidpricechangeorder = "input#PageContent_ChangeOrderUnitBidPriceTextBox_numVal";
+	public static final String b2w_newjobestimatetotalbidpriceestimated = "input#PageContent_TotalBidPriceTextBox_numVal";
+	public static final String b2w_newjobestimatetotalbidpricechangeorder = "input#PageContent_ChangeOrderTotalBidPriceTextBox_numVal";
+	
+	public static final String b2w_newjobchangeorderid = "input#PageContent_generalInformationPanel_ChangeOrderIDTextBox";
+	public static final String b2w_newjobchangeorderalternateid = "input#PageContent_generalInformationPanel_AlternateIDTextBox";
+	public static final String b2w_newjobchangeorderdescription = "input#PageContent_generalInformationPanel_DescriptionTextBox";
+	public static final String b2w_newjobchangeordertype = "select#PageContent_generalInformationPanel_ChangeOrderTypeDropDownList";
+	public static final String b2w_newjobchangeorderstatus = "select#PageContent_generalInformationPanel_StatusDropDownList";
+	public static final String b2w_newjobchangeorderestimatedquantity = "input#PageContent_generalInformationPanel_EstimatedQuantityTextBox_numVal";
+	public static final String b2w_newjobchangeorderunitofmeasure = "select#PageContent_generalInformationPanel_UnitofMeasureDropDownList";
+	public static final String b2w_newjobchangeordernotes = "textarea#PageContent_generalInformationPanel_NotesTextBox";
 	
 	public static final String b2w_maintainaddintervalbutton = "a.btn-orig.new-interval-button";
 	
+	public static final String b2w_scheduleanimationcontainer = ".k-animation-container";
+	public static final String b2w_schedulelinks = "span.k-link";
+	public static final String b2w_scheduleeventtypedropdown = ".//select[@kendo-b2w-drop-down-list = 'eventTypes']";
 	
-
 }

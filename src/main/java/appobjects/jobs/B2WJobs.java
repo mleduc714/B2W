@@ -228,56 +228,126 @@ public class B2WJobs extends KendoUI {
 	public static By getB2wJobssubsvendorscompnameFromGrid() {
 		return By.cssSelector(B2WUIMap.b2w_jobssubsvendorscompname);
 	}
+	public static By getB2WJobCReateNewEstimateButton() {
+		return By.cssSelector(B2WUIMap.b2w_jobscreatenewestimatebutton);
+	}
 	public static By getB2wJobssubsvendorscompidFromGrid() {
 		return By.cssSelector(B2WUIMap.b2w_jobssubsvendorscompid);
+	}
+	
+	public static By getB2WEstimateItemNumber() {
+		return By.cssSelector(B2WUIMap.b2w_newjobestimateitemnumber);
 	}
 	public static By getB2wJobssubsvendorscomptypeFromGrid() {
 		return By.cssSelector(B2WUIMap.b2w_jobssubsvendorscomptype);
 	}
+	
+	public static By getB2WEstimateItemID() {
+		return By.cssSelector(B2WUIMap.b2w_newjobestimateitemid);
+	}
 	public static By getB2wJobssubsvendorsdeleteFromGrid() {
 		return By.cssSelector(B2WUIMap.b2w_jobssubsvendorsdelete);
+	}
+	
+	public static By getB2WEstimateDescription() {
+		return By.cssSelector(B2WUIMap.b2w_newjobestimatedescription);
 	}
 	public static By getB2wJobstruckingsubscompanynameFromGrid() {
 		return By.cssSelector(B2WUIMap.b2w_jobstruckingsubscompanyname);
 	}
+	
+	public static By getB2WEstimateUnitOfMeasure() {
+		return By.cssSelector(B2WUIMap.b2w_newjobestimateunitofmeasure);
+	}
 	public static By getB2wJobstruckingsubscompanyidFromGrid() {
 		return By.cssSelector(B2WUIMap.b2w_jobstruckingsubscompanyid);
+	}
+	
+	public static By getB2WEstimateEstimatedQuantity() {
+		return By.cssSelector(B2WUIMap.b2w_newjobestimateestimatedquantity);
 	}
 	public static By getB2wJobstruckingsubscompanytypeFromGrid() {
 		return By.cssSelector(B2WUIMap.b2w_jobstruckingsubscompanytype);
 	}
+	
+	public static By getB2WEstimateChangeOrderQuantity() {
+		return By.cssSelector(B2WUIMap.b2w_newjobestimatechangeorderquantity);
+	}
 	public static By getB2wJobstruckingsubsdeleteFromGrid() {
 		return By.cssSelector(B2WUIMap.b2w_jobstruckingsubsdelete);
+	}
+	
+	public static By getB2WEstimateUnitBidPriceEstimated() {
+		return By.cssSelector(B2WUIMap.b2w_newjobestimateunitbidpriceestimated);
 	}
 	public static By getB2wJobsvendorscompnameFromGrid() {
 		return By.cssSelector(B2WUIMap.b2w_jobsvendorscompname);
 	}
+	
+	public static By getB2WEstimateUnitBidPriceChangeOrder() {
+		return By.cssSelector(B2WUIMap.b2w_newjobestimateunitbidpricechangeorder);
+	}
 	public static By getB2wJobsvendorscompidFromGrid() {
 		return By.cssSelector(B2WUIMap.b2w_jobsvendorscompid);
+	}
+	
+	public static By getB2WEstimateTotalBidPriceEstimated() {
+		return By.cssSelector(B2WUIMap.b2w_newjobestimatetotalbidpriceestimated);
 	}
 	public static By getB2wJobsvendorscomptypeFromGrid() {
 		return By.cssSelector(B2WUIMap.b2w_jobsvendorscomptype);
 	}
+	
+	public static By getB2WEstimateTotalBidPriceChangeOrder() {
+		return By.cssSelector(B2WUIMap.b2w_newjobestimatetotalbidpricechangeorder);
+	}
 	public static By getB2wJobsvendorsdeleteFromGrid() {
 		return By.cssSelector(B2WUIMap.b2w_jobsvendorsdelete);
+	}
+	
+	public static By getB2WChangeOrdersID() {
+		return By.cssSelector(B2WUIMap.b2w_newjobchangeorderid);
 	}
 	public static By getB2wJobsactivitydatetimeFromGrid() {
 		return By.cssSelector(B2WUIMap.b2w_jobsactivitydatetime);
 	}
+	
+	public static By getB2WChaneOrdersAlternateID() {
+		return By.cssSelector(B2WUIMap.b2w_newjobchangeorderalternateid);
+	}
 	public static By getB2wJobsactivityidtextFromGrid() {
 		return By.cssSelector(B2WUIMap.b2w_jobsactivityidtext);
+	}
+	
+	public static By getB2WChangeOrdersDescription() {
+		return By.cssSelector(B2WUIMap.b2w_newjobchangeorderdescription);
 	}
 	public static By getB2wJobsactivityformeanfullnameFromGrid() {
 		return By.cssSelector(B2WUIMap.b2w_jobsactivityformeanfullname);
 	}
+	
+	public static By getB2WChangeOrdersType() {
+		return By.cssSelector(B2WUIMap.b2w_newjobchangeordertype);
+	}
 	public static By getB2wJobsactivitysupervisorfullnameFromGrid() {
 		return By.cssSelector(B2WUIMap.b2w_jobsactivitysupervisorfullname);
+	}
+	public static By getB2WChangeOrdersStatus() {
+		return By.cssSelector(B2WUIMap.b2w_newjobchangeorderstatus);
 	}
 	public static By getB2wJobsactivityviewstatusFromGrid() {
 		return By.cssSelector(B2WUIMap.b2w_jobsactivityviewstatus);
 	}
+	
+	public static By getB2WChangeOrderEstimatedQuantity() {
+		return By.cssSelector(B2WUIMap.b2w_newjobchangeorderestimatedquantity);
+	}
 	public static By getB2wJobsactivitylaborhoursFromGrid() {
 		return By.cssSelector(B2WUIMap.b2w_jobsactivitylaborhours);
+	}
+	
+	public static By getB2WChangeOrderUnitOfMeasure() {
+		return By.cssSelector(B2WUIMap.b2w_newjobchangeorderunitofmeasure);
 	}
 	public static By getB2wJobsactivityequipmenthoursFromGrid() {
 		return By.cssSelector(B2WUIMap.b2w_jobsactivityequipmenthours);
