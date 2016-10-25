@@ -827,9 +827,14 @@ public class WebElementUtils {
 		try {
 			List<WebElement> inputList = WebElementUtils.findElements(By.cssSelector("label"));
 			WebElement el = getElementWithMatchingText(inputList, sText, false);
-			WebElement parent = getParentElement(el);
-			WebElement elResult = getChildElement(parent, KendoUI.getKendoDropDown());
-			return elResult;
+			if (el != null) {
+				WebElement parent = getParentElement(el);
+				WebElement elResult = getChildElement(parent, KendoUI.getKendoDropDown());
+				return elResult;
+			} else {
+				log.debug(sText + " could not be found on the Page.");
+				return null;
+			}
 		} catch (TimeoutException e) {
 			log.warn("Could not find element with text " + sText);
 			return null;
