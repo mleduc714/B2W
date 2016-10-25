@@ -465,4 +465,14 @@ public class B2WJobsTasks extends B2WResourceTasks {
 		return bReturn;
 	}
 	
+	
+	public boolean clickCreateNewEstimateButton() {
+		
+		boolean bReturn = false;
+		
+		if (WebElementUtils.clickElement(B2WJobs.getB2WJobCReateNewEstimateButton())){
+			bReturn = WebElementUtils.waitAndFindDisplayedElement(B2WJobs.getB2WEstimateItemNumber()) != null;
+		}
+		return bReturn;
+	}
 }

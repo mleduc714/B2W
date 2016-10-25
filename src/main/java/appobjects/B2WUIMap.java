@@ -700,6 +700,25 @@ public class B2WUIMap {
 	public static final String b2w_jobstmworkitempricelimitcheckbox = "input#HasPriceLimit";
 	public static final String b2w_jobstmworkitemsavebutton = "div#SaveButton.btn-form.large";
 	
+	public static final String b2w_jobscreatenewestimatebutton = "a#PageContent_CreateNewEstimateItemButton";
+	public static final String b2w_newjobestimateitemnumber = "input#PageContent_ItemNumberTextBox";
+	public static final String b2w_newjobestimateitemid = "input#PageContent_ItemIDTextBox";
+	public static final String b2w_newjobestimatedescription = "input#PageContent_DescriptionTextBox";
+	public static final String b2w_newjobestimateunitofmeasure = "select#PageContent_UnitofMeasureDropDownList";
+	public static final String b2w_newjobestimateestimatedquantity = "input#PageContent_EstimatedQuantityTextBox_numVal";
+	public static final String b2w_newjobestimatechangeorderquantity = "input#PageContent_ChangeOrderQuantityTextBox_numVal";
+	public static final String b2w_newjobestimateunitbidpriceestimated = "input#PageContent_UnitBidPriceTextBox_numVal";
+	public static final String b2w_newjobestimateunitbidpricechangeorder = "input#PageContent_ChangeOrderUnitBidPriceTextBox_numVal";
+	public static final String b2w_newjobestimatetotalbidpriceestimated = "input#PageContent_TotalBidPriceTextBox_numVal";
+	public static final String b2w_newjobestimatetotalbidpricechangeorder = "input#PageContent_ChangeOrderTotalBidPriceTextBox_numVal";
 	
+	public static final String b2w_newjobchangeorderid = "input#PageContent_generalInformationPanel_ChangeOrderIDTextBox";
+	public static final String b2w_newjobchangeorderalternateid = "input#PageContent_generalInformationPanel_AlternateIDTextBox";
+	public static final String b2w_newjobchangeorderdescription = "input#PageContent_generalInformationPanel_DescriptionTextBox";
+	public static final String b2w_newjobchangeordertype = "select#PageContent_generalInformationPanel_ChangeOrderTypeDropDownList";
+	public static final String b2w_newjobchangeorderstatus = "select#PageContent_generalInformationPanel_StatusDropDownList";
+	public static final String b2w_newjobchangeorderestimatedquantity = "input#PageContent_generalInformationPanel_EstimatedQuantityTextBox_numVal";
+	public static final String b2w_newjobchangeorderunitofmeasure = "select#PageContent_generalInformationPanel_UnitofMeasureDropDownList";
+	public static final String b2w_newjobchangeordernotes = "textarea#PageContent_generalInformationPanel_NotesTextBox";
 	
 }

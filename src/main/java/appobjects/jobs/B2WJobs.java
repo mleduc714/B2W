@@ -225,4 +225,79 @@ public class B2WJobs extends KendoUI {
 		return By.cssSelector(B2WUIMap.b2w_jobstmworkitemsavebutton);
 	}
 
+	public static By getB2WJobCReateNewEstimateButton() {
+		return By.cssSelector(B2WUIMap.b2w_jobscreatenewestimatebutton);
+	}
+	
+	public static By getB2WEstimateItemNumber() {
+		return By.cssSelector(B2WUIMap.b2w_newjobestimateitemnumber);
+	}
+	
+	public static By getB2WEstimateItemID() {
+		return By.cssSelector(B2WUIMap.b2w_newjobestimateitemid);
+	}
+	
+	public static By getB2WEstimateDescription() {
+		return By.cssSelector(B2WUIMap.b2w_newjobestimatedescription);
+	}
+	
+	public static By getB2WEstimateUnitOfMeasure() {
+		return By.cssSelector(B2WUIMap.b2w_newjobestimateunitofmeasure);
+	}
+	
+	public static By getB2WEstimateEstimatedQuantity() {
+		return By.cssSelector(B2WUIMap.b2w_newjobestimateestimatedquantity);
+	}
+	
+	public static By getB2WEstimateChangeOrderQuantity() {
+		return By.cssSelector(B2WUIMap.b2w_newjobestimatechangeorderquantity);
+	}
+	
+	public static By getB2WEstimateUnitBidPriceEstimated() {
+		return By.cssSelector(B2WUIMap.b2w_newjobestimateunitbidpriceestimated);
+	}
+	
+	public static By getB2WEstimateUnitBidPriceChangeOrder() {
+		return By.cssSelector(B2WUIMap.b2w_newjobestimateunitbidpricechangeorder);
+	}
+	
+	public static By getB2WEstimateTotalBidPriceEstimated() {
+		return By.cssSelector(B2WUIMap.b2w_newjobestimatetotalbidpriceestimated);
+	}
+	
+	public static By getB2WEstimateTotalBidPriceChangeOrder() {
+		return By.cssSelector(B2WUIMap.b2w_newjobestimatetotalbidpricechangeorder);
+	}
+	
+	public static By getB2WChangeOrdersID() {
+		return By.cssSelector(B2WUIMap.b2w_newjobchangeorderid);
+	}
+	
+	public static By getB2WChaneOrdersAlternateID() {
+		return By.cssSelector(B2WUIMap.b2w_newjobchangeorderalternateid);
+	}
+	
+	public static By getB2WChangeOrdersDescription() {
+		return By.cssSelector(B2WUIMap.b2w_newjobchangeorderdescription);
+	}
+	
+	public static By getB2WChangeOrdersType() {
+		return By.cssSelector(B2WUIMap.b2w_newjobchangeordertype);
+	}
+	
+	public static By getB2WChangeOrdersStatus() {
+		return By.cssSelector(B2WUIMap.b2w_newjobchangeorderstatus);
+	}
+	
+	public static By getB2WChangeOrderEstimatedQuantity() {
+		return By.cssSelector(B2WUIMap.b2w_newjobchangeorderestimatedquantity);
+	}
+	
+	public static By getB2WChangeOrderUnitOfMeasure() {
+		return By.cssSelector(B2WUIMap.b2w_newjobchangeorderunitofmeasure);
+	}
+	
+	public static By getB2WChangeOrderNotes() { 
+		return By.cssSelector(B2WUIMap.b2w_newjobchangeordernotes);
+	}
 }
