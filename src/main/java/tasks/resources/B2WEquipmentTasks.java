@@ -346,24 +346,6 @@ public class B2WEquipmentTasks extends B2WKendoTasks {
 	public boolean collapseLocation(){
 		return getHeaderandExpandOrCollapse(LOCATION, false);
 	}
-	private boolean getHeaderandExpandOrCollapse(String sText, boolean bExpand){
-		List<WebElement> ls = WebElementUtils.findElements(B2WEquipment.getKendoHeadersFromView());
-		WebElement el = WebElementUtils.getElementWithMatchingText(ls, sText, false);
-		// get parent and is it expanded or collapsed
-		WebElement parent = WebElementUtils.getParentElement(el);
-		boolean isExpanded =  new Boolean(parent.getAttribute("aria-expanded")).booleanValue();
-		if (isExpanded & !bExpand){
-			log.debug(sText + " is expanded, click to collapse");
-			WebElementUtils.clickElement(el);
-		}
-		if (!isExpanded & bExpand){
-			log.debug(sText + " is collapsed, clicking expanded");
-			WebElementUtils.clickElement(el);
-		}
-		parent = WebElementUtils.getParentElement(el);
-		isExpanded =  new Boolean(parent.getAttribute("aria-expanded")).booleanValue();
-		return isExpanded == bExpand;
-	}
 	
 	public boolean waitForEquipmentPageNoBusy() {
 		return waitForPageNotBusy();

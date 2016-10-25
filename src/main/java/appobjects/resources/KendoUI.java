@@ -57,4 +57,7 @@ public abstract class KendoUI {
 	public static By getKendoFooter(){
 		return By.cssSelector(B2WUIMap.b2w_kendofooter);
 	}
+	public static By getKendoWindow() {
+		return By.cssSelector(B2WUIMap.b2w_kendowindow);
+	}
 }

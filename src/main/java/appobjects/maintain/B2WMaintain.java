@@ -61,4 +61,10 @@ public class B2WMaintain extends KendoUI {
 	 public static By getB2WMaintainAddItemSaveButton() {
 		 return By.cssSelector(B2WUIMap.b2w_maintainadditemsavebutton);
 	 }
+	 public static By getB2WMaintainAddItemLevel() {
+		 return By.cssSelector(B2WUIMap.b2w_kendoinputkinput);
+	 }
+	 public static By getB2WMaintainAddIntervalButton() {
+		 return By.cssSelector(B2WUIMap.b2w_maintainaddintervalbutton);
+	 }
 }

@@ -197,19 +197,19 @@ public class B2WJobs extends KendoUI {
 	public static By getB2WJobsSiteState() {
 		return By.cssSelector(B2WUIMap.b2w_jobsite_placestate);
 	}
-	public static By getB2WJobssitedesc() {
+	public static By getB2wJobssitedesc() {
 		return By.cssSelector(B2WUIMap.b2w_jobssitedesc);
 	}
-	public static By getB2WJobssitesitesupervisor() {
+	public static By getB2wJobssitesitesupervisor() {
 		return By.cssSelector(B2WUIMap.b2w_jobssitesitesupervisor);
 	}
-	public static By getB2WJobssiteaddress() {
+	public static By getB2wJobssiteaddress() {
 		return By.cssSelector(B2WUIMap.b2w_jobssiteaddress);
 	}
-	public static By getB2WJobssitecity() {
+	public static By getB2wJobssitecity() {
 		return By.cssSelector(B2WUIMap.b2w_jobssitecity);
 	}
-	public static By getB2WJobssitestate() {
+	public static By getB2wJobssitestate() {
 		return By.cssSelector(B2WUIMap.b2w_jobssitestate);
 	}
 	public static By getB2WJobAddNewTMWorkItemButton(){
@@ -224,198 +224,119 @@ public class B2WJobs extends KendoUI {
 	public static By getB2WJobTMWorkItemSaveButton() {
 		return By.cssSelector(B2WUIMap.b2w_jobstmworkitemsavebutton);
 	}
-	// grid view stuff
-	public static By getB2WJobstrackacctstrackingidFromGrid() {
-		return By.cssSelector(B2WUIMap.b2w_jobstrackacctstrackingid);
-	}
-	public static By getB2WJobstrackacctsaccountidFromGrid() {
-		return By.cssSelector(B2WUIMap.b2w_jobstrackacctsaccountid);
-	}
-	public static By getB2WJobstrackacctsdescFromGrid() {
-		return By.cssSelector(B2WUIMap.b2w_jobstrackacctsdesc);
-	}
-	public static By getB2WJobstrackacctsestquanityFromGrid() {
-		return By.cssSelector(B2WUIMap.b2w_jobstrackacctsestquanity);
-	}
-	public static By getB2WJobstrackacctschangeorderquanityFromGrid() {
-		return By.cssSelector(B2WUIMap.b2w_jobstrackacctschangeorderquanity);
-	}
-	public static By getB2WJobstrackacctsestimatedquanityFromGrid() {
-		return By.cssSelector(B2WUIMap.b2w_jobstrackacctsestimatedquanity);
-	}
-	public static By getB2WJobstrackacctsproducedquantityFromGrid() {
-		return By.cssSelector(B2WUIMap.b2w_jobstrackacctsproducedquantity);
-	}
-	public static By getB2WJobstrackacctsunitofmeasureFromGrid() {
-		return By.cssSelector(B2WUIMap.b2w_jobstrackacctsunitofmeasure);
-	}
-	public static By getB2WJobstrackacctspecentcompFromGrid() {
-		return By.cssSelector(B2WUIMap.b2w_jobstrackacctspecentcomp);
-	}
-	public static By getB2WJobstrackacctsviewcompleteFromGrid() {
-		return By.cssSelector(B2WUIMap.b2w_jobstrackacctsviewcomplete);
-	}
-	public static By getB2WJobstrackacctsestunitcostFromGrid() {
-		return By.cssSelector(B2WUIMap.b2w_jobstrackacctsestunitcost);
-	}
-	public static By getB2WJobstrackacctsreportedunitcostFromGrid() {
-		return By.cssSelector(B2WUIMap.b2w_jobstrackacctsreportedunitcost);
-	}
-	public static By getB2WJobstrackacctsestimatedprodrateFromGrid() {
-		return By.cssSelector(B2WUIMap.b2w_jobstrackacctsestimatedprodrate);
-	}
-	public static By getB2WJobsmaterialsdescFromGrid() {
-		return By.cssSelector(B2WUIMap.b2w_jobsmaterialsdesc);
-	}
-	public static By getB2WJobsmaterialsmaterialidFromGrid() {
-		return By.cssSelector(B2WUIMap.b2w_jobsmaterialsmaterialid);
-	}
-	public static By getB2WJobsmaterialsunitcostFromGrid() {
-		return By.cssSelector(B2WUIMap.b2w_jobsmaterialsunitcost);
-	}
-	public static By getB2WJobsmaterialsunitmeasureFromGrid() {
-		return By.cssSelector(B2WUIMap.b2w_jobsmaterialsunitmeasure);
-	}
-	public static By getB2WJobsmaterialsspacercolumnFromGrid() {
-		return By.cssSelector(B2WUIMap.b2w_jobsmaterialsspacercolumn);
-	}
-	public static By getB2WJobsmaterialsviewdeleteFromGrid() {
-		return By.cssSelector(B2WUIMap.b2w_jobsmaterialsviewdelete);
-	}
-	public static By getB2WJobssitedescFromGrid() {
-		return By.cssSelector(B2WUIMap.b2w_jobssitedesc);
-	}
-	public static By getB2WJobssitesitesupervisorFromGrid() {
-		return By.cssSelector(B2WUIMap.b2w_jobssitesitesupervisor);
-	}
-	public static By getB2WJobssiteaddressFromGrid() {
-		return By.cssSelector(B2WUIMap.b2w_jobssiteaddress);
-	}
-	public static By getB2WJobssitecityFromGrid() {
-		return By.cssSelector(B2WUIMap.b2w_jobssitecity);
-	}
-	public static By getB2WJobssitestateFromGrid() {
-		return By.cssSelector(B2WUIMap.b2w_jobssitestate);
-	}
-	public static By getB2WJobstrackacctsvieweditFromGrid() {
-		return By.cssSelector(B2WUIMap.b2w_jobstrackacctsviewedit);
-	}
-	public static By getB2WJobstrackacctsviewdeleteFromGrid() {
-		return By.cssSelector(B2WUIMap.b2w_jobstrackacctsviewdelete);
-	}
 
-	public static By getB2WJobssubsvendorscompnameFromGrid() {
+	public static By getB2wJobssubsvendorscompnameFromGrid() {
 		return By.cssSelector(B2WUIMap.b2w_jobssubsvendorscompname);
 	}
-	public static By getB2WJobssubsvendorscompidFromGrid() {
+	public static By getB2wJobssubsvendorscompidFromGrid() {
 		return By.cssSelector(B2WUIMap.b2w_jobssubsvendorscompid);
 	}
-	public static By getB2WJobssubsvendorscomptypeFromGrid() {
+	public static By getB2wJobssubsvendorscomptypeFromGrid() {
 		return By.cssSelector(B2WUIMap.b2w_jobssubsvendorscomptype);
 	}
-	public static By getB2WJobssubsvendorsdeleteFromGrid() {
+	public static By getB2wJobssubsvendorsdeleteFromGrid() {
 		return By.cssSelector(B2WUIMap.b2w_jobssubsvendorsdelete);
 	}
-	public static By getB2WJobstruckingsubscompanynameFromGrid() {
+	public static By getB2wJobstruckingsubscompanynameFromGrid() {
 		return By.cssSelector(B2WUIMap.b2w_jobstruckingsubscompanyname);
 	}
-	public static By getB2WJobstruckingsubscompanyidFromGrid() {
+	public static By getB2wJobstruckingsubscompanyidFromGrid() {
 		return By.cssSelector(B2WUIMap.b2w_jobstruckingsubscompanyid);
 	}
-	public static By getB2WJobstruckingsubscompanytypeFromGrid() {
+	public static By getB2wJobstruckingsubscompanytypeFromGrid() {
 		return By.cssSelector(B2WUIMap.b2w_jobstruckingsubscompanytype);
 	}
-	public static By getB2WJobstruckingsubsdeleteFromGrid() {
+	public static By getB2wJobstruckingsubsdeleteFromGrid() {
 		return By.cssSelector(B2WUIMap.b2w_jobstruckingsubsdelete);
 	}
-	public static By getB2WJobsvendorscompnameFromGrid() {
+	public static By getB2wJobsvendorscompnameFromGrid() {
 		return By.cssSelector(B2WUIMap.b2w_jobsvendorscompname);
 	}
-	public static By getB2WJobsvendorscompidFromGrid() {
+	public static By getB2wJobsvendorscompidFromGrid() {
 		return By.cssSelector(B2WUIMap.b2w_jobsvendorscompid);
 	}
-	public static By getB2WJobsvendorscomptypeFromGrid() {
+	public static By getB2wJobsvendorscomptypeFromGrid() {
 		return By.cssSelector(B2WUIMap.b2w_jobsvendorscomptype);
 	}
-	public static By getB2WJobsvendorsdeleteFromGrid() {
+	public static By getB2wJobsvendorsdeleteFromGrid() {
 		return By.cssSelector(B2WUIMap.b2w_jobsvendorsdelete);
 	}
-	public static By getB2WJobsactivitydatetimeFromGrid() {
+	public static By getB2wJobsactivitydatetimeFromGrid() {
 		return By.cssSelector(B2WUIMap.b2w_jobsactivitydatetime);
 	}
-	public static By getB2WJobsactivityidtextFromGrid() {
+	public static By getB2wJobsactivityidtextFromGrid() {
 		return By.cssSelector(B2WUIMap.b2w_jobsactivityidtext);
 	}
-	public static By getB2WJobsactivityformeanfullnameFromGrid() {
+	public static By getB2wJobsactivityformeanfullnameFromGrid() {
 		return By.cssSelector(B2WUIMap.b2w_jobsactivityformeanfullname);
 	}
-	public static By getB2WJobsactivitysupervisorfullnameFromGrid() {
+	public static By getB2wJobsactivitysupervisorfullnameFromGrid() {
 		return By.cssSelector(B2WUIMap.b2w_jobsactivitysupervisorfullname);
 	}
-	public static By getB2WJobsactivityviewstatusFromGrid() {
+	public static By getB2wJobsactivityviewstatusFromGrid() {
 		return By.cssSelector(B2WUIMap.b2w_jobsactivityviewstatus);
 	}
-	public static By getB2WJobsactivitylaborhoursFromGrid() {
+	public static By getB2wJobsactivitylaborhoursFromGrid() {
 		return By.cssSelector(B2WUIMap.b2w_jobsactivitylaborhours);
 	}
-	public static By getB2WJobsactivityequipmenthoursFromGrid() {
+	public static By getB2wJobsactivityequipmenthoursFromGrid() {
 		return By.cssSelector(B2WUIMap.b2w_jobsactivityequipmenthours);
 	}
-	public static By getB2WJobsactivitylaborcostFromGrid() {
+	public static By getB2wJobsactivitylaborcostFromGrid() {
 		return By.cssSelector(B2WUIMap.b2w_jobsactivitylaborcost);
 	}
-	public static By getB2WJobsactivityequipcostFromGrid() {
+	public static By getB2wJobsactivityequipcostFromGrid() {
 		return By.cssSelector(B2WUIMap.b2w_jobsactivityequipcost);
 	}
-	public static By getB2WJobsactivitymaterialcostFromGrid() {
+	public static By getB2wJobsactivitymaterialcostFromGrid() {
 		return By.cssSelector(B2WUIMap.b2w_jobsactivitymaterialcost);
 	}
-	public static By getB2WJobsactivitytruckingcostFromGrid() {
+	public static By getB2wJobsactivitytruckingcostFromGrid() {
 		return By.cssSelector(B2WUIMap.b2w_jobsactivitytruckingcost);
 	}
-	public static By getB2WJobsactivitysubcostFromGrid() {
+	public static By getB2wJobsactivitysubcostFromGrid() {
 		return By.cssSelector(B2WUIMap.b2w_jobsactivitysubcost);
 	}
-	public static By getB2WJobsactivitymisccostFromGrid() {
+	public static By getB2wJobsactivitymisccostFromGrid() {
 		return By.cssSelector(B2WUIMap.b2w_jobsactivitymisccost);
 	}
-	public static By getB2WJobsactivityoverallcostFromGrid() {
+	public static By getB2wJobsactivityoverallcostFromGrid() {
 		return By.cssSelector(B2WUIMap.b2w_jobsactivityoverallcost);
 	}
-	public static By getB2WJobschangeordercreatedonFromGrid() {
+	public static By getB2wJobschangeordercreatedonFromGrid() {
 		return By.cssSelector(B2WUIMap.b2w_jobschangeordercreatedon);
 	}
-	public static By getB2WJobschangeorderchangeorderidFromGrid() {
+	public static By getB2wJobschangeorderchangeorderidFromGrid() {
 		return By.cssSelector(B2WUIMap.b2w_jobschangeorderchangeorderid);
 	}
-	public static By getB2WJobschangeorderaltorderidFromGrid() {
+	public static By getB2wJobschangeorderaltorderidFromGrid() {
 		return By.cssSelector(B2WUIMap.b2w_jobschangeorderaltorderid);
 	}
-	public static By getB2WJobschangeorderdescFromGrid() {
+	public static By getB2wJobschangeorderdescFromGrid() {
 		return By.cssSelector(B2WUIMap.b2w_jobschangeorderdesc);
 	}
-	public static By getB2WJobschangeorderviewstatusFromGrid() {
+	public static By getB2wJobschangeorderviewstatusFromGrid() {
 		return By.cssSelector(B2WUIMap.b2w_jobschangeorderviewstatus);
 	}
-	public static By getB2WJobschangeordertypeFromGrid() {
+	public static By getB2wJobschangeordertypeFromGrid() {
 		return By.cssSelector(B2WUIMap.b2w_jobschangeordertype);
 	}
-	public static By getB2WJobschangeorderestquanityFromGrid() {
+	public static By getB2wJobschangeorderestquanityFromGrid() {
 		return By.cssSelector(B2WUIMap.b2w_jobschangeorderestquanity);
 	}
-	public static By getB2WJobschangeorderunitofmeasureFromGrid() {
+	public static By getB2wJobschangeorderunitofmeasureFromGrid() {
 		return By.cssSelector(B2WUIMap.b2w_jobschangeorderunitofmeasure);
 	}
-	public static By getB2WJobschangeorderestimatedtotalcostFromGrid() {
+	public static By getB2wJobschangeorderestimatedtotalcostFromGrid() {
 		return By.cssSelector(B2WUIMap.b2w_jobschangeorderestimatedtotalcost);
 	}
-	public static By getB2WJobschangeordertotalpriceFromGrid() {
+	public static By getB2wJobschangeordertotalpriceFromGrid() {
 		return By.cssSelector(B2WUIMap.b2w_jobschangeordertotalprice);
 	}
-	public static By getB2WJobschangeordereditFromGrid() {
+	public static By getB2wJobschangeordereditFromGrid() {
 		return By.cssSelector(B2WUIMap.b2w_jobschangeorderedit);
 	}
-	public static By getB2WJobschangeorderdeleteFromGrid() {
+	public static By getB2wJobschangeorderdeleteFromGrid() {
 		return By.cssSelector(B2WUIMap.b2w_jobschangeorderdelete);
 	}
 	

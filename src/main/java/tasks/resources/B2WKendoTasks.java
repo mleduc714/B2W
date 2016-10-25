@@ -1,10 +1,12 @@
 package tasks.resources;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
 import appobjects.resources.KendoUI;
 import org.apache.log4j.Logger;
+import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
 
@@ -87,11 +89,8 @@ public abstract class B2WKendoTasks {
 			String hidden = els.getAttribute("aria-hidden");
 			if (hidden != null && hidden.equals("false")) {
 				List<WebElement> items = els.findElements(KendoUI.getKendoDropDownItem());
-				//WebElement item = WebElementUtils.getElementWithMatchingStartsWithText(items, sItem);
 				WebElement item = WebElementUtils.getElementWithMatchingText(items, sItem, false);
 				if (item != null) {
-					//bReturn = WebElementUtils.waitForElementHasAttributeWithValue(els, "aria-hidden", "false", true, WebElementUtils.MEDIUM_TIME_OUT);
-					//bReturn &= WebElementUtils.waitForElementClickable(item);
 					bReturn = WebElementUtils.clickElement(item);
 				}else{
 					log.debug("Item with could not be found matching " + sItem);
@@ -101,6 +100,7 @@ public abstract class B2WKendoTasks {
 		if (!bReturn) log.debug("Element with value" + sItem + " could not be found.");
 		return bReturn;
 	}
+
 	/*
 	public boolean selectItemFromFDD(String sItem) {
 		boolean bReturn = false;
@@ -127,4 +127,22 @@ public abstract class B2WKendoTasks {
 		return bReturn;
 	}
 	*/
+	public boolean getHeaderandExpandOrCollapse(String sText, boolean bExpand){
+		List<WebElement> ls = WebElementUtils.findElements(B2WEquipment.getKendoHeadersFromView());
+		WebElement el = WebElementUtils.getElementWithMatchingText(ls, sText, false);
+		// get parent and is it expanded or collapsed
+		WebElement parent = WebElementUtils.getParentElement(el);
+		boolean isExpanded =  new Boolean(parent.getAttribute("aria-expanded")).booleanValue();
+		if (isExpanded & !bExpand){
+			log.debug(sText + " is expanded, click to collapse");
+			WebElementUtils.clickElement(el);
+		}
+		if (!isExpanded & bExpand){
+			log.debug(sText + " is collapsed, clicking expanded");
+			WebElementUtils.clickElement(el);
+		}
+		parent = WebElementUtils.getParentElement(el);
+		isExpanded =  new Boolean(parent.getAttribute("aria-expanded")).booleanValue();
+		return isExpanded == bExpand;
+	}
 }
