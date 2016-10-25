@@ -480,6 +480,7 @@ public class B2WUIMap {
 	public static final String b2w_kendotmtabdropdown = "span.k-widget.k-dropdown.k-header";
 	public static final String b2w_kendoinputkinput = "input.k-input";
 	public static final String b2w_kendowindow= "div.k-widget.k-window";
+	public static final String b2w_kendonumerictextbox = "span.k-widget.k-numerictextbox";
 	
 	public static final String b2w_tmpricesheeteditbutton = "a#editPriceSheet.btn-orig";
 	public static final String b2w_tmpricesheetmodifyratesourcebutton = "a#modifyPriceSheetRates.btn-orig";
@@ -745,12 +746,9 @@ public class B2WUIMap {
 	public static final String b2w_maintainkendoitemsbuttoncontainer = "div.work-order-items-button-container";
 	public static final String b2w_maintainadditemsdialog = "div.wizard-dialog.add-request-template-popup.k-window-content.k-content";
 	public static final String b2w_maintainadditemsavebutton = "a.btn-form.large.save";
-	
+
 	public static final String b2w_maintainnewintervalbutton = "a.btn-orig.new-interval-button";
 
-
-
-	
 	public static final String b2w_jobscreatenewestimatebutton = "a#PageContent_CreateNewEstimateItemButton";
 	public static final String b2w_newjobestimateitemnumber = "input#PageContent_ItemNumberTextBox";
 	public static final String b2w_newjobestimateitemid = "input#PageContent_ItemIDTextBox";
