@@ -92,17 +92,50 @@ public class B2WSchedulerTasks extends B2WKendoTasks {
     public boolean createNewMoveOrder() {
         return openCreateDialog(MOVEORDER);
     }
-    public boolean createNewEmployeeEvent() {
+    public boolean createNewEvent(String sItem) {
         boolean bResult;
         bResult = openCreateDialog(EVENT);
+        if (bResult) {
+            bResult = false;
+            TaskUtils.sleep(100);
+            List<WebElement> list = WebElementUtils.findElements(B2WScheduleAssignments.getLinksContainer());
+            Iterator<WebElement> iterator = list.iterator();
+            while (iterator.hasNext() && !bResult) {
+                WebElement els = iterator.next();
 
+                if (els.isDisplayed()) {
+                    List<WebElement> items = els.findElements(B2WScheduleAssignments.getLinks());
+                    WebElement item = WebElementUtils.getElementWithMatchingText(items, sItem, false);
+                    if (item != null) {
+                        bResult = WebElementUtils.clickElement(item);
+                    } else {
+                        log.debug("Item with could not be found matching 'Employee'");
+                    }
+                }
+            }
+            if (!bResult) log.debug("Submenu '" + sItem + "' could not be found.");
+        } else {
+            log.debug("Menu 'New -> Event' could not be clicked.");
+        }
+        return bResult;
+    }
+    public boolean createNewEmployeeEvent() {
+        boolean bResult;
+        //bResult = openCreateDialog(EVENT);
+        bResult = createNewEvent("Employee");
         return bResult;
     }
     public boolean createNewEquipmentEvent() {
-        return openCreateDialog(EVENT);
+        boolean bResult;
+        //bResult = openCreateDialog(EVENT);
+        bResult = createNewEvent("Equipment");
+        return bResult;
     }
     public boolean createNewLocationEvent() {
-        return openCreateDialog(EVENT);
+        boolean bResult;
+        //bResult = openCreateDialog(EVENT);
+        bResult = createNewEvent("Location");
+        return bResult;
     }
 
     // Set value to fields: Equipment, Employee, Equipment Need, Employee Need
@@ -113,6 +146,7 @@ public class B2WSchedulerTasks extends B2WKendoTasks {
         if (assignmentWindow != null) {
             WebElement employeeAssignment = WebElementUtils.getKendoFDDElementByLabel(sFieldName);
             bReturn = sendTextAndSelectValueFromKendoFDD(employeeAssignment, sValue);
+            waitForSchedulePageNoBusy();
         } else {
             log.debug("Create Assignment Window could not be found");
         }
@@ -191,6 +225,27 @@ public class B2WSchedulerTasks extends B2WKendoTasks {
         boolean bResult;
         bResult = clickSelectCrewBtn();
         return bResult;
+    }
+    public boolean setEventType(String sTypeName) {
+        boolean bResult = false;
+        WebElement dropDown = WebElementUtils.findElement(B2WScheduleAssignments.getEventTypeDropDown());
+        if (dropDown != null) {
+            WebElement parent = WebElementUtils.getParentElement(dropDown);
+            bResult = WebElementUtils.clickElement(parent);
+            bResult &= selectItemFromDropDown(sTypeName);
+        } else {
+            log.debug("Could not find 'Select event type' dropdown.");
+        }
+        return bResult;
+    }
+    public boolean setEventEmployee(String sValue) {
+        return setFields("Employee", sValue);
+    }
+    public boolean setEventEquipment(String sEquipmentName) {
+        return setFields("Equipment", sEquipmentName);
+    }
+    public boolean setEventLocation(String sJobSiteName) {
+        return setFields("Location", sJobSiteName);
     }
 
     public boolean clickSelectCrewBtn() {
@@ -272,6 +327,7 @@ public class B2WSchedulerTasks extends B2WKendoTasks {
         //ToDo
         boolean bResult = false;
         WebElement el = WebElementUtils.findElement(B2WScheduleAssignments.getCreateAssignmentBtn());
+        WebElementUtils.waitForElementClickable(el);
         if (el != null) {
             bResult = WebElementUtils.clickElement(el);
             waitForSchedulePageNoBusy();
@@ -297,6 +353,13 @@ public class B2WSchedulerTasks extends B2WKendoTasks {
             log.debug("Create Move Order Button could not be found.");
         }
 
+        //bResult &= checkAssignmentExist();
+        return bResult;
+    }
+    public boolean saveEvent() {
+        //ToDo
+        boolean bResult;
+        bResult = saveAssignment();
         //bResult &= checkAssignmentExist();
         return bResult;
     }
