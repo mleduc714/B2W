@@ -768,4 +768,7 @@ public class B2WUIMap {
 	public static final String b2w_schedulelinks = "span.k-link";
 	public static final String b2w_scheduleeventtypedropdown = ".//select[@kendo-b2w-drop-down-list = 'eventTypes']";
 	
+	//Create New Change Order Button
+	public static final String b2w_createnewchangeorderbutton = "a#PageContent_CreateNewChangeOrderButton";
+	
 }

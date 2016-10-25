@@ -472,4 +472,174 @@ public class B2WJobsTasks extends B2WResourceTasks {
 		}
 		return bReturn;
 	}
+	
+	public boolean clickCreateNewChangeOrderButton() {
+		
+		boolean bReturn = false;
+		
+		if (WebElementUtils.clickElement(B2WJobs.getB2WJobsCreateNewChangeOrderButton())){
+			bReturn = WebElementUtils.waitAndFindDisplayedElement(B2WJobs.getB2WEstimateItemNumber()) != null;
+		}
+		return bReturn;
+	}
+	
+	public boolean setEstimateItemNumber(String sText){
+		boolean bReturn = false;
+		
+		WebElement el = WebElementUtils.findElement(B2WJobs.getB2WEstimateItemNumber());
+		if (el != null){
+			bReturn = WebElementUtils.sendKeys(el, sText);
+		}
+		return bReturn;
+	}
+	
+	public boolean setEstimateEstimatedQuantity(String sText){
+		boolean bReturn = false;
+		
+		WebElement el = WebElementUtils.findElement(B2WJobs.getB2WEstimateEstimatedQuantity());
+		if (el != null){
+			bReturn = WebElementUtils.sendKeys(el, sText);
+		}
+		return bReturn;
+	}
+	
+	public boolean setEstimateItemID(String sText){
+		boolean bReturn = false;
+		
+		WebElement el = WebElementUtils.findElement(B2WJobs.getB2WEstimateItemID());
+		if (el != null){
+			bReturn = WebElementUtils.sendKeys(el, sText);
+		}
+		return bReturn;
+	}
+	
+	public boolean setEstimateChangeOrderQuantity(String sText){
+		boolean bReturn = false;
+		
+		WebElement el = WebElementUtils.findElement(B2WJobs.getB2WEstimateChangeOrderQuantity());
+		if (el != null){
+			bReturn = WebElementUtils.sendKeys(el, sText);
+		}
+		return bReturn;
+	}
+	
+	public boolean setEstimateDescription(String sText){
+		boolean bReturn = false;
+		
+		WebElement el = WebElementUtils.findElement(B2WJobs.getB2WEstimateDescription());
+		if (el != null){
+			bReturn = WebElementUtils.sendKeys(el, sText);
+		}
+		return bReturn;
+	}
+	
+	public boolean setEstimateUnitBidPriceEstimated(String sText){
+		boolean bReturn = false;
+		
+		WebElement el = WebElementUtils.findElement(B2WJobs.getB2WEstimateUnitBidPriceEstimated());
+		if (el != null){
+			bReturn = WebElementUtils.sendKeys(el, sText);
+		}
+		return bReturn;
+	}
+	
+	public boolean setEstimateUnitBidPriceChangeOrder(String sText){
+		boolean bReturn = false;
+		
+		WebElement el = WebElementUtils.findElement(B2WJobs.getB2WEstimateUnitBidPriceChangeOrder());
+		if (el != null){
+			bReturn = WebElementUtils.sendKeys(el, sText);
+		}
+		return bReturn;
+	}
+	
+	public boolean setEstimateTotalBidPriceEstimated(String sText){
+		boolean bReturn = false;
+		
+		WebElement el = WebElementUtils.findElement(B2WJobs.getB2WEstimateTotalBidPriceEstimated());
+		if (el != null){
+			bReturn = WebElementUtils.sendKeys(el, sText);
+		}
+		return bReturn;
+	}
+	
+	public boolean setEstimateTotalBidPriceChangeOrder(String sText){
+		boolean bReturn = false;
+		
+		WebElement el = WebElementUtils.findElement(B2WJobs.getB2WEstimateTotalBidPriceChangeOrder());
+		if (el != null){
+			bReturn = WebElementUtils.sendKeys(el, sText);
+		}
+		return bReturn;
+	}
+	
+	
+	
+	public boolean setChangeOrdersID(String sText){
+		boolean bReturn = false;
+		
+		WebElement el = WebElementUtils.findElement(B2WJobs.getB2WChangeOrdersID());
+		if (el != null){
+			bReturn = WebElementUtils.sendKeys(el, sText);
+		}
+		return bReturn;
+	}
+	
+	public boolean setChangeOrdersAlternateID(String sText){
+		boolean bReturn = false;
+		
+		WebElement el = WebElementUtils.findElement(B2WJobs.getB2WChaneOrdersAlternateID());
+		if (el != null){
+			bReturn = WebElementUtils.sendKeys(el, sText);
+		}
+		return bReturn;
+	}
+	
+	public boolean setChangeOrdersDescription(String sText){
+		boolean bReturn = false;
+		
+		WebElement el = WebElementUtils.findElement(B2WJobs.getB2WChangeOrdersDescription());
+		if (el != null){
+			bReturn = WebElementUtils.sendKeys(el, sText);
+		}
+		return bReturn;
+	}
+	
+	public boolean setChangeOrdersEstimatedQuantity(String sText){
+		boolean bReturn = false;
+		
+		WebElement el = WebElementUtils.findElement(B2WJobs.getB2WChangeOrderEstimatedQuantity());
+		if (el != null){
+			bReturn = WebElementUtils.sendKeys(el, sText);
+		}
+		return bReturn;
+	}
+
+	
+	
+	public boolean setEstimateUnitOfMeasure(String sText){
+		WebElementUtils.selectAnyItemFromOpsDropDownMenu(B2WJobs.getB2WEstimateUnitOfMeasure());
+		
+		return WebElementUtils.getSelectedTextFromDropDown(B2WJobs.getB2WEstimateUnitOfMeasure()).equals(sText);
+	}
+	
+	
+	
+	public boolean setChangeOrdersType(String sText){
+		WebElementUtils.selectAnyItemFromOpsDropDownMenu(B2WJobs.getB2WChangeOrdersType());
+		
+		return WebElementUtils.getSelectedTextFromDropDown(B2WJobs.getB2WChangeOrdersType()).equals(sText);
+	}
+	
+	public boolean setChangeOrdersStatus(String sText){
+		WebElementUtils.selectAnyItemFromOpsDropDownMenu(B2WJobs.getB2WChangeOrdersStatus());
+		
+		return WebElementUtils.getSelectedTextFromDropDown(B2WJobs.getB2WChangeOrdersStatus()).equals(sText);
+	}
+	
+	public boolean setChangeOrdersUnitOfMeasure(String sText){
+		WebElementUtils.selectAnyItemFromOpsDropDownMenu(B2WJobs.getB2WChangeOrderUnitOfMeasure());
+		
+		return WebElementUtils.getSelectedTextFromDropDown(B2WJobs.getB2WChangeOrderUnitOfMeasure()).equals(sText);
+	}
 }
