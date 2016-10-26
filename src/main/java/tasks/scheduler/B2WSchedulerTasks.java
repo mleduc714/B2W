@@ -345,7 +345,6 @@ public class B2WSchedulerTasks extends B2WKendoTasks {
         }
         return elResult;
     }
-
     public int getAssignmentsCount(String sResourceName, String sLocationName) {
         return getAssignments(sResourceName, sLocationName).size();
     }
