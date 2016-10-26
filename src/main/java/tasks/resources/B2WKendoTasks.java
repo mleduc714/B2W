@@ -1,17 +1,15 @@
 package tasks.resources;
 
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import appobjects.scheduler.B2WScheduleAssignments;
 import org.apache.log4j.Logger;
-import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
 
 import appobjects.resources.B2WEquipment;
 import appobjects.resources.KendoUI;
+import appobjects.scheduler.B2WScheduleAssignments;
 import tasks.BrowserUtils;
 import tasks.WebElementUtils;
 import tasks.util.TaskUtils;
