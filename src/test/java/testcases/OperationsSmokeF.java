@@ -282,6 +282,7 @@ public class OperationsSmokeF extends B2WTestCase {
 		b2wTM.selectRandomRequestedByFromDD();
 		b2wTM.selectRandomAccountIDFromDD();
 		assertTrue("Save TM Work Item",b2wTM.saveTMWorkItem());
+		logCompare(true,b2wNT.clickHome(), "Go Home");
 	}
 
 }
