@@ -1,6 +1,7 @@
 package testcases;
 
 import com.b2w.test.B2WTestCase;
+
 import tasks.B2WNavigationTasks;
 import tasks.scheduler.B2WSchedulerTasks;
 

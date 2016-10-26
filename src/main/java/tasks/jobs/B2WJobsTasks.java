@@ -1,7 +1,5 @@
 package tasks.jobs;
 
-import java.util.ArrayList;
-
 import org.openqa.selenium.WebElement;
 
 import appobjects.B2WCommonObjects;
@@ -463,59 +461,185 @@ public class B2WJobsTasks extends B2WResourceTasks {
 		}
 		return bReturn;
 	}
-	public ArrayList<String> getJobSiteDescriptionFromGrid() {
-		return TaskUtils.getTextFromElements(B2WJobs.getB2WJobssitedesc());
-	}
-	public ArrayList<String> getJobSiteSupervisorFromGrid() {
-		return TaskUtils.getTextFromElements(B2WJobs.getB2WJobssitesitesupervisor());
-	}
-	public ArrayList<String> getJobSiteAddressFromGrid() {
-		return TaskUtils.getTextFromElements(B2WJobs.getB2WJobssiteaddress());
-	}
-	public ArrayList<String> getJobSiteCityFromGrid() {
-		return TaskUtils.getTextFromElements(B2WJobs.getB2WJobssitecity());
-	}
-	public ArrayList<String> getJobSiteStateFromGrid() {
-		return TaskUtils.getTextFromElements(B2WJobs.getB2WJobssitestate());
-	}
-	public ArrayList<String> getJobMaterialsDescriptionFromGrid() {
-		return TaskUtils.getTextFromElements(B2WJobs.getB2WJobsmaterialsdescFromGrid());
-	}
-	public ArrayList<String> getJobMaterialsIDFromGrid() {
-		return TaskUtils.getTextFromElements(B2WJobs.getB2WJobsmaterialsmaterialidFromGrid());
-	}
-	public ArrayList<String> getJobMaterialsUnitCostFromGrid() {
-		return TaskUtils.getTextFromElements(B2WJobs.getB2WJobsmaterialsunitcostFromGrid());
-	}
-	public ArrayList<String> getJobMaterialsUnitMeasureFromGrid() {
-		return TaskUtils.getTextFromElements(B2WJobs.getB2WJobsmaterialsunitmeasureFromGrid());
-	}
-	public ArrayList<String> getJobSubcontractorCompanyNameFromGrid() {
-		return TaskUtils.getTextFromElements(B2WJobs.getB2WJobssubsvendorscompnameFromGrid());
-	}
-	public ArrayList<String> getJobSubcontractorCompanyIDFromGrid() {
-		return TaskUtils.getTextFromElements(B2WJobs.getB2WJobssubsvendorscompidFromGrid());
-	}
-	public ArrayList<String> getJobSubcontractorCompanyTypeFromGrid() {
-		return TaskUtils.getTextFromElements(B2WJobs.getB2WJobssubsvendorscomptypeFromGrid());
-	}
-	public ArrayList<String> getJobTruckingSubcontractorCompanyNameFromGrid() {
-		return TaskUtils.getTextFromElements(B2WJobs.getB2WJobstruckingsubscompanynameFromGrid());
-	}
-	public ArrayList<String> getJobTruckingSubcontractorCompanyIDFromGrid() {
-		return TaskUtils.getTextFromElements(B2WJobs.getB2WJobstruckingsubscompanyidFromGrid());
-	}
-	public ArrayList<String> getJobTruckingSubcontractorCompanyTypeFromGrid() {
-		return TaskUtils.getTextFromElements(B2WJobs.getB2WJobstruckingsubscompanytypeFromGrid());
-	}
-	public ArrayList<String> getJobVendorCompanyNameFromGrid() {
-		return TaskUtils.getTextFromElements(B2WJobs.getB2WJobsvendorscompnameFromGrid());
-	}
-	public ArrayList<String> getJobVendorCompanyIDFromGrid() {
-		return TaskUtils.getTextFromElements(B2WJobs.getB2WJobsvendorscompidFromGrid());
-	}
-	public ArrayList<String> getJobVendorCompanyTypeFromGrid() {
-		return TaskUtils.getTextFromElements(B2WJobs.getB2WJobsvendorscomptypeFromGrid());
+	
+	
+	public boolean clickCreateNewEstimateButton() {
+		
+		boolean bReturn = false;
+		
+		if (WebElementUtils.clickElement(B2WJobs.getB2WJobCReateNewEstimateButton())){
+			bReturn = WebElementUtils.waitAndFindDisplayedElement(B2WJobs.getB2WEstimateItemNumber()) != null;
+		}
+		return bReturn;
 	}
 	
+	public boolean clickCreateNewChangeOrderButton() {
+		
+		boolean bReturn = false;
+		
+		if (WebElementUtils.clickElement(B2WJobs.getB2WJobsCreateNewChangeOrderButton())){
+			bReturn = WebElementUtils.waitAndFindDisplayedElement(B2WJobs.getB2WEstimateItemNumber()) != null;
+		}
+		return bReturn;
+	}
+	
+	public boolean setEstimateItemNumber(String sText){
+		boolean bReturn = false;
+		
+		WebElement el = WebElementUtils.findElement(B2WJobs.getB2WEstimateItemNumber());
+		if (el != null){
+			bReturn = WebElementUtils.sendKeys(el, sText);
+		}
+		return bReturn;
+	}
+	
+	public boolean setEstimateEstimatedQuantity(String sText){
+		boolean bReturn = false;
+		
+		WebElement el = WebElementUtils.findElement(B2WJobs.getB2WEstimateEstimatedQuantity());
+		if (el != null){
+			bReturn = WebElementUtils.sendKeys(el, sText);
+		}
+		return bReturn;
+	}
+	
+	public boolean setEstimateItemID(String sText){
+		boolean bReturn = false;
+		
+		WebElement el = WebElementUtils.findElement(B2WJobs.getB2WEstimateItemID());
+		if (el != null){
+			bReturn = WebElementUtils.sendKeys(el, sText);
+		}
+		return bReturn;
+	}
+	
+	public boolean setEstimateChangeOrderQuantity(String sText){
+		boolean bReturn = false;
+		
+		WebElement el = WebElementUtils.findElement(B2WJobs.getB2WEstimateChangeOrderQuantity());
+		if (el != null){
+			bReturn = WebElementUtils.sendKeys(el, sText);
+		}
+		return bReturn;
+	}
+	
+	public boolean setEstimateDescription(String sText){
+		boolean bReturn = false;
+		
+		WebElement el = WebElementUtils.findElement(B2WJobs.getB2WEstimateDescription());
+		if (el != null){
+			bReturn = WebElementUtils.sendKeys(el, sText);
+		}
+		return bReturn;
+	}
+	
+	public boolean setEstimateUnitBidPriceEstimated(String sText){
+		boolean bReturn = false;
+		
+		WebElement el = WebElementUtils.findElement(B2WJobs.getB2WEstimateUnitBidPriceEstimated());
+		if (el != null){
+			bReturn = WebElementUtils.sendKeys(el, sText);
+		}
+		return bReturn;
+	}
+	
+	public boolean setEstimateUnitBidPriceChangeOrder(String sText){
+		boolean bReturn = false;
+		
+		WebElement el = WebElementUtils.findElement(B2WJobs.getB2WEstimateUnitBidPriceChangeOrder());
+		if (el != null){
+			bReturn = WebElementUtils.sendKeys(el, sText);
+		}
+		return bReturn;
+	}
+	
+	public boolean setEstimateTotalBidPriceEstimated(String sText){
+		boolean bReturn = false;
+		
+		WebElement el = WebElementUtils.findElement(B2WJobs.getB2WEstimateTotalBidPriceEstimated());
+		if (el != null){
+			bReturn = WebElementUtils.sendKeys(el, sText);
+		}
+		return bReturn;
+	}
+	
+	public boolean setEstimateTotalBidPriceChangeOrder(String sText){
+		boolean bReturn = false;
+		
+		WebElement el = WebElementUtils.findElement(B2WJobs.getB2WEstimateTotalBidPriceChangeOrder());
+		if (el != null){
+			bReturn = WebElementUtils.sendKeys(el, sText);
+		}
+		return bReturn;
+	}
+	
+	
+	
+	public boolean setChangeOrdersID(String sText){
+		boolean bReturn = false;
+		
+		WebElement el = WebElementUtils.findElement(B2WJobs.getB2WChangeOrdersID());
+		if (el != null){
+			bReturn = WebElementUtils.sendKeys(el, sText);
+		}
+		return bReturn;
+	}
+	
+	public boolean setChangeOrdersAlternateID(String sText){
+		boolean bReturn = false;
+		
+		WebElement el = WebElementUtils.findElement(B2WJobs.getB2WChaneOrdersAlternateID());
+		if (el != null){
+			bReturn = WebElementUtils.sendKeys(el, sText);
+		}
+		return bReturn;
+	}
+	
+	public boolean setChangeOrdersDescription(String sText){
+		boolean bReturn = false;
+		
+		WebElement el = WebElementUtils.findElement(B2WJobs.getB2WChangeOrdersDescription());
+		if (el != null){
+			bReturn = WebElementUtils.sendKeys(el, sText);
+		}
+		return bReturn;
+	}
+	
+	public boolean setChangeOrdersEstimatedQuantity(String sText){
+		boolean bReturn = false;
+		
+		WebElement el = WebElementUtils.findElement(B2WJobs.getB2WChangeOrderEstimatedQuantity());
+		if (el != null){
+			bReturn = WebElementUtils.sendKeys(el, sText);
+		}
+		return bReturn;
+	}
+
+	
+	
+	public boolean setEstimateUnitOfMeasure(String sText){
+		WebElementUtils.selectAnyItemFromOpsDropDownMenu(B2WJobs.getB2WEstimateUnitOfMeasure());
+		
+		return WebElementUtils.getSelectedTextFromDropDown(B2WJobs.getB2WEstimateUnitOfMeasure()).equals(sText);
+	}
+	
+	
+	
+	public boolean setChangeOrdersType(String sText){
+		WebElementUtils.selectAnyItemFromOpsDropDownMenu(B2WJobs.getB2WChangeOrdersType());
+		
+		return WebElementUtils.getSelectedTextFromDropDown(B2WJobs.getB2WChangeOrdersType()).equals(sText);
+	}
+	
+	public boolean setChangeOrdersStatus(String sText){
+		WebElementUtils.selectAnyItemFromOpsDropDownMenu(B2WJobs.getB2WChangeOrdersStatus());
+		
+		return WebElementUtils.getSelectedTextFromDropDown(B2WJobs.getB2WChangeOrdersStatus()).equals(sText);
+	}
+	
+	public boolean setChangeOrdersUnitOfMeasure(String sText){
+		WebElementUtils.selectAnyItemFromOpsDropDownMenu(B2WJobs.getB2WChangeOrderUnitOfMeasure());
+		
+		return WebElementUtils.getSelectedTextFromDropDown(B2WJobs.getB2WChangeOrderUnitOfMeasure()).equals(sText);
+	}
 }

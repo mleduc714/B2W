@@ -46,6 +46,6 @@ public class B2WNavigationPanel {
 		 	return By.cssSelector(B2WUIMap.b2w_reportsLink);
 	 }
 	 
-	 
+	 //mrl
 	
 }

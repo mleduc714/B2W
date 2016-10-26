@@ -478,7 +478,13 @@ public class B2WUIMap {
 	public static final String b2w_kendodata = "div.data";
 	public static final String b2w_kendokdropdown = ".k-dropdown-wrap";
 	public static final String b2w_kendotmtabdropdown = "span.k-widget.k-dropdown.k-header";
+	public static final String b2w_kendoinputkinput = "input.k-input";
+	public static final String b2w_kendowindow= "div.k-widget.k-window";
+	public static final String b2w_kendonumerictextbox = "span.k-widget.k-numerictextbox";
+	public static final String b2w_kendosavebuttonfake = "div.btn-form.large.fake";
 
+
+	
 	public static final String b2w_tmpricesheeteditbutton = "a#editPriceSheet.btn-orig";
 	public static final String b2w_tmpricesheetmodifyratesourcebutton = "a#modifyPriceSheetRates.btn-orig";
 	public static final String b2w_tmpricesheetcopypricesheet = "a#copyPriceSheet.btn-orig";
@@ -712,7 +718,6 @@ public class B2WUIMap {
 	public static final String b2w_jobstmworkitemcompletecheckbox = "input#IsComplete";
 	public static final String b2w_jobstmworkitempricelimitcheckbox = "input#HasPriceLimit";
 	public static final String b2w_jobstmworkitemsavebutton = "div#SaveButton.btn-form.large";
-
 	// Schedule Assignments
 	public static final String b2w_schedulecenterpanel = "b2w-panel-center";
 	public static final String b2w_scheduleproductpageicon = "a#ProductPageIcon";
@@ -724,11 +729,8 @@ public class B2WUIMap {
 	public static final String b2w_schedulecontrolpanel = ".control-panel";
 	public static final String b2w_scheduleselectcrewbtn = ".btn-form.large";
 	public static final String b2w_schedulebuttoncontainer = ".button-container";
-	public static final String b2w_schedulecreateassignmentbtn = ".//span[text()='Create Assignment']";
-	public static final String b2w_schedulecreatemoveorderbtn = ".//span[text()='Create Move Order']";
-	public static final String b2w_scheduleanimationcontainer = ".k-animation-container";
-	public static final String b2w_schedulelinks = "span.k-link";
-	public static final String b2w_scheduleeventtypedropdown = ".//select[@kendo-b2w-drop-down-list = 'eventTypes']";
+	public static final String b2w_schedulecreateassignmentbtn = "//span[text()='Create Assignment']";
+	public static final String b2w_schedulecreatemoveorderbtn = "//span[text()='Create Move Order']";
 
 	// Maintain
 	public static final String b2w_maintainpagemenu = "ul#SubNavMenu_MaintainPageMenu.MaintainPageMenu";
@@ -742,12 +744,44 @@ public class B2WUIMap {
 	public static final String b2w_maintainparts = "li#SubNavMenu_PartsMenuItem";
 	public static final String b2w_maintaininventory = "li#SubNavMenu_InventoryMenuItem";
 	public static final String b2w_maintainpurchasing = "li#SubNavMenu_PurchasingMenuItem";
-	
 	public static final String b2w_maintainkendocontentform = "div.box-content.form";
 	public static final String b2w_maintainkendodialogcontentform = "div.dialog-content";
 	public static final String b2w_maintainkendoitemsbuttoncontainer = "div.work-order-items-button-container";
 	public static final String b2w_maintainadditemsdialog = "div.wizard-dialog.add-request-template-popup.k-window-content.k-content";
 	public static final String b2w_maintainadditemsavebutton = "a.btn-form.large.save";
-	
 
+	public static final String b2w_maintainnewintervalbutton = "a.btn-orig.new-interval-button";
+
+	public static final String b2w_jobscreatenewestimatebutton = "a#PageContent_CreateNewEstimateItemButton";
+	public static final String b2w_newjobestimateitemnumber = "input#PageContent_ItemNumberTextBox";
+	public static final String b2w_newjobestimateitemid = "input#PageContent_ItemIDTextBox";
+	public static final String b2w_newjobestimatedescription = "input#PageContent_DescriptionTextBox";
+	public static final String b2w_newjobestimateunitofmeasure = "select#PageContent_UnitofMeasureDropDownList";
+	public static final String b2w_newjobestimateestimatedquantity = "input#PageContent_EstimatedQuantityTextBox_numVal";
+	public static final String b2w_newjobestimatechangeorderquantity = "input#PageContent_ChangeOrderQuantityTextBox_numVal";
+	public static final String b2w_newjobestimateunitbidpriceestimated = "input#PageContent_UnitBidPriceTextBox_numVal";
+	public static final String b2w_newjobestimateunitbidpricechangeorder = "input#PageContent_ChangeOrderUnitBidPriceTextBox_numVal";
+	public static final String b2w_newjobestimatetotalbidpriceestimated = "input#PageContent_TotalBidPriceTextBox_numVal";
+	public static final String b2w_newjobestimatetotalbidpricechangeorder = "input#PageContent_ChangeOrderTotalBidPriceTextBox_numVal";
+	
+	public static final String b2w_newjobchangeorderid = "input#PageContent_generalInformationPanel_ChangeOrderIDTextBox";
+	public static final String b2w_newjobchangeorderalternateid = "input#PageContent_generalInformationPanel_AlternateIDTextBox";
+	public static final String b2w_newjobchangeorderdescription = "input#PageContent_generalInformationPanel_DescriptionTextBox";
+	public static final String b2w_newjobchangeordertype = "select#PageContent_generalInformationPanel_ChangeOrderTypeDropDownList";
+	public static final String b2w_newjobchangeorderstatus = "select#PageContent_generalInformationPanel_StatusDropDownList";
+	public static final String b2w_newjobchangeorderestimatedquantity = "input#PageContent_generalInformationPanel_EstimatedQuantityTextBox_numVal";
+	public static final String b2w_newjobchangeorderunitofmeasure = "select#PageContent_generalInformationPanel_UnitofMeasureDropDownList";
+	public static final String b2w_newjobchangeordernotes = "textarea#PageContent_generalInformationPanel_NotesTextBox";
+	
+	public static final String b2w_maintainaddintervalbutton = "a.btn-orig.new-interval-button";
+	public static final String b2w_maintainintervaldialog = "div#program_interval_modal.wizard-dialog.programInterval-editable.k-window-content.k-content";
+	public static final String b2w_maintainintervalsavebutton = "div.button-container";
+	
+	public static final String b2w_scheduleanimationcontainer = ".k-animation-container";
+	public static final String b2w_schedulelinks = "span.k-link";
+	public static final String b2w_scheduleeventtypedropdown = ".//select[@kendo-b2w-drop-down-list = 'eventTypes']";
+	
+	//Create New Change Order Button
+	public static final String b2w_createnewchangeorderbutton = "a#PageContent_CreateNewChangeOrderButton";
+	
 }
