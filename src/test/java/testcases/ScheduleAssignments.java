@@ -116,7 +116,6 @@ public class ScheduleAssignments extends B2WTestCase {
         createEquipmentNeed();
         createCrewAssignment();
         createCrewNeed();
-
         createMoveAssignment();
         createMoveOrder();
         createEmployeeEvent();
@@ -135,10 +134,15 @@ public class ScheduleAssignments extends B2WTestCase {
         // Open Schedule View with Employee Schedule
         logCompare(true, b2wNav.openSchedule(), "Open Schedule View");
         logCompare(true, b2wScheduler.navigateToScheduleView(sEmployeeView, sEmployeeView), "Open Employee Schedule View");
+        int initialCount = b2wScheduler.getAssignmentsCount(sEmployeeName, sJobSiteName);
         logCompare(true, b2wScheduler.createNewEmployeeAssignment(), "Open Create Employee Assignment Dialog");
         logCompare(true, b2wScheduler.setJobSite(sJobSiteName), "Set JobSite/Place");
         logCompare(true, b2wScheduler.setEmployee(sEmployeeName), "Set Employee");
         logCompare(true, b2wScheduler.saveEmployeeAssignment(), "Save New Employee Assignment");
+        int actualCount = b2wScheduler.getAssignmentsCount(sEmployeeName, sJobSiteName);
+        //Assert.assertEquals("Verification that Assignment has been created.", actualCount, initialCount + 1);
+        logCompare(true, actualCount == initialCount + 1, "Verification that Assignment has been created.");
+
     }
 
     public void createEquipmentAssignment() {
