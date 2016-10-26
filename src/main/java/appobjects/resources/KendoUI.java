@@ -63,4 +63,7 @@ public abstract class KendoUI {
 	public static By getKendoNumericTextBox(){
 		return By.cssSelector(B2WUIMap.b2w_kendonumerictextbox);
 	}
+	public static By getKendoFakeSaveButton() {
+		return By.cssSelector(B2WUIMap.b2w_kendosavebuttonfake);
+	}
 }

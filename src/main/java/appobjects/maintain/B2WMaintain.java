@@ -67,4 +67,7 @@ public class B2WMaintain extends KendoUI {
 	 public static By getB2WMaintainAddIntervalButton() {
 		 return By.cssSelector(B2WUIMap.b2w_maintainaddintervalbutton);
 	 }
+	 public static By getB2WMaintainAddIntervalDialog() {
+		 return By.cssSelector(B2WUIMap.b2w_maintainintervaldialog);
+	 }
 }

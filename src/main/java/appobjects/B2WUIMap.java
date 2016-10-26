@@ -481,6 +481,9 @@ public class B2WUIMap {
 	public static final String b2w_kendoinputkinput = "input.k-input";
 	public static final String b2w_kendowindow= "div.k-widget.k-window";
 	public static final String b2w_kendonumerictextbox = "span.k-widget.k-numerictextbox";
+	public static final String b2w_kendosavebuttonfake = "div.btn-form.large.fake";
+
+
 	
 	public static final String b2w_tmpricesheeteditbutton = "a#editPriceSheet.btn-orig";
 	public static final String b2w_tmpricesheetmodifyratesourcebutton = "a#modifyPriceSheetRates.btn-orig";
@@ -771,6 +774,8 @@ public class B2WUIMap {
 	public static final String b2w_newjobchangeordernotes = "textarea#PageContent_generalInformationPanel_NotesTextBox";
 	
 	public static final String b2w_maintainaddintervalbutton = "a.btn-orig.new-interval-button";
+	public static final String b2w_maintainintervaldialog = "div#program_interval_modal.wizard-dialog.programInterval-editable.k-window-content.k-content";
+	public static final String b2w_maintainintervalsavebutton = "div.button-container";
 	
 	public static final String b2w_scheduleanimationcontainer = ".k-animation-container";
 	public static final String b2w_schedulelinks = "span.k-link";

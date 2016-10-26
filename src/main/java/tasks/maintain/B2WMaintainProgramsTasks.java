@@ -26,14 +26,23 @@ public class B2WMaintainProgramsTasks extends B2WMaintainTasks {
 	private final String INTERVALCAL = "intervalCalendarType";
 	private final String INTERVALTYPE = "intervalType";
 	private final String OCCUREVERY = "Occur every";
-	private final String GENREPAIRS = "Generate repair";
-	private final String WEEKSON = "Week(s) on";
+	//private final String GENREPAIRS = "Generate repair";
+	//private final String WEEKSON = "Week(s) on";
 	private final String MONTHLYVALUE = "dayOfWeek";
 	private final String MONTHLYNAME = "monthlyType";
-	private final String databindCalendarDaily = "visible: programIntervalEditableViewModel.isIntervalTypeCalendarDaily";
-	private final String databindCalendarWeekly = "visible: programIntervalEditableViewModel.isIntervalTypeCalendarWeekly";
+	private final String PLANNEDCALDATE = "Planned Calendar Date";
+	private final String PLANNEDCOMPREADING = "Planned Completion Reading";
+	private final String ACTUALCALDATE = "Actual Calendar Date";
+	private final String ACTUALCOMPREADING = "Actual Completion Reading";
+	
+	//private final String databindCalendarDaily = "visible: programIntervalEditableViewModel.isIntervalTypeCalendarDaily";
+	//private final String databindCalendarWeekly = "visible: programIntervalEditableViewModel.isIntervalTypeCalendarWeekly";
 	private final String databindCalendarMonthly = "visible: programIntervalEditableViewModel.isIntervalTypeCalendarMonthly";
 	private final String databindCalendarYearly = "visible: programIntervalEditableViewModel.isIntervalTypeCalendarYearly";
+	private final String databindTypeMeterBasedinvisible = "invisible: programIntervalEditableViewModel.isIntervalTypeMeterBased";
+	private final String databindTypeMeterBasedvisible = "visible: programIntervalEditableViewModel.isIntervalTypeMeterBased";
+	private final String GENERALREPAIRREQUESTS = "Generate repair requests for this item";
+	//private final String SCHEDULEOCCURANCES = "Schedule the subsequent occurrences";
 	
 	public boolean createNewMaintenanceProgram() {
 		boolean bReturn = false;
@@ -75,12 +84,13 @@ public class B2WMaintainProgramsTasks extends B2WMaintainTasks {
 			if (item.getText().startsWith(BUSINESSUNIT)) {
 				item.click();
 				bReturn = selectItemFromDropDown(sText);
+				break;
 			}
 		}
 		return bReturn;
 	}
 
-	public boolean setLaborRateClass(String sText) {
+	public boolean selectLaborRateClass(String sText) {
 		boolean bReturn = false;
 
 		WebElement el = WebElementUtils.findElement(B2WMaintain.getB2WMaintainBoxContent());
@@ -88,9 +98,11 @@ public class B2WMaintainProgramsTasks extends B2WMaintainTasks {
 		Iterator<WebElement> iter = items.iterator();
 		while (iter.hasNext()) {
 			WebElement item = iter.next();
+			System.out.println(item.getText());
 			if (item.getText().startsWith(LABORRATES)) {
-				item.click();
+				WebElementUtils.clickElement(WebElementUtils.getChildElement(item,B2WMaintain.getKendoDropDownForTMTab()));
 				bReturn = selectItemFromDropDown(sText);
+				break;
 			}
 		}
 		return bReturn;
@@ -105,7 +117,7 @@ public class B2WMaintainProgramsTasks extends B2WMaintainTasks {
 			WebElement button = iter.next();
 			if (button.getText().startsWith(ADDITEM)) {
 				bReturn = WebElementUtils.clickElement(button);
-				bReturn = WebElementUtils.switchToFrame(B2WMaintain.getB2WMaintainAddItemDialog(),
+				WebElementUtils.switchToFrame(B2WMaintain.getB2WMaintainAddItemDialog(),
 						WebElementUtils.SHORT_TIME_OUT);
 
 			}
@@ -178,7 +190,7 @@ public class B2WMaintainProgramsTasks extends B2WMaintainTasks {
 		WebElement save = WebElementUtils.getChildElement(el, B2WMaintain.getB2WMaintainAddItemSaveButton());
 		if (save != null) {
 			bReturn = WebElementUtils.clickElement(save);
-			bReturn &= WebElementUtils.waitForElementInvisible(el);
+			bReturn &= WebElementUtils.waitForElementInvisible(save);
 		}
 		return bReturn;
 	}
@@ -187,8 +199,8 @@ public class B2WMaintainProgramsTasks extends B2WMaintainTasks {
 		boolean bReturn = false;
 		WebElement el = WebElementUtils.waitAndFindDisplayedElement(B2WMaintain.getB2WMaintainAddIntervalButton());
 		if (el != null) {
-			WebElementUtils.clickElement(B2WMaintain.getB2WMaintainAddIntervalButton());
-			bReturn = WebElementUtils.switchToFrame(B2WMaintain.getKendoWindow(), WebElementUtils.SHORT_TIME_OUT);
+			bReturn = WebElementUtils.clickElement(B2WMaintain.getB2WMaintainAddIntervalButton());
+			WebElementUtils.switchToFrame(B2WMaintain.getKendoWindow(), WebElementUtils.SHORT_TIME_OUT);
 		}
 
 		return bReturn;
@@ -283,9 +295,34 @@ public class B2WMaintainProgramsTasks extends B2WMaintainTasks {
 		bReturn = WebElementUtils.clickElement(every.get(0));
 		bReturn &= WebElementUtils.sendKeys(every.get(1), sEvery);
 		List<WebElement> dropdowns = el.findElements(B2WMaintain.getKendoDropDownForTMTab());
-		return false;
+		dropdowns.get(0).click();
+		selectItemFromDropDown(sNumber);
+		dropdowns.get(1).click();
+		bReturn = selectItemFromDropDown(sDay);
+		
+		return bReturn;
 	
 		
+	}
+	
+	public boolean setYearlyIntervalOccursEveryonTheOf(String sYear, String sOn, String sDay, String sMonth){
+		
+		boolean bReturn = true;
+		selectYearlyBasedInterval();
+		WebElement el = getYearlyDataElement();
+		WebElement textbox = WebElementUtils.getChildElement(el, B2WMaintain.getKendoNumericTextBox());
+		List<WebElement> every = textbox.findElements(B2WMaintain.getB2WMaintainAddItemLevel());
+		bReturn = WebElementUtils.clickElement(every.get(0));
+		bReturn &= WebElementUtils.sendKeys(every.get(1), sYear);
+		List<WebElement> dropdowns = el.findElements(B2WMaintain.getKendoDropDownForTMTab());
+		dropdowns.get(0).click();
+		selectItemFromDropDown(sOn);
+		dropdowns.get(1).click();
+		selectItemFromDropDown(sDay);
+		dropdowns.get(2).click();
+		selectItemFromDropDown(sMonth);
+		return bReturn;
+			
 	}
 	
 	
@@ -308,6 +345,16 @@ public class B2WMaintainProgramsTasks extends B2WMaintainTasks {
 	private WebElement getYearlyDataElement() {
 		return getProgramIntervalType(databindCalendarYearly);
 		
+	}
+	
+	private WebElement getIntervalTypeMeterBasedInvisible() {
+		return getProgramIntervalType(databindTypeMeterBasedinvisible);
+	}
+
+	private WebElement getIntervalTypeMeterBasedvisible() {
+
+		return getProgramIntervalType(databindTypeMeterBasedvisible);
+
 	}
 	
 	private WebElement getProgramIntervalType(String sDataInterval) {
@@ -344,4 +391,111 @@ public class B2WMaintainProgramsTasks extends B2WMaintainTasks {
 		return dialog;
 	}
 	
+	public boolean setGenerateRepairRequestsForThisItem(String sDays){
+		boolean bReturn = false;
+		Iterator<WebElement> iter = getElementsByTag("p");
+		while (iter.hasNext()){
+			WebElement el = iter.next();
+			if (el.getText().startsWith(GENERALREPAIRREQUESTS)){
+				List<WebElement> inputs = el.findElements(B2WMaintain.getB2WMaintainAddItemLevel());
+				WebElementUtils.clickElement(inputs.get(0));
+				bReturn = WebElementUtils.sendKeys(inputs.get(1), sDays);
+			}
+		}
+		return bReturn;
+	}
+	
+	public boolean selectScheduleSubsquentOrdersByActualDate(){
+		return selectScheduleSubsequentByDate(ACTUALCALDATE);
+	}
+	public boolean selectScheduleSubsquentOrdersByPlannedDate(){
+		return selectScheduleSubsequentByDate(PLANNEDCALDATE);
+	}
+	public boolean selectScheduleSubsquentOrdersByActualCompReading(){
+		return selectScheduleSubsequentByReading(ACTUALCOMPREADING);
+	}
+	public boolean selectScheduleSubsquentOrdersByPlannedReading(){
+		return selectScheduleSubsequentByReading(PLANNEDCOMPREADING);
+	}
+	
+	
+	private boolean selectScheduleSubsequentByDate(String sType) {
+		boolean bReturn = false;
+		WebElement el = getIntervalTypeMeterBasedInvisible();
+		List<WebElement> items = el.findElements(B2WMaintain.getKendoDropDown());
+		Iterator<WebElement> iter = items.iterator();
+		while (iter.hasNext()){
+			WebElement inputs = iter.next();
+			if (inputs.getText().startsWith(PLANNEDCALDATE) || inputs.getText().startsWith(ACTUALCALDATE)){
+				bReturn = WebElementUtils.clickElement(inputs);
+				bReturn &= selectItemFromDropDown(sType);
+			}
+		}
+		return bReturn;
+	}
+	private boolean selectScheduleSubsequentByReading(String sType) {
+		boolean bReturn = false;
+		WebElement el = getIntervalTypeMeterBasedvisible();
+		List<WebElement> items = el.findElements(B2WMaintain.getKendoDropDown());
+		Iterator<WebElement> iter = items.iterator();
+		while (iter.hasNext()){
+			WebElement inputs = iter.next();
+			if (inputs.getText().startsWith(PLANNEDCOMPREADING) || inputs.getText().startsWith(ACTUALCOMPREADING)){
+				bReturn = WebElementUtils.clickElement(inputs);
+				bReturn &= selectItemFromDropDown(sType);
+			}
+		}
+		return bReturn;
+	}
+	
+	public Iterator<WebElement> getElementsByTag(String sTag){
+		WebElement dialog = getVisibleDialog();
+		List<WebElement> items = WebElementUtils.getChildElements(dialog, By.tagName(sTag));
+		Iterator<WebElement> iter = items.iterator();
+		return iter;
+	}
+	
+	public boolean saveInterval(){
+		boolean bReturn = false;
+		WebElement el = WebElementUtils.findElement(B2WMaintain.getB2WMaintainAddIntervalDialog());
+		WebElement save = WebElementUtils.getChildElement(el, B2WMaintain.getB2WMaintainAddItemSaveButton());
+		bReturn = WebElementUtils.clickElement(save);
+		bReturn &= WebElementUtils.waitForElementInvisible(save);
+		return bReturn;
+	}
+	
+	public boolean selectMeterTypeFromDD(String sItem) {
+		boolean bReturn = false;
+		WebElement el = getIntervalTypeMeterBasedvisible();
+		WebElement dd = WebElementUtils.getChildElement(el,B2WMaintain.getKendoDropDownForTMTab());
+		WebElement input = WebElementUtils.getChildElement(dd, B2WMaintain.getKendoDropDown());
+		bReturn = WebElementUtils.clickElement(input);
+		bReturn &= selectItemFromDropDown(sItem);
+		return bReturn;
+		
+	}
+	
+	public boolean selectMeterEvery(String sDay){
+		boolean bReturn = false;
+		WebElement el = getIntervalTypeMeterBasedvisible();
+		WebElement dd = WebElementUtils.getChildElement(el,B2WMaintain.getKendoNumericTextBox());
+		List<WebElement> inputs = WebElementUtils.getChildElements(dd,B2WMaintain.getKendoDropDown());
+		bReturn = WebElementUtils.clickElement(inputs.get(0));
+		bReturn &= WebElementUtils.sendKeys(inputs.get(1), sDay);
+		return bReturn;
+	}
+	
+	public boolean saveMaintenanceProgram() {
+		boolean bReturn = false;
+		WebElement el = WebElementUtils.findElement(B2WEquipment.getKendoFooter());
+		if (el != null) {
+			WebElement button = WebElementUtils.getChildElement(el, B2WEquipment.getNewEquipmentSaveButton());
+			bReturn = WebElementUtils.clickElement(button);
+			bReturn = WebElementUtils.waitForElementInvisible(WebElementUtils.findElement(B2WMaintain.getKendoFakeSaveButton()));
+			WebElementUtils.waitAndFindDisplayedElement(B2WMaintain.getKendoButton());
+			bReturn &= waitForPageNotBusy();
+			
+		}
+		return bReturn;
+	}
 }
