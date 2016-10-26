@@ -482,10 +482,6 @@ public class B2WUIMap {
 	public static final String b2w_kendowindow= "div.k-widget.k-window";
 	public static final String b2w_kendonumerictextbox = "span.k-widget.k-numerictextbox";
 	public static final String b2w_kendosavebuttonfake = "div.btn-form.large.fake";
-
-	public static final String b2w_kendoinputkinput = "input.k-input";
-	public static final String b2w_kendowindow= "div.k-widget.k-window";
-	public static final String b2w_kendonumerictextbox = "span.k-widget.k-numerictextbox";
 	
 	public static final String b2w_tmpricesheeteditbutton = "a#editPriceSheet.btn-orig";
 	public static final String b2w_tmpricesheetmodifyratesourcebutton = "a#modifyPriceSheetRates.btn-orig";
