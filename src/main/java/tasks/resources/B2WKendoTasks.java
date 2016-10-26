@@ -5,6 +5,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import appobjects.resources.KendoUI;
+import appobjects.scheduler.B2WScheduleAssignments;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
@@ -101,30 +102,18 @@ public abstract class B2WKendoTasks {
 		return bReturn;
 	}
 
-	/*
-	public boolean selectItemFromFDD(String sItem) {
-		boolean bReturn = false;
-		// when we click we need to find the visible list
-		List<WebElement> list = WebElementUtils.findElements(KendoUI.getKendoLists());
-		Iterator<WebElement> iter = list.iterator();
-		while (iter.hasNext() && !bReturn) {
-			WebElement els = iter.next();
-			String hidden = els.getAttribute("aria-hidden");
-			if (hidden != null) {
-				List<WebElement> items = els.findElements(KendoUI.getKendoDropDownItem());
-				//WebElement item = WebElementUtils.getElementWithMatchingStartsWithText(items, sItem);
-				WebElement item = WebElementUtils.getElementWithMatchingText(items, sItem, false);
-				if (item != null) {
-					bReturn = WebElementUtils.waitForElementHasAttributeWithValue(els, "aria-hidden", "false", true, WebElementUtils.MEDIUM_TIME_OUT);
-					//bReturn &= WebElementUtils.waitForElementClickable(item);
-					bReturn &= WebElementUtils.clickElement(item);
-				}else{
-					log.debug("Item with could not be found matching " + sItem);
-				}
+	// Test methods
+	public List<WebElement> getListSelectedItemsFromAllFDD() {
+		//ToDo Remove it if could not fix it
+		return WebElementUtils.findElements(B2WScheduleAssignments.getAllSelectedItemsFromAllFDD());
+	}
+	public List<WebElement> getDifferenceBetweenLists(List<WebElement> lOriginal, List<WebElement> lNew) {
+		//ToDo Remove it if could not fix it
+		for (Object o : lOriginal) {
+			if (lNew.contains(o)) {
+				lNew.remove(o);
 			}
 		}
-		if (!bReturn) log.debug("Element with value" + sItem + " could not be found.");
-		return bReturn;
+		return lNew;
 	}
-	*/
 }
