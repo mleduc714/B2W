@@ -73,9 +73,6 @@ public class B2WTMPriceSheetsTasks extends B2WKendoTasks {
 		boolean bReturn = false;
 		List<WebElement> ls = WebElementUtils.findElements(B2WTMPriceSheets.getKendoDropDown());
 		List<WebElement> dds = WebElementUtils.findElements(B2WTMPriceSheets.getKDropDown());
-		for (int i = 0; i < dds.size() - 1; i++) {
-			System.out.println(dds.get(i).getText());
-		}
 		Iterator<WebElement> iter = ls.iterator();
 		while (iter.hasNext()) {
 			WebElement el = iter.next();

@@ -66,4 +66,13 @@ public abstract class KendoUI {
 	public static By getKendoFakeSaveButton() {
 		return By.cssSelector(B2WUIMap.b2w_kendosavebuttonfake);
 	}
+	public static By getKendoButtonAdd() {
+		return By.cssSelector(B2WUIMap.b2w_kendobuttonadd);
+	}
+	public static By getKendoWindowTitle() {
+		return By.cssSelector(B2WUIMap.b2w_kendowindowtitle);
+	}
+	public static By getKendoButtonContainer() {
+		return By.cssSelector(B2WUIMap.b2w_kendobuttoncontainer);
+	}
 }

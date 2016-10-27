@@ -9,6 +9,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.internal.Coordinates;
 import org.openqa.selenium.internal.Locatable;
 
+import appobjects.maintain.B2WMaintain;
 import appobjects.resources.B2WEquipment;
 import appobjects.resources.KendoUI;
 import tasks.WebElementUtils;
@@ -195,8 +196,15 @@ public class B2WEquipmentTasks extends B2WKendoTasks {
 		return bReturn;
 	
 	}
+	public boolean selectEquipmentFromViewByID(String sID){
+		return selectFromEquipmentView(sID,0);
+	}
 	
-	public boolean selectEquipmentFromViewByDescription(String sDesc){
+	public boolean selectEquipmentFromViewByDescription(String sDesc) {
+		return selectFromEquipmentView(sDesc,1);
+	}
+	
+	private boolean selectFromEquipmentView(String sItem, int iNumber){
 		boolean bReturn = false;
 		
 		WebElement grid = WebElementUtils.findElement(B2WEquipment.getKendoGridContent());
@@ -205,20 +213,23 @@ public class B2WEquipmentTasks extends B2WKendoTasks {
 		while (iter.hasNext()){
 			WebElement item = iter.next();
 			List<WebElement> gridcontent = WebElementUtils.getChildElements(item, By.tagName("td"));
-			String sText = gridcontent.get(1).getText();
+			String sText = gridcontent.get(iNumber).getText();
 			// when it's a empty string we need to get into view
 			if (sText.equals("")){
 				Coordinates coordinate = ((Locatable)item).getCoordinates(); 
 				coordinate.onPage(); 
 				coordinate.inViewPort();
 			}
-			sText = gridcontent.get(1).getText();
-			if (sText.startsWith(sDesc)){
-				item.click();
+			sText = gridcontent.get(iNumber).getText();
+			if (sText.startsWith(sItem)){
+				bReturn = WebElementUtils.clickElement(item);
+				bReturn &= waitForPageNotBusy();
 				break;
 			}
 		}
 		return bReturn;
+	
+		
 	}
 	
 	public String getEquipmentHeadline() {
@@ -350,5 +361,144 @@ public class B2WEquipmentTasks extends B2WKendoTasks {
 	public boolean waitForEquipmentPageNoBusy() {
 		return waitForPageNotBusy();
 	}
+	
+	public boolean clickAddPartsButton() {
+		boolean bReturn = false;
+		List<WebElement> ls = WebElementUtils.findElements(B2WEquipment.getKendoHeadersFromView());
+		WebElement el = WebElementUtils.getElementWithMatchingText(ls, PARTS, false);
+		if (el != null) {
+			List<WebElement> windows = WebElementUtils.findElements(B2WMaintain.getKendoWindowTitle());
+			// get parent and is it expanded or collapsed
+			WebElement parent = WebElementUtils.getParentElement(el);
+			WebElement button = WebElementUtils.getChildElement(parent, B2WMaintain.getKendoButtonAdd());
+			WebElementUtils.clickElement(button);
+			bReturn = WebElementUtils.waitForElementIsDisplayed(windows.get(1), WebElementUtils.SHORT_TIME_OUT);
+		}
+		return bReturn;
+	}
+	
+	public boolean clickSaveAddPart() {
+		boolean bReturn = false;
+		WebElement window = getDisplayedWindow();
+		if (window != null){
+			WebElement buttoncontainer = WebElementUtils.getChildElement(window, B2WEquipment.getKendoButtonContainer());
+			WebElement savebutton = buttoncontainer.findElement(B2WEquipment.getNewEquipmentSaveButton());
+			bReturn = WebElementUtils.clickElement(savebutton);
+			bReturn &= WebElementUtils.waitForElementInvisible(window);
+		}
+		return bReturn;
+	}
+	
+	public boolean selectPartToAddToEquipmentByDescription(String sPart){
+		
+		boolean bReturn = false;
+		WebElement window = getDisplayedWindow();
+		if (window != null){
+			WebElement grid = WebElementUtils.getChildElement(window, B2WMaintain.getKendoGridContent());
+			if (WebElementUtils.waitForElementStale(grid, 1)){
+				grid = WebElementUtils.getChildElement(window, B2WMaintain.getKendoGridContent());
+			}
+			Iterator<WebElement> itr = getChildElementsFromGrid(grid);
+			//List<WebElement> items = WebElementUtils.getChildElements(grid, By.tagName("tr"));
+			//Iterator<WebElement> itr = items.iterator();
+			while (itr.hasNext()){
+				WebElement item = itr.next();
+				List<WebElement> gridcontent = WebElementUtils.getChildElements(item, By.tagName("td"));
+				String sText = gridcontent.get(1).getText();
+				// when it's a empty string we need to get into view
+				if (sText.equals("")){
+					Coordinates coordinate = ((Locatable)item).getCoordinates(); 
+					coordinate.onPage(); 
+					coordinate.inViewPort();
+				}
+				sText = gridcontent.get(1).getText();
+				if (sText.startsWith(sPart)){
+					bReturn = WebElementUtils.clickElement(WebElementUtils.getChildElement(gridcontent.get(0),By.tagName("input")));
+					break;
+				}
+			}
+		}
+		return bReturn;
+	}
+	
+	public WebElement getDisplayedWindow() {
+		WebElement window = null;
+		List<WebElement> windows = WebElementUtils.findElements(B2WMaintain.getKendoWindow());
+		Iterator<WebElement> iter = windows.iterator();
+		while (iter.hasNext()){
+			WebElement temp = iter.next();
+			if (temp.isDisplayed()){
+				window = temp;
+			}
+		}
+		return window;
+	}
+	
+	public boolean clickAddMeterButton() {
+		boolean bReturn = false;
+		List<WebElement> ls = WebElementUtils.findElements(B2WEquipment.getKendoHeadersFromView());
+		WebElement el = WebElementUtils.getElementWithMatchingText(ls, METERS, false);
+		if (el != null) {
+			
+			// get parent and is it expanded or collapsed
+			WebElement parent = WebElementUtils.getParentElement(el);
+			WebElement button = WebElementUtils.getChildElement(parent, B2WMaintain.getKendoButtonAdd());
+			WebElementUtils.clickElement(button);
+			List<WebElement> windows = WebElementUtils.findElements(B2WMaintain.getKendoWindowTitle());
+			System.out.println(windows.size());
+			bReturn = WebElementUtils.waitForElementIsDisplayed(windows.get(0), WebElementUtils.SHORT_TIME_OUT);
+		}
+		return bReturn;
+	}
+	
+	public boolean selectAddMeterTypeFromDD(String sText) {
+		boolean bReturn = false;
+		return bReturn;
+	}
+	public boolean setAddMeterTypeDescription() {
+		boolean bReturn = false;
+		return bReturn;
+	}
+	public boolean selectAddMeterExcludeFromWorkOrdersUseGlobalSetting(){
+		boolean bReturn = false;
+		return bReturn;
+	}
+	public boolean selectAddMeterExcludeFromWorkOrdersAlways(){
+		boolean bReturn = false;
+		return bReturn;
+	}
+	public boolean selectAddMeterExcludeFromWorkOrdersNever(){
+		boolean bReturn = false;
+		return bReturn;
+	}
+	public boolean selectAddMeterRequiredOnWorkOrderCompletionUseGlobalSetting(){
+		boolean bReturn = false;
+		return bReturn;
+	}
+	public boolean selectAddMeterRequiredOnWorkOrderCompletionRequired(){
+		boolean bReturn = false;
+		return bReturn;
+	}
+	public boolean selectAddMeterRequiredOnWorkOrderCompletionNotRequired(){
+		boolean bReturn = false;
+		return bReturn;
+	}
+	public boolean setAddMeterIntiialReading(String sReading){
+		boolean bReturn = false;
+		return bReturn;
+	}
+	public boolean setAddMeterEnterNewReadingCheckBox(){
+		boolean bReturn = false;
+		return bReturn;
+	}
+	public boolean setAddMeterEnterNewReading(){
+		boolean bReturn = false;
+		return bReturn;
+	}
+	public boolean setAddMeterEnterNewReadingDate(){
+		boolean bReturn = false;
+		return bReturn;
+	}
+	
 	
 }
