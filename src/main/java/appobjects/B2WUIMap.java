@@ -480,6 +480,8 @@ public class B2WUIMap {
 	public static final String b2w_kendotmtabdropdown = "span.k-widget.k-dropdown.k-header";
 	public static final String b2w_kendoinputkinput = "input.k-input";
 	public static final String b2w_kendowindow= "div.k-widget.k-window";
+	public static final String b2w_kendonumerictextbox = "span.k-widget.k-numerictextbox";
+	public static final String b2w_kendosavebuttonfake = "div.btn-form.large.fake";
 	
 	public static final String b2w_tmpricesheeteditbutton = "a#editPriceSheet.btn-orig";
 	public static final String b2w_tmpricesheetmodifyratesourcebutton = "a#modifyPriceSheetRates.btn-orig";
@@ -714,6 +716,7 @@ public class B2WUIMap {
 	public static final String b2w_jobstmworkitemcompletecheckbox = "input#IsComplete";
 	public static final String b2w_jobstmworkitempricelimitcheckbox = "input#HasPriceLimit";
 	public static final String b2w_jobstmworkitemsavebutton = "div#SaveButton.btn-form.large";
+
 	// Schedule Assignments
 	public static final String b2w_schedulecenterpanel = "b2w-panel-center";
 	public static final String b2w_scheduleproductpageicon = "a#ProductPageIcon";
@@ -727,6 +730,10 @@ public class B2WUIMap {
 	public static final String b2w_schedulebuttoncontainer = ".button-container";
 	public static final String b2w_schedulecreateassignmentbtn = "//span[text()='Create Assignment']";
 	public static final String b2w_schedulecreatemoveorderbtn = "//span[text()='Create Move Order']";
+    public static final String b2w_scheduleselecteditemsfromfdd = "li.k-item.ng-scope.k-state-focused";
+    public static final String b2w_scheduleresourcelistongrid = ".resource-name.level0";
+    public static final String b2w_scheduleselecteddates = ".selected-date";
+    public static final String b2w_scheduleassignments = ".content.active";
 
 	// Maintain
 	public static final String b2w_maintainpagemenu = "ul#SubNavMenu_MaintainPageMenu.MaintainPageMenu";
@@ -745,12 +752,9 @@ public class B2WUIMap {
 	public static final String b2w_maintainkendoitemsbuttoncontainer = "div.work-order-items-button-container";
 	public static final String b2w_maintainadditemsdialog = "div.wizard-dialog.add-request-template-popup.k-window-content.k-content";
 	public static final String b2w_maintainadditemsavebutton = "a.btn-form.large.save";
-	
+
 	public static final String b2w_maintainnewintervalbutton = "a.btn-orig.new-interval-button";
 
-
-
-	
 	public static final String b2w_jobscreatenewestimatebutton = "a#PageContent_CreateNewEstimateItemButton";
 	public static final String b2w_newjobestimateitemnumber = "input#PageContent_ItemNumberTextBox";
 	public static final String b2w_newjobestimateitemid = "input#PageContent_ItemIDTextBox";
@@ -773,6 +777,8 @@ public class B2WUIMap {
 	public static final String b2w_newjobchangeordernotes = "textarea#PageContent_generalInformationPanel_NotesTextBox";
 	
 	public static final String b2w_maintainaddintervalbutton = "a.btn-orig.new-interval-button";
+	public static final String b2w_maintainintervaldialog = "div#program_interval_modal.wizard-dialog.programInterval-editable.k-window-content.k-content";
+	public static final String b2w_maintainintervalsavebutton = "div.button-container";
 	
 	public static final String b2w_scheduleanimationcontainer = ".k-animation-container";
 	public static final String b2w_schedulelinks = "span.k-link";

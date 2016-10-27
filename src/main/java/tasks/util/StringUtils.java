@@ -1,10 +1,12 @@
 package tasks.util;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class StringUtils {
-	
 	public static String titleCase(String sText){
 		Pattern pOneWordAllUppper = Pattern.compile("^[\\p{Lu}0-9]+$");
 		Pattern pLetternsAndNumbers= Pattern.compile("([\\p{Lu}\\p{Ll}0-9]+)");
@@ -25,7 +27,15 @@ public class StringUtils {
 		String reg = "\\[\\^\\$\\.\\|\\?\\*\\+\\(\\)\\\\";
 		return sRegex.replaceAll("([" + reg + "])", "\\\\$1");
 	}
-	
 
+	public static Date getDateFromString(String sDate) {
+		String pattern = "yyyy/M/dd";
+		SimpleDateFormat sdf = new SimpleDateFormat(pattern);
+		try {
+			return sdf.parse(sDate);
+		} catch (ParseException e) {
+			return null;
+		}
+	}
 	
 }

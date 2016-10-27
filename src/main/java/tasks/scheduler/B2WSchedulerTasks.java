@@ -1,16 +1,21 @@
 package tasks.scheduler;
 
-import appobjects.resources.B2WEquipment;
 import appobjects.resources.KendoUI;
 import appobjects.scheduler.B2WScheduleAssignments;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
-import tasks.resources.B2WKendoTasks;
-import tasks.WebElementUtils;
 import org.openqa.selenium.WebElement;
+import tasks.WebElementUtils;
+import tasks.resources.B2WKendoTasks;
+import tasks.util.StringUtils;
 import tasks.util.TaskUtils;
+
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
+
+import org.jfree.data.time.DateRange;
 
 public class B2WSchedulerTasks extends B2WKendoTasks {
 
@@ -22,7 +27,16 @@ public class B2WSchedulerTasks extends B2WKendoTasks {
     public String MOVEASSIGNMENT = "Move Assignment";
     public String EVENT = "Event";
 
-    Logger log = Logger.getLogger(B2WEquipment.class);
+    private int daysSelectedCount = 0;
+
+    Logger log = Logger.getLogger(B2WSchedulerTasks.class);
+
+    public int getDaysSelectedCount() {
+        return daysSelectedCount;
+    }
+    public void setDaysSelectedCount(int daysSelectedCount) {
+        this.daysSelectedCount = daysSelectedCount;
+    }
 
     public boolean waitForSchedulePageNoBusy() {
         return waitForPageNotBusy();
@@ -143,12 +157,38 @@ public class B2WSchedulerTasks extends B2WKendoTasks {
         boolean bReturn = false;
         WebElement assignmentWindow = WebElementUtils.waitAndFindElement(B2WScheduleAssignments.getAssignmentWindow());
         WebElementUtils.switchToFrame(B2WScheduleAssignments.getAssignmentWindow(), 1);
+
         if (assignmentWindow != null) {
+            //List<WebElement> lOriginal = getListSelectedItemsFromAllFDD();
             WebElement employeeAssignment = WebElementUtils.getKendoFDDElementByLabel(sFieldName);
             bReturn = sendTextAndSelectValueFromKendoFDD(employeeAssignment, sValue);
             waitForSchedulePageNoBusy();
+            //List<WebElement> lNew = getListSelectedItemsFromAllFDD();
+            //List<WebElement> lDiff = getDifferenceBetweenLists(lOriginal, lNew);
+            //bReturn &= isValueSelected(lDiff, sValue);
         } else {
             log.debug("Create Assignment Window could not be found");
+        }
+        return bReturn;
+    }
+
+    public boolean isValueSelected(List<WebElement> list, String sValue) {
+        //ToDo Remove if could not fix it.
+        boolean bReturn = false;
+        String sTmp;
+        Iterator<WebElement> iterator = list.iterator();
+        while (iterator.hasNext() && !bReturn) {
+            WebElement Item = iterator.next();
+            if (WebElementUtils.getChildElements(Item, By.cssSelector("p")).size() > 0) {
+                WebElement el = WebElementUtils.getChildElement(Item, By.cssSelector("p"));
+                sTmp = el.getAttribute("title");
+            } else {
+                sTmp = Item.getText();
+            }
+
+            if (sTmp.equals(sValue)) {
+                bReturn = true;
+            }
         }
         return bReturn;
     }
@@ -246,6 +286,67 @@ public class B2WSchedulerTasks extends B2WKendoTasks {
     }
     public boolean setEventLocation(String sJobSiteName) {
         return setFields("Location", sJobSiteName);
+    }
+
+    public List<WebElement> getResourceListOnGrid() {
+        return WebElementUtils.findElements(B2WScheduleAssignments.getResourceListOnGrig());
+    }
+    public DateRange getSelectedDates() {
+        Date startDate = null;
+        Date endDate = null;
+        setDaysSelectedCount(0);
+
+        List<WebElement> listDates = WebElementUtils.findElements(B2WScheduleAssignments.getSelectedDatesOnCalendar());
+        Iterator<WebElement> iterator = listDates.iterator();
+
+        while (iterator.hasNext()) {
+            WebElement item = iterator.next();
+            WebElement el = WebElementUtils.getChildElement(item, By.cssSelector("a.k-link"));
+            if (el != null) {
+                String dataValue = el.getAttribute("data-value");
+                Date tmpDate = StringUtils.getDateFromString(dataValue);
+                setDaysSelectedCount(getDaysSelectedCount() + 1);
+                if (startDate != null) {
+                    if (startDate.after(tmpDate)) {
+                        startDate = tmpDate;
+                    }
+                } else {
+                    startDate = tmpDate;
+                }
+                if (endDate != null) {
+                    if (endDate.before(tmpDate)) {
+                        endDate = tmpDate;
+                    }
+                } else {
+                    endDate = tmpDate;
+                }
+            }
+        }
+
+        DateRange dateRange = new DateRange(startDate, endDate);
+        return dateRange;
+    }
+    public boolean isDateInRange(DateRange dateRange, String sDate) {
+        Date date = StringUtils.getDateFromString(sDate);
+        return dateRange.contains(date.getTime());
+    }
+    public List<WebElement> getAssignments(String sResourceName, String sLocationName) {
+        List<WebElement> elResult = new ArrayList<WebElement>();
+        List<WebElement> resourceList = getResourceListOnGrid();
+        WebElement resourceElement = WebElementUtils.getElementWithWithMatchingAttribute(resourceList, "title", sResourceName);
+        if (resourceElement != null) {
+            WebElement parent = WebElementUtils.getParentUntilTagName(resourceElement, "tr");
+            List<WebElement> fullAssignmentsListForResource = WebElementUtils.getChildElements(parent, B2WScheduleAssignments.getAssignments());
+            elResult = WebElementUtils.getElementsWithWithMatchingAttribute(fullAssignmentsListForResource,
+                    "title", sLocationName);
+
+        } else {
+            log.debug("WebElement could not be found with name " + sResourceName);
+        }
+        return elResult;
+    }
+    public int getAssignmentsCount(String sResourceName, String sLocationName) {
+        return getAssignments(sResourceName, sLocationName).size();
     }
 
     public boolean clickSelectCrewBtn() {
