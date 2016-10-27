@@ -88,18 +88,16 @@ public class B2WAddMaterialsTasks {
 		return bReturn;
 	}
 	
-	public boolean isChecked() {
-	
-		boolean bReturn = false;
-		WebElement el = WebElementUtils.waitAndFindDisplayedElement(B2WAddMaterials.getCheckboxGrid());
-		if (el != null){
-			WebElement checkbox = WebElementUtils.getChildElement(el, B2WAddMaterials.getAddMaterialsCheckBox());
-			System.out.println("Selected"+checkbox.isSelected());
-			
-		}
-		return bReturn;
-		
-	}
+//	public boolean isChecked() {
+//	
+//		boolean bReturn = false;
+//		WebElement el = WebElementUtils.waitAndFindDisplayedElement(B2WAddMaterials.getCheckboxGrid());
+//		if (el != null){
+//			WebElement checkbox = WebElementUtils.getChildElement(el, B2WAddMaterials.getAddMaterialsCheckBox());
+//		}
+//		return bReturn;
+//		
+//	}
 	
 //	public void getAllInfoFromGrid() {
 //		WebElement el = BrowserUtils.getDriver().findElement(By.className("search-textbox"));

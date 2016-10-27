@@ -98,7 +98,6 @@ public class B2WMaintainProgramsTasks extends B2WMaintainTasks {
 		Iterator<WebElement> iter = items.iterator();
 		while (iter.hasNext()) {
 			WebElement item = iter.next();
-			System.out.println(item.getText());
 			if (item.getText().startsWith(LABORRATES)) {
 				WebElementUtils.clickElement(WebElementUtils.getChildElement(item,B2WMaintain.getKendoDropDownForTMTab()));
 				bReturn = selectItemFromDropDown(sText);

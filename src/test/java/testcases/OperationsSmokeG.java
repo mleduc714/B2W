@@ -5,12 +5,15 @@ import com.b2w.test.B2WTestCase;
 import tasks.B2WNavigationTasks;
 import tasks.maintain.B2WMaintainProgramsTasks;
 import tasks.maintain.B2WMaintainTasks;
+import tasks.resources.B2WEquipmentTasks;
+import tasks.util.TaskUtils;
 
 public class OperationsSmokeG extends B2WTestCase {
 
 	B2WNavigationTasks b2wNav = new B2WNavigationTasks();
 	B2WMaintainTasks b2wMain = new B2WMaintainTasks();
 	B2WMaintainProgramsTasks b2wMainPrograms = new B2WMaintainProgramsTasks();
+	B2WEquipmentTasks b2wEquip = new B2WEquipmentTasks();
 	String sMaintenanceProgramDesc;
 	String sMaintenanceProgramItemADesc;
 	String sMaintenanceProgramItemAType;
@@ -73,7 +76,8 @@ public class OperationsSmokeG extends B2WTestCase {
 
 	public void testMain() throws Throwable {
 
-		createMaintenanceProgram();
+		//createMaintenanceProgram();
+		addParts();
 
 	}
 
@@ -124,5 +128,20 @@ public class OperationsSmokeG extends B2WTestCase {
 		
 
 	}
-
+	public void addParts() {
+		logCompare(true,b2wNav.openMaintain(),"Open Maintain");
+		logCompare(true,b2wMain.openEquipment(), "Open Equipment");
+		logCompare(true,b2wEquip.selectEquipmentFromViewByID("CE002"),"Select Equipment");
+//		logCompare(true,b2wEquip.expandParts(),"Expand Parts");
+//		logCompare(true,b2wEquip.clickAddPartsButton(),"Add Parts");
+//		logCompare(true,b2wEquip.selectPartToAddToEquipmentByDescription("Coolant"), "Add Part");
+//		logCompare(true,b2wEquip.selectPartToAddToEquipmentByDescription("Grease"), "Add Part");
+//		logCompare(true,b2wEquip.selectPartToAddToEquipmentByDescription("Hose"), "Add Part");
+//		logCompare(true,b2wEquip.clickSaveAddPart(), "Save Part");
+		
+		b2wEquip.expandMeters();
+		b2wEquip.clickAddMeterButton();
+		TaskUtils.sleep(4000);
+		
+	}
 }
