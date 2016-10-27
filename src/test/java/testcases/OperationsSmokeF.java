@@ -242,35 +242,6 @@ public class OperationsSmokeF extends B2WTestCase {
 		
 	}
 	
-	public void createEstimateItem() {
-		logCompare(true,b2wJobs.clickEstimatesItemsTab(), "Click on Estimate Tab");
-		logCompare(true,b2wJobs.clickCreateNewEstimateButton(),"Create Estimate Item");
-		logCompare(true,b2wJobs.setEstimateItemNumber("123450"), "Fill Item Number");
-		logCompare(true,b2wJobs.setEstimateEstimatedQuantity("5.55"),"Fill Estimated Quantity");
-		logCompare(true,b2wJobs.setEstimateItemID("098673"),"Fill Item ID");
-		logCompare(true,b2wJobs.setEstimateChangeOrderQuantity("55"),"Fill Change Order Quantity");
-		logCompare(true,b2wJobs.setEstimateDescription("This is a Job Estimate Item."),"Fill Description");
-		logCompare(true,b2wJobs.setEstimateUnitOfMeasure("ACRE"), "Fill Unit of Measure");
-		logCompare(true,b2wJobs.setEstimateUnitBidPriceEstimated("4"), "Fill Unit Bid Price Estimated");
-		logCompare(true,b2wJobs.setEstimateUnitBidPriceChangeOrder("4"), "Fill Unit Bid Proce Change Order");
-		logCompare(true,b2wJobs.setEstimateTotalBidPriceEstimated("6"), "Fill Total Bid Price Estimated");
-		logCompare(true,b2wJobs.setEstimateTotalBidPriceChangeOrder("7"),"Fill Total Bid Price Change Order");
-		logCompare(true,b2wJobs.clickBottomSaveButton(),"Save Button Clicked");
-	}
-	
-	public void createChangeOrder() {
-		logCompare(true,b2wJobs.clickChangeOrderTab(),"Click on Change Orders Tab");
-		logCompare(true,b2wJobs.clickCreateNewChangeOrderButton(),"Create Change Order");
-		logCompare(true,b2wJobs.setChangeOrdersID("1234567892"),"Fill Change Order ID");
-		logCompare(true,b2wJobs.setChangeOrdersAlternateID("654321"),"Fill Alternate ID");
-		logCompare(true,b2wJobs.setChangeOrdersDescription("This is a new Change Order"),"Fill Description");
-		logCompare(true,b2wJobs.setChangeOrdersType("External"),"Fill Change Order Type");
-		logCompare(true,b2wJobs.setChangeOrdersStatus("Approved"),"Fill Status");
-		logCompare(true,b2wJobs.setChangeOrdersEstimatedQuantity("8"),"Fill Estimated Quantity");
-		logCompare(true,b2wJobs.setChangeOrdersUnitOfMeasure("LITER"),"Fill Unit of Measure");
-		logCompare(true,b2wJobs.clickBottomSaveButton(),"Save Button Clicked");
-	}
-	
 	public void createNewJobOverheadAccount() {
 		logCompare(true,b2wJobs.clickTrackingAccountsTab(), "Click Tracking Accounts tab");
 		logCompare(true,b2wJobs.clickAddNewOverheadAccount(), "Create New Overhead Account");
