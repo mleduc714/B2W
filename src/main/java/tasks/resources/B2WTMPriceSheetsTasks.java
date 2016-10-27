@@ -72,7 +72,7 @@ public class B2WTMPriceSheetsTasks extends B2WKendoTasks {
 	private boolean selectRateSourceFromDD(String sText) {
 		boolean bReturn = false;
 		List<WebElement> ls = WebElementUtils.findElements(B2WTMPriceSheets.getKendoDropDown());
-		List<WebElement> dds = WebElementUtils.findElements(B2WTMPriceSheets.getKDropDown());
+		
 		Iterator<WebElement> iter = ls.iterator();
 		while (iter.hasNext()) {
 			WebElement el = iter.next();

@@ -228,8 +228,6 @@ public class B2WEquipmentTasks extends B2WKendoTasks {
 			}
 		}
 		return bReturn;
-	
-		
 	}
 	
 	public String getEquipmentHeadline() {
@@ -439,13 +437,11 @@ public class B2WEquipmentTasks extends B2WKendoTasks {
 		List<WebElement> ls = WebElementUtils.findElements(B2WEquipment.getKendoHeadersFromView());
 		WebElement el = WebElementUtils.getElementWithMatchingText(ls, METERS, false);
 		if (el != null) {
-			
 			// get parent and is it expanded or collapsed
 			WebElement parent = WebElementUtils.getParentElement(el);
 			WebElement button = WebElementUtils.getChildElement(parent, B2WMaintain.getKendoButtonAdd());
 			WebElementUtils.clickElement(button);
 			List<WebElement> windows = WebElementUtils.findElements(B2WMaintain.getKendoWindowTitle());
-			System.out.println(windows.size());
 			bReturn = WebElementUtils.waitForElementIsDisplayed(windows.get(0), WebElementUtils.SHORT_TIME_OUT);
 		}
 		return bReturn;
@@ -453,6 +449,7 @@ public class B2WEquipmentTasks extends B2WKendoTasks {
 	
 	public boolean selectAddMeterTypeFromDD(String sText) {
 		boolean bReturn = false;
+		
 		return bReturn;
 	}
 	public boolean setAddMeterTypeDescription() {
