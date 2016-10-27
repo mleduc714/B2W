@@ -304,4 +304,8 @@ public class B2WJobs extends KendoUI {
 	public static By getB2WChangeOrderNotes() { 
 		return By.cssSelector(B2WUIMap.b2w_newjobchangeordernotes);
 	}
+	
+	public static By getB2WEstimateVerification() {
+		return By.cssSelector(B2WUIMap.b2w_verifyestimate);
+	}
 }

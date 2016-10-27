@@ -234,6 +234,21 @@ public class WebElementUtils {
 		return ret;
 	}
 
+	public static List<WebElement> getElementsWithWithMatchingAttribute(List<WebElement> list, String sAttribute,
+																 String sAttributeValue) {
+		List<WebElement> listResult = new ArrayList<WebElement>();
+		Iterator<WebElement> iter = list.iterator();
+		log.debug("Number of Elements to search thru " + list.size());
+		while (iter.hasNext()) {
+			WebElement el = iter.next();
+			String sName = el.getAttribute(sAttribute);
+			if (sName.equals(sAttributeValue)) {
+				listResult.add(el);
+			}
+		}
+		return listResult;
+	}
+
 	public static boolean switchToFrame(By locator, int timeout) {
 		boolean bReturn = false;
 		WebDriverWait wait = new WebDriverWait(BrowserUtils.getDriver(), timeout);
@@ -785,6 +800,13 @@ public class WebElementUtils {
 		return parentElement;
 	}
 
+	public static WebElement getParentUntilTagName(WebElement el, String sTagName) {
+		WebElement elResult = getParentElement(el);
+		while (!elResult.getTagName().toLowerCase().equals(sTagName)) {
+			elResult = getParentElement(elResult);
+		}
+		return elResult;
+	}
 	public static boolean waitForElementInvisible(WebElement element, int timeout, boolean expectedClickable) {
 		boolean bReturn = false;
 		if (element == null) {

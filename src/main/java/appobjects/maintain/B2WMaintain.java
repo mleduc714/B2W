@@ -46,25 +46,28 @@ public class B2WMaintain extends KendoUI {
 	 public static By getB2WDashboardWorkOrderHeader() {
 		 return By.cssSelector("span.category_headers");
 	 }
-//	 public static By getB2WMaintainBoxContent() {
-//		 return By.cssSelector(B2WUIMap.b2w_maintainkendocontentform);
-//	 }
-//	 public static By getB2WMaintainButtonsContainer() {
-//		 return By.cssSelector(B2WUIMap.b2w_maintainkendoitemsbuttoncontainer);
-//	 }
-//	 public static By getB2WMaintainAddItemDialog() {
-//		 return By.cssSelector(B2WUIMap.b2w_maintainadditemsdialog);
-//	 }
-//	 public static By getB2WMaintainAddItemDialogContent() {
-//		 return By.cssSelector(B2WUIMap.b2w_maintainkendodialogcontentform);
-//	 }
-//	 public static By getB2WMaintainAddItemSaveButton() {
-//		 return By.cssSelector(B2WUIMap.b2w_maintainadditemsavebutton);
-//	 }
+	 public static By getB2WMaintainBoxContent() {
+		 return By.cssSelector(B2WUIMap.b2w_maintainkendocontentform);
+	 }
+	 public static By getB2WMaintainButtonsContainer() {
+		 return By.cssSelector(B2WUIMap.b2w_maintainkendoitemsbuttoncontainer);
+	 }
+	 public static By getB2WMaintainAddItemDialog() {
+		 return By.cssSelector(B2WUIMap.b2w_maintainadditemsdialog);
+	 }
+	 public static By getB2WMaintainAddItemDialogContent() {
+		 return By.cssSelector(B2WUIMap.b2w_maintainkendodialogcontentform);
+	 }
+	 public static By getB2WMaintainAddItemSaveButton() {
+		 return By.cssSelector(B2WUIMap.b2w_maintainadditemsavebutton);
+	 }
 	 public static By getB2WMaintainAddItemLevel() {
 		 return By.cssSelector(B2WUIMap.b2w_kendoinputkinput);
 	 }
 	 public static By getB2WMaintainAddIntervalButton() {
 		 return By.cssSelector(B2WUIMap.b2w_maintainaddintervalbutton);
+	 }
+	 public static By getB2WMaintainAddIntervalDialog() {
+		 return By.cssSelector(B2WUIMap.b2w_maintainintervaldialog);
 	 }
 }

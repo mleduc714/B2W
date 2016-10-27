@@ -26,4 +26,8 @@ public class B2WScheduleAssignments extends KendoUI {
     public static By getLinksContainer() { return By.cssSelector(B2WUIMap.b2w_scheduleanimationcontainer); }
     public static By getLinks() { return By.cssSelector(B2WUIMap.b2w_schedulelinks); }
     public static By getEventTypeDropDown() { return By.xpath(B2WUIMap.b2w_scheduleeventtypedropdown); }
+    public static By getAllSelectedItemsFromAllFDD() { return By.cssSelector(B2WUIMap.b2w_scheduleselecteditemsfromfdd); }
+    public static By getResourceListOnGrig() { return By.cssSelector(B2WUIMap.b2w_scheduleresourcelistongrid); }
+    public static By getSelectedDatesOnCalendar() { return By.cssSelector(B2WUIMap.b2w_scheduleselecteddates); }
+    public static By getAssignments() { return By.cssSelector(B2WUIMap.b2w_scheduleassignments); }
 }
