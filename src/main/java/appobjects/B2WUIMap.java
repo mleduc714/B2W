@@ -536,6 +536,8 @@ public class B2WUIMap {
 	public static final String b2w_jobsestimatebillrevenue = "span[id^='PageContent_ListingGridView_BillableRevenue']";
 	public static final String b2w_jobsestimateviewedit = "a[id^='PageContent_ListingGridView_Edit']";
 	public static final String b2w_jobestimateviewdelete = "a[id^='PageContent_ListingGridView_Delete']";
+	
+	public static final String b2w_jobestimateitem = "table#DetailInformationPanel fixedLayout";
 
 	public static final String b2w_jobstrackacctstrackingid = "a[id^='PageContent_ProductionAccountGridView_TrackingID']";
 	public static final String b2w_jobstrackacctsaccountid = "span[id^='PageContent_ProductionAccountGridView_AccountID']";

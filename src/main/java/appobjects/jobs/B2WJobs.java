@@ -308,4 +308,16 @@ public class B2WJobs extends KendoUI {
 	public static By getB2WEstimateVerification() {
 		return By.cssSelector(B2WUIMap.b2w_verifyestimate);
 	}
+	
+	public static By getB2WEstimateITemID(){
+		return By.cssSelector(B2WUIMap.b2w_jobsestimateitemid);
+	}
+	
+	public static By getB2WEstimateItemDescription(){
+		return By.cssSelector(B2WUIMap.b2w_jobsestimatedescription);
+	}
+	
+	public static By getB2WEstimateTableVerification() {
+		return By.cssSelector(B2WUIMap.b2w_jobestimateitem);
+	}
 }
