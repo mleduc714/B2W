@@ -75,4 +75,7 @@ public abstract class KendoUI {
 	public static By getKendoButtonContainer() {
 		return By.cssSelector(B2WUIMap.b2w_kendobuttoncontainer);
 	}
+	public static By getKendoDateText() {
+		return By.cssSelector(B2WUIMap.b2w_kendodatetext);
+	}
 }

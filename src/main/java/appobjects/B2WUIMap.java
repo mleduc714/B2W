@@ -485,6 +485,7 @@ public class B2WUIMap {
 	public static final String b2w_kendobuttonadd = "span.btn-add";
 	public static final String b2w_kendowindowtitle = "span.k-window-title";
 	public static final String b2w_kendobuttoncontainer = "div.button-container";
+	public static final String b2w_kendodatetext = "span.k-picker-wrap.k-state-default";
 	
 	public static final String b2w_tmpricesheeteditbutton = "a#editPriceSheet.btn-orig";
 	public static final String b2w_tmpricesheetmodifyratesourcebutton = "a#modifyPriceSheetRates.btn-orig";
