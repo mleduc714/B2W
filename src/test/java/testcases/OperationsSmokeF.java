@@ -48,6 +48,26 @@ public class OperationsSmokeF extends B2WTestCase {
 	
 	String sTMWorkItemDescription, sTMWorkItemDateAdded, sTMWorkItemTrackingID, sTMWorkItemAccountID, sTMWorkItemRequestedBy;
 	
+
+	String sEstimateItemNumber;
+	String sEstimateEstimatedQuantity;
+	String sEstimateItemID;
+	String sEstimateChangeOrderQuantity;
+	String sEstimateDescription;
+	String sEstimateUnitOfMeasure;
+	String sEstimateUnitBidPriceEstimated;
+	String sEstimateUnitBidPriceChangeOrder;
+	String sEstimateTotalBidPriceEstimated;
+	String sEstimateTotalBidPriceChangeOrder;
+	
+	String sChangeOrdersID;
+	String sChangeOrdersAlternateID;
+	String sChangeOrdersDescription;
+	String sChangeOrdersType;
+	String sChangeOrdersStatus;
+	String sChangeOrdersEstimatedQuantity;
+	String sChangeOrdersUnitOfMeasure;
+	
 	public B2WAddToJobs b2wJobsAdd = new B2WAddToJobs(B2WJobsTasks.JOBSDIALOG.ADDSUBCONTRACTORS);
 	
 	@Override
@@ -124,7 +144,26 @@ public class OperationsSmokeF extends B2WTestCase {
 		sTMWorkItemTrackingID = getProperty("sTMWorkItemTrackingID");
 		sTMWorkItemAccountID = getProperty("sTMWorkItemAccountID");
 		sTMWorkItemRequestedBy = getProperty("sTMWorkItemRequestedBy");
+		
 
+		sEstimateItemNumber = getProperty("sEstimateItemNumber");
+		sEstimateEstimatedQuantity = getProperty("sEstimateQuantity");
+		sEstimateItemID = getProperty("sEstimateItemID");
+		sEstimateChangeOrderQuantity = getProperty("sEstimateChangeOrderQuantity");
+		sEstimateDescription = getProperty("sEstimateDescription");
+		sEstimateUnitOfMeasure = getProperty("sEstimateUnitOfMeasure");
+		sEstimateUnitBidPriceEstimated = getProperty("sEstimateUnitBidPriceEstimated");
+		sEstimateUnitBidPriceChangeOrder = getProperty("sEstimateUnitBidPriceChangeOrder");
+		sEstimateTotalBidPriceEstimated = getProperty("sEstimateTotalBidPriceEstimated");
+		sEstimateTotalBidPriceChangeOrder = getProperty("sEstimateTotalBidPriceChangeOrder");
+		
+		sChangeOrdersID = getProperty("sChangeOrdersID");
+		sChangeOrdersAlternateID = getProperty("sChangeOrdersAlternateID");
+		sChangeOrdersDescription = getProperty("sChangeOrdersDescription");
+		sChangeOrdersType = getProperty("sChangeOrdersType");
+		sChangeOrdersStatus = getProperty("sChangeOrdersStatus");
+		sChangeOrdersEstimatedQuantity = getProperty("sChangeOrdersEstimatedQuantity");
+		sChangeOrdersUnitOfMeasure = getProperty("sChangeOrdersUnitOfMeasure");
 	
 	}
 
@@ -282,6 +321,35 @@ public class OperationsSmokeF extends B2WTestCase {
 		b2wTM.selectRandomRequestedByFromDD();
 		b2wTM.selectRandomAccountIDFromDD();
 		assertTrue("Save TM Work Item",b2wTM.saveTMWorkItem());
+	}
+	
+	public void createEstimateItem(){
+		logCompare(true,b2wJobs.clickEstimatesItemsTab(), "Click on Estimate Tab");
+		logCompare(true,b2wJobs.clickCreateNewEstimateButton(),"Create Estimate Item");
+		logCompare(true,b2wJobs.setEstimateItemNumber(sEstimateItemNumber), "Fill Item Number");
+		logCompare(true,b2wJobs.setEstimateEstimatedQuantity(sEstimateEstimatedQuantity),"Fill Estimated Quantity");
+		logCompare(true,b2wJobs.setEstimateItemID(sEstimateItemID),"Fill Item ID");
+		logCompare(true,b2wJobs.setEstimateChangeOrderQuantity(sEstimateChangeOrderQuantity),"Fill Change Order Quantity");
+		logCompare(true,b2wJobs.setEstimateDescription(sEstimateDescription),"Fill Description");
+		logCompare(true,b2wJobs.setEstimateUnitOfMeasure(sEstimateUnitOfMeasure), "Fill Unit of Measure");
+		logCompare(true,b2wJobs.setEstimateUnitBidPriceEstimated(sEstimateUnitBidPriceEstimated), "Fill Unit Bid Price Estimated");
+		logCompare(true,b2wJobs.setEstimateUnitBidPriceChangeOrder(sEstimateUnitBidPriceChangeOrder), "Fill Unit Bid Proce Change Order");
+		logCompare(true,b2wJobs.setEstimateTotalBidPriceEstimated(sEstimateTotalBidPriceEstimated), "Fill Total Bid Price Estimated");
+		logCompare(true,b2wJobs.setEstimateTotalBidPriceChangeOrder(sEstimateTotalBidPriceChangeOrder),"Fill Total Bid Price Change Order");
+		logCompare(true,b2wJobs.clickBottomSaveButton(),"Save Button Clicked");
+	}
+	
+	public void createChangeOrder(){
+		logCompare(true,b2wJobs.clickChangeOrderTab(),"Click on Change Orders Tab");
+		logCompare(true,b2wJobs.clickCreateNewChangeOrderButton(),"Create Change Order");
+		logCompare(true,b2wJobs.setChangeOrdersID(sChangeOrdersID),"Fill Change Order ID");
+		logCompare(true,b2wJobs.setChangeOrdersAlternateID(sChangeOrdersAlternateID),"Fill Alternate ID");
+		logCompare(true,b2wJobs.setChangeOrdersDescription(sChangeOrdersDescription),"Fill Description");
+		logCompare(true,b2wJobs.setChangeOrdersType(sChangeOrdersType),"Fill Change Order Type");
+		logCompare(true,b2wJobs.setChangeOrdersStatus(sChangeOrdersStatus),"Fill Status");
+		logCompare(true,b2wJobs.setChangeOrdersEstimatedQuantity(sChangeOrdersEstimatedQuantity),"Fill Estimated Quantity");
+		logCompare(true,b2wJobs.setChangeOrdersUnitOfMeasure(sChangeOrdersUnitOfMeasure),"Fill Unit of Measure");
+		logCompare(true,b2wJobs.clickBottomSaveButton(),"Save Button Clicked");
 	}
 
 }

@@ -781,4 +781,7 @@ public class B2WUIMap {
 	//Create New Change Order Button
 	public static final String b2w_createnewchangeorderbutton = "a#PageContent_CreateNewChangeOrderButton";
 	
+	//#################################################################
+	public static final String b2w_verifyestimate = "table#DetailInformationPanel fixedLayout";
+	
 }
