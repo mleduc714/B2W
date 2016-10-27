@@ -1,12 +1,17 @@
 package tasks.resources;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
 import org.apache.log4j.Logger;
+import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.internal.Coordinates;
+import org.openqa.selenium.internal.Locatable;
 
+import appobjects.maintain.B2WMaintain;
 import appobjects.resources.B2WEquipment;
 import appobjects.resources.KendoUI;
 import appobjects.scheduler.B2WScheduleAssignments;
@@ -119,7 +124,7 @@ public abstract class B2WKendoTasks {
 		List<WebElement> ls = WebElementUtils.findElements(B2WEquipment.getKendoHeadersFromView());
 		WebElement el = WebElementUtils.getElementWithMatchingText(ls, sText, false);
 		// get parent and is it expanded or collapsed
-		WebElement parent = WebElementUtils.getParentElement(el);
+		WebElement parent = getHeader(sText);
 		boolean isExpanded =  new Boolean(parent.getAttribute("aria-expanded")).booleanValue();
 		if (isExpanded & !bExpand){
 			log.debug(sText + " is expanded, click to collapse");
@@ -132,5 +137,63 @@ public abstract class B2WKendoTasks {
 		parent = WebElementUtils.getParentElement(el);
 		isExpanded =  new Boolean(parent.getAttribute("aria-expanded")).booleanValue();
 		return isExpanded == bExpand;
+	}
+	
+	public void findItem(WebElement grid, int i) {
+		WebElement item = null;
+		List<WebElement> items = WebElementUtils.getChildElements(grid, By.tagName("tr"));
+		Iterator<WebElement> iter = items.iterator();
+		while (iter.hasNext()){
+			item = iter.next();
+			List<WebElement> gridcontent = WebElementUtils.getChildElements(item, By.tagName("td"));
+			String sText = gridcontent.get(i).getText();
+			// when it's a empty string we need to get into view
+			if (sText.equals("")){
+				Coordinates coordinate = ((Locatable)item).getCoordinates(); 
+				coordinate.onPage(); 
+				coordinate.inViewPort();
+			}
+		}
+	}
+	
+	public WebElement getHeader(String sText){
+		WebElement header = null;
+		List<WebElement> ls = WebElementUtils.findElements(B2WEquipment.getKendoHeadersFromView());
+		WebElement el = WebElementUtils.getElementWithMatchingText(ls, sText, false);
+		if (el != null){
+			header = WebElementUtils.getParentElement(el);
+		}
+		return header;
+		
+	}
+
+	public Iterator<WebElement> getChildElementsFromGrid(WebElement grid){
+		Iterator<WebElement> itr = null;
+		List<WebElement> items = WebElementUtils.getChildElements(grid, By.tagName("tr"));
+		if (items.size()> 0){
+			itr = items.iterator();
+		}
+		return itr;
+	}
+	public ArrayList<String> getItemsByColumnFromGrid(String sHeader, int iColumn) {
+		ArrayList<String> itemstext = new ArrayList<String>();
+		WebElement header = getHeader(sHeader);
+		WebElement grid = WebElementUtils.getChildElement(header, B2WMaintain.getKendoGridContent());
+		Iterator<WebElement> itr = getChildElementsFromGrid(grid);
+		if (itr!=null){
+			while (itr.hasNext()){
+				WebElement item = itr.next();
+				List<WebElement> gridcontent = WebElementUtils.getChildElements(item, By.tagName("td"));
+				String sText = gridcontent.get(iColumn).getText();
+				if (sText.equals("")){
+					Coordinates coordinate = ((Locatable)item).getCoordinates(); 
+					coordinate.onPage(); 
+					coordinate.inViewPort();
+				}
+				sText = gridcontent.get(iColumn).getText();
+				itemstext.add(sText);
+			}
+		}
+		return itemstext;
 	}
 }

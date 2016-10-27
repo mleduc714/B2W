@@ -460,7 +460,7 @@ public class B2WUIMap {
 	public static final String b2w_newequipmentcapacitygrid = "table#PageContent_CapacityGrid";
 	public static final String b2w_kendolistofitems = ".k-reset";
 	public static final String b2w_kendofooter = ".edit-form-footer";
-	public static final String b2w_newequipmentsavebutton = "div.btn-form.large.save";
+	public static final String b2w_newequipmentsavebutton = ".btn-form.large.save";
 	public static final String b2w_kendofilterbydd = "div.k-multiselect-wrap.k-floatwrap";
 	public static final String b2w_kendogridcontent = "div.k-grid-content";
 	public static final String b2w_kendoselected = "div.k-state-selected";
@@ -482,6 +482,9 @@ public class B2WUIMap {
 	public static final String b2w_kendowindow= "div.k-widget.k-window";
 	public static final String b2w_kendonumerictextbox = "span.k-widget.k-numerictextbox";
 	public static final String b2w_kendosavebuttonfake = "div.btn-form.large.fake";
+	public static final String b2w_kendobuttonadd = "span.btn-add";
+	public static final String b2w_kendowindowtitle = "span.k-window-title";
+	public static final String b2w_kendobuttoncontainer = "div.button-container";
 	
 	public static final String b2w_tmpricesheeteditbutton = "a#editPriceSheet.btn-orig";
 	public static final String b2w_tmpricesheetmodifyratesourcebutton = "a#modifyPriceSheetRates.btn-orig";
@@ -786,5 +789,8 @@ public class B2WUIMap {
 	
 	//Create New Change Order Button
 	public static final String b2w_createnewchangeorderbutton = "a#PageContent_CreateNewChangeOrderButton";
+	
+	//#################################################################
+	public static final String b2w_verifyestimate = "table#DetailInformationPanel fixedLayout";
 	
 }

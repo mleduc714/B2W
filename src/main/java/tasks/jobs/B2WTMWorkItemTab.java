@@ -119,7 +119,6 @@ public class B2WTMWorkItemTab extends B2WKendoTasks {
 				String hidden = els.getAttribute("aria-hidden");
 				if (hidden != null && hidden.equals("false")) {
 					List<WebElement> items = els.findElements(KendoUI.getKendoDropDownItem());
-					System.out.println(items.size());
 					Random rand = new Random();
 					 
 					WebElement item = items.get(rand.nextInt(items.size()-1));
