@@ -538,6 +538,22 @@ public class B2WUIMap {
 	public static final String b2w_jobestimateviewdelete = "a[id^='PageContent_ListingGridView_Delete']";
 	
 	public static final String b2w_jobestimateitem = "table#DetailInformationPanel fixedLayout";
+	
+	public static final String b2w_jobtrackingaccountstable = "table#PageContent_ProductionAccountDetails";
+	
+	public static final String b2w_jobmaterialstable = "table#PageContent_generalInformationPanel";
+	
+	public static final String b2w_jobsubcontractorstable = "table#PageContent_generalInformationPanel";
+	
+	public static final String b2w_jobtruckingsubcontractors = "table#PageContent_generalInformationPanel";
+	
+	public static final String b2w_jobvendors = "table#PageContent_generalInformationPanel";
+	
+	public static final String b2w_changeordersid = "span#PageContent_generalInformationPanel_ChangeOrderIDTextBox";
+	public static final String b2w_changeordersdescription = "table#detailCell fill Literal";
+	
+	public static final String b2w_timeandmaterialrates = "span#text: Item.SourceInfo.Description, visible: Data.HasReferenceRate";
+	public static final String b22_timeandmaterialworkitems = "span#text: Item.Description";
 
 	public static final String b2w_jobstrackacctstrackingid = "a[id^='PageContent_ProductionAccountGridView_TrackingID']";
 	public static final String b2w_jobstrackacctsaccountid = "span[id^='PageContent_ProductionAccountGridView_AccountID']";
