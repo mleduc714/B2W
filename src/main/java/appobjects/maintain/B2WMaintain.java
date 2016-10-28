@@ -70,4 +70,17 @@ public class B2WMaintain extends KendoUI {
 	 public static By getB2WMaintainAddIntervalDialog() {
 		 return By.cssSelector(B2WUIMap.b2w_maintainintervaldialog);
 	 }
+	 public static By getB2WMaintainRequestCreateView() {
+		 return By.cssSelector(B2WUIMap.b2w_maintainrequestcreateview);
+	 }
+	 public static By getB2WMaintainItemActions() {
+		 return By.cssSelector(B2WUIMap.b2w_maintainitemactions);
+	 }
+	 public static By getB2WMaintainEditFormContent() {
+		 return By.cssSelector(B2WUIMap.b2w_maintainrequesteditformcontent);
+	 }
+	 public static By getB2WNewMaintanceRequestNewCommentButton() {
+		 return By.cssSelector(B2WUIMap.b2w_maintainrequestedcommentbutton);
+	 }
+	 
 }

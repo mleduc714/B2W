@@ -146,7 +146,7 @@ public class B2WEquipmentTasks extends B2WKendoTasks {
 		boolean bReturn = false;
 		WebElement el = WebElementUtils.findElement(B2WEquipment.getKendoFooter());
 		if (el != null) {
-			WebElement button = WebElementUtils.getChildElement(el, B2WEquipment.getNewEquipmentSaveButton());
+			WebElement button = WebElementUtils.getChildElement(el, B2WEquipment.getKendoLargeSaveButton());
 			bReturn = WebElementUtils.clickElement(button);
 			bReturn = WebElementUtils.waitAndFindDisplayedElement(B2WEquipment.getEquipmentItemAction()) != null;
 			bReturn &= waitForEquipmentPageNoBusy();
@@ -381,7 +381,7 @@ public class B2WEquipmentTasks extends B2WKendoTasks {
 		WebElement window = getDisplayedWindow();
 		if (window != null){
 			WebElement buttoncontainer = WebElementUtils.getChildElement(window, B2WEquipment.getKendoButtonContainer());
-			WebElement savebutton = buttoncontainer.findElement(B2WEquipment.getNewEquipmentSaveButton());
+			WebElement savebutton = buttoncontainer.findElement(B2WEquipment.getKendoLargeSaveButton());
 			bReturn = WebElementUtils.clickElement(savebutton);
 			bReturn &= WebElementUtils.waitForElementInvisible(window);
 		}

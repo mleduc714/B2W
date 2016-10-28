@@ -4,6 +4,7 @@ import com.b2w.test.B2WTestCase;
 
 import tasks.B2WNavigationTasks;
 import tasks.maintain.B2WMaintainProgramsTasks;
+import tasks.maintain.B2WMaintainRequestTasks;
 import tasks.maintain.B2WMaintainTasks;
 import tasks.resources.B2WEquipmentTasks;
 import tasks.util.TaskUtils;
@@ -14,6 +15,7 @@ public class OperationsSmokeG extends B2WTestCase {
 	B2WMaintainTasks b2wMain = new B2WMaintainTasks();
 	B2WMaintainProgramsTasks b2wMainPrograms = new B2WMaintainProgramsTasks();
 	B2WEquipmentTasks b2wEquip = new B2WEquipmentTasks();
+	B2WMaintainRequestTasks b2wRequests = new B2WMaintainRequestTasks();
 	String sMaintenanceProgramDesc;
 	String sMaintenanceProgramItemADesc;
 	String sMaintenanceProgramItemAType;
@@ -77,8 +79,8 @@ public class OperationsSmokeG extends B2WTestCase {
 	public void testMain() throws Throwable {
 
 		//createMaintenanceProgram();
-		addParts();
-
+		//addParts();
+		createRequest();
 	}
 
 	@Override
@@ -141,7 +143,33 @@ public class OperationsSmokeG extends B2WTestCase {
 		
 		b2wEquip.expandMeters();
 		b2wEquip.clickAddMeterButton();
+		TaskUtils.sleep(1000);
+		b2wEquip.selectAddMeterTypeFromDD("Fuel Meter");
+		b2wEquip.selectAddMeterRequiredOnWorkOrderCompletionNotRequired();
+		b2wEquip.selectAddMeterExcludeFromWorkOrdersNever();
+		b2wEquip.setAddMeterTypeDescription("Meter Description");
+		b2wEquip.setAddMeterIntialReading("45");
+		b2wEquip.setAddMeterEnterNewReadingCheckBox();
+		b2wEquip.setAddMeterEnterNewReading("200");
+		b2wEquip.setAddMeterEnterNewReadingDate("10/25/2016");
 		TaskUtils.sleep(4000);
 		
 	}
+	
+	public void createRequest() {
+		
+		logCompare(true, b2wNav.openMaintain(), "Open Maintain");
+		logCompare(true, b2wMain.openRequests(), "Open Requests");
+		logCompare(true, b2wRequests.clickCreateNewRequestButton(), "Create Requests");
+		b2wRequests.selectEquipment("1004 [Cat 953D Loader]");
+		b2wRequests.setRequestDescription("DESC");
+		//b2wRequests.clickNewCommentButton();
+		TaskUtils.sleep(1000);
+		
+		b2wRequests.setNotes("OOW");
+		TaskUtils.sleep(4000);
+		
+	}
+	
+	
 }

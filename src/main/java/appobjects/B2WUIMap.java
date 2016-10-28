@@ -460,7 +460,7 @@ public class B2WUIMap {
 	public static final String b2w_newequipmentcapacitygrid = "table#PageContent_CapacityGrid";
 	public static final String b2w_kendolistofitems = ".k-reset";
 	public static final String b2w_kendofooter = ".edit-form-footer";
-	public static final String b2w_newequipmentsavebutton = ".btn-form.large.save";
+	public static final String b2w_kendolargesavebutton = ".btn-form.large.save";
 	public static final String b2w_kendofilterbydd = "div.k-multiselect-wrap.k-floatwrap";
 	public static final String b2w_kendogridcontent = "div.k-grid-content";
 	public static final String b2w_kendoselected = "div.k-state-selected";
@@ -809,6 +809,7 @@ public class B2WUIMap {
 	public static final String b2w_maintainitemactions = "div.item-actions";
 	public static final String b2w_maintainrequestcreateview = "div#request_create_view";
 	public static final String b2w_maintainrequesteditformcontent = "div.edit-form-content";
+	public static final String b2w_maintainrequestedcommentbutton = "span.btn-addcomment";
 	
 	
 	public static final String b2w_scheduleanimationcontainer = ".k-animation-container";

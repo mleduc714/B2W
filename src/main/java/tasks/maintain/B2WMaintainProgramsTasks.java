@@ -488,7 +488,7 @@ public class B2WMaintainProgramsTasks extends B2WMaintainTasks {
 		boolean bReturn = false;
 		WebElement el = WebElementUtils.findElement(B2WEquipment.getKendoFooter());
 		if (el != null) {
-			WebElement button = WebElementUtils.getChildElement(el, B2WEquipment.getNewEquipmentSaveButton());
+			WebElement button = WebElementUtils.getChildElement(el, B2WEquipment.getKendoLargeSaveButton());
 			bReturn = WebElementUtils.clickElement(button);
 			bReturn = WebElementUtils.waitForElementInvisible(WebElementUtils.findElement(B2WMaintain.getKendoFakeSaveButton()));
 			WebElementUtils.waitAndFindDisplayedElement(B2WMaintain.getKendoButton());

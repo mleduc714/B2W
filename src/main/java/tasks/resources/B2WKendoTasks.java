@@ -54,7 +54,6 @@ public abstract class B2WKendoTasks {
 				iTrys++;
 
 			} catch (NoSuchElementException e) {
-				
 				bReturn = true;
 			}
 		}
