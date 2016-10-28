@@ -320,4 +320,40 @@ public class B2WJobs extends KendoUI {
 	public static By getB2WEstimateTableVerification() {
 		return By.cssSelector(B2WUIMap.b2w_jobestimateitem);
 	}
+	
+	public static By getB2WEstimateTrackingAccountsVerification() {
+		return By.cssSelector(B2WUIMap.b2w_jobtrackingaccountstable);
+	}
+	
+	public static By getB2WEstimateMaterialsVerification() {
+		return By.cssSelector(B2WUIMap.b2w_jobmaterialstable);
+	}
+	
+	public static By getB2WEstimateJobSubcontractorsVerification() {
+		return By.cssSelector(B2WUIMap.b2w_jobsubcontractorstable);
+	}
+	
+	public static By getB2WEstimateJobTruckingSubcontractorVerification() {
+		return By.cssSelector(B2WUIMap.b2w_jobtruckingsubcontractors);
+	}
+	
+	public static By getB2WEstimateJobVendorsVerification() {
+		return By.cssSelector(B2WUIMap.b2w_jobvendors);
+	}
+	
+	public static By getB2WEstimateChangeOrdersIDVerification() {
+		return By.cssSelector(B2WUIMap.b2w_changeordersid);
+	}
+	
+	public static By getB2WEstimateChangeOrdersDescriptionVerification() {
+		return By.cssSelector(B2WUIMap.b2w_changeordersdescription);
+	}
+	
+	public static By getB2WEstimateTimeAndMaterialRatesVerification() {
+		return By.cssSelector(B2WUIMap.b2w_timeandmaterialrates);
+	}
+	
+	public static By getB2WEstimateTimeAndMaterialWorkItemsVerification() {
+		return By.cssSelector(B2WUIMap.b22_timeandmaterialworkitems);
+	}
 }
