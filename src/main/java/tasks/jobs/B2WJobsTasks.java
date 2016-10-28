@@ -243,7 +243,7 @@ public class B2WJobsTasks extends B2WResourceTasks {
 		}
 		return bReturn;
 	}
-	
+
 	public boolean openEstimateItemByItemID(String b2w_jobsestimateitemid) {
 		boolean bReturn = false;
 		WebElement el = WebElementUtils.getElementWithMatchingText(B2WJobs.getB2WEstimateITemID(), b2w_jobsestimateitemid);
@@ -261,6 +261,171 @@ public class B2WJobsTasks extends B2WResourceTasks {
 		if (el != null){
 			WebElementUtils.clickElement(el);
 			WebElement waitForThis = WebElementUtils.waitAndFindDisplayedElement(B2WJobs.getB2WEstimateTableVerification());
+			bReturn = waitForThis != null;
+		}
+		return bReturn;
+	}
+	
+	public boolean openTrackingAccountByTrackingID(String b2w_jobstrackingaccountid) {
+		boolean bReturn = false;
+		WebElement el = WebElementUtils.getElementWithMatchingText(B2WJobs.getB2WEstimateTrackingAccountsVerification(), b2w_jobstrackingaccountid);
+		if (el != null){
+			WebElementUtils.clickElement(el);
+			WebElement waitForThis = WebElementUtils.waitAndFindDisplayedElement(B2WJobs.getB2WEstimateTrackingAccountsVerification());
+			bReturn = waitForThis != null;
+		}
+		return bReturn;
+	}
+	
+	public boolean openTrackingAccountByDescription(String b2w_jobstrackingaccountdescription) {
+		boolean bReturn = false;
+		WebElement el = WebElementUtils.getElementWithMatchingText(B2WJobs.getB2WEstimateTrackingAccountsVerification(), b2w_jobstrackingaccountdescription);
+		if (el != null){
+			WebElementUtils.clickElement(el);
+			WebElement waitForThis = WebElementUtils.waitAndFindDisplayedElement(B2WJobs.getB2WEstimateTrackingAccountsVerification());
+			bReturn = waitForThis != null;
+		}
+		return bReturn;
+	}
+	
+	public boolean openMaterialByDescription(String b2w_jobsmaterialsdescription) {
+		boolean bReturn = false;
+		WebElement el = WebElementUtils.getElementWithMatchingText(B2WJobs.getB2WEstimateMaterialsVerification(), b2w_jobsmaterialsdescription);
+		if (el != null){
+			WebElementUtils.clickElement(el);
+			WebElement waitForThis = WebElementUtils.waitAndFindDisplayedElement(B2WJobs.getB2WEstimateMaterialsVerification());
+			bReturn = waitForThis != null;
+		}
+		return bReturn;
+	}
+	
+	public boolean openMaterialByMaterialID(String b2w_jobsmaterialsmaterialid) {
+		boolean bReturn = false;
+		WebElement el = WebElementUtils.getElementWithMatchingText(B2WJobs.getB2WEstimateMaterialsVerification(), b2w_jobsmaterialsmaterialid);
+		if (el != null){
+			WebElementUtils.clickElement(el);
+			WebElement waitForThis = WebElementUtils.waitAndFindDisplayedElement(B2WJobs.getB2WEstimateMaterialsVerification());
+			bReturn = waitForThis != null;
+		}
+		return bReturn;
+	}
+	
+	public boolean openJobSubcontractorsByCompanyName(String b2w_jobsubcontractorscompanyname) {
+		boolean bReturn = false;
+		WebElement el = WebElementUtils.getElementWithMatchingText(B2WJobs.getB2WEstimateJobSubcontractorsVerification(), b2w_jobsubcontractorscompanyname);
+		if (el != null){
+			WebElementUtils.clickElement(el);
+			WebElement waitForThis = WebElementUtils.waitAndFindDisplayedElement(B2WJobs.getB2WEstimateJobSubcontractorsVerification());
+			bReturn = waitForThis != null;
+		}
+		return bReturn;
+	}
+	
+	public boolean openJobSubcontractorsByCompanyID(String b2w_jobsubcontractorscompanyid) {
+		boolean bReturn = false;
+		WebElement el = WebElementUtils.getElementWithMatchingText(B2WJobs.getB2WEstimateJobSubcontractorsVerification(), b2w_jobsubcontractorscompanyid);
+		if (el != null){
+			WebElementUtils.clickElement(el);
+			WebElement waitForThis = WebElementUtils.waitAndFindDisplayedElement(B2WJobs.getB2WEstimateJobSubcontractorsVerification());
+			bReturn = waitForThis != null;
+		}
+		return bReturn;
+	}
+	
+	public boolean openJobTruckingSubcontractorsByCompanyName(String b2w_jobtruckingsubcontractorscompanyname) {
+		boolean bReturn = false;
+		WebElement el = WebElementUtils.getElementWithMatchingText(B2WJobs.getB2WEstimateJobTruckingSubcontractorVerification(), b2w_jobtruckingsubcontractorscompanyname);
+		if (el != null){
+			WebElementUtils.clickElement(el);
+			WebElement waitForThis = WebElementUtils.waitAndFindDisplayedElement(B2WJobs.getB2WEstimateJobTruckingSubcontractorVerification());
+			bReturn = waitForThis != null;
+		}
+		return bReturn;
+	}
+	
+	public boolean openJobVendorsByCompanyName(String b2w_jobvendorscompanyname) {
+		boolean bReturn = false;
+		WebElement el = WebElementUtils.getElementWithMatchingText(B2WJobs.getB2WEstimateJobVendorsVerification(), b2w_jobvendorscompanyname);
+		if (el != null){
+			WebElementUtils.clickElement(el);
+			WebElement waitForThis = WebElementUtils.waitAndFindDisplayedElement(B2WJobs.getB2WEstimateJobVendorsVerification());
+			bReturn = waitForThis != null;
+		}
+		return bReturn;
+	}
+	
+	public boolean openJobVendorsByCompanyID(String b2w_jobvendorscompanyid) {
+		boolean bReturn = false;
+		WebElement el = WebElementUtils.getElementWithMatchingText(B2WJobs.getB2WEstimateJobVendorsVerification(), b2w_jobvendorscompanyid);
+		if (el != null){
+			WebElementUtils.clickElement(el);
+			WebElement waitForThis = WebElementUtils.waitAndFindDisplayedElement(B2WJobs.getB2WEstimateJobVendorsVerification());
+			bReturn = waitForThis != null;
+		}
+		return bReturn;
+	}
+	
+	public boolean openJobTruckingSubcontractorsByCompanyID(String b2w_jobtruckingsubcontractorscompanyid) {
+		boolean bReturn = false;
+		WebElement el = WebElementUtils.getElementWithMatchingText(B2WJobs.getB2WEstimateJobTruckingSubcontractorVerification(), b2w_jobtruckingsubcontractorscompanyid);
+		if (el != null){
+			WebElementUtils.clickElement(el);
+			WebElement waitForThis = WebElementUtils.waitAndFindDisplayedElement(B2WJobs.getB2WEstimateJobTruckingSubcontractorVerification());
+			bReturn = waitForThis != null;
+		}
+		return bReturn;
+	}
+	
+	public boolean openChangeOrderByID(String b2w_changeorderid) {
+		boolean bReturn = false;
+		WebElement el = WebElementUtils.getElementWithMatchingText(B2WJobs.getB2WEstimateChangeOrdersIDVerification(), b2w_changeorderid);
+		if (el != null){
+			WebElementUtils.clickElement(el);
+			WebElement waitForThis = WebElementUtils.waitAndFindDisplayedElement(B2WJobs.getB2WEstimateChangeOrdersIDVerification());
+			bReturn = waitForThis != null;
+		}
+		return bReturn;
+	}
+	
+	public boolean openChangeOrderByDescription(String b2w_changeorderdescription) {
+		boolean bReturn = false;
+		WebElement el = WebElementUtils.getElementWithMatchingText(B2WJobs.getB2WEstimateChangeOrdersDescriptionVerification(), b2w_changeorderdescription);
+		if (el != null){
+			WebElementUtils.clickElement(el);
+			WebElement waitForThis = WebElementUtils.waitAndFindDisplayedElement(B2WJobs.getB2WEstimateChangeOrdersDescriptionVerification());
+			bReturn = waitForThis != null;
+		}
+		return bReturn;
+	}
+	
+	public boolean openTimeAndMaterialRatesByRateType(String b2w_timeandmaterialratesratetype) {
+		boolean bReturn = false;
+		WebElement el = WebElementUtils.getElementWithMatchingText(B2WJobs.getB2WEstimateTimeAndMaterialRatesVerification(), b2w_timeandmaterialratesratetype);
+		if (el != null){
+			WebElementUtils.clickElement(el);
+			WebElement waitForThis = WebElementUtils.waitAndFindDisplayedElement(B2WJobs.getB2WEstimateTimeAndMaterialRatesVerification());
+			bReturn = waitForThis != null;
+		}
+		return bReturn;
+	}
+	
+	public boolean openTimeAndMaterialWorkItemsByID(String b2w_timeandmaterialworkitemsid) {
+		boolean bReturn = false;
+		WebElement el = WebElementUtils.getElementWithMatchingText(B2WJobs.getB2WEstimateTimeAndMaterialWorkItemsVerification(), b2w_timeandmaterialworkitemsid);
+		if (el != null){
+			WebElementUtils.clickElement(el);
+			WebElement waitForThis = WebElementUtils.waitAndFindDisplayedElement(B2WJobs.getB2WEstimateTimeAndMaterialWorkItemsVerification());
+			bReturn = waitForThis != null;
+		}
+		return bReturn;
+	}
+	
+	public boolean openTimeAndMaterialWorkItemsByDescription(String b2w_timeandmaterialworkitemsdescription) {
+		boolean bReturn = false;
+		WebElement el = WebElementUtils.getElementWithMatchingText(B2WJobs.getB2WEstimateTimeAndMaterialWorkItemsVerification(), b2w_timeandmaterialworkitemsdescription);
+		if (el != null){
+			WebElementUtils.clickElement(el);
+			WebElement waitForThis = WebElementUtils.waitAndFindDisplayedElement(B2WJobs.getB2WEstimateTimeAndMaterialWorkItemsVerification());
 			bReturn = waitForThis != null;
 		}
 		return bReturn;
@@ -640,7 +805,7 @@ public class B2WJobsTasks extends B2WResourceTasks {
 	
 	
 	public boolean setEstimateUnitOfMeasure(String sText){
-		WebElementUtils.selectAnyItemFromOpsDropDownMenu(B2WJobs.getB2WEstimateUnitOfMeasure());
+		WebElementUtils.selectItemFromOpsDropDownMenu(B2WJobs.getB2WEstimateUnitOfMeasure(), sText);
 		
 		return WebElementUtils.getSelectedTextFromDropDown(B2WJobs.getB2WEstimateUnitOfMeasure()).equals(sText);
 	}
@@ -660,7 +825,7 @@ public class B2WJobsTasks extends B2WResourceTasks {
 	}
 	
 	public boolean setChangeOrdersUnitOfMeasure(String sText){
-		WebElementUtils.selectAnyItemFromOpsDropDownMenu(B2WJobs.getB2WChangeOrderUnitOfMeasure());
+		WebElementUtils.selectItemFromOpsDropDownMenu(B2WJobs.getB2WChangeOrderUnitOfMeasure(), sText);
 		
 		return WebElementUtils.getSelectedTextFromDropDown(B2WJobs.getB2WChangeOrderUnitOfMeasure()).equals(sText);
 	}
