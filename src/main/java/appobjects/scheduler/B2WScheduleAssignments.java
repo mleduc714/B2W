@@ -30,4 +30,6 @@ public class B2WScheduleAssignments extends KendoUI {
     public static By getResourceListOnGrig() { return By.cssSelector(B2WUIMap.b2w_scheduleresourcelistongrid); }
     public static By getSelectedDatesOnCalendar() { return By.cssSelector(B2WUIMap.b2w_scheduleselecteddates); }
     public static By getAssignments() { return By.cssSelector(B2WUIMap.b2w_scheduleassignments); }
+    public static By getNotesField() { return By.cssSelector(B2WUIMap.b2w_schedulenotesfield);}
+    public static By getClockBtn() { return By.cssSelector(B2WUIMap.b2w_scheduleclockbtn);}
 }
