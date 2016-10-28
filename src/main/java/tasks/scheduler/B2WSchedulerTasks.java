@@ -4,6 +4,7 @@ import appobjects.resources.KendoUI;
 import appobjects.scheduler.B2WScheduleAssignments;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import tasks.WebElementUtils;
 import tasks.resources.B2WKendoTasks;
@@ -43,7 +44,7 @@ public class B2WSchedulerTasks extends B2WKendoTasks {
         return waitForPageNotBusy();
     }
 
-    //Navigate and Select Menu section
+    //--Navigate and Select Menu section
     public boolean navigateToScheduleView(String sViewName, String sPanel) {
         boolean bReturn = false;
 
@@ -82,7 +83,7 @@ public class B2WSchedulerTasks extends B2WKendoTasks {
         return bReturn;
     }
 
-    //Select Options from 'New' Menu
+    //--Select Options from 'New' Menu
     public boolean createNewEmployeeAssignment() {
         return openCreateDialog(ASSIGNMENT);
     }
@@ -153,7 +154,7 @@ public class B2WSchedulerTasks extends B2WKendoTasks {
         return bResult;
     }
 
-    // Set Methods
+    //-- Set Methods
     // Method to set value to FDD fields
     public boolean setFields(String sFieldName, String sValue) {
         boolean bReturn = false;
@@ -170,6 +171,7 @@ public class B2WSchedulerTasks extends B2WKendoTasks {
         return bReturn;
     }
 
+    // Set Values on Create Assignment Dialog
     public boolean setJobSite(String sValue) {
         return setFields("Job Site/Place", sValue);
     }
@@ -297,7 +299,51 @@ public class B2WSchedulerTasks extends B2WKendoTasks {
         return bReturn;
     }
 
-    // Get Methods
+    // Methods for Calendar on Schedule View
+    public boolean setCalendarDateRange(String sValue) {
+        boolean bReturn = false;
+        WebElement activeDateRange = WebElementUtils.findElement(B2WScheduleAssignments.getCalendarActiveDateRange());
+        if (activeDateRange != null) {
+            if (!activeDateRange.getText().equals(sValue)) {
+                WebElement parent = WebElementUtils.getParentElement(activeDateRange);
+                List<WebElement> dateRangeList = WebElementUtils.getChildElements(parent, By.cssSelector("a"));
+                Iterator<WebElement> iterator = dateRangeList.iterator();
+                while (iterator.hasNext() && !bReturn) {
+                    WebElement item = iterator.next();
+                    if (item.getText().equals(sValue)) {
+                        bReturn = WebElementUtils.clickElement(item);
+                        TaskUtils.sleep(100);
+                        waitForSchedulePageNoBusy();
+                        bReturn &= WebElementUtils.findElement(B2WScheduleAssignments.getCalendarActiveDateRange()).getText().equals(sValue);
+                    }
+                }
+            } else {
+                bReturn = true;
+            }
+        } else {
+            log.debug("Active date range element could not be found on the page.");
+        }
+        return bReturn;
+    }
+    public boolean setCalendarStartDate(String sValue) {
+        boolean bReturn = false;
+        WebElement inputCalendarStartDate = WebElementUtils.findElement(B2WScheduleAssignments.getCalendarStartDate());
+        if (inputCalendarStartDate != null) {
+            inputCalendarStartDate.clear();
+            bReturn = WebElementUtils.sendKeys(inputCalendarStartDate, sValue + Keys.RETURN);
+            TaskUtils.sleep(100);
+            waitForSchedulePageNoBusy();
+            Date d1 = StringUtils.getDateFromStringWithPattern(sValue, "M/d/yyyy");
+            DateRange dateRange = getSelectedDates();
+            //bReturn &= calendarStartDateValue.getText().contains(sValue);
+            bReturn &= d1.equals(dateRange.getLowerDate());
+        } else {
+            log.debug("Calendar startDate field could not be found on the Schedule View page.");
+        }
+        return bReturn;
+    }
+
+    //-- Get Methods
     public int getAssignmentsCount(String sResourceName, String sLocationName) {
         return getAssignments(sResourceName, sLocationName).size();
     }
@@ -336,7 +382,7 @@ public class B2WSchedulerTasks extends B2WKendoTasks {
         return bResult;
     }
 
-    // Save Methods
+    //-- Save Methods
     public boolean saveAssignment() {
         /*
          * 1. Click on Add to Schedule button
@@ -430,7 +476,7 @@ public class B2WSchedulerTasks extends B2WKendoTasks {
         return bResult;
     }
 
-    // Support Functions
+    //-- Support Functions
     public DateRange getSelectedDates() {
         Date startDate = null;
         Date endDate = null;
@@ -442,6 +488,7 @@ public class B2WSchedulerTasks extends B2WKendoTasks {
             WebElement el = WebElementUtils.getChildElement(item, By.cssSelector("a.k-link"));
             if (el != null) {
                 String dataValue = el.getAttribute("data-value");
+                dataValue = correctDate(dataValue);
                 Date tmpDate = StringUtils.getDateFromString(dataValue);
                 setDaysSelectedCount(getDaysSelectedCount() + 1);
                 if (startDate != null) {
@@ -463,6 +510,15 @@ public class B2WSchedulerTasks extends B2WKendoTasks {
 
         DateRange dateRange = new DateRange(startDate, endDate);
         return dateRange;
+    }
+    public String correctDate(String sValue) {
+        String sResult;
+        String[] stringList = sValue.split("/");
+        Integer iTmp = Integer.parseInt(stringList[1].toString());
+        iTmp++;
+        stringList[1] = String.valueOf(iTmp);
+        sResult = stringList[0] + "/" + stringList[1] + "/" + stringList[2];
+        return sResult;
     }
     public boolean isDateInRange(DateRange dateRange, String sDate) {
         Date date = StringUtils.getDateFromString(sDate);

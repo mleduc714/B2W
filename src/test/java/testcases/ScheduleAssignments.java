@@ -2,6 +2,7 @@ package testcases;
 
 import com.b2w.test.B2WTestCase;
 
+import com.sun.corba.se.impl.interceptors.ServerRequestInfoImpl;
 import tasks.B2WNavigationTasks;
 import tasks.scheduler.B2WSchedulerTasks;
 
@@ -30,6 +31,8 @@ public class ScheduleAssignments extends B2WTestCase {
     String sEquipmentView;
     String sCrewView;
     String sLocationView;
+    String sCalendarDateRange;
+    String sCalendarStartDate;
 
     // Assignment - General Values
     String sJobSiteName;
@@ -111,22 +114,22 @@ public class ScheduleAssignments extends B2WTestCase {
         sNotesText = getProperty("sNotesText");
         sAssignmentDuration = getProperty("sAssignmentDuration");
         sAssignmentStartTime = getProperty("sAssignmentStartTime");
+        sCalendarDateRange = getProperty("sCalendarDateRange");
+        sCalendarStartDate = getProperty("sCalendarStartDate");
     }
 
     public void testMain() throws Throwable {
-        /*
         createEmployeeAssignment();
         createEquipmentAssignment();
         createEmployeeNeed();
         createEquipmentNeed();
-        */
-        //createCrewAssignment();
-        //createCrewNeed();
-        //createMoveAssignment(); ??
-        //createMoveOrder(); ??
+        createCrewAssignment();
+        createCrewNeed();
+        createMoveAssignment();
+        createMoveOrder();
         createEmployeeEvent();
-        //createEquipmentEvent();
-        //createLocationEvent();
+        createEquipmentEvent();
+        createLocationEvent();
     }
 
     @Override
@@ -137,15 +140,19 @@ public class ScheduleAssignments extends B2WTestCase {
     public void createEmployeeAssignment() {
         /*
          * 1. Open Schedule View with Employee Schedule
-         * 2. Count number existing assignments for resource.
-         * 3. Open New Employee Assignment Dialog
-         * 4. Fill all fields (JobSite, Employee, Requested By, Notes, Duration, StartTime)
-         * 5. Save New Employee Assignment
-         * 6. Count number existing assignments for resource
-         * 7. Check that the counts difference equal 1
+         * 2. Change Date Range on Schedule View
+         * 3. Change Start Date on Schedule View
+         * 4. Count number existing assignments for resource.
+         * 5. Open New Employee Assignment Dialog
+         * 6. Fill all fields (JobSite, Employee, Requested By, Notes, Duration, StartTime)
+         * 7. Save New Employee Assignment
+         * 8. Count number existing assignments for resource
+         * 9. Check that the counts difference equal 1
          */
         logCompare(true, b2wNav.openSchedule(), "Open Schedule View");
         logCompare(true, b2wScheduler.navigateToScheduleView(sEmployeeView, sEmployeeView), "Open Employee Schedule View");
+        logCompare(true, b2wScheduler.setCalendarDateRange(sCalendarDateRange), "Set Calendar Date Range on Schedule View");
+        logCompare(true, b2wScheduler.setCalendarStartDate(sCalendarStartDate), "Set Calendar Start Date on Schedule View");
         int initialCount = b2wScheduler.getAssignmentsCount(sEmployeeName, sJobSiteName);
         logCompare(true, b2wScheduler.createNewEmployeeAssignment(), "Open Create Employee Assignment Dialog");
         logCompare(true, b2wScheduler.setJobSite(sJobSiteName), "Set JobSite/Place");
@@ -163,15 +170,19 @@ public class ScheduleAssignments extends B2WTestCase {
     public void createEquipmentAssignment() {
         /*
          * 1. Open Schedule View with Equipment Schedule
-         * 2. Count number existing assignments for resource.
-         * 3. Open New Equipment Assignment Dialog
-         * 4. Fill all fields (JobSite, Equipment, Requested By, Notes, Duration, StartTime)
-         * 5. Save New Equipment Assignment
-         * 6. Count number existing assignments for resource
-         * 7. Check that the counts difference equal 1
+         * 2. Change Date Range on Schedule View
+         * 3. Change Start Date on Schedule View
+         * 4. Count number existing assignments for resource.
+         * 5. Open New Equipment Assignment Dialog
+         * 6. Fill all fields (JobSite, Equipment, Requested By, Notes, Duration, StartTime)
+         * 7. Save New Equipment Assignment
+         * 8. Count number existing assignments for resource
+         * 9. Check that the counts difference equal 1
          */
         logCompare(true, b2wNav.openSchedule(), "Open Schedule View");
         logCompare(true, b2wScheduler.navigateToScheduleView(sEquipmentView, sEquipmentView), "Open Equipment Schedule View");
+        logCompare(true, b2wScheduler.setCalendarDateRange(sCalendarDateRange), "Set Calendar Date Range on Schedule View");
+        logCompare(true, b2wScheduler.setCalendarStartDate(sCalendarStartDate), "Set Calendar Start Date on Schedule View");
         int initialCount = b2wScheduler.getAssignmentsCount(sEquipmentName, sJobSiteName);
         logCompare(true, b2wScheduler.createNewEquipmentAssignment(), "Open Create Equipment Assignment Dialog");
         logCompare(true, b2wScheduler.setJobSite(sJobSiteName), "Set JobSite/Place");
@@ -188,15 +199,19 @@ public class ScheduleAssignments extends B2WTestCase {
     public void createEmployeeNeed() {
         /*
          * 1. Open Schedule View with Employee Schedule
-         * 2. Count number existing assignments for resource.
-         * 3. Open New Employee Assignment Dialog
-         * 4. Fill all fields (JobSite, Employee Need, Requested By, Notes, Duration, StartTime)
-         * 5. Save New Employee Assignment
-         * 6. Count number existing assignments for resource
-         * 7. Check that the counts difference equal 1
+         * 2. Change Date Range on Schedule View
+         * 3. Change Start Date on Schedule View
+         * 4. Count number existing assignments for resource.
+         * 5. Open New Employee Assignment Dialog
+         * 6. Fill all fields (JobSite, Employee Need, Requested By, Notes, Duration, StartTime)
+         * 7. Save New Employee Assignment
+         * 8. Count number existing assignments for resource
+         * 9. Check that the counts difference equal 1
          */
         logCompare(true, b2wNav.openSchedule(), "Open Schedule View");
         logCompare(true, b2wScheduler.navigateToScheduleView(sEmployeeView, sEmployeeView), "Open Employee Schedule View");
+        logCompare(true, b2wScheduler.setCalendarDateRange(sCalendarDateRange), "Set Calendar Date Range on Schedule View");
+        logCompare(true, b2wScheduler.setCalendarStartDate(sCalendarStartDate), "Set Calendar Start Date on Schedule View");
         int initialCount = b2wScheduler.getAssignmentsCount(sEmployeeNeedName, sJobSiteName);
         logCompare(true, b2wScheduler.createNewEmployeeNeed(), "Open Create Employee Need Assignment Dialog");
         logCompare(true, b2wScheduler.setJobSite(sJobSiteName), "Set JobSite/Place");
@@ -213,15 +228,19 @@ public class ScheduleAssignments extends B2WTestCase {
     public void createEquipmentNeed() {
         /*
          * 1. Open Schedule View with Equipment Schedule
-         * 2. Count number existing assignments for resource.
-         * 3. Open New Equipment Assignment Dialog
-         * 4. Fill all fields (JobSite, Equipment Need, Requested By, Notes, Duration, StartTime)
-         * 5. Save New Equipment Assignment
-         * 6. Count number existing assignments for resource
-         * 7. Check that the counts difference equal 1
+         * 2. Change Date Range on Schedule View
+         * 3. Change Start Date on Schedule View
+         * 4. Count number existing assignments for resource.
+         * 5. Open New Equipment Assignment Dialog
+         * 6. Fill all fields (JobSite, Equipment Need, Requested By, Notes, Duration, StartTime)
+         * 7. Save New Equipment Assignment
+         * 8. Count number existing assignments for resource
+         * 9. Check that the counts difference equal 1
          */
         logCompare(true, b2wNav.openSchedule(), "Open Schedule View");
         logCompare(true, b2wScheduler.navigateToScheduleView(sEquipmentView, sEquipmentView), "Open Equipment Schedule View");
+        logCompare(true, b2wScheduler.setCalendarDateRange(sCalendarDateRange), "Set Calendar Date Range on Schedule View");
+        logCompare(true, b2wScheduler.setCalendarStartDate(sCalendarStartDate), "Set Calendar Start Date on Schedule View");
         int initialCount = b2wScheduler.getAssignmentsCount(sEquipmentNeedName, sJobSiteName);
         logCompare(true, b2wScheduler.createNewEquipmentNeed(), "Open Create Equipment Need Assignment Dialog");
         logCompare(true, b2wScheduler.setJobSite(sJobSiteName), "Set JobSite/Place");
@@ -238,15 +257,19 @@ public class ScheduleAssignments extends B2WTestCase {
     public void createCrewAssignment() {
         /*
          * 1. Open Schedule View with Crew Schedule
-         * 2. Count number existing assignments for resource.
-         * 3. Open New Crew Assignment Dialog
-         * 4. Fill all fields (JobSite, Crew, Requested By, Notes, Duration, StartTime)
-         * 5. Save New Crew Assignment
-         * 6. Count number existing assignments for resource
-         * 7. Check that the counts difference equal 1
+         * 2. Change Date Range on Schedule View
+         * 3. Change Start Date on Schedule View
+         * 4. Count number existing assignments for resource.
+         * 5. Open New Crew Assignment Dialog
+         * 6. Fill all fields (JobSite, Crew, Requested By, Notes, Duration, StartTime)
+         * 7. Save New Crew Assignment
+         * 8. Count number existing assignments for resource
+         * 9. Check that the counts difference equal 1
          */
         logCompare(true, b2wNav.openSchedule(), "Open Schedule View");
         logCompare(true, b2wScheduler.navigateToScheduleView(sCrewView, sCrewView), "Open Crew Schedule View");
+        logCompare(true, b2wScheduler.setCalendarDateRange(sCalendarDateRange), "Set Calendar Date Range on Schedule View");
+        logCompare(true, b2wScheduler.setCalendarStartDate(sCalendarStartDate), "Set Calendar Start Date on Schedule View");
         int initialCount = b2wScheduler.getAssignmentsCount(sCrewName, sJobSiteName);
         logCompare(true, b2wScheduler.createNewCrewAssignment(), "Open Create Crew Assignment Dialog");
         logCompare(true, b2wScheduler.setJobSite(sJobSiteName), "Set JobSite/Place");
@@ -263,15 +286,19 @@ public class ScheduleAssignments extends B2WTestCase {
     public void createCrewNeed() {
         /*
          * 1. Open Schedule View with Crew Schedule
-         * 2. Count number existing assignments for resource.
-         * 3. Open New Crew Assignment Dialog
-         * 4. Fill all fields (JobSite, Crew, Requested By, Notes, Duration, StartTime)
-         * 5. Save New Crew Assignment
-         * 6. Count number existing assignments for resource
-         * 7. Check that the counts difference equal 1
+         * 2. Change Date Range on Schedule View
+         * 3. Change Start Date on Schedule View
+         * 4. Count number existing assignments for resource.
+         * 5. Open New Crew Assignment Dialog
+         * 6. Fill all fields (JobSite, Crew, Requested By, Notes, Duration, StartTime)
+         * 7. Save New Crew Assignment
+         * 8. Count number existing assignments for resource
+         * 9. Check that the counts difference equal 1
          */
         logCompare(true, b2wNav.openSchedule(), "Open Schedule View");
         logCompare(true, b2wScheduler.navigateToScheduleView(sCrewView, sCrewView), "Open Crew Schedule View");
+        logCompare(true, b2wScheduler.setCalendarDateRange(sCalendarDateRange), "Set Calendar Date Range on Schedule View");
+        logCompare(true, b2wScheduler.setCalendarStartDate(sCalendarStartDate), "Set Calendar Start Date on Schedule View");
         int initialCount = b2wScheduler.getAssignmentsCount(sCrewNeedName, sJobSiteName);
         logCompare(true, b2wScheduler.createNewCrewNeed(), "Open Create New Crew Need Dialog");
         logCompare(true, b2wScheduler.setJobSite(sJobSiteName), "Set JobSite/Place");
@@ -288,15 +315,19 @@ public class ScheduleAssignments extends B2WTestCase {
     public void createMoveAssignment() {
         /*
          * 1. Open Schedule View with Equipment Schedule
-         * 2. Count number existing assignments for resource.
-         * 3. Open New Move Assignment Dialog
-         * 4. Fill all fields (Equipment, Pickup Location, Drop-off Location, Transportation Crew)
-         * 5. Save New Move Assignment
-         * 6. Count number existing assignments for resource
-         * 7. Check that the counts difference equal 1
+         * 2. Change Date Range on Schedule View
+         * 3. Change Start Date on Schedule View
+         * 4. Count number existing assignments for resource.
+         * 5. Open New Move Assignment Dialog
+         * 6. Fill all fields (Equipment, Pickup Location, Drop-off Location, Transportation Crew)
+         * 7. Save New Move Assignment
+         * 8. Count number existing assignments for resource
+         * 9. Check that the counts difference equal 1
          */
         logCompare(true, b2wNav.openSchedule(), "Open Schedule View");
         logCompare(true, b2wScheduler.navigateToScheduleView(sEquipmentView, sEquipmentView), "Open Equipment Schedule View");
+        logCompare(true, b2wScheduler.setCalendarDateRange(sCalendarDateRange), "Set Calendar Date Range on Schedule View");
+        logCompare(true, b2wScheduler.setCalendarStartDate(sCalendarStartDate), "Set Calendar Start Date on Schedule View");
         int initialCount = b2wScheduler.getAssignmentsCount(sEquipmentName, sJobSiteName);
         logCompare(true, b2wScheduler.createNewMoveAssignment(), "Open Create Move Assignment Dialog");
         logCompare(true, b2wScheduler.setEquipment(sEquipmentName), "Set Equipment");
@@ -312,15 +343,19 @@ public class ScheduleAssignments extends B2WTestCase {
     public void createMoveOrder() {
         /*
          * 1. Open Schedule View with Equipment Schedule
-         * 2. Count number existing assignments for resource.
-         * 3. Open New Move Order Dialog
-         * 4. Fill all fields (Equipment, Pickup Location, Drop-off Location)
-         * 5. Save New Move Order
-         * 6. Count number existing assignments for resource
-         * 7. Check that the counts difference equal 1
+         * 2. Change Date Range on Schedule View
+         * 3. Change Start Date on Schedule View
+         * 4. Count number existing assignments for resource.
+         * 5. Open New Move Order Dialog
+         * 6. Fill all fields (Equipment, Pickup Location, Drop-off Location)
+         * 7. Save New Move Order
+         * 8. Count number existing assignments for resource
+         * 9. Check that the counts difference equal 1
          */
         logCompare(true, b2wNav.openSchedule(), "Open Schedule View");
         logCompare(true, b2wScheduler.navigateToScheduleView(sEquipmentView, sEquipmentView), "Open Equipment Schedule View");
+        logCompare(true, b2wScheduler.setCalendarDateRange(sCalendarDateRange), "Set Calendar Date Range on Schedule View");
+        logCompare(true, b2wScheduler.setCalendarStartDate(sCalendarStartDate), "Set Calendar Start Date on Schedule View");
         int initialCount = b2wScheduler.getAssignmentsCount(sEquipmentName, sJobSiteName);
         logCompare(true, b2wScheduler.createNewMoveOrder(), "Open Create Move Order Dialog");
         logCompare(true, b2wScheduler.setEquipment(sEquipmentName), "Set Equipment");
@@ -334,15 +369,19 @@ public class ScheduleAssignments extends B2WTestCase {
     public void createEmployeeEvent() {
         /*
          * 1. Open Schedule View with Employee Schedule
-         * 2. Count number existing events for resource.
-         * 3. Open New Employee Event Dialog
-         * 4. Fill all fields (Employee, Event Type, Notes)
-         * 5. Save New Employee Event
-         * 6. Count number existing events for resource
-         * 7. Check that the counts difference equal 1
+         * 2. Change Date Range on Schedule View
+         * 3. Change Start Date on Schedule View
+         * 4. Count number existing events for resource.
+         * 5. Open New Employee Event Dialog
+         * 6. Fill all fields (Employee, Event Type, Notes)
+         * 7. Save New Employee Event
+         * 8. Count number existing events for resource
+         * 9. Check that the counts difference equal 1
          */
         logCompare(true, b2wNav.openSchedule(), "Open Schedule View");
         logCompare(true, b2wScheduler.navigateToScheduleView(sEmployeeView, sEmployeeView), "Open Employee Schedule View");
+        logCompare(true, b2wScheduler.setCalendarDateRange(sCalendarDateRange), "Set Calendar Date Range on Schedule View");
+        logCompare(true, b2wScheduler.setCalendarStartDate(sCalendarStartDate), "Set Calendar Start Date on Schedule View");
         int initialCount = b2wScheduler.getAssignmentsCount(sEmployeeName, sEmployeeEventType);
         logCompare(true, b2wScheduler.createNewEmployeeEvent(), "Open Create Employee Event Dialog");
         logCompare(true, b2wScheduler.setEventEmployee(sEmployeeName), "Set Employee");
@@ -356,37 +395,45 @@ public class ScheduleAssignments extends B2WTestCase {
     public void createEquipmentEvent() {
         /*
          * 1. Open Schedule View with Equipment Schedule
-         * 2. Count number existing events for resource.
-         * 3. Open New Equipment Event Dialog
-         * 4. Fill all fields (Equipment, Event Type, Notes)
-         * 5. Save New Equipment Event
-         * 6. Count number existing events for resource
-         * 7. Check that the counts difference equal 1
+         * 2. Change Date Range on Schedule View
+         * 3. Change Start Date on Schedule View
+         * 4. Count number existing events for resource.
+         * 5. Open New Equipment Event Dialog
+         * 6. Fill all fields (Equipment, Event Type, Notes)
+         * 7. Save New Equipment Event
+         * 8. Count number existing events for resource
+         * 9. Check that the counts difference equal 1
          */
         logCompare(true, b2wNav.openSchedule(), "Open Schedule View");
         logCompare(true, b2wScheduler.navigateToScheduleView(sEquipmentView, sEquipmentView), "Open Equipment Schedule View");
-        int initialCount = b2wScheduler.getAssignmentsCount(sEquipmentName, sLocationEventType);
+        logCompare(true, b2wScheduler.setCalendarDateRange(sCalendarDateRange), "Set Calendar Date Range on Schedule View");
+        logCompare(true, b2wScheduler.setCalendarStartDate(sCalendarStartDate), "Set Calendar Start Date on Schedule View");
+        int initialCount = b2wScheduler.getAssignmentsCount(sEquipmentName, sEquipmentEventType);
         logCompare(true, b2wScheduler.createNewEquipmentEvent(), "Open Create Equipment Event Dialog");
         logCompare(true, b2wScheduler.setEventEquipment(sEquipmentName), "Set Equipment");
         logCompare(true, b2wScheduler.setEventType(sEquipmentEventType), "Set Equipment Event Type");
         logCompare(true, b2wScheduler.setNotes(sNotesText), "Set Notes");
         logCompare(true, b2wScheduler.saveEvent(), "Save New Equipment Event Type");
-        int actualCount = b2wScheduler.getAssignmentsCount(sEquipmentName, sLocationEventType);
+        int actualCount = b2wScheduler.getAssignmentsCount(sEquipmentName, sEquipmentEventType);
         logCompare(true, actualCount == initialCount + 1, "Verification that Assignment has been created.");
     }
 
     public void createLocationEvent() {
         /*
          * 1. Open Schedule View with Location Schedule
-         * 2. Count number existing events for resource.
-         * 3. Open New Location Event Dialog
-         * 4. Fill all fields (Location, Event Type, Notes)
-         * 5. Save New Location Event
-         * 6. Count number existing events for resource
-         * 7. Check that the counts difference equal 1
+         * 2. Change Date Range on Schedule View
+         * 3. Change Start Date on Schedule View
+         * 4. Count number existing events for resource.
+         * 5. Open New Location Event Dialog
+         * 6. Fill all fields (Location, Event Type, Notes)
+         * 7. Save New Location Event
+         * 8. Count number existing events for resource
+         * 9. Check that the counts difference equal 1
          */
         logCompare(true, b2wNav.openSchedule(), "Open Schedule View");
         logCompare(true, b2wScheduler.navigateToScheduleView(sLocationView, sLocationView), "Open Places Schedule View");
+        logCompare(true, b2wScheduler.setCalendarDateRange(sCalendarDateRange), "Set Calendar Date Range on Schedule View");
+        logCompare(true, b2wScheduler.setCalendarStartDate(sCalendarStartDate), "Set Calendar Start Date on Schedule View");
         int initialCount = b2wScheduler.getAssignmentsCount(sJobSiteName, sLocationEventType);
         logCompare(true, b2wScheduler.createNewLocationEvent(), "Open Create Location Event Dialog");
         logCompare(true, b2wScheduler.setEventLocation(sJobSiteName), "Set Job Site");

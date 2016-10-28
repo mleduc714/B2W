@@ -741,6 +741,9 @@ public class B2WUIMap {
     public static final String b2w_scheduleassignments = ".content.active";
 	public static final String b2w_schedulenotesfield = "textarea[name=\"notes\"]";
 	public static final String b2w_scheduleclockbtn = ".k-icon.k-i-clock";
+	public static final String b2w_schedulecalendaractiverange = "a.k-state-selected";
+	public static final String b2w_schedulecalendastartdate = "input#startDate";
+	public static final String b2w_schedulecalendastartdatevalue = "span.ng-binding";
 
 	// Maintain
 	public static final String b2w_maintainpagemenu = "ul#SubNavMenu_MaintainPageMenu.MaintainPageMenu";
