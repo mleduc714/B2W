@@ -2,11 +2,13 @@ package testcases.jobs;
 
 import com.b2w.test.B2WTestCase;
 
+import tasks.B2WNavigationTasks;
 import tasks.jobs.B2WJobsTasks;
 
 public class B2WJobTestCase extends B2WTestCase {
 	
 	private B2WJobsTasks b2wJobs = new B2WJobsTasks();
+	private B2WNavigationTasks b2wNav = new B2WNavigationTasks();
 
 	@Override
 	public void testSetUp() throws Throwable {
@@ -17,7 +19,7 @@ public class B2WJobTestCase extends B2WTestCase {
 	@Override
 	public void testMain() throws Throwable {
 		// TODO Auto-generated method stub
-		
+		b2wNav.clickHome();
 		//Navigate to the Jobs area and create a new Job
 				//a.Populate the General Information 
 		//Create a Job Site
@@ -44,25 +46,25 @@ public class B2WJobTestCase extends B2WTestCase {
 	@Override
 	public String getCategory() {
 		// TODO Auto-generated method stub
-		return super.getCategory();
+		return null;
 	}
 
 	@Override
 	public String getAuthor() {
 		// TODO Auto-generated method stub
-		return super.getAuthor();
+		return "";
 	}
 
 	@Override
 	public String getDataPath() {
 		// TODO Auto-generated method stub
-		return super.getDataPath();
+		return "data/jobs";
 	}
 
 	@Override
 	public boolean isSupported() {
 		// TODO Auto-generated method stub
-		return super.isSupported();
+		return true;
 	}
 
 }
