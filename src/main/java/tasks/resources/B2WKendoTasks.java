@@ -77,6 +77,7 @@ public abstract class B2WKendoTasks {
 	}
 	public boolean sendTextAndSelectValueFromKendoFDD(WebElement dropDownElement, String sItem) {
 		boolean bReturn = false;
+		dropDownElement.clear();
 		if (WebElementUtils.sendKeys(dropDownElement, sItem)) {
 			TaskUtils.sleep(100);
 			bReturn = selectItemFromFDD(sItem);

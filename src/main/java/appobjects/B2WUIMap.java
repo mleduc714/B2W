@@ -740,6 +740,8 @@ public class B2WUIMap {
     public static final String b2w_scheduleresourcelistongrid = ".resource-name.level0";
     public static final String b2w_scheduleselecteddates = ".selected-date";
     public static final String b2w_scheduleassignments = ".content.active";
+	public static final String b2w_schedulenotesfield = "textarea[name=\"notes\"]";
+	public static final String b2w_scheduleclockbtn = ".k-icon.k-i-clock";
 
 	// Maintain
 	public static final String b2w_maintainpagemenu = "ul#SubNavMenu_MaintainPageMenu.MaintainPageMenu";
