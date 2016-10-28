@@ -788,6 +788,13 @@ public class B2WUIMap {
 	public static final String b2w_maintainintervaldialog = "div#program_interval_modal.wizard-dialog.programInterval-editable.k-window-content.k-content";
 	public static final String b2w_maintainintervalsavebutton = "div.button-container";
 	
+	// maintain requests
+	public static final String b2w_maintainrequestlistview = "div#request_list_view.k-pane";
+	public static final String b2w_maintainitemactions = "div.item-actions";
+	public static final String b2w_maintainrequestcreateview = "div#request_create_view";
+	public static final String b2w_maintainrequesteditformcontent = "div.edit-form-content";
+	
+	
 	public static final String b2w_scheduleanimationcontainer = ".k-animation-container";
 	public static final String b2w_schedulelinks = "span.k-link";
 	public static final String b2w_scheduleeventtypedropdown = ".//select[@kendo-b2w-drop-down-list = 'eventTypes']";
