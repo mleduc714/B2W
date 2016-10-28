@@ -16,7 +16,8 @@ public class B2WPlaceTasks extends B2WResourceTasks {
 	public boolean createNewPlaceButton() {
 		boolean bReturn = false;
 		if (WebElementUtils.clickElement(B2WPlaces.getCreateNewPlaceButton())) {
-			bReturn = WebElementUtils.waitAndFindDisplayedElement(B2WPlaces.getAccountDescription()) != null;
+			bReturn = waitForProcessingDialogToClear();
+			bReturn &= WebElementUtils.waitAndFindDisplayedElement(B2WPlaces.getAccountDescription()) != null;
 		}
 		return bReturn;
 	}

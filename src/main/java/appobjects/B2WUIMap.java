@@ -485,6 +485,7 @@ public class B2WUIMap {
 	public static final String b2w_kendobuttonadd = "span.btn-add";
 	public static final String b2w_kendowindowtitle = "span.k-window-title";
 	public static final String b2w_kendobuttoncontainer = "div.button-container";
+	public static final String b2w_kendodatetext = "span.k-picker-wrap.k-state-default";
 	
 	public static final String b2w_tmpricesheeteditbutton = "a#editPriceSheet.btn-orig";
 	public static final String b2w_tmpricesheetmodifyratesourcebutton = "a#modifyPriceSheetRates.btn-orig";
@@ -538,6 +539,22 @@ public class B2WUIMap {
 	public static final String b2w_jobestimateviewdelete = "a[id^='PageContent_ListingGridView_Delete']";
 	
 	public static final String b2w_jobestimateitem = "table#DetailInformationPanel fixedLayout";
+	
+	public static final String b2w_jobtrackingaccountstable = "table#PageContent_ProductionAccountDetails";
+	
+	public static final String b2w_jobmaterialstable = "table#PageContent_generalInformationPanel";
+	
+	public static final String b2w_jobsubcontractorstable = "table#PageContent_generalInformationPanel";
+	
+	public static final String b2w_jobtruckingsubcontractors = "table#PageContent_generalInformationPanel";
+	
+	public static final String b2w_jobvendors = "table#PageContent_generalInformationPanel";
+	
+	public static final String b2w_changeordersid = "span#PageContent_generalInformationPanel_ChangeOrderIDTextBox";
+	public static final String b2w_changeordersdescription = "table#detailCell fill Literal";
+	
+	public static final String b2w_timeandmaterialrates = "span#text: Item.SourceInfo.Description, visible: Data.HasReferenceRate";
+	public static final String b22_timeandmaterialworkitems = "span#text: Item.Description";
 
 	public static final String b2w_jobstrackacctstrackingid = "a[id^='PageContent_ProductionAccountGridView_TrackingID']";
 	public static final String b2w_jobstrackacctsaccountid = "span[id^='PageContent_ProductionAccountGridView_AccountID']";
@@ -789,6 +806,13 @@ public class B2WUIMap {
 	public static final String b2w_maintainaddintervalbutton = "a.btn-orig.new-interval-button";
 	public static final String b2w_maintainintervaldialog = "div#program_interval_modal.wizard-dialog.programInterval-editable.k-window-content.k-content";
 	public static final String b2w_maintainintervalsavebutton = "div.button-container";
+	
+	// maintain requests
+	public static final String b2w_maintainrequestlistview = "div#request_list_view.k-pane";
+	public static final String b2w_maintainitemactions = "div.item-actions";
+	public static final String b2w_maintainrequestcreateview = "div#request_create_view";
+	public static final String b2w_maintainrequesteditformcontent = "div.edit-form-content";
+	
 	
 	public static final String b2w_scheduleanimationcontainer = ".k-animation-container";
 	public static final String b2w_schedulelinks = "span.k-link";
