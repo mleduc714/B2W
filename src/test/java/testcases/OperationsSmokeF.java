@@ -174,8 +174,8 @@ public class OperationsSmokeF extends B2WTestCase {
 		addJobSite();
 		createNewJobProductionAccount();
 		createNewJobOverheadAccount();
-		createEstimateItem();
-		createChangeOrder();
+		//createEstimateItem();
+		//createChangeOrder();
 		addMaterials();
 		addSubsAndVendors();
 		addCreateNewTMWorkItem();
