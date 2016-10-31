@@ -486,6 +486,14 @@ public class B2WUIMap {
 	public static final String b2w_kendowindowtitle = "span.k-window-title";
 	public static final String b2w_kendobuttoncontainer = "div.button-container";
 	public static final String b2w_kendodatetext = "span.k-picker-wrap.k-state-default";
+	public static final String b2w_kendoapprovebutton = "span.btn-approve";
+	public static final String b2w_kendocompletebutton = "span.btn-complete";
+	public static final String b2w_kendoeditbutton = "span.btn-edit";
+	public static final String b2w_kendodeletebutton = "span.btn-delete";
+	public static final String b2w_kendoconfirmyesbutton = "div.btn-form.dialog-button.large.confirm";
+	public static final String b2w_kendoconfirmnobutton = "div.btn-form dialog-button reject";
+	
+	
 	
 	public static final String b2w_tmpricesheeteditbutton = "a#editPriceSheet.btn-orig";
 	public static final String b2w_tmpricesheetmodifyratesourcebutton = "a#modifyPriceSheetRates.btn-orig";
@@ -813,7 +821,12 @@ public class B2WUIMap {
 	public static final String b2w_maintainrequestcreateview = "div#request_create_view";
 	public static final String b2w_maintainrequesteditformcontent = "div.edit-form-content";
 	public static final String b2w_maintainrequestedcommentbutton = "span.btn-addcomment";
-	
+	// work orders 
+	public static final String b2w_maintainworkordersview = "div#work_order_create_view";
+	public static final String b2w_maintainworkorderadditembutton = "a.btn-orig.add-item";
+	public static final String b2w_maintainworkorderadditemview = "div.create-new-request";
+	public static final String b2w_maintainworkordercreateitembutton = "button.btn-form.large.create";
+	public static final String b2w_maintainworkorderdetailcontentview = "div.detail-content-view";
 	
 	public static final String b2w_scheduleanimationcontainer = ".k-animation-container";
 	public static final String b2w_schedulelinks = "span.k-link";

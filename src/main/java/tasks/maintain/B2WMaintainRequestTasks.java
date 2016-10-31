@@ -36,35 +36,20 @@ public class B2WMaintainRequestTasks extends B2WKendoTasks {
 			bReturn = WebElementUtils.clickElement(button);
 			bReturn &= WebElementUtils.waitAndFindElement(B2WMaintain.getB2WMaintainRequestCreateView()) != null;
 			if (bReturn){
-				getFormElements();
+				getFormElements(B2WMaintain.getB2WMaintainRequestCreateView());
 			}
 		}
 		
 		return bReturn;
 	}
 	
-	private void getFormElements() {
-		if (pageElement.size() == 0) {
-			WebElement parent = WebElementUtils.findElement(B2WMaintain.getB2WMaintainRequestCreateView());
-			List<WebElement> list = WebElementUtils.getChildElements(parent, By.tagName("p"));
-			Iterator<WebElement> iter = list.iterator();
-			while (iter.hasNext()) {
-				WebElement el = iter.next();
-				String sClass = el.getAttribute("class");
-				if (sClass.startsWith("form")) {
-					pageElement.add(el);
-				}
-			}
-		}
 	
-	}
 
 	public boolean selectEquipment(String sText) {
 		boolean bReturn = false;
 		TaskUtils.sleep(1000);
 		WebElement equipment = pageElement.get(iEquipment);
 		if (equipment != null){
-			//List<WebElement> inputs = WebElementUtils.getChildElements(equipment,By.xpath("//input[@name='Equipment']"));
 			WebElement el = WebElementUtils.getChildElement(equipment, B2WMaintain.getKendoDropDown());
 			bReturn = sendTextAndSelectValueFromKendoFDD(el, sText);
 		}
@@ -77,7 +62,6 @@ public class B2WMaintainRequestTasks extends B2WKendoTasks {
 		boolean bReturn = false;
 		WebElement equipment = pageElement.get(iRequestDesc);
 		if (equipment != null){
-			//WebElement desc = WebElementUtils.findElement(By.cssSelector("#request_create_view > div.edit-form-content > div.box-content.form > p.form-required > input[name='RequestDescription']"));
 			WebElement el = WebElementUtils.getChildElement(equipment,B2WMaintain.getKendoDescription());
 			bReturn = WebElementUtils.sendKeys(el, sText);
 		}
@@ -88,7 +72,6 @@ public class B2WMaintainRequestTasks extends B2WKendoTasks {
 		boolean bReturn = false;
 		WebElement equipment = pageElement.get(iAltID);
 		if (equipment != null){
-			//WebElement desc = WebElementUtils.findElement(By.cssSelector("#request_create_view > div.edit-form-content > div.box-content.form > p.form-required > input[name='RequestDescription']"));
 			WebElement el = WebElementUtils.getChildElement(equipment,B2WMaintain.getKendoDescription());
 			bReturn = WebElementUtils.sendKeys(el, sText);
 		}
@@ -144,12 +127,12 @@ public class B2WMaintainRequestTasks extends B2WKendoTasks {
 		return bReturn;
 	}
 	
-	public boolean setNotes(String sText){
-		WebElementUtils.switchToFrame(By.cssSelector("iframe.k-content"), 1);
-		WebElement el = WebElementUtils.findElement(By.tagName("html"));
-		System.out.println(el.isDisplayed());
-		return false;
-	}
+//	public boolean setNotes(String sText){
+//		WebElementUtils.switchToFrame(By.cssSelector("iframe.k-content"), 1);
+//		WebElement el = WebElementUtils.findElement(By.cssSelector("html body br.k-br"));
+//		el.click();
+//		return false;
+//	}
 	
 	public boolean clickNewCommentButton() {
 		boolean bReturn = false;

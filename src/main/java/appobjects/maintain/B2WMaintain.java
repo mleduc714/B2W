@@ -82,5 +82,20 @@ public class B2WMaintain extends KendoUI {
 	 public static By getB2WNewMaintanceRequestNewCommentButton() {
 		 return By.cssSelector(B2WUIMap.b2w_maintainrequestedcommentbutton);
 	 }
+	 public static By getB2WMaintainNewWorkOrderView() {
+		 return By.cssSelector(B2WUIMap.b2w_maintainworkordersview);
+	 }
+	 public static By getB2WMaintainNewWorkItemAddItemButton() {
+		 return By.cssSelector(B2WUIMap.b2w_maintainworkorderadditembutton);
+	 }
+	 public static By getB2WMaintainAddItemToWorkOrder() {
+		 return By.cssSelector(B2WUIMap.b2w_maintainworkorderadditemview);
+	 }
+	 public static By getB2WMaintainAddItemCreateButton() {
+		 return By.cssSelector(B2WUIMap.b2w_maintainworkordercreateitembutton);
+	 }
+	 public static By getB2WMaintainWorkOrderDetailView() {
+		 return By.cssSelector(B2WUIMap.b2w_maintainworkorderdetailcontentview);
+	 }
 	 
 }
