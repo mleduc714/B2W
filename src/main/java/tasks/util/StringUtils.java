@@ -29,13 +29,26 @@ public class StringUtils {
 	}
 
 	public static Date getDateFromString(String sDate) {
-		String pattern = "yyyy/M/dd";
+		Date dReturn;
+		String pattern = "yyyy/M/d";
 		SimpleDateFormat sdf = new SimpleDateFormat(pattern);
 		try {
-			return sdf.parse(sDate);
+			dReturn = sdf.parse(sDate);
 		} catch (ParseException e) {
-			return null;
+			dReturn = null;
 		}
+		return dReturn;
+	}
+
+	public static Date getDateFromStringWithPattern(String sDate, String sPattern) {
+		Date dReturn;
+		SimpleDateFormat sdf = new SimpleDateFormat(sPattern);
+		try {
+			dReturn = sdf.parse(sDate);
+		} catch (ParseException e) {
+			dReturn = null;
+		}
+		return dReturn;
 	}
 	
 }

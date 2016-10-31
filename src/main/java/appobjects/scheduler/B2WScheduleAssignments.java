@@ -32,4 +32,7 @@ public class B2WScheduleAssignments extends KendoUI {
     public static By getAssignments() { return By.cssSelector(B2WUIMap.b2w_scheduleassignments); }
     public static By getNotesField() { return By.cssSelector(B2WUIMap.b2w_schedulenotesfield);}
     public static By getClockBtn() { return By.cssSelector(B2WUIMap.b2w_scheduleclockbtn);}
+    public static By getCalendarActiveDateRange() { return By.cssSelector(B2WUIMap.b2w_schedulecalendaractiverange); }
+    public static By getCalendarStartDate() { return By.cssSelector(B2WUIMap.b2w_schedulecalendastartdate); }
+    public static By getCalendarStartDateValue() { return By.cssSelector(B2WUIMap.b2w_schedulecalendastartdatevalue); }
 }

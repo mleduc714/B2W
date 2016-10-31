@@ -348,8 +348,8 @@ public class OperationsSmokeF extends B2WTestCase {
 		logCompare(true,b2wJobs.setChangeOrdersID(sChangeOrdersID),"Fill Change Order ID");
 		logCompare(true,b2wJobs.setChangeOrdersAlternateID(sChangeOrdersAlternateID),"Fill Alternate ID");
 		logCompare(true,b2wJobs.setChangeOrdersDescription(sChangeOrdersDescription),"Fill Description");
-		logCompare(true,b2wJobs.setChangeOrdersType(sChangeOrdersType),"Fill Change Order Type");
-		logCompare(true,b2wJobs.setChangeOrdersStatus(sChangeOrdersStatus),"Fill Status");
+		//logCompare(true,b2wJobs.setChangeOrdersType(sChangeOrdersType),"Fill Change Order Type");
+		//logCompare(true,b2wJobs.setChangeOrdersStatus(sChangeOrdersStatus),"Fill Status");
 		logCompare(true,b2wJobs.setChangeOrdersEstimatedQuantity(sChangeOrdersEstimatedQuantity),"Fill Estimated Quantity");
 		logCompare(true,b2wJobs.setChangeOrdersUnitOfMeasure(sChangeOrdersUnitOfMeasure),"Fill Unit of Measure");
 		logCompare(true,b2wJobs.clickBottomSaveButton(),"Save Button Clicked");
