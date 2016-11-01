@@ -119,6 +119,22 @@ public class B2WUIMap {
 
 	// add-ins
 
+	// Schedules
+	public static final String b2w_schedules_panel = ".k-pane.k-scrollable";
+	public static final String b2w_schedules_createscheduleviewbtn = "span.btn-add";
+	public static final String b2w_schedules_headline = "div.headline";
+	public static final String b2w_schedules_name = "input.k-textbox[name='name']";
+	public static final String b2w_schedules_notes = "textarea[name='notes']";
+	public static final String b2w_schedules_groupitemsby = "select.grouping-dropdown[data-bind *= 'scheduledGrouping1DataSource']";
+	public static final String b2w_schedules_secondarygrouping = "select.grouping-dropdown[data-bind *= 'scheduledGrouping2DataSource']";
+	public static final String b2w_schedules_savebtn = ".btn-form.large.save";
+	public static final String b2w_schedules_rowongrid = "td";
+	public static final String b2w_schedules_addfilter = ".add-filter";
+	public static final String b2w_schedules_filterlabel = "label";
+	public static final String b2w_schedules_deletebtn = ".btn-delete";
+	public static final String b2w_schedules_deletepopupwindow = ".k-widget.k-window";
+	public static final String getB2w_schedules_popupwindow_yesbtn = ".btn-form.dialog-button.large.confirm";
+
 	// page filter
 	public static final String b2w_page_filter_letterA = "a#PageContent_FilterControl_AButton";
 	public static final String b2w_page_filter_letterB = "a#PageContent_FilterControl_BButton";
