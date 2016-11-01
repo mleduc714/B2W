@@ -2,6 +2,7 @@ package tasks;
 
 import java.util.List;
 
+import appobjects.resources.KendoUI;
 import appobjects.scheduler.B2WScheduleAssignments;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.WebDriver;
@@ -14,7 +15,9 @@ import appobjects.maintain.B2WMaintain;
 import appobjects.resources.B2WEquipment;
 import appobjects.resources.B2WTMPriceSheets;
 import tasks.resources.B2WEquipmentTasks;
+import tasks.resources.B2WKendoTasks;
 import tasks.scheduler.B2WSchedulerTasks;
+import tasks.setup.B2WSchedulesTasks;
 import tasks.util.TaskUtils;
 
 public class B2WNavigationTasks implements Navigation {
@@ -230,6 +233,20 @@ public class B2WNavigationTasks implements Navigation {
 	}
 	public boolean openMobileWorkstations(){
 		return openSetup("Mobile Workstations","Mobile Workstations");
+	}
+	public boolean openSchedules() {
+		boolean bReturn = false;
+		if (openSetup()){
+			WebElementUtils.switchToFrame(B2WNavigationPanel.getB2WSetupNavigationPanel(), 1);
+			List<WebElement> items = BrowserUtils.getDriver().findElements(B2WNavigationPanel.getB2WSetupPopupItem());
+			WebElement item = WebElementUtils.getElementWithMatchingText(items, "Schedules", true);
+			if (item != null){
+				item.click();
+				bReturn = new B2WSchedulesTasks().waitForSchedulesPageNoBusy();
+				bReturn &= new TaskUtils().waitForProductPanel("Schedules");
+			}
+		}
+		return bReturn;
 	}
 	public boolean openSecurityRoles() {
 		return openSetup("Security Roles","Hierarchical Security Roles");

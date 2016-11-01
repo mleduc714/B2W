@@ -119,6 +119,22 @@ public class B2WUIMap {
 
 	// add-ins
 
+	// Schedules
+	public static final String b2w_schedules_panel = ".k-pane.k-scrollable";
+	public static final String b2w_schedules_createscheduleviewbtn = "span.btn-add";
+	public static final String b2w_schedules_headline = "div.headline";
+	public static final String b2w_schedules_name = "input.k-textbox[name='name']";
+	public static final String b2w_schedules_notes = "textarea[name='notes']";
+	public static final String b2w_schedules_groupitemsby = "select.grouping-dropdown[data-bind *= 'scheduledGrouping1DataSource']";
+	public static final String b2w_schedules_secondarygrouping = "select.grouping-dropdown[data-bind *= 'scheduledGrouping2DataSource']";
+	public static final String b2w_schedules_savebtn = ".btn-form.large.save";
+	public static final String b2w_schedules_rowongrid = "td";
+	public static final String b2w_schedules_addfilter = ".add-filter";
+	public static final String b2w_schedules_filterlabel = "label";
+	public static final String b2w_schedules_deletebtn = ".btn-delete";
+	public static final String b2w_schedules_deletepopupwindow = ".k-widget.k-window";
+	public static final String getB2w_schedules_popupwindow_yesbtn = ".btn-form.dialog-button.large.confirm";
+
 	// page filter
 	public static final String b2w_page_filter_letterA = "a#PageContent_FilterControl_AButton";
 	public static final String b2w_page_filter_letterB = "a#PageContent_FilterControl_BButton";
@@ -759,6 +775,9 @@ public class B2WUIMap {
     public static final String b2w_scheduleassignments = ".content.active";
 	public static final String b2w_schedulenotesfield = "textarea[name=\"notes\"]";
 	public static final String b2w_scheduleclockbtn = ".k-icon.k-i-clock";
+	public static final String b2w_schedulecalendaractiverange = "a.k-state-selected";
+	public static final String b2w_schedulecalendastartdate = "input#startDate";
+	public static final String b2w_schedulecalendastartdatevalue = "span.ng-binding";
 
 	// Maintain
 	public static final String b2w_maintainpagemenu = "ul#SubNavMenu_MaintainPageMenu.MaintainPageMenu";
@@ -804,6 +823,13 @@ public class B2WUIMap {
 	public static final String b2w_maintainaddintervalbutton = "a.btn-orig.new-interval-button";
 	public static final String b2w_maintainintervaldialog = "div#program_interval_modal.wizard-dialog.programInterval-editable.k-window-content.k-content";
 	public static final String b2w_maintainintervalsavebutton = "div.button-container";
+	
+	// maintain requests
+	public static final String b2w_maintainrequestlistview = "div#request_list_view.k-pane";
+	public static final String b2w_maintainitemactions = "div.item-actions";
+	public static final String b2w_maintainrequestcreateview = "div#request_create_view";
+	public static final String b2w_maintainrequesteditformcontent = "div.edit-form-content";
+	
 	
 	public static final String b2w_scheduleanimationcontainer = ".k-animation-container";
 	public static final String b2w_schedulelinks = "span.k-link";
