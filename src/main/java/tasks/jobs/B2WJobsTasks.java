@@ -450,8 +450,8 @@ public class B2WJobsTasks extends B2WResourceTasks {
 	public boolean selectJobProductionAccountIDFromDD(String sText){
 		return WebElementUtils.selectItemFromOpsDropDownMenu(B2WJobs.getB2WJobProductionAccountIDDD(), sText);
 	}
-	public String selectJobProductionAccountID(String sText) {
-		return WebElementUtils.selectAnyItemFromOpsDropDownMenu(B2WJobs.getB2WJobProductionAccountIDDD(), sText);
+	public String selectJobProductionAccountID() {
+		return WebElementUtils.selectAnyItemFromOpsDropDownMenu(B2WJobs.getB2WJobProductionAccountIDDD());
 	}
 	public boolean selectJobProductionUnitOfMeasureFromDD(String sText){
 		return WebElementUtils.selectItemFromOpsDropDownMenu(B2WJobs.getB2WJobProductionUnitOfMeasureDD(), sText);
