@@ -181,6 +181,7 @@ public class B2WJobs extends KendoUI {
 	}
 	public static By getB2WJobsAddMaterialsButton() {
 		return By.cssSelector(B2WUIMap.b2w_jobsaddmaterials);
+	
 	}
 	public static By getB2WJobsCreateNewEstimateItem() {
 		return By.cssSelector(B2WUIMap.b2w_jobscreatenewestimateitem);

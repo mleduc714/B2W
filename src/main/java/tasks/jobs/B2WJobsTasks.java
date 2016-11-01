@@ -1,5 +1,7 @@
 package tasks.jobs;
 
+import java.util.Random;
+
 import org.openqa.selenium.WebElement;
 
 import appobjects.B2WCommonObjects;
@@ -25,6 +27,12 @@ public class B2WJobsTasks extends B2WResourceTasks {
 
 	public static enum JOBSDIALOG {ADDSUBCONTRACTORS, ADDTRUCKINGSUBCONTRACTORS, ADDMATERIALS, ADDVENDORS};
 	
+	public String randomNumberGenerator() {
+		Random rn = new Random();
+		int randomNum = rn.nextInt(999999) + 1;
+		String randNumString = String.valueOf(randomNum);
+		return randNumString;
+	}
 	
 	public boolean jobsPageOpen() {
 		boolean bReturn = false;
@@ -33,7 +41,6 @@ public class B2WJobsTasks extends B2WResourceTasks {
 			bReturn = el.isDisplayed();
 		}
 		return bReturn;
-		
 	}
 	
 	public boolean clickCreateNewJob() {
@@ -443,8 +450,8 @@ public class B2WJobsTasks extends B2WResourceTasks {
 	public boolean selectJobProductionAccountIDFromDD(String sText){
 		return WebElementUtils.selectItemFromOpsDropDownMenu(B2WJobs.getB2WJobProductionAccountIDDD(), sText);
 	}
-	public String selectJobProductionAccountID() {
-		return WebElementUtils.selectAnyItemFromOpsDropDownMenu(B2WJobs.getB2WJobProductionAccountIDDD());
+	public String selectJobProductionAccountID(String sText) {
+		return WebElementUtils.selectAnyItemFromOpsDropDownMenu(B2WJobs.getB2WJobProductionAccountIDDD(), sText);
 	}
 	public boolean selectJobProductionUnitOfMeasureFromDD(String sText){
 		return WebElementUtils.selectItemFromOpsDropDownMenu(B2WJobs.getB2WJobProductionUnitOfMeasureDD(), sText);
