@@ -578,7 +578,7 @@ public class B2WUIMap {
 	public static final String b2w_changeordersdescription = "table#detailCell fill Literal";
 	
 	public static final String b2w_timeandmaterialrates = "span#text: Item.SourceInfo.Description, visible: Data.HasReferenceRate";
-	public static final String b22_timeandmaterialworkitems = "span#text: Item.Description";
+	public static final String b2w_timeandmaterialworkitems = "span#text: Item.Description";
 
 	public static final String b2w_jobstrackacctstrackingid = "a[id^='PageContent_ProductionAccountGridView_TrackingID']";
 	public static final String b2w_jobstrackacctsaccountid = "span[id^='PageContent_ProductionAccountGridView_AccountID']";
@@ -883,6 +883,14 @@ public class B2WUIMap {
 	public static final String b2w_maintainscheduleweeklink = "Week";
 	public static final String b2w_maintainscheduletwoweekslink = "2Weeks";
 
+	// time cards
+	public static final String b2w_maintaintimecardbuttons = "div.item-actions.add-timecard-btn";
+	public static final String b2w_maintainnewtimecardpopup = "div.wizard-dialog.new-timecard-popup.k-window-content.k-content";
+	public static final String b2w_maintainreporthoursdialog = "div.wizard-dialog.report-hours-popup.k-window-content.k-content";
+	public static final String b2w_maintainnewtimecardaddtimebutton = "a.btn-form.add-time";
+	public static final String b2w_maintaintimecarddetailcontentview = "div.detail-content";
+	
+	
 	public static final String unscheduledWorkOrdersContextMenu = "ul#unscheduledWorkOrdersContextMenu";
 
 }

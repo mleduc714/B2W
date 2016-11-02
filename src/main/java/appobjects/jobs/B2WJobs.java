@@ -355,6 +355,6 @@ public class B2WJobs extends KendoUI {
 	}
 	
 	public static By getB2WEstimateTimeAndMaterialWorkItemsVerification() {
-		return By.cssSelector(B2WUIMap.b22_timeandmaterialworkitems);
+		return By.cssSelector(B2WUIMap.b2w_timeandmaterialworkitems);
 	}
 }

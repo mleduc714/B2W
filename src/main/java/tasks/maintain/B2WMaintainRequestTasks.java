@@ -176,5 +176,9 @@ public class B2WMaintainRequestTasks extends B2WKendoTasks {
 		return bReturn;
 	}
 	
+	public boolean selectRequestByDescription(String sDesc){
+		return selectItemFromView(sDesc, 1);
+	}
+	
 	
 }

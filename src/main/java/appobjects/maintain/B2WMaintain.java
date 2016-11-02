@@ -174,39 +174,30 @@ public class B2WMaintain extends KendoUI {
 	public static By getB2WMaintainschedulerfilterbutton() {
 		return By.cssSelector(B2WUIMap.b2w_maintainschedulerfilterbutton);
 	}
-
 	public static By getB2WMaintainschedulertabone() {
 		return By.cssSelector(B2WUIMap.b2w_maintainschedulertabone);
 	}
-
 	public static By getB2WMaintainschedulertabtwo() {
 		return By.cssSelector(B2WUIMap.b2w_maintainschedulertabtwo);
 	}
-
 	public static By getB2WMaintainschedulerworkorderunscheduled() {
 		return By.cssSelector(B2WUIMap.b2w_maintainschedulerworkorderunscheduled);
 	}
-
 	public static By getB2WMaintainschedulerworkordersummary() {
 		return By.cssSelector(B2WUIMap.b2w_maintainschedulerworkordersummary);
 	}
-
 	public static By getB2WMaintainschedulerunscheduledworkorderslist() {
 		return By.cssSelector(B2WUIMap.b2w_maintainschedulerunscheduledworkorderslist);
 	}
-
 	public static By getB2WMaintainschedulerpastdueworkorderlist() {
 		return By.cssSelector(B2WUIMap.b2w_maintainschedulerpastdueworkorderlist);
 	}
-
 	public static By getB2WMaintainschedulerpastdueworkorder() {
 		return By.cssSelector(B2WUIMap.b2w_maintainschedulerpastdueworkorder);
 	}
-
 	public static By getB2WMaintainSchedulerContent() {
 		return By.cssSelector(B2WUIMap.b2w_maintainschedulercontent);
 	}
-
 	public static By getB2WMaintainSchedulerEvents() {
 		return By.cssSelector(B2WUIMap.b2w_maintainschedulerevents);
 	}
@@ -225,4 +216,28 @@ public class B2WMaintain extends KendoUI {
 	public static By getB2WMaintainSchedulerUnscheduledContextMenu() {
 		return By.cssSelector(B2WUIMap.unscheduledWorkOrdersContextMenu);
 	}
+	public static By getB2WMaintainSchedulerWorkOrdersTab() {
+		return By.cssSelector(B2WUIMap.b2w_maintainschedulertabone);
+	}
+	public static By getB2WMaintainSchedulerPastDueWorkOrdersTab() {
+		return By.cssSelector(B2WUIMap.b2w_maintainschedulertabtwo);
+	}
+	public static By getB2WMaintainTimeCardDialog() {
+		return By.cssSelector(B2WUIMap.b2w_maintainnewtimecardpopup);
+	}
+	public static By getB2WMaintainTimeCardAddTimeButton() {
+		return By.cssSelector(B2WUIMap.b2w_maintainnewtimecardaddtimebutton);
+	}
+	public static By getB2WMaintainReportHoursDialog() {
+		return By.cssSelector(B2WUIMap.b2w_maintainreporthoursdialog);
+	}
+	public static By getB2WMaintainNewTimeCardButton() {
+		return By.cssSelector(B2WUIMap.b2w_schedules_createscheduleviewbtn);
+	}
+	public static By getB2WMaintainTimeCardDetailContent() {
+		return By.cssSelector(B2WUIMap.b2w_maintaintimecarddetailcontentview);
+	}
+	
+	
+	
 }

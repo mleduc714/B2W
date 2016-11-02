@@ -10,6 +10,7 @@ import tasks.maintain.B2WMaintainProgramsTasks;
 import tasks.maintain.B2WMaintainRequestTasks;
 import tasks.maintain.B2WMaintainScheduleTasks;
 import tasks.maintain.B2WMaintainTasks;
+import tasks.maintain.B2WTimeCardTasks;
 import tasks.maintain.B2WWorkOrdersTasks;
 import tasks.resources.B2WEquipmentTasks;
 import tasks.util.TaskUtils;
@@ -23,6 +24,7 @@ public class OperationsSmokeG extends B2WTestCase {
 	B2WMaintainRequestTasks b2wRequests = new B2WMaintainRequestTasks();
 	B2WWorkOrdersTasks b2wOrder = new B2WWorkOrdersTasks();
 	B2WMaintainScheduleTasks b2wSchd = new B2WMaintainScheduleTasks();
+	B2WTimeCardTasks b2wtimecards = new B2WTimeCardTasks();
 	String sMaintenanceProgramDesc;
 	String sMaintenanceProgramItemADesc;
 	String sMaintenanceProgramItemAType;
@@ -42,6 +44,9 @@ public class OperationsSmokeG extends B2WTestCase {
 	String sMaintenanceWorkOrderDescription;
 	String sMaintenanceWorkOrderItemDescriptionA;
 	String sMaintenanceWorkOrderItemDescriptionB;
+	String sEmployeeFirstNameD, sEmployeeLastNameD, sEmployeeIDD, sEmployeeFullNameID;
+	String sPlaceDescription, sPlaceID;
+
 	
 	
 
@@ -118,16 +123,22 @@ public class OperationsSmokeG extends B2WTestCase {
 		sMaintenanceWorkOrderItemDescriptionA = getProperty("sMaintenanceWorkOrderItemDescriptionA");
 		sMaintenanceWorkOrderItemDescriptionB = getProperty("sMaintenanceWorkOrderItemDescriptionB");
 		sMaintenanceWorkOrderDescription = getProperty("sMaintenanceWorkOrderDescription");
-
+		sEmployeeFirstNameD = getProperty("employeenameFirstD");
+		sEmployeeLastNameD = getProperty("employeenameLastD");
+		sEmployeeIDD = getProperty("employeenameDID") +n;
+		sEmployeeFullNameID = sEmployeeFirstNameD + " "+sEmployeeLastNameD + " ["+sEmployeeIDD+"]";
+		sPlaceDescription = getProperty("placeD") + n;
+		sPlaceID = getProperty("placeIDD") + n;
 	}
 
 	public void testMain() throws Throwable {
 
-//		createMaintenanceProgram();
-//		addParts();
-//		createRequest();
-//		createWorkOrders();
-		test();
+		createMaintenanceProgram();
+		//addParts();
+		//createRequest();
+	//	createWorkOrders();
+	//	test();
+		//createTimeCard();
 	}
 
 	@Override
@@ -137,8 +148,6 @@ public class OperationsSmokeG extends B2WTestCase {
 	}
 	
 	public void createMaintenanceProgram() {
-		// associate test user with current user
-		// addEmployeeToUser();
 		logCompare(true,b2wNav.openMaintain(),"Open Maintain");
 		logCompare(true,b2wMain.openPrograms(),"Open Programs");
 		logCompare(true,b2wMainPrograms.createNewMaintenanceProgram(),"Create Maintenance Program");
@@ -148,6 +157,7 @@ public class OperationsSmokeG extends B2WTestCase {
 		logCompare(true,b2wMainPrograms.clickAddItem(),"Click Add Item");
 		logCompare(true,b2wMainPrograms.setAddItemDescription(sMaintenanceProgramItemADesc),"Set Maintenance item description");
 		logCompare(true,b2wMainPrograms.selectAddItemTypeFromDD(sCategoryC), "Select Add Item Type");
+		TaskUtils.sleep(1000);
 		logCompare(true,b2wMainPrograms.selectAddItemPriority(sMaintenanceProgramItemAPriority),"Select Item priority");
 		logCompare(true,b2wMainPrograms.setAddItemLevel(sMaintenanceProgramItemALevel),"Select Maintenance Program Level");
 		logCompare(true,b2wMainPrograms.saveItem(),"Save Item");
@@ -172,7 +182,6 @@ public class OperationsSmokeG extends B2WTestCase {
 		logCompare(true,b2wMainPrograms.selectMeterEvery("100"), "Occurs Every 100 hours");
 		logCompare(true,b2wMainPrograms.setGenerateRepairRequestsForThisItem("10"), "Generate Requests for this item");
 		logCompare(true,b2wMainPrograms.saveInterval(), "Save interval");
-		
 		logCompare(true,b2wMainPrograms.saveMaintenanceProgram(), "Save Maintenance Program");
 		
 		
@@ -211,7 +220,7 @@ public class OperationsSmokeG extends B2WTestCase {
 		logCompare(true, b2wRequests.setRequestDescription(sMaintenanceRequestDescription), "Set Description");
 		logCompare(true, b2wRequests.selectTypeFromDD(sCategoryD), "Select Auto corrective");
 		logCompare(true, b2wRequests.clickNewCommentButton(), "Create a comments");
-		logCompare(true, b2wRequests.setNewCommentAndSave(sMaintenanceRequestComments), "Commentts");
+		logCompare(true, b2wRequests.setNewCommentAndSave(sMaintenanceRequestComments), "Comments");
 		logCompare(true, b2wRequests.clickSaveButton(), "Save request");
 		
 	}
@@ -234,18 +243,46 @@ public class OperationsSmokeG extends B2WTestCase {
 		logCompare(true, b2wOrder.setAddItemPriorityFromDD("Medium"), "Medium Priority");
 		logCompare(true, b2wOrder.clickSaveButton(), "Save Work Order");
 		logCompare(true, b2wOrder.selectWorkOrderByDescription(sMaintenanceWorkOrderDescription), "set description");
+		logCompare(true, b2wOrder.clickApproveButton(), "Approve the Work Order");
 		//TaskUtils.sleep(4000);
 	}
 	
-	public void test(){
+	public void scheduleToWorkOrder(){
 		logCompare(true, b2wNav.openMaintain(), "Open Maintain");
 		logCompare(true, b2wMain.openSchedule(), "Open Schedule");
-		b2wSchd.clickMechanics();
-		b2wSchd.scheduleWorkOrderFromWorkOrderTabByDescriptionFromContextMenu("TRUCK, F-350 CREW CAB UTILITY [1013]");
+		logCompare(true, b2wSchd.clickMechanics(), "Click Mechanics");
+		logCompare(true, b2wSchd.clickWorkOrdersTab(), "Click Work Orders");
+		logCompare(true, b2wSchd.openWorkOrderFromWorkOrderTabByDescription(sMaintenanceWorkOrderDescription), "Open Work Order Tab by Desc");
+		//logCompare(true, b2wSchd.openWorkOrderFromWorkOrderTabByDescription("TEST"), "Open Work Order Tab by Desc");
+		logCompare(true, b2wSchd.scheduleMaintainancePopupSelectMechanic(sEmployeeFullNameID), "Select Mechanic");
+		logCompare(true, b2wSchd.scheduleMaintainancePopupSelectWorkLocation(sPlaceDescription), "Work Location");
+		logCompare(true, b2wSchd.saveScheduleMaintenance(), "Save Schedule Maintenance");
+		//b2wSchd.scheduleWorkOrderFromWorkOrderTabByDescriptionFromContextMenu("TRUCK, F-350 CREW CAB UTILITY [1013]");
 		
-		TaskUtils.sleep(5000);
 		
 
+	}
+	
+	public void createTimeCard() {
+		logCompare(true, b2wNav.openMaintain(), "Open Maintain");
+		logCompare(true, b2wMain.openTimeCards(), "Open Time Cards");
+		b2wtimecards.clickCreateNewTimeCard();
+		b2wtimecards.selectEmployee("Claire Salmon [13044]");
+		TaskUtils.sleep(1000);
+		b2wtimecards.clickAddTimeButton();
+		TaskUtils.sleep(1000);
+		b2wtimecards.selectTypeofHoursEquipment();
+		b2wtimecards.setEquipmentHoursDescription("TEST");
+		b2wtimecards.setEquipmentUsed("1009 [Cam Superline Trailer]");
+		b2wtimecards.selectWorkOrder("Shrink Wrap [1022]");
+		b2wtimecards.selectWorkOrderItem("Shrink Wrap [1045]");
+		b2wtimecards.selectEquipmentRateClass("Southeast Rates");
+		b2wtimecards.setRegularMins("5");
+		b2wtimecards.saveReportHours();
+		b2wtimecards.selectTimeCardByEmployeeName("Adrian Guajardo [13182]");
+		b2wtimecards.clickReportEquipmentHoursButton();
+		TaskUtils.sleep(4000);
+		
 	}
 	
 }

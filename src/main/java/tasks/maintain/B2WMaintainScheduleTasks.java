@@ -154,56 +154,90 @@ public class B2WMaintainScheduleTasks extends B2WKendoTasks {
 		return bReturn;
 	}
 
-	public void scheduleMaintainancePopupSelectMechanic(String sText) {
+	public boolean scheduleMaintainancePopupSelectMechanic(String sText) {
+		boolean bReturn = false;
 		WebElement el = getWebElementFromScheduleMaintenanceDialog(0);
-		el.click();
-		if (WebElementUtils.waitForElementHasAttributeWithValue(el, "aria-expanded", "true", true,
-				WebElementUtils.SHORT_TIME_OUT)) {
-			selectItemFromDropDown(sText);
+		if (el != null) {
+			bReturn = WebElementUtils.clickElement(el);
+
+			if (WebElementUtils.waitForElementHasAttributeWithValue(el, "aria-expanded", "true", true,
+					WebElementUtils.SHORT_TIME_OUT)) {
+				bReturn = selectItemFromDropDown(sText);
+			}
 		}
-
+		return bReturn;
 	}
 
-	public void scheduleMaintainancePopupSelectStartDate(String startDate) {
+	public boolean scheduleMaintainancePopupSelectStartDate(String startDate) {
+		boolean bReturn = false;
 		WebElement el = getWebElementFromScheduleMaintenanceDialog(1);
-		el.click();
-		WebElementUtils.sendKeys(el, startDate);
+		if (el != null){
+			bReturn = WebElementUtils.clickElement(el);
+			bReturn &= WebElementUtils.sendKeys(el, startDate);
+		}
+		return bReturn;
 	}
 
-	public void scheduleMaintainancePopupSelectStartTime(String startTime) {
-		WebElement el = getWebElementFromScheduleMaintenanceDialog(2);
-		el.click();
-		selectItemFromDropDown(startTime);
-	}
-	public void scheduleMaintainancePopupSelectEndDate(String startDate) {
-		WebElement el = getWebElementFromScheduleMaintenanceDialog(3);
-		el.click();
-		WebElementUtils.sendKeys(el, startDate);
-	}
-
-	public void scheduleMaintainancePopupSelectEndTime(String endTime) {
-		WebElement el = getWebElementFromScheduleMaintenanceDialog(4);
-		el.click();
-		selectItemFromDropDown(endTime);
-	}
-
-	public void scheduleMaintainancePopupSelectWorkLocation(String sText){
-		WebElement el = getWebElementFromScheduleMaintenanceDialog(5);
-		el.click();
-		WebElementUtils.sendKeys(el, sText);
-	}
-	
-	public void scheduleMaintainancePopupSelectEvent(String sText){
-		WebElement el = getWebElementFromScheduleMaintenanceDialog(5);
-		el.click();
-		selectItemFromDropDown(sText);
-	}
-	
-	public void saveScheduleMaintenance() {
-		WebElement el = WebElementUtils.waitAndFindDisplayedElement(B2WMaintain.getB2WMaintainSchedulerScheduleMaintenancePopupWindow());
-		WebElement button = WebElementUtils.getChildElement(el, B2WMaintain.getKendoLargeSaveButton());
-		WebElementUtils.clickElement(button);
+	public boolean scheduleMaintainancePopupSelectStartTime(String startTime) {
+		boolean bReturn = false;
 		
+		WebElement el = getWebElementFromScheduleMaintenanceDialog(2);
+		if (el != null){
+			WebElementUtils.clickElement(el);
+			bReturn = selectItemFromDropDown(startTime);
+		}
+		return bReturn;
+	}
+	public boolean scheduleMaintainancePopupSelectEndDate(String endDate) {
+		boolean bReturn = false;
+		WebElement el = getWebElementFromScheduleMaintenanceDialog(3);
+		if (el != null){
+			bReturn = WebElementUtils.clickElement(el);
+			bReturn &= WebElementUtils.sendKeys(el, endDate);
+		}
+		return bReturn;
+	}
+
+	public boolean scheduleMaintainancePopupSelectEndTime(String endTime) {
+		boolean bReturn = false;
+		WebElement el = getWebElementFromScheduleMaintenanceDialog(4);
+		if (el != null){
+			WebElementUtils.clickElement(el);
+			bReturn = selectItemFromDropDown(endTime);
+		}
+		return bReturn;
+
+	}
+
+	public boolean scheduleMaintainancePopupSelectWorkLocation(String sText){
+		boolean bReturn = false;
+		WebElement el = getWebElementFromScheduleMaintenanceDialog(5);
+		if (el != null){
+			WebElementUtils.clickElement(el);
+			bReturn = WebElementUtils.sendKeys(el, sText);
+		}
+		return bReturn;
+	}
+	
+	public boolean scheduleMaintainancePopupSelectEvent(String sText){
+		boolean bReturn = false;
+		WebElement el = getWebElementFromScheduleMaintenanceDialog(5);
+		if (el != null){
+			bReturn = WebElementUtils.clickElement(el);
+			bReturn &= selectItemFromDropDown(sText);
+		}
+		return bReturn;
+	}
+	
+	public boolean saveScheduleMaintenance() {
+		boolean bReturn = false;
+		
+		WebElement el = WebElementUtils.waitAndFindDisplayedElement(B2WMaintain.getB2WMaintainSchedulerScheduleMaintenancePopupWindow());
+		if (el != null){
+			WebElement button = WebElementUtils.getChildElement(el, B2WMaintain.getKendoLargeSaveButton());
+			bReturn = WebElementUtils.clickElement(button);
+		}
+		return bReturn;
 	}
 	private WebElement getWebElementFromScheduleMaintenanceDialog(int i) {
 		WebElement el = WebElementUtils
@@ -213,13 +247,15 @@ public class B2WMaintainScheduleTasks extends B2WKendoTasks {
 
 	}
 
-	public void editMaintainancePopupSelectMechanic(String sText) {
+	public boolean editMaintainancePopupSelectMechanic(String sText) {
+		boolean bReturn = false;
 		WebElement el = getWebElementFromEditMaintenanceDialog(0);
 		el.click();
 		if (WebElementUtils.waitForElementHasAttributeWithValue(el, "aria-expanded", "true", true,
 				WebElementUtils.SHORT_TIME_OUT)) {
-			selectItemFromDropDown(sText);
+			bReturn = selectItemFromDropDown(sText);
 		}
+		return bReturn;
 
 	}
 
@@ -258,12 +294,17 @@ public class B2WMaintainScheduleTasks extends B2WKendoTasks {
 		selectItemFromDropDown(sText);
 	}
 	
-	public void saveEditMaintenance() {
+	public boolean saveEditMaintenance() {
+		boolean bReturn = false;
 		WebElement el = WebElementUtils.waitAndFindDisplayedElement(B2WMaintain.getB2WMaintainSchedulerEditSchedulePopupWindow());
 		WebElement button = WebElementUtils.getChildElement(el, B2WMaintain.getKendoLargeSaveButton());
-		WebElementUtils.clickElement(button);
-		
+		if (button != null) {
+			bReturn = WebElementUtils.clickElement(button);
+			bReturn &= WebElementUtils.waitForElementInvisible(el);
+		}
+		return bReturn;
 	}
+
 	private WebElement getWebElementFromEditMaintenanceDialog(int i) {
 		WebElement el = WebElementUtils
 				.waitAndFindDisplayedElement(B2WMaintain.getB2WMaintainSchedulerEditSchedulePopupWindow());
@@ -271,6 +312,23 @@ public class B2WMaintainScheduleTasks extends B2WKendoTasks {
 		return list.get(i);
 
 	}
-
+	
+	public boolean clickWorkOrdersTab() {
+		boolean bReturn = false;
+		WebElement el = WebElementUtils.findElement(B2WMaintain.getB2WMaintainSchedulerWorkOrdersTab());
+		if (el != null){
+			bReturn = WebElementUtils.clickElement(el);
+		}
+		return bReturn;
+	}
+	
+	public boolean clickPastDueWorkOrdersTab() {
+		boolean bReturn = false;
+		WebElement el = WebElementUtils.findElement(B2WMaintain.getB2WMaintainSchedulerPastDueWorkOrdersTab());
+		if (el != null){
+			bReturn = WebElementUtils.clickElement(el);
+		}
+		return bReturn;
+	}
 
 }
