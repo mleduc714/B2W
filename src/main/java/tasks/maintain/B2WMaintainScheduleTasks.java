@@ -310,7 +310,6 @@ public class B2WMaintainScheduleTasks extends B2WKendoTasks {
 				.waitAndFindDisplayedElement(B2WMaintain.getB2WMaintainSchedulerEditSchedulePopupWindow());
 		List<WebElement> list = WebElementUtils.getChildElements(el, B2WMaintain.getKendoDropDown());
 		return list.get(i);
-
 	}
 	
 	public boolean clickWorkOrdersTab() {
