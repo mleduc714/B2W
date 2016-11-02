@@ -83,5 +83,4 @@ public abstract class B2WResources {
 		return By.cssSelector(B2WUIMap.b2w_setup_searchtextbox);
 	}
 	
-	
 }

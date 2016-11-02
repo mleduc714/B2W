@@ -595,6 +595,7 @@ public class B2WUIMap {
 	public static final String b2w_jobstrackacctsestimatedprodrate = "span[id^='PageContent_ProductionAccountGridView_EstimatedProductionRate']";
 	public static final String b2w_jobstrackacctsviewedit = "a[id^='PageContent_ProductionAccountGridView_Edit']";
 	public static final String b2w_jobstrackacctsviewdelete = "a[id^='PageContent_ProductionAccountGridView_Delete']";
+	
 
 	public static final String b2w_jobsmaterialsdesc = "a[id^='PageContent_JobMaterialGridView_Description']";
 	public static final String b2w_jobsmaterialsmaterialid = "a[id^='PageContent_JobMaterialGridView_MaterialID']";
@@ -710,8 +711,8 @@ public class B2WUIMap {
 	public static final String b2w_jobscancelbutton = "a[id$='Dialog_CancelButton']";
 	public static final String b2w_jobsgridview = "a[id$='Dialog_GridView']";
 
-	// public static final String b2w_jobsaddmaterialssearchjs =
-	// "PageContent_AddMaterialDialog_SearchControl_SearchTextBox";
+	//public static final String b2w_jobsaddmaterialssearchjs =
+	//"PageContent_AddMaterialDialog_SearchControl_SearchTextBox";
 	// public static final String b2w_jobsaddmaterialsidjs =
 	// "PageContent_AddMaterialDialog_SelectControl_SelectTextBox";
 	// public static final String b2w_jobsaddmaterialssearchbutton =
