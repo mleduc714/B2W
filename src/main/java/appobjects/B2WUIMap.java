@@ -854,4 +854,34 @@ public class B2WUIMap {
 	//#################################################################
 	public static final String b2w_verifyestimate = "table#DetailInformationPanel fixedLayout";
 	
+	//maintain schedule
+	public static final String b2w_maintainschedulemechanics = "a#tglMechanics";
+	public static final String b2w_maintainscheduleequipment = "a#tglEquipment";
+	public static final String b2w_maintainschedulertoolbar = "div.k-floatwrap.k-header.k-scheduler-toolbar";
+	public static final String b2w_maintainschedulerclickwest = "span.k-icon.k-i-arrow-w";
+	public static final String b2w_maintainschedulerclickeast = "span.k-icon.k-i-arrow-e";
+	public static final String b2w_maintainschedulernewworkorderbutton = "a#newWorkOrderBtn";
+	public static final String b2w_maintainschedulerfilterbutton = "a#schedule-filter-button";
+	public static final String b2w_maintainschedulertabone = "li#tab1";
+	public static final String b2w_maintainschedulertabtwo = "li#tab2";
+	public static final String b2w_maintainschedulerworkorderslist = "div#unscheduled-work-orders-list";
+	public static final String b2w_maintainschedulerworkorderunscheduled = "div.workOrder.unscheduled";
+	public static final String b2w_maintainschedulerworkordersummary = "div.workOrderSummary";
+	public static final String b2w_maintainschedulerunscheduledworkorderslist= "div#unscheduled-work-orders-list.k-widget.k-listview";
+	public static final String b2w_maintainschedulerpastdueworkorderlist = "div#past-due-date-work-order-list.k-widget.k-listview";
+	public static final String b2w_maintainschedulerpastdueworkorder = "div.workOrder.scheduled.pastDue";
+	public static final String b2w_maintainschedulercontent = "div.k-scheduler-content";
+	public static final String b2w_maintainschedulerevents = "div.k-event.k-event-inverse";
+	public static final String b2w_maintainschedulertooltip = "div.schedule-tooltip";
+	public static final String b2w_maintainschedulereditschedule = "div.wizard-dialog.editable-schedule-popup-view.schedule-edit.k-window-content.k-content";
+	public static final String b2w_maintainschedulerschedulemaintenance = "div.wizard-dialog.editable-schedule-popup-view.schedule-create.k-window-content.k-content";
+	// links
+	public static final String b2w_maintainscheduletodaylink = "Today";
+	public static final String b2w_maintainscheduledaylink = "Day";
+	public static final String b2w_maintainscheduleThreeDayslink = "3Days";
+	public static final String b2w_maintainscheduleweeklink = "Week";
+	public static final String b2w_maintainscheduletwoweekslink = "2Weeks";
+
+	public static final String unscheduledWorkOrdersContextMenu = "ul#unscheduledWorkOrdersContextMenu";
+
 }

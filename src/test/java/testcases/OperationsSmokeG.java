@@ -8,6 +8,7 @@ import com.b2w.test.B2WTestCase;
 import tasks.B2WNavigationTasks;
 import tasks.maintain.B2WMaintainProgramsTasks;
 import tasks.maintain.B2WMaintainRequestTasks;
+import tasks.maintain.B2WMaintainScheduleTasks;
 import tasks.maintain.B2WMaintainTasks;
 import tasks.maintain.B2WWorkOrdersTasks;
 import tasks.resources.B2WEquipmentTasks;
@@ -21,6 +22,7 @@ public class OperationsSmokeG extends B2WTestCase {
 	B2WEquipmentTasks b2wEquip = new B2WEquipmentTasks();
 	B2WMaintainRequestTasks b2wRequests = new B2WMaintainRequestTasks();
 	B2WWorkOrdersTasks b2wOrder = new B2WWorkOrdersTasks();
+	B2WMaintainScheduleTasks b2wSchd = new B2WMaintainScheduleTasks();
 	String sMaintenanceProgramDesc;
 	String sMaintenanceProgramItemADesc;
 	String sMaintenanceProgramItemAType;
@@ -237,11 +239,13 @@ public class OperationsSmokeG extends B2WTestCase {
 	
 	public void test(){
 		logCompare(true, b2wNav.openMaintain(), "Open Maintain");
-		logCompare(true, b2wMain.openWorkOrders(), "Open Work Orders");
-		b2wOrder.selectWorkOrderByID("1028");
-		b2wOrder.clickApproveButton();
-		b2wOrder.clickConfirmYes();
+		logCompare(true, b2wMain.openSchedule(), "Open Schedule");
+		b2wSchd.clickMechanics();
+		b2wSchd.scheduleWorkOrderFromWorkOrderTabByDescriptionFromContextMenu("TRUCK, F-350 CREW CAB UTILITY [1013]");
+		
 		TaskUtils.sleep(5000);
+		
+
 	}
 	
 }

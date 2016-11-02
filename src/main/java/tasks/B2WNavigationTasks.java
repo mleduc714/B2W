@@ -2,8 +2,6 @@ package tasks;
 
 import java.util.List;
 
-import appobjects.resources.KendoUI;
-import appobjects.scheduler.B2WScheduleAssignments;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -14,8 +12,8 @@ import appobjects.B2WNavigationPanel;
 import appobjects.maintain.B2WMaintain;
 import appobjects.resources.B2WEquipment;
 import appobjects.resources.B2WTMPriceSheets;
+import appobjects.scheduler.B2WScheduleAssignments;
 import tasks.resources.B2WEquipmentTasks;
-import tasks.resources.B2WKendoTasks;
 import tasks.scheduler.B2WSchedulerTasks;
 import tasks.setup.B2WSchedulesTasks;
 import tasks.util.TaskUtils;
