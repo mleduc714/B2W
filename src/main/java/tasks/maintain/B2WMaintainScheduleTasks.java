@@ -262,14 +262,12 @@ public class B2WMaintainScheduleTasks extends B2WKendoTasks {
 		WebElement el = WebElementUtils.waitAndFindDisplayedElement(B2WMaintain.getB2WMaintainSchedulerEditSchedulePopupWindow());
 		WebElement button = WebElementUtils.getChildElement(el, B2WMaintain.getKendoLargeSaveButton());
 		WebElementUtils.clickElement(button);
-		
 	}
 	private WebElement getWebElementFromEditMaintenanceDialog(int i) {
 		WebElement el = WebElementUtils
 				.waitAndFindDisplayedElement(B2WMaintain.getB2WMaintainSchedulerEditSchedulePopupWindow());
 		List<WebElement> list = WebElementUtils.getChildElements(el, B2WMaintain.getKendoDropDown());
 		return list.get(i);
-
 	}
 
 
