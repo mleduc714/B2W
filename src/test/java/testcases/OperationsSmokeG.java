@@ -148,8 +148,8 @@ public class OperationsSmokeG extends B2WTestCase {
 	}
 	
 	public void createMaintenanceProgram() {
-		logCompare(true,b2wNav.openMaintain(),"Open Maintain");
-		logCompare(true,b2wMain.openPrograms(),"Open Programs");
+		assertTrue("open Maintain", b2wNav.openMaintain());
+		assertTrue("open Programs", b2wMain.openPrograms());
 		logCompare(true,b2wMainPrograms.createNewMaintenanceProgram(),"Create Maintenance Program");
 		logCompare(true,b2wMainPrograms.setMaintenanceProgramDescription(sMaintenanceProgramDesc), "Set Maintenance Program Desc");
 		logCompare(true,b2wMainPrograms.setBusinessUnit("Hauling"),"Select Business Unit");
