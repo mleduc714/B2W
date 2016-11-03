@@ -50,10 +50,10 @@ public class B2WTestCase extends BaseTestCase {
 
 	public void testTearDown() throws Throwable {
 		// TODO Auto-generated method stub
-		B2WNavigationTasks b2wNav = new B2WNavigationTasks();
-		if (!b2wNav.clickHome()){
-			TaskUtils.dismissAlert();
-		}
+//		B2WNavigationTasks b2wNav = new B2WNavigationTasks();
+//		if (!b2wNav.clickHome()){
+//			TaskUtils.dismissAlert();
+//		}
 	}
 
 	public String getCategory() {

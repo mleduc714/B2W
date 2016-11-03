@@ -10,9 +10,6 @@ public class B2WEquipment extends KendoUI {
 	public static By getNewEquipmentRequiredForms() {
 		return By.cssSelector(B2WUIMap.b2w_newequipmentformrequired);
 	}
-	public static By getNewEquipmentSaveButton() {
-		return By.cssSelector(B2WUIMap.b2w_newequipmentsavebutton);
-	}
 	public static By getEquipmentListView() {
 		return By.cssSelector(B2WUIMap.b2w_equipmentlistview);
 	}

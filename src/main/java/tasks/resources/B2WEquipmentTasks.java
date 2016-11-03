@@ -146,7 +146,7 @@ public class B2WEquipmentTasks extends B2WKendoTasks {
 		boolean bReturn = false;
 		WebElement el = WebElementUtils.findElement(B2WEquipment.getKendoFooter());
 		if (el != null) {
-			WebElement button = WebElementUtils.getChildElement(el, B2WEquipment.getNewEquipmentSaveButton());
+			WebElement button = WebElementUtils.getChildElement(el, B2WEquipment.getKendoLargeSaveButton());
 			bReturn = WebElementUtils.clickElement(button);
 			bReturn = WebElementUtils.waitAndFindDisplayedElement(B2WEquipment.getEquipmentItemAction()) != null;
 			bReturn &= waitForEquipmentPageNoBusy();
@@ -198,37 +198,11 @@ public class B2WEquipmentTasks extends B2WKendoTasks {
 	
 	}
 	public boolean selectEquipmentFromViewByID(String sID){
-		return selectFromEquipmentView(sID,0);
+		return selectItemFromView(sID,0);
 	}
 	
 	public boolean selectEquipmentFromViewByDescription(String sDesc) {
-		return selectFromEquipmentView(sDesc,1);
-	}
-	
-	private boolean selectFromEquipmentView(String sItem, int iNumber){
-		boolean bReturn = false;
-		
-		WebElement grid = WebElementUtils.findElement(B2WEquipment.getKendoGridContent());
-		List<WebElement> items = WebElementUtils.getChildElements(grid, By.tagName("tr"));
-		Iterator<WebElement> iter = items.iterator();
-		while (iter.hasNext()){
-			WebElement item = iter.next();
-			List<WebElement> gridcontent = WebElementUtils.getChildElements(item, By.tagName("td"));
-			String sText = gridcontent.get(iNumber).getText();
-			// when it's a empty string we need to get into view
-			if (sText.equals("")){
-				Coordinates coordinate = ((Locatable)item).getCoordinates(); 
-				coordinate.onPage(); 
-				coordinate.inViewPort();
-			}
-			sText = gridcontent.get(iNumber).getText();
-			if (sText.startsWith(sItem)){
-				bReturn = WebElementUtils.clickElement(item);
-				bReturn &= waitForPageNotBusy();
-				break;
-			}
-		}
-		return bReturn;
+		return selectItemFromView(sDesc,1);
 	}
 	
 	public String getEquipmentHeadline() {
@@ -381,7 +355,7 @@ public class B2WEquipmentTasks extends B2WKendoTasks {
 		WebElement window = getDisplayedWindow();
 		if (window != null){
 			WebElement buttoncontainer = WebElementUtils.getChildElement(window, B2WEquipment.getKendoButtonContainer());
-			WebElement savebutton = buttoncontainer.findElement(B2WEquipment.getNewEquipmentSaveButton());
+			WebElement savebutton = buttoncontainer.findElement(B2WEquipment.getKendoLargeSaveButton());
 			bReturn = WebElementUtils.clickElement(savebutton);
 			bReturn &= WebElementUtils.waitForElementInvisible(window);
 		}

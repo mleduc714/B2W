@@ -476,7 +476,7 @@ public class B2WUIMap {
 	public static final String b2w_newequipmentcapacitygrid = "table#PageContent_CapacityGrid";
 	public static final String b2w_kendolistofitems = ".k-reset";
 	public static final String b2w_kendofooter = ".edit-form-footer";
-	public static final String b2w_newequipmentsavebutton = ".btn-form.large.save";
+	public static final String b2w_kendolargesavebutton = ".btn-form.large.save";
 	public static final String b2w_kendofilterbydd = "div.k-multiselect-wrap.k-floatwrap";
 	public static final String b2w_kendogridcontent = "div.k-grid-content";
 	public static final String b2w_kendoselected = "div.k-state-selected";
@@ -502,6 +502,14 @@ public class B2WUIMap {
 	public static final String b2w_kendowindowtitle = "span.k-window-title";
 	public static final String b2w_kendobuttoncontainer = "div.button-container";
 	public static final String b2w_kendodatetext = "span.k-picker-wrap.k-state-default";
+	public static final String b2w_kendoapprovebutton = "span.btn-approve";
+	public static final String b2w_kendocompletebutton = "span.btn-complete";
+	public static final String b2w_kendoeditbutton = "span.btn-edit";
+	public static final String b2w_kendodeletebutton = "span.btn-delete";
+	public static final String b2w_kendoconfirmyesbutton = "div.btn-form.dialog-button.large.confirm";
+	public static final String b2w_kendoconfirmnobutton = "div.btn-form dialog-button reject";
+	
+	
 	
 	public static final String b2w_tmpricesheeteditbutton = "a#editPriceSheet.btn-orig";
 	public static final String b2w_tmpricesheetmodifyratesourcebutton = "a#modifyPriceSheetRates.btn-orig";
@@ -570,7 +578,7 @@ public class B2WUIMap {
 	public static final String b2w_changeordersdescription = "table#detailCell fill Literal";
 	
 	public static final String b2w_timeandmaterialrates = "span#text: Item.SourceInfo.Description, visible: Data.HasReferenceRate";
-	public static final String b22_timeandmaterialworkitems = "span#text: Item.Description";
+	public static final String b2w_timeandmaterialworkitems = "span#text: Item.Description";
 
 	public static final String b2w_jobstrackacctstrackingid = "a[id^='PageContent_ProductionAccountGridView_TrackingID']";
 	public static final String b2w_jobstrackacctsaccountid = "span[id^='PageContent_ProductionAccountGridView_AccountID']";
@@ -829,7 +837,13 @@ public class B2WUIMap {
 	public static final String b2w_maintainitemactions = "div.item-actions";
 	public static final String b2w_maintainrequestcreateview = "div#request_create_view";
 	public static final String b2w_maintainrequesteditformcontent = "div.edit-form-content";
-	
+	public static final String b2w_maintainrequestedcommentbutton = "span.btn-addcomment";
+	// work orders 
+	public static final String b2w_maintainworkordersview = "div#work_order_create_view";
+	public static final String b2w_maintainworkorderadditembutton = "a.btn-orig.add-item";
+	public static final String b2w_maintainworkorderadditemview = "div.create-new-request";
+	public static final String b2w_maintainworkordercreateitembutton = "button.btn-form.large.create";
+	public static final String b2w_maintainworkorderdetailcontentview = "div.detail-content-view";
 	
 	public static final String b2w_scheduleanimationcontainer = ".k-animation-container";
 	public static final String b2w_schedulelinks = "span.k-link";
@@ -841,4 +855,42 @@ public class B2WUIMap {
 	//#################################################################
 	public static final String b2w_verifyestimate = "table#DetailInformationPanel fixedLayout";
 	
+	//maintain schedule
+	public static final String b2w_maintainschedulemechanics = "a#tglMechanics";
+	public static final String b2w_maintainscheduleequipment = "a#tglEquipment";
+	public static final String b2w_maintainschedulertoolbar = "div.k-floatwrap.k-header.k-scheduler-toolbar";
+	public static final String b2w_maintainschedulerclickwest = "span.k-icon.k-i-arrow-w";
+	public static final String b2w_maintainschedulerclickeast = "span.k-icon.k-i-arrow-e";
+	public static final String b2w_maintainschedulernewworkorderbutton = "a#newWorkOrderBtn";
+	public static final String b2w_maintainschedulerfilterbutton = "a#schedule-filter-button";
+	public static final String b2w_maintainschedulertabone = "li#tab1";
+	public static final String b2w_maintainschedulertabtwo = "li#tab2";
+	public static final String b2w_maintainschedulerworkorderslist = "div#unscheduled-work-orders-list";
+	public static final String b2w_maintainschedulerworkorderunscheduled = "div.workOrder.unscheduled";
+	public static final String b2w_maintainschedulerworkordersummary = "div.workOrderSummary";
+	public static final String b2w_maintainschedulerunscheduledworkorderslist= "div#unscheduled-work-orders-list.k-widget.k-listview";
+	public static final String b2w_maintainschedulerpastdueworkorderlist = "div#past-due-date-work-order-list.k-widget.k-listview";
+	public static final String b2w_maintainschedulerpastdueworkorder = "div.workOrder.scheduled.pastDue";
+	public static final String b2w_maintainschedulercontent = "div.k-scheduler-content";
+	public static final String b2w_maintainschedulerevents = "div.k-event.k-event-inverse";
+	public static final String b2w_maintainschedulertooltip = "div.schedule-tooltip";
+	public static final String b2w_maintainschedulereditschedule = "div.wizard-dialog.editable-schedule-popup-view.schedule-edit.k-window-content.k-content";
+	public static final String b2w_maintainschedulerschedulemaintenance = "div.wizard-dialog.editable-schedule-popup-view.schedule-create.k-window-content.k-content";
+	// links
+	public static final String b2w_maintainscheduletodaylink = "Today";
+	public static final String b2w_maintainscheduledaylink = "Day";
+	public static final String b2w_maintainscheduleThreeDayslink = "3Days";
+	public static final String b2w_maintainscheduleweeklink = "Week";
+	public static final String b2w_maintainscheduletwoweekslink = "2Weeks";
+
+	// time cards
+	public static final String b2w_maintaintimecardbuttons = "div.item-actions.add-timecard-btn";
+	public static final String b2w_maintainnewtimecardpopup = "div.wizard-dialog.new-timecard-popup.k-window-content.k-content";
+	public static final String b2w_maintainreporthoursdialog = "div.wizard-dialog.report-hours-popup.k-window-content.k-content";
+	public static final String b2w_maintainnewtimecardaddtimebutton = "a.btn-form.add-time";
+	public static final String b2w_maintaintimecarddetailcontentview = "div.detail-content";
+	
+	
+	public static final String unscheduledWorkOrdersContextMenu = "ul#unscheduledWorkOrdersContextMenu";
+
 }

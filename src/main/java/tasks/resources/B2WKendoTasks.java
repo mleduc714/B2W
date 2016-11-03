@@ -7,6 +7,7 @@ import java.util.List;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.internal.Coordinates;
 import org.openqa.selenium.internal.Locatable;
@@ -49,13 +50,18 @@ public abstract class B2WKendoTasks {
 		int iTrys = 0;
 		while (!bReturn && iTrys < 100) {
 			try {
-				BrowserUtils.getDriver().findElement(B2WEquipment.getKendoPageLoading());
+				WebElement el = BrowserUtils.getDriver().findElement(B2WEquipment.getKendoPageLoading());
 				TaskUtils.sleep(100);
+				if (!el.isDisplayed()){
+					bReturn = true;
+					break;
+				}
 				iTrys++;
 
 			} catch (NoSuchElementException e) {
-				
 				bReturn = true;
+			}catch (StaleElementReferenceException e){
+				bReturn =true;
 			}
 		}
 		double iSec = (iTrys * 100);
@@ -66,6 +72,7 @@ public abstract class B2WKendoTasks {
 			log.info("Page is done loading. waited: "+iSeconds + " Seconds");
 		}
 		return bReturn;
+		
 	}
 	public boolean clickAndSelectValueFromKendoFDD(WebElement dropDownElement, String sItem) {
 		boolean bReturn = false;
@@ -196,5 +203,64 @@ public abstract class B2WKendoTasks {
 			}
 		}
 		return itemstext;
+	}
+	
+	public List<WebElement> getFormElements(By by) {
+		List<WebElement> elements = new ArrayList<WebElement>();
+		WebElement parent = WebElementUtils.findElement(by);
+		List<WebElement> list = WebElementUtils.getChildElements(parent, By.tagName("p"));
+		Iterator<WebElement> iter = list.iterator();
+		while (iter.hasNext()) {
+			WebElement el = iter.next();
+			String sClass = el.getAttribute("class");
+			if (sClass.startsWith("form")) {
+				elements.add(el);
+			}
+		}
+
+		return elements;
+	}
+	
+	public boolean selectItemFromView(String sItem, int iColumn) {
+		boolean bReturn = false;
+
+		WebElement grid = WebElementUtils.findElement(B2WEquipment.getKendoGridContent());
+		List<WebElement> items = WebElementUtils.getChildElements(grid, By.tagName("tr"));
+		Iterator<WebElement> iter = items.iterator();
+		while (iter.hasNext()) {
+			WebElement item = iter.next();
+			List<WebElement> gridcontent = WebElementUtils.getChildElements(item, By.tagName("td"));
+			String sText = gridcontent.get(iColumn).getText();
+			// when it's a empty string we need to get into view
+			if (sText.equals("")) {
+				Coordinates coordinate = ((Locatable) item).getCoordinates();
+				coordinate.onPage();
+				coordinate.inViewPort();
+			}
+			sText = gridcontent.get(iColumn).getText();
+			if (sText.startsWith(sItem)) {
+				bReturn = WebElementUtils.clickElement(item);
+				bReturn &= waitForPageNotBusy();
+				break;
+			}
+		}
+		return bReturn;
+	}
+
+	public boolean clickConfirmYes() {
+		boolean bReturn = false;
+		WebElement el = WebElementUtils.waitAndFindDisplayedElement(B2WMaintain.getKendoConfirmYesButton());
+		if (el != null){
+			bReturn =WebElementUtils.clickElement(el);
+		}
+		return bReturn;
+	}
+	public boolean clickConfirmNo() {
+		boolean bReturn = false;
+		WebElement el = WebElementUtils.waitAndFindDisplayedElement(B2WMaintain.getKendoConfirmNoButton());
+		if (el != null){
+			bReturn =WebElementUtils.clickElement(el);
+		}
+		return bReturn;
 	}
 }
