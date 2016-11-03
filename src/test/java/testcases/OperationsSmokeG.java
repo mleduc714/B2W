@@ -115,8 +115,12 @@ public class OperationsSmokeG extends B2WTestCase {
 		sPartIDB = getProperty("partIDB") + n;
 		sPartC = getProperty("partC");
 		sPartIDC = getProperty("partIDC") + n;
-		sEquipmentDescD = getProperty("equipmentD");
-		sEquipmentIDD = getProperty("equipmentidD")+ n;
+		//sEquipmentDescD = getProperty("equipmentD");
+		//sEquipmentIDD = getProperty("equipmentidD")+ n;
+		sEquipmentDescD="Bobcat S175";
+		sEquipmentIDD="BCAT01";
+		
+		
 		sMaintenanceRequestDescription = getProperty("sMaintenanceRequestDescription");
 		sMaintenanceRequestPriority = getProperty("sMaintenanceRequestPriority");
 		sMaintenanceRequestComments = getProperty("sMaintenanceRequestComments");
@@ -133,10 +137,10 @@ public class OperationsSmokeG extends B2WTestCase {
 
 	public void testMain() throws Throwable {
 
-		createMaintenanceProgram();
+		//createMaintenanceProgram();
 		addParts();
-		createRequest();
-		createWorkOrders();
+		//createRequest();
+		//createWorkOrders();
 	//	test();
 		//createTimeCard();
 	}
