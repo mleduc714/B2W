@@ -237,7 +237,15 @@ public class B2WMaintain extends KendoUI {
 	public static By getB2WMaintainTimeCardDetailContent() {
 		return By.cssSelector(B2WUIMap.b2w_maintaintimecarddetailcontentview);
 	}
-	
+	public static By getB2WMaintainExpandButton() {
+		return By.cssSelector(B2WUIMap.b2w_maintainexpandbutton);
+	}
+	public static By getB2WMaintainSubNavMenu() {
+		return By.cssSelector(B2WUIMap.b2w_maintainsubnavmenu);
+	}
+	public static By getB2WMaintainCollapseButton() {
+		return By.cssSelector(B2WUIMap.b2w_maintaincollapsebutton);
+	}
 	
 	
 }

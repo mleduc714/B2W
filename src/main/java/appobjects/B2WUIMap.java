@@ -789,6 +789,8 @@ public class B2WUIMap {
 
 	// Maintain
 	public static final String b2w_maintainpagemenu = "ul#SubNavMenu_MaintainPageMenu.MaintainPageMenu";
+	public static final String b2w_maintainexpandbutton = "a#ExpandSubNavButton.expand-button";
+	public static final String b2w_maintainsubnavmenu = "div.SubNavMenu.slider.closed";
 	public static final String b2w_maintaindashboard = "li#SubNavMenu_DashboardMenuItem";
 	public static final String b2w_maintainrequests = "li#SubNavMenu_RequestsMenuItem";
 	public static final String b2w_maintainworkorders = "li#SubNavMenu_WorkOrdersMenuItem";
@@ -804,6 +806,7 @@ public class B2WUIMap {
 	public static final String b2w_maintainkendoitemsbuttoncontainer = "div.work-order-items-button-container";
 	public static final String b2w_maintainadditemsdialog = "div.wizard-dialog.add-request-template-popup.k-window-content.k-content";
 	public static final String b2w_maintainadditemsavebutton = "a.btn-form.large.save";
+	public static final String b2w_maintaincollapsebutton = "a.collapse-button";
 
 	public static final String b2w_maintainnewintervalbutton = "a.btn-orig.new-interval-button";
 

@@ -3,6 +3,7 @@ package tasks;
 import java.util.List;
 
 import org.apache.log4j.Logger;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
@@ -85,10 +86,14 @@ public class B2WNavigationTasks implements Navigation {
 		WebElement el = WebElementUtils.findElement(B2WNavigationPanel.getB2WMaintain());
 		if (el != null) {
 			if (WebElementUtils.clickElement(el)) {
-				WebElement grid = WebElementUtils.waitAndFindDisplayedElement(B2WMaintain.getB2WMaintainGrid());
-				if (grid != null) {
-					bReturn = grid.isDisplayed();
+				WebElement menu = WebElementUtils.waitAndFindDisplayedElement(By.cssSelector("div.SubNavMenu"));
+				if (menu.getAttribute("class").endsWith("closed")){
+					WebElement button = WebElementUtils.findElement(B2WMaintain.getB2WMaintainExpandButton());
+					bReturn = WebElementUtils.clickElement(button);
+				}else{
+					bReturn = true;
 				}
+				
 			}
 		}
 		return bReturn;
