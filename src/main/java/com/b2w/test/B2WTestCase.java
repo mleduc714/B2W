@@ -7,7 +7,6 @@ import org.junit.runner.RunWith;
 
 import com.b2w.logging.B2WRunConfig;
 
-import tasks.B2WNavigationTasks;
 import tasks.BrowserUtils;
 import tasks.util.TaskUtils;
 

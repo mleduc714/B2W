@@ -134,9 +134,9 @@ public class OperationsSmokeG extends B2WTestCase {
 	public void testMain() throws Throwable {
 
 		createMaintenanceProgram();
-		//addParts();
-		//createRequest();
-	//	createWorkOrders();
+		addParts();
+		createRequest();
+		createWorkOrders();
 	//	test();
 		//createTimeCard();
 	}
