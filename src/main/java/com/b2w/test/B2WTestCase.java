@@ -50,9 +50,8 @@ public class B2WTestCase extends BaseTestCase {
 
 	public void testTearDown() throws Throwable {
 		// TODO Auto-generated method stub
-		B2WNavigationTasks b2wNav = new B2WNavigationTasks();
-		log.debug("Testing tear down");
-		if (!b2wNav.clickHome()) {
+		if (TaskUtils.getAlertDialog() != null){
+			TaskUtils.logScreenCapture();
 			TaskUtils.dismissAlert();
 		}
 		
