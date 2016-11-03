@@ -189,17 +189,17 @@ public class OperationsSmokeG extends B2WTestCase {
 	}
 	public void addParts() {
 		assertTrue("Open Equipment",b2wMain.openEquipment());
-		logCompare(true,b2wEquip.selectEquipmentFromViewByID(sEquipmentIDD),"Select Equipment");
+		logCompare(true,b2wEquip.selectEquipmentFromViewByID(sEquipmentIDD),"Select: "+sEquipmentIDD+" Equipment");
 		logCompare(true,b2wEquip.expandParts(),"Expand Parts");
 		logCompare(true,b2wEquip.clickAddPartsButton(),"Add Parts");
-		logCompare(true,b2wEquip.selectPartToAddToEquipmentByDescription(sPartA), "Add Part");
-		logCompare(true,b2wEquip.selectPartToAddToEquipmentByDescription(sPartB), "Add Part");
-		logCompare(true,b2wEquip.selectPartToAddToEquipmentByDescription(sPartC), "Add Part");
+		logCompare(true,b2wEquip.selectPartToAddToEquipmentByDescription(sPartA), "Add "+sPartA+ " Part");
+		logCompare(true,b2wEquip.selectPartToAddToEquipmentByDescription(sPartB), "Add "+sPartB+ " Part");
+		logCompare(true,b2wEquip.selectPartToAddToEquipmentByDescription(sPartC), "Add "+sPartC+ " Part");
 		logCompare(true,b2wEquip.clickSaveAddPart(), "Save Part");
 		
 		logCompare(true, b2wEquip.expandMeters(), "Expand Meters");
 		logCompare(true, b2wEquip.clickAddMeterButton(), "Click Add Meter");
-		logCompare(true, b2wEquip.selectAddMeterTypeFromDD(sCategoryB), "Select Add Meter");
+		logCompare(true, b2wEquip.selectAddMeterTypeFromDD(sCategoryB), "Select Add "+sCategoryB+" Meter");
 		logCompare(true, b2wEquip.selectAddMeterRequiredOnWorkOrderCompletionNotRequired(), "Add Meter not required");
 		logCompare(true, b2wEquip.selectAddMeterExcludeFromWorkOrdersNever(), "Exclude never");
 		logCompare(true,b2wEquip.setAddMeterTypeDescription("Hours Meter"), "Meter Description");
@@ -214,7 +214,7 @@ public class OperationsSmokeG extends B2WTestCase {
 	public void createRequest() {
 		assertTrue("Open Requests",b2wMain.openRequests());
 		logCompare(true, b2wRequests.clickCreateNewRequestButton(), "Create Requests");
-		logCompare(true, b2wRequests.selectEquipment(sEquipmentIDD +" [" +sEquipmentDescD + "]"), "Select Equipment");
+		logCompare(true, b2wRequests.selectEquipment(sEquipmentIDD +" [" +sEquipmentDescD + "]"), "Select "+sEquipmentIDD+" Equipment");
 		logCompare(true, b2wRequests.setRequestDescription(sMaintenanceRequestDescription), "Set Description");
 		logCompare(true, b2wRequests.selectTypeFromDD(sCategoryD), "Select Auto corrective");
 		logCompare(true, b2wRequests.clickNewCommentButton(), "Create a comments");
@@ -226,7 +226,7 @@ public class OperationsSmokeG extends B2WTestCase {
 	public void createWorkOrders(){
 		assertTrue("Open Work Orders",b2wMain.openWorkOrders());
 		logCompare(true, b2wOrder.clickCreateNewWorkOrderButton(), "Create New Work Order");
-		logCompare(true, b2wOrder.selectEquipment(sEquipmentIDD +" [" +sEquipmentDescD + "]"), "Select Equipment");
+		logCompare(true, b2wOrder.selectEquipment(sEquipmentIDD +" [" +sEquipmentDescD + "]"), "Select "+sEquipmentIDD+" Equipment");
 		logCompare(true, b2wOrder.setWorkOrderDescription(sMaintenanceWorkOrderDescription), "Set Work");
 		logCompare(true, b2wOrder.setDueDate(sDateTwoWeeksFromNow), "Due Date");
 		logCompare(true, b2wOrder.clickNewItemButton(), "Create New Item");
