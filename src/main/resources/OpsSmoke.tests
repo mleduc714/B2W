@@ -1,1 +1,10 @@
+<<<<<<< HEAD
 testcases.jobs.B2WJobTestCase
+=======
+testcases.OperationsSmokeB
+testcases.OperationsSmokeC
+testcases.OperationsSmokeD
+testcases.OperationsSmokeE
+testcases.OperationsSmokeF
+testcases.OperationsSmokeG
+>>>>>>> refs/heads/MRL_DEV
