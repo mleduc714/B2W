@@ -56,7 +56,7 @@ public class AutomationLoggerAppender implements Appender, OptionHandler{
     
     public void doAppend(LoggingEvent event) {
     	
-    	 StringBuffer message = new StringBuffer();
+    	StringBuffer message = new StringBuffer();
     	if(event.getMessage() != null)
     		message.append(event.getMessage().toString());
         Level level = event.getLevel();
