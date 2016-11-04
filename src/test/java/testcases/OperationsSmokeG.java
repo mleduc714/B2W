@@ -115,10 +115,10 @@ public class OperationsSmokeG extends B2WTestCase {
 		sPartIDB = getProperty("partIDB") + n;
 		sPartC = getProperty("partC");
 		sPartIDC = getProperty("partIDC") + n;
-		//sEquipmentDescD = getProperty("equipmentD");
-		//sEquipmentIDD = getProperty("equipmentidD")+ n;
-		sEquipmentDescD="Bobcat S175";
-		sEquipmentIDD="BCAT01";
+		sEquipmentDescD = getProperty("equipmentD");
+		sEquipmentIDD = getProperty("equipmentidD")+ n;
+		//sEquipmentDescD="Bobcat S175";
+		//sEquipmentIDD="BCAT01";
 		
 		
 		sMaintenanceRequestDescription = getProperty("sMaintenanceRequestDescription");

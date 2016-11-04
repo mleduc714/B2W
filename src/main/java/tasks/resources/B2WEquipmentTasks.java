@@ -344,6 +344,9 @@ public class B2WEquipmentTasks extends B2WKendoTasks {
 			// get parent and is it expanded or collapsed
 			WebElement parent = WebElementUtils.getParentElement(el);
 			WebElement button = WebElementUtils.getChildElement(parent, B2WMaintain.getKendoButtonAdd());
+			Coordinates coordinate = ((Locatable)button).getCoordinates(); 
+			coordinate.onPage(); 
+			coordinate.inViewPort();
 			WebElementUtils.clickElement(button);
 			bReturn = WebElementUtils.waitForElementIsDisplayed(windows.get(1), WebElementUtils.SHORT_TIME_OUT);
 		}
