@@ -344,8 +344,12 @@ public class B2WEquipmentTasks extends B2WKendoTasks {
 			// get parent and is it expanded or collapsed
 			WebElement parent = WebElementUtils.getParentElement(el);
 			WebElement button = WebElementUtils.getChildElement(parent, B2WMaintain.getKendoButtonAdd());
+			Coordinates coordinate = ((Locatable)button).getCoordinates(); 
+			coordinate.onPage(); 
+			coordinate.inViewPort();
 			WebElementUtils.clickElement(button);
 			bReturn = WebElementUtils.waitForElementIsDisplayed(windows.get(1), WebElementUtils.SHORT_TIME_OUT);
+			bReturn &= waitForPageNotBusy();
 		}
 		return bReturn;
 	}
@@ -358,6 +362,7 @@ public class B2WEquipmentTasks extends B2WKendoTasks {
 			WebElement savebutton = buttoncontainer.findElement(B2WEquipment.getKendoLargeSaveButton());
 			bReturn = WebElementUtils.clickElement(savebutton);
 			bReturn &= WebElementUtils.waitForElementInvisible(window);
+			waitForPageNotBusy();
 		}
 		return bReturn;
 	}
@@ -422,6 +427,55 @@ public class B2WEquipmentTasks extends B2WKendoTasks {
 		return bReturn;
 	}
 	
+	public boolean clickAddProgramButton() {
+		boolean bReturn = false;
+		List<WebElement> ls = WebElementUtils.findElements(B2WEquipment.getKendoHeadersFromView());
+		WebElement el = WebElementUtils.getElementWithMatchingText(ls, PROGRAMS, false);
+		if (el != null) {
+			// get parent and is it expanded or collapsed
+			WebElement parent = WebElementUtils.getParentElement(el);
+			WebElement button = WebElementUtils.getChildElement(parent, B2WMaintain.getKendoButtonAdd());
+			WebElementUtils.clickElement(button);
+			//List<WebElement> windows = WebElementUtils.findElements(B2WMaintain.getKendoWindowTitle());
+			//WebElementUtils.getAllInfo(windows.get(0));
+			bReturn = WebElementUtils.waitAndFindDisplayedEletment(B2WMaintain.getB2WAddProgramDialog()) != null;
+		}
+		return bReturn;
+	}
+	
+	public boolean setAddProgramText(String sText) {
+		boolean bReturn = false;
+		WebElement el = WebElementUtils.findElement(B2WMaintain.getB2WAddProgramDialog());
+		if (el != null){
+			WebElement program = WebElementUtils.getChildElement(el, B2WMaintain.getKendoDropDown());
+			WebElementUtils.clickElement(program);
+			bReturn = WebElementUtils.sendKeys(program, sText);
+			el.click();
+		}
+		return bReturn;
+	}
+	
+	public boolean clickAddProgramNextButton(){
+		boolean bReturn = false;
+		WebElement el = WebElementUtils.findElement(B2WMaintain.getB2WAddProgramDialog());
+		if (el != null){
+			WebElement program = WebElementUtils.getChildElement(el, B2WMaintain.getKendoButtonNext());
+			bReturn = WebElementUtils.clickElement(program);
+		}
+		return bReturn;
+	}
+	
+	public boolean clickSaveProgramButton() {
+		boolean bReturn = false;
+		WebElement el = WebElementUtils.findElement(B2WMaintain.getB2WAddProgramDialog());
+		if (el != null){
+			WebElement program = WebElementUtils.getChildElement(el, B2WMaintain.getKendoAddSaveButton());
+			bReturn = WebElementUtils.clickElement(program);
+			bReturn &= WebElementUtils.waitForElementInvisible(program);
+			waitForPageNotBusy();
+		}
+		return bReturn;
+	}
 	public boolean selectAddMeterTypeFromDD(String sText) {
 		boolean bReturn = false;
 		WebElement dd = getDropDownsFromWindow(getDisplayedWindow(), 0);
@@ -440,6 +494,20 @@ public class B2WEquipmentTasks extends B2WKendoTasks {
 		}
 		return bReturn;
 	}
+
+	public boolean clickSaveAddMeter() {
+		boolean bReturn = false;
+		WebElement window = getDisplayedWindow();
+		if (window != null){
+			WebElement buttoncontainer = WebElementUtils.getChildElement(window, B2WEquipment.getKendoButtonContainer());
+			WebElement savebutton = buttoncontainer.findElement(B2WEquipment.getKendoLargeSaveButton());
+			bReturn = WebElementUtils.clickElement(savebutton);
+			bReturn &= WebElementUtils.waitForElementInvisible(window);
+			waitForPageNotBusy();
+		}
+		return bReturn;
+	}
+	
 	public boolean selectAddMeterExcludeFromWorkOrdersUseGlobalSetting(){
 		String sText = "Use global Setting";
 		boolean bReturn = false;

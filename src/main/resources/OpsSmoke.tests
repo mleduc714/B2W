@@ -3,5 +3,5 @@ testcases.OperationsSmokeC
 testcases.OperationsSmokeD
 testcases.OperationsSmokeE
 testcases.OperationsSmokeF
-#testcases.OperationsSmokeG
-testcases.jobs.B2WJobTestCase
+testcases.OperationsSmokeG
+#testcases.jobs.B2WJobTestCase

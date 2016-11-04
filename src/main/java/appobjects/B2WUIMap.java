@@ -477,6 +477,7 @@ public class B2WUIMap {
 	public static final String b2w_kendolistofitems = ".k-reset";
 	public static final String b2w_kendofooter = ".edit-form-footer";
 	public static final String b2w_kendolargesavebutton = ".btn-form.large.save";
+	public static final String b2w_kendolargeaddsavebutton = ".btn-form.large.add-save.save";
 	public static final String b2w_kendofilterbydd = "div.k-multiselect-wrap.k-floatwrap";
 	public static final String b2w_kendogridcontent = "div.k-grid-content";
 	public static final String b2w_kendoselected = "div.k-state-selected";
@@ -499,6 +500,7 @@ public class B2WUIMap {
 	public static final String b2w_kendonumerictextbox = "span.k-widget.k-numerictextbox";
 	public static final String b2w_kendosavebuttonfake = "div.btn-form.large.fake";
 	public static final String b2w_kendobuttonadd = "span.btn-add";
+	public static final String b2w_kendobuttonnext = "a.btn-form.large.next";
 	public static final String b2w_kendowindowtitle = "span.k-window-title";
 	public static final String b2w_kendobuttoncontainer = "div.button-container";
 	public static final String b2w_kendodatetext = "span.k-picker-wrap.k-state-default";
@@ -508,6 +510,8 @@ public class B2WUIMap {
 	public static final String b2w_kendodeletebutton = "span.btn-delete";
 	public static final String b2w_kendoconfirmyesbutton = "div.btn-form.dialog-button.large.confirm";
 	public static final String b2w_kendoconfirmnobutton = "div.btn-form dialog-button reject";
+	public static final String b2w_kendolargefinishbutton = ".btn-form.large.finish";
+	public static final String b2w_kendobuttonnew = ".btn-new";
 	
 	
 	
@@ -845,6 +849,7 @@ public class B2WUIMap {
 	public static final String b2w_maintainworkordersview = "div#work_order_create_view";
 	public static final String b2w_maintainworkorderadditembutton = "a.btn-orig.add-item";
 	public static final String b2w_maintainworkorderadditemview = "div.create-new-request";
+	public static final String b2w_maintainworkorderselectitemsview = "div.select-action.select-request";
 	public static final String b2w_maintainworkordercreateitembutton = "button.btn-form.large.create";
 	public static final String b2w_maintainworkorderdetailcontentview = "div.detail-content-view";
 	
@@ -879,6 +884,7 @@ public class B2WUIMap {
 	public static final String b2w_maintainschedulertooltip = "div.schedule-tooltip";
 	public static final String b2w_maintainschedulereditschedule = "div.wizard-dialog.editable-schedule-popup-view.schedule-edit.k-window-content.k-content";
 	public static final String b2w_maintainschedulerschedulemaintenance = "div.wizard-dialog.editable-schedule-popup-view.schedule-create.k-window-content.k-content";
+	public static final String b2w_maintainequipmentaddprogram = "div.wizard-dialog.equipmentProgram-editable.k-window-content.k-content";
 	// links
 	public static final String b2w_maintainscheduletodaylink = "Today";
 	public static final String b2w_maintainscheduledaylink = "Day";
@@ -892,6 +898,7 @@ public class B2WUIMap {
 	public static final String b2w_maintainreporthoursdialog = "div.wizard-dialog.report-hours-popup.k-window-content.k-content";
 	public static final String b2w_maintainnewtimecardaddtimebutton = "a.btn-form.add-time";
 	public static final String b2w_maintaintimecarddetailcontentview = "div.detail-content";
+	
 	
 	
 	public static final String unscheduledWorkOrdersContextMenu = "ul#unscheduledWorkOrdersContextMenu";

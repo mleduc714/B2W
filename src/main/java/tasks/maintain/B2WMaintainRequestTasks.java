@@ -12,7 +12,6 @@ import org.openqa.selenium.internal.Locatable;
 import appobjects.maintain.B2WMaintain;
 import tasks.WebElementUtils;
 import tasks.resources.B2WKendoTasks;
-import tasks.util.TaskUtils;
 
 
 
@@ -30,24 +29,21 @@ public class B2WMaintainRequestTasks extends B2WKendoTasks {
 
 	public boolean clickCreateNewRequestButton() {
 		boolean bReturn = false;
-		WebElement el = WebElementUtils.findElement(B2WMaintain.getB2WMaintainItemActions());
+		WebElement el = WebElementUtils.waitAndFindDisplayedElement(B2WMaintain.getB2WMaintainItemActions());
 		WebElement button = WebElementUtils.getChildElement(el, B2WMaintain.getKendoButtonAdd());
 		if (button != null){
 			bReturn = WebElementUtils.clickElement(button);
 			bReturn &= WebElementUtils.waitAndFindElement(B2WMaintain.getB2WMaintainRequestCreateView()) != null;
 			if (bReturn){
-				getFormElements(B2WMaintain.getB2WMaintainRequestCreateView());
+				pageElement = getFormElements(B2WMaintain.getB2WMaintainRequestCreateView());
 			}
 		}
 		
 		return bReturn;
 	}
 	
-	
-
 	public boolean selectEquipment(String sText) {
 		boolean bReturn = false;
-		TaskUtils.sleep(1000);
 		WebElement equipment = pageElement.get(iEquipment);
 		if (equipment != null){
 			WebElement el = WebElementUtils.getChildElement(equipment, B2WMaintain.getKendoDropDown());
@@ -142,7 +138,7 @@ public class B2WMaintainRequestTasks extends B2WKendoTasks {
 			Coordinates coordinate = ((Locatable)comment).getCoordinates(); 
 			coordinate.onPage(); 
 			coordinate.inViewPort();
-			WebElementUtils.clickElement(comment);
+			bReturn = WebElementUtils.clickElement(comment);
 			//WebElementUtils.waitAndFindDisplayedElement(By.cssSelector("textarea.comments")) != null;
 		}
 		return bReturn;
@@ -159,7 +155,8 @@ public class B2WMaintainRequestTasks extends B2WKendoTasks {
 				WebElement parent = WebElementUtils.getParentElement(el);
 				WebElement save = WebElementUtils.getChildElement(parent, B2WMaintain.getKendoLargeSaveButton());
 				bReturn = WebElementUtils.clickElement(save);
-				bReturn &= WebElementUtils.waitForElementInvisible(save);
+				bReturn &= WebElementUtils.waitForElementInvisible(el);
+				break;
 			}
 		}
 		return bReturn;
@@ -167,7 +164,8 @@ public class B2WMaintainRequestTasks extends B2WKendoTasks {
 	
 	public boolean clickSaveButton() {
 		boolean bReturn = false;
-		WebElement el = WebElementUtils.findElement(B2WMaintain.getKendoLargeSaveButton());
+		WebElement parent = WebElementUtils.findElement(B2WMaintain.getB2WMaintainRequestCreateView());
+		WebElement el = WebElementUtils.waitForChildElement(parent, B2WMaintain.getKendoLargeSaveButton(),1);
 		if (el != null){
 			bReturn = WebElementUtils.clickElement(el);
 			bReturn &= waitForPageNotBusy();
