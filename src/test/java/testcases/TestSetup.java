@@ -43,7 +43,7 @@ public class TestSetup extends B2WTestCase {
 	public void testSetUp() throws Throwable {
 		// TODO Auto-generated method stub
 		super.testSetUp();
-		int  n = getRandomNumber();
+		//int  n = getRandomNumber();
 
 	}
 
@@ -51,8 +51,7 @@ public class TestSetup extends B2WTestCase {
 
 		logCompare(true,b2wNav.clickHome(),"Go Home");
 		logCompare(true,b2wNav.openJobs(),"Open jobs");
-		logCompare(true,b2wNav.clickHome(),"Go Home");
-		logCompare(true,b2wNav.openEmployees(),"Open Employees");
+		assertTrue("open Maintain", b2wNav.openMaintain());
 
 	}
 

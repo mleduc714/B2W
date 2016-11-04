@@ -510,6 +510,8 @@ public class B2WUIMap {
 	public static final String b2w_kendodeletebutton = "span.btn-delete";
 	public static final String b2w_kendoconfirmyesbutton = "div.btn-form.dialog-button.large.confirm";
 	public static final String b2w_kendoconfirmnobutton = "div.btn-form dialog-button reject";
+	public static final String b2w_kendolargefinishbutton = ".btn-form.large.finish";
+	public static final String b2w_kendobuttonnew = ".btn-new";
 	
 	
 	
@@ -847,6 +849,7 @@ public class B2WUIMap {
 	public static final String b2w_maintainworkordersview = "div#work_order_create_view";
 	public static final String b2w_maintainworkorderadditembutton = "a.btn-orig.add-item";
 	public static final String b2w_maintainworkorderadditemview = "div.create-new-request";
+	public static final String b2w_maintainworkorderselectitemsview = "div.select-action.select-request";
 	public static final String b2w_maintainworkordercreateitembutton = "button.btn-form.large.create";
 	public static final String b2w_maintainworkorderdetailcontentview = "div.detail-content-view";
 	

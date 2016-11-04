@@ -1,8 +1,11 @@
 package tasks.maintain;
 
 import java.util.ArrayList;
+import java.util.Hashtable;
+import java.util.Iterator;
 import java.util.List;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.internal.Coordinates;
 import org.openqa.selenium.internal.Locatable;
@@ -36,10 +39,11 @@ public class B2WWorkOrdersTasks extends B2WKendoTasks {
 	
 	private static List<WebElement> pageElement = new ArrayList<WebElement>();
 	private static List<WebElement> additemsElements = new ArrayList<WebElement>();
+	private static Hashtable<String,WebElement> table = new Hashtable<String,WebElement>();
 
 	public boolean clickCreateNewWorkOrderButton() {
 		boolean bReturn = false;
-		WebElement el = WebElementUtils.findElement(B2WMaintain.getB2WMaintainItemActions());
+		WebElement el = WebElementUtils.waitAndFindDisplayedElement(B2WMaintain.getB2WMaintainItemActions());
 		WebElement button = WebElementUtils.getChildElement(el, B2WMaintain.getKendoButtonAdd());
 		if (button != null){
 			bReturn = WebElementUtils.clickElement(button);
@@ -47,6 +51,7 @@ public class B2WWorkOrdersTasks extends B2WKendoTasks {
 			if (bReturn){
 				pageElement = getFormElements(B2WMaintain.getB2WMaintainNewWorkOrderView());
 			}
+			
 		}
 		
 		return bReturn;
@@ -156,7 +161,11 @@ public class B2WWorkOrdersTasks extends B2WKendoTasks {
 			coordinate.onPage(); 
 			coordinate.inViewPort();
 			WebElementUtils.clickElement(itembutton);
-			if (WebElementUtils.waitAndFindDisplayedElement(B2WMaintain.getB2WMaintainAddItemToWorkOrder()) != null){
+			if (WebElementUtils.waitAndFindDisplayedElement(B2WMaintain.getB2WMaintainSelectItemsToWorkOrder()) != null){
+				//additemsElements = getFormElements(B2WMaintain.getB2WMaintainSelectItemsToWorkOrder());
+				test();
+				bReturn = true;
+			}else{
 				additemsElements = getFormElements(B2WMaintain.getB2WMaintainAddItemToWorkOrder());
 				bReturn = true;
 			}
@@ -304,7 +313,53 @@ public class B2WWorkOrdersTasks extends B2WKendoTasks {
 		}
 		return bReturn;
 	}
+	private void test() {
+		
+		WebElement parent = WebElementUtils.waitAndFindElement(B2WMaintain.getB2WMaintainSelectItemsToWorkOrder());
+		List<WebElement> elements = parent.findElements(By.tagName("tbody"));
+		// first body is checkbox to include
+		WebElement workorderselections = elements.get(0);
+		// number of tr's will tell us how many rows
+		List<WebElement> requests = workorderselections.findElements(By.tagName("tr"));
+		Iterator<WebElement> iterRequests = requests.iterator();
+		while (iterRequests.hasNext()){
+			// check checkbox webelement
+			List<WebElement> td = iterRequests.next().findElements(By.tagName("td"));
+			WebElement checkbox = td.get(0).findElement(By.tagName("input"));
+			String sText = td.get(1).getText();
+			System.out.println(sText);
+			table.put(sText, checkbox);
+			// get the description text
+		}
+		workorderselections = elements.get(1);
+		List<WebElement> maintenancePrograms = workorderselections.findElements(By.tagName("tr"));
+		Iterator<WebElement> iterGenerateRequests = maintenancePrograms.iterator();
+		while (iterGenerateRequests.hasNext()){
+			List<WebElement> td = iterGenerateRequests.next().findElements(By.tagName("td"));
+			String sText = td.get(0).getText();
+			System.out.println(sText);
+			WebElement generateItem = td.get(3).findElement(By.cssSelector("*"));
+			table.put(sText, generateItem);
+		}
+	}
 	
+	public void clickAddNewItemFromWorkOrder() {
+		WebElement parent = WebElementUtils.waitAndFindElement(B2WMaintain.getB2WMaintainSelectItemsToWorkOrder());
+		WebElement button = WebElementUtils.getChildElement(parent,B2WMaintain.getKendoButtonNew());
+		if (button != null){
+			WebElementUtils.clickElement(button);
+			additemsElements  = getFormElements(B2WMaintain.getB2WMaintainAddItemToWorkOrder());
+		}
+		
+	}
+	
+	public void addItem(String sText){
+		WebElement el = table.get(sText);
+		el.click();
+	}
 
-
+	public void generateItem(String sText){
+		WebElement el = table.get(sText);
+		el.click();
+	}
 }

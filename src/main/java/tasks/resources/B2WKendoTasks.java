@@ -207,7 +207,7 @@ public abstract class B2WKendoTasks {
 	
 	public List<WebElement> getFormElements(By by) {
 		List<WebElement> elements = new ArrayList<WebElement>();
-		WebElement parent = WebElementUtils.findElement(by);
+		WebElement parent = WebElementUtils.waitAndFindDisplayedElement(by);
 		List<WebElement> list = WebElementUtils.getChildElements(parent, By.tagName("p"));
 		Iterator<WebElement> iter = list.iterator();
 		while (iter.hasNext()) {
@@ -250,6 +250,15 @@ public abstract class B2WKendoTasks {
 	public boolean clickConfirmYes() {
 		boolean bReturn = false;
 		WebElement el = WebElementUtils.waitAndFindDisplayedElement(B2WMaintain.getKendoConfirmYesButton());
+		if (el != null){
+			bReturn =WebElementUtils.clickElement(el);
+		}
+		return bReturn;
+	}
+	
+	public boolean clickFinish() {
+		boolean bReturn = false;
+		WebElement el = WebElementUtils.waitAndFindDisplayedElement(B2WMaintain.getKendoLargeFinishButton());
 		if (el != null){
 			bReturn =WebElementUtils.clickElement(el);
 		}

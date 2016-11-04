@@ -349,6 +349,7 @@ public class B2WEquipmentTasks extends B2WKendoTasks {
 			coordinate.inViewPort();
 			WebElementUtils.clickElement(button);
 			bReturn = WebElementUtils.waitForElementIsDisplayed(windows.get(1), WebElementUtils.SHORT_TIME_OUT);
+			bReturn &= waitForPageNotBusy();
 		}
 		return bReturn;
 	}
@@ -361,6 +362,7 @@ public class B2WEquipmentTasks extends B2WKendoTasks {
 			WebElement savebutton = buttoncontainer.findElement(B2WEquipment.getKendoLargeSaveButton());
 			bReturn = WebElementUtils.clickElement(savebutton);
 			bReturn &= WebElementUtils.waitForElementInvisible(window);
+			waitForPageNotBusy();
 		}
 		return bReturn;
 	}
@@ -470,6 +472,7 @@ public class B2WEquipmentTasks extends B2WKendoTasks {
 			WebElement program = WebElementUtils.getChildElement(el, B2WMaintain.getKendoAddSaveButton());
 			bReturn = WebElementUtils.clickElement(program);
 			bReturn &= WebElementUtils.waitForElementInvisible(program);
+			waitForPageNotBusy();
 		}
 		return bReturn;
 	}
@@ -500,6 +503,7 @@ public class B2WEquipmentTasks extends B2WKendoTasks {
 			WebElement savebutton = buttoncontainer.findElement(B2WEquipment.getKendoLargeSaveButton());
 			bReturn = WebElementUtils.clickElement(savebutton);
 			bReturn &= WebElementUtils.waitForElementInvisible(window);
+			waitForPageNotBusy();
 		}
 		return bReturn;
 	}
