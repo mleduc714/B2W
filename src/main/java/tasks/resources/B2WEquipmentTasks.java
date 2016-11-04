@@ -434,12 +434,45 @@ public class B2WEquipmentTasks extends B2WKendoTasks {
 			WebElement parent = WebElementUtils.getParentElement(el);
 			WebElement button = WebElementUtils.getChildElement(parent, B2WMaintain.getKendoButtonAdd());
 			WebElementUtils.clickElement(button);
-			List<WebElement> windows = WebElementUtils.findElements(B2WMaintain.getKendoWindowTitle());
-			bReturn = WebElementUtils.waitForElementIsDisplayed(windows.get(windows.size()-1), WebElementUtils.SHORT_TIME_OUT);
+			//List<WebElement> windows = WebElementUtils.findElements(B2WMaintain.getKendoWindowTitle());
+			//WebElementUtils.getAllInfo(windows.get(0));
+			bReturn = WebElementUtils.waitAndFindDisplayedEletment(B2WMaintain.getB2WAddProgramDialog()) != null;
 		}
 		return bReturn;
 	}
 	
+	public boolean setAddProgramText(String sText) {
+		boolean bReturn = false;
+		WebElement el = WebElementUtils.findElement(B2WMaintain.getB2WAddProgramDialog());
+		if (el != null){
+			WebElement program = WebElementUtils.getChildElement(el, B2WMaintain.getKendoDropDown());
+			WebElementUtils.clickElement(program);
+			bReturn = WebElementUtils.sendKeys(program, sText);
+			el.click();
+		}
+		return bReturn;
+	}
+	
+	public boolean clickAddProgramNextButton(){
+		boolean bReturn = false;
+		WebElement el = WebElementUtils.findElement(B2WMaintain.getB2WAddProgramDialog());
+		if (el != null){
+			WebElement program = WebElementUtils.getChildElement(el, B2WMaintain.getKendoButtonNext());
+			bReturn = WebElementUtils.clickElement(program);
+		}
+		return bReturn;
+	}
+	
+	public boolean clickSaveProgramButton() {
+		boolean bReturn = false;
+		WebElement el = WebElementUtils.findElement(B2WMaintain.getB2WAddProgramDialog());
+		if (el != null){
+			WebElement program = WebElementUtils.getChildElement(el, B2WMaintain.getKendoAddSaveButton());
+			bReturn = WebElementUtils.clickElement(program);
+			bReturn &= WebElementUtils.waitForElementInvisible(program);
+		}
+		return bReturn;
+	}
 	public boolean selectAddMeterTypeFromDD(String sText) {
 		boolean bReturn = false;
 		WebElement dd = getDropDownsFromWindow(getDisplayedWindow(), 0);

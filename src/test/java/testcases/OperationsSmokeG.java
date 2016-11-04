@@ -117,8 +117,8 @@ public class OperationsSmokeG extends B2WTestCase {
 		sPartIDC = getProperty("partIDC") + n;
 		sEquipmentDescD = getProperty("equipmentD");
 		sEquipmentIDD = getProperty("equipmentidD")+ n;
-		sEquipmentDescD="Bobcat S175";
-		sEquipmentIDD="BCAT01";
+		//sEquipmentDescD="Bobcat S175";
+		//sEquipmentIDD="BCAT01";
 		
 		
 		sMaintenanceRequestDescription = getProperty("sMaintenanceRequestDescription");
@@ -137,10 +137,10 @@ public class OperationsSmokeG extends B2WTestCase {
 
 	public void testMain() throws Throwable {
 
-		//createMaintenanceProgram();
+		createMaintenanceProgram();
 		addParts();
-		//createRequest();
-		//createWorkOrders();
+		createRequest();
+		createWorkOrders();
 	//	test();
 		//createTimeCard();
 	}
@@ -192,7 +192,7 @@ public class OperationsSmokeG extends B2WTestCase {
 
 	}
 	public void addParts() {
-		TaskUtils.sleep(1000);
+
 		assertTrue("open Maintain", b2wNav.openMaintain());
 		assertTrue("Open Equipment",b2wMain.openEquipment());
 		logCompare(true, b2wEquip.selectEquipmentFromViewByID(sEquipmentIDD),"Select: "+sEquipmentIDD+" Equipment");
@@ -217,6 +217,9 @@ public class OperationsSmokeG extends B2WTestCase {
 	
 		logCompare(true, b2wEquip.expandPrograms(), "Expand Programs");
 		logCompare(true, b2wEquip.clickAddProgramButton(), "Add Programs");
+		logCompare(true, b2wEquip.setAddProgramText(sMaintenanceProgramDesc), "Select Maintainence Program");
+		logCompare(true, b2wEquip.clickAddProgramNextButton(), "Click Next");
+		logCompare(true, b2wEquip.clickSaveProgramButton(), "Save Program");
 		
 	}
 	

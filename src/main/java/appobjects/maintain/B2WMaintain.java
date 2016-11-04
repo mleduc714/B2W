@@ -246,6 +246,9 @@ public class B2WMaintain extends KendoUI {
 	public static By getB2WMaintainCollapseButton() {
 		return By.cssSelector(B2WUIMap.b2w_maintaincollapsebutton);
 	}
+	public static By getB2WAddProgramDialog() {
+		return By.cssSelector(B2WUIMap.b2w_maintainequipmentaddprogram);
+	}
 	
 	
 }
