@@ -10,12 +10,10 @@ import tasks.WebElementUtils;
 import tasks.resources.B2WKendoTasks;
 import tasks.util.StringUtils;
 import tasks.util.TaskUtils;
-
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
-
 import org.jfree.data.time.DateRange;
 
 public class B2WSchedulerTasks extends B2WKendoTasks {
@@ -544,6 +542,4 @@ public class B2WSchedulerTasks extends B2WKendoTasks {
         }
         return bReturn;
     }
-
-
 }
