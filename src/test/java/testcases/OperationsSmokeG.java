@@ -117,8 +117,8 @@ public class OperationsSmokeG extends B2WTestCase {
 		sPartIDC = getProperty("partIDC") + n;
 		sEquipmentDescD = getProperty("equipmentD");
 		sEquipmentIDD = getProperty("equipmentidD")+ n;
-		//sEquipmentDescD="Bobcat S175";
-		//sEquipmentIDD="BCAT01";
+		sEquipmentDescD="Bobcat S175";
+		sEquipmentIDD="BCAT01";
 		
 		
 		sMaintenanceRequestDescription = getProperty("sMaintenanceRequestDescription");
@@ -137,10 +137,10 @@ public class OperationsSmokeG extends B2WTestCase {
 
 	public void testMain() throws Throwable {
 
-		createMaintenanceProgram();
+		//createMaintenanceProgram();
 		addParts();
-		createRequest();
-		createWorkOrders();
+		//createRequest();
+		//createWorkOrders();
 	//	test();
 		//createTimeCard();
 	}
@@ -192,26 +192,31 @@ public class OperationsSmokeG extends B2WTestCase {
 
 	}
 	public void addParts() {
+		TaskUtils.sleep(1000);
+		assertTrue("open Maintain", b2wNav.openMaintain());
 		assertTrue("Open Equipment",b2wMain.openEquipment());
-		logCompare(true,b2wEquip.selectEquipmentFromViewByID(sEquipmentIDD),"Select: "+sEquipmentIDD+" Equipment");
-		logCompare(true,b2wEquip.expandParts(),"Expand Parts");
-		logCompare(true,b2wEquip.clickAddPartsButton(),"Add Parts");
-		logCompare(true,b2wEquip.selectPartToAddToEquipmentByDescription(sPartA), "Add "+sPartA+ " Part");
-		logCompare(true,b2wEquip.selectPartToAddToEquipmentByDescription(sPartB), "Add "+sPartB+ " Part");
-		logCompare(true,b2wEquip.selectPartToAddToEquipmentByDescription(sPartC), "Add "+sPartC+ " Part");
-		logCompare(true,b2wEquip.clickSaveAddPart(), "Save Part");
+		logCompare(true, b2wEquip.selectEquipmentFromViewByID(sEquipmentIDD),"Select: "+sEquipmentIDD+" Equipment");
+		logCompare(true, b2wEquip.expandParts(),"Expand Parts");
+		logCompare(true, b2wEquip.clickAddPartsButton(),"Add Parts");
+		logCompare(true, b2wEquip.selectPartToAddToEquipmentByDescription(sPartA), "Add "+sPartA+ " Part");
+		logCompare(true, b2wEquip.selectPartToAddToEquipmentByDescription(sPartB), "Add "+sPartB+ " Part");
+		logCompare(true, b2wEquip.selectPartToAddToEquipmentByDescription(sPartC), "Add "+sPartC+ " Part");
+		logCompare(true, b2wEquip.clickSaveAddPart(), "Save Part");
 		
 		logCompare(true, b2wEquip.expandMeters(), "Expand Meters");
 		logCompare(true, b2wEquip.clickAddMeterButton(), "Click Add Meter");
 		logCompare(true, b2wEquip.selectAddMeterTypeFromDD(sCategoryB), "Select Add "+sCategoryB+" Meter");
 		logCompare(true, b2wEquip.selectAddMeterRequiredOnWorkOrderCompletionNotRequired(), "Add Meter not required");
 		logCompare(true, b2wEquip.selectAddMeterExcludeFromWorkOrdersNever(), "Exclude never");
-		logCompare(true,b2wEquip.setAddMeterTypeDescription("Hours Meter"), "Meter Description");
-		logCompare(true,b2wEquip.setAddMeterIntialReading("20"),"Intial Reading");
-		logCompare(true,b2wEquip.setAddMeterEnterNewReadingCheckBox(), "Enter new reading checkbox");
-		logCompare(true,b2wEquip.setAddMeterEnterNewReading("120"),"Enter new reading");
-		logCompare(true,b2wEquip.setAddMeterEnterNewReadingDate(sDateTwoDaysAgo), "Set two days ago");
-		logCompare(true,b2wEquip.clickAddMeterButton(), "Add the meter");
+		logCompare(true, b2wEquip.setAddMeterTypeDescription("Hours Meter"), "Meter Description");
+		logCompare(true, b2wEquip.setAddMeterIntialReading("20"),"Intial Reading");
+		logCompare(true, b2wEquip.setAddMeterEnterNewReadingCheckBox(), "Enter new reading checkbox");
+		logCompare(true, b2wEquip.setAddMeterEnterNewReading("120"),"Enter new reading");
+		logCompare(true, b2wEquip.setAddMeterEnterNewReadingDate(sDateTwoDaysAgo), "Set two days ago");
+		logCompare(true, b2wEquip.clickSaveAddMeter(), "Add the Meter");
+	
+		logCompare(true, b2wEquip.expandPrograms(), "Expand Programs");
+		logCompare(true, b2wEquip.clickAddProgramButton(), "Add Programs");
 		
 	}
 	
