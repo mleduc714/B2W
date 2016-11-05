@@ -136,15 +136,15 @@ public class OperationsSmokeG extends B2WTestCase {
 		sPlaceID = getProperty("placeIDD") + n;
 		
 		//test data
-		sLaborRate = "Automation Rates";
-		sCategoryC = "Repair";
-		sCategoryB = "Hour Meter";
-		sCategoryD = "Inspection";
-		sEquipmentIDD="CD246";
-		sEquipmentID_Desc = "CD246 [Cat Dozer]";
-		sPartA = "Grease";
-		sPartB = "Hose";
-		sPartC = "Oil hose";
+//		sLaborRate = "Automation Rates";
+//		sCategoryC = "Repair";
+//		sCategoryB = "Hour Meter";
+//		sCategoryD = "Inspection";
+//		sEquipmentIDD="CD246";
+//		sEquipmentID_Desc = "CD246 [Cat Dozer]";
+//		sPartA = "Grease";
+//		sPartB = "Hose";
+//		sPartC = "Oil hose";
 		
 		
 	}
