@@ -209,6 +209,7 @@ public class OperationsSmokeG extends B2WTestCase {
 		assertTrue("Open Equipment",b2wMain.openEquipment());
 		logCompare(true, b2wEquip.selectEquipmentFromViewByID(sEquipmentIDD),"Select: "+sEquipmentIDD+" Equipment");
 		logCompare(true, b2wEquip.expandParts(),"Expand Parts");
+		TaskUtils.sleep(1000);
 		logCompare(true, b2wEquip.clickAddPartsButton(),"Add Parts");
 		logCompare(true, b2wEquip.selectPartToAddToEquipmentByDescription(sPartA), "Add "+sPartA+ " Part");
 		logCompare(true, b2wEquip.selectPartToAddToEquipmentByDescription(sPartB), "Add "+sPartB+ " Part");
@@ -216,6 +217,7 @@ public class OperationsSmokeG extends B2WTestCase {
 		logCompare(true, b2wEquip.clickSaveAddPart(), "Save Part");
 		
 		logCompare(true, b2wEquip.expandMeters(), "Expand Meters");
+		TaskUtils.sleep(1000);
 		logCompare(true, b2wEquip.clickAddMeterButton(), "Click Add Meter");
 		TaskUtils.sleep(1000);
 		logCompare(true, b2wEquip.selectAddMeterTypeFromDD(sCategoryB), "Select Add "+sCategoryB+" Meter");
