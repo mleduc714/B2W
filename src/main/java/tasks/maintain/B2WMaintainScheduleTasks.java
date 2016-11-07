@@ -13,6 +13,7 @@ import appobjects.maintain.B2WMaintain;
 import tasks.BrowserUtils;
 import tasks.WebElementUtils;
 import tasks.resources.B2WKendoTasks;
+import tasks.util.TaskUtils;
 
 public class B2WMaintainScheduleTasks extends B2WKendoTasks {
 
@@ -163,6 +164,7 @@ public class B2WMaintainScheduleTasks extends B2WKendoTasks {
 			if (WebElementUtils.waitForElementHasAttributeWithValue(el, "aria-expanded", "true", true,
 					WebElementUtils.SHORT_TIME_OUT)) {
 				bReturn = selectItemFromDropDown(sText);
+				TaskUtils.logScreenCapture();
 			}
 		}
 		return bReturn;
