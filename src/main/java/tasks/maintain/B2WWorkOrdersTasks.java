@@ -354,11 +354,15 @@ public class B2WWorkOrdersTasks extends B2WKendoTasks {
 	
 	public void addItem(String sText){
 		WebElement el = table.get(sText);
-		el.click();
+		if (el != null){
+			WebElementUtils.clickElement(el);
+		}
 	}
 
 	public void generateItem(String sText){
 		WebElement el = table.get(sText);
-		el.click();
+		if (el != null){
+			WebElementUtils.clickElement(el);
+		}
 	}
 }
