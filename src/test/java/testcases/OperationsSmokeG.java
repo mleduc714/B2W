@@ -261,10 +261,10 @@ public class OperationsSmokeG extends B2WTestCase {
 		logCompare(true, b2wOrder.setWorkOrderDescription(sMaintenanceWorkOrderDescription), "Set Work");
 		logCompare(true, b2wOrder.setDueDate(sDateTwoWeeksFromNow), "Due Date");
 		logCompare(true, b2wOrder.clickNewItemButton(), "Create New Item");
-		b2wOrder.addItem(sMaintenanceRequestDescription);
-		b2wOrder.generateItem(sMaintenanceProgramItemBDesc);
-		b2wOrder.clickConfirmYes();
-		b2wOrder.clickAddNewItemFromWorkOrder();
+		logCompare(true, b2wOrder.addItem(sMaintenanceRequestDescription), "Add Item");
+		logCompare(true, b2wOrder.generateItem(sMaintenanceProgramItemBDesc), "Generate Item");
+		logCompare(true, b2wOrder.clickConfirmYes(), "Click Yes");
+		logCompare(true, b2wOrder.clickAddNewItemFromWorkOrder(), "Add new item for work order");
 		logCompare(true, b2wOrder.setAddItemDescription(sMaintenanceWorkOrderItemDescriptionA), "Add Item Description");
 		logCompare(true, b2wOrder.setAddItemTypeFromDD(sCategoryC), "Type");
 		logCompare(true, b2wOrder.setAddItemPriorityFromDD("Medium"), "Medium Priority");
