@@ -289,7 +289,7 @@ public class OperationsSmokeG extends B2WTestCase {
 		//Quinn Sisco [13098]
 		//Derry Railbed
 		//logCompare(true, b2wSchd.scheduleMaintainancePopupSelectMechanic(sEmployeeFullNameID), "Select Mechanic "+sEmployeeFullNameID);
-		logCompare(true, b2wSchd.scheduleMaintainancePopupSelectMechanic("Benson Sherwood [ID7037570]"), "Select Mechanic "+sEmployeeFullNameID);
+		logCompare(true, b2wSchd.scheduleMaintainancePopupSelectMechanic("Benson Sherwood[ID7037570]"), "Select Mechanic "+sEmployeeFullNameID);
 		//logCompare(true, b2wSchd.scheduleMaintainancePopupSelectWorkLocation(sPlaceDescription), "Work Location "+sPlaceDescription);
 		logCompare(true, b2wSchd.scheduleMaintainancePopupSelectWorkLocation("Bobs Trucking9033"), "Work Location "+sPlaceDescription);
 		logCompare(true, b2wSchd.scheduleMaintainancePopupSelectEvent("Down for Maintenance"), "Down for maintenance");
