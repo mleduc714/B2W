@@ -270,6 +270,7 @@ public class OperationsSmokeG extends B2WTestCase {
 		logCompare(true, b2wOrder.setAddItemPriorityFromDD("Medium"), "Medium Priority");
 		logCompare(true, b2wOrder.clickCreateAddItemButton(),"Create add Item");
 		logCompare(true, b2wOrder.clickFinish(),"Click Finish");
+		logCompare(true, b2wOrder.clickSaveButton(), "Click Save Button");
 		logCompare(true, b2wOrder.clickApproveButton(), "Approve the Work Order");
 		//TaskUtils.sleep(4000);
 	}

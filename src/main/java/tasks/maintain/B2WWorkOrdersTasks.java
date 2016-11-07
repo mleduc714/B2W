@@ -147,7 +147,7 @@ public class B2WWorkOrdersTasks extends B2WKendoTasks {
 		if (el != null){
 			bReturn = WebElementUtils.clickElement(el);
 			bReturn &= waitForPageNotBusy();
-			bReturn &= WebElementUtils.waitAndFindDisplayedElement(B2WMaintain.getB2WMaintainItemActions()) != null;
+			bReturn &= WebElementUtils.waitAndFindDisplayedElement(B2WMaintain.getB2WMaintainItemActions(), WebElementUtils.MEDIUM_TIME_OUT) != null;
 		}
 		return bReturn;
 	}
