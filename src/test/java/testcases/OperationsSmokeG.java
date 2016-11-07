@@ -155,8 +155,8 @@ public class OperationsSmokeG extends B2WTestCase {
 		addParts();
 		createRequest();
 		createWorkOrders();
-		scheduleToWorkOrder();
-		createTimeCard();
+		//scheduleToWorkOrder();
+		//createTimeCard();
 	}
 
 	@Override
@@ -255,7 +255,6 @@ public class OperationsSmokeG extends B2WTestCase {
 	}
 	
 	public void createWorkOrders(){
-		TaskUtils.sleep(1000);
 		assertTrue("Open Work Orders",b2wMain.openWorkOrders());
 		logCompare(true, b2wOrder.clickCreateNewWorkOrderButton(), "Create New Work Order");
 		logCompare(true, b2wOrder.selectEquipment(sEquipmentID_Desc), "Select "+sEquipmentIDD+" Equipment");
@@ -278,52 +277,6 @@ public class OperationsSmokeG extends B2WTestCase {
 		logCompare(true, b2wOrder.clickApproveButton(), "Approve the Work Order");
 		logCompare(true, b2wOrder.clickConfirmYes(), "Confirm Approve");
 	}
-	
-	public void scheduleToWorkOrder(){
-		assertTrue("open Maintain", b2wNav.openMaintain());
-		logCompare(true, b2wMain.openSchedule(), "Open Schedule");
-		logCompare(true, b2wSchd.clickWorkOrdersTab(), "Click Work Orders");
-		//logCompare(true, b2wSchd.openWorkOrderFromWorkOrderTabByDescription("Engine Service7570"), "Open Work Order Tab by Desc");
-		logCompare(true, b2wSchd.openWorkOrderFromWorkOrderTabByDescription(sMaintenanceWorkOrderDescription), "Open Work Order Tab by Desc");
-		//logCompare(true, b2wSchd.openWorkOrderFromWorkOrderTabByDescription("TEST"), "Open Work Order Tab by Desc");
-		//Quinn Sisco [13098]
-		//Derry Railbed
-		//logCompare(true, b2wSchd.scheduleMaintainancePopupSelectMechanic("Benson Sherwood [ID7037570]"), "Select Mechanic "+sEmployeeFullNameID);
-		logCompare(true, b2wSchd.scheduleMaintainancePopupSelectWorkLocation(sPlaceDescription), "Work Location "+sPlaceDescription);
-		logCompare(true, b2wSchd.scheduleMaintainancePopupSelectWorkLocation("Bobs Trucking9033"), "Work Location "+sPlaceDescription);
-		logCompare(true, b2wSchd.scheduleMaintainancePopupSelectMechanic(sEmployeeFullNameID), "Select Mechanic "+sEmployeeFullNameID);
-		logCompare(true, b2wSchd.scheduleMaintainancePopupSelectEvent("Down for Maintenance"), "Down for maintenance");
-		if (!logCompare(true, b2wSchd.saveScheduleMaintenance(), "Save Schedule Maintenance")){
-			logCompare(true, b2wSchd.scheduleMaintainancePopupSelectMechanic(sEmployeeFullNameID), "Select Mechanic "+sEmployeeFullNameID);
-			logCompare(true, b2wSchd.saveScheduleMaintenance(), "Save Schedule Maintenance");
-		}
-		//b2wSchd.scheduleWorkOrderFromWorkOrderTabByDescriptionFromContextMenu("TRUCK, F-350 CREW CAB UTILITY [1013]");
-		
-		
 
-	}
-	
-	public void createTimeCard() {
-		logCompare(true, b2wNav.openMaintain(), "Open Maintain");
-		logCompare(true, b2wMain.openTimeCards(), "Open Time Cards");
-		logCompare(true,b2wtimecards.clickCreateNewTimeCard(), "Create new Time Card");
-		logCompare(true, b2wtimecards.selectEmployee(sEmployeeFullNameID), "Select Employee");
-		TaskUtils.sleep(1000);
-		b2wtimecards.clickAddTimeButton();
-		TaskUtils.sleep(1000);
-		b2wtimecards.selectTypeofHoursEquipment();
-		b2wtimecards.selectChargeToEquipment();
-		b2wtimecards.setEquipmentHoursDescription(sMaintenanceTimeCardWorkDesc);
-		b2wtimecards.setEquipmentUsed(sEquipmentID_Desc);
-		b2wtimecards.selectWorkOrder(sMaintenanceWorkOrderDescription);
-		b2wtimecards.selectWorkOrderItem(0);
-		b2wtimecards.selectEquipmentRateClass(sLaborRate);
-		b2wtimecards.setRegularMins("5");
-		b2wtimecards.saveReportHours();
-		b2wtimecards.selectTimeCardByEmployeeName(sEmployeeFullNameID);
-		b2wtimecards.clickReportEquipmentHoursButton();
-		TaskUtils.sleep(4000);
-		
-	}
 	
 }
