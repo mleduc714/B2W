@@ -48,11 +48,9 @@ public class TestSetup extends B2WTestCase {
 	}
 
 	public void testMain() throws Throwable {
-
 		logCompare(true,b2wNav.clickHome(),"Go Home");
 		logCompare(true,b2wNav.openJobs(),"Open jobs");
 		assertTrue("open Maintain", b2wNav.openMaintain());
-
 	}
 
 	@Override
