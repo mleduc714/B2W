@@ -261,6 +261,7 @@ public abstract class B2WKendoTasks {
 		WebElement el = WebElementUtils.waitAndFindDisplayedElement(B2WMaintain.getKendoLargeFinishButton());
 		if (el != null){
 			bReturn =WebElementUtils.clickElement(el);
+			WebElementUtils.waitForElementInvisible(el);
 		}
 		return bReturn;
 	}

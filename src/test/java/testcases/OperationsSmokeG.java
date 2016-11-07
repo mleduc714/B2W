@@ -136,16 +136,16 @@ public class OperationsSmokeG extends B2WTestCase {
 		sPlaceID = getProperty("placeIDD") + n;
 		
 		//test data
-//		sLaborRate = "Automation Rates";
-//		sCategoryC = "Repair";
-//		sCategoryB = "Hour Meter";
-//		sCategoryD = "Inspection";
-//		sEquipmentIDD="CD246";
-//		sEquipmentID_Desc = "CD246 [Cat Dozer]";
-//		sPartA = "Grease";
-//		sPartB = "Hose";
-//		sPartC = "Oil hose";
-		
+/*		sLaborRate = "Automation Rates";
+		sCategoryC = "Repair";
+		sCategoryB = "Hour Meter";
+		sCategoryD = "Inspection";
+		sEquipmentIDD = "ASPHTDIST03";
+		sEquipmentID_Desc = "ASPHTDIST03 [Asphalt Distributor]";
+		sPartA = "Grease";
+		sPartB = "Hose";
+		sPartC = "Oil hose";
+		*/
 		
 	}
 
@@ -260,6 +260,8 @@ public class OperationsSmokeG extends B2WTestCase {
 		logCompare(true, b2wOrder.selectEquipment(sEquipmentID_Desc), "Select "+sEquipmentIDD+" Equipment");
 		logCompare(true, b2wOrder.setWorkOrderDescription(sMaintenanceWorkOrderDescription), "Set Work");
 		logCompare(true, b2wOrder.setDueDate(sDateTwoWeeksFromNow), "Due Date");
+		logCompare(true, b2wOrder.selectPlannedLocationDD("Field"), "Planned in the Field");
+		logCompare(true, b2wOrder.selectPriorityFromDD("Medium"), "Medium Priority");
 		logCompare(true, b2wOrder.clickNewItemButton(), "Create New Item");
 		logCompare(true, b2wOrder.addItem(sMaintenanceRequestDescription), "Add Item");
 		logCompare(true, b2wOrder.generateItem(sMaintenanceProgramItemBDesc), "Generate Item");
