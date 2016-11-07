@@ -282,7 +282,6 @@ public class OperationsSmokeG extends B2WTestCase {
 	
 	public void scheduleToWorkOrder(){
 		logCompare(true, b2wMain.openSchedule(), "Open Schedule");
-		logCompare(true, b2wSchd.clickMechanics(), "Click Mechanics");
 		logCompare(true, b2wSchd.clickWorkOrdersTab(), "Click Work Orders");
 		logCompare(true, b2wSchd.openWorkOrderFromWorkOrderTabByDescription(sMaintenanceWorkOrderDescription), "Open Work Order Tab by Desc");
 		//logCompare(true, b2wSchd.openWorkOrderFromWorkOrderTabByDescription("TEST"), "Open Work Order Tab by Desc");
