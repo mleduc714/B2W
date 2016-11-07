@@ -151,12 +151,12 @@ public class OperationsSmokeG extends B2WTestCase {
 
 	public void testMain() throws Throwable {
 
-		//createMaintenanceProgram();
-		//addParts();
-		//createRequest();
-		//createWorkOrders();
+		createMaintenanceProgram();
+		addParts();
+		createRequest();
+		createWorkOrders();
 		scheduleToWorkOrder();
-		//createTimeCard();
+		createTimeCard();
 	}
 
 	@Override
@@ -283,17 +283,20 @@ public class OperationsSmokeG extends B2WTestCase {
 		assertTrue("open Maintain", b2wNav.openMaintain());
 		logCompare(true, b2wMain.openSchedule(), "Open Schedule");
 		logCompare(true, b2wSchd.clickWorkOrdersTab(), "Click Work Orders");
-		logCompare(true, b2wSchd.openWorkOrderFromWorkOrderTabByDescription("Engine Service7570"), "Open Work Order Tab by Desc");
-		//logCompare(true, b2wSchd.openWorkOrderFromWorkOrderTabByDescription(sMaintenanceWorkOrderDescription), "Open Work Order Tab by Desc");
+		//logCompare(true, b2wSchd.openWorkOrderFromWorkOrderTabByDescription("Engine Service7570"), "Open Work Order Tab by Desc");
+		logCompare(true, b2wSchd.openWorkOrderFromWorkOrderTabByDescription(sMaintenanceWorkOrderDescription), "Open Work Order Tab by Desc");
 		//logCompare(true, b2wSchd.openWorkOrderFromWorkOrderTabByDescription("TEST"), "Open Work Order Tab by Desc");
 		//Quinn Sisco [13098]
 		//Derry Railbed
-		//logCompare(true, b2wSchd.scheduleMaintainancePopupSelectMechanic(sEmployeeFullNameID), "Select Mechanic "+sEmployeeFullNameID);
-		logCompare(true, b2wSchd.scheduleMaintainancePopupSelectMechanic("Benson Sherwood [ID7037570]"), "Select Mechanic "+sEmployeeFullNameID);
-		//logCompare(true, b2wSchd.scheduleMaintainancePopupSelectWorkLocation(sPlaceDescription), "Work Location "+sPlaceDescription);
+		//logCompare(true, b2wSchd.scheduleMaintainancePopupSelectMechanic("Benson Sherwood [ID7037570]"), "Select Mechanic "+sEmployeeFullNameID);
+		logCompare(true, b2wSchd.scheduleMaintainancePopupSelectWorkLocation(sPlaceDescription), "Work Location "+sPlaceDescription);
 		logCompare(true, b2wSchd.scheduleMaintainancePopupSelectWorkLocation("Bobs Trucking9033"), "Work Location "+sPlaceDescription);
+		logCompare(true, b2wSchd.scheduleMaintainancePopupSelectMechanic(sEmployeeFullNameID), "Select Mechanic "+sEmployeeFullNameID);
 		logCompare(true, b2wSchd.scheduleMaintainancePopupSelectEvent("Down for Maintenance"), "Down for maintenance");
-		logCompare(true, b2wSchd.saveScheduleMaintenance(), "Save Schedule Maintenance");
+		if (!logCompare(true, b2wSchd.saveScheduleMaintenance(), "Save Schedule Maintenance")){
+			logCompare(true, b2wSchd.scheduleMaintainancePopupSelectMechanic(sEmployeeFullNameID), "Select Mechanic "+sEmployeeFullNameID);
+			logCompare(true, b2wSchd.saveScheduleMaintenance(), "Save Schedule Maintenance");
+		}
 		//b2wSchd.scheduleWorkOrderFromWorkOrderTabByDescriptionFromContextMenu("TRUCK, F-350 CREW CAB UTILITY [1013]");
 		
 		
