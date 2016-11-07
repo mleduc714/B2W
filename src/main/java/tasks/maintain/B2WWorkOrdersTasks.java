@@ -5,6 +5,7 @@ import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.internal.Coordinates;
@@ -35,6 +36,8 @@ public class B2WWorkOrdersTasks extends B2WKendoTasks {
 	public int iAddItemFailureCode = 7;
 	public int iAddItemActionCode = 8;
 	public int iAddItemRequestedBy = 9;
+	
+	Logger log = Logger.getLogger(B2WWorkOrdersTasks.class);
 	
 	
 	private static List<WebElement> pageElement = new ArrayList<WebElement>();
@@ -349,7 +352,13 @@ public class B2WWorkOrdersTasks extends B2WKendoTasks {
 		WebElement button = WebElementUtils.getChildElement(parent,B2WMaintain.getKendoButtonNew());
 		if (button != null){
 			bReturn = WebElementUtils.clickElement(button);
-			additemsElements  = getFormElements(B2WMaintain.getB2WMaintainAddItemToWorkOrder());
+			if (bReturn){
+				additemsElements  = getFormElements(B2WMaintain.getB2WMaintainAddItemToWorkOrder());
+			}else{
+				log.warn("Clicking on New Item button retured false");
+			}
+		}else{
+			log.warn("Button to add new item returned null");
 		}
 		return bReturn;
 	}

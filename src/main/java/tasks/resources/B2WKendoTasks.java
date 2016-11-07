@@ -252,6 +252,7 @@ public abstract class B2WKendoTasks {
 		WebElement el = WebElementUtils.waitAndFindDisplayedElement(B2WMaintain.getKendoConfirmYesButton());
 		if (el != null){
 			bReturn =WebElementUtils.clickElement(el);
+			bReturn &= WebElementUtils.waitForElementInvisible(el);
 		}
 		return bReturn;
 	}
@@ -261,7 +262,7 @@ public abstract class B2WKendoTasks {
 		WebElement el = WebElementUtils.waitAndFindDisplayedElement(B2WMaintain.getKendoLargeFinishButton());
 		if (el != null){
 			bReturn =WebElementUtils.clickElement(el);
-			WebElementUtils.waitForElementInvisible(el);
+			bReturn &= WebElementUtils.waitForElementInvisible(el);
 		}
 		return bReturn;
 	}
@@ -270,6 +271,7 @@ public abstract class B2WKendoTasks {
 		WebElement el = WebElementUtils.waitAndFindDisplayedElement(B2WMaintain.getKendoConfirmNoButton());
 		if (el != null){
 			bReturn =WebElementUtils.clickElement(el);
+			bReturn &= WebElementUtils.waitForElementInvisible(el);
 		}
 		return bReturn;
 	}
