@@ -352,17 +352,21 @@ public class B2WWorkOrdersTasks extends B2WKendoTasks {
 		
 	}
 	
-	public void addItem(String sText){
+	public boolean addItem(String sText){
+		boolean bReturn = false;
 		WebElement el = table.get(sText);
 		if (el != null){
-			WebElementUtils.clickElement(el);
+			bReturn = WebElementUtils.clickElement(el);
 		}
+		return bReturn;
 	}
 
-	public void generateItem(String sText){
+	public boolean generateItem(String sText){
+		boolean bReturn = false;
 		WebElement el = table.get(sText);
 		if (el != null){
-			WebElementUtils.clickElement(el);
+			bReturn = WebElementUtils.clickElement(el);
 		}
+		return bReturn;
 	}
 }
