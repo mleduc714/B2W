@@ -155,8 +155,7 @@ public class OperationsSmokeG extends B2WTestCase {
 		addParts();
 		createRequest();
 		createWorkOrders();
-		//scheduleToWorkOrder();
-		//createTimeCard();
+
 	}
 
 	@Override
@@ -242,7 +241,6 @@ public class OperationsSmokeG extends B2WTestCase {
 	}
 	
 	public void createRequest() {
-		assertTrue("open Maintain", b2wNav.openMaintain());
 		assertTrue("Open Requests",b2wMain.openRequests());
 		assertTrue("Create Requests", b2wRequests.clickCreateNewRequestButton());
 		logCompare(true, b2wRequests.selectEquipment(sEquipmentID_Desc), "Select "+sEquipmentIDD+" Equipment");

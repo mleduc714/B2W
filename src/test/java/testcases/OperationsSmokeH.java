@@ -90,22 +90,22 @@ public class OperationsSmokeH extends B2WTestCase {
 	public void createTimeCard() {
 		logCompare(true, b2wNav.openMaintain(), "Open Maintain");
 		logCompare(true, b2wMain.openTimeCards(), "Open Time Cards");
-		logCompare(true,b2wtimecards.clickCreateNewTimeCard(), "Create new Time Card");
+		logCompare(true, b2wtimecards.clickCreateNewTimeCard(), "Create new Time Card");
 		logCompare(true, b2wtimecards.selectEmployee(sEmployeeFullNameID), "Select Employee");
 		TaskUtils.sleep(1000);
-		b2wtimecards.clickAddTimeButton();
+		logCompare(true, b2wtimecards.clickAddTimeButton(), "Click Add Time Button");
 		TaskUtils.sleep(1000);
-		b2wtimecards.selectTypeofHoursEquipment();
-		b2wtimecards.selectChargeToEquipment();
-		b2wtimecards.setEquipmentHoursDescription(sMaintenanceTimeCardWorkDesc);
-		b2wtimecards.setEquipmentUsed(sEquipmentID_Desc);
-		b2wtimecards.selectWorkOrder(sMaintenanceWorkOrderDescription);
-		b2wtimecards.selectWorkOrderItem(0);
-		b2wtimecards.selectEquipmentRateClass(sLaborRate);
-		b2wtimecards.setRegularMins("5");
-		b2wtimecards.saveReportHours();
-		b2wtimecards.selectTimeCardByEmployeeName(sEmployeeFullNameID);
-		b2wtimecards.clickReportEquipmentHoursButton();
+		logCompare(true, b2wtimecards.selectTypeofHoursEquipment(), "Select Type of Hours Equipment");
+		logCompare(true, b2wtimecards.selectChargeToEquipment(), "Select Charge Equipment");
+		logCompare(true, b2wtimecards.setEquipmentHoursDescription(sMaintenanceTimeCardWorkDesc), "Set Description ");
+		logCompare(true, b2wtimecards.setEquipmentUsed(sEquipmentID_Desc), "Set Equipment Used");
+		logCompare(true, b2wtimecards.selectWorkOrder(sMaintenanceWorkOrderDescription), "Select Work Order");
+		logCompare(true, b2wtimecards.selectWorkOrderItem(0), "Select Work Order Item");
+		logCompare(true, b2wtimecards.selectEquipmentRateClass(sLaborRate), "Select Labor Rate");
+		//logCompare(true, b2wtimecards.setRegularMins("5");
+		//b2wtimecards.saveReportHours();
+		//b2wtimecards.selectTimeCardByEmployeeName(sEmployeeFullNameID);
+		//b2wtimecards.clickReportEquipmentHoursButton();
 		
 	}
 
