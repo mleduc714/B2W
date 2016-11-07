@@ -283,8 +283,8 @@ public class OperationsSmokeG extends B2WTestCase {
 		assertTrue("open Maintain", b2wNav.openMaintain());
 		logCompare(true, b2wMain.openSchedule(), "Open Schedule");
 		logCompare(true, b2wSchd.clickWorkOrdersTab(), "Click Work Orders");
-		//logCompare(true, b2wSchd.openWorkOrderFromWorkOrderTabByDescription("PREP AND PAINT"), "Open Work Order Tab by Desc");
-		logCompare(true, b2wSchd.openWorkOrderFromWorkOrderTabByDescription(sMaintenanceWorkOrderDescription), "Open Work Order Tab by Desc");
+		logCompare(true, b2wSchd.openWorkOrderFromWorkOrderTabByDescription("Engine Service7570"), "Open Work Order Tab by Desc");
+		//logCompare(true, b2wSchd.openWorkOrderFromWorkOrderTabByDescription(sMaintenanceWorkOrderDescription), "Open Work Order Tab by Desc");
 		//logCompare(true, b2wSchd.openWorkOrderFromWorkOrderTabByDescription("TEST"), "Open Work Order Tab by Desc");
 		//Quinn Sisco [13098]
 		//Derry Railbed
