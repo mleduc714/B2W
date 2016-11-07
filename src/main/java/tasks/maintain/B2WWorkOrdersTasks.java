@@ -161,15 +161,14 @@ public class B2WWorkOrdersTasks extends B2WKendoTasks {
 			coordinate.onPage(); 
 			coordinate.inViewPort();
 			WebElementUtils.clickElement(itembutton);
+			waitForPageNotBusy();
 			if (WebElementUtils.waitAndFindDisplayedElement(B2WMaintain.getB2WMaintainSelectItemsToWorkOrder()) != null){
-				//additemsElements = getFormElements(B2WMaintain.getB2WMaintainSelectItemsToWorkOrder());
-				test();
+				addItemsToOrder();
 				bReturn = true;
 			}else{
 				additemsElements = getFormElements(B2WMaintain.getB2WMaintainAddItemToWorkOrder());
 				bReturn = true;
 			}
-			
 		}
 		return bReturn;
 	}
@@ -313,7 +312,7 @@ public class B2WWorkOrdersTasks extends B2WKendoTasks {
 		}
 		return bReturn;
 	}
-	private void test() {
+	private void addItemsToOrder() {
 		
 		WebElement parent = WebElementUtils.waitAndFindElement(B2WMaintain.getB2WMaintainSelectItemsToWorkOrder());
 		List<WebElement> elements = parent.findElements(By.tagName("tbody"));
