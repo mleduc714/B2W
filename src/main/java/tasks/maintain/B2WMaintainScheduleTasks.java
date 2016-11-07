@@ -13,6 +13,7 @@ import appobjects.maintain.B2WMaintain;
 import tasks.BrowserUtils;
 import tasks.WebElementUtils;
 import tasks.resources.B2WKendoTasks;
+import tasks.util.TaskUtils;
 
 public class B2WMaintainScheduleTasks extends B2WKendoTasks {
 
@@ -163,6 +164,7 @@ public class B2WMaintainScheduleTasks extends B2WKendoTasks {
 			if (WebElementUtils.waitForElementHasAttributeWithValue(el, "aria-expanded", "true", true,
 					WebElementUtils.SHORT_TIME_OUT)) {
 				bReturn = selectItemFromDropDown(sText);
+				TaskUtils.logScreenCapture();
 			}
 		}
 		return bReturn;
@@ -221,7 +223,7 @@ public class B2WMaintainScheduleTasks extends B2WKendoTasks {
 	
 	public boolean scheduleMaintainancePopupSelectEvent(String sText){
 		boolean bReturn = false;
-		WebElement el = getWebElementFromScheduleMaintenanceDialog(5);
+		WebElement el = getWebElementFromScheduleMaintenanceDialog(6);
 		if (el != null){
 			bReturn = WebElementUtils.clickElement(el);
 			bReturn &= selectItemFromDropDown(sText);
@@ -236,6 +238,7 @@ public class B2WMaintainScheduleTasks extends B2WKendoTasks {
 		if (el != null){
 			WebElement button = WebElementUtils.getChildElement(el, B2WMaintain.getKendoLargeSaveButton());
 			bReturn = WebElementUtils.clickElement(button);
+			bReturn &= WebElementUtils.waitForElementInvisible(button);
 		}
 		return bReturn;
 	}
@@ -315,8 +318,9 @@ public class B2WMaintainScheduleTasks extends B2WKendoTasks {
 	public boolean clickWorkOrdersTab() {
 		boolean bReturn = false;
 		WebElement el = WebElementUtils.findElement(B2WMaintain.getB2WMaintainSchedulerWorkOrdersTab());
+		WebElement child = WebElementUtils.getChildElement(el, By.cssSelector("span.k-link"));
 		if (el != null){
-			bReturn = WebElementUtils.clickElement(el);
+			bReturn = WebElementUtils.clickElement(child);
 		}
 		return bReturn;
 	}

@@ -579,7 +579,7 @@ public class B2WEquipmentTasks extends B2WKendoTasks {
 	}
 	public boolean setAddMeterEnterNewReadingCheckBox(){
 		boolean bReturn = false;
-		getCheckboxsFromWindow(getDisplayedWindow(), 2).click();
+		bReturn = WebElementUtils.clickElement(getCheckboxsFromWindow(getDisplayedWindow(), 2));
 		return bReturn;
 	}
 	public boolean setAddMeterEnterNewReading(String sReading){

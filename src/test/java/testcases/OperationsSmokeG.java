@@ -46,7 +46,7 @@ public class OperationsSmokeG extends B2WTestCase {
 	String sMaintenanceWorkOrderItemDescriptionB;
 	String sEmployeeFirstNameD, sEmployeeLastNameD, sEmployeeIDD, sEmployeeFullNameID;
 	String sPlaceDescription, sPlaceID;
-
+	String sMaintenanceTimeCardWorkDesc;
 	
 	
 
@@ -122,30 +122,30 @@ public class OperationsSmokeG extends B2WTestCase {
 		//sEquipmentIDD="BCAT01";
 		
 		
-		sMaintenanceRequestDescription = getProperty("sMaintenanceRequestDescription");
+		sMaintenanceRequestDescription = getProperty("sMaintenanceRequestDescription") + n;
 		sMaintenanceRequestPriority = getProperty("sMaintenanceRequestPriority");
 		sMaintenanceRequestComments = getProperty("sMaintenanceRequestComments");
 		sMaintenanceWorkOrderItemDescriptionA = getProperty("sMaintenanceWorkOrderItemDescriptionA");
 		sMaintenanceWorkOrderItemDescriptionB = getProperty("sMaintenanceWorkOrderItemDescriptionB");
-		sMaintenanceWorkOrderDescription = getProperty("sMaintenanceWorkOrderDescription");
+		sMaintenanceWorkOrderDescription = getProperty("sMaintenanceWorkOrderDescription") + n;
 		sEmployeeFirstNameD = getProperty("employeenameFirstD");
 		sEmployeeLastNameD = getProperty("employeenameLastD");
 		sEmployeeIDD = getProperty("employeenameDID") +n;
 		sEmployeeFullNameID = sEmployeeFirstNameD + " "+sEmployeeLastNameD + " ["+sEmployeeIDD+"]";
 		sPlaceDescription = getProperty("placeD") + n;
 		sPlaceID = getProperty("placeIDD") + n;
-		
+		sMaintenanceTimeCardWorkDesc = getProperty("sMaintenanceTimeCardWorkDesc");
 		//test data
-//		sLaborRate = "Automation Rates";
-//		sCategoryC = "Repair";
-//		sCategoryB = "Hour Meter";
-//		sCategoryD = "Inspection";
-//		sEquipmentIDD="CD246";
-//		sEquipmentID_Desc = "CD246 [Cat Dozer]";
-//		sPartA = "Grease";
-//		sPartB = "Hose";
-//		sPartC = "Oil hose";
-		
+/*		sLaborRate = "Automation Rates";
+		sCategoryC = "Repair";
+		sCategoryB = "Hour Meter";
+		sCategoryD = "Inspection";
+		sEquipmentIDD = "CATVRLR_02";
+		sEquipmentID_Desc = "CATVRLR_02 [CAT Vibratory Roller]";
+		sPartA = "Grease";
+		sPartB = "Hose";
+		sPartC = "Oil hose";
+		sEmployeeFullNameID = "Ryder Martin [13194]";*/
 		
 	}
 
@@ -155,7 +155,7 @@ public class OperationsSmokeG extends B2WTestCase {
 		addParts();
 		createRequest();
 		createWorkOrders();
-		//	test();
+		//scheduleToWorkOrder();
 		//createTimeCard();
 	}
 
@@ -260,56 +260,23 @@ public class OperationsSmokeG extends B2WTestCase {
 		logCompare(true, b2wOrder.selectEquipment(sEquipmentID_Desc), "Select "+sEquipmentIDD+" Equipment");
 		logCompare(true, b2wOrder.setWorkOrderDescription(sMaintenanceWorkOrderDescription), "Set Work");
 		logCompare(true, b2wOrder.setDueDate(sDateTwoWeeksFromNow), "Due Date");
+		logCompare(true, b2wOrder.selectPlannedLocationDD("Field"), "Planned in the Field");
+		logCompare(true, b2wOrder.selectPriorityFromDD("Medium"), "Medium Priority");
 		logCompare(true, b2wOrder.clickNewItemButton(), "Create New Item");
-		b2wOrder.addItem(sMaintenanceRequestDescription);
-		b2wOrder.generateItem(sMaintenanceProgramItemBDesc);
-		b2wOrder.clickConfirmYes();
-		b2wOrder.clickAddNewItemFromWorkOrder();
+		logCompare(true, b2wOrder.addItem(sMaintenanceRequestDescription), "Add Item");
+		logCompare(true, b2wOrder.generateItem(sMaintenanceProgramItemBDesc), "Generate Item");
+		logCompare(true, b2wOrder.clickConfirmYes(), "Click Yes");
+		logCompare(true, b2wOrder.clickAddNewItemFromWorkOrder(), "Add new item for work order");
 		logCompare(true, b2wOrder.setAddItemDescription(sMaintenanceWorkOrderItemDescriptionA), "Add Item Description");
 		logCompare(true, b2wOrder.setAddItemTypeFromDD(sCategoryC), "Type");
 		logCompare(true, b2wOrder.setAddItemPriorityFromDD("Medium"), "Medium Priority");
 		logCompare(true, b2wOrder.clickCreateAddItemButton(),"Create add Item");
 		logCompare(true, b2wOrder.clickFinish(),"Click Finish");
+		logCompare(true, b2wOrder.clickSaveButton(), "Click Save Button");
+		logCompare(true, b2wOrder.selectWorkOrderByDescription(sMaintenanceWorkOrderDescription), "Select Work Order");
 		logCompare(true, b2wOrder.clickApproveButton(), "Approve the Work Order");
-		//TaskUtils.sleep(4000);
+		logCompare(true, b2wOrder.clickConfirmYes(), "Confirm Approve");
 	}
-	
-	public void scheduleToWorkOrder(){
-		logCompare(true, b2wNav.openMaintain(), "Open Maintain");
-		logCompare(true, b2wMain.openSchedule(), "Open Schedule");
-		logCompare(true, b2wSchd.clickMechanics(), "Click Mechanics");
-		logCompare(true, b2wSchd.clickWorkOrdersTab(), "Click Work Orders");
-		logCompare(true, b2wSchd.openWorkOrderFromWorkOrderTabByDescription(sMaintenanceWorkOrderDescription), "Open Work Order Tab by Desc");
-		//logCompare(true, b2wSchd.openWorkOrderFromWorkOrderTabByDescription("TEST"), "Open Work Order Tab by Desc");
-		logCompare(true, b2wSchd.scheduleMaintainancePopupSelectMechanic(sEmployeeFullNameID), "Select Mechanic");
-		logCompare(true, b2wSchd.scheduleMaintainancePopupSelectWorkLocation(sPlaceDescription), "Work Location");
-		logCompare(true, b2wSchd.saveScheduleMaintenance(), "Save Schedule Maintenance");
-		//b2wSchd.scheduleWorkOrderFromWorkOrderTabByDescriptionFromContextMenu("TRUCK, F-350 CREW CAB UTILITY [1013]");
-		
-		
 
-	}
-	
-	public void createTimeCard() {
-		logCompare(true, b2wNav.openMaintain(), "Open Maintain");
-		logCompare(true, b2wMain.openTimeCards(), "Open Time Cards");
-		b2wtimecards.clickCreateNewTimeCard();
-		b2wtimecards.selectEmployee("Claire Salmon [13044]");
-		TaskUtils.sleep(1000);
-		b2wtimecards.clickAddTimeButton();
-		TaskUtils.sleep(1000);
-		b2wtimecards.selectTypeofHoursEquipment();
-		b2wtimecards.setEquipmentHoursDescription("TEST");
-		b2wtimecards.setEquipmentUsed("1009 [Cam Superline Trailer]");
-		b2wtimecards.selectWorkOrder("Shrink Wrap [1022]");
-		b2wtimecards.selectWorkOrderItem("Shrink Wrap [1045]");
-		b2wtimecards.selectEquipmentRateClass("Southeast Rates");
-		b2wtimecards.setRegularMins("5");
-		b2wtimecards.saveReportHours();
-		b2wtimecards.selectTimeCardByEmployeeName("Adrian Guajardo [13182]");
-		b2wtimecards.clickReportEquipmentHoursButton();
-		TaskUtils.sleep(4000);
-		
-	}
 	
 }
