@@ -221,7 +221,7 @@ public class B2WMaintainScheduleTasks extends B2WKendoTasks {
 	
 	public boolean scheduleMaintainancePopupSelectEvent(String sText){
 		boolean bReturn = false;
-		WebElement el = getWebElementFromScheduleMaintenanceDialog(5);
+		WebElement el = getWebElementFromScheduleMaintenanceDialog(6);
 		if (el != null){
 			bReturn = WebElementUtils.clickElement(el);
 			bReturn &= selectItemFromDropDown(sText);
@@ -316,8 +316,9 @@ public class B2WMaintainScheduleTasks extends B2WKendoTasks {
 	public boolean clickWorkOrdersTab() {
 		boolean bReturn = false;
 		WebElement el = WebElementUtils.findElement(B2WMaintain.getB2WMaintainSchedulerWorkOrdersTab());
+		WebElement child = WebElementUtils.getChildElement(el, By.cssSelector("span.k-link"));
 		if (el != null){
-			bReturn = WebElementUtils.clickElement(el);
+			bReturn = WebElementUtils.clickElement(child);
 		}
 		return bReturn;
 	}

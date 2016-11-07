@@ -46,7 +46,7 @@ public class OperationsSmokeG extends B2WTestCase {
 	String sMaintenanceWorkOrderItemDescriptionB;
 	String sEmployeeFirstNameD, sEmployeeLastNameD, sEmployeeIDD, sEmployeeFullNameID;
 	String sPlaceDescription, sPlaceID;
-
+	String sMaintenanceTimeCardWorkDesc;
 	
 	
 
@@ -134,7 +134,7 @@ public class OperationsSmokeG extends B2WTestCase {
 		sEmployeeFullNameID = sEmployeeFirstNameD + " "+sEmployeeLastNameD + " ["+sEmployeeIDD+"]";
 		sPlaceDescription = getProperty("placeD") + n;
 		sPlaceID = getProperty("placeIDD") + n;
-		
+		sMaintenanceTimeCardWorkDesc = getProperty("sMaintenanceTimeCardWorkDesc");
 		//test data
 /*		sLaborRate = "Automation Rates";
 		sCategoryC = "Repair";
@@ -156,7 +156,7 @@ public class OperationsSmokeG extends B2WTestCase {
 		createRequest();
 		createWorkOrders();
 		scheduleToWorkOrder();
-		//createTimeCard();
+		createTimeCard();
 	}
 
 	@Override
@@ -277,18 +277,23 @@ public class OperationsSmokeG extends B2WTestCase {
 		logCompare(true, b2wOrder.selectWorkOrderByDescription(sMaintenanceWorkOrderDescription), "Select Work Order");
 		logCompare(true, b2wOrder.clickApproveButton(), "Approve the Work Order");
 		logCompare(true, b2wOrder.clickConfirmYes(), "Confirm Approve");
-		TaskUtils.sleep(4000);
 	}
 	
 	public void scheduleToWorkOrder(){
+		assertTrue("open Maintain", b2wNav.openMaintain());
 		logCompare(true, b2wMain.openSchedule(), "Open Schedule");
 		logCompare(true, b2wSchd.clickWorkOrdersTab(), "Click Work Orders");
+		//logCompare(true, b2wSchd.openWorkOrderFromWorkOrderTabByDescription("PREP AND PAINT"), "Open Work Order Tab by Desc");
 		logCompare(true, b2wSchd.openWorkOrderFromWorkOrderTabByDescription(sMaintenanceWorkOrderDescription), "Open Work Order Tab by Desc");
 		//logCompare(true, b2wSchd.openWorkOrderFromWorkOrderTabByDescription("TEST"), "Open Work Order Tab by Desc");
+		//Quinn Sisco [13098]
+		//Derry Railbed
 		logCompare(true, b2wSchd.scheduleMaintainancePopupSelectMechanic(sEmployeeFullNameID), "Select Mechanic "+sEmployeeFullNameID);
+		//logCompare(true, b2wSchd.scheduleMaintainancePopupSelectMechanic("Quinn Sisco [13098]"), "Select Mechanic "+sEmployeeFullNameID);
 		logCompare(true, b2wSchd.scheduleMaintainancePopupSelectWorkLocation(sPlaceDescription), "Work Location "+sPlaceDescription);
+		//logCompare(true, b2wSchd.scheduleMaintainancePopupSelectWorkLocation("Derry Railbed"), "Work Location "+sPlaceDescription);
+		logCompare(true, b2wSchd.scheduleMaintainancePopupSelectEvent("Down for Maintenance"), "Down for maintenance");
 		logCompare(true, b2wSchd.saveScheduleMaintenance(), "Save Schedule Maintenance");
-		logScreenCapture();
 		//b2wSchd.scheduleWorkOrderFromWorkOrderTabByDescriptionFromContextMenu("TRUCK, F-350 CREW CAB UTILITY [1013]");
 		
 		
@@ -304,14 +309,15 @@ public class OperationsSmokeG extends B2WTestCase {
 		b2wtimecards.clickAddTimeButton();
 		TaskUtils.sleep(1000);
 		b2wtimecards.selectTypeofHoursEquipment();
-		b2wtimecards.setEquipmentHoursDescription("TEST");
-		b2wtimecards.setEquipmentUsed("1009 [Cam Superline Trailer]");
-		b2wtimecards.selectWorkOrder("Shrink Wrap [1022]");
-		b2wtimecards.selectWorkOrderItem("Shrink Wrap [1045]");
-		b2wtimecards.selectEquipmentRateClass("Southeast Rates");
+		b2wtimecards.selectChargeToEquipment();
+		b2wtimecards.setEquipmentHoursDescription(sMaintenanceTimeCardWorkDesc);
+		b2wtimecards.setEquipmentUsed(sEquipmentID_Desc);
+		b2wtimecards.selectWorkOrder(sMaintenanceWorkOrderDescription);
+		b2wtimecards.selectWorkOrderItem(0);
+		b2wtimecards.selectEquipmentRateClass(sLaborRate);
 		b2wtimecards.setRegularMins("5");
 		b2wtimecards.saveReportHours();
-		b2wtimecards.selectTimeCardByEmployeeName("Adrian Guajardo [13182]");
+		b2wtimecards.selectTimeCardByEmployeeName(sEmployeeFullNameID);
 		b2wtimecards.clickReportEquipmentHoursButton();
 		TaskUtils.sleep(4000);
 		

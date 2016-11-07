@@ -202,6 +202,17 @@ public class B2WTimeCardTasks extends B2WKendoTasks {
 		}
 		return bReturn;
 	}
+	public boolean selectWorkOrderItem(int i) {
+		boolean bReturn = false;
+		WebElement el = getWebElementFromReportHoursByEquipment(2);
+		if (el != null){
+			WebElementUtils.clickElement(el);
+			bReturn = selectItemFromDropDown(i);
+		}
+		return bReturn;
+	}
+	
+	
 	public boolean selectEquipmentRateClass(String sText) {
 		boolean bReturn = false;
 		WebElement el = getWebElementFromReportHoursByEquipment(3);
