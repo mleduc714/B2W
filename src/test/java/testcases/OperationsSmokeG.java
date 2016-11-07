@@ -122,12 +122,12 @@ public class OperationsSmokeG extends B2WTestCase {
 		//sEquipmentIDD="BCAT01";
 		
 		
-		sMaintenanceRequestDescription = getProperty("sMaintenanceRequestDescription");
+		sMaintenanceRequestDescription = getProperty("sMaintenanceRequestDescription") + n;
 		sMaintenanceRequestPriority = getProperty("sMaintenanceRequestPriority");
 		sMaintenanceRequestComments = getProperty("sMaintenanceRequestComments");
 		sMaintenanceWorkOrderItemDescriptionA = getProperty("sMaintenanceWorkOrderItemDescriptionA");
 		sMaintenanceWorkOrderItemDescriptionB = getProperty("sMaintenanceWorkOrderItemDescriptionB");
-		sMaintenanceWorkOrderDescription = getProperty("sMaintenanceWorkOrderDescription");
+		sMaintenanceWorkOrderDescription = getProperty("sMaintenanceWorkOrderDescription") + n;
 		sEmployeeFirstNameD = getProperty("employeenameFirstD");
 		sEmployeeLastNameD = getProperty("employeenameLastD");
 		sEmployeeIDD = getProperty("employeenameDID") +n;
@@ -140,12 +140,12 @@ public class OperationsSmokeG extends B2WTestCase {
 		sCategoryC = "Repair";
 		sCategoryB = "Hour Meter";
 		sCategoryD = "Inspection";
-		sEquipmentIDD = "ASPHTDIST03";
-		sEquipmentID_Desc = "ASPHTDIST03 [Asphalt Distributor]";
+		sEquipmentIDD = "CATVRLR_02";
+		sEquipmentID_Desc = "CATVRLR_02 [CAT Vibratory Roller]";
 		sPartA = "Grease";
 		sPartB = "Hose";
 		sPartC = "Oil hose";
-		*/
+		sEmployeeFullNameID = "Ryder Martin [13194]";*/
 		
 	}
 
@@ -155,7 +155,7 @@ public class OperationsSmokeG extends B2WTestCase {
 		addParts();
 		createRequest();
 		createWorkOrders();
-		//	test();
+		scheduleToWorkOrder();
 		//createTimeCard();
 	}
 
@@ -255,6 +255,7 @@ public class OperationsSmokeG extends B2WTestCase {
 	}
 	
 	public void createWorkOrders(){
+		TaskUtils.sleep(1000);
 		assertTrue("Open Work Orders",b2wMain.openWorkOrders());
 		logCompare(true, b2wOrder.clickCreateNewWorkOrderButton(), "Create New Work Order");
 		logCompare(true, b2wOrder.selectEquipment(sEquipmentID_Desc), "Select "+sEquipmentIDD+" Equipment");
@@ -273,12 +274,13 @@ public class OperationsSmokeG extends B2WTestCase {
 		logCompare(true, b2wOrder.clickCreateAddItemButton(),"Create add Item");
 		logCompare(true, b2wOrder.clickFinish(),"Click Finish");
 		logCompare(true, b2wOrder.clickSaveButton(), "Click Save Button");
+		logCompare(true, b2wOrder.selectWorkOrderByDescription(sMaintenanceWorkOrderDescription), "Select Work Order");
 		logCompare(true, b2wOrder.clickApproveButton(), "Approve the Work Order");
-		//TaskUtils.sleep(4000);
+		logCompare(true, b2wOrder.clickConfirmYes(), "Confirm Approve");
+		TaskUtils.sleep(4000);
 	}
 	
 	public void scheduleToWorkOrder(){
-		logCompare(true, b2wNav.openMaintain(), "Open Maintain");
 		logCompare(true, b2wMain.openSchedule(), "Open Schedule");
 		logCompare(true, b2wSchd.clickMechanics(), "Click Mechanics");
 		logCompare(true, b2wSchd.clickWorkOrdersTab(), "Click Work Orders");
@@ -287,6 +289,7 @@ public class OperationsSmokeG extends B2WTestCase {
 		logCompare(true, b2wSchd.scheduleMaintainancePopupSelectMechanic(sEmployeeFullNameID), "Select Mechanic");
 		logCompare(true, b2wSchd.scheduleMaintainancePopupSelectWorkLocation(sPlaceDescription), "Work Location");
 		logCompare(true, b2wSchd.saveScheduleMaintenance(), "Save Schedule Maintenance");
+		logScreenCapture();
 		//b2wSchd.scheduleWorkOrderFromWorkOrderTabByDescriptionFromContextMenu("TRUCK, F-350 CREW CAB UTILITY [1013]");
 		
 		
@@ -296,8 +299,8 @@ public class OperationsSmokeG extends B2WTestCase {
 	public void createTimeCard() {
 		logCompare(true, b2wNav.openMaintain(), "Open Maintain");
 		logCompare(true, b2wMain.openTimeCards(), "Open Time Cards");
-		b2wtimecards.clickCreateNewTimeCard();
-		b2wtimecards.selectEmployee("Claire Salmon [13044]");
+		logCompare(true,b2wtimecards.clickCreateNewTimeCard(), "Create new Time Card");
+		logCompare(true, b2wtimecards.selectEmployee(sEmployeeFullNameID), "Select Employee");
 		TaskUtils.sleep(1000);
 		b2wtimecards.clickAddTimeButton();
 		TaskUtils.sleep(1000);

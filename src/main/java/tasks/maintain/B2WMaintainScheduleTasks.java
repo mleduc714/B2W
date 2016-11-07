@@ -236,6 +236,7 @@ public class B2WMaintainScheduleTasks extends B2WKendoTasks {
 		if (el != null){
 			WebElement button = WebElementUtils.getChildElement(el, B2WMaintain.getKendoLargeSaveButton());
 			bReturn = WebElementUtils.clickElement(button);
+			bReturn &= WebElementUtils.waitForElementInvisible(button);
 		}
 		return bReturn;
 	}
