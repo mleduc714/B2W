@@ -54,7 +54,7 @@ public class OperationsSmokeH extends B2WTestCase {
 	public void testSetUp() throws Throwable {
 		// TODO Auto-generated method stub
 		super.testSetUp();
-		int n = 739;
+		int n = 7389;
 		SimpleDateFormat format = new SimpleDateFormat("M/d/yyyy");
 		Calendar cal = Calendar.getInstance();
 		cal.add(Calendar.DAY_OF_YEAR, 3);
@@ -84,7 +84,7 @@ public class OperationsSmokeH extends B2WTestCase {
 	}
 	public void testMain() throws Throwable {
 
-		//scheduleToWorkOrder();
+		scheduleToWorkOrder();
 		createTimeCard();
 	}
 	
