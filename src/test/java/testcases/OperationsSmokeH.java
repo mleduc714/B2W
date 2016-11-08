@@ -105,7 +105,6 @@ public class OperationsSmokeH extends B2WTestCase {
 	}
 	
 	public void createTimeCard() {
-		logCompare(true, b2wNav.openMaintain(), "Open Maintain");
 		logCompare(true, b2wMain.openTimeCards(), "Open Time Cards");
 		logCompare(true, b2wtimecards.clickCreateNewTimeCard(), "Create new Time Card");
 		logCompare(true, b2wtimecards.selectEmployee(sEmployeeFullNameID), "Select Employee");
