@@ -8,7 +8,6 @@ import org.apache.log4j.Logger;
 import org.openqa.selenium.WebElement;
 
 import appobjects.jobs.B2WJobs;
-import appobjects.resources.B2WEquipment;
 import appobjects.resources.KendoUI;
 import tasks.WebElementUtils;
 import tasks.resources.B2WKendoTasks;
@@ -177,11 +176,10 @@ public class B2WTMWorkItemTab extends B2WKendoTasks {
 	
 	public boolean saveTMWorkItem() {
 		boolean bReturn = false;
-
-		bReturn = WebElementUtils.clickElement(B2WJobs.getB2WJobTMWorkItemSaveButton());
+		WebElement el = WebElementUtils.findElement(B2WJobs.getB2WJobTMWorkItemSaveButton());
+		bReturn = WebElementUtils.clickElement(el);
 		bReturn &= waitForPageNotBusy();
-		bReturn = WebElementUtils.waitAndFindDisplayedElement(B2WEquipment.getKendoWorkItemTable()) != null;
-
+		bReturn &= WebElementUtils.waitForElementInvisible(el);
 		return bReturn;
 	}
 	
@@ -191,10 +189,8 @@ public class B2WTMWorkItemTab extends B2WKendoTasks {
 		WebElementUtils.getAllInfo(el);
 		if (el != null){
 			bReturn = WebElementUtils.clickElement(el);
-			
 		}
 		el = WebElementUtils.findElement(B2WJobs.getB2WJobTMWorkItemCompleteCheckbox());
-		WebElementUtils.getAllInfo(el);
 		return bReturn;
 		
 	}

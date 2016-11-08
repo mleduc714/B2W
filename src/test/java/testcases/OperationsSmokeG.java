@@ -13,7 +13,6 @@ import tasks.maintain.B2WMaintainTasks;
 import tasks.maintain.B2WTimeCardTasks;
 import tasks.maintain.B2WWorkOrdersTasks;
 import tasks.resources.B2WEquipmentTasks;
-import tasks.util.TaskUtils;
 
 public class OperationsSmokeG extends B2WTestCase {
 
@@ -208,17 +207,13 @@ public class OperationsSmokeG extends B2WTestCase {
 		assertTrue("Open Equipment",b2wMain.openEquipment());
 		logCompare(true, b2wEquip.selectEquipmentFromViewByID(sEquipmentIDD),"Select: "+sEquipmentIDD+" Equipment");
 		logCompare(true, b2wEquip.expandParts(),"Expand Parts");
-		TaskUtils.sleep(1000);
 		logCompare(true, b2wEquip.clickAddPartsButton(),"Add Parts");
 		logCompare(true, b2wEquip.selectPartToAddToEquipmentByDescription(sPartA), "Add "+sPartA+ " Part");
 		logCompare(true, b2wEquip.selectPartToAddToEquipmentByDescription(sPartB), "Add "+sPartB+ " Part");
 		logCompare(true, b2wEquip.selectPartToAddToEquipmentByDescription(sPartC), "Add "+sPartC+ " Part");
 		logCompare(true, b2wEquip.clickSaveAddPart(), "Save Part");
-		
 		logCompare(true, b2wEquip.expandMeters(), "Expand Meters");
-		TaskUtils.sleep(1000);
 		logCompare(true, b2wEquip.clickAddMeterButton(), "Click Add Meter");
-		TaskUtils.sleep(1000);
 		logCompare(true, b2wEquip.selectAddMeterTypeFromDD(sCategoryB), "Select Add "+sCategoryB+" Meter");
 		logCompare(true, b2wEquip.selectAddMeterRequiredOnWorkOrderCompletionNotRequired(), "Add Meter not required");
 		logCompare(true, b2wEquip.selectAddMeterExcludeFromWorkOrdersNever(), "Exclude never");
@@ -228,12 +223,9 @@ public class OperationsSmokeG extends B2WTestCase {
 		logCompare(true, b2wEquip.setAddMeterEnterNewReading("120"),"Enter new reading");
 		logCompare(true, b2wEquip.setAddMeterEnterNewReadingDate(sDateTwoDaysAgo), "Set two days ago");
 		logCompare(true, b2wEquip.clickSaveAddMeter(), "Add the Meter");
-	
 		logCompare(true, b2wEquip.expandPrograms(), "Expand Programs");
-		TaskUtils.sleep(1000);
 		logCompare(true, b2wEquip.clickAddProgramButton(), "Add Programs");
 		logCompare(true, b2wEquip.setAddProgramText(sMaintenanceProgramDesc), "Select Maintainence Program");
-		TaskUtils.sleep(1000);
 		logCompare(true, b2wEquip.clickAddProgramNextButton(), "Click Next");
 		logCompare(true, b2wEquip.clickSaveProgramButton(), "Save Program");
 		
