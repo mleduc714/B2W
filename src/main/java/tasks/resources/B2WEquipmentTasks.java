@@ -347,9 +347,10 @@ public class B2WEquipmentTasks extends B2WKendoTasks {
 			Coordinates coordinate = ((Locatable)button).getCoordinates(); 
 			coordinate.onPage(); 
 			coordinate.inViewPort();
-			WebElementUtils.clickElement(button);
-			bReturn = WebElementUtils.waitForElementIsDisplayed(windows.get(1), WebElementUtils.SHORT_TIME_OUT);
-			bReturn &= waitForPageNotBusy(WebElementUtils.MEDIUM_TIME_OUT);
+			if (WebElementUtils.clickElement(button)){
+				bReturn = WebElementUtils.waitForElementIsDisplayed(windows.get(1), WebElementUtils.SHORT_TIME_OUT);
+				bReturn &= waitForPageNotBusy(WebElementUtils.MEDIUM_TIME_OUT);
+			}
 		}
 		return bReturn;
 	}
