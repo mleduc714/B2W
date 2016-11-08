@@ -34,7 +34,7 @@ public abstract class B2WKendoTasks {
 			String hidden = els.getAttribute("aria-hidden");
 			if (hidden != null && hidden.equals("false")) {
 				List<WebElement> items = els.findElements(B2WEquipment.getKendoDropDownItem());
-				WebElement item = WebElementUtils.getElementWithMatchingText(items, sItem, false);
+				WebElement item = WebElementUtils.getElementWithMatchingStartsWithText(items, sItem);
 				if (item != null) {
 					bReturn = WebElementUtils.clickElement(item);
 				}else{
@@ -67,10 +67,10 @@ public abstract class B2WKendoTasks {
 	}
 	
 	
-	public boolean waitForPageNotBusy() {
+	public boolean waitForPageNotBusy(int iSecs) {
 		boolean bReturn = false;
 		int iTrys = 0;
-		while (!bReturn && iTrys < 100) {
+		while (!bReturn && iTrys < iSecs) {
 			try {
 				WebElement el = BrowserUtils.getDriver().findElement(B2WEquipment.getKendoPageLoading());
 				TaskUtils.sleep(100);
@@ -262,7 +262,7 @@ public abstract class B2WKendoTasks {
 			sText = gridcontent.get(iColumn).getText();
 			if (sText.startsWith(sItem)) {
 				bReturn = WebElementUtils.clickElement(item);
-				bReturn &= waitForPageNotBusy();
+				bReturn &= waitForPageNotBusy(WebElementUtils.MEDIUM_TIME_OUT);
 				break;
 			}
 		}

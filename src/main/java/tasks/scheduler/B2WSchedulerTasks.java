@@ -39,7 +39,7 @@ public class B2WSchedulerTasks extends B2WKendoTasks {
     }
 
     public boolean waitForSchedulePageNoBusy() {
-        return waitForPageNotBusy();
+        return waitForPageNotBusy(WebElementUtils.MEDIUM_TIME_OUT);
     }
 
     //--Navigate and Select Menu section

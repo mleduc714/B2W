@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import com.b2w.test.B2WTestCase;
 
 import tasks.B2WNavigationTasks;
+import tasks.util.Timer;
 
 public class TestSetup extends B2WTestCase {
 

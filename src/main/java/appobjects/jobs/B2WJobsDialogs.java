@@ -103,4 +103,16 @@ public class B2WJobsDialogs {
 	public static By getB2WJobsaddvendorsgridviewchkbox() {
 		return By.cssSelector(B2WUIMap.b2w_jobsaddvendorsgridviewcheckbox);
 	}
+	public static By getB2WJobsAddMaterialsDialog() {
+		return By.cssSelector(B2WUIMap.b2w_jobsaddmaterialdialog);
+	}
+	public static By getB2WJobsAddSubcontractorDialog() {
+		return By.cssSelector(B2WUIMap.b2w_jobsaddsubcontractordialog);
+	}
+	public static By getB2WJobsAddTruckingSubcontractorDialog() {
+		return By.cssSelector(B2WUIMap.b2w_jobaddtrucksubcontractordialog);
+	}
+	public static By getB2WJobsAddVendorDialog() {
+		return By.cssSelector(B2WUIMap.b2w_jobsaddvendordialog);
+	}
 }

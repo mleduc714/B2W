@@ -1,8 +1,5 @@
 package tasks.jobs;
 
-import java.util.Iterator;
-import java.util.List;
-
 import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -24,6 +21,7 @@ public class B2WAddToJobs {
 	private By cancelbutton = null;
 	private By gridview = null;
 	private By gridcheckbox = null;
+	private By bydialog = null;
 	
 	Logger log = Logger.getLogger(B2WAddToJobs.class);
 	
@@ -33,18 +31,22 @@ public class B2WAddToJobs {
 		case ADDMATERIALS:
 			gridview = B2WJobsDialogs.getB2WJobsaddmaterialsgridview();
 			gridcheckbox = B2WJobsDialogs.getB2WJobsaddmaterialsgridviewchkbox();
+			bydialog = B2WJobsDialogs.getB2WJobsAddMaterialsDialog();
 			break;
 		case ADDSUBCONTRACTORS:
 			gridview = B2WJobsDialogs.getB2WJobsaddsubcontractorsgridview();
 			gridcheckbox =  B2WJobsDialogs.getB2WJobsaddsubcontractorsgridviewchkbox();
+			bydialog = B2WJobsDialogs.getB2WJobsAddSubcontractorDialog();
 			break;
 		case ADDTRUCKINGSUBCONTRACTORS:
 			gridview = B2WJobsDialogs.getB2WJobsaddtrucksubcontractorsgridview();
 			gridcheckbox =  B2WJobsDialogs.getB2WJobsaddtrucksubcontractorsgridviewchkbox();
+			bydialog = B2WJobsDialogs.getB2WJobsAddTruckingSubcontractorDialog();
 			break;
 		case ADDVENDORS:
 			gridview = B2WJobsDialogs.getB2WJobsaddvendorsgridview();
 			gridcheckbox =  B2WJobsDialogs.getB2WJobsaddvendorsgridviewchkbox();
+			bydialog = B2WJobsDialogs.getB2WJobsAddVendorDialog();
 			break;
 		}
 		
@@ -63,26 +65,29 @@ public class B2WAddToJobs {
 	
 	public boolean setSearchText(String sText){
 		boolean bReturn = false;
-		WebElement el = findTheDisplayedElement(WebElementUtils.findElements(search));
+		WebElement parent = WebElementUtils.waitAndFindDisplayedElement(bydialog);
+		WebElement el =  WebElementUtils.getChildElement(parent, search);
 		if (el != null) {
-			searchID = WebElementUtils.getElementValueByAttribute(search, "id");
+			searchID = el.getAttribute("id");
 			bReturn = WebElementUtils.setAttributeWithJS(searchID, "value", sText);
 		}
 		return bReturn;
 	}
 	public boolean setIDText(String sText){
 		boolean bReturn = false;
-		WebElement el = findTheDisplayedElement(WebElementUtils.findElements(select));
+		WebElement parent = WebElementUtils.waitAndFindDisplayedElement(bydialog);
+		WebElement el =  WebElementUtils.getChildElement(parent, select);
 		if (el != null) {
-			selectID = WebElementUtils.getElementValueByAttribute(select, "id");
+			selectID = el.getAttribute("id");
 			bReturn = WebElementUtils.setAttributeWithJS(selectID, "value", sText);
 		}
 		return bReturn;
 	}
 	public boolean clickSearchButton() {
 		boolean bReturn = false;
+		WebElement parent = WebElementUtils.waitAndFindDisplayedElement(bydialog);
 		WebElement grid = WebElementUtils.waitAndFindDisplayedElement(gridview);
-		WebElement el = findTheDisplayedElement(WebElementUtils.findElements(searchbutton));
+		WebElement el = WebElementUtils.getChildElement(parent, searchbutton);
 		if (WebElementUtils.clickElement(el)){
 			bReturn = WebElementUtils.waitForElementStale(grid, WebElementUtils.SHORT_TIME_OUT);
 		}
@@ -91,13 +96,14 @@ public class B2WAddToJobs {
 
 	public boolean clickSelectButton() {
 		boolean bReturn = false;
+		WebElement parent = WebElementUtils.waitAndFindDisplayedElement(bydialog);
 		WebElement grid = WebElementUtils.waitAndFindDisplayedElement(gridview);
 		WebElement checkbox = WebElementUtils.findElement(gridcheckbox);
 		if (checkbox == null) {
 			log.debug("Did not find any items in the search");
 
 		} else {
-			WebElement el = findTheDisplayedElement(WebElementUtils.findElements(selectbutton));
+			WebElement el = WebElementUtils.getChildElement(parent, selectbutton);
 			if (WebElementUtils.clickElement(el)) {
 				bReturn = WebElementUtils.waitForElementStale(grid, WebElementUtils.SHORT_TIME_OUT);
 			}
@@ -107,27 +113,29 @@ public class B2WAddToJobs {
 
 	public void clickAddButton() {
 		WebElement grid = WebElementUtils.findElement(By.className("grid"));
-		WebElement el = findTheDisplayedElement(WebElementUtils.findElements(addbutton));
+		WebElement parent = WebElementUtils.waitAndFindDisplayedElement(bydialog);
+		WebElement el = WebElementUtils.getChildElement(parent, addbutton);
 		WebElementUtils.clickElement(el);
 		WebElementUtils.waitForElementStale(grid, WebElementUtils.LONG_TIME_OUT);
 	}
 	
 	public void clickCancelButton() {
-		WebElement el = findTheDisplayedElement(WebElementUtils.findElements(cancelbutton));
+		WebElement parent = WebElementUtils.waitAndFindDisplayedElement(bydialog);
+		WebElement el = WebElementUtils.getChildElement(parent, cancelbutton);
 		WebElementUtils.clickElement(el);
 	}
 	
-	private WebElement findTheDisplayedElement(List<WebElement> list) {
-		WebElement el = null;
-		Iterator<WebElement> iter = list.iterator();
-		while (iter.hasNext()) {
-			el = iter.next();
-			if (el.isDisplayed()) {
-				break;
-			}
-		}
-		return el;
-	}
+//	private WebElement findTheDisplayedElement(List<WebElement> list) {
+//		WebElement el = null;
+//		Iterator<WebElement> iter = list.iterator();
+//		while (iter.hasNext()) {
+//			el = iter.next();
+//			if (el.isEnabled()) {
+//				break;
+//			}
+//		}
+//		return el;
+//	}
 	
 	
 	

@@ -299,7 +299,7 @@ public class B2WSchedulesTasks extends B2WKendoTasks {
             return WebElementUtils.findElement(B2WSchedules.schedulesRowOnGrid(sValue));
     }
     public boolean waitForSchedulesPageNoBusy() {
-        return waitForPageNotBusy();
+        return waitForPageNotBusy(WebElementUtils.MEDIUM_TIME_OUT);
     }
 
 
