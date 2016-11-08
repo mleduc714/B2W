@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import com.b2w.test.B2WTestCase;
 
 import tasks.B2WNavigationTasks;
+import tasks.util.Timer;
 
 public class TestSetup extends B2WTestCase {
 
@@ -52,7 +53,9 @@ public class TestSetup extends B2WTestCase {
 		logCompare(true,b2wNav.clickHome(),"Go Home");
 		logCompare(true,b2wNav.openJobs(),"Open jobs");
 		assertTrue("open Maintain", b2wNav.openMaintain());
-
+		Timer timer = new Timer();
+		timer.start();
+		timer.end();
 	}
 
 	@Override

@@ -19,6 +19,8 @@ public class OperationsSmokeH extends B2WTestCase {
 	B2WTimeCardTasks b2wtimecards = new B2WTimeCardTasks();
 	
 	String sMaintenanceWorkOrderDescription;
+	String sMaintenanceWorkOrderItemDescriptionA;
+	String sMaintenanceWorkOrderItemDescriptionB;
 	String sEmployeeFirstNameD, sEmployeeLastNameD, sEmployeeIDD, sEmployeeFullNameID;
 	String sPlaceDescription, sPlaceID;
 	String sMaintenanceTimeCardWorkDesc, sEquipmentDescD, sEquipmentIDD, sEquipmentID_Desc, sLaborRate;
@@ -70,6 +72,8 @@ public class OperationsSmokeH extends B2WTestCase {
 		
 
 		sMaintenanceWorkOrderDescription = getProperty("sMaintenanceWorkOrderDescription") + n;
+		sMaintenanceWorkOrderItemDescriptionA=getProperty("sMaintenanceWorkOrderItemDescriptionA");
+		sMaintenanceWorkOrderItemDescriptionB=getProperty("sMaintenanceWorkOrderItemDescriptionB");
 		sEmployeeFirstNameD = getProperty("employeenameFirstD");
 		sEmployeeLastNameD = getProperty("employeenameLastD");
 		sEmployeeIDD = getProperty("employeenameDID") +n;
@@ -80,7 +84,7 @@ public class OperationsSmokeH extends B2WTestCase {
 	}
 	public void testMain() throws Throwable {
 
-		scheduleToWorkOrder();
+		//scheduleToWorkOrder();
 		createTimeCard();
 	}
 	
@@ -92,7 +96,7 @@ public class OperationsSmokeH extends B2WTestCase {
 		assertTrue("open Maintain", b2wNav.openMaintain());
 		logCompare(true, b2wMain.openSchedule(), "Open Schedule");
 		logCompare(true, b2wSchd.clickWorkOrdersTab(), "Click Work Orders");
-		logCompare(true, b2wSchd.openWorkOrderFromWorkOrderTabByDescription(sMaintenanceWorkOrderDescription), "Open Work Order Tab by Desc");
+		assertTrue("Open Work Order",b2wSchd.openWorkOrderFromWorkOrderTabByDescription(sMaintenanceWorkOrderDescription));
 		logCompare(true, b2wSchd.scheduleMaintainancePopupSelectWorkLocation(sPlaceDescription), "Work Location "+sPlaceDescription);
 		logCompare(true, b2wSchd.scheduleMaintainancePopupSelectMechanic(sEmployeeFullNameID), "Select Mechanic "+sEmployeeFullNameID);
 		logCompare(true, b2wSchd.scheduleMaintainancePopupSelectEvent("Down for Maintenance"), "Down for maintenance");
@@ -109,17 +113,32 @@ public class OperationsSmokeH extends B2WTestCase {
 		logCompare(true, b2wtimecards.clickAddTimeButton(), "Click Add Time Button");
 		TaskUtils.sleep(1000);
 		logCompare(true, b2wtimecards.selectTypeofHoursEquipment(), "Select Type of Hours Equipment");
-		logCompare(true, b2wtimecards.selectChargeToEquipment(), "Select Charge Equipment");
+		TaskUtils.sleep(1000);
+		//logCompare(true, b2wtimecards.selectChargeToEquipment(), "Select Charge Equipment");
 		logCompare(true, b2wtimecards.setEquipmentHoursDescription(sMaintenanceTimeCardWorkDesc), "Set Description ");
 		logCompare(true, b2wtimecards.setEquipmentUsed(sEquipmentID_Desc), "Set Equipment Used");
 		logCompare(true, b2wtimecards.selectWorkOrder(sMaintenanceWorkOrderDescription), "Select Work Order");
-		logCompare(true, b2wtimecards.selectWorkOrderItem(0), "Select Work Order Item");
-		logCompare(true, b2wtimecards.selectEquipmentRateClass(sLaborRate), "Select Labor Rate");
-		//logCompare(true, b2wtimecards.setRegularMins("5");
-		//b2wtimecards.saveReportHours();
-		//b2wtimecards.selectTimeCardByEmployeeName(sEmployeeFullNameID);
-		//b2wtimecards.clickReportEquipmentHoursButton();
-		
+		logCompare(true, b2wtimecards.selectWorkOrderItem(sMaintenanceWorkOrderItemDescriptionA), "Select Work Order Item");
+	
+		logCompare(true, b2wtimecards.setRegularMins("30"), "Change Oil");
+		logCompare(true, b2wtimecards.selectEquipmentRateClass("Standard"), "Select Labor Rate");
+		b2wtimecards.saveReportHours();
+		b2wtimecards.selectTimeCardByEmployeeName(sEmployeeFullNameID);
+		b2wtimecards.clickReportEquipmentHoursButton();
+		logCompare(true, b2wtimecards.clickAddTimeButton(), "Click Add Time Button");
+		TaskUtils.sleep(1000);
+		logCompare(true, b2wtimecards.selectTypeofHoursEquipment(), "Select Type of Hours Equipment");
+		TaskUtils.sleep(1000);
+		//logCompare(true, b2wtimecards.selectChargeToEquipment(), "Select Charge Equipment");
+		logCompare(true, b2wtimecards.setEquipmentHoursDescription(sMaintenanceTimeCardWorkDesc), "Set Description ");
+		logCompare(true, b2wtimecards.setEquipmentUsed(sEquipmentID_Desc), "Set Equipment Used");
+		logCompare(true, b2wtimecards.selectWorkOrder(sMaintenanceWorkOrderDescription), "Select Work Order");
+		logCompare(true, b2wtimecards.selectWorkOrderItem(sMaintenanceWorkOrderItemDescriptionB), "Select Work Order Item");
+		logCompare(true, b2wtimecards.setRegularHours("1"), "Broken Track 1 hr");
+		logCompare(true, b2wtimecards.setRegularMins("30"), "Broken Track");
+		logCompare(true, b2wtimecards.selectEquipmentRateClass("Standard"), "Select Labor Rate");
+		b2wtimecards.saveReportHours();
+
 	}
 
 }

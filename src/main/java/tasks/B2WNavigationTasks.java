@@ -14,6 +14,7 @@ import appobjects.maintain.B2WMaintain;
 import appobjects.resources.B2WEquipment;
 import appobjects.resources.B2WTMPriceSheets;
 import appobjects.scheduler.B2WScheduleAssignments;
+import tasks.maintain.B2WMaintainTasks;
 import tasks.resources.B2WEquipmentTasks;
 import tasks.scheduler.B2WSchedulerTasks;
 import tasks.setup.B2WSchedulesTasks;
@@ -95,6 +96,7 @@ public class B2WNavigationTasks implements Navigation {
 				}
 				
 			}
+			new B2WMaintainTasks().waitForPageNotBusy(WebElementUtils.MEDIUM_TIME_OUT);
 		}
 		return bReturn;
 	}

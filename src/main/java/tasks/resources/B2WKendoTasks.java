@@ -34,7 +34,7 @@ public abstract class B2WKendoTasks {
 			String hidden = els.getAttribute("aria-hidden");
 			if (hidden != null && hidden.equals("false")) {
 				List<WebElement> items = els.findElements(B2WEquipment.getKendoDropDownItem());
-				WebElement item = WebElementUtils.getElementWithMatchingText(items, sItem, false);
+				WebElement item = WebElementUtils.getElementWithMatchingStartsWithText(items, sItem);
 				if (item != null) {
 					bReturn = WebElementUtils.clickElement(item);
 				}else{

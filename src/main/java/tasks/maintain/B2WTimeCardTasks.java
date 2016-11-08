@@ -136,6 +136,7 @@ public class B2WTimeCardTasks extends B2WKendoTasks {
 		if (el != null){
 			WebElement button = WebElementUtils.getChildElement(el, B2WMaintain.getKendoLargeSaveButton());
 			bReturn = WebElementUtils.clickElement(button);
+			waitForPageNotBusy(WebElementUtils.MEDIUM_TIME_OUT);
 			bReturn &= WebElementUtils.waitForElementInvisible(button);
 		
 		}
