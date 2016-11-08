@@ -317,6 +317,7 @@ public class B2WMaintainScheduleTasks extends B2WKendoTasks {
 	
 	public boolean clickWorkOrdersTab() {
 		boolean bReturn = false;
+		waitForPageNotBusy(WebElementUtils.MEDIUM_TIME_OUT);
 		WebElement el = WebElementUtils.findElement(B2WMaintain.getB2WMaintainSchedulerWorkOrdersTab());
 		WebElement child = WebElementUtils.getChildElement(el, By.cssSelector("span.k-link"));
 		if (el != null){
