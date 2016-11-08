@@ -168,7 +168,7 @@ public class B2WMaintainRequestTasks extends B2WKendoTasks {
 		WebElement el = WebElementUtils.waitForChildElement(parent, B2WMaintain.getKendoLargeSaveButton(),1);
 		if (el != null){
 			bReturn = WebElementUtils.clickElement(el);
-			bReturn &= waitForPageNotBusy();
+			bReturn &= waitForPageNotBusy(WebElementUtils.MEDIUM_TIME_OUT);
 			bReturn &= WebElementUtils.waitAndFindDisplayedElement(B2WMaintain.getB2WMaintainItemActions()) != null;
 		}
 		return bReturn;

@@ -152,7 +152,7 @@ public class OperationsSmokeD extends B2WTestCase {
 	public void createEquipmentCategory(String sCategory){
 		logCompare(true,b2wNav.openCategories(),"Open Categories");
 		b2wCatTasks.selectEquipmentCategory();
-		logCompare(true,b2wCatTasks.clickCreateNewCategory(),"Create New Category Name");
+		assertTrue("Create New Category Name",b2wCatTasks.clickCreateNewCategory());
 		logCompare(true,b2wCatTasks.setCategoryName(sCategory), "Set Category Name");
 		logCompare(true,b2wCatTasks.clickTopSaveButton(), "Save Category");
 		
@@ -162,7 +162,7 @@ public class OperationsSmokeD extends B2WTestCase {
 	public void createEquipmentType(String sName, String sID, boolean bTransport, String sCategory) {
 
 		logCompare(true,b2wNav.openEquipmentTypes(), "Open Equipment Type");
-		logCompare(true,B2WEquipTypes.createNewEquipmentType(), "Create new Equipment");
+		assertTrue("Create New Equipment",B2WEquipTypes.createNewEquipmentType());
 		logCompare(true,B2WEquipTypes.setEquipmentTypeName(sName),"Set Equipment Type Name");
 		logCompare(true,B2WEquipTypes.setEquipmentTypeID(sID),"Set Equipment ID");
 		logCompare(true,B2WEquipTypes.setEquipmentTypeTransportsMaterials(bTransport), "set to transport");

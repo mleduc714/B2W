@@ -651,7 +651,7 @@ public class B2WJobsTasks extends B2WResourceTasks {
 	public boolean clickCreateNewTMWorkItemButton() {
 		boolean bReturn = false;
 		if (WebElementUtils.clickElement(B2WJobs.getB2WJobAddNewTMWorkItemButton())){
-			bReturn = new B2WTMWorkItemTab().waitForPageNotBusy();
+			bReturn = new B2WTMWorkItemTab().waitForPageNotBusy(WebElementUtils.MEDIUM_TIME_OUT);
 		}
 		return bReturn;
 	}

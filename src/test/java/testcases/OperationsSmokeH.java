@@ -1,5 +1,8 @@
 package testcases;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+
 import com.b2w.test.B2WTestCase;
 
 import tasks.B2WNavigationTasks;
@@ -19,6 +22,7 @@ public class OperationsSmokeH extends B2WTestCase {
 	String sEmployeeFirstNameD, sEmployeeLastNameD, sEmployeeIDD, sEmployeeFullNameID;
 	String sPlaceDescription, sPlaceID;
 	String sMaintenanceTimeCardWorkDesc, sEquipmentDescD, sEquipmentIDD, sEquipmentID_Desc, sLaborRate;
+	String sEndDate;
 
 	@Override
 	public String getAuthor() {
@@ -49,7 +53,11 @@ public class OperationsSmokeH extends B2WTestCase {
 		// TODO Auto-generated method stub
 		super.testSetUp();
 		int n = getRandomNumber();
+		SimpleDateFormat format = new SimpleDateFormat("M/d/yyyy");
+		Calendar cal = Calendar.getInstance();
+		cal.add(Calendar.DAY_OF_YEAR, 3);
 		
+		sEndDate = format.format(cal.getTime());
 		
 		sLaborRate = getProperty("laborrateclass") + n;
 
@@ -77,6 +85,10 @@ public class OperationsSmokeH extends B2WTestCase {
 	}
 	
 	public void scheduleToWorkOrder(){
+		//sMaintenanceWorkOrderDescription
+		//sPlaceDescription
+		//sEmployeeFullNameID
+		
 		assertTrue("open Maintain", b2wNav.openMaintain());
 		logCompare(true, b2wMain.openSchedule(), "Open Schedule");
 		logCompare(true, b2wSchd.clickWorkOrdersTab(), "Click Work Orders");
@@ -84,6 +96,7 @@ public class OperationsSmokeH extends B2WTestCase {
 		logCompare(true, b2wSchd.scheduleMaintainancePopupSelectWorkLocation(sPlaceDescription), "Work Location "+sPlaceDescription);
 		logCompare(true, b2wSchd.scheduleMaintainancePopupSelectMechanic(sEmployeeFullNameID), "Select Mechanic "+sEmployeeFullNameID);
 		logCompare(true, b2wSchd.scheduleMaintainancePopupSelectEvent("Down for Maintenance"), "Down for maintenance");
+		logCompare(true, b2wSchd.scheduleMaintainancePopupSelectEndDate(sEndDate), "Set End Date");
 		logCompare(true, b2wSchd.saveScheduleMaintenance(), "Save Schedule Maintenance");
 	}
 	

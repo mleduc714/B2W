@@ -178,7 +178,7 @@ public class B2WTMWorkItemTab extends B2WKendoTasks {
 		boolean bReturn = false;
 		WebElement el = WebElementUtils.findElement(B2WJobs.getB2WJobTMWorkItemSaveButton());
 		bReturn = WebElementUtils.clickElement(el);
-		bReturn &= waitForPageNotBusy();
+		bReturn &= waitForPageNotBusy(WebElementUtils.LONG_TIME_OUT);
 		bReturn &= WebElementUtils.waitForElementInvisible(el);
 		return bReturn;
 	}
