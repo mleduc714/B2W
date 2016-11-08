@@ -70,12 +70,11 @@ public abstract class BaseTestCase extends BaseAssert implements BaseTestCaseInt
     
 	 
 	public static int getRandomNumber() {
-		return 710;
-/*		if (randnumber == 0) {
+		if (randnumber == 0) {
 			Random rand = new Random();
 
 			randnumber = rand.nextInt(10000) + 1;
 		}
 		return randnumber;
-*/	}
+	}
 }

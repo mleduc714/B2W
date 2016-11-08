@@ -37,6 +37,7 @@ public abstract class B2WKendoTasks {
 				WebElement item = WebElementUtils.getElementWithMatchingStartsWithText(items, sItem);
 				if (item != null) {
 					bReturn = WebElementUtils.clickElement(item);
+					bReturn &= WebElementUtils.waitForElementInvisible(item);
 				}else{
 					log.debug("Item with could not be found matching "+sItem);
 				}
