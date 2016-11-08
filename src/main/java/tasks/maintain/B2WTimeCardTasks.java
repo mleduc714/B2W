@@ -72,7 +72,7 @@ public class B2WTimeCardTasks extends B2WKendoTasks {
 		WebElement el = WebElementUtils
 				.waitAndFindDisplayedElement(B2WMaintain.getB2WMaintainTimeCardDialog());
 		if (el != null){
-			WebElement button = WebElementUtils.getChildElement(el, B2WMaintain.getB2WMaintainTimeCardAddTimeButton());
+			WebElement button = WebElementUtils.getChildElement(el, B2WMaintain.getB2WMaintainReportHoursDialog());
 			bReturn = WebElementUtils.clickElement(button);
 			bReturn &= WebElementUtils.waitForElementInvisible(button);
 		
