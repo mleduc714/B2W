@@ -730,7 +730,7 @@ public class B2WUIMap {
 	// "a#PageContent_AddMaterialDialog_AddButton";
 	public static final String b2w_jobsaddmaterialsgridview = "table#PageContent_AddMaterialDialog_GridView";
 	public static final String b2w_jobsaddmaterialgridviewcheckbox = "input[id^='PageContent_AddMaterialDialog_GridView_SelectedCheckBox']";
-
+	public static final String b2w_jobsaddmaterialdialog = "div#PageContent_AddMaterialDialog_DialogPanel";
 	// public static final String b2w_jobsaddsubcontractorssearch =
 	// "PageContent_AddSubcontractorDialog_SearchControl_SearchTextBox";
 	// public static final String b2w_jobsaddsubcontractorsid =
@@ -743,6 +743,7 @@ public class B2WUIMap {
 	// "a#PageContent_AddSubcontractorDialog_AddButton";
 	public static final String b2w_jobsaddsubcontractorsgridview = "table#PageContent_AddSubcontractorDialog_GridView";
 	public static final String b2w_jobsaddsubcontractorgridviewcheckbox = "input[id^='PageContent_AddSubcontractorDialog_GridView_SelectedCheckBox']";
+	public static final String b2w_jobsaddsubcontractordialog = "div#PageContent_AddSubcontractorDialog_DialogPanel";
 
 	// public static final String b2w_jobsaddtrucksubcontractorssearch =
 	// "PageContent_AddTruckingSubcontractorDialog_SearchControl_SearchTextBox";
@@ -756,9 +757,12 @@ public class B2WUIMap {
 	// "a#PageContent_AddTruckingSubcontractorDialog_AddButton";
 	public static final String b2w_jobsaddtrucksubcontractorsgridview = "table#PageContent_AddTruckingSubcontractorDialog_GridView";
 	public static final String b2w_jobsaddtrucksubcontractorgridviewcheckbox = "input[id^='PageContent_AddTruckingSubcontractorDialog_GridView_SelectedCheckBox']";
-
+	public static final String b2w_jobaddtrucksubcontractordialog = "div#PageContent_AddTruckingSubcontractorDialog_DialogPanel";
+	
 	public static final String b2w_jobsaddvendorsgridview = "table#PageContent_AddVendorDialog_GridView";
 	public static final String b2w_jobsaddvendorsgridviewcheckbox = "input[id^='PageContent_AddVendorDialog_GridView_SelectedCheckBox']";
+	public static final String b2w_jobsaddvendordialog = "div#PageContent_AddVendorDialog_DialogPanel";
+	
 
 	public static final String b2w_jobsmaterialgridview = "table#PageContent_JobMaterialGridView";
 	public static final String b2w_jobsvendorsgridview = "table#PageContent_VendorGridView";

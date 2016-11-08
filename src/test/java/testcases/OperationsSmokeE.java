@@ -202,15 +202,15 @@ public class OperationsSmokeE extends B2WTestCase {
 
 	public void testMain() throws Throwable {
 
-		createLaborRateClass(sLaborRate, sLaborRateID, "Hauling");
-		createTrackPart();
-		createMeter();
-		createMaintenanceRequests();
-		createPart(sPartA, sPartIDA, sCategoryA);
-		createPart(sPartB, sPartIDB, sCategoryA);
-		createPart(sPartC, sPartIDC, sCategoryA);
-		createPlace();
-		createOrganizations();
+//		createLaborRateClass(sLaborRate, sLaborRateID, "Hauling");
+//		createTrackPart();
+//		createMeter();
+//		createMaintenanceRequests();
+//		createPart(sPartA, sPartIDA, sCategoryA);
+//		createPart(sPartB, sPartIDB, sCategoryA);
+//		createPart(sPartC, sPartIDC, sCategoryA);
+//		createPlace();
+//		createOrganizations();
 		createPriceSheets();
 
 	}
