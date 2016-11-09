@@ -379,8 +379,8 @@ public class WebElementUtils {
 				} catch (WebDriverException e) {
 					try {
 						log.debug("First click failed - " + e.getMessage());
-						new Actions(BrowserUtils.getDriver()).click(element).perform();
-						bReturn = true;
+						//new Actions(BrowserUtils.getDriver()).click(element).perform();
+						//bReturn = true;
 					} catch (WebDriverException e2) {
 						// Still not clickable, fail
 						log.debug("Retry click failed - Unable to click element " + element.getAttribute("class") + "\n"
