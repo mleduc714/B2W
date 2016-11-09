@@ -376,7 +376,7 @@ public class WebElementUtils {
 		if (waitForElementClickable(element)) {
 			if (!BrowserUtils.isSafari()) {
 				try {
-					element.click();
+					new Actions(BrowserUtils.getDriver()).click(element).perform();
 					bReturn = true;
 				} catch (WebDriverException e) {
 					try {

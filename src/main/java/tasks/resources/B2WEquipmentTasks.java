@@ -358,6 +358,7 @@ public class B2WEquipmentTasks extends B2WKendoTasks {
 	
 	public boolean clickSaveAddPart() {
 		boolean bReturn = false;
+		TaskUtils.sleep(500);
 		WebElement window = getDisplayedWindow();
 		if (window != null){
 			WebElement buttoncontainer = WebElementUtils.getChildElement(window, B2WEquipment.getKendoButtonContainer());
@@ -460,13 +461,14 @@ public class B2WEquipmentTasks extends B2WKendoTasks {
 			WebElement program = WebElementUtils.getChildElement(el, B2WMaintain.getKendoDropDown());
 			WebElementUtils.clickElement(program);
 			bReturn = WebElementUtils.sendKeys(program, sText);
-			el.click();
+			WebElementUtils.clickElement(el);
 		}
 		return bReturn;
 	}
 	
 	public boolean clickAddProgramNextButton(){
 		boolean bReturn = false;
+		TaskUtils.sleep(500);
 		WebElement el = WebElementUtils.findElement(B2WMaintain.getB2WAddProgramDialog());
 		if (el != null){
 			WebElement program = WebElementUtils.getChildElement(el, B2WMaintain.getKendoButtonNext());
@@ -477,6 +479,7 @@ public class B2WEquipmentTasks extends B2WKendoTasks {
 	
 	public boolean clickSaveProgramButton() {
 		boolean bReturn = false;
+		TaskUtils.sleep(500);
 		WebElement el = WebElementUtils.findElement(B2WMaintain.getB2WAddProgramDialog());
 		if (el != null){
 			WebElement program = WebElementUtils.getChildElement(el, B2WMaintain.getKendoAddSaveButton());
@@ -484,12 +487,16 @@ public class B2WEquipmentTasks extends B2WKendoTasks {
 			bReturn &= WebElementUtils.waitForElementInvisible(program);
 			waitForPageNotBusy(WebElementUtils.MEDIUM_TIME_OUT);
 		}
+		TaskUtils.sleep(1000);
 		return bReturn;
 	}
 	public boolean selectAddMeterTypeFromDD(String sText) {
 		boolean bReturn = false;
+		TaskUtils.sleep(500);
 		WebElement dd = getDropDownsFromWindow(getDisplayedWindow(), 0);
-		if (WebElementUtils.clickElement(WebElementUtils.getChildElement(dd, B2WMaintain.getKendoDropDown()))){
+		WebElement child = WebElementUtils.getChildElement(dd, B2WMaintain.getKendoDropDown());
+		if (WebElementUtils.clickElement(child)){
+			TaskUtils.sleep(500);
 			bReturn = selectItemFromDropDown(sText);
 		}
 		
@@ -507,6 +514,7 @@ public class B2WEquipmentTasks extends B2WKendoTasks {
 
 	public boolean clickSaveAddMeter() {
 		boolean bReturn = false;
+		TaskUtils.sleep(500);
 		WebElement window = getDisplayedWindow();
 		if (window != null){
 			WebElement buttoncontainer = WebElementUtils.getChildElement(window, B2WEquipment.getKendoButtonContainer());

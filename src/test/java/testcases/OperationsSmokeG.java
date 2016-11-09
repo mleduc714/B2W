@@ -139,8 +139,8 @@ public class OperationsSmokeG extends B2WTestCase {
 		sCategoryC = "Repair";
 		sCategoryB = "Hour Meter";
 		sCategoryD = "Inspection";
-		sEquipmentIDD = "CATVRLR_02";
-		sEquipmentID_Desc = "CATVRLR_02 [CAT Vibratory Roller]";
+		sEquipmentIDD = "1019";
+		sEquipmentID_Desc = "1019 [TRUCK - OFF ROAD, JCB 718]";
 		sPartA = "Grease";
 		sPartB = "Hose";
 		sPartC = "Oil hose";
@@ -271,5 +271,4 @@ public class OperationsSmokeG extends B2WTestCase {
 		logCompare(true, b2wOrder.clickConfirmYes(), "Confirm Approve");
 	}
 
-	
 }
