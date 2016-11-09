@@ -70,7 +70,7 @@ public abstract class BaseTestCase extends BaseAssert implements BaseTestCaseInt
     
 	 
 	public static int getRandomNumber() {
-		return 7120;
+		return 7122;
 //		if (randnumber == 0) {
 //			Random rand = new Random();
 //
