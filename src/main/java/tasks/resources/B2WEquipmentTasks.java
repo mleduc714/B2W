@@ -342,7 +342,7 @@ public class B2WEquipmentTasks extends B2WKendoTasks {
 		WebElement el = WebElementUtils.getElementWithMatchingText(ls, PARTS, false);
 		if (el != null) {
 			List<WebElement> windows = WebElementUtils.findElements(B2WMaintain.getKendoWindowTitle());
-			WebElement button = getVisibleButton();
+			WebElement button = getButton(2);
 			Coordinates coordinate = ((Locatable) button).getCoordinates();
 			coordinate.onPage();
 			coordinate.inViewPort();
@@ -416,7 +416,7 @@ public class B2WEquipmentTasks extends B2WKendoTasks {
 	public boolean clickAddMeterButton() {
 		boolean bReturn = false;
 
-		WebElement button = getVisibleButton();
+		WebElement button = getButton(1);
 		Coordinates coordinate = ((Locatable) button).getCoordinates();
 		coordinate.onPage();
 		coordinate.inViewPort();
@@ -431,7 +431,7 @@ public class B2WEquipmentTasks extends B2WKendoTasks {
 	
 	public boolean clickAddProgramButton() {
 		boolean bReturn = false;
-		WebElement button = getVisibleButton();
+		WebElement button = getButton(4);
 		Coordinates coordinate = ((Locatable) button).getCoordinates();
 		coordinate.onPage();
 		coordinate.inViewPort();
@@ -655,19 +655,12 @@ public class B2WEquipmentTasks extends B2WKendoTasks {
 		return numerictextboxes.get(iNum);
 	}
 	
-	private WebElement getVisibleButton() {
+	private WebElement getButton(int iButton) {
 
 		WebElement button = null;
 
 		List<WebElement> list = WebElementUtils.findElements(B2WMaintain.getKendoButtonAdd());
-		for (int i = 1; i < list.size(); i++) {
-			WebElement el = list.get(i);
-			if (el.isDisplayed()) {
-				button = el;
-				break;
-			}
-
-		}
+		button = list.get(iButton);
 		return button;
 
 	}
