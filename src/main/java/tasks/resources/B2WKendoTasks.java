@@ -160,10 +160,14 @@ public abstract class B2WKendoTasks {
 		if (isExpanded & !bExpand){
 			log.debug(sText + " is expanded, click to collapse");
 			WebElementUtils.clickElement(el);
+			// temp fix to sleep 1/2 sec 
+			TaskUtils.sleep(500);
 		}
 		if (!isExpanded & bExpand){
 			log.debug(sText + " is collapsed, clicking expanded");
 			WebElementUtils.clickElement(el);
+			// temp fix to sleep 1/2 sec 
+			TaskUtils.sleep(500);
 		}
 		parent = WebElementUtils.getParentElement(el);
 		isExpanded =  new Boolean(parent.getAttribute("aria-expanded")).booleanValue();
