@@ -13,7 +13,6 @@ import tasks.maintain.B2WMaintainTasks;
 import tasks.maintain.B2WTimeCardTasks;
 import tasks.maintain.B2WWorkOrdersTasks;
 import tasks.resources.B2WEquipmentTasks;
-import tasks.util.TaskUtils;
 
 public class OperationsSmokeG extends B2WTestCase {
 
@@ -204,7 +203,6 @@ public class OperationsSmokeG extends B2WTestCase {
 
 	}
 	public void addParts() {
-		assertTrue("open Maintain", b2wNav.openMaintain());
 		assertTrue("Open Equipment",b2wMain.openEquipment());
 		logCompare(true, b2wEquip.selectEquipmentFromViewByID(sEquipmentIDD),"Select: "+sEquipmentIDD+" Equipment");
 		logCompare(true, b2wEquip.expandParts(),"Expand Parts");
@@ -224,7 +222,9 @@ public class OperationsSmokeG extends B2WTestCase {
 		logCompare(true, b2wEquip.setAddMeterEnterNewReadingCheckBox(), "Enter new reading checkbox");
 		logCompare(true, b2wEquip.setAddMeterEnterNewReading("120"),"Enter new reading");
 		logCompare(true, b2wEquip.setAddMeterEnterNewReadingDate(sDateTwoDaysAgo), "Set two days ago");
-		logCompare(true, b2wEquip.clickSaveAddMeter(), "Add the Meter");
+		if (!logCompare(true, b2wEquip.clickSaveAddMeter(), "Add the Meter")){
+			b2wEquip.clickCancelAddMeter();
+		}
 		b2wEquip.collapseMeters();
 		logCompare(true, b2wEquip.expandPrograms(), "Expand Programs");
 		logCompare(true, b2wEquip.clickAddProgramButton(), "Add Programs");

@@ -421,9 +421,13 @@ public class B2WEquipmentTasks extends B2WKendoTasks {
 			// get parent and is it expanded or collapsed
 			WebElement parent = WebElementUtils.getParentElement(el);
 			WebElement button = WebElementUtils.getChildElement(parent, B2WMaintain.getKendoButtonAdd());
-			WebElementUtils.clickElement(button);
-			List<WebElement> windows = WebElementUtils.findElements(B2WMaintain.getKendoWindowTitle());
-			bReturn = WebElementUtils.waitForElementIsDisplayed(windows.get(windows.size()-1), WebElementUtils.SHORT_TIME_OUT);
+			Coordinates coordinate = ((Locatable)button).getCoordinates(); 
+			coordinate.onPage(); 
+			coordinate.inViewPort();
+			if (WebElementUtils.clickElement(button)){
+				List<WebElement> windows = WebElementUtils.findElements(B2WMaintain.getKendoWindowTitle());
+				bReturn = WebElementUtils.waitForElementIsDisplayed(windows.get(windows.size()-1), WebElementUtils.SHORT_TIME_OUT);
+			}
 		}
 		return bReturn;
 	}
@@ -436,8 +440,12 @@ public class B2WEquipmentTasks extends B2WKendoTasks {
 			// get parent and is it expanded or collapsed
 			WebElement parent = WebElementUtils.getParentElement(el);
 			WebElement button = WebElementUtils.getChildElement(parent, B2WMaintain.getKendoButtonAdd());
-			WebElementUtils.clickElement(button);
-			bReturn = WebElementUtils.waitAndFindDisplayedEletment(B2WMaintain.getB2WAddProgramDialog()) != null;
+			Coordinates coordinate = ((Locatable)button).getCoordinates(); 
+			coordinate.onPage(); 
+			coordinate.inViewPort();
+			if (WebElementUtils.clickElement(button)){
+				bReturn = WebElementUtils.waitAndFindDisplayedEletment(B2WMaintain.getB2WAddProgramDialog()) != null;
+			}
 		}
 		return bReturn;
 	}
@@ -506,6 +514,20 @@ public class B2WEquipmentTasks extends B2WKendoTasks {
 		}
 		return bReturn;
 	}
+	
+	public boolean clickCancelAddMeter() {
+		boolean bReturn = false;
+		WebElement window = getDisplayedWindow();
+		if (window != null){
+			WebElement buttoncontainer = WebElementUtils.getChildElement(window, B2WEquipment.getKendoButtonContainer());
+			WebElement savebutton = buttoncontainer.findElement(B2WEquipment.getKendoCancelButton());
+			bReturn = WebElementUtils.clickElement(savebutton);
+			bReturn &= WebElementUtils.waitForElementInvisible(window);
+			waitForPageNotBusy(WebElementUtils.MEDIUM_TIME_OUT);
+		}
+		return bReturn;
+	}
+
 	
 	public boolean selectAddMeterExcludeFromWorkOrdersUseGlobalSetting(){
 		String sText = "Use global Setting";

@@ -177,7 +177,7 @@ public class OperationsSmokeF extends B2WTestCase {
 		createChangeOrder();
 		addMaterials();
 		addSubsAndVendors();
-		addCreateNewTMWorkItem();
+		//addCreateNewTMWorkItem();
 	}
 
 	@Override
