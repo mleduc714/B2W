@@ -213,6 +213,7 @@ public class OperationsSmokeG extends B2WTestCase {
 		logCompare(true, b2wEquip.selectPartToAddToEquipmentByDescription(sPartB), "Add "+sPartB+ " Part");
 		logCompare(true, b2wEquip.selectPartToAddToEquipmentByDescription(sPartC), "Add "+sPartC+ " Part");
 		logCompare(true, b2wEquip.clickSaveAddPart(), "Save Part");
+		b2wEquip.collapseParts();
 		logCompare(true, b2wEquip.expandMeters(), "Expand Meters");
 		logCompare(true, b2wEquip.clickAddMeterButton(), "Click Add Meter");
 		logCompare(true, b2wEquip.selectAddMeterTypeFromDD(sCategoryB), "Select Add "+sCategoryB+" Meter");
@@ -224,6 +225,7 @@ public class OperationsSmokeG extends B2WTestCase {
 		logCompare(true, b2wEquip.setAddMeterEnterNewReading("120"),"Enter new reading");
 		logCompare(true, b2wEquip.setAddMeterEnterNewReadingDate(sDateTwoDaysAgo), "Set two days ago");
 		logCompare(true, b2wEquip.clickSaveAddMeter(), "Add the Meter");
+		b2wEquip.collapseMeters();
 		logCompare(true, b2wEquip.expandPrograms(), "Expand Programs");
 		logCompare(true, b2wEquip.clickAddProgramButton(), "Add Programs");
 		logCompare(true, b2wEquip.setAddProgramText(sMaintenanceProgramDesc), "Select Maintainence Program");
