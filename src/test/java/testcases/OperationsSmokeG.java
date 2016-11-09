@@ -13,6 +13,7 @@ import tasks.maintain.B2WMaintainTasks;
 import tasks.maintain.B2WTimeCardTasks;
 import tasks.maintain.B2WWorkOrdersTasks;
 import tasks.resources.B2WEquipmentTasks;
+import tasks.util.TaskUtils;
 
 public class OperationsSmokeG extends B2WTestCase {
 
@@ -224,6 +225,7 @@ public class OperationsSmokeG extends B2WTestCase {
 		logCompare(true, b2wEquip.setAddMeterEnterNewReadingDate(sDateTwoDaysAgo), "Set two days ago");
 		logCompare(true, b2wEquip.clickSaveAddMeter(), "Add the Meter");
 		logCompare(true, b2wEquip.expandPrograms(), "Expand Programs");
+		TaskUtils.sleep(1000);
 		logCompare(true, b2wEquip.clickAddProgramButton(), "Add Programs");
 		logCompare(true, b2wEquip.setAddProgramText(sMaintenanceProgramDesc), "Select Maintainence Program");
 		logCompare(true, b2wEquip.clickAddProgramNextButton(), "Click Next");
