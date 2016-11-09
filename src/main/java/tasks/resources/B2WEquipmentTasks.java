@@ -437,8 +437,6 @@ public class B2WEquipmentTasks extends B2WKendoTasks {
 			WebElement parent = WebElementUtils.getParentElement(el);
 			WebElement button = WebElementUtils.getChildElement(parent, B2WMaintain.getKendoButtonAdd());
 			WebElementUtils.clickElement(button);
-			//List<WebElement> windows = WebElementUtils.findElements(B2WMaintain.getKendoWindowTitle());
-			//WebElementUtils.getAllInfo(windows.get(0));
 			bReturn = WebElementUtils.waitAndFindDisplayedEletment(B2WMaintain.getB2WAddProgramDialog()) != null;
 		}
 		return bReturn;
