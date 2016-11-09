@@ -225,7 +225,7 @@ public class OperationsSmokeG extends B2WTestCase {
 		if (!logCompare(true, b2wEquip.clickSaveAddMeter(), "Add the Meter")){
 			b2wEquip.clickCancelAddMeter();
 		}
-		b2wEquip.collapseMeters();
+		logCompare(true, b2wEquip.collapseMeters(), "Collapse Meters");
 		logCompare(true, b2wEquip.expandPrograms(), "Expand Programs");
 		logCompare(true, b2wEquip.clickAddProgramButton(), "Add Programs");
 		logCompare(true, b2wEquip.setAddProgramText(sMaintenanceProgramDesc), "Select Maintainence Program");

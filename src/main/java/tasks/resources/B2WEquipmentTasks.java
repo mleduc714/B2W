@@ -14,6 +14,7 @@ import appobjects.maintain.B2WMaintain;
 import appobjects.resources.B2WEquipment;
 import appobjects.resources.KendoUI;
 import tasks.WebElementUtils;
+import tasks.util.TaskUtils;
 
 public class B2WEquipmentTasks extends B2WKendoTasks {
 	
@@ -424,6 +425,7 @@ public class B2WEquipmentTasks extends B2WKendoTasks {
 			Coordinates coordinate = ((Locatable)button).getCoordinates(); 
 			coordinate.onPage(); 
 			coordinate.inViewPort();
+			TaskUtils.sleep(500);
 			if (WebElementUtils.clickElement(button)){
 				List<WebElement> windows = WebElementUtils.findElements(B2WMaintain.getKendoWindowTitle());
 				bReturn = WebElementUtils.waitForElementIsDisplayed(windows.get(windows.size()-1), WebElementUtils.SHORT_TIME_OUT);
@@ -443,6 +445,7 @@ public class B2WEquipmentTasks extends B2WKendoTasks {
 			Coordinates coordinate = ((Locatable)button).getCoordinates(); 
 			coordinate.onPage(); 
 			coordinate.inViewPort();
+			TaskUtils.sleep(500);
 			if (WebElementUtils.clickElement(button)){
 				bReturn = WebElementUtils.waitAndFindDisplayedEletment(B2WMaintain.getB2WAddProgramDialog()) != null;
 			}
@@ -610,6 +613,7 @@ public class B2WEquipmentTasks extends B2WKendoTasks {
 		Coordinates coordinate = ((Locatable)inputs.get(0)).getCoordinates(); 
 		coordinate.onPage(); 
 		coordinate.inViewPort();
+		TaskUtils.sleep(500);
 		bReturn = WebElementUtils.clickElement(inputs.get(0));
 		bReturn &= WebElementUtils.sendKeys(inputs.get(1), sReading);
 
@@ -623,6 +627,7 @@ public class B2WEquipmentTasks extends B2WKendoTasks {
 			Coordinates coordinate = ((Locatable)date).getCoordinates(); 
 			coordinate.onPage(); 
 			coordinate.inViewPort();
+			TaskUtils.sleep(500);
 			WebElement input = date.findElement(B2WMaintain.getKendoDropDown());
 			WebElementUtils.clickElement(input);
 			bReturn = WebElementUtils.sendKeys(input,sDate);
