@@ -9,6 +9,8 @@ import java.util.Random;
 import java.util.regex.Pattern;
 
 import appobjects.resources.KendoUI;
+import tasks.util.TaskUtils;
+
 import org.apache.log4j.Logger;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
@@ -374,13 +376,15 @@ public class WebElementUtils {
 		if (waitForElementClickable(element)) {
 			if (!BrowserUtils.isSafari()) {
 				try {
-					element.click();
+					new Actions(BrowserUtils.getDriver()).click(element).perform();
 					bReturn = true;
 				} catch (WebDriverException e) {
 					try {
 						log.debug("First click failed - " + e.getMessage());
-						new Actions(BrowserUtils.getDriver()).click(element).perform();
-						bReturn = true;
+						TaskUtils.sleep(500);
+						getAllInfo(element);
+						//new Actions(BrowserUtils.getDriver()).click(element).perform();
+						//bReturn = true;
 					} catch (WebDriverException e2) {
 						// Still not clickable, fail
 						log.debug("Retry click failed - Unable to click element " + element.getAttribute("class") + "\n"
@@ -801,7 +805,7 @@ public class WebElementUtils {
 		Object aa = executor.executeScript(
 				"var items = {}; for (index = 0; index < arguments[0].attributes.length; ++index) { items[arguments[0].attributes[index].name] = arguments[0].attributes[index].value }; return items;",
 				el);
-		System.out.println(aa.toString());
+		log.debug(aa.toString());
 	}
 
 	public static WebElement getParentElement(WebElement el) {

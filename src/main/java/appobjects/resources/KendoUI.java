@@ -84,6 +84,9 @@ public abstract class KendoUI {
 	public static By getKendoLargeSaveButton() {
 		return By.cssSelector(B2WUIMap.b2w_kendolargesavebutton);
 	}
+	public static By getKendoCancelButton() {
+		return By.cssSelector(B2WUIMap.b2w_kendocancelbutton);
+	}
 	public static By getKendoApproveButton() {
 		return By.cssSelector(B2WUIMap.b2w_kendoapprovebutton);
 	}

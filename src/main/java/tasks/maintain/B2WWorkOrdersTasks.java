@@ -68,7 +68,10 @@ public class B2WWorkOrdersTasks extends B2WKendoTasks {
 		WebElement equipment = pageElement.get(iEquipment);
 		if (equipment != null){
 			WebElement el = WebElementUtils.getChildElement(equipment, B2WMaintain.getKendoDropDown());
-			bReturn = sendTextAndSelectValueFromKendoFDD(el, sText);
+			if (el != null){
+				sendTextAndSelectValueFromKendoFDD(el, sText);
+				bReturn = true;
+			}
 		}
 		
 		return bReturn;

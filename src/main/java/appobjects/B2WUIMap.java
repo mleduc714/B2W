@@ -480,6 +480,7 @@ public class B2WUIMap {
 	public static final String b2w_kendolistofitems = ".k-reset";
 	public static final String b2w_kendofooter = ".edit-form-footer";
 	public static final String b2w_kendolargesavebutton = ".btn-form.large.save";
+	public static final String b2w_kendocancelbutton = ".btn-form.cancel";
 	public static final String b2w_kendolargeaddsavebutton = ".btn-form.large.add-save.save";
 	public static final String b2w_kendofilterbydd = "div.k-multiselect-wrap.k-floatwrap";
 	public static final String b2w_kendogridcontent = "div.k-grid-content";

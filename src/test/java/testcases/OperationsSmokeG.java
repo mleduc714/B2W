@@ -139,8 +139,8 @@ public class OperationsSmokeG extends B2WTestCase {
 		sCategoryC = "Repair";
 		sCategoryB = "Hour Meter";
 		sCategoryD = "Inspection";
-		sEquipmentIDD = "CATVRLR_02";
-		sEquipmentID_Desc = "CATVRLR_02 [CAT Vibratory Roller]";
+		sEquipmentIDD = "1019";
+		sEquipmentID_Desc = "1019 [TRUCK - OFF ROAD, JCB 718]";
 		sPartA = "Grease";
 		sPartB = "Hose";
 		sPartC = "Oil hose";
@@ -203,7 +203,6 @@ public class OperationsSmokeG extends B2WTestCase {
 
 	}
 	public void addParts() {
-		assertTrue("open Maintain", b2wNav.openMaintain());
 		assertTrue("Open Equipment",b2wMain.openEquipment());
 		logCompare(true, b2wEquip.selectEquipmentFromViewByID(sEquipmentIDD),"Select: "+sEquipmentIDD+" Equipment");
 		logCompare(true, b2wEquip.expandParts(),"Expand Parts");
@@ -212,6 +211,7 @@ public class OperationsSmokeG extends B2WTestCase {
 		logCompare(true, b2wEquip.selectPartToAddToEquipmentByDescription(sPartB), "Add "+sPartB+ " Part");
 		logCompare(true, b2wEquip.selectPartToAddToEquipmentByDescription(sPartC), "Add "+sPartC+ " Part");
 		logCompare(true, b2wEquip.clickSaveAddPart(), "Save Part");
+		b2wEquip.collapseParts();
 		logCompare(true, b2wEquip.expandMeters(), "Expand Meters");
 		logCompare(true, b2wEquip.clickAddMeterButton(), "Click Add Meter");
 		logCompare(true, b2wEquip.selectAddMeterTypeFromDD(sCategoryB), "Select Add "+sCategoryB+" Meter");
@@ -222,7 +222,10 @@ public class OperationsSmokeG extends B2WTestCase {
 		logCompare(true, b2wEquip.setAddMeterEnterNewReadingCheckBox(), "Enter new reading checkbox");
 		logCompare(true, b2wEquip.setAddMeterEnterNewReading("120"),"Enter new reading");
 		logCompare(true, b2wEquip.setAddMeterEnterNewReadingDate(sDateTwoDaysAgo), "Set two days ago");
-		logCompare(true, b2wEquip.clickSaveAddMeter(), "Add the Meter");
+		if (!logCompare(true, b2wEquip.clickSaveAddMeter(), "Add the Meter")){
+			b2wEquip.clickCancelAddMeter();
+		}
+		logCompare(true, b2wEquip.collapseMeters(), "Collapse Meters");
 		logCompare(true, b2wEquip.expandPrograms(), "Expand Programs");
 		logCompare(true, b2wEquip.clickAddProgramButton(), "Add Programs");
 		logCompare(true, b2wEquip.setAddProgramText(sMaintenanceProgramDesc), "Select Maintainence Program");
@@ -268,5 +271,4 @@ public class OperationsSmokeG extends B2WTestCase {
 		logCompare(true, b2wOrder.clickConfirmYes(), "Confirm Approve");
 	}
 
-	
 }
