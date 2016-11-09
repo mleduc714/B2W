@@ -54,7 +54,7 @@ public class OperationsSmokeH extends B2WTestCase {
 	public void testSetUp() throws Throwable {
 		// TODO Auto-generated method stub
 		super.testSetUp();
-		int n = 7389;
+		int n = 3426;
 		SimpleDateFormat format = new SimpleDateFormat("M/d/yyyy");
 		Calendar cal = Calendar.getInstance();
 		cal.add(Calendar.DAY_OF_YEAR, 3);
@@ -81,6 +81,13 @@ public class OperationsSmokeH extends B2WTestCase {
 		sPlaceDescription = getProperty("placeD") + n;
 		sPlaceID = getProperty("placeIDD") + n;
 		sMaintenanceTimeCardWorkDesc = getProperty("sMaintenanceTimeCardWorkDesc");
+		
+		
+		sMaintenanceWorkOrderDescription = "Engine Service3426 [1037]";
+		sEmployeeFullNameID = "Benson Sherwood [ID703710]";
+		sPlaceDescription = "Asphalt Plant6226";
+		sEquipmentID_Desc = "1016 [ROLLER, VIB CLIP ON]";
+		
 	}
 	public void testMain() throws Throwable {
 
@@ -105,7 +112,7 @@ public class OperationsSmokeH extends B2WTestCase {
 	}
 	
 	public void createTimeCard() {
-		logCompare(true, b2wNav.openMaintain(), "Open Maintain");
+		assertTrue("open Maintain", b2wNav.openMaintain());
 		logCompare(true, b2wMain.openTimeCards(), "Open Time Cards");
 		logCompare(true, b2wtimecards.clickCreateNewTimeCard(), "Create new Time Card");
 		logCompare(true, b2wtimecards.selectEmployee(sEmployeeFullNameID), "Select Employee");
@@ -123,6 +130,7 @@ public class OperationsSmokeH extends B2WTestCase {
 		logCompare(true, b2wtimecards.setRegularMins("30"), "Change Oil");
 		logCompare(true, b2wtimecards.selectEquipmentRateClass("Standard"), "Select Labor Rate");
 		b2wtimecards.saveReportHours();
+		TaskUtils.sleep(500);
 		b2wtimecards.selectTimeCardByEmployeeName(sEmployeeFullNameID);
 		b2wtimecards.clickReportEquipmentHoursButton();
 		logCompare(true, b2wtimecards.clickAddTimeButton(), "Click Add Time Button");
