@@ -9,6 +9,8 @@ import java.util.Random;
 import java.util.regex.Pattern;
 
 import appobjects.resources.KendoUI;
+import tasks.util.TaskUtils;
+
 import org.apache.log4j.Logger;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
@@ -379,6 +381,8 @@ public class WebElementUtils {
 				} catch (WebDriverException e) {
 					try {
 						log.debug("First click failed - " + e.getMessage());
+						TaskUtils.sleep(500);
+						element.click();
 						//new Actions(BrowserUtils.getDriver()).click(element).perform();
 						//bReturn = true;
 					} catch (WebDriverException e2) {
