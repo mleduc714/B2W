@@ -382,8 +382,7 @@ public class WebElementUtils {
 					try {
 						log.debug("First click failed - " + e.getMessage());
 						TaskUtils.sleep(500);
-						element.click();
-						bReturn = true;
+						getAllInfo(element);
 						//new Actions(BrowserUtils.getDriver()).click(element).perform();
 						//bReturn = true;
 					} catch (WebDriverException e2) {
@@ -806,7 +805,7 @@ public class WebElementUtils {
 		Object aa = executor.executeScript(
 				"var items = {}; for (index = 0; index < arguments[0].attributes.length; ++index) { items[arguments[0].attributes[index].name] = arguments[0].attributes[index].value }; return items;",
 				el);
-		System.out.println(aa.toString());
+		log.debug(aa.toString());
 	}
 
 	public static WebElement getParentElement(WebElement el) {
