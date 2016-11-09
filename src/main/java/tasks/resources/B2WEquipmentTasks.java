@@ -342,13 +342,11 @@ public class B2WEquipmentTasks extends B2WKendoTasks {
 		WebElement el = WebElementUtils.getElementWithMatchingText(ls, PARTS, false);
 		if (el != null) {
 			List<WebElement> windows = WebElementUtils.findElements(B2WMaintain.getKendoWindowTitle());
-			// get parent and is it expanded or collapsed
-			WebElement parent = WebElementUtils.getParentElement(el);
-			WebElement button = WebElementUtils.getChildElement(parent, B2WMaintain.getKendoButtonAdd());
-			Coordinates coordinate = ((Locatable)button).getCoordinates(); 
-			coordinate.onPage(); 
+			WebElement button = getVisibleButton();
+			Coordinates coordinate = ((Locatable) button).getCoordinates();
+			coordinate.onPage();
 			coordinate.inViewPort();
-			if (WebElementUtils.clickElement(button)){
+			if (WebElementUtils.clickElement(button)) {
 				bReturn = WebElementUtils.waitForElementIsDisplayed(windows.get(1), WebElementUtils.SHORT_TIME_OUT);
 				bReturn &= waitForPageNotBusy(WebElementUtils.MEDIUM_TIME_OUT);
 			}
@@ -417,40 +415,31 @@ public class B2WEquipmentTasks extends B2WKendoTasks {
 	
 	public boolean clickAddMeterButton() {
 		boolean bReturn = false;
-		List<WebElement> ls = WebElementUtils.findElements(B2WEquipment.getKendoHeadersFromView());
-		WebElement el = WebElementUtils.getElementWithMatchingText(ls, METERS, false);
-		if (el != null) {
-			// get parent and is it expanded or collapsed
-			WebElement parent = WebElementUtils.getParentElement(el);
-			WebElement button = WebElementUtils.getChildElement(parent, B2WMaintain.getKendoButtonAdd());
-			Coordinates coordinate = ((Locatable)button).getCoordinates(); 
-			coordinate.onPage(); 
-			coordinate.inViewPort();
-			TaskUtils.sleep(500);
-			if (WebElementUtils.clickElement(button)){
-				List<WebElement> windows = WebElementUtils.findElements(B2WMaintain.getKendoWindowTitle());
-				bReturn = WebElementUtils.waitForElementIsDisplayed(windows.get(windows.size()-1), WebElementUtils.SHORT_TIME_OUT);
-			}
+
+		WebElement button = getVisibleButton();
+		Coordinates coordinate = ((Locatable) button).getCoordinates();
+		coordinate.onPage();
+		coordinate.inViewPort();
+		if (WebElementUtils.clickElement(button)) {
+			List<WebElement> windows = WebElementUtils.findElements(B2WMaintain.getKendoWindowTitle());
+			bReturn = WebElementUtils.waitForElementIsDisplayed(windows.get(windows.size() - 1),
+					WebElementUtils.SHORT_TIME_OUT);
 		}
+
 		return bReturn;
 	}
 	
 	public boolean clickAddProgramButton() {
 		boolean bReturn = false;
-		List<WebElement> ls = WebElementUtils.findElements(B2WEquipment.getKendoHeadersFromView());
-		WebElement el = WebElementUtils.getElementWithMatchingText(ls, PROGRAMS, false);
-		if (el != null) {
-			// get parent and is it expanded or collapsed
-			WebElement parent = WebElementUtils.getParentElement(el);
-			WebElement button = WebElementUtils.getChildElement(parent, B2WMaintain.getKendoButtonAdd());
-			Coordinates coordinate = ((Locatable)button).getCoordinates(); 
-			coordinate.onPage(); 
-			coordinate.inViewPort();
-			TaskUtils.sleep(500);
-			if (WebElementUtils.clickElement(button)){
-				bReturn = WebElementUtils.waitAndFindDisplayedEletment(B2WMaintain.getB2WAddProgramDialog()) != null;
-			}
+		WebElement button = getVisibleButton();
+		Coordinates coordinate = ((Locatable) button).getCoordinates();
+		coordinate.onPage();
+		coordinate.inViewPort();
+
+		if (WebElementUtils.clickElement(button)) {
+			bReturn = WebElementUtils.waitAndFindDisplayedEletment(B2WMaintain.getB2WAddProgramDialog()) != null;
 		}
+
 		return bReturn;
 	}
 	
@@ -666,5 +655,21 @@ public class B2WEquipmentTasks extends B2WKendoTasks {
 		return numerictextboxes.get(iNum);
 	}
 	
+	private WebElement getVisibleButton() {
+
+		WebElement button = null;
+
+		List<WebElement> list = WebElementUtils.findElements(B2WMaintain.getKendoButtonAdd());
+		for (int i = 1; i < list.size(); i++) {
+			WebElement el = list.get(i);
+			if (el.isDisplayed()) {
+				button = el;
+				break;
+			}
+
+		}
+		return button;
+
+	}
 	
 }
