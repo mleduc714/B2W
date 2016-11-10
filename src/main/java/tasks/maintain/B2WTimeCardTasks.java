@@ -20,7 +20,7 @@ public class B2WTimeCardTasks extends B2WKendoTasks {
 		WebElement el = WebElementUtils.waitAndFindDisplayedElement(B2WMaintain.getB2WMaintainNewTimeCardButton());
 		if (el != null){
 			bReturn = WebElementUtils.clickElement(el);
-			bReturn = WebElementUtils.waitAndFindDisplayedElement(B2WMaintain.getB2WMaintainReportHoursDialog()) != null;
+			bReturn = WebElementUtils.waitAndFindDisplayedElement(B2WMaintain.getB2WMaintainTimeCardDialog()) != null;
 		}
 		return bReturn;
 	}
@@ -72,9 +72,11 @@ public class B2WTimeCardTasks extends B2WKendoTasks {
 		WebElement el = WebElementUtils
 				.waitAndFindDisplayedElement(B2WMaintain.getB2WMaintainTimeCardDialog());
 		if (el != null){
-			WebElement button = WebElementUtils.getChildElement(el, B2WMaintain.getB2WMaintainTimeCardAddTimeButton());
-			bReturn = WebElementUtils.clickElement(button);
-			bReturn &= WebElementUtils.waitForElementInvisible(button);
+			WebElement button = WebElementUtils.getChildElement(el, B2WMaintain.getB2WMaintainReportHoursDialog());
+			if (button != null){
+				bReturn = WebElementUtils.clickElement(button);
+				bReturn &= WebElementUtils.waitForElementInvisible(button);
+			}
 		
 		}
 		return bReturn;
@@ -136,6 +138,7 @@ public class B2WTimeCardTasks extends B2WKendoTasks {
 		if (el != null){
 			WebElement button = WebElementUtils.getChildElement(el, B2WMaintain.getKendoLargeSaveButton());
 			bReturn = WebElementUtils.clickElement(button);
+			waitForPageNotBusy(WebElementUtils.MEDIUM_TIME_OUT);
 			bReturn &= WebElementUtils.waitForElementInvisible(button);
 		
 		}
@@ -202,6 +205,17 @@ public class B2WTimeCardTasks extends B2WKendoTasks {
 		}
 		return bReturn;
 	}
+	public boolean selectWorkOrderItem(int i) {
+		boolean bReturn = false;
+		WebElement el = getWebElementFromReportHoursByEquipment(2);
+		if (el != null){
+			WebElementUtils.clickElement(el);
+			bReturn = selectItemFromDropDown(i);
+		}
+		return bReturn;
+	}
+	
+	
 	public boolean selectEquipmentRateClass(String sText) {
 		boolean bReturn = false;
 		WebElement el = getWebElementFromReportHoursByEquipment(3);

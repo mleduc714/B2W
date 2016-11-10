@@ -9,6 +9,8 @@ import java.util.Random;
 import java.util.regex.Pattern;
 
 import appobjects.resources.KendoUI;
+import tasks.util.TaskUtils;
+
 import org.apache.log4j.Logger;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
@@ -379,6 +381,8 @@ public class WebElementUtils {
 				} catch (WebDriverException e) {
 					try {
 						log.debug("First click failed - " + e.getMessage());
+						TaskUtils.sleep(500);
+						getAllInfo(element);
 						new Actions(BrowserUtils.getDriver()).click(element).perform();
 						bReturn = true;
 					} catch (WebDriverException e2) {
@@ -632,6 +636,16 @@ public class WebElementUtils {
 		return bReturn;
 	}
 
+	public static boolean isCheckboxChecked(WebElement el) {
+		boolean bReturn = false;
+		try{
+			bReturn = new Boolean(el.getAttribute("checked"));
+		}catch (StaleElementReferenceException e){
+			log.warn("Caught stale element exception in checking box");
+		}
+		return bReturn;
+	}
+
 	public static Alert waitForAndGetAlertDialog(int timeOut) {
 		Alert ret = null;
 		try {
@@ -791,7 +805,7 @@ public class WebElementUtils {
 		Object aa = executor.executeScript(
 				"var items = {}; for (index = 0; index < arguments[0].attributes.length; ++index) { items[arguments[0].attributes[index].name] = arguments[0].attributes[index].value }; return items;",
 				el);
-		System.out.println(aa.toString());
+		log.debug(aa.toString());
 	}
 
 	public static WebElement getParentElement(WebElement el) {

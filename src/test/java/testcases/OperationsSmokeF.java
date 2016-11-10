@@ -7,7 +7,6 @@ import tasks.jobs.B2WAddToJobs;
 import tasks.jobs.B2WJobsTasks;
 import tasks.jobs.B2WTMWorkItemTab;
 import tasks.setup.B2WUserTasks;
-import tasks.util.TaskUtils;
 
 public class OperationsSmokeF extends B2WTestCase {
 
@@ -178,20 +177,13 @@ public class OperationsSmokeF extends B2WTestCase {
 		createChangeOrder();
 		addMaterials();
 		addSubsAndVendors();
-		addCreateNewTMWorkItem();
+		//addCreateNewTMWorkItem();
 	}
 
 	@Override
 	public void testTearDown() throws Throwable {
 		// TODO Auto-generated method stub
 		super.testTearDown();
-	}
-	
-	public void testOpen() {
-		logCompare(true,b2wNT.openJobs(),"Open Jobs");
-		logCompare(true,b2wJobs.enterInfoAndSearchForResource("2007-0009"), "OPen Job");
-		logCompare(true, b2wJobs.openJobByJobNumber("2007-0009"), "Open job");
-		TaskUtils.sleep(5000);
 	}
 	
 	public void createJob() {
@@ -237,7 +229,6 @@ public class OperationsSmokeF extends B2WTestCase {
 		logCompare(true,b2wJobs.setJobProductionAccountTrackingIDText(sNewJobProductionAccountTrackID), "Set Account tracking ID");
 		logCompare(true,b2wJobs.setJobProductionAccountDescriptionText(sNewJobProductionAccountDescription), "Job Production Desc");
 		logCompare(true,b2wJobs.selectJobProductionAccountIDFromDD(sProductionAccountID + " - "+ sProductionAccountDesc), "Select Production Account ID");
-		//b2wJobs.selectJobProductionAccountID();
 		assertTrue("Save Account",b2wJobs.clickTopSaveButton());
 		
 	}
@@ -248,7 +239,6 @@ public class OperationsSmokeF extends B2WTestCase {
 		logCompare(true,b2wJobs.setJobOverheadDescription(sNewJobOverheadAccountDescription), "Overhead acocunt description");
 		logCompare(true,b2wJobs.setJobOverheadTrackingID(sNewJobOverheadAccountTrackID), "Overhead account tracking id");
 		logCompare(true,b2wJobs.selectJobOverheadAccountIDFromDD(sOverheadAccountID + " - "+ sOverheadAccountDesc), "Select Account ID");
-		//b2wJobs.selectJobOverheadAccountID();
 		assertTrue("Create New Job Overhead", b2wJobs.clickTopSaveButton());
 		
 	}
@@ -260,10 +250,8 @@ public class OperationsSmokeF extends B2WTestCase {
 		logCompare(true,b2wJobs.clickAddMaterialsButton(),"Click add materials button");
 		B2WAddToJobs b2wJobsAdd = new B2WAddToJobs(B2WJobsTasks.JOBSDIALOG.ADDMATERIALS);
 		logCompare(true,b2wJobsAdd.setSearchText(sMaterialsDescriptionD), "Search for Material");
-		//logCompare(true,b2wJobsAdd.setSearchText("Asphalt Base E190"), "Search for Material");
 		logCompare(true,b2wJobsAdd.clickSearchButton(),"Click Search");
 		logCompare(true,b2wJobsAdd.setIDText(sMaterialsIDD),"Set ID");
-		//logCompare(true,b2wJobsAdd.setIDText("Asp-1906694"),"Set ID");
 		if (logCompare(true,b2wJobsAdd.clickSelectButton(), "Select button")){
 			b2wJobsAdd.clickAddButton();
 		}else{
@@ -278,10 +266,8 @@ public class OperationsSmokeF extends B2WTestCase {
 		logCompare(true,b2wJobs.clickAddSubcontractorsButton(), "Add Subcontractors button");
 		B2WAddToJobs b2wJobsAdd = new B2WAddToJobs(B2WJobsTasks.JOBSDIALOG.ADDSUBCONTRACTORS);
 		logCompare(true,b2wJobsAdd.setSearchText(sOrganizationCompanyNameA), "Select Organization");
-		//logCompare(true,b2wJobsAdd.setSearchText("AutomationSubContractor"), "Select Organization");
 		logCompare(true,b2wJobsAdd.clickSearchButton(), "Click Search Button");
 		logCompare(true,b2wJobsAdd.setIDText(sOrganizationCompanyIDA), "Set ID");
-		//logCompare(true,b2wJobsAdd.setIDText("autosub1388"), "Set ID");
 		if (logCompare(true,b2wJobsAdd.clickSelectButton(), "Select button")){
 			b2wJobsAdd.clickAddButton();
 		}else{
@@ -290,10 +276,8 @@ public class OperationsSmokeF extends B2WTestCase {
 		logCompare(true,b2wJobs.clickAddTruckingSubcontractorsButton(), "Click Truck Subs");
 		b2wJobsAdd = new B2WAddToJobs(B2WJobsTasks.JOBSDIALOG.ADDTRUCKINGSUBCONTRACTORS);
 		logCompare(true,b2wJobsAdd.setSearchText(sOrganizationCompanyNameB), "Select Organization");
-		//logCompare(true,b2wJobsAdd.setSearchText("AutomationTruckingSubContractor"), "Select Organization");
 		logCompare(true,b2wJobsAdd.clickSearchButton(), "Click Search Button");
 		logCompare(true,b2wJobsAdd.setIDText(sOrganizationCompanyIDB), "Set ID");
-
 		if (logCompare(true,b2wJobsAdd.clickSelectButton(), "Select button")){
 			b2wJobsAdd.clickAddButton();
 		}else{
@@ -348,8 +332,6 @@ public class OperationsSmokeF extends B2WTestCase {
 		logCompare(true,b2wJobs.setChangeOrdersID(sChangeOrdersID),"Fill Change Order ID");
 		logCompare(true,b2wJobs.setChangeOrdersAlternateID(sChangeOrdersAlternateID),"Fill Alternate ID");
 		logCompare(true,b2wJobs.setChangeOrdersDescription(sChangeOrdersDescription),"Fill Description");
-		//logCompare(true,b2wJobs.setChangeOrdersType(sChangeOrdersType),"Fill Change Order Type");
-		//logCompare(true,b2wJobs.setChangeOrdersStatus(sChangeOrdersStatus),"Fill Status");
 		logCompare(true,b2wJobs.setChangeOrdersEstimatedQuantity(sChangeOrdersEstimatedQuantity),"Fill Estimated Quantity");
 		logCompare(true,b2wJobs.setChangeOrdersUnitOfMeasure(sChangeOrdersUnitOfMeasure),"Fill Unit of Measure");
 		logCompare(true,b2wJobs.clickBottomSaveButton(),"Save Button Clicked");

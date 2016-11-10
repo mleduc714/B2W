@@ -211,7 +211,7 @@ public class OperationsSmokeE extends B2WTestCase {
 		createPart(sPartC, sPartIDC, sCategoryA);
 		createPlace();
 		createOrganizations();
-		createPriceSheets();
+		//createPriceSheets();
 
 	}
 
@@ -236,9 +236,6 @@ public class OperationsSmokeE extends B2WTestCase {
 	public void createMeter() {
 		logCompare(true, b2wNav.openCategories(), "Open Categories");
 		b2wCatTasks.selectMeterCategory();
-		// logCompare(true, b2wCatTasks.enterTextAndClickSearch(sCategoryB),
-		// "Search for Category");
-		// if (!b2wCatTasks.isCategoryInListing(sCategoryB)) {
 		logCompare("Meter Category", b2wCatTasks.getSelectedCategoryFromDropDown(),"Meter category is selected");
 		assertTrue("Create new category",b2wCatTasks.clickCreateNewCategory());
 		logCompare(true, b2wCatTasks.setCategoryName(sCategoryB), "Set Category Name");

@@ -7,7 +7,6 @@ import org.junit.runner.RunWith;
 
 import com.b2w.logging.B2WRunConfig;
 
-import tasks.B2WNavigationTasks;
 import tasks.BrowserUtils;
 import tasks.util.TaskUtils;
 
@@ -50,10 +49,11 @@ public class B2WTestCase extends BaseTestCase {
 
 	public void testTearDown() throws Throwable {
 		// TODO Auto-generated method stub
-//		B2WNavigationTasks b2wNav = new B2WNavigationTasks();
-//		if (!b2wNav.clickHome()){
-//			TaskUtils.dismissAlert();
-//		}
+		if (TaskUtils.getAlertDialog() != null){
+			TaskUtils.logScreenCapture();
+			TaskUtils.dismissAlert();
+		}
+		
 	}
 
 	public String getCategory() {
