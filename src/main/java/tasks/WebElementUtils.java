@@ -376,15 +376,15 @@ public class WebElementUtils {
 		if (waitForElementClickable(element)) {
 			if (!BrowserUtils.isSafari()) {
 				try {
-					new Actions(BrowserUtils.getDriver()).click(element).perform();
+					element.click();
 					bReturn = true;
 				} catch (WebDriverException e) {
 					try {
 						log.debug("First click failed - " + e.getMessage());
 						TaskUtils.sleep(500);
 						getAllInfo(element);
-						//new Actions(BrowserUtils.getDriver()).click(element).perform();
-						//bReturn = true;
+						new Actions(BrowserUtils.getDriver()).click(element).perform();
+						bReturn = true;
 					} catch (WebDriverException e2) {
 						// Still not clickable, fail
 						log.debug("Retry click failed - Unable to click element " + element.getAttribute("class") + "\n"
