@@ -6,9 +6,11 @@ import java.util.Calendar;
 import com.b2w.test.B2WTestCase;
 
 import tasks.B2WNavigationTasks;
+import tasks.dialogs.B2WReportHours;
 import tasks.maintain.B2WMaintainScheduleTasks;
 import tasks.maintain.B2WMaintainTasks;
 import tasks.maintain.B2WTimeCardTasks;
+import tasks.maintain.B2WWorkOrdersTasks;
 import tasks.util.TaskUtils;
 
 public class OperationsSmokeH extends B2WTestCase {
@@ -17,6 +19,8 @@ public class OperationsSmokeH extends B2WTestCase {
 	B2WMaintainTasks b2wMain = new B2WMaintainTasks();
 	B2WMaintainScheduleTasks b2wSchd = new B2WMaintainScheduleTasks();
 	B2WTimeCardTasks b2wtimecards = new B2WTimeCardTasks();
+	B2WWorkOrdersTasks b2wOrder = new B2WWorkOrdersTasks();
+	B2WReportHours b2wReport = new B2WReportHours();
 	
 	String sMaintenanceWorkOrderDescription;
 	String sMaintenanceWorkOrderItemDescriptionA;
@@ -91,8 +95,9 @@ public class OperationsSmokeH extends B2WTestCase {
 	}
 	public void testMain() throws Throwable {
 
-		scheduleToWorkOrder();
-		createTimeCard();
+		//scheduleToWorkOrder();
+		//createTimeCard();
+		addHoursToWorkOrder();
 	}
 	
 	public void scheduleToWorkOrder(){
@@ -117,38 +122,57 @@ public class OperationsSmokeH extends B2WTestCase {
 
 		logCompare(true, b2wMain.openTimeCards(), "Open Time Cards");
 		logCompare(true, b2wtimecards.clickCreateNewTimeCard(), "Create new Time Card");
-		logCompare(true, b2wtimecards.selectEmployee(sEmployeeFullNameID), "Select Employee");
+		logCompare(true, b2wReport.selectEmployee(sEmployeeFullNameID), "Select Employee");
 		TaskUtils.sleep(1000);
 		logCompare(true, b2wtimecards.clickAddTimeButton(), "Click Add Time Button");
 		TaskUtils.sleep(1000);
-		logCompare(true, b2wtimecards.selectTypeofHoursEquipment(), "Select Type of Hours Equipment");
+		logCompare(true, b2wReport.selectTypeofHoursEquipment(), "Select Type of Hours Equipment");
 		TaskUtils.sleep(1000);
 		//logCompare(true, b2wtimecards.selectChargeToEquipment(), "Select Charge Equipment");
-		logCompare(true, b2wtimecards.setEquipmentHoursDescription(sMaintenanceTimeCardWorkDesc), "Set Description ");
-		logCompare(true, b2wtimecards.setEquipmentUsed(sEquipmentID_Desc), "Set Equipment Used");
-		logCompare(true, b2wtimecards.selectWorkOrder(sMaintenanceWorkOrderDescription), "Select Work Order");
-		logCompare(true, b2wtimecards.selectWorkOrderItem(sMaintenanceWorkOrderItemDescriptionA), "Select Work Order Item");
+		logCompare(true, b2wReport.setEquipmentHoursDescription(sMaintenanceTimeCardWorkDesc), "Set Description ");
+		logCompare(true, b2wReport.setEquipmentUsed(sEquipmentID_Desc), "Set Equipment Used");
+		logCompare(true, b2wReport.selectWorkOrder(sMaintenanceWorkOrderDescription), "Select Work Order");
+		logCompare(true, b2wReport.selectWorkOrderItem(sMaintenanceWorkOrderItemDescriptionA), "Select Work Order Item");
 	
-		logCompare(true, b2wtimecards.setRegularMins("30"), "Change Oil");
-		logCompare(true, b2wtimecards.selectEquipmentRateClass("Standard"), "Select Labor Rate");
+		logCompare(true, b2wReport.setRegularMins("30"), "Change Oil");
+		logCompare(true, b2wReport.selectEquipmentRateClass("Standard"), "Select Labor Rate");
 		b2wtimecards.saveReportHours();
 		TaskUtils.sleep(500);
 		b2wtimecards.selectTimeCardByEmployeeName(sEmployeeFullNameID);
 		b2wtimecards.clickReportEquipmentHoursButton();
 		logCompare(true, b2wtimecards.clickAddTimeButton(), "Click Add Time Button");
 		TaskUtils.sleep(1000);
-		logCompare(true, b2wtimecards.selectTypeofHoursEquipment(), "Select Type of Hours Equipment");
+		logCompare(true, b2wReport.selectTypeofHoursEquipment(), "Select Type of Hours Equipment");
 		TaskUtils.sleep(1000);
 		//logCompare(true, b2wtimecards.selectChargeToEquipment(), "Select Charge Equipment");
-		logCompare(true, b2wtimecards.setEquipmentHoursDescription(sMaintenanceTimeCardWorkDesc), "Set Description ");
-		logCompare(true, b2wtimecards.setEquipmentUsed(sEquipmentID_Desc), "Set Equipment Used");
-		logCompare(true, b2wtimecards.selectWorkOrder(sMaintenanceWorkOrderDescription), "Select Work Order");
-		logCompare(true, b2wtimecards.selectWorkOrderItem(sMaintenanceWorkOrderItemDescriptionB), "Select Work Order Item");
-		logCompare(true, b2wtimecards.setRegularHours("1"), "Broken Track 1 hr");
-		logCompare(true, b2wtimecards.setRegularMins("30"), "Broken Track");
-		logCompare(true, b2wtimecards.selectEquipmentRateClass("Standard"), "Select Labor Rate");
+		logCompare(true, b2wReport.setEquipmentHoursDescription(sMaintenanceTimeCardWorkDesc), "Set Description ");
+		logCompare(true, b2wReport.setEquipmentUsed(sEquipmentID_Desc), "Set Equipment Used");
+		logCompare(true, b2wReport.selectWorkOrder(sMaintenanceWorkOrderDescription), "Select Work Order");
+		logCompare(true, b2wReport.selectWorkOrderItem(sMaintenanceWorkOrderItemDescriptionB), "Select Work Order Item");
+		logCompare(true, b2wReport.setRegularHours("1"), "Broken Track 1 hr");
+		logCompare(true, b2wReport.setRegularMins("30"), "Broken Track");
+		logCompare(true, b2wReport.selectEquipmentRateClass("Standard"), "Select Labor Rate");
 		b2wtimecards.saveReportHours();
 
+	}
+	
+	public void addHoursToWorkOrder() {
+		assertTrue("open Maintain", b2wNav.openMaintain());
+		assertTrue("Open Work Orders", b2wMain.openWorkOrders());
+		TaskUtils.sleep(1000);
+		b2wOrder.selectWorkOrderByDescription("Engine Service3829");
+		TaskUtils.sleep(5000);
+		b2wOrder.editWorkOrder();
+		TaskUtils.sleep(2000);
+		b2wOrder.getHeaderandExpandOrCollapse("Details", false);
+		b2wOrder.getHeaderandExpandOrCollapse("Parts", true);
+		//b2wOrder.clickAdd
+		//TaskUtils.sleep(2000);
+		//5 add item
+		//6 add planned hours
+		//7 report hours
+		//8 parts
+		
 	}
 
 }

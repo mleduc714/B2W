@@ -39,7 +39,8 @@ public class B2WSchedulerTasks extends B2WKendoTasks {
     }
 
     public boolean waitForSchedulePageNoBusy() {
-        return waitForPageNotBusy(WebElementUtils.MEDIUM_TIME_OUT);
+        //TaskUtils.sleep(100);
+        return waitForPageNotBusy(WebElementUtils.LONG_TIME_OUT);
     }
 
     //--Navigate and Select Menu section
@@ -215,7 +216,8 @@ public class B2WSchedulerTasks extends B2WKendoTasks {
         List<WebElement> inputList = WebElementUtils.findElements(B2WScheduleAssignments.getFieldLabel());
         WebElement el = WebElementUtils.getElementWithMatchingText(inputList, "Pickup Location", false);
         WebElement parent = WebElementUtils.getParentElement(el);
-        WebElement elControlPanel = WebElementUtils.getChildElement(parent, B2WScheduleAssignments.getControlPanel());
+        //WebElement elControlPanel = WebElementUtils.getChildElement(parent, B2WScheduleAssignments.getControlPanel());
+        WebElement elControlPanel = WebElementUtils.getChildElement(parent, B2WScheduleAssignments.getAddressSection());
         WebElement jobSite = WebElementUtils.getChildElement(elControlPanel, KendoUI.getKendoDropDown());
         if (jobSite != null) {
             bResult &= sendTextAndSelectValueFromKendoFDD(jobSite, sPickupJobSiteName);
@@ -238,7 +240,7 @@ public class B2WSchedulerTasks extends B2WKendoTasks {
         List<WebElement> inputList = WebElementUtils.findElements(B2WScheduleAssignments.getFieldLabel());
         WebElement el = WebElementUtils.getElementWithMatchingText(inputList, "Drop-off Location", false);
         WebElement parent = WebElementUtils.getParentElement(el);
-        WebElement elControlPanel = WebElementUtils.getChildElement(parent, B2WScheduleAssignments.getControlPanel());
+        WebElement elControlPanel = WebElementUtils.getChildElement(parent, B2WScheduleAssignments.getAddressSection());
         WebElement jobSite = WebElementUtils.getChildElement(elControlPanel, KendoUI.getKendoDropDown());
         if (jobSite != null) {
             bResult &= sendTextAndSelectValueFromKendoFDD(jobSite, sDropoffJobSiteName);
@@ -296,6 +298,21 @@ public class B2WSchedulerTasks extends B2WKendoTasks {
         }
         return bReturn;
     }
+    public boolean setSearchValue(String sValue) {
+        boolean bReturn = false;
+        WebElement eSearchBox = WebElementUtils.findElement(B2WScheduleAssignments.getSearchBox());
+        if (eSearchBox != null) {
+            eSearchBox.clear();
+            bReturn = WebElementUtils.sendKeys(eSearchBox, sValue);
+            //ToDo replace sleep to correct waiting
+            TaskUtils.sleep(1000);
+            waitForSchedulePageNoBusy();
+            bReturn &= WebElementUtils.waitAndFindDisplayedElement(B2WScheduleAssignments.getGrid(), WebElementUtils.LONG_TIME_OUT) != null;
+        } else {
+            log.debug("Search box could not be found on the page.");
+        }
+        return bReturn;
+    }
 
     // Methods for Calendar on Schedule View
     public boolean setCalendarDateRange(String sValue) {
@@ -342,9 +359,11 @@ public class B2WSchedulerTasks extends B2WKendoTasks {
     }
 
     //-- Get Methods
+    /*
     public int getAssignmentsCount(String sResourceName, String sLocationName) {
         return getAssignments(sResourceName, sLocationName).size();
     }
+     */
     public List<WebElement> getAssignments(String sResourceName, String sLocationName) {
         List<WebElement> elResult = new ArrayList<WebElement>();
         List<WebElement> resourceList = getResourceListOnGrid();
@@ -363,6 +382,59 @@ public class B2WSchedulerTasks extends B2WKendoTasks {
     }
     public List<WebElement> getResourceListOnGrid() {
         return WebElementUtils.findElements(B2WScheduleAssignments.getResourceListOnGrig());
+    }
+    // New Methods for Assignments
+    public List<WebElement> getAllAssignments() {
+        return WebElementUtils.findElements(B2WScheduleAssignments.getAssignment());
+    }
+    public List<WebElement> getAssignmentsByLocation(String sLocationName) {
+        return WebElementUtils.getElementsWithWithMatchingAttribute(getAllAssignments(), "title", sLocationName);
+    }
+    public List<WebElement> getAssignmentsByLocationAndResourceName(String sResourceName, String sLocationName) {
+        List<WebElement> lReturn = new ArrayList<WebElement>();
+        List<WebElement> list = getAssignmentsByLocation(sLocationName);
+        Iterator<WebElement> iterator = list.iterator();
+        while (iterator.hasNext()) {
+            WebElement eTmp = iterator.next();
+            WebElement parent = WebElementUtils.getParentUntilTagName(eTmp, "td");
+            WebElement eResourceName = WebElementUtils.getChildElement(parent, B2WScheduleAssignments.getResourceName());
+            if (eResourceName.getAttribute("title").equals(sResourceName)) {
+                lReturn.add(eTmp);
+            }
+        }
+        return lReturn;
+    }
+    public int getAssignmentsCount(String sResourceName, String sLocationName) {
+        return getAssignmentsByLocationAndResourceName(sResourceName, sLocationName).size();
+    }
+    public WebElement getAssignment(String sResourceName, String sLocationName, String sStartDate, String sEndDate, String sStartTime) {
+        WebElement eReturn = null;
+        Date startDate = StringUtils.getDateFromStringWithPattern(sStartDate, "M/d/yyyy");
+        Date endDate = StringUtils.getDateFromStringWithPattern(sEndDate, "M/d/yyyy");
+        List<WebElement> list = getAssignmentsByLocationAndResourceName(sResourceName, sLocationName);
+        Iterator<WebElement> iterator = list.iterator();
+        boolean flag = false;
+        while (iterator.hasNext() && !flag) {
+            WebElement eTmp = iterator.next();
+            WebElement parent = WebElementUtils.getParentElement(eTmp);
+            Date assignmentStartDate = StringUtils.getDateFromStringWithPattern(parent.getAttribute("b2w-assignment-start"), "YYYY-M-d");
+            Date assignmentEndDate = StringUtils.getDateFromStringWithPattern(parent.getAttribute("b2w-assignment-end"), "YYYY-M-d");
+            /*
+            String sAssignmentStart = parent.getAttribute("b2w-assignment-start");
+            sAssignmentStart = correctDate(sAssignmentStart);
+            String sAssignmentEnd = parent.getAttribute("b2w-assignment-end");
+            sAssignmentEnd = correctDate(sAssignmentEnd);
+            */
+
+            //ToDo restore after fixing SCHED-3142
+            String sAssignmentStartTime = parent.getAttribute("b2w-assignment-start-time");
+            //if (assignmentStartDate.equals(startDate) && assignmentEndDate.equals(endDate) && sAssignmentStartTime.equals(sStartTime)) {
+            if (assignmentStartDate.equals(startDate) && assignmentEndDate.equals(endDate)) {
+                eReturn = eTmp;
+                flag = true;
+            }
+        }
+        return eReturn;
     }
 
     // Click Methods
@@ -404,6 +476,7 @@ public class B2WSchedulerTasks extends B2WKendoTasks {
         boolean bResult;
         bResult = saveAssignment();
         waitForSchedulePageNoBusy();
+        bResult &= WebElementUtils.waitAndFindElement(B2WScheduleAssignments.getGrid()) != null;
         return bResult;
     }
     public boolean saveEquipmentAssignment() {
@@ -510,12 +583,22 @@ public class B2WSchedulerTasks extends B2WKendoTasks {
         return dateRange;
     }
     public String correctDate(String sValue) {
-        String sResult;
-        String[] stringList = sValue.split("/");
-        Integer iTmp = Integer.parseInt(stringList[1].toString());
-        iTmp++;
-        stringList[1] = String.valueOf(iTmp);
-        sResult = stringList[0] + "/" + stringList[1] + "/" + stringList[2];
+        String sResult = "";
+        if (sValue.contains("/")) {
+            String[] stringList = sValue.split("/");
+            Integer iTmp = Integer.parseInt(stringList[1].toString());
+            iTmp++;
+            stringList[1] = String.valueOf(iTmp);
+            sResult = stringList[0] + "/" + stringList[1] + "/" + stringList[2];
+        } else if (sValue.contains("-")) {
+            String[] stringList = sValue.split("-");
+            Integer iTmp = Integer.parseInt(stringList[1].toString());
+            iTmp++;
+            stringList[1] = String.valueOf(iTmp);
+            sResult = stringList[0] + "-" + stringList[1] + "-" + stringList[2];
+        } else {
+            log.debug("Date has incorrect format.");
+        }
         return sResult;
     }
     public boolean isDateInRange(DateRange dateRange, String sDate) {
@@ -542,4 +625,6 @@ public class B2WSchedulerTasks extends B2WKendoTasks {
         }
         return bReturn;
     }
+
+
 }

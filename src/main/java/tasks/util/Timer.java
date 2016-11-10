@@ -10,6 +10,7 @@ public class Timer {
 	private long endTime = 0;
 	Logger log = Logger.getLogger(Timer.class);
 	// simple timer class
+	// class to time
 
 	public void start() throws IOException {
 		startTime = System.currentTimeMillis();

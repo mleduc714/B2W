@@ -70,6 +70,8 @@ public abstract class B2WKendoTasks {
 	
 	public boolean waitForPageNotBusy(int iSecs) {
 		boolean bReturn = false;
+		// seconds need to muliply
+		iSecs = iSecs * 10;
 		int iTrys = 0;
 		while (!bReturn && iTrys < iSecs) {
 			try {
@@ -305,5 +307,21 @@ public abstract class B2WKendoTasks {
 			bReturn &= WebElementUtils.waitForElementInvisible(el);
 		}
 		return bReturn;
+	}
+	
+	protected WebElement getButton(int iButton) {
+
+		WebElement button = null;
+
+		List<WebElement> list = WebElementUtils.findElements(B2WMaintain.getKendoButtonAdd());
+		Iterator<WebElement> iter = list.iterator();
+		int i = 0;
+		while (iter.hasNext()){
+			System.out.println(i + " "+iter.next().isDisplayed());
+			i++;
+		}
+		button = list.get(iButton);
+		return button;
+
 	}
 }
