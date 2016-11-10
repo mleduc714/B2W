@@ -82,11 +82,11 @@ public class OperationsSmokeH extends B2WTestCase {
 		sPlaceID = getProperty("placeIDD") + n;
 		sMaintenanceTimeCardWorkDesc = getProperty("sMaintenanceTimeCardWorkDesc");
 		
-		
+/*		
 		sMaintenanceWorkOrderDescription = "Engine Service3426 [1037]";
 		sEmployeeFullNameID = "Benson Sherwood [ID703710]";
 		sPlaceDescription = "Asphalt Plant6226";
-		sEquipmentID_Desc = "1016 [ROLLER, VIB CLIP ON]";
+		sEquipmentID_Desc = "1016 [ROLLER, VIB CLIP ON]";*/
 		
 	}
 	public void testMain() throws Throwable {

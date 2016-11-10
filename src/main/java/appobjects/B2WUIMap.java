@@ -918,5 +918,56 @@ public class B2WUIMap {
 	
 	
 	public static final String unscheduledWorkOrdersContextMenu = "ul#unscheduledWorkOrdersContextMenu";
-
+	
+	
+	//B2W Schedule Tests
+	public static final String b2w_scheduleviewcrews = "Crews";
+	public static final String b2w_schedulecrewsbyassignmentlocation = "Crews by Assignment Location";
+	public static final String b2w_schedulecrewsbyworksubtype = "Crews by Work Subtype";
+	public static final String b2w_schedulecrewsbyworktype = "Crews by Work Type";
+	public static final String b2w_schedulecrewsbyworktypeandsubtype = "Crews by Work Type & Subtype";
+	public static final String b2w_scheduleemployeeschedule = "Employee Schedule";
+	public static final String b2w_scheduleemployeesbyassignmentlocation = "Employees by Assignment Location";
+	public static final String b2w_scheduleemployeesbylabortype = "Employees by Labor Type";
+	public static final String b2w_scheduleequipmentgroupedbycategory = "Equipment Grouped by Category";
+	public static final String b2w_scheduleequipmentgroupedbycategoryandlocaton = "Equipment Grouped by Category & Location";
+	public static final String b2w_scheduleequipmentgroupedbycategoryandtype = "Equipment Grouped by Category & Type";
+	public static final String b2w_scheduleequipmentgroupedbylocation = "Equipment Grouped by Location";
+	public static final String b2w_scheduleequipmentgroupedbylocationandcategory = "Equipment Grouped by Location & Category";
+	public static final String b2w_scheduleequipmentgroupedbylocationandtype = "Equipment Grouped by Location & Type";
+	public static final String b2w_scheduleequipmentgroupedbytype = "Equipment Grouped by Type";
+	public static final String b2w_scheduleequipmentgroupedbytypeandcategory = "Equipment Grouped by Type & Category";
+	public static final String b2w_scheduleequipmentgroupedbytypeandlocation = "Equipment Grouped by Type & Location";
+	public static final String b2w_scheduleequipmentschedule1 = "Equipment Schedule 1";
+	public static final String b2w_scheduleequipmentschedule2 = "Equipment Schedule 2";
+	public static final String b2w_scheduleequipmentschedule3 = "Equipment Schedule 3";
+	public static final String b2w_scheduleequipmentschedule4 = "Equipment Schedule 4";
+	public static final String b2w_scheduleequipmentschedule5 = "Equipment Schedule 5";
+	public static final String b2w_scheduleequipmentschedule6 = "Equipment Schedule 6";
+	public static final String b2w_scheduleequipmentschedule7 = "Equipment Schedule 7";
+	public static final String b2w_scheduleequipmentschedule8 = "Equipment Schedule 8";
+	public static final String b2w_scheduleequipmentschedule9 = "Equipment Schedule 9";
+	public static final String b2w_schedulefilterdbyequipmentatrt93exit18 = "Filtered by Equipment at RT93 Exit 18";
+	public static final String b2w_schedulefilteredbyequipmentdownformaintenance = "Filtered by Equipment Down for Maintenance";
+	public static final String b2w_schedulefilteredbyequipmentscheduledformaintenance = "Filtered by Equipment Scheduled for Maintenance";
+	public static final String b2w_schedulefilteredbyequipmentthatmovesotherequipment = "Filtered by Equipment that Moves Other Equipment";
+	public static final String b2w_schedulefilteredbyequipmentthatrequiresmoves = "Filtered by Equipment that Requires Moves";
+	public static final String b2w_schedulefilteredbyequipmentwithgps = "Filtered by Equipment with GPS";
+	public static final String b2w_schedulefilteredbyequipmentwithmemoevents = "Filtered by Equipment With Memo Events";
+	public static final String b2w_schedulefilteredbyownedequipmentateqyardorhq = "Filtered by Owned Equipment at Eq. Yard or HQ";
+	public static final String b2w_schedulefilteredbyrentedandsubcontractedequipment = "Filtered by Rented & Subcontracted Equipment";
+	public static final String b2w_schedulefilteredbyrentedcranes = "Filtered by Rented Cranes";
+	public static final String b2w_schedulefilteredbyselfmobileequipment = "Filtered by Self Mobile Equipment";
+	public static final String b2w_schedulefilteredbysitework = "Filtered by Sitework";
+	public static final String b2w_schedulefilteredbysubcontractedtriaxles = "Filtered by Subcontracted Tri-Axles";
+	public static final String b2w_schedulejobsites = "Job Sites";
+	public static final String b2w_schedulejobsitesplaces = "Job Sites - Places";
+	public static final String b2w_schedulemortsinactiveequipment = "Mort's <Inactive> Equipment";
+	public static final String b2w_schedulemortsactiveequipment = "Mort's Active Equipment";
+	public static final String b2w_schedulenortheastdivisionandpaversandgraders = "Northeast Division & Pavers & 'Graders'";
+	public static final String b2w_schedulenorthwestdivisionpaversgraders = "Northwest Division Pavers-Graders";
+	public static final String b2w_scheduleplaces = "Places";
+	public static final String b2w_schedulesoutherndivisionsiteworkspecial = "Southern Division Sitework \"Special\"";
+	public static final String b2w_schedulesoutherndivisionpaversgraders = "Southwest Division Pavers--Graders";
+	public static final String b2w_schedulerandomcharacters = "exact:Z!\"#$%&'()*+-./:;<=>?@[\\\\]^_`{|}~“”‘’!\"#$%&'()*+-./:;<=>?@[\\\\]^_`{|}~“”‘’";
 }
