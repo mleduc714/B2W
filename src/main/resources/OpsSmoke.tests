@@ -3,6 +3,6 @@ testcases.OperationsSmokeC
 testcases.OperationsSmokeD
 testcases.OperationsSmokeE
 testcases.OperationsSmokeF
-#testcases.OperationsSmokeG
+testcases.OperationsSmokeG
 #testcases.OperationsSmokeH
 #testcases.jobs.B2WJobTestCase

@@ -346,6 +346,7 @@ public class B2WEquipmentTasks extends B2WKendoTasks {
 			Coordinates coordinate = ((Locatable) button).getCoordinates();
 			coordinate.onPage();
 			coordinate.inViewPort();
+			TaskUtils.sleep(5000);
 			if (WebElementUtils.clickElement(button)) {
 				bReturn = WebElementUtils.waitForElementIsDisplayed(windows.get(1), WebElementUtils.SHORT_TIME_OUT);
 				bReturn &= waitForPageNotBusy(WebElementUtils.MEDIUM_TIME_OUT);
@@ -420,6 +421,7 @@ public class B2WEquipmentTasks extends B2WKendoTasks {
 		Coordinates coordinate = ((Locatable) button).getCoordinates();
 		coordinate.onPage();
 		coordinate.inViewPort();
+		TaskUtils.sleep(5000);
 		if (WebElementUtils.clickElement(button)) {
 			List<WebElement> windows = WebElementUtils.findElements(B2WMaintain.getKendoWindowTitle());
 			bReturn = WebElementUtils.waitForElementIsDisplayed(windows.get(windows.size() - 1),
@@ -435,7 +437,7 @@ public class B2WEquipmentTasks extends B2WKendoTasks {
 		Coordinates coordinate = ((Locatable) button).getCoordinates();
 		coordinate.onPage();
 		coordinate.inViewPort();
-
+		TaskUtils.sleep(5000);
 		if (WebElementUtils.clickElement(button)) {
 			bReturn = WebElementUtils.waitAndFindDisplayedEletment(B2WMaintain.getB2WAddProgramDialog()) != null;
 		}
