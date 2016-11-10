@@ -20,7 +20,7 @@ public abstract class B2WKendoDialog {
 	
 	Logger log = Logger.getLogger(B2WKendoDialog.class);
 	
-	public boolean selectItemFromDropDown(String sItem){
+	protected boolean selectItemFromDropDown(String sItem){
 		boolean bReturn = false;
 		// when we click we need to find the visble list
 		List<WebElement> list = WebElementUtils.findElements(B2WEquipment.getKendoLists());
@@ -139,5 +139,50 @@ public abstract class B2WKendoDialog {
 		}
 
 		return elements;
+	}
+	
+	protected boolean clickSave() {
+
+		boolean bReturn = false;
+		TaskUtils.sleep(500);
+		WebElement window = getDisplayedWindow();
+		if (window != null){
+			WebElement buttoncontainer = WebElementUtils.getChildElement(window, B2WEquipment.getKendoButtonContainer());
+			WebElement savebutton = buttoncontainer.findElement(B2WEquipment.getKendoLargeSaveButton());
+			bReturn = WebElementUtils.clickElement(savebutton);
+			bReturn &= WebElementUtils.waitForElementInvisible(window);
+			waitForPageNotBusy(WebElementUtils.MEDIUM_TIME_OUT);
+		}
+		return bReturn;
+	
+	}
+	
+	protected boolean clickNext() {
+
+		boolean bReturn = false;
+		TaskUtils.sleep(500);
+		WebElement window = getDisplayedWindow();
+		if (window != null){
+			WebElement buttoncontainer = WebElementUtils.getChildElement(window, B2WEquipment.getKendoButtonContainer());
+			WebElement nextbutton = buttoncontainer.findElement(B2WEquipment.getKendoButtonNext());
+			bReturn = WebElementUtils.clickElement(nextbutton);
+			waitForPageNotBusy(WebElementUtils.MEDIUM_TIME_OUT);
+		}
+		return bReturn;
+	
+	}
+	
+	protected boolean clickCancel() {
+
+		boolean bReturn = false;
+		TaskUtils.sleep(500);
+		WebElement window = getDisplayedWindow();
+		if (window != null){
+			WebElement buttoncontainer = WebElementUtils.getChildElement(window, B2WEquipment.getKendoButtonContainer());
+			WebElement cancelbutton = buttoncontainer.findElement(B2WEquipment.getKendoCancelButton());
+			bReturn = WebElementUtils.clickElement(cancelbutton);
+		}
+		return bReturn;
+	
 	}
 }

@@ -93,7 +93,6 @@ public class B2WAddItemWorkOrder extends B2WKendoDialog {
 			List<WebElement> td = iterRequests.next().findElements(By.tagName("td"));
 			WebElement checkbox = td.get(0).findElement(By.tagName("input"));
 			String sText = td.get(1).getText();
-			System.out.println(sText);
 			table.put(sText, checkbox);
 			// get the description text
 		}
@@ -103,7 +102,6 @@ public class B2WAddItemWorkOrder extends B2WKendoDialog {
 		while (iterGenerateRequests.hasNext()){
 			List<WebElement> td = iterGenerateRequests.next().findElements(By.tagName("td"));
 			String sText = td.get(0).getText();
-			System.out.println(sText);
 			WebElement generateItem = td.get(3).findElement(By.cssSelector("*"));
 			table.put(sText, generateItem);
 		}
