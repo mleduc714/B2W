@@ -861,6 +861,7 @@ public class B2WUIMap {
 	public static final String b2w_maintainworkorderselectitemsview = "div.select-action.select-request";
 	public static final String b2w_maintainworkordercreateitembutton = "button.btn-form.large.create";
 	public static final String b2w_maintainworkorderdetailcontentview = "div.detail-content-view";
+	public static final String b2w_maintainworkorderaddpartstoorder = "div#edit-work-order-add-parts.k-window-content.k-content.wizard-dialog.add-parts-popup-view";
 	
 	public static final String b2w_scheduleanimationcontainer = ".k-animation-container";
 	public static final String b2w_schedulelinks = "span.k-link";
