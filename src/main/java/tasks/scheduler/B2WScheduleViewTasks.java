@@ -87,6 +87,17 @@ public class B2WScheduleViewTasks {
 		return bReturn;
 	}
 	
+	public boolean clickOnEmployeesByBusinessUnit(){
+		boolean bReturn = false;
+		WebElement el = WebElementUtils.findElement(B2WScheduleView.getEmployeesByBusinessUnit());
+		if(el != null){
+			if (WebElementUtils.clickElement(el)) {
+				bReturn = new TaskUtils().waitForProductPanel("Employees by Assignment Location");
+			}
+		}
+		return bReturn;
+	}
+	
 	public boolean clickOnEmployeesByLaborType(){
 		boolean bReturn = false;
 		WebElement el = WebElementUtils.findElement(B2WScheduleView.getEmployeesByLaborType());

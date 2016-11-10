@@ -34,6 +34,10 @@ public class B2WScheduleView {
     	return By.linkText(B2WUIMap.b2w_scheduleemployeesbyassignmentlocation);
     };
     
+    public static By getEmployeesByBusinessUnit(){ 
+    	return By.linkText(B2WUIMap.b2w_scheduleemployeesbybusinessunit);
+    };
+    
     public static By getEmployeesByLaborType(){ 
     	return By.linkText(B2WUIMap.b2w_scheduleemployeesbylabortype);
     };
@@ -195,7 +199,7 @@ public class B2WScheduleView {
     };
     
     public static By getSouthwestDivisionPaversGraders(){ 
-    	return By.linkText(B2WUIMap.b2w_schedulesoutherndivisionpaversgraders);
+    	return By.linkText(B2WUIMap.b2w_schedulesouthwestdivisionpaversgraders);
     };
     
     public static By getRandomCharacters(){ 
