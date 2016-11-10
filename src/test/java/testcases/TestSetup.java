@@ -6,7 +6,11 @@ import com.b2w.test.B2WTestCase;
 
 import appobjects.jobs.B2WJobs;
 import tasks.B2WNavigationTasks;
+
 import tasks.jobs.B2WJobsTasks;
+
+import tasks.util.Timer;
+
 
 public class TestSetup extends B2WTestCase {
 
@@ -46,11 +50,12 @@ public class TestSetup extends B2WTestCase {
 	public void testSetUp() throws Throwable {
 		// TODO Auto-generated method stub
 		super.testSetUp();
-		int  n = getRandomNumber();
+		//int  n = getRandomNumber();
 
 	}
 
 	public void testMain() throws Throwable {
+
 
 		logCompare(true,b2wNav.openJobs(),"Go Home");
 		logCompare(true,b2wJob.enterInfoAndSearchForResource("2007-0006"), "Navigate to Job");
@@ -79,6 +84,11 @@ public class TestSetup extends B2WTestCase {
 		logCompare(true,b2wJob.setChangeOrdersUnitOfMeasure("LITER"),"Fill Unit of Measure");
 		logCompare(true,b2wJob.clickBottomSaveButton(),"Save Button Clicked");
 		
+
+
+		logCompare(true,b2wNav.clickHome(),"Go Home");
+		logCompare(true,b2wNav.openJobs(),"Open jobs");
+		assertTrue("open Maintain", b2wNav.openMaintain());
 
 	}
 

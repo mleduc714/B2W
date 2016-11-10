@@ -492,7 +492,7 @@ public class B2WMaintainProgramsTasks extends B2WMaintainTasks {
 			bReturn = WebElementUtils.clickElement(button);
 			bReturn = WebElementUtils.waitForElementInvisible(WebElementUtils.findElement(B2WMaintain.getKendoFakeSaveButton()));
 			WebElementUtils.waitAndFindDisplayedElement(B2WMaintain.getKendoButton());
-			bReturn &= waitForPageNotBusy();
+			bReturn &= waitForPageNotBusy(WebElementUtils.MEDIUM_TIME_OUT);
 			
 		}
 		return bReturn;

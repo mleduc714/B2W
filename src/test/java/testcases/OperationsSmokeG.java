@@ -13,7 +13,6 @@ import tasks.maintain.B2WMaintainTasks;
 import tasks.maintain.B2WTimeCardTasks;
 import tasks.maintain.B2WWorkOrdersTasks;
 import tasks.resources.B2WEquipmentTasks;
-import tasks.util.TaskUtils;
 
 public class OperationsSmokeG extends B2WTestCase {
 
@@ -37,7 +36,7 @@ public class OperationsSmokeG extends B2WTestCase {
 	String sMaintenanceProgramItemBLevel;
 	String sMaintenanceProgramItemBIntervalDesc;
 	String sLaborRate, sLaborRateID, sCategoryB,sCategoryC,sCategoryA, sCategoryD;
-	String sPartA, sPartIDA, sPartB, sPartIDB, sPartC, sPartIDC, sEquipmentDescD, sEquipmentIDD, sDateTwoDaysAgo, sDateTwoWeeksFromNow;
+	String sPartA, sPartIDA, sPartB, sPartIDB, sPartC, sPartIDC, sEquipmentDescD, sEquipmentIDD, sDateTwoDaysAgo, sDateTwoWeeksFromNow, sEquipmentID_Desc;
 	String sMaintenanceRequestDescription;
 	String sMaintenanceRequestPriority;
 	String sMaintenanceRequestComments; 
@@ -46,7 +45,7 @@ public class OperationsSmokeG extends B2WTestCase {
 	String sMaintenanceWorkOrderItemDescriptionB;
 	String sEmployeeFirstNameD, sEmployeeLastNameD, sEmployeeIDD, sEmployeeFullNameID;
 	String sPlaceDescription, sPlaceID;
-
+	String sMaintenanceTimeCardWorkDesc;
 	
 	
 
@@ -117,28 +116,45 @@ public class OperationsSmokeG extends B2WTestCase {
 		sPartIDC = getProperty("partIDC") + n;
 		sEquipmentDescD = getProperty("equipmentD");
 		sEquipmentIDD = getProperty("equipmentidD")+ n;
-		sMaintenanceRequestDescription = getProperty("sMaintenanceRequestDescription");
+		sEquipmentID_Desc = sEquipmentIDD +" [" +sEquipmentDescD + "]";
+		//sEquipmentDescD="Bobcat S175";
+		//sEquipmentIDD="BCAT01";
+		
+		
+		sMaintenanceRequestDescription = getProperty("sMaintenanceRequestDescription") + n;
 		sMaintenanceRequestPriority = getProperty("sMaintenanceRequestPriority");
 		sMaintenanceRequestComments = getProperty("sMaintenanceRequestComments");
 		sMaintenanceWorkOrderItemDescriptionA = getProperty("sMaintenanceWorkOrderItemDescriptionA");
 		sMaintenanceWorkOrderItemDescriptionB = getProperty("sMaintenanceWorkOrderItemDescriptionB");
-		sMaintenanceWorkOrderDescription = getProperty("sMaintenanceWorkOrderDescription");
+		sMaintenanceWorkOrderDescription = getProperty("sMaintenanceWorkOrderDescription") + n;
 		sEmployeeFirstNameD = getProperty("employeenameFirstD");
 		sEmployeeLastNameD = getProperty("employeenameLastD");
 		sEmployeeIDD = getProperty("employeenameDID") +n;
 		sEmployeeFullNameID = sEmployeeFirstNameD + " "+sEmployeeLastNameD + " ["+sEmployeeIDD+"]";
 		sPlaceDescription = getProperty("placeD") + n;
 		sPlaceID = getProperty("placeIDD") + n;
+		sMaintenanceTimeCardWorkDesc = getProperty("sMaintenanceTimeCardWorkDesc");
+		//test data
+/*		sLaborRate = "Automation Rates";
+		sCategoryC = "Repair";
+		sCategoryB = "Hour Meter";
+		sCategoryD = "Inspection";
+		sEquipmentIDD = "1019";
+		sEquipmentID_Desc = "1019 [TRUCK - OFF ROAD, JCB 718]";
+		sPartA = "Grease";
+		sPartB = "Hose";
+		sPartC = "Oil hose";
+		sEmployeeFullNameID = "Ryder Martin [13194]";*/
+		
 	}
 
 	public void testMain() throws Throwable {
 
 		createMaintenanceProgram();
-		//addParts();
-		//createRequest();
-	//	createWorkOrders();
-	//	test();
-		//createTimeCard();
+		addParts();
+		createRequest();
+		createWorkOrders();
+
 	}
 
 	@Override
@@ -148,17 +164,16 @@ public class OperationsSmokeG extends B2WTestCase {
 	}
 	
 	public void createMaintenanceProgram() {
-		logCompare(true,b2wNav.openMaintain(),"Open Maintain");
-		logCompare(true,b2wMain.openPrograms(),"Open Programs");
+		assertTrue("open Maintain", b2wNav.openMaintain());
+		assertTrue("open Programs", b2wMain.openPrograms());
 		logCompare(true,b2wMainPrograms.createNewMaintenanceProgram(),"Create Maintenance Program");
 		logCompare(true,b2wMainPrograms.setMaintenanceProgramDescription(sMaintenanceProgramDesc), "Set Maintenance Program Desc");
 		logCompare(true,b2wMainPrograms.setBusinessUnit("Hauling"),"Select Business Unit");
 		logCompare(true,b2wMainPrograms.selectLaborRateClass(sLaborRate), "Select Labor Rate Class");
 		logCompare(true,b2wMainPrograms.clickAddItem(),"Click Add Item");
 		logCompare(true,b2wMainPrograms.setAddItemDescription(sMaintenanceProgramItemADesc),"Set Maintenance item description");
-		logCompare(true,b2wMainPrograms.selectAddItemTypeFromDD(sCategoryC), "Select Add Item Type");
-		TaskUtils.sleep(1000);
 		logCompare(true,b2wMainPrograms.selectAddItemPriority(sMaintenanceProgramItemAPriority),"Select Item priority");
+		logCompare(true,b2wMainPrograms.selectAddItemTypeFromDD(sCategoryC), "Select Add Item Type");
 		logCompare(true,b2wMainPrograms.setAddItemLevel(sMaintenanceProgramItemALevel),"Select Maintenance Program Level");
 		logCompare(true,b2wMainPrograms.saveItem(),"Save Item");
 		logCompare(true,b2wMainPrograms.getHeaderandExpandOrCollapse("Intervals", true)," Expand Interval");
@@ -188,35 +203,42 @@ public class OperationsSmokeG extends B2WTestCase {
 
 	}
 	public void addParts() {
-		logCompare(true,b2wNav.openMaintain(),"Open Maintain");
-		logCompare(true,b2wMain.openEquipment(), "Open Equipment");
-		logCompare(true,b2wEquip.selectEquipmentFromViewByID(sEquipmentIDD),"Select Equipment");
-		logCompare(true,b2wEquip.expandParts(),"Expand Parts");
-		logCompare(true,b2wEquip.clickAddPartsButton(),"Add Parts");
-		logCompare(true,b2wEquip.selectPartToAddToEquipmentByDescription(sPartA), "Add Part");
-		logCompare(true,b2wEquip.selectPartToAddToEquipmentByDescription(sPartB), "Add Part");
-		logCompare(true,b2wEquip.selectPartToAddToEquipmentByDescription(sPartC), "Add Part");
-		logCompare(true,b2wEquip.clickSaveAddPart(), "Save Part");
-		
+		assertTrue("Open Equipment",b2wMain.openEquipment());
+		logCompare(true, b2wEquip.selectEquipmentFromViewByID(sEquipmentIDD),"Select: "+sEquipmentIDD+" Equipment");
+		logCompare(true, b2wEquip.expandParts(),"Expand Parts");
+		logCompare(true, b2wEquip.clickAddPartsButton(),"Add Parts");
+		logCompare(true, b2wEquip.selectPartToAddToEquipmentByDescription(sPartA), "Add "+sPartA+ " Part");
+		logCompare(true, b2wEquip.selectPartToAddToEquipmentByDescription(sPartB), "Add "+sPartB+ " Part");
+		logCompare(true, b2wEquip.selectPartToAddToEquipmentByDescription(sPartC), "Add "+sPartC+ " Part");
+		logCompare(true, b2wEquip.clickSaveAddPart(), "Save Part");
+		b2wEquip.collapseParts();
 		logCompare(true, b2wEquip.expandMeters(), "Expand Meters");
 		logCompare(true, b2wEquip.clickAddMeterButton(), "Click Add Meter");
-		logCompare(true, b2wEquip.selectAddMeterTypeFromDD(sCategoryB), "Select Add Meter");
+		logCompare(true, b2wEquip.selectAddMeterTypeFromDD(sCategoryB), "Select Add "+sCategoryB+" Meter");
 		logCompare(true, b2wEquip.selectAddMeterRequiredOnWorkOrderCompletionNotRequired(), "Add Meter not required");
 		logCompare(true, b2wEquip.selectAddMeterExcludeFromWorkOrdersNever(), "Exclude never");
-		logCompare(true,b2wEquip.setAddMeterTypeDescription("Hours Meter"), "Meter Description");
-		logCompare(true,b2wEquip.setAddMeterIntialReading("20"),"Intial Reading");
-		logCompare(true,b2wEquip.setAddMeterEnterNewReadingCheckBox(), "Enter new reading checkbox");
-		logCompare(true,b2wEquip.setAddMeterEnterNewReading("120"),"Enter new reading");
-		logCompare(true,b2wEquip.setAddMeterEnterNewReadingDate(sDateTwoDaysAgo), "Set two days ago");
-		logCompare(true,b2wEquip.clickAddMeterButton(), "Add the meter");
+		logCompare(true, b2wEquip.setAddMeterTypeDescription("Hours Meter"), "Meter Description");
+		logCompare(true, b2wEquip.setAddMeterIntialReading("20"),"Intial Reading");
+		logCompare(true, b2wEquip.setAddMeterEnterNewReadingCheckBox(), "Enter new reading checkbox");
+		logCompare(true, b2wEquip.setAddMeterEnterNewReading("120"),"Enter new reading");
+		logCompare(true, b2wEquip.setAddMeterEnterNewReadingDate(sDateTwoDaysAgo), "Set two days ago");
+		if (!logCompare(true, b2wEquip.clickSaveAddMeter(), "Add the Meter")){
+			b2wEquip.clickCancelAddMeter();
+		}
+		logCompare(true, b2wEquip.collapseMeters(), "Collapse Meters");
+		logCompare(true, b2wEquip.expandPrograms(), "Expand Programs");
+		logCompare(true, b2wEquip.clickAddProgramButton(), "Add Programs");
+		logCompare(true, b2wEquip.setAddProgramText(sMaintenanceProgramDesc), "Select Maintainence Program");
+		logCompare(true, b2wEquip.clickAddProgramNextButton(), "Click Next");
+		logCompare(true, b2wEquip.clickSaveProgramButton(), "Save Program");
+		
 		
 	}
 	
 	public void createRequest() {
-
-		logCompare(true, b2wMain.openRequests(), "Open Requests");
-		logCompare(true, b2wRequests.clickCreateNewRequestButton(), "Create Requests");
-		logCompare(true, b2wRequests.selectEquipment(sEquipmentIDD +" [" +sEquipmentDescD + "]"), "Select Equipment");
+		assertTrue("Open Requests",b2wMain.openRequests());
+		assertTrue("Create Requests", b2wRequests.clickCreateNewRequestButton());
+		logCompare(true, b2wRequests.selectEquipment(sEquipmentID_Desc), "Select "+sEquipmentIDD+" Equipment");
 		logCompare(true, b2wRequests.setRequestDescription(sMaintenanceRequestDescription), "Set Description");
 		logCompare(true, b2wRequests.selectTypeFromDD(sCategoryD), "Select Auto corrective");
 		logCompare(true, b2wRequests.clickNewCommentButton(), "Create a comments");
@@ -226,63 +248,27 @@ public class OperationsSmokeG extends B2WTestCase {
 	}
 	
 	public void createWorkOrders(){
-
-		logCompare(true, b2wMain.openWorkOrders(), "Open Work Orders");
+		assertTrue("Open Work Orders",b2wMain.openWorkOrders());
 		logCompare(true, b2wOrder.clickCreateNewWorkOrderButton(), "Create New Work Order");
-		logCompare(true, b2wOrder.selectEquipment(sEquipmentIDD +" [" +sEquipmentDescD + "]"), "Select Equipment");
+		logCompare(true, b2wOrder.selectEquipment(sEquipmentID_Desc), "Select "+sEquipmentIDD+" Equipment");
 		logCompare(true, b2wOrder.setWorkOrderDescription(sMaintenanceWorkOrderDescription), "Set Work");
 		logCompare(true, b2wOrder.setDueDate(sDateTwoWeeksFromNow), "Due Date");
+		logCompare(true, b2wOrder.selectPlannedLocationDD("Field"), "Planned in the Field");
+		logCompare(true, b2wOrder.selectPriorityFromDD("Medium"), "Medium Priority");
 		logCompare(true, b2wOrder.clickNewItemButton(), "Create New Item");
+		logCompare(true, b2wOrder.addItem(sMaintenanceRequestDescription), "Add Item");
+		logCompare(true, b2wOrder.generateItem(sMaintenanceProgramItemBDesc), "Generate Item");
+		logCompare(true, b2wOrder.clickConfirmYes(), "Click Yes");
+		logCompare(true, b2wOrder.clickAddNewItemFromWorkOrder(), "Add new item for work order");
 		logCompare(true, b2wOrder.setAddItemDescription(sMaintenanceWorkOrderItemDescriptionA), "Add Item Description");
 		logCompare(true, b2wOrder.setAddItemTypeFromDD(sCategoryC), "Type");
 		logCompare(true, b2wOrder.setAddItemPriorityFromDD("Medium"), "Medium Priority");
 		logCompare(true, b2wOrder.clickCreateAddItemButton(),"Create add Item");
-		logCompare(true, b2wOrder.clickNewItemButton(), "Create New Item");
-		logCompare(true, b2wOrder.setAddItemDescription(sMaintenanceWorkOrderItemDescriptionB), "Add Item Description");
-		logCompare(true, b2wOrder.setAddItemTypeFromDD(sCategoryC), "Type");
-		logCompare(true, b2wOrder.setAddItemPriorityFromDD("Medium"), "Medium Priority");
-		logCompare(true, b2wOrder.clickSaveButton(), "Save Work Order");
-		logCompare(true, b2wOrder.selectWorkOrderByDescription(sMaintenanceWorkOrderDescription), "set description");
+		logCompare(true, b2wOrder.clickFinish(),"Click Finish");
+		logCompare(true, b2wOrder.clickSaveButton(), "Click Save Button");
+		logCompare(true, b2wOrder.selectWorkOrderByDescription(sMaintenanceWorkOrderDescription), "Select Work Order");
 		logCompare(true, b2wOrder.clickApproveButton(), "Approve the Work Order");
-		//TaskUtils.sleep(4000);
+		logCompare(true, b2wOrder.clickConfirmYes(), "Confirm Approve");
 	}
-	
-	public void scheduleToWorkOrder(){
-		logCompare(true, b2wNav.openMaintain(), "Open Maintain");
-		logCompare(true, b2wMain.openSchedule(), "Open Schedule");
-		logCompare(true, b2wSchd.clickMechanics(), "Click Mechanics");
-		logCompare(true, b2wSchd.clickWorkOrdersTab(), "Click Work Orders");
-		logCompare(true, b2wSchd.openWorkOrderFromWorkOrderTabByDescription(sMaintenanceWorkOrderDescription), "Open Work Order Tab by Desc");
-		//logCompare(true, b2wSchd.openWorkOrderFromWorkOrderTabByDescription("TEST"), "Open Work Order Tab by Desc");
-		logCompare(true, b2wSchd.scheduleMaintainancePopupSelectMechanic(sEmployeeFullNameID), "Select Mechanic");
-		logCompare(true, b2wSchd.scheduleMaintainancePopupSelectWorkLocation(sPlaceDescription), "Work Location");
-		logCompare(true, b2wSchd.saveScheduleMaintenance(), "Save Schedule Maintenance");
-		//b2wSchd.scheduleWorkOrderFromWorkOrderTabByDescriptionFromContextMenu("TRUCK, F-350 CREW CAB UTILITY [1013]");
-		
-		
 
-	}
-	
-	public void createTimeCard() {
-		logCompare(true, b2wNav.openMaintain(), "Open Maintain");
-		logCompare(true, b2wMain.openTimeCards(), "Open Time Cards");
-		b2wtimecards.clickCreateNewTimeCard();
-		b2wtimecards.selectEmployee("Claire Salmon [13044]");
-		TaskUtils.sleep(1000);
-		b2wtimecards.clickAddTimeButton();
-		TaskUtils.sleep(1000);
-		b2wtimecards.selectTypeofHoursEquipment();
-		b2wtimecards.setEquipmentHoursDescription("TEST");
-		b2wtimecards.setEquipmentUsed("1009 [Cam Superline Trailer]");
-		b2wtimecards.selectWorkOrder("Shrink Wrap [1022]");
-		b2wtimecards.selectWorkOrderItem("Shrink Wrap [1045]");
-		b2wtimecards.selectEquipmentRateClass("Southeast Rates");
-		b2wtimecards.setRegularMins("5");
-		b2wtimecards.saveReportHours();
-		b2wtimecards.selectTimeCardByEmployeeName("Adrian Guajardo [13182]");
-		b2wtimecards.clickReportEquipmentHoursButton();
-		TaskUtils.sleep(4000);
-		
-	}
-	
 }

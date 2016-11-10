@@ -69,6 +69,9 @@ public abstract class KendoUI {
 	public static By getKendoButtonAdd() {
 		return By.cssSelector(B2WUIMap.b2w_kendobuttonadd);
 	}
+	public static By getKendoButtonNext() {
+		return By.cssSelector(B2WUIMap.b2w_kendobuttonnext);
+	}
 	public static By getKendoWindowTitle() {
 		return By.cssSelector(B2WUIMap.b2w_kendowindowtitle);
 	}
@@ -80,6 +83,9 @@ public abstract class KendoUI {
 	}
 	public static By getKendoLargeSaveButton() {
 		return By.cssSelector(B2WUIMap.b2w_kendolargesavebutton);
+	}
+	public static By getKendoCancelButton() {
+		return By.cssSelector(B2WUIMap.b2w_kendocancelbutton);
 	}
 	public static By getKendoApproveButton() {
 		return By.cssSelector(B2WUIMap.b2w_kendoapprovebutton);
@@ -98,6 +104,14 @@ public abstract class KendoUI {
 	}
 	public static By getKendoConfirmNoButton() {
 		return By.cssSelector(B2WUIMap.b2w_kendoconfirmnobutton);
-		}
-	
+	}
+	public static By getKendoAddSaveButton() {
+		return By.cssSelector(B2WUIMap.b2w_kendolargeaddsavebutton);
+	}
+	public static By getKendoLargeFinishButton() {
+		return By.cssSelector(B2WUIMap.b2w_kendolargefinishbutton);
+	}
+	public static By getKendoButtonNew() {
+		return By.cssSelector(B2WUIMap.b2w_kendobuttonnew);
+	}
 }

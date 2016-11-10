@@ -169,7 +169,7 @@ public class B2WTMPriceSheetsTasks extends B2WKendoTasks {
 		WebElement el = WebElementUtils.waitAndFindDisplayedElement(B2WTMPriceSheets.getApplyRatesButton());
 		if (el != null) {
 			bReturn = WebElementUtils.clickElement(el);
-			bReturn &= waitForPageNotBusy();
+			bReturn &= waitForPageNotBusy(WebElementUtils.MEDIUM_TIME_OUT);
 		}
 		return bReturn;
 	}

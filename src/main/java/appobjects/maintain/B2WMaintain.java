@@ -118,6 +118,9 @@ public class B2WMaintain extends KendoUI {
 	public static By getB2WMaintainAddItemToWorkOrder() {
 		return By.cssSelector(B2WUIMap.b2w_maintainworkorderadditemview);
 	}
+	public static By getB2WMaintainSelectItemsToWorkOrder() {
+		return By.cssSelector(B2WUIMap.b2w_maintainworkorderselectitemsview);
+	}
 
 	public static By getB2WMaintainAddItemCreateButton() {
 		return By.cssSelector(B2WUIMap.b2w_maintainworkordercreateitembutton);
@@ -236,6 +239,18 @@ public class B2WMaintain extends KendoUI {
 	}
 	public static By getB2WMaintainTimeCardDetailContent() {
 		return By.cssSelector(B2WUIMap.b2w_maintaintimecarddetailcontentview);
+	}
+	public static By getB2WMaintainExpandButton() {
+		return By.cssSelector(B2WUIMap.b2w_maintainexpandbutton);
+	}
+	public static By getB2WMaintainSubNavMenu() {
+		return By.cssSelector(B2WUIMap.b2w_maintainsubnavmenu);
+	}
+	public static By getB2WMaintainCollapseButton() {
+		return By.cssSelector(B2WUIMap.b2w_maintaincollapsebutton);
+	}
+	public static By getB2WAddProgramDialog() {
+		return By.cssSelector(B2WUIMap.b2w_maintainequipmentaddprogram);
 	}
 	
 	

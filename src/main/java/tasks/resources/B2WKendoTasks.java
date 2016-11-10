@@ -34,33 +34,60 @@ public abstract class B2WKendoTasks {
 			String hidden = els.getAttribute("aria-hidden");
 			if (hidden != null && hidden.equals("false")) {
 				List<WebElement> items = els.findElements(B2WEquipment.getKendoDropDownItem());
-				WebElement item = WebElementUtils.getElementWithMatchingText(items, sItem, false);
+				WebElement item = WebElementUtils.getElementWithMatchingStartsWithText(items, sItem);
 				if (item != null) {
 					bReturn = WebElementUtils.clickElement(item);
+					bReturn &= WebElementUtils.waitForElementInvisible(item);
 				}else{
 					log.debug("Item with could not be found matching "+sItem);
 				}
 			}
 		}
 		return bReturn;
-	
 	}
-	public boolean waitForPageNotBusy() {
+
+	public boolean selectItemFromDropDown(int i){
+		boolean bReturn = false;
+		// when we click we need to find the visble list
+		List<WebElement> list = WebElementUtils.findElements(B2WEquipment.getKendoLists());
+		Iterator<WebElement> iter = list.iterator();
+		while (iter.hasNext()) {
+			WebElement els = iter.next();
+			String hidden = els.getAttribute("aria-hidden");
+			if (hidden != null && hidden.equals("false")) {
+				List<WebElement> items = els.findElements(B2WEquipment.getKendoDropDownItem());
+				WebElement item = items.get(i);
+				if (item != null) {
+					bReturn = WebElementUtils.clickElement(item);
+				}else{
+					log.debug("Could not select item #"+i);
+				}
+			}
+		}
+		return bReturn;
+	}
+	
+	
+	public boolean waitForPageNotBusy(int iSecs) {
 		boolean bReturn = false;
 		int iTrys = 0;
-		while (!bReturn && iTrys < 100) {
+		while (!bReturn && iTrys < iSecs) {
 			try {
 				WebElement el = BrowserUtils.getDriver().findElement(B2WEquipment.getKendoPageLoading());
 				TaskUtils.sleep(100);
 				if (!el.isDisplayed()){
 					bReturn = true;
+					log.debug("Element is not displayed");
 					break;
 				}
 				iTrys++;
 
 			} catch (NoSuchElementException e) {
+				log.warn("Page not Busy no such element exception");
 				bReturn = true;
 			}catch (StaleElementReferenceException e){
+				log.warn("Caught a stale element exception");
+				TaskUtils.sleep(250);
 				bReturn =true;
 			}
 		}
@@ -137,10 +164,14 @@ public abstract class B2WKendoTasks {
 		if (isExpanded & !bExpand){
 			log.debug(sText + " is expanded, click to collapse");
 			WebElementUtils.clickElement(el);
+			// temp fix to sleep 1/2 sec 
+			TaskUtils.sleep(500);
 		}
 		if (!isExpanded & bExpand){
 			log.debug(sText + " is collapsed, clicking expanded");
 			WebElementUtils.clickElement(el);
+			// temp fix to sleep 1/2 sec 
+			TaskUtils.sleep(500);
 		}
 		parent = WebElementUtils.getParentElement(el);
 		isExpanded =  new Boolean(parent.getAttribute("aria-expanded")).booleanValue();
@@ -207,7 +238,7 @@ public abstract class B2WKendoTasks {
 	
 	public List<WebElement> getFormElements(By by) {
 		List<WebElement> elements = new ArrayList<WebElement>();
-		WebElement parent = WebElementUtils.findElement(by);
+		WebElement parent = WebElementUtils.waitAndFindDisplayedElement(by);
 		List<WebElement> list = WebElementUtils.getChildElements(parent, By.tagName("p"));
 		Iterator<WebElement> iter = list.iterator();
 		while (iter.hasNext()) {
@@ -240,7 +271,7 @@ public abstract class B2WKendoTasks {
 			sText = gridcontent.get(iColumn).getText();
 			if (sText.startsWith(sItem)) {
 				bReturn = WebElementUtils.clickElement(item);
-				bReturn &= waitForPageNotBusy();
+				bReturn &= waitForPageNotBusy(WebElementUtils.MEDIUM_TIME_OUT);
 				break;
 			}
 		}
@@ -252,6 +283,17 @@ public abstract class B2WKendoTasks {
 		WebElement el = WebElementUtils.waitAndFindDisplayedElement(B2WMaintain.getKendoConfirmYesButton());
 		if (el != null){
 			bReturn =WebElementUtils.clickElement(el);
+			bReturn &= WebElementUtils.waitForElementInvisible(el);
+		}
+		return bReturn;
+	}
+	
+	public boolean clickFinish() {
+		boolean bReturn = false;
+		WebElement el = WebElementUtils.waitAndFindDisplayedElement(B2WMaintain.getKendoLargeFinishButton());
+		if (el != null){
+			bReturn =WebElementUtils.clickElement(el);
+			bReturn &= WebElementUtils.waitForElementInvisible(el);
 		}
 		return bReturn;
 	}
@@ -260,6 +302,7 @@ public abstract class B2WKendoTasks {
 		WebElement el = WebElementUtils.waitAndFindDisplayedElement(B2WMaintain.getKendoConfirmNoButton());
 		if (el != null){
 			bReturn =WebElementUtils.clickElement(el);
+			bReturn &= WebElementUtils.waitForElementInvisible(el);
 		}
 		return bReturn;
 	}

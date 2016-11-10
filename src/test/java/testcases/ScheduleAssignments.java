@@ -5,6 +5,10 @@ import com.b2w.test.B2WTestCase;
 import tasks.B2WNavigationTasks;
 import tasks.scheduler.B2WSchedulerTasks;
 import tasks.setup.B2WSchedulesTasks;
+import tasks.util.B2WScheduleItem;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ScheduleAssignments extends B2WTestCase {
 
@@ -32,7 +36,9 @@ public class ScheduleAssignments extends B2WTestCase {
     String sScheduleName;
     String sBU;
     String sNotes;
-    String sItemsOnTheSchedule;
+    String sScheduleFormatResourceListing;
+    String sScheduleFormatLocationView;
+    String sScheduleFormatCrewView;
     String sGroupingLevel1;
     String sGroupingLevel2;
     String sFilterType;
@@ -106,10 +112,13 @@ public class ScheduleAssignments extends B2WTestCase {
         int  n = getRandomNumber();
 
         //Schedule Setup
-        sScheduleName = getProperty("sScheduleName") + "-" + n;
+        sScheduleName = getProperty("sScheduleName");
         sBU = getProperty("sBU");
         sNotes = getProperty("sNotes");
-        sItemsOnTheSchedule = getProperty("sItemsOnTheSchedule");
+        sScheduleFormatResourceListing = getProperty("sScheduleFormatResourceListing");
+        sScheduleFormatLocationView = getProperty("sScheduleFormatLocationView");
+        sScheduleFormatCrewView = getProperty("sScheduleFormatCrewView");
+
         sGroupingLevel1 = getProperty("sGroupingLevel1");
         sGroupingLevel2 = getProperty("sGroupingLevel2");
         sFilterType = getProperty("sFilterType");
@@ -117,10 +126,14 @@ public class ScheduleAssignments extends B2WTestCase {
         sSecurityRole = getProperty("sSecurityRole");
 
         //Schedule View
-        sEmployeeView = getProperty("sEmployeeView");
-        sEquipmentView = getProperty("sEquipmentView");
-        sCrewView = getProperty("sCrewView");
-        sLocationView = getProperty("sLocationView");
+        //sEmployeeView = getProperty("sEmployeeView");
+        sEmployeeView = sScheduleName + " - Employees - " + n;
+        //sEquipmentView = getProperty("sEquipmentView");
+        sEquipmentView = sScheduleName + " - Equipment - " + n;
+        //sCrewView = getProperty("sCrewView");
+        sCrewView = sScheduleName + " - Crews - " + n;
+        //sLocationView = getProperty("sLocationView");
+        sLocationView = sScheduleName + " - Location - " + n;
 
         sJobSiteName = getProperty("sJobSiteName");
         sRequestedBy = getProperty("sRequestedBy");
@@ -144,7 +157,12 @@ public class ScheduleAssignments extends B2WTestCase {
     }
 
     public void testMain() throws Throwable {
-        createNewScheduleView();
+
+        createNewEmployeeScheduleView();
+        createNewEquipmentScheduleView();
+        createNewCrewScheduleView();
+        createNewJobSiteScheduleView();
+        //updateScheduleView();
 
         createEmployeeAssignment();
         createEquipmentAssignment();
@@ -158,7 +176,10 @@ public class ScheduleAssignments extends B2WTestCase {
         createEquipmentEvent();
         createLocationEvent();
 
-        deleteScheduleView();
+        deleteScheduleView(sEmployeeView);
+        deleteScheduleView(sEquipmentView);
+        deleteScheduleView(sCrewView);
+        deleteScheduleView(sLocationView);
     }
 
     @Override
@@ -166,7 +187,7 @@ public class ScheduleAssignments extends B2WTestCase {
         super.testTearDown();
     }
 
-    public void createNewScheduleView() {
+    public void createNewEmployeeScheduleView() {
         /*
          * 1. Navigate to Setup -> Schedules
          * 2. Open Create Schedule View dialog.
@@ -174,18 +195,139 @@ public class ScheduleAssignments extends B2WTestCase {
          * 4. Save Schedule View
          * 5. Check that Schedule View has been created.
          */
+        String sView = sScheduleFormatResourceListing;
+        List<B2WScheduleItem> itemList = new ArrayList<B2WScheduleItem>();
+        B2WScheduleItem item = new B2WScheduleItem();
+        item.setScheduleFormat(sView);
+        item.setResourceName("Employees");
+        itemList.add(item);
+
         logCompare(true, b2wNav.openSchedules(), "Navigate to Setup -> Schedules");
-        logCompare(true, b2wSchedulesTasks.openCreateScheduleViewDialog(), "Open Create Schedule View dialog.");
-        logCompare(true, b2wSchedulesTasks.setName(sScheduleName), "Set Name");
+        logCompare(true, b2wSchedulesTasks.clickCreateScheduleViewDialog(), "Open Create Schedule View dialog.");
+        logCompare(true, b2wSchedulesTasks.setName(sEmployeeView), "Set Name");
         logCompare(true, b2wSchedulesTasks.setBU(sBU), "Select BU");
-        logCompare(true, b2wSchedulesTasks.setNotes(sNotes), "Select BU");
-        logCompare(true, b2wSchedulesTasks.setItems(sItemsOnTheSchedule), "Select Items on the Schedule");
+        logCompare(true, b2wSchedulesTasks.setNotes(sNotes), "Set Notes");
+        logCompare(true, b2wSchedulesTasks.setScheduleFormat(sView), "Select Schedule Format");
+        logCompare(true, b2wSchedulesTasks.setItems(itemList), "Select Items on Schedule");
         logCompare(true, b2wSchedulesTasks.setGrouping("Group items by", sGroupingLevel1), "Select Grouping item by");
         logCompare(true, b2wSchedulesTasks.setGrouping("Secondary grouping", sGroupingLevel2), "Select Secondary grouping");
+        /*
+        //ToDO: Remove comments after fixing
         logCompare(true, b2wSchedulesTasks.setFilter(sFilterType, sFilterValue), "Set Filter");
+         */
         logCompare(true, b2wSchedulesTasks.setSecurityRole(sSecurityRole), "Select Security Role");
         logCompare(true, b2wSchedulesTasks.saveSchedule(), "Save Schedule View");
-        logCompare(true, b2wSchedulesTasks.isScheduleExist(sScheduleName), "Check that Schedule View has been created.");
+        logCompare(true, b2wSchedulesTasks.isScheduleExist(sEmployeeView), "Check that Schedule View has been created.");
+    }
+
+    public void createNewEquipmentScheduleView() {
+        /*
+         * 1. Navigate to Setup -> Schedules
+         * 2. Open Create Schedule View dialog.
+         * 3. Fill all fields (Name, BU, Notes, Items, Grouping Level1, Grouping Level 2, Filter, Security Roles)
+         * 4. Save Schedule View
+         * 5. Check that Schedule View has been created.
+         */
+        String sView = sScheduleFormatResourceListing;
+        List<B2WScheduleItem> itemList = new ArrayList<B2WScheduleItem>();
+        B2WScheduleItem item = new B2WScheduleItem();
+        item.setScheduleFormat(sView);
+        item.setResourceName("Equipment");
+        itemList.add(item);
+
+        logCompare(true, b2wNav.openSchedules(), "Navigate to Setup -> Schedules");
+        logCompare(true, b2wSchedulesTasks.clickCreateScheduleViewDialog(), "Open Create Schedule View dialog.");
+        logCompare(true, b2wSchedulesTasks.setName(sEquipmentView), "Set Name");
+        logCompare(true, b2wSchedulesTasks.setBU(sBU), "Select BU");
+        logCompare(true, b2wSchedulesTasks.setNotes(sNotes), "Set Notes");
+        logCompare(true, b2wSchedulesTasks.setScheduleFormat(sView), "Select Schedule Format");
+        logCompare(true, b2wSchedulesTasks.setItems(itemList), "Select Items on Schedule");
+        logCompare(true, b2wSchedulesTasks.setGrouping("Group items by", sGroupingLevel1), "Select Grouping item by");
+        logCompare(true, b2wSchedulesTasks.setGrouping("Secondary grouping", sGroupingLevel2), "Select Secondary grouping");
+        /*
+        //ToDO: Remove comments after fixing
+        logCompare(true, b2wSchedulesTasks.setFilter(sFilterType, sFilterValue), "Set Filter");
+         */
+        logCompare(true, b2wSchedulesTasks.setSecurityRole(sSecurityRole), "Select Security Role");
+        logCompare(true, b2wSchedulesTasks.saveSchedule(), "Save Schedule View");
+        logCompare(true, b2wSchedulesTasks.isScheduleExist(sEquipmentView), "Check that Schedule View has been created.");
+    }
+
+    public void createNewCrewScheduleView() {
+        /*
+         * 1. Navigate to Setup -> Schedules
+         * 2. Open Create Schedule View dialog.
+         * 3. Fill all fields (Name, BU, Notes, Items, Grouping Level1, Grouping Level 2, Filter, Security Roles)
+         * 4. Save Schedule View
+         * 5. Check that Schedule View has been created.
+         */
+        String sView = sScheduleFormatCrewView;
+        List<B2WScheduleItem> itemList = new ArrayList<B2WScheduleItem>();
+        B2WScheduleItem item = new B2WScheduleItem();
+        item.setScheduleFormat(sView);
+        item.setResourceName("Production Crews");
+        itemList.add(item);
+        B2WScheduleItem item1 = new B2WScheduleItem();
+        item1.setScheduleFormat(sView);
+        item1.setResourceName("Transportation Crews");
+        itemList.add(item1);
+
+        logCompare(true, b2wNav.openSchedules(), "Navigate to Setup -> Schedules");
+        logCompare(true, b2wSchedulesTasks.clickCreateScheduleViewDialog(), "Open Create Schedule View dialog.");
+        logCompare(true, b2wSchedulesTasks.setName(sCrewView), "Set Name");
+        logCompare(true, b2wSchedulesTasks.setBU(sBU), "Select BU");
+        logCompare(true, b2wSchedulesTasks.setNotes(sNotes), "Set Notes");
+        logCompare(true, b2wSchedulesTasks.setScheduleFormat(sView), "Select Schedule Format");
+        logCompare(true, b2wSchedulesTasks.setItems(itemList), "Select Items on Schedule");
+        logCompare(true, b2wSchedulesTasks.setGrouping("Group items by", sGroupingLevel1), "Select Grouping item by");
+        logCompare(true, b2wSchedulesTasks.setGrouping("Secondary grouping", sGroupingLevel2), "Select Secondary grouping");
+        /*
+        //ToDO: Remove comments after fixing
+        logCompare(true, b2wSchedulesTasks.setFilter(sFilterType, sFilterValue), "Set Filter");
+         */
+        logCompare(true, b2wSchedulesTasks.setSecurityRole(sSecurityRole), "Select Security Role");
+        logCompare(true, b2wSchedulesTasks.saveSchedule(), "Save Schedule View");
+        logCompare(true, b2wSchedulesTasks.isScheduleExist(sCrewView), "Check that Schedule View has been created.");
+    }
+
+    public void createNewJobSiteScheduleView() {
+        /*
+         * 1. Navigate to Setup -> Schedules
+         * 2. Open Create Schedule View dialog.
+         * 3. Fill all fields (Name, BU, Notes, Items, Grouping Level1, Grouping Level 2, Filter, Security Roles)
+         * 4. Save Schedule View
+         * 5. Check that Schedule View has been created.
+         */
+        String sView = sScheduleFormatLocationView;
+        List<B2WScheduleItem> itemList = new ArrayList<B2WScheduleItem>();
+        B2WScheduleItem item = new B2WScheduleItem();
+        item.setScheduleFormat(sView);
+        item.setResourceName("Job Sites");
+        itemList.add(item);
+
+        logCompare(true, b2wNav.openSchedules(), "Navigate to Setup -> Schedules");
+        logCompare(true, b2wSchedulesTasks.clickCreateScheduleViewDialog(), "Open Create Schedule View dialog.");
+        logCompare(true, b2wSchedulesTasks.setName(sLocationView), "Set Name");
+        logCompare(true, b2wSchedulesTasks.setBU(sBU), "Select BU");
+        logCompare(true, b2wSchedulesTasks.setNotes(sNotes), "Set Notes");
+        logCompare(true, b2wSchedulesTasks.setScheduleFormat(sView), "Select Schedule Format");
+        logCompare(true, b2wSchedulesTasks.setItems(itemList), "Select Items on Schedule");
+        logCompare(true, b2wSchedulesTasks.setGrouping("Group items by", sGroupingLevel1), "Select Grouping item by");
+        logCompare(true, b2wSchedulesTasks.setGrouping("Secondary grouping", sGroupingLevel2), "Select Secondary grouping");
+        /*
+        //ToDO: Remove comments after fixing
+        logCompare(true, b2wSchedulesTasks.setFilter(sFilterType, sFilterValue), "Set Filter");
+         */
+        logCompare(true, b2wSchedulesTasks.setSecurityRole(sSecurityRole), "Select Security Role");
+        logCompare(true, b2wSchedulesTasks.saveSchedule(), "Save Schedule View");
+        logCompare(true, b2wSchedulesTasks.isScheduleExist(sLocationView), "Check that Schedule View has been created.");
+    }
+
+    public void updateScheduleView() {
+        logCompare(true, b2wNav.openSchedules(), "Navigate to Setup -> Schedules");
+        logCompare(true, b2wSchedulesTasks.selectScheduleView(sScheduleName), "Select Schedule View.");
+        logCompare(true, b2wSchedulesTasks.clickUpdateScheduleViewDialog(), "Open Edit Schedule View Dialog.");
+
     }
 
     public void createEmployeeAssignment() {
@@ -495,7 +637,7 @@ public class ScheduleAssignments extends B2WTestCase {
         logCompare(true, actualCount == initialCount + 1, "Verification that Assignment has been created.");
     }
 
-    public void deleteScheduleView() {
+    public void deleteScheduleView(String sValue) {
         /*
          * 1. Navigate to Setup -> Schedules
          * 2. Select Schedule View
@@ -503,8 +645,10 @@ public class ScheduleAssignments extends B2WTestCase {
          * 4. Check that Schedule View has been deleted.
          */
         logCompare(true, b2wNav.openSchedules(), "Navigate to Setup -> Schedules");
-        logCompare(true, b2wSchedulesTasks.selectScheduleView(sScheduleName), "Navigate to Setup -> Schedules");
+        //logCompare(true, b2wSchedulesTasks.selectScheduleView(sScheduleName), "Navigate to Setup -> Schedules");
+        logCompare(true, b2wSchedulesTasks.selectScheduleView(sValue), "Navigate to Setup -> Schedules");
         logCompare(true, b2wSchedulesTasks.deleteSchedule(), "Delete Schedule View");
-        logCompare(false, b2wSchedulesTasks.isScheduleExist(sScheduleName), "Check that Schedule View has been deleted.");
+        //logCompare(false, b2wSchedulesTasks.isScheduleExist(sScheduleName), "Check that Schedule View has been deleted.");
+        logCompare(false, b2wSchedulesTasks.isScheduleExist(sValue), "Check that Schedule View has been deleted.");
     }
 }

@@ -6,13 +6,10 @@ import tasks.B2WNavigationTasks;
 import tasks.jobs.B2WAddToJobs;
 import tasks.jobs.B2WJobsTasks;
 import tasks.jobs.B2WJobsTasks.JOBSDIALOG;
-import tasks.resources.B2WAddMaterialsTasks;
 import tasks.util.TaskUtils;
-import testcases.OperationsSmokeF;
 
 public class B2WJobTestCase extends B2WTestCase {
 	
-	private B2WJobsTasks b2wJobs = new B2WJobsTasks();
 	private B2WNavigationTasks b2wNav = new B2WNavigationTasks();
 
 	@Override
@@ -27,7 +24,6 @@ public class B2WJobTestCase extends B2WTestCase {
 		b2wNav.clickHome();
 		
 		B2WJobsTasks jobsTasks = new B2WJobsTasks();
-		B2WAddMaterialsTasks addMaterialsTasks = new B2WAddMaterialsTasks();
 		B2WAddToJobs addToJobs = new B2WAddToJobs(JOBSDIALOG.ADDMATERIALS);
 		B2WAddToJobs addToVendors = new B2WAddToJobs(JOBSDIALOG.ADDVENDORS);
 		
@@ -96,8 +92,8 @@ public class B2WJobTestCase extends B2WTestCase {
 		jobsTasks.clickBottomSaveButton();
 		
 		jobsTasks.clickGeneralInfoTab();
-		jobsTasks.clickBottomDeleteButton();
-		TaskUtils.dismissAlert();
+		logCompare(true,jobsTasks.clickBottomDeleteButton(),"Click Delete");
+		logCompare(true,TaskUtils.dismissAlert(),"Dismiss Alert");
 		
 		     // enter info
 		
