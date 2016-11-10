@@ -35,4 +35,9 @@ public class B2WScheduleAssignments extends KendoUI {
     public static By getCalendarActiveDateRange() { return By.cssSelector(B2WUIMap.b2w_schedulecalendaractiverange); }
     public static By getCalendarStartDate() { return By.cssSelector(B2WUIMap.b2w_schedulecalendastartdate); }
     public static By getCalendarStartDateValue() { return By.cssSelector(B2WUIMap.b2w_schedulecalendastartdatevalue); }
+    public static By getSearchBox() { return By.cssSelector(B2WUIMap.b2w_schedule_search); }
+    public static By getGrid() { return By.cssSelector(B2WUIMap.b2w_schedule_grid); }
+    public static By getAssignment() { return By.cssSelector(B2WUIMap.b2w_schedule_assignment); }
+    public static By getResourceName() { return By.cssSelector(B2WUIMap.b2w_schedule_resourcename); }
+    public static By getAddressSection() { return By.cssSelector(B2WUIMap.b2w_schedule_addresssection); }
 }

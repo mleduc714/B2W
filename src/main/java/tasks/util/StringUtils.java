@@ -39,7 +39,6 @@ public class StringUtils {
 		}
 		return dReturn;
 	}
-
 	public static Date getDateFromStringWithPattern(String sDate, String sPattern) {
 		Date dReturn;
 		SimpleDateFormat sdf = new SimpleDateFormat(sPattern);
@@ -50,5 +49,9 @@ public class StringUtils {
 		}
 		return dReturn;
 	}
-	
+
+	public static String getStringFromDateByPattern(Date date, String sPattern) {
+		SimpleDateFormat sdf = new SimpleDateFormat(sPattern);
+		return sdf.format(date);
+	}
 }
