@@ -261,8 +261,8 @@ public class B2WSchedulesTasks extends B2WKendoTasks {
         WebElement eSaveBtn = WebElementUtils.findElement(B2WSchedules.saveBtn());
         if (eSaveBtn != null) {
             bReturn = WebElementUtils.clickElement(eSaveBtn);
-            TaskUtils.sleep(100);
             waitForSchedulesPageNoBusy();
+
         } else {
             log.debug("Save button could not be found on the page.");
         }
@@ -286,8 +286,9 @@ public class B2WSchedulesTasks extends B2WKendoTasks {
     public boolean isScheduleExist(String sValue) {
         boolean bReturn = false;
         try {
+            bReturn = WebElementUtils.waitAndFindDisplayedElement(B2WSchedules.editScheduleViewBtn()) != null;
             waitForSchedulesPageNoBusy();
-            bReturn = findScheduleView(sValue) != null;
+            bReturn &= findScheduleView(sValue) != null;
         } catch (Exception e) {
             log.debug("Exception during executing: " + e.toString() );
         }
