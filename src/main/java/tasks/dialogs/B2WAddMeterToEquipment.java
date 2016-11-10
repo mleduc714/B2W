@@ -62,30 +62,11 @@ public class B2WAddMeterToEquipment extends B2WKendoDialog {
 	}
 
 	public boolean clickSaveAddMeter() {
-		boolean bReturn = false;
-		TaskUtils.sleep(500);
-		WebElement window = getDisplayedWindow();
-		if (window != null){
-			WebElement buttoncontainer = WebElementUtils.getChildElement(window, B2WEquipment.getKendoButtonContainer());
-			WebElement savebutton = buttoncontainer.findElement(B2WEquipment.getKendoLargeSaveButton());
-			bReturn = WebElementUtils.clickElement(savebutton);
-			bReturn &= WebElementUtils.waitForElementInvisible(window);
-			waitForPageNotBusy(WebElementUtils.MEDIUM_TIME_OUT);
-		}
-		return bReturn;
+		return clickSave();
 	}
 	
 	public boolean clickCancelAddMeter() {
-		boolean bReturn = false;
-		WebElement window = getDisplayedWindow();
-		if (window != null){
-			WebElement buttoncontainer = WebElementUtils.getChildElement(window, B2WEquipment.getKendoButtonContainer());
-			WebElement savebutton = buttoncontainer.findElement(B2WEquipment.getKendoCancelButton());
-			bReturn = WebElementUtils.clickElement(savebutton);
-			bReturn &= WebElementUtils.waitForElementInvisible(window);
-			waitForPageNotBusy(WebElementUtils.MEDIUM_TIME_OUT);
-		}
-		return bReturn;
+		return clickSave();
 	}
 
 	

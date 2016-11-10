@@ -9,9 +9,7 @@ import org.openqa.selenium.interactions.internal.Coordinates;
 import org.openqa.selenium.internal.Locatable;
 
 import appobjects.maintain.B2WMaintain;
-import appobjects.resources.B2WEquipment;
 import tasks.WebElementUtils;
-import tasks.util.TaskUtils;
 
 public class B2WAddPartsToWorkItem extends B2WKendoDialog {
 
@@ -44,20 +42,12 @@ public class B2WAddPartsToWorkItem extends B2WKendoDialog {
 		return bReturn;
 	}
 	
-	public boolean clickSaveAddPart() {
-		boolean bReturn = false;
-		TaskUtils.sleep(500);
-		WebElement window = getDisplayedWindow();
-		if (window != null){
-			WebElement buttoncontainer = WebElementUtils.getChildElement(window, B2WEquipment.getKendoButtonContainer());
-			WebElement savebutton = buttoncontainer.findElement(B2WEquipment.getKendoLargeSaveButton());
-			bReturn = WebElementUtils.clickElement(savebutton);
-			bReturn &= WebElementUtils.waitForElementInvisible(window);
-			waitForPageNotBusy(WebElementUtils.MEDIUM_TIME_OUT);
-		}
-		return bReturn;
+	public boolean partsNext() {
+		return clickNext();
 	}
-	
+	public boolean saveParts() {
+		return clickSave();
+	}
 	
 
 	

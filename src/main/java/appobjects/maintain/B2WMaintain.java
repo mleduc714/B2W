@@ -255,7 +255,9 @@ public class B2WMaintain extends KendoUI {
 	public static By getB2WAddPartsToWorkOrder() {
 		return By.cssSelector(B2WUIMap.b2w_maintainequipmentaddprogram);
 	}
-	
+	public static By getB2WPlannedHours() {
+		return By.cssSelector(B2WUIMap.b2w_maintainworkorderplannedhours);
+	}
 	
 	
 }

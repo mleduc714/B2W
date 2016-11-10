@@ -197,6 +197,9 @@ public class B2WReportHours extends B2WKendoDialog {
 		return bReturn;
 	}
 	
+	public boolean saveReportedHours() {
+		return clickSave();
+	}
 
 	
 	

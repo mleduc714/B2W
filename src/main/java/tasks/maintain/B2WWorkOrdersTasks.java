@@ -186,11 +186,18 @@ public class B2WWorkOrdersTasks extends B2WKendoTasks {
 		return getHeaderandExpandOrCollapse("Hours", true);
 	}
 	public boolean clickAddPlannedHours() {
-		getButton(1);
-		return false;
+		WebElement el = getButton(6);
+		return WebElementUtils.clickElement(el);
+	
 	}
 	public boolean clickAddReportedHours() {
-		return false;
+		WebElement el = getButton(7);
+		return WebElementUtils.clickElement(el);
+	
+	}
+	public boolean clickAddParts() {
+		WebElement el = getButton(8);
+		return WebElementUtils.clickElement(el);
 	}
 	
 }

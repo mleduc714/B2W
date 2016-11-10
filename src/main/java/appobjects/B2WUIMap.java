@@ -1,7 +1,5 @@
 package appobjects;
 
-import tasks.util.StringUtils;
-
 public class B2WUIMap {
 
 	public static final String b2w_errormessagepanel = "div#PageContent_errorMessageControl_ErrorPanel";
@@ -902,6 +900,7 @@ public class B2WUIMap {
 	public static final String b2w_maintainschedulereditschedule = "div.wizard-dialog.editable-schedule-popup-view.schedule-edit.k-window-content.k-content";
 	public static final String b2w_maintainschedulerschedulemaintenance = "div.wizard-dialog.editable-schedule-popup-view.schedule-create.k-window-content.k-content";
 	public static final String b2w_maintainequipmentaddprogram = "div.wizard-dialog.equipmentProgram-editable.k-window-content.k-content";
+	public static final String b2w_maintainworkorderplannedhours = "div.wizard-dialog.hours-editable-popup.k-window-content.k-content";
 	// links
 	public static final String b2w_maintainscheduletodaylink = "Today";
 	public static final String b2w_maintainscheduledaylink = "Day";
