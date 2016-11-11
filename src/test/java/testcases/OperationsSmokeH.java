@@ -106,17 +106,17 @@ public class OperationsSmokeH extends B2WTestCase {
 	}
 	public void testMain() throws Throwable {
 
-		scheduleToWorkOrder();
-		createTimeCard();
+		//scheduleToWorkOrder();
+		//createTimeCard();
 		addHoursToWorkOrder();
-		submitTimeCardCompleteWorkItem();
+		//submitTimeCardCompleteWorkItem();
 	}
 	
 	public void scheduleToWorkOrder(){
 		//sMaintenanceWorkOrderDescription
 		//sPlaceDescription
 		//sEmployeeFullNameID
-		
+		//*[@id="work_order_edit_view"]/div[3]/div[1]
 		assertTrue("open Maintain", b2wNav.openMaintain());
 		logCompare(true, b2wMain.openSchedule(), "Open Schedule");
 		logCompare(true, b2wSchd.clickWorkOrdersTab(), "Click Work Orders");
@@ -171,7 +171,7 @@ public class OperationsSmokeH extends B2WTestCase {
 		assertTrue("open Maintain", b2wNav.openMaintain());
 		assertTrue("Open Work Orders", b2wMain.openWorkOrders());
 		TaskUtils.sleep(1000);
-		logCompare(true,b2wOrder.selectWorkOrderByDescription(sMaintenanceWorkOrderDescription), "Select Work Order");
+		logCompare(true,b2wOrder.selectWorkOrderByDescription("REPAIR VIBRATOR"), "Select Work Order");
 		logCompare(true,b2wOrder.editWorkOrder(), "Edit Work Order");
 		TaskUtils.sleep(1000);
 		logCompare(true,b2wOrder.collapseDetails(), "Collapse Details");
@@ -195,7 +195,7 @@ public class OperationsSmokeH extends B2WTestCase {
 		logCompare(true,b2wPlan.setLaborType("Laborer"), "Set Labor Type");
 		logCompare(true,b2wPlan.setPlannedHours("1"), "Set Planned Hours");
 		logCompare(true,b2wPlan.savePlannedHours(), "Saved Planned Hours");
-		logCompare(true,b2wOrder.clickSaveButton(), "Save ");
+		logCompare(true,b2wOrder.saveEditWorkOrder(), "Save ");
 		
 	}
 	

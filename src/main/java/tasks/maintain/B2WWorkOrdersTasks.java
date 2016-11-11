@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
 import appobjects.maintain.B2WMaintain;
@@ -171,7 +172,17 @@ public class B2WWorkOrdersTasks extends B2WKendoTasks {
 		return bReturn;
 	}
 	
-
+	public boolean saveEditWorkOrder() {
+		boolean bReturn = false;
+		WebElement el = WebElementUtils.findElement(By.xpath("//*[@id='work_order_edit_view']/div[3]/div[1]"));
+		if (el != null){
+			bReturn = WebElementUtils.clickElement(el);
+			bReturn &= WebElementUtils.waitForElementInvisible(WebElementUtils.findElement(B2WMaintain.getKendoFakeSaveButton()));
+			bReturn &= waitForPageNotBusy(WebElementUtils.MEDIUM_TIME_OUT);
+			bReturn &= WebElementUtils.waitAndFindDisplayedElement(B2WMaintain.getB2WMaintainItemActions(), WebElementUtils.MEDIUM_TIME_OUT) != null;
+		}
+		return bReturn;
+	}
 
 	
 	public boolean clickCreateAddItemButton() {
