@@ -210,10 +210,10 @@ public class B2WWorkOrdersTasks extends B2WKendoTasks {
 		return getHeaderandExpandOrCollapse("Details", false);
 	}
 	public boolean expandParts() {
-		return getHeaderandExpandOrCollapse("Details", true);
+		return getHeaderandExpandOrCollapse("Parts", true);
 	}
 	public boolean collapseParts() {
-		return getHeaderandExpandOrCollapse("Details", false);
+		return getHeaderandExpandOrCollapse("Parts", false);
 	}
 	public boolean expandHours() {
 		return getHeaderandExpandOrCollapse("Hours", true);
