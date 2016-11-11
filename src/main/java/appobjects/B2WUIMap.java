@@ -516,6 +516,7 @@ public class B2WUIMap {
 	public static final String b2w_kendoconfirmnobutton = "div.btn-form dialog-button reject";
 	public static final String b2w_kendolargefinishbutton = ".btn-form.large.finish";
 	public static final String b2w_kendobuttonnew = ".btn-new";
+	public static final String b2w_kendosubmit = ".btn-import";
 	
 	
 	
@@ -525,6 +526,7 @@ public class B2WUIMap {
 	public static final String b2w_tmpricesheetdeletebutton = "a#deletePriceSheet.btn-orig";
 	public static final String b2w_tmpricesheetbusinessunitdropdown = "span.k-widget.k-dropdown.k-header";
 	public static final String b2w_tmpricesheetratessourcedropdown = "span.k-widget.k-dropdown.k-header.k-state-border-down";
+	public static final String b2w_addpartstoworkorderquanitiesgrid = "div.grid.partQuantitiesGrid.k-grid.k-widget";
 
 	// jobs
 	public static final String b2w_createnewjobbutton = "a#PageContent_CreateNewJobButton";
@@ -901,6 +903,8 @@ public class B2WUIMap {
 	public static final String b2w_maintainschedulerschedulemaintenance = "div.wizard-dialog.editable-schedule-popup-view.schedule-create.k-window-content.k-content";
 	public static final String b2w_maintainequipmentaddprogram = "div.wizard-dialog.equipmentProgram-editable.k-window-content.k-content";
 	public static final String b2w_maintainworkorderplannedhours = "div.wizard-dialog.hours-editable-popup.k-window-content.k-content";
+	public static final String b2w_maintainworkordercomplete = "div.complete-workorder-meters.grid.k-grid.k-widget";
+	public static final String b2w_maintainworkordercompletedialog = "div.wizard-dialog.complete-workorder-popup-view.k-window-content.k-content";
 	// links
 	public static final String b2w_maintainscheduletodaylink = "Today";
 	public static final String b2w_maintainscheduledaylink = "Day";
@@ -970,4 +974,6 @@ public class B2WUIMap {
 	public static final String b2w_schedulesoutherndivisionsiteworkspecial = "Southern Division Sitework \"Special\"";
 	public static final String b2w_schedulesoutherndivisionpaversgraders = "Southwest Division Pavers--Graders";
 	public static final String b2w_schedulerandomcharacters = "exact:Z!\"#$%&'()*+-./:;<=>?@[\\\\]^_`{|}~“”‘’!\"#$%&'()*+-./:;<=>?@[\\\\]^_`{|}~“”‘’";
+
+	public static String b2w_kendoworkorderitemstitle = "div.complete-workorder-items-title";
 }

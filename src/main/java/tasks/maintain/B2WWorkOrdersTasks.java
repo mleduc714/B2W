@@ -65,6 +65,27 @@ public class B2WWorkOrdersTasks extends B2WKendoTasks {
 		WebElement el = WebElementUtils.findElement(B2WMaintain.getKendoEditButton());
 		if (el != null){
 			bReturn = WebElementUtils.clickElement(el);
+			waitForPageNotBusy(WebElementUtils.MEDIUM_TIME_OUT);
+		}
+		return bReturn;
+	}
+	
+	public boolean clickComplete() {
+		boolean bReturn = false;
+		WebElement el = WebElementUtils.findElement(B2WMaintain.getKendoCompleteButton());
+		if (el != null){
+			bReturn = WebElementUtils.clickElement(el);
+			waitForPageNotBusy(WebElementUtils.MEDIUM_TIME_OUT);
+		}
+		return bReturn;
+	}
+	
+	public boolean completeWorkOrder() {
+		boolean bReturn = false;
+		WebElement el = WebElementUtils.findElement(B2WMaintain.getKendoEditButton());
+		if (el != null){
+			bReturn = WebElementUtils.clickElement(el);
+			waitForPageNotBusy(WebElementUtils.MEDIUM_TIME_OUT);
 		}
 		return bReturn;
 	}
@@ -181,7 +202,19 @@ public class B2WWorkOrdersTasks extends B2WKendoTasks {
 		return selectItemFromView(sText, 1);
 	}
 
+	public void getItems() {
 	
+		
+	}
+	public boolean collapseDetails() {
+		return getHeaderandExpandOrCollapse("Details", false);
+	}
+	public boolean expandParts() {
+		return getHeaderandExpandOrCollapse("Details", true);
+	}
+	public boolean collapseParts() {
+		return getHeaderandExpandOrCollapse("Details", false);
+	}
 	public boolean expandHours() {
 		return getHeaderandExpandOrCollapse("Hours", true);
 	}
@@ -196,8 +229,11 @@ public class B2WWorkOrdersTasks extends B2WKendoTasks {
 	
 	}
 	public boolean clickAddParts() {
+		boolean bReturn = false;
 		WebElement el = getButton(8);
-		return WebElementUtils.clickElement(el);
+		bReturn = WebElementUtils.clickElement(el);
+		bReturn &= waitForPageNotBusy(WebElementUtils.MEDIUM_TIME_OUT);
+		return bReturn;
 	}
 	
 }

@@ -258,6 +258,16 @@ public class B2WMaintain extends KendoUI {
 	public static By getB2WPlannedHours() {
 		return By.cssSelector(B2WUIMap.b2w_maintainworkorderplannedhours);
 	}
-	
-	
+	public static By getB2WAddPartsDialogQuanities() {
+		return By.cssSelector(B2WUIMap.b2w_addpartstoworkorderquanitiesgrid);
+	}
+	public static By getB2WCompleteWorkItemsTitle() {
+		return By.cssSelector(B2WUIMap.b2w_kendoworkorderitemstitle);
+	}
+	public static By getB2WWorkItemCompleteMeters() {
+		return By.cssSelector(B2WUIMap.b2w_maintainworkordercomplete);
+	}
+	public static By getB2WorkItemCompleteDialog() {
+		return By.cssSelector(B2WUIMap.b2w_maintainworkordercompletedialog);
+	}
 }

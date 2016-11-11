@@ -91,7 +91,7 @@ public abstract class KendoUI {
 		return By.cssSelector(B2WUIMap.b2w_kendoapprovebutton);
 	}
 	public static By getKendoCompleteButton() {
-		return By.cssSelector(B2WUIMap.b2w_kendoapprovebutton);
+		return By.cssSelector(B2WUIMap.b2w_kendocompletebutton);
 	}
 	public static By getKendoEditButton() {
 		return By.cssSelector(B2WUIMap.b2w_kendoeditbutton);
@@ -114,4 +114,8 @@ public abstract class KendoUI {
 	public static By getKendoButtonNew() {
 		return By.cssSelector(B2WUIMap.b2w_kendobuttonnew);
 	}
+	public static By getKendoSubmitButton() {
+		return By.cssSelector(B2WUIMap.b2w_kendosubmit);
+	}
+	
 }
