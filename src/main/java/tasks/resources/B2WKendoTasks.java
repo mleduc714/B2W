@@ -26,7 +26,7 @@ public abstract class B2WKendoTasks {
 	
 	public boolean selectItemFromDropDown(String sItem){
 		boolean bReturn = false;
-		// when we click we need to find the visble list
+		// when we click we need to find the visible list
 		List<WebElement> list = WebElementUtils.findElements(B2WEquipment.getKendoLists());
 		Iterator<WebElement> iter = list.iterator();
 		while (iter.hasNext()) {
