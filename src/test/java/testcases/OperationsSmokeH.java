@@ -121,10 +121,10 @@ public class OperationsSmokeH extends B2WTestCase {
 		logCompare(true, b2wMain.openSchedule(), "Open Schedule");
 		logCompare(true, b2wSchd.clickWorkOrdersTab(), "Click Work Orders");
 		assertTrue("Open Work Order",b2wSchd.openWorkOrderFromWorkOrderTabByDescription(sMaintenanceWorkOrderDescription));
-		logCompare(true, b2wSchd.scheduleMaintainancePopupSelectWorkLocation(sPlaceDescription), "Work Location "+sPlaceDescription);
 		logCompare(true, b2wSchd.scheduleMaintainancePopupSelectMechanic(sEmployeeFullNameID), "Select Mechanic "+sEmployeeFullNameID);
 		logCompare(true, b2wSchd.scheduleMaintainancePopupSelectEvent("Down for Maintenance"), "Down for maintenance");
 		logCompare(true, b2wSchd.scheduleMaintainancePopupSelectEndDate(sEndDate), "Set End Date");
+		logCompare(true, b2wSchd.scheduleMaintainancePopupSelectWorkLocation(sPlaceDescription), "Work Location "+sPlaceDescription);
 		logCompare(true, b2wSchd.saveScheduleMaintenance(), "Save Schedule Maintenance");
 	}
 	
