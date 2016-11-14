@@ -152,7 +152,6 @@ public class OperationsSmokeH extends B2WTestCase {
 	
 		logCompare(true, b2wReport.setRegularMins("30"), "Change Oil");
 		logCompare(true, b2wReport.selectEquipmentRateClass("Standard"), "Select Labor Rate");
-		logCompare(true, false, "TEST");
 		b2wtimecards.saveReportHours();
 
 		TaskUtils.sleep(500);
@@ -169,7 +168,6 @@ public class OperationsSmokeH extends B2WTestCase {
 		logCompare(true, b2wReport.setRegularHours("1"), "Broken Track 1 hr");
 		logCompare(true, b2wReport.setRegularMins("30"), "Broken Track");
 		logCompare(true, b2wReport.selectEquipmentRateClass("Standard"), "Select Labor Rate");
-		logCompare(true, false, "TEST");
 		logCompare(true, b2wtimecards.saveReportHours(), "Save Report Hours");
 
 
