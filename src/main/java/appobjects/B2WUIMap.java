@@ -804,6 +804,9 @@ public class B2WUIMap {
 	public static final String b2w_schedule_grid = "div.k-grid-content";
 	public static final String b2w_schedule_assignment = ".Assignment__content";
 	public static final String b2w_schedule_resourcename = "div.ResourceDescription__resource-name";
+	public static final String b2w_schedule_contextmenu = "ul.k-context-menu.k-popup.k-state-border-up";
+	public static final String b2w_schedule_contextmenu_deletebuttons = ".//button";
+
 
 	// Maintain
 	public static final String b2w_maintainpagemenu = "ul#SubNavMenu_MaintainPageMenu.MaintainPageMenu";
@@ -969,5 +972,5 @@ public class B2WUIMap {
 	public static final String b2w_scheduleplaces = "Places";
 	public static final String b2w_schedulesoutherndivisionsiteworkspecial = "Southern Division Sitework \"Special\"";
 	public static final String b2w_schedulesoutherndivisionpaversgraders = "Southwest Division Pavers--Graders";
-	public static final String b2w_schedulerandomcharacters = "exact:Z!\"#$%&'()*+-./:;<=>?@[\\\\]^_`{|}~“”‘’!\"#$%&'()*+-./:;<=>?@[\\\\]^_`{|}~“”‘’";
+	public static final String b2w_schedulerandomcharacters = "exact:Z!\"#$%&'()*+-./:;<=>?@[\\\\]^_`{|}~ï¿½ï¿½ï¿½ï¿½!\"#$%&'()*+-./:;<=>?@[\\\\]^_`{|}~ï¿½ï¿½ï¿½ï¿½";
 }

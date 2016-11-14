@@ -40,4 +40,7 @@ public class B2WScheduleAssignments extends KendoUI {
     public static By getAssignment() { return By.cssSelector(B2WUIMap.b2w_schedule_assignment); }
     public static By getResourceName() { return By.cssSelector(B2WUIMap.b2w_schedule_resourcename); }
     public static By getAddressSection() { return By.cssSelector(B2WUIMap.b2w_schedule_addresssection); }
+    public static By getContextMenu() { return By.cssSelector(B2WUIMap.b2w_schedule_contextmenu); }
+    public static By getDeleteOptionBtn(String sValue) { return By.xpath(B2WUIMap.b2w_schedule_contextmenu_deletebuttons + "[contains(text(), '" + sValue + "')]"); }
+
 }
