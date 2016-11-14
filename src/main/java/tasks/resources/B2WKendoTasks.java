@@ -319,5 +319,22 @@ public abstract class B2WKendoTasks {
 		}
 	}
 	
+	protected String getValueOfItem(String sItem, By by) {
+
+		WebElement el = WebElementUtils.waitAndFindDisplayedElement(by);
+		List<WebElement> nvps = WebElementUtils.getChildElements(el, B2WEquipment.getKendoNameValuePair());
+		Iterator<WebElement> iter = nvps.iterator();
+		while (iter.hasNext()) {
+			WebElement nvp = iter.next();
+			WebElement label = nvp.findElement(By.cssSelector(".label"));
+			if (label.getText().equals(sItem)) {
+				sItem = nvp.findElement(By.cssSelector(".data")).getText();
+			}
+		}
+		return sItem;
+
+	}
+	
+	
 	
 }

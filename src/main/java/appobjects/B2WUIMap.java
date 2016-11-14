@@ -918,6 +918,9 @@ public class B2WUIMap {
 	public static final String b2w_maintainreporthoursdialog = "div.wizard-dialog.report-hours-popup.k-window-content.k-content";
 	public static final String b2w_maintainnewtimecardaddtimebutton = "a.btn-form.add-time";
 	public static final String b2w_maintaintimecarddetailcontentview = "div.detail-content";
+	public static final String b2w_maintaintimecardhistory = "div.time-card-history";
+	public static final String b2w_maintaintimecardequipmenthours = "div#equipmentHoursGrid.grid.k-grid.k-widget";
+	
 	
 	
 	

@@ -106,10 +106,10 @@ public class OperationsSmokeH extends B2WTestCase {
 	}
 	public void testMain() throws Throwable {
 
-		//scheduleToWorkOrder();
-		//createTimeCard();
+		scheduleToWorkOrder();
+		createTimeCard();
 		addHoursToWorkOrder();
-		//submitTimeCardCompleteWorkItem();
+		submitTimeCardCompleteWorkItem();
 	}
 	
 	public void scheduleToWorkOrder(){
