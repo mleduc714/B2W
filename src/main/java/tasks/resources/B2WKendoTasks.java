@@ -276,6 +276,8 @@ public abstract class B2WKendoTasks {
 				bReturn = WebElementUtils.clickElement(item);
 				bReturn &= waitForPageNotBusy(WebElementUtils.MEDIUM_TIME_OUT);
 				break;
+			}else{
+				log.debug("Could not find "+sItem + " in this view");
 			}
 		}
 		return bReturn;
