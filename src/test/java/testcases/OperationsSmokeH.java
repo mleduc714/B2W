@@ -209,6 +209,8 @@ public class OperationsSmokeH extends B2WTestCase {
 	
 	
 	public void submitTimeCardCompleteWorkItem() {
+		assertTrue("open Maintain", b2wNav.openMaintain());
+		logCompare(true, b2wMain.openTimeCards(), "Open Time Cards");
 		logCompare(true, b2wtimecards.selectEmployee(sEmployeeFullNameID), "Select Employee");
 		logCompare(true, b2wtimecards.submitTimeCard(),"Submit Time Card");
 		logCompare(true, b2wtimecards.clickConfirmYes(), "Confirm Yes");
