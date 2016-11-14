@@ -28,7 +28,7 @@ public class B2WTimeCardTasks extends B2WKendoTasks {
 		WebElement el = WebElementUtils
 				.waitAndFindDisplayedElement(B2WMaintain.getB2WMaintainTimeCardDialog());
 		if (el != null){
-			WebElement button = WebElementUtils.getChildElement(el, B2WMaintain.getB2WMaintainReportHoursDialog());
+			WebElement button = WebElementUtils.getChildElement(el, B2WMaintain.getB2WMaintainTimeCardAddTimeButton());
 			if (button != null){
 				bReturn = WebElementUtils.clickElement(button);
 				bReturn &= WebElementUtils.waitForElementInvisible(button);
@@ -83,5 +83,28 @@ public class B2WTimeCardTasks extends B2WKendoTasks {
 		}
 		return bReturn;
 		
+	}
+	
+	public boolean submitTimeCard() {
+		boolean bReturn = false;
+		WebElement el = WebElementUtils.waitAndFindDisplayedElement(B2WMaintain.getKendoSubmitButton());
+		if (el != null){
+			bReturn = WebElementUtils.clickElement(el);
+			
+		}
+		return bReturn;
+	}
+	
+	public boolean submitApproved() {
+		boolean bReturn = false;
+		WebElement el = WebElementUtils.waitAndFindDisplayedElement(B2WMaintain.getKendoApproveButton());
+		if (el != null){
+			bReturn = WebElementUtils.clickElement(el);
+		}
+		return bReturn;
+	}
+	
+	public boolean selectEmployee(String sItem) {
+		return selectItemFromView(sItem, 0);
 	}
 }

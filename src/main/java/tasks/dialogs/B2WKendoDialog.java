@@ -9,6 +9,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.internal.Coordinates;
+import org.openqa.selenium.internal.Locatable;
 
 import appobjects.maintain.B2WMaintain;
 import appobjects.resources.B2WEquipment;
@@ -184,5 +186,34 @@ public abstract class B2WKendoDialog {
 		}
 		return bReturn;
 	
+	}
+	
+	protected boolean selectPart(String sPart, int col){
+		
+		boolean bReturn = false;
+		WebElement window = getDisplayedWindow();
+		if (window != null){
+			WebElement grid = WebElementUtils.getChildElement(window, B2WMaintain.getKendoGridContent());
+			if (WebElementUtils.waitForElementStale(grid, 1)){
+				grid = WebElementUtils.getChildElement(window, B2WMaintain.getKendoGridContent());
+			}
+			Iterator<WebElement> itr = getChildElementsFromGrid(grid);
+			while (itr.hasNext()){
+				WebElement item = itr.next();
+				List<WebElement> gridcontent = WebElementUtils.getChildElements(item, By.tagName("td"));
+				String sText = gridcontent.get(col).getText();
+				if (sText.equals("")){
+					Coordinates coordinate = ((Locatable)item).getCoordinates(); 
+					coordinate.onPage(); 
+					coordinate.inViewPort();
+				}
+				sText = gridcontent.get(col).getText();
+				if (sText.startsWith(sPart)){
+					bReturn = WebElementUtils.clickElement(WebElementUtils.getChildElement(gridcontent.get(0),By.tagName("input")));
+					break;
+				}
+			}
+		}
+		return bReturn;
 	}
 }

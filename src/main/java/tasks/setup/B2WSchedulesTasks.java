@@ -1,16 +1,16 @@
 package tasks.setup;
 
-import appobjects.setup.B2WSchedules;
+import java.util.Iterator;
+import java.util.List;
+
 import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+
+import appobjects.setup.B2WSchedules;
 import tasks.WebElementUtils;
 import tasks.resources.B2WKendoTasks;
 import tasks.util.B2WScheduleItem;
-import tasks.util.TaskUtils;
-
-import java.util.Iterator;
-import java.util.List;
 
 public class B2WSchedulesTasks extends B2WKendoTasks {
 
