@@ -164,6 +164,7 @@ public class B2WMaintainScheduleTasks extends B2WKendoTasks {
 			if (WebElementUtils.waitForElementHasAttributeWithValue(el, "aria-expanded", "true", true,
 					WebElementUtils.SHORT_TIME_OUT)) {
 				bReturn = selectItemFromDropDown(sText);
+				TaskUtils.sleep(500);
 				TaskUtils.logScreenCapture();
 			}
 		}
@@ -217,6 +218,8 @@ public class B2WMaintainScheduleTasks extends B2WKendoTasks {
 		if (el != null){
 			WebElementUtils.clickElement(el);
 			bReturn = WebElementUtils.sendKeys(el, sText);
+			TaskUtils.sleep(500);
+			selectItemFromDropDown(0);
 		}
 		return bReturn;
 	}

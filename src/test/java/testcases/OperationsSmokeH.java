@@ -98,18 +98,18 @@ public class OperationsSmokeH extends B2WTestCase {
 		sPartC = getProperty("partC");
 		sPartIDC = getProperty("partIDC") + n;
 		
-//		sMaintenanceWorkOrderDescription = "Engine Service3426 [1037]";
-//		sEmployeeFullNameID = "Benson Sherwood [ID703710]";
-//		sPlaceDescription = "Asphalt Plant6226";
-//		sEquipmentID_Desc = "1016 [ROLLER, VIB CLIP ON]";
+		sMaintenanceWorkOrderDescription = "PREP AND PAINT [1009]";
+		sEmployeeFullNameID = "Benson Sherwood [ID703710]";
+		sPlaceDescription = "Calefs Corner4442";
+		sEquipmentID_Desc = "1016 [ROLLER, VIB CLIP ON]";
 		
 	}
 	public void testMain() throws Throwable {
 
 		scheduleToWorkOrder();
-		createTimeCard();
-		addHoursToWorkOrder();
-		submitTimeCardCompleteWorkItem();
+		//createTimeCard();
+		//addHoursToWorkOrder();
+		//submitTimeCardCompleteWorkItem();
 	}
 	
 	public void scheduleToWorkOrder(){
@@ -121,11 +121,14 @@ public class OperationsSmokeH extends B2WTestCase {
 		logCompare(true, b2wMain.openSchedule(), "Open Schedule");
 		logCompare(true, b2wSchd.clickWorkOrdersTab(), "Click Work Orders");
 		assertTrue("Open Work Order",b2wSchd.openWorkOrderFromWorkOrderTabByDescription(sMaintenanceWorkOrderDescription));
+
 		logCompare(true, b2wSchd.scheduleMaintainancePopupSelectMechanic(sEmployeeFullNameID), "Select Mechanic "+sEmployeeFullNameID);
+		TaskUtils.sleep(500);
 		logCompare(true, b2wSchd.scheduleMaintainancePopupSelectEvent("Down for Maintenance"), "Down for maintenance");
 		logCompare(true, b2wSchd.scheduleMaintainancePopupSelectEndDate(sEndDate), "Set End Date");
 		logCompare(true, b2wSchd.scheduleMaintainancePopupSelectWorkLocation(sPlaceDescription), "Work Location "+sPlaceDescription);
-		logCompare(true, b2wSchd.saveScheduleMaintenance(), "Save Schedule Maintenance");
+		TaskUtils.sleep(5000);
+		//logCompare(true, b2wSchd.saveScheduleMaintenance(), "Save Schedule Maintenance");
 	}
 	
 	public void createTimeCard() {
