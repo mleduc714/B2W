@@ -110,8 +110,8 @@ public class OperationsSmokeH extends B2WTestCase {
 
 		//scheduleToWorkOrder();
 		//createTimeCard();
-		addHoursToWorkOrder();
-		//submitTimeCardCompleteWorkItem();
+		//addHoursToWorkOrder();
+		submitTimeCardCompleteWorkItem();
 	}
 	
 	public void scheduleToWorkOrder(){
