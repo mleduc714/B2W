@@ -37,6 +37,7 @@ public class OperationsSmokeH extends B2WTestCase {
 	String sMaintenanceTimeCardWorkDesc, sEquipmentDescD, sEquipmentIDD, sEquipmentID_Desc, sLaborRate;
 	String sEndDate;
 	String sPartA, sPartIDA, sPartB, sPartIDB, sPartC, sPartIDC;
+	String sLaborTypeA,sLaborTypeB, sLaborTypeIDA, sLaborTypeIDB;
 
 	@Override
 	public String getAuthor() {
@@ -99,6 +100,10 @@ public class OperationsSmokeH extends B2WTestCase {
 		sPartIDB = getProperty("partIDB") + n;
 		sPartC = getProperty("partC");
 		sPartIDC = getProperty("partIDC") + n;
+		sLaborTypeA = getProperty("labortypeA");
+		sLaborTypeIDA = getProperty("labortypeIDA")+ n;
+		sLaborTypeB = getProperty("labortypeB");
+		sLaborTypeIDB = getProperty("labortypeIDB")+ n;
 
 		
 	}
@@ -171,7 +176,7 @@ public class OperationsSmokeH extends B2WTestCase {
 		assertTrue("open Maintain", b2wNav.openMaintain());
 		assertTrue("Open Work Orders", b2wMain.openWorkOrders());
 		TaskUtils.sleep(1000);
-		logCompare(true,b2wOrder.selectWorkOrderByDescription("REPAIR VIBRATOR"), "Select Work Order");
+		logCompare(true,b2wOrder.selectWorkOrderByDescription(sMaintenanceWorkOrderDescription), "Select Work Order");
 		logCompare(true,b2wOrder.editWorkOrder(), "Edit Work Order");
 		TaskUtils.sleep(1000);
 		logCompare(true,b2wOrder.collapseDetails(), "Collapse Details");
@@ -192,7 +197,7 @@ public class OperationsSmokeH extends B2WTestCase {
 		logCompare(true,b2wOrder.expandHours(), "Expand Hours");
 		logCompare(true,b2wOrder.clickAddPlannedHours(), "Add Planned Hours");
 		logCompare(true,b2wPlan.setDescription("Planned Hours"), "Set Desc");
-		logCompare(true,b2wPlan.setLaborType("Laborer"), "Set Labor Type");
+		logCompare(true,b2wPlan.setLaborType(sLaborTypeB), "Set Labor Type");
 		logCompare(true,b2wPlan.setPlannedHours("1"), "Set Planned Hours");
 		logCompare(true,b2wPlan.savePlannedHours(), "Saved Planned Hours");
 		logCompare(true,b2wOrder.saveEditWorkOrder(), "Save ");
