@@ -1,12 +1,10 @@
 package tasks.dialogs;
 
-import java.util.Iterator;
 import java.util.List;
 
 import org.openqa.selenium.WebElement;
 
 import appobjects.maintain.B2WMaintain;
-import appobjects.resources.B2WEquipment;
 import tasks.WebElementUtils;
 import tasks.util.TaskUtils;
 
@@ -19,9 +17,7 @@ public class B2WScheduleMaintenance extends B2WKendoDialog {
 
 			if (WebElementUtils.waitForElementHasAttributeWithValue(el, "aria-expanded", "true", true,
 					WebElementUtils.SHORT_TIME_OUT)) {
-				bReturn = selectItemFromDropDown(0);
-				TaskUtils.sleep(500);
-				TaskUtils.logScreenCapture();
+				bReturn = selectItemFromDropDown(sText);
 			}
 		}
 		return bReturn;
@@ -108,26 +104,6 @@ public class B2WScheduleMaintenance extends B2WKendoDialog {
 		return list.get(i);
 
 	}
-	public boolean selectItemFromDropDown(int i){
-		boolean bReturn = false;
-		// when we click we need to find the visible list
-		List<WebElement> list = WebElementUtils.findElements(B2WEquipment.getKendoLists());
-		Iterator<WebElement> iter = list.iterator();
-		log.debug("There are "+list.size() + " to find the correct drop down");
-		while (iter.hasNext()) {
-			WebElement els = iter.next();
-			String hidden = els.getAttribute("aria-hidden");
-			if (hidden != null && hidden.equals("false")) {
-				List<WebElement> items = els.findElements(B2WEquipment.getKendoDropDownItem());
-				WebElement item = items.get(i);
-				if (item != null) {
-					bReturn = WebElementUtils.clickElement(item);
-				}else{
-					log.debug("Could not select item #"+i);
-				}
-			}
-		}
-		return bReturn;
-	}
+
 
 }

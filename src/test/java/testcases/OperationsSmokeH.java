@@ -66,7 +66,7 @@ public class OperationsSmokeH extends B2WTestCase {
 	public void testSetUp() throws Throwable {
 		// TODO Auto-generated method stub
 		super.testSetUp();
-		int n = getRandomNumber();
+		int n = 8093;
 		SimpleDateFormat format = new SimpleDateFormat("M/d/yyyy");
 		Calendar cal = Calendar.getInstance();
 		cal.add(Calendar.DAY_OF_YEAR, 3);
@@ -100,18 +100,18 @@ public class OperationsSmokeH extends B2WTestCase {
 		sPartC = getProperty("partC");
 		sPartIDC = getProperty("partIDC") + n;
 		
-//		sMaintenanceWorkOrderDescription = "PREP AND PAINT [1009]";
-//		sEmployeeFullNameID = "Benson Sherwood [ID703710]";
-//		sPlaceDescription = "Calefs Corner4442";
-//		sEquipmentID_Desc = "1016 [ROLLER, VIB CLIP ON]";
+		sMaintenanceWorkOrderDescription = "PREP AND PAINT [1009]";
+		sEmployeeFullNameID = "Victoria McGrath [13062]";
+		sPlaceDescription = "Calefs Corner4442";
+		sEquipmentID_Desc = "1016 [ROLLER, VIB CLIP ON]";
 		
 	}
 	public void testMain() throws Throwable {
 
 		scheduleToWorkOrder();
-		createTimeCard();
-		addHoursToWorkOrder();
-		submitTimeCardCompleteWorkItem();
+		//createTimeCard();
+		//addHoursToWorkOrder();
+		//submitTimeCardCompleteWorkItem();
 	}
 	
 	public void scheduleToWorkOrder(){
@@ -128,7 +128,8 @@ public class OperationsSmokeH extends B2WTestCase {
 		logCompare(true, b2wSchMain.scheduleMaintainancePopupSelectEvent("Down for Maintenance"), "Down for maintenance");
 		logCompare(true, b2wSchMain.scheduleMaintainancePopupSelectEndDate(sEndDate), "Set End Date");
 		logCompare(true, b2wSchMain.scheduleMaintainancePopupSelectWorkLocation(sPlaceDescription), "Work Location "+sPlaceDescription);
-		logCompare(true, b2wSchMain.saveScheduleMaintenance(), "Save Schedule Maintenance");
+		logCompare(false,true, "TEST IMAGE");
+		//logCompare(true, b2wSchMain.saveScheduleMaintenance(), "Save Schedule Maintenance");
 	}
 	
 	public void createTimeCard() {
