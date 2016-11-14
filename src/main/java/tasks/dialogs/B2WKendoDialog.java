@@ -27,6 +27,7 @@ public abstract class B2WKendoDialog {
 		// when we click we need to find the visble list
 		List<WebElement> list = WebElementUtils.findElements(B2WEquipment.getKendoLists());
 		Iterator<WebElement> iter = list.iterator();
+		log.debug("Looking for item "+sItem);
 		while (iter.hasNext()) {
 			WebElement els = iter.next();
 			String hidden = els.getAttribute("aria-hidden");
@@ -192,6 +193,7 @@ public abstract class B2WKendoDialog {
 		
 		boolean bReturn = false;
 		WebElement window = getDisplayedWindow();
+		log.debug("Looking for Part "+sPart);
 		if (window != null){
 			WebElement grid = WebElementUtils.getChildElement(window, B2WMaintain.getKendoGridContent());
 			if (WebElementUtils.waitForElementStale(grid, 1)){
@@ -217,7 +219,7 @@ public abstract class B2WKendoDialog {
 		return bReturn;
 	}
 	
-	public boolean selectItemFromDropDown(int i){
+	protected boolean selectItemFromDropDown(int i){
 		boolean bReturn = false;
 		// when we click we need to find the visible list
 		List<WebElement> list = WebElementUtils.findElements(B2WEquipment.getKendoLists());

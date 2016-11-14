@@ -29,6 +29,7 @@ public abstract class B2WKendoTasks {
 		// when we click we need to find the visible list
 		List<WebElement> list = WebElementUtils.findElements(B2WEquipment.getKendoLists());
 		Iterator<WebElement> iter = list.iterator();
+		log.debug("Looking for item "+sItem);
 		while (iter.hasNext()) {
 			WebElement els = iter.next();
 			String hidden = els.getAttribute("aria-hidden");
@@ -261,6 +262,7 @@ public abstract class B2WKendoTasks {
 		WebElement grid = WebElementUtils.findElement(B2WEquipment.getKendoGridContent());
 		List<WebElement> items = WebElementUtils.getChildElements(grid, By.tagName("tr"));
 		Iterator<WebElement> iter = items.iterator();
+		log.debug("Looking for item "+sItem);
 		while (iter.hasNext()) {
 			WebElement item = iter.next();
 			List<WebElement> gridcontent = WebElementUtils.getChildElements(item, By.tagName("td"));
@@ -276,8 +278,6 @@ public abstract class B2WKendoTasks {
 				bReturn = WebElementUtils.clickElement(item);
 				bReturn &= waitForPageNotBusy(WebElementUtils.MEDIUM_TIME_OUT);
 				break;
-			}else{
-				log.debug("Could not find "+sItem + " in this view");
 			}
 		}
 		return bReturn;
