@@ -98,18 +98,18 @@ public class OperationsSmokeH extends B2WTestCase {
 		sPartC = getProperty("partC");
 		sPartIDC = getProperty("partIDC") + n;
 		
-		sMaintenanceWorkOrderDescription = "PREP AND PAINT [1009]";
-		sEmployeeFullNameID = "Benson Sherwood [ID703710]";
-		sPlaceDescription = "Calefs Corner4442";
-		sEquipmentID_Desc = "1016 [ROLLER, VIB CLIP ON]";
+//		sMaintenanceWorkOrderDescription = "PREP AND PAINT [1009]";
+//		sEmployeeFullNameID = "Benson Sherwood [ID703710]";
+//		sPlaceDescription = "Calefs Corner4442";
+//		sEquipmentID_Desc = "1016 [ROLLER, VIB CLIP ON]";
 		
 	}
 	public void testMain() throws Throwable {
 
 		scheduleToWorkOrder();
-		//createTimeCard();
-		//addHoursToWorkOrder();
-		//submitTimeCardCompleteWorkItem();
+		createTimeCard();
+		addHoursToWorkOrder();
+		submitTimeCardCompleteWorkItem();
 	}
 	
 	public void scheduleToWorkOrder(){
