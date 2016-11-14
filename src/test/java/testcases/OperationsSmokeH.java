@@ -123,13 +123,15 @@ public class OperationsSmokeH extends B2WTestCase {
 		logCompare(true, b2wMain.openSchedule(), "Open Schedule");
 		logCompare(true, b2wSchd.clickWorkOrdersTab(), "Click Work Orders");
 		assertTrue("Open Work Order",b2wSchd.openWorkOrderFromWorkOrderTabByDescription(sMaintenanceWorkOrderDescription));
-		logCompare(true, b2wSchMain.scheduleMaintainancePopupSelectMechanic(sEmployeeFullNameID), "Select Mechanic "+sEmployeeFullNameID);
-		TaskUtils.sleep(500);
 		logCompare(true, b2wSchMain.scheduleMaintainancePopupSelectEvent("Down for Maintenance"), "Down for maintenance");
-		logCompare(true, b2wSchMain.scheduleMaintainancePopupSelectEndDate(sEndDate), "Set End Date");
+		TaskUtils.sleep(500);
 		logCompare(true, b2wSchMain.scheduleMaintainancePopupSelectWorkLocation(sPlaceDescription), "Work Location "+sPlaceDescription);
+		logCompare(true, b2wSchMain.scheduleMaintainancePopupSelectEndDate(sEndDate), "Set End Date");
+		logCompare(true, b2wSchMain.scheduleMaintainancePopupSelectMechanic(sEmployeeFullNameID), "Select Mechanic "+sEmployeeFullNameID);
 		//logCompare(false,true, "TEST IMAGE");
 		logCompare(true, b2wSchMain.saveScheduleMaintenance(), "Save Schedule Maintenance");
+			
+		
 	}
 	
 	public void createTimeCard() {
