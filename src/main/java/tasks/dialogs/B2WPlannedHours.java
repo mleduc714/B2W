@@ -15,6 +15,7 @@ public class B2WPlannedHours extends B2WKendoDialog{
 		WebElement el = getFormElements(B2WMaintain.getB2WPlannedHours()).get(0);
 		if (el != null){
 			WebElement text = WebElementUtils.getChildElement(el,B2WMaintain.getKendoDescription());
+			text.click();
 			bReturn = WebElementUtils.sendKeys(text, sText);
 		}
 		return bReturn;
