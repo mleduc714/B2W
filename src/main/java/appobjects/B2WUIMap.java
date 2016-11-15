@@ -122,9 +122,12 @@ public class B2WUIMap {
 	// Schedules
 	public static final String b2w_schedules_panel = ".k-pane.k-scrollable";
 	public static final String b2w_schedules_createscheduleviewbtn = "span.btn-add";
+	public static final String b2w_schedules_editscheduleviewbtn = "span.btn-edit";
 	public static final String b2w_schedules_headline = "div.headline";
 	public static final String b2w_schedules_name = "input.k-textbox[name='name']";
 	public static final String b2w_schedules_notes = "textarea[name='notes']";
+	public static final String b2w_schedules_scheduleformat = "input[name='scheduleFormat']";
+	public static final String b2w_schedules_input = "input";
 	public static final String b2w_schedules_groupitemsby = "select.grouping-dropdown[data-bind *= 'scheduledGrouping1DataSource']";
 	public static final String b2w_schedules_secondarygrouping = "select.grouping-dropdown[data-bind *= 'scheduledGrouping2DataSource']";
 	public static final String b2w_schedules_savebtn = ".btn-form.large.save";
@@ -133,7 +136,7 @@ public class B2WUIMap {
 	public static final String b2w_schedules_filterlabel = "label";
 	public static final String b2w_schedules_deletebtn = ".btn-delete";
 	public static final String b2w_schedules_deletepopupwindow = ".k-widget.k-window";
-	public static final String getB2w_schedules_popupwindow_yesbtn = ".btn-form.dialog-button.large.confirm";
+	public static final String b2w_schedules_popupwindow_yesbtn = ".btn-form.dialog-button.large.confirm";
 
 	// page filter
 	public static final String b2w_page_filter_letterA = "a#PageContent_FilterControl_AButton";
@@ -477,6 +480,8 @@ public class B2WUIMap {
 	public static final String b2w_kendolistofitems = ".k-reset";
 	public static final String b2w_kendofooter = ".edit-form-footer";
 	public static final String b2w_kendolargesavebutton = ".btn-form.large.save";
+	public static final String b2w_kendocancelbutton = ".btn-form.cancel";
+	public static final String b2w_kendolargeaddsavebutton = ".btn-form.large.add-save.save";
 	public static final String b2w_kendofilterbydd = "div.k-multiselect-wrap.k-floatwrap";
 	public static final String b2w_kendogridcontent = "div.k-grid-content";
 	public static final String b2w_kendoselected = "div.k-state-selected";
@@ -499,6 +504,7 @@ public class B2WUIMap {
 	public static final String b2w_kendonumerictextbox = "span.k-widget.k-numerictextbox";
 	public static final String b2w_kendosavebuttonfake = "div.btn-form.large.fake";
 	public static final String b2w_kendobuttonadd = "span.btn-add";
+	public static final String b2w_kendobuttonnext = "a.btn-form.large.next";
 	public static final String b2w_kendowindowtitle = "span.k-window-title";
 	public static final String b2w_kendobuttoncontainer = "div.button-container";
 	public static final String b2w_kendodatetext = "span.k-picker-wrap.k-state-default";
@@ -508,6 +514,8 @@ public class B2WUIMap {
 	public static final String b2w_kendodeletebutton = "span.btn-delete";
 	public static final String b2w_kendoconfirmyesbutton = "div.btn-form.dialog-button.large.confirm";
 	public static final String b2w_kendoconfirmnobutton = "div.btn-form dialog-button reject";
+	public static final String b2w_kendolargefinishbutton = ".btn-form.large.finish";
+	public static final String b2w_kendobuttonnew = ".btn-new";
 	
 	
 	
@@ -723,7 +731,7 @@ public class B2WUIMap {
 	// "a#PageContent_AddMaterialDialog_AddButton";
 	public static final String b2w_jobsaddmaterialsgridview = "table#PageContent_AddMaterialDialog_GridView";
 	public static final String b2w_jobsaddmaterialgridviewcheckbox = "input[id^='PageContent_AddMaterialDialog_GridView_SelectedCheckBox']";
-
+	public static final String b2w_jobsaddmaterialdialog = "div#PageContent_AddMaterialDialog_DialogPanel";
 	// public static final String b2w_jobsaddsubcontractorssearch =
 	// "PageContent_AddSubcontractorDialog_SearchControl_SearchTextBox";
 	// public static final String b2w_jobsaddsubcontractorsid =
@@ -736,6 +744,7 @@ public class B2WUIMap {
 	// "a#PageContent_AddSubcontractorDialog_AddButton";
 	public static final String b2w_jobsaddsubcontractorsgridview = "table#PageContent_AddSubcontractorDialog_GridView";
 	public static final String b2w_jobsaddsubcontractorgridviewcheckbox = "input[id^='PageContent_AddSubcontractorDialog_GridView_SelectedCheckBox']";
+	public static final String b2w_jobsaddsubcontractordialog = "div#PageContent_AddSubcontractorDialog_DialogPanel";
 
 	// public static final String b2w_jobsaddtrucksubcontractorssearch =
 	// "PageContent_AddTruckingSubcontractorDialog_SearchControl_SearchTextBox";
@@ -749,9 +758,12 @@ public class B2WUIMap {
 	// "a#PageContent_AddTruckingSubcontractorDialog_AddButton";
 	public static final String b2w_jobsaddtrucksubcontractorsgridview = "table#PageContent_AddTruckingSubcontractorDialog_GridView";
 	public static final String b2w_jobsaddtrucksubcontractorgridviewcheckbox = "input[id^='PageContent_AddTruckingSubcontractorDialog_GridView_SelectedCheckBox']";
-
+	public static final String b2w_jobaddtrucksubcontractordialog = "div#PageContent_AddTruckingSubcontractorDialog_DialogPanel";
+	
 	public static final String b2w_jobsaddvendorsgridview = "table#PageContent_AddVendorDialog_GridView";
 	public static final String b2w_jobsaddvendorsgridviewcheckbox = "input[id^='PageContent_AddVendorDialog_GridView_SelectedCheckBox']";
+	public static final String b2w_jobsaddvendordialog = "div#PageContent_AddVendorDialog_DialogPanel";
+	
 
 	public static final String b2w_jobsmaterialgridview = "table#PageContent_JobMaterialGridView";
 	public static final String b2w_jobsvendorsgridview = "table#PageContent_VendorGridView";
@@ -771,7 +783,8 @@ public class B2WUIMap {
 	public static final String b2w_schedulecreationsection = "b2w-create-action";
 	public static final String b2w_scheduleassignmentwindow = ".k-widget.k-window.close-button";
 	public static final String b2w_schedulefieldslabel = "label";
-	public static final String b2w_scheduleaddtoschedulebtn = ".btn-form.large";
+	//public static final String b2w_scheduleaddtoschedulebtn = ".btn-form.large";
+	public static final String b2w_scheduleaddtoschedulebtn = ".Button.Button--large.Button--margin-left";
 	public static final String b2w_schedulecontrolpanel = ".control-panel";
 	public static final String b2w_schedule_addresssection = "div[ng-show=\"isAddressVisible\"]";
 	public static final String b2w_scheduleselectcrewbtn = ".Button.Button--large[ng-click=\"next()\"]";
@@ -794,6 +807,8 @@ public class B2WUIMap {
 
 	// Maintain
 	public static final String b2w_maintainpagemenu = "ul#SubNavMenu_MaintainPageMenu.MaintainPageMenu";
+	public static final String b2w_maintainexpandbutton = "a#ExpandSubNavButton.expand-button";
+	public static final String b2w_maintainsubnavmenu = "div.SubNavMenu.slider.closed";
 	public static final String b2w_maintaindashboard = "li#SubNavMenu_DashboardMenuItem";
 	public static final String b2w_maintainrequests = "li#SubNavMenu_RequestsMenuItem";
 	public static final String b2w_maintainworkorders = "li#SubNavMenu_WorkOrdersMenuItem";
@@ -809,6 +824,7 @@ public class B2WUIMap {
 	public static final String b2w_maintainkendoitemsbuttoncontainer = "div.work-order-items-button-container";
 	public static final String b2w_maintainadditemsdialog = "div.wizard-dialog.add-request-template-popup.k-window-content.k-content";
 	public static final String b2w_maintainadditemsavebutton = "a.btn-form.large.save";
+	public static final String b2w_maintaincollapsebutton = "a.collapse-button";
 
 	public static final String b2w_maintainnewintervalbutton = "a.btn-orig.new-interval-button";
 
@@ -847,6 +863,7 @@ public class B2WUIMap {
 	public static final String b2w_maintainworkordersview = "div#work_order_create_view";
 	public static final String b2w_maintainworkorderadditembutton = "a.btn-orig.add-item";
 	public static final String b2w_maintainworkorderadditemview = "div.create-new-request";
+	public static final String b2w_maintainworkorderselectitemsview = "div.select-action.select-request";
 	public static final String b2w_maintainworkordercreateitembutton = "button.btn-form.large.create";
 	public static final String b2w_maintainworkorderdetailcontentview = "div.detail-content-view";
 	public static final String b2w_maintainworkorderaddpartstoorder = "div#edit-work-order-add-parts.k-window-content.k-content.wizard-dialog.add-parts-popup-view";
@@ -882,11 +899,8 @@ public class B2WUIMap {
 	public static final String b2w_maintainschedulertooltip = "div.schedule-tooltip";
 	public static final String b2w_maintainschedulereditschedule = "div.wizard-dialog.editable-schedule-popup-view.schedule-edit.k-window-content.k-content";
 	public static final String b2w_maintainschedulerschedulemaintenance = "div.wizard-dialog.editable-schedule-popup-view.schedule-create.k-window-content.k-content";
-<<<<<<< HEAD
-=======
 	public static final String b2w_maintainequipmentaddprogram = "div.wizard-dialog.equipmentProgram-editable.k-window-content.k-content";
 	public static final String b2w_maintainworkorderplannedhours = "div.wizard-dialog.hours-editable-popup.k-window-content.k-content";
->>>>>>> refs/heads/master
 	// links
 	public static final String b2w_maintainscheduletodaylink = "Today";
 	public static final String b2w_maintainscheduledaylink = "Day";
@@ -902,6 +916,7 @@ public class B2WUIMap {
 	public static final String b2w_maintaintimecarddetailcontentview = "div.detail-content";
 	
 	
+	
 	public static final String unscheduledWorkOrdersContextMenu = "ul#unscheduledWorkOrdersContextMenu";
 	
 	
@@ -913,6 +928,7 @@ public class B2WUIMap {
 	public static final String b2w_schedulecrewsbyworktypeandsubtype = "Crews by Work Type & Subtype";
 	public static final String b2w_scheduleemployeeschedule = "Employee Schedule";
 	public static final String b2w_scheduleemployeesbyassignmentlocation = "Employees by Assignment Location";
+	public static final String b2w_scheduleemployeesbybusinessunit = "Employees by Business Unit";
 	public static final String b2w_scheduleemployeesbylabortype = "Employees by Labor Type";
 	public static final String b2w_scheduleequipmentgroupedbycategory = "Equipment Grouped by Category";
 	public static final String b2w_scheduleequipmentgroupedbycategoryandlocaton = "Equipment Grouped by Category & Location";
@@ -933,7 +949,7 @@ public class B2WUIMap {
 	public static final String b2w_scheduleequipmentschedule8 = "Equipment Schedule 8";
 	public static final String b2w_scheduleequipmentschedule9 = "Equipment Schedule 9";
 	public static final String b2w_schedulefilterdbyequipmentatrt93exit18 = "Filtered by Equipment at RT93 Exit 18";
-	public static final String b2w_schedulefilteredbyequipmentdownformaintenance = "Filtered by Equipment Down for Maintenance";
+	public static final String b2w_schedulefilteredbyequipmentdownformaintenance = "Filtered by Equipment Down For Maintenance";
 	public static final String b2w_schedulefilteredbyequipmentscheduledformaintenance = "Filtered by Equipment Scheduled for Maintenance";
 	public static final String b2w_schedulefilteredbyequipmentthatmovesotherequipment = "Filtered by Equipment that Moves Other Equipment";
 	public static final String b2w_schedulefilteredbyequipmentthatrequiresmoves = "Filtered by Equipment that Requires Moves";
@@ -953,6 +969,7 @@ public class B2WUIMap {
 	public static final String b2w_schedulenorthwestdivisionpaversgraders = "Northwest Division Pavers-Graders";
 	public static final String b2w_scheduleplaces = "Places";
 	public static final String b2w_schedulesoutherndivisionsiteworkspecial = "Southern Division Sitework \"Special\"";
-	public static final String b2w_schedulesoutherndivisionpaversgraders = "Southwest Division Pavers--Graders";
-	public static final String b2w_schedulerandomcharacters = "exact:Z!\"#$%&'()*+-./:;<=>?@[\\\\]^_`{|}~“”‘’!\"#$%&'()*+-./:;<=>?@[\\\\]^_`{|}~“”‘’";
+	public static final String b2w_schedulesouthwestdivisionpaversgraders = "Southwest Division Pavers--Graders";
+	public static final String b2w_schedulerandomcharacters = "Z!\"#$%&'()*+-./:;<=>?@[\\\\]^_`{|}~“”‘’!\"#$%&'()*+-./:;<=>?@[\\\\]^_`{|}~“”‘’";
+	
 }

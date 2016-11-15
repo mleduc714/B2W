@@ -77,11 +77,6 @@ public class B2WScheduleViewTest extends B2WTestCase{
 		schedulerTasks.waitForSchedulePageNoBusy();
 		scheduleView.openScheduleViewList();
 		timer.start();
-		scheduleView.clickOnCrewsByAssignmentLocation();
-		timer.end();
-		schedulerTasks.waitForSchedulePageNoBusy();
-		scheduleView.openScheduleViewList();
-		timer.start();
 		scheduleView.clickOnCrewsByWorkSubtype();
 		timer.end();
 		schedulerTasks.waitForSchedulePageNoBusy();
@@ -320,6 +315,5 @@ public class B2WScheduleViewTest extends B2WTestCase{
 		scheduleView.clickOnRandomCharacters();
 		timer.end();
 		schedulerTasks.waitForSchedulePageNoBusy();
-		//scheduleView.openScheduleViewList();
 	}
 }
