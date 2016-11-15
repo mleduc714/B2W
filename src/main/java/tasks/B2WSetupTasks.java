@@ -9,6 +9,7 @@ import com.b2w.test.BaseAssert;
 
 import appobjects.B2WCommonObjects;
 import appobjects.setup.B2WSetup;
+import tasks.util.TaskUtils;
 
 public class B2WSetupTasks {
 	
@@ -295,7 +296,6 @@ public class B2WSetupTasks {
 	
 	public boolean clickCancelButton(){
 		return WebElementUtils.clickElement(B2WSetup.getB2WCancelButton());
-		
 	}
 	public boolean waitForProcessingDialogToClear() {
 		boolean bReturn = false;
@@ -344,6 +344,7 @@ public class B2WSetupTasks {
 	public boolean clickTopSaveButton() {
 		boolean bReturn = false;
 		if (WebElementUtils.clickElement(B2WSetup.getTopSaveButton())) {
+			TaskUtils.sleep(500);
 			bReturn = waitForProcessingDialogToClear();
 			bReturn &= WebElementUtils.waitAndFindDisplayedElement(B2WSetup.getTopEditButton()) != null;
 			if (!bReturn) {

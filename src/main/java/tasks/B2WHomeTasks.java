@@ -80,7 +80,7 @@ public class B2WHomeTasks {
 		WebElement el = WebElementUtils.findElement(B2WHomePage.getB2WHomeTrackCreateFieldLogs());
 		if (el != null) {
 			if (WebElementUtils.clickElement(el)) {
-				bReturn = new TaskUtils().waitForProductPanel("General Information");
+				bReturn = new TaskUtils().waitForProductPanel("Field Logs");
 			}
 
 		}
@@ -92,6 +92,7 @@ public class B2WHomeTasks {
 		WebElement el = WebElementUtils.findElement(B2WHomePage.getB2WHomeTrackViewFieldLogs());
 		if (el != null) {
 			if (WebElementUtils.clickElement(el)) {
+				
 				bReturn = new TaskUtils().waitForProductPanel("Field Logs");
 			}
 		}
