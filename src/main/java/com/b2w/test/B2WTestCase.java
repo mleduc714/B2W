@@ -50,7 +50,7 @@ public class B2WTestCase extends BaseTestCase {
 	public void testTearDown() throws Throwable {
 		// TODO Auto-generated method stub
 		if (TaskUtils.getAlertDialog() != null){
-			TaskUtils.logScreenCapture();
+			logScreenCapture();
 			TaskUtils.dismissAlert();
 		}
 		

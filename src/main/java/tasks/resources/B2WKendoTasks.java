@@ -26,9 +26,10 @@ public abstract class B2WKendoTasks {
 	
 	public boolean selectItemFromDropDown(String sItem){
 		boolean bReturn = false;
-		// when we click we need to find the visble list
+		// when we click we need to find the visible list
 		List<WebElement> list = WebElementUtils.findElements(B2WEquipment.getKendoLists());
 		Iterator<WebElement> iter = list.iterator();
+		log.debug("Looking for item "+sItem);
 		while (iter.hasNext()) {
 			WebElement els = iter.next();
 			String hidden = els.getAttribute("aria-hidden");
@@ -51,6 +52,7 @@ public abstract class B2WKendoTasks {
 		// when we click we need to find the visble list
 		List<WebElement> list = WebElementUtils.findElements(B2WEquipment.getKendoLists());
 		Iterator<WebElement> iter = list.iterator();
+		log.debug("There are "+list.size() + " to find the correct drop down");
 		while (iter.hasNext()) {
 			WebElement els = iter.next();
 			String hidden = els.getAttribute("aria-hidden");
@@ -260,6 +262,7 @@ public abstract class B2WKendoTasks {
 		WebElement grid = WebElementUtils.findElement(B2WEquipment.getKendoGridContent());
 		List<WebElement> items = WebElementUtils.getChildElements(grid, By.tagName("tr"));
 		Iterator<WebElement> iter = items.iterator();
+		log.debug("Looking for item "+sItem);
 		while (iter.hasNext()) {
 			WebElement item = iter.next();
 			List<WebElement> gridcontent = WebElementUtils.getChildElements(item, By.tagName("td"));
@@ -318,6 +321,23 @@ public abstract class B2WKendoTasks {
 			return null;
 		}
 	}
+	
+	protected String getValueOfItem(String sItem, By by) {
+
+		WebElement el = WebElementUtils.waitAndFindDisplayedElement(by);
+		List<WebElement> nvps = WebElementUtils.getChildElements(el, B2WEquipment.getKendoNameValuePair());
+		Iterator<WebElement> iter = nvps.iterator();
+		while (iter.hasNext()) {
+			WebElement nvp = iter.next();
+			WebElement label = nvp.findElement(By.cssSelector(".label"));
+			if (label.getText().equals(sItem)) {
+				sItem = nvp.findElement(By.cssSelector(".data")).getText();
+			}
+		}
+		return sItem;
+
+	}
+	
 	
 	
 }

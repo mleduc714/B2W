@@ -414,43 +414,6 @@ public class OperationsSmokeB extends B2WTestCase {
 	}
 
 
-/*
-	public void deleteProductionAccount() {
-		assertTrue("Open Accounts", b2wNav.openAccounts());
-		b2wAct.collapseOverheadAccounts();
-		b2wAct.expandProductionAccounts();
-		logCompare(true, b2wAct.deleteProductionAccountByDescription(sProductionAccountDesc),
-				"Delete " + sProductionAccountDesc);
-
-	}
-
-	public void deleteOverheadAccount() {
-		assertTrue("Open Accounts", b2wNav.openAccounts());
-		b2wAct.collapseProductionAccounts();
-		b2wAct.expandOverheadAccounts();
-		logCompare(true, b2wAct.deleteOverheadAccountByDescription(sOverheadAccountDesc),
-				"Deleted " + sOverheadAccountDesc);
-
-	}
-	public void deletePlace() {
-		b2wNav.openPlaces();
-		b2wPlaces.searchOpenResourceByDescription(sPlaceDescription);
-		b2wPlaces.deleteResource();
-	}
-	
-	
-	public void deleteAll() {
-		deleteProductionAccount();
-		deleteOverheadAccount();
-		deletePlace();
-		assertTrue("Click Home", b2wNav.clickHome());
-		deleteMaterial(sMaterialsDescriptionA);
-		deleteMaterial(sMaterialsDescriptionB);
-		deleteMaterial(sMaterialsDescriptionC);
-		deleteMaterial(sMaterialsDescriptionD);
-
-	}*/
-
 	@Override
 	public void testTearDown() throws Throwable {
 		// TODO Auto-generated method stub
