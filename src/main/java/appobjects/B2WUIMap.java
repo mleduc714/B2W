@@ -935,6 +935,7 @@ public class B2WUIMap {
 	public static final String b2w_schedulecrewsbyworktypeandsubtype = "Crews by Work Type & Subtype";
 	public static final String b2w_scheduleemployeeschedule = "Employee Schedule";
 	public static final String b2w_scheduleemployeesbyassignmentlocation = "Employees by Assignment Location";
+	public static final String b2w_scheduleemployeesbybusinessunit = "Employees by Business Unit";
 	public static final String b2w_scheduleemployeesbylabortype = "Employees by Labor Type";
 	public static final String b2w_scheduleequipmentgroupedbycategory = "Equipment Grouped by Category";
 	public static final String b2w_scheduleequipmentgroupedbycategoryandlocaton = "Equipment Grouped by Category & Location";
@@ -955,7 +956,7 @@ public class B2WUIMap {
 	public static final String b2w_scheduleequipmentschedule8 = "Equipment Schedule 8";
 	public static final String b2w_scheduleequipmentschedule9 = "Equipment Schedule 9";
 	public static final String b2w_schedulefilterdbyequipmentatrt93exit18 = "Filtered by Equipment at RT93 Exit 18";
-	public static final String b2w_schedulefilteredbyequipmentdownformaintenance = "Filtered by Equipment Down for Maintenance";
+	public static final String b2w_schedulefilteredbyequipmentdownformaintenance = "Filtered by Equipment Down For Maintenance";
 	public static final String b2w_schedulefilteredbyequipmentscheduledformaintenance = "Filtered by Equipment Scheduled for Maintenance";
 	public static final String b2w_schedulefilteredbyequipmentthatmovesotherequipment = "Filtered by Equipment that Moves Other Equipment";
 	public static final String b2w_schedulefilteredbyequipmentthatrequiresmoves = "Filtered by Equipment that Requires Moves";
@@ -975,8 +976,11 @@ public class B2WUIMap {
 	public static final String b2w_schedulenorthwestdivisionpaversgraders = "Northwest Division Pavers-Graders";
 	public static final String b2w_scheduleplaces = "Places";
 	public static final String b2w_schedulesoutherndivisionsiteworkspecial = "Southern Division Sitework \"Special\"";
+
 	public static final String b2w_schedulesoutherndivisionpaversgraders = "Southwest Division Pavers--Graders";
 	public static final String b2w_schedulerandomcharacters = "exact:Z!\"#$%&'()*+-./:;<=>?@[\\\\]^_`{|}~“”‘’!\"#$%&'()*+-./:;<=>?@[\\\\]^_`{|}~“”‘’";
 
 	public static String b2w_kendoworkorderitemstitle = "div.complete-workorder-items-title";
+	public static final String b2w_schedulesouthwestdivisionpaversgraders = "Southwest Division Pavers--Graders";
+
 }

@@ -73,7 +73,7 @@ public abstract class B2WKendoTasks {
 	public boolean waitForPageNotBusy(int iSecs) {
 		boolean bReturn = false;
 		// seconds need to muliply
-		iSecs = iSecs * 10;
+		iSecs = iSecs * 20;
 		int iTrys = 0;
 		while (!bReturn && iTrys < iSecs) {
 			try {
