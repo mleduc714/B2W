@@ -1,4 +1,4 @@
-package tasks.scheduler;
+package testcases;
 
 
 
@@ -6,6 +6,8 @@ import com.b2w.test.B2WTestCase;
 
 import appobjects.scheduler.B2WScheduleView;
 import tasks.B2WNavigationTasks;
+import tasks.scheduler.B2WScheduleViewTasks;
+import tasks.scheduler.B2WSchedulerTasks;
 import tasks.util.Timer;
 
 public class B2WScheduleViewTest extends B2WTestCase{
