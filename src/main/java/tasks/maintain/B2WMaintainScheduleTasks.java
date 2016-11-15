@@ -99,7 +99,68 @@ public class B2WMaintainScheduleTasks extends B2WKendoTasks {
 		return bReturn;
 	}
 	
+	public boolean openWorkOrderFromWorkOrderTabByNumber(int i) {
+		boolean bReturn = false;
+		WebElement workorderlist = WebElementUtils
+				.findElement(B2WMaintain.getB2WMaintainschedulerunscheduledworkorderslist());
+		List<WebElement> events = WebElementUtils.getChildElements(workorderlist,
+				B2WMaintain.getB2WMaintainschedulerworkorderunscheduled());
+		if (i < events.size()){
+			if (WebElementUtils.clickElement(events.get(i))){
+			bReturn = WebElementUtils.waitAndFindDisplayedElement(
+					B2WMaintain.getB2WMaintainSchedulerScheduleMaintenancePopupWindow()) != null;
+			}
+		}
+		return bReturn;
+	}
+	
+	public boolean openWorkOrderFromPastDueTabByNumber(int i){
+		boolean bReturn = false;
+		WebElement workorderlist = WebElementUtils
+				.findElement(B2WMaintain.getB2WMaintainschedulerpastdueworkorderlist());
+		List<WebElement> events = WebElementUtils.getChildElements(workorderlist,
+				B2WMaintain.getB2WMaintainschedulerworkorderunscheduled());
+		if (i < events.size()){
+			if (WebElementUtils.clickElement(events.get(i))){
+			bReturn = WebElementUtils.waitAndFindDisplayedElement(
+					B2WMaintain.getB2WMaintainSchedulerEditSchedulePopupWindow()) != null;
+			}
+		}
+		return bReturn;
+	}
+	
+	public boolean openWorkOrderFromPastDueTabByDescription(String s){
+		boolean bReturn = false;
+		WebElement workorderlist = WebElementUtils
+				.findElement(B2WMaintain.getB2WMaintainschedulerpastdueworkorderlist());
+		List<WebElement> events = WebElementUtils.getChildElements(workorderlist,
+				B2WMaintain.getB2WMaintainschedulerworkorderunscheduled());
+		Iterator<WebElement> iter = events.iterator();
+		while (iter.hasNext()) {
+			WebElement el = iter.next();
+			WebElement summary = WebElementUtils.getChildElement(el,
+					B2WMaintain.getB2WMaintainschedulerworkordersummary());
+			String sDescAndWorkNumber = summary.getText().substring(0, summary.getText().indexOf("\n"));
+			if (sDescAndWorkNumber.startsWith(s)) {
+				Coordinates coordinate = ((Locatable) el).getCoordinates();
+				coordinate.onPage();
+				coordinate.inViewPort();
+				Actions actions = new Actions(BrowserUtils.getDriver());
+				actions.doubleClick(el);
+				actions.perform();
+				bReturn = WebElementUtils.waitAndFindDisplayedElement(
+						B2WMaintain.getB2WMaintainSchedulerEditSchedulePopupWindow()) != null;
+			}
+		}
 
+		return bReturn;
+	}
+
+	public boolean openWorkOrderFromScheduleByDescription(String s){
+		boolean bReturn = false;
+		return bReturn;
+	}
+	
 	public boolean scheduleWorkOrderFromWorkOrderTabByDescriptionFromContextMenu(String s) {
 		boolean bReturn = false;
 		WebElement workorderlist = WebElementUtils
@@ -233,9 +294,11 @@ public class B2WMaintainScheduleTasks extends B2WKendoTasks {
 	
 	public boolean clickPastDueWorkOrdersTab() {
 		boolean bReturn = false;
+		waitForPageNotBusy(WebElementUtils.MEDIUM_TIME_OUT);
 		WebElement el = WebElementUtils.findElement(B2WMaintain.getB2WMaintainSchedulerPastDueWorkOrdersTab());
+		WebElement child = WebElementUtils.getChildElement(el, By.cssSelector("span.k-link"));
 		if (el != null){
-			bReturn = WebElementUtils.clickElement(el);
+			bReturn = WebElementUtils.clickElement(child);
 		}
 		return bReturn;
 	}
