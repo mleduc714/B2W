@@ -906,12 +906,14 @@ public class B2WUIMap {
 	public static final String b2w_maintainworkorderplannedhours = "div.wizard-dialog.hours-editable-popup.k-window-content.k-content";
 	public static final String b2w_maintainworkordercomplete = "div.complete-workorder-meters.grid.k-grid.k-widget";
 	public static final String b2w_maintainworkordercompletedialog = "div.wizard-dialog.complete-workorder-popup-view.k-window-content.k-content";
+	public static final String b2w_maintainschedulecurrentview = "li.k-current-view";
+	
 	// links
 	public static final String b2w_maintainscheduletodaylink = "Today";
 	public static final String b2w_maintainscheduledaylink = "Day";
-	public static final String b2w_maintainscheduleThreeDayslink = "3Days";
+	public static final String b2w_maintainscheduleThreeDayslink = "3 Days";
 	public static final String b2w_maintainscheduleweeklink = "Week";
-	public static final String b2w_maintainscheduletwoweekslink = "2Weeks";
+	public static final String b2w_maintainscheduletwoweekslink = "2 Weeks";
 
 	// time cards
 	public static final String b2w_maintaintimecardbuttons = "div.item-actions.add-timecard-btn";

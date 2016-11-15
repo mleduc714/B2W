@@ -270,4 +270,7 @@ public class B2WMaintain extends KendoUI {
 	public static By getB2WorkItemCompleteDialog() {
 		return By.cssSelector(B2WUIMap.b2w_maintainworkordercompletedialog);
 	}
+	public static By getB2WMaintainScheduleCurrentView() {
+		return By.cssSelector(B2WUIMap.b2w_maintainschedulecurrentview);
+	}
 }
