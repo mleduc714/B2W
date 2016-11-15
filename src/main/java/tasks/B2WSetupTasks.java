@@ -345,7 +345,7 @@ public class B2WSetupTasks {
 		boolean bReturn = false;
 		if (WebElementUtils.clickElement(B2WSetup.getTopSaveButton())) {
 			bReturn = waitForProcessingDialogToClear();
-			bReturn &= WebElementUtils.waitAndFindDisplayedElement(B2WSetup.getTopEditButton()) != null;
+			bReturn &= WebElementUtils.waitAndFindDisplayedElement(B2WSetup.getTopEditButton(), WebElementUtils.MEDIUM_TIME_OUT) != null;
 			if (!bReturn) {
 				if (WebElementUtils.waitAndFindDisplayedElement(B2WCommonObjects.getB2WPagePanelError(), 1) != null) {
 					log.debug("***Error saving item***");
