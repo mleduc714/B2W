@@ -861,6 +861,8 @@ public class B2WUIMap {
 	public static final String b2w_maintainrequestcreateview = "div#request_create_view";
 	public static final String b2w_maintainrequesteditformcontent = "div.edit-form-content";
 	public static final String b2w_maintainrequestedcommentbutton = "span.btn-addcomment";
+	public static final String b2w_maintainrequestsaddtoworkorder = ".btn-add-work-order";
+	public static final String b2w_maintainrequestsaddtoworkorderdialog = "div#add_to_work_order_popup_view.wizard-dialog.add-work-order-item-popup-view.k-window-content.k-content";
 	// work orders 
 	public static final String b2w_maintainworkordersview = "div#work_order_create_view";
 	public static final String b2w_maintainworkorderadditembutton = "a.btn-orig.add-item";
@@ -985,5 +987,44 @@ public class B2WUIMap {
 
 	public static String b2w_kendoworkorderitemstitle = "div.complete-workorder-items-title";
 	public static final String b2w_schedulesouthwestdivisionpaversgraders = "Southwest Division Pavers--Graders";
+
+	//maintain schedule
+	public static final String b2w_maintaindashboarduserinfo = "div#userInfo";
+	public static final String b2w_maintaindashboarddate = "div.date";
+	public static final String b2w_maintaindashboardupdated = "div.updated";
+	public static final String b2w_maintaindashboardrefresh = "a.refresh";
+	public static final String b2w_maintaindashboardnewrequests = "div#newRequests";
+	public static final String b2w_maintaindashboardrequestedandassigned = "div#requestedAndAssignedRequests";
+	public static final String b2w_maintaindashboardunscheduledworkorders = "div#unscheduledWorkOrders";
+	public static final String b2w_maintaindashboardpastdue = "div#pastDueWorkOrder";
+	public static final String b2w_maintaindashboardpendingtimecards = "div#pendingTimeCards";
+	public static final String b2w_maintaindashboardworkorderlist = "div#workOrdersList";
+	public static final String b2w_maintaindashboardworkorders = "div#workorders";
+    public static final String b2w_maintaindashboardworkordercharts = "div#workordercharts";
+    public static final String b2w_maintaindashboardtimecards = "div#timecards";
+    public static final String b2w_maintaindashboardworkorderscontent = "div#workOrdersContent";
+    public static final String b2w_maintaindashboardworkordercontainer = "div.wo_container";
+    public static final String b2w_maintaindashboardyeartodatelink = "Year to Date";
+    public static final String b2w_maintaindashboardmonthtodatelink = "Month to Date";
+    public static final String b2w_maintaindashboardtimecardslink = "View Time Cards";
+    public static final String b2w_maintaindashboardviewworkorderslink = "View Work Orders";
+    public static final String b2w_maintaindashboardworkordertitle = "div.wo_title";
+    public static final String b2w_maintaindashboardnumber = "span.number";
+    public static final String b2w_maintaindasboardworkordercontentlabel = "div.content_labels";
+    public static final String b2w_maintaindashboardworkorderdata = ".wo_data.ellipsis";
+    public static final String b2w_maintaindashboardscheduletooltip = "div.schedule-tooltip";
+    public static final String b2w_maintaindashboardscheduledworkOrdersfilterbutton = "span.b2w-icon.i127-filter";
+    
+    // maintain schedule popup
+    public static final String b2w_maintainschedulepopupworkordertitle = "span.workorder-title";
+    public static final String b2w_maintainschedulepopupworkourdertime = "span.time";
+    public static final String b2w_maintainschedulepopupwarning = "span.warning";
+    public static final String b2w_maintainschedulepopupsectiontitle = "span.section-title";
+    public static final String b2w_maintainschedulepopupclose = "a.k-icon.k-i-close";
+    
+    //popup filters
+    public static final String b2w_maintainscheduleworkorderfilters = "div.popup--filters.k-window-content.k-content";
+    public static final String b2w_maintainscheduleworkorderfilterapply = "button.js-apply.btn-form.large";
+    public static final String b2w_maintainscheduleworkorderfiltercancel = "button.js-cancel.btn-form";
 
 }

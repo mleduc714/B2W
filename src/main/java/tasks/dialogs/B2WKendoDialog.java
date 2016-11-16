@@ -44,6 +44,26 @@ public abstract class B2WKendoDialog {
 		}
 		return bReturn;
 	}
+	
+	public ArrayList<String> getItemsFromDropDown() {
+		 ArrayList<String> al = new ArrayList<String>();
+		// when we click we need to find the visble list
+		List<WebElement> list = WebElementUtils.findElements(B2WEquipment.getKendoLists());
+		Iterator<WebElement> iter = list.iterator();
+		while (iter.hasNext()) {
+			WebElement els = iter.next();
+			String hidden = els.getAttribute("aria-hidden");
+			if (hidden != null && hidden.equals("false")) {
+				List<WebElement> items = els.findElements(B2WEquipment.getKendoDropDownItem());
+				Iterator<WebElement> iterElements = items.iterator();
+				while (iterElements.hasNext()){
+					WebElement ddItem = iterElements.next(); 
+					al.add(ddItem.getText());
+				}
+			}
+		}
+		return al;
+	}
 	public WebElement getDisplayedWindow() {
 		WebElement window = null;
 		List<WebElement> windows = WebElementUtils.findElements(B2WMaintain.getKendoWindow());
