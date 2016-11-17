@@ -215,16 +215,16 @@ public class OperationsSmokeB extends B2WTestCase {
 
 	public void testMain() throws Throwable {
 
-		createProductionAccount();
-		verifyProductionAccount();
-		assertTrue("Click Home", b2wNav.clickHome());
-		createOverheadAccount();
-		verifyOverheadAccount();
+		//createProductionAccount();
+		//verifyProductionAccount();
+		//assertTrue("Click Home", b2wNav.clickHome());
+		//createOverheadAccount();
+		//verifyOverheadAccount();
 		createMaterialsA();
 		createMaterialsB();
-		createMaterialsC();
-		createMaterialsD();
-		createPlace();
+		//createMaterialsC();
+		//createMaterialsD();
+		//createPlace();
 		
 	}
 
