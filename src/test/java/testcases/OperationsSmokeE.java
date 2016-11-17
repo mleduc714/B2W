@@ -135,6 +135,10 @@ public class OperationsSmokeE extends B2WTestCase {
 		// Category of the within ops
 		return null;
 	}
+	public String getTestDescription() {
+		// TODO Auto-generated method stub
+		return "Labor Rates, Parts, Place, Organization, Meter";
+	}
 
 	@Override
 	public void testSetUp() throws Throwable {

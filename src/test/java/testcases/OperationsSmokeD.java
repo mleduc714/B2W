@@ -22,7 +22,10 @@ import tasks.setup.B2WUserTasks;
 
 public class OperationsSmokeD extends B2WTestCase {
 	
-/*	1) Create Equipment Category
+
+
+
+	/*	1) Create Equipment Category
 	2) Create 4 Different Equipment Types
     3) Create 4 Different Pieces of Equipment
 */
@@ -93,6 +96,11 @@ public class OperationsSmokeD extends B2WTestCase {
 	public String getCategory() {
 		// Category of the within ops
 		return null;
+	}
+	@Override
+	public String getTestDescription() {
+		// TODO Auto-generated method stub
+		return "Create Equipment, Types, and Category";
 	}
 
 	@Override
@@ -194,7 +202,6 @@ public class OperationsSmokeD extends B2WTestCase {
 		logCompare("Hauling",b2wEquip.getBusinessUnitOfItem(), "Business Unit");
 		logCompare(sEquipmentTypeNameA, b2wEquip.getEquipmentTypeOfItem(), "Equipment Type");
 		logCompare(sEquipmentIDA + " ["+sEquipmentDescA+"]", b2wEquip.getEquipmentHeadline(), "Headline");
-		logCompare(true, b2wEquip.saveNewEquipment(), "Save Equipment");
 		
 		assertTrue("Create New Equipment", b2wEquip.createNewEquipment());
 		logCompare(true,b2wEquip.setEquipmentDescription(sEquipmentDescB), "Equipment Description");
@@ -206,7 +213,6 @@ public class OperationsSmokeD extends B2WTestCase {
 		logCompare("Hauling",b2wEquip.getBusinessUnitOfItem(), "Business Unit");
 		logCompare(sEquipmentTypeNameB, b2wEquip.getEquipmentTypeOfItem(), "Equipment Type");
 		logCompare(sEquipmentIDB + " ["+sEquipmentDescB+"]", b2wEquip.getEquipmentHeadline(), "Headline");
-		logCompare(true, b2wEquip.saveNewEquipment(), "Save Equipment");
 		
 		assertTrue("Create New Equipment", b2wEquip.createNewEquipment());
 		logCompare(true,b2wEquip.setEquipmentDescription(sEquipmentDescC), "Equipment Description");
@@ -218,7 +224,6 @@ public class OperationsSmokeD extends B2WTestCase {
 		logCompare("Hauling",b2wEquip.getBusinessUnitOfItem(), "Business Unit");
 		logCompare(sEquipmentTypeNameC, b2wEquip.getEquipmentTypeOfItem(), "Equipment Type");
 		logCompare(sEquipmentIDC + " ["+sEquipmentDescC+"]", b2wEquip.getEquipmentHeadline(), "Headline");
-		logCompare(true, b2wEquip.saveNewEquipment(), "Save Equipment");
 		
 		assertTrue("Create New Equipment", b2wEquip.createNewEquipment());
 		logCompare(true,b2wEquip.setEquipmentDescription(sEquipmentDescD), "Equipment Description");
@@ -230,7 +235,6 @@ public class OperationsSmokeD extends B2WTestCase {
 		logCompare("Hauling",b2wEquip.getBusinessUnitOfItem(), "Business Unit");
 		logCompare(sEquipmentTypeNameD, b2wEquip.getEquipmentTypeOfItem(), "Equipment Type");
 		logCompare(sEquipmentIDD + " ["+sEquipmentDescD+"]", b2wEquip.getEquipmentHeadline(), "Headline");
-		logCompare(true, b2wEquip.saveNewEquipment(), "Save Equipment");
 		
 		
 	}

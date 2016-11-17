@@ -62,6 +62,10 @@ public class OperationsSmokeH extends B2WTestCase {
 		// Category of the within ops
 		return null;
 	}
+	public String getTestDescription() {
+		// TODO Auto-generated method stub
+		return "Schedule Work Order, Time Card, add hours, approve, complete";
+	}
 
 	@Override
 	public void testSetUp() throws Throwable {

@@ -58,6 +58,10 @@ public class OperationsSmokeA extends B2WTestCase {
 		//check do I need to remove access
 		//removeAllAccess();
 	}
+	public String getTestDescription() {
+		// TODO Auto-generated method stub
+		return "Verify level of access for user";
+	}
 
 	@Override
 	public void testMain() throws Throwable {

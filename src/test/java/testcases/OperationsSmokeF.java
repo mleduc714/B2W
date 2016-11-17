@@ -180,6 +180,11 @@ public class OperationsSmokeF extends B2WTestCase {
 		//addCreateNewTMWorkItem();
 	}
 
+	public String getTestDescription() {
+		// TODO Auto-generated method stub
+		return "Job, site, estimate, change order, add materials, subcontractors";
+	}
+	
 	@Override
 	public void testTearDown() throws Throwable {
 		// TODO Auto-generated method stub

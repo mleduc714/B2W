@@ -87,6 +87,10 @@ public class OperationsSmokeC extends B2WTestCase {
 		return null;
 	}
 
+	public String getTestDescription() {
+		// TODO Auto-generated method stub
+		return "Create Labor Types, Employees";
+	}
 	@Override
 	public void testSetUp() throws Throwable {
 		// TODO Auto-generated method stub

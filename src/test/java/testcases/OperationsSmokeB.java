@@ -141,6 +141,11 @@ public class OperationsSmokeB extends B2WTestCase {
 		return null;
 	}
 
+	public String getTestDescription() {
+		// TODO Auto-generated method stub
+		return "Create Production, Overhead accounts, Materials and Place";
+	}
+	
 	@Override
 	public void testSetUp() throws Throwable {
 		// TODO Auto-generated method stub

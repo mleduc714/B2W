@@ -24,7 +24,7 @@ public class B2WTestCase extends BaseTestCase {
 		BrowserUtils.setWebBrowser(getEnvProperty("browser"));
 
 
-		String testName = getTestDescription();
+		String testName = new StringBuffer(getClass().getSimpleName()).toString();
 		// set the log for the webdriver
 		File logFile = new File("logs/current/" + testName + "Driver.log");
 		if (BrowserUtils.isChrome()) {
@@ -66,8 +66,8 @@ public class B2WTestCase extends BaseTestCase {
 		return null;
 	}
 
-	public final String getTestDescription() {
-		return new StringBuffer(isRerun() ? "RERUN_" : "").append(getClass().getSimpleName()).toString();
+	public String getTestDescription() {
+		return new StringBuffer(getClass().getSimpleName()).toString();
 	}
 
 	public String getDataPath() {

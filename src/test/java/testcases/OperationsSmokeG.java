@@ -87,6 +87,10 @@ public class OperationsSmokeG extends B2WTestCase {
 		// Category of the within ops
 		return null;
 	}
+	public String getTestDescription() {
+		// TODO Auto-generated method stub
+		return "Create Maintenance Program, Add Parts, create requests, create work order";
+	}
 
 	@Override
 	public void testSetUp() throws Throwable {
