@@ -253,7 +253,7 @@ public class OperationsSmokeF extends B2WTestCase {
 		logCompare(true,b2wJobsAdd.clickSearchButton(),"Click Search");
 		logCompare(true,b2wJobsAdd.setIDText(sMaterialsIDD),"Set ID");
 		if (logCompare(true,b2wJobsAdd.clickSelectButton(), "Select button")){
-			b2wJobsAdd.clickAddButton();
+			logCompare(true,b2wJobsAdd.clickAddButton(), "Click Add Button");
 		}else{
 			b2wJobsAdd.clickCancelButton();
 		}
@@ -269,20 +269,22 @@ public class OperationsSmokeF extends B2WTestCase {
 		logCompare(true,b2wJobsAdd.clickSearchButton(), "Click Search Button");
 		logCompare(true,b2wJobsAdd.setIDText(sOrganizationCompanyIDA), "Set ID");
 		if (logCompare(true,b2wJobsAdd.clickSelectButton(), "Select button")){
-			b2wJobsAdd.clickAddButton();
+			logCompare(true,b2wJobsAdd.clickAddButton(), "Click Add Button");
 		}else{
 			b2wJobsAdd.clickCancelButton();
 		}
+
 		logCompare(true,b2wJobs.clickAddTruckingSubcontractorsButton(), "Click Truck Subs");
 		b2wJobsAdd = new B2WAddToJobs(B2WJobsTasks.JOBSDIALOG.ADDTRUCKINGSUBCONTRACTORS);
 		logCompare(true,b2wJobsAdd.setSearchText(sOrganizationCompanyNameB), "Select Organization");
 		logCompare(true,b2wJobsAdd.clickSearchButton(), "Click Search Button");
 		logCompare(true,b2wJobsAdd.setIDText(sOrganizationCompanyIDB), "Set ID");
 		if (logCompare(true,b2wJobsAdd.clickSelectButton(), "Select button")){
-			b2wJobsAdd.clickAddButton();
+			logCompare(true,b2wJobsAdd.clickAddButton(), "Click Add Button");
 		}else{
 			b2wJobsAdd.clickCancelButton();
 		}
+
 
 	}
 	
