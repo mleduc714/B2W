@@ -113,9 +113,9 @@ public class B2WAddToJobs {
 
 	public boolean clickAddButton() {
 		boolean bReturn = false;
-		//WebElement parent = WebElementUtils.waitAndFindDisplayedElement(bydialog);
-		//WebElement el = WebElementUtils.getChildElement(parent, addbutton);
-		WebElement el = WebElementUtils.findElement(By.xpath("//a[contains(@id,'AddButton')]"));
+		WebElement parent = WebElementUtils.waitAndFindDisplayedElement(bydialog);
+		WebElement el = WebElementUtils.getChildElement(parent, addbutton);
+		//WebElement el = WebElementUtils.findElement(By.xpath("//a[contains(@id,'AddButton')]"));
 		if (el != null){
 			bReturn = WebElementUtils.clickElement(el);
 			bReturn &= WebElementUtils.waitForElementInvisible(el);
