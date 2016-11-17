@@ -972,4 +972,9 @@ public class B2WUIMap {
 	public static final String b2w_schedulesouthwestdivisionpaversgraders = "Southwest Division Pavers--Graders";
 	public static final String b2w_schedulerandomcharacters = "Z!\"#$%&'()*+-./:;<=>?@[\\\\]^_`{|}~“”‘’!\"#$%&'()*+-./:;<=>?@[\\\\]^_`{|}~“”‘’";
 	
+	
+	//Schedule Setup
+	public static final String b2w_schedulesetupnewschedulebutton = " ";
+	
+	
 }
