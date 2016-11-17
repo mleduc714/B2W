@@ -1,4 +1,4 @@
-package testcases;
+package smoketest;
 
 import java.text.SimpleDateFormat;
 

@@ -1,4 +1,4 @@
-package testcases;
+package smoketest;
 
 import com.b2w.test.B2WTestCase;
 

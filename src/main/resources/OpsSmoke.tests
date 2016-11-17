@@ -1,9 +1,9 @@
-testcases.OperationsSmokeB
-testcases.OperationsSmokeC
-testcases.OperationsSmokeD
-testcases.OperationsSmokeE
-testcases.OperationsSmokeF
-testcases.OperationsSmokeG
-testcases.OperationsSmokeH
+testcases.smoketest.OperationsSmokeB
+testcases.smoketest.OperationsSmokeC
+testcases.smoketest.OperationsSmokeD
+testcases.smoketest.OperationsSmokeE
+testcases.smoketest.OperationsSmokeF
+testcases.smoketest.OperationsSmokeG
+testcases.smoketest.OperationsSmokeH
 #testcases.OperationsSmokeA
 #testcases.jobs.B2WJobTestCase
