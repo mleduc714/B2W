@@ -18,6 +18,9 @@
 	</appender>
 	
 	
+	<logger name="smoketest">
+		<level value="debug" /> 
+	</logger>
 	<logger name="testcases">
 		<level value="debug" /> 
 	</logger>
