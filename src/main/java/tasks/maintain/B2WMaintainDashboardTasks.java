@@ -29,9 +29,10 @@ public class B2WMaintainDashboardTasks extends B2WMaintainTasks {
 		boolean bReturn = false;
 		WebElement el = WebElementUtils.findElement(B2WMaintain.getB2WMaintainDashboardNewRequests());
 		if (el != null){
-			bReturn = WebElementUtils.clickElement(el);
-			bReturn &= new TaskUtils().waitForPageHeader("Requests");
-			bReturn = waitForPageNotBusy(WebElementUtils.MEDIUM_TIME_OUT);
+			if (WebElementUtils.clickElement(el)){
+				bReturn = waitForPageNotBusy(WebElementUtils.MEDIUM_TIME_OUT);
+				bReturn &= new TaskUtils().waitForProductPanel("Requests");
+			}
 		}
 		return bReturn;
 	}
@@ -46,7 +47,7 @@ public class B2WMaintainDashboardTasks extends B2WMaintainTasks {
 		WebElement el = WebElementUtils.findElement(B2WMaintain.getB2WMaintainDashboardRequestsAndAssigned());
 		if (el != null){
 			bReturn = WebElementUtils.clickElement(el);
-			bReturn &= new TaskUtils().waitForPageHeader("Requests");
+			bReturn &= new TaskUtils().waitForProductPanel("Requests");
 			bReturn = waitForPageNotBusy(WebElementUtils.MEDIUM_TIME_OUT);
 		}
 		return bReturn;
@@ -65,7 +66,7 @@ public class B2WMaintainDashboardTasks extends B2WMaintainTasks {
 		WebElement el = WebElementUtils.findElement(B2WMaintain.getB2WMaintainDashboardUnscheduleWorkOrders());
 		if (el != null){
 			bReturn = WebElementUtils.clickElement(el);
-			bReturn &= new TaskUtils().waitForPageHeader("Work Order Schedule by Mechanic");
+			bReturn &= new TaskUtils().waitForProductPanel("Work Order Schedule by Mechanic");
 			bReturn = waitForPageNotBusy(WebElementUtils.MEDIUM_TIME_OUT);
 
 		}
@@ -84,7 +85,7 @@ public class B2WMaintainDashboardTasks extends B2WMaintainTasks {
 		WebElement el = WebElementUtils.findElement(B2WMaintain.getB2WMaintainDashboardPastDue());
 		if (el != null){
 			bReturn = WebElementUtils.clickElement(el);
-			bReturn &= new TaskUtils().waitForPageHeader("Work Order Schedule by Mechanic");
+			bReturn &= new TaskUtils().waitForProductPanel("Work Order Schedule by Mechanic");
 			bReturn = waitForPageNotBusy(WebElementUtils.MEDIUM_TIME_OUT);
 		}
 		return bReturn;
@@ -100,7 +101,7 @@ public class B2WMaintainDashboardTasks extends B2WMaintainTasks {
 		WebElement el = WebElementUtils.findElement(B2WMaintain.getB2WMaintainDashboardPendingCards());
 		if (el != null){
 			bReturn = WebElementUtils.clickElement(el);
-			bReturn &= new TaskUtils().waitForPageHeader("Time Cards");
+			bReturn &= new TaskUtils().waitForProductPanel("Time Cards");
 			bReturn = waitForPageNotBusy(WebElementUtils.MEDIUM_TIME_OUT);
 		}
 		return bReturn;

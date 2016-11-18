@@ -484,7 +484,7 @@ public class B2WUIMap {
 	public static final String b2w_kendolargeaddsavebutton = ".btn-form.large.add-save.save";
 	public static final String b2w_kendofilterbydd = "div.k-multiselect-wrap.k-floatwrap";
 	public static final String b2w_kendogridcontent = "div.k-grid-content";
-	public static final String b2w_kendoselected = "div.k-state-selected";
+	public static final String b2w_kendoselected = ".k-state-selected";
 	public static final String b2w_kendoitems = ".k-alt";
 	public static final String b2w_equipmentcontent = "div.box-content";
 	public static final String b2w_kendoheaders = "span.k-link.k-header";
@@ -504,7 +504,7 @@ public class B2WUIMap {
 	public static final String b2w_kendonumerictextbox = "span.k-widget.k-numerictextbox";
 	public static final String b2w_kendosavebuttonfake = "div.btn-form.large.fake";
 	public static final String b2w_kendobuttonadd = "span.btn-add";
-	public static final String b2w_kendobuttonnext = "a.btn-form.large.next";
+	public static final String b2w_kendobuttonnext = ".btn-form.large.next";
 	public static final String b2w_kendowindowtitle = "span.k-window-title";
 	public static final String b2w_kendobuttoncontainer = "div.button-container";
 	public static final String b2w_kendodatetext = "span.k-picker-wrap.k-state-default";

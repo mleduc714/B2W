@@ -177,7 +177,10 @@ public class B2WMaintainRequestTasks extends B2WKendoTasks {
 	public boolean selectRequestByDescription(String sDesc){
 		return selectItemFromView(sDesc, 1);
 	}
-	public boolean  clickAddToWorkOrderButton() {
+	public boolean selectRequest(int i){
+		return selectItemFromView(i);
+	}
+	public boolean clickAddToWorkOrderButton() {
 		boolean bReturn = false;
 		WebElement el = WebElementUtils.findElement(B2WMaintain.getB2WMaintainRequestsAddToWorkOrder());
 		if (el != null){

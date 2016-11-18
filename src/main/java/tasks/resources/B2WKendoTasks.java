@@ -256,7 +256,7 @@ public abstract class B2WKendoTasks {
 		return elements;
 	}
 	
-	public boolean selectItemFromView(String sItem, int iColumn) {
+	protected boolean selectItemFromView(String sItem, int iColumn) {
 		boolean bReturn = false;
 
 		WebElement grid = WebElementUtils.findElement(B2WEquipment.getKendoGridContent());
@@ -282,7 +282,24 @@ public abstract class B2WKendoTasks {
 		}
 		return bReturn;
 	}
+	
+	protected boolean selectItemFromView(int i){
+		boolean bReturn = false;
 
+		WebElement grid = WebElementUtils.findElement(B2WEquipment.getKendoGridContent());
+		List<WebElement> items = WebElementUtils.getChildElements(grid, By.tagName("tr"));
+		if (i < items.size()){
+			WebElement item = items.get(i);
+			Coordinates coordinate = ((Locatable) item).getCoordinates();
+			coordinate.onPage();
+			coordinate.inViewPort();
+			bReturn = WebElementUtils.clickElement(item);
+		}
+		return bReturn;
+	
+		
+	}
+	
 	public boolean clickConfirmYes() {
 		boolean bReturn = false;
 		WebElement el = WebElementUtils.waitAndFindDisplayedElement(B2WMaintain.getKendoConfirmYesButton());
@@ -338,6 +355,13 @@ public abstract class B2WKendoTasks {
 
 	}
 	
-	
+	public String getSelectedItemFromView(int iColumn) {
+		String sText = "";
+		WebElement grid = WebElementUtils.findElement(B2WEquipment.getKendoGridContent());
+		WebElement selected = WebElementUtils.getChildElement(grid, B2WMaintain.getKendoSelected());
+		List<WebElement> gridcontent = WebElementUtils.getChildElements(selected, By.tagName("td"));
+		sText = gridcontent.get(iColumn).getText();
+		return sText;
+	}
 	
 }

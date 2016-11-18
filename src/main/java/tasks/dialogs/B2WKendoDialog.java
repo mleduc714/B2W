@@ -206,7 +206,19 @@ public abstract class B2WKendoDialog {
 			bReturn = WebElementUtils.clickElement(cancelbutton);
 		}
 		return bReturn;
+	}
 	
+	protected boolean clickFinish() {
+
+		boolean bReturn = false;
+		TaskUtils.sleep(500);
+		WebElement window = getDisplayedWindow();
+		if (window != null){
+			WebElement buttoncontainer = WebElementUtils.getChildElement(window, B2WEquipment.getKendoButtonContainer());
+			WebElement finishbutton = buttoncontainer.findElement(B2WEquipment.getKendoLargeFinishButton());
+			bReturn = WebElementUtils.clickElement(finishbutton);
+		}
+		return bReturn;
 	}
 	
 	protected boolean selectPart(String sPart, int col){

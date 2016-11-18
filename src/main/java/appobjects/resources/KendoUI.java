@@ -117,5 +117,8 @@ public abstract class KendoUI {
 	public static By getKendoSubmitButton() {
 		return By.cssSelector(B2WUIMap.b2w_kendosubmit);
 	}
+	public static By getKendoSelected() {
+		return By.cssSelector(B2WUIMap.b2w_kendoselected);
+	}
 	
 }

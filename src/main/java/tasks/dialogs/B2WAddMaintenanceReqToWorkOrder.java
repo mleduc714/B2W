@@ -1,7 +1,6 @@
 package tasks.dialogs;
 
 import java.util.ArrayList;
-import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.List;
 
@@ -13,10 +12,9 @@ import tasks.WebElementUtils;
 
 public class B2WAddMaintenanceReqToWorkOrder extends B2WKendoDialog {
 
-	private static Hashtable<String, WebElement> table = new Hashtable<String, WebElement>();
+	//private static Hashtable<String, WebElement> table = new Hashtable<String, WebElement>();
 	// private static List<WebElement> additemsElements = new
 	// ArrayList<WebElement>();
-	private static List<WebElement> additemsElements = new ArrayList<WebElement>();
 
 	public boolean selectCreateNewWorkOrderRadioButton() {
 		boolean bReturn = false;
@@ -40,32 +38,68 @@ public class B2WAddMaintenanceReqToWorkOrder extends B2WKendoDialog {
 		return WebElementUtils.findElement(B2WMaintain.getB2WMaintainRequestAddToWorkOrderDialog());
 	}
 
-	private void addItemsToOrder() {
+	private ArrayList<String> getRequestIDs() {
 
-		WebElement parent = WebElementUtils.waitAndFindElement(B2WMaintain.getB2WMaintainSelectItemsToWorkOrder());
+		ArrayList<String> al = new ArrayList<String>();
+		Iterator<WebElement> iterRequests = getRequestWorkOrderElements();
+		while (iterRequests.hasNext()) {
+			List<WebElement> td = iterRequests.next().findElements(By.tagName("td"));
+			String sText = td.get(0).getText().trim();
+			al.add(sText);
+		}
+		return al;
+	}
+	
+	public void addAllRequests(){
+		ArrayList<String> al = getRequestIDs();
+		Iterator<String> iter = al.iterator();
+		while (iter.hasNext()){
+			String sItem= iter.next();
+			Iterator<WebElement> elements = getRequestWorkOrderElements();
+			while (elements.hasNext()){
+				List<WebElement> td  = elements.next().findElements(By.tagName("td"));
+				String sText = td.get(0).getText().trim();
+				if (sItem.equals(sText)){
+					WebElement checkbox = WebElementUtils.getChildElement(td.get(0), By.tagName("input"));
+					if (!checkbox.isSelected()){
+						WebElementUtils.clickElement(checkbox);
+					}
+					break;
+				}
+			}
+		}
+	}
+
+	public boolean clickNextButton() {
+		boolean bReturn = false;
+		if (clickNext()){
+			
+			bReturn = true;
+		}
+		return bReturn;
+	}
+	
+	public boolean clickFinishButton() {
+		WebElement parent = WebElementUtils.waitAndFindDisplayedElement(B2WMaintain.getB2WMaintainSelectItemsToWorkOrder());
+
+		boolean bReturn = false;
+		if (clickFinish()){
+			bReturn = WebElementUtils.waitForElementInvisible(parent);
+			bReturn &= waitForPageNotBusy(WebElementUtils.MEDIUM_TIME_OUT);
+		}
+		return bReturn;
+	}
+	
+	public Iterator<WebElement> getRequestWorkOrderElements () {
+		WebElement parent = WebElementUtils.waitAndFindDisplayedElement(B2WMaintain.getB2WMaintainSelectItemsToWorkOrder());
 		List<WebElement> elements = parent.findElements(By.tagName("tbody"));
 		// first body is checkbox to include
 		WebElement workorderselections = elements.get(0);
 		// number of tr's will tell us how many rows
 		List<WebElement> requests = workorderselections.findElements(By.tagName("tr"));
 		Iterator<WebElement> iterRequests = requests.iterator();
-		while (iterRequests.hasNext()) {
-			// check checkbox webelement
-			List<WebElement> td = iterRequests.next().findElements(By.tagName("td"));
-			WebElement checkbox = td.get(0).findElement(By.tagName("input"));
-			String sText = td.get(1).getText();
-			table.put(sText, checkbox);
-			// get the description text
-		}
-		workorderselections = elements.get(1);
-		List<WebElement> maintenancePrograms = workorderselections.findElements(By.tagName("tr"));
-		Iterator<WebElement> iterGenerateRequests = maintenancePrograms.iterator();
-		while (iterGenerateRequests.hasNext()) {
-			List<WebElement> td = iterGenerateRequests.next().findElements(By.tagName("td"));
-			String sText = td.get(0).getText();
-			WebElement generateItem = td.get(3).findElement(By.cssSelector("*"));
-			table.put(sText, generateItem);
-		}
+		return iterRequests;
 	}
+	
 
 }
