@@ -63,7 +63,7 @@ public class TaskUtils extends BaseAssert {
 		WebElement panel = WebElementUtils.waitAndFindDisplayedElement(B2WCommonObjects.getB2WPageProductPanel());
 		String sText = panel.findElement(By.tagName("h1")).getText();
 		log.debug("Product Panel is " + sText);
-		if (sText.equals(sProduct)) {
+		if (sText.startsWith(sProduct)) {
 			bReturn = true;
 		}
 		return bReturn;

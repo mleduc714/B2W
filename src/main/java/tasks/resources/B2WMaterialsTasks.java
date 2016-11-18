@@ -4,6 +4,7 @@ import org.openqa.selenium.WebElement;
 
 import appobjects.resources.B2WMaterials;
 import tasks.WebElementUtils;
+import tasks.util.TaskUtils;
 
 public class B2WMaterialsTasks extends B2WResourceTasks {
 
@@ -16,7 +17,10 @@ public class B2WMaterialsTasks extends B2WResourceTasks {
 	}
 
 	public boolean checkTemporaryMaterial(boolean bCheck) {
-		return checkBox(B2WMaterials.getTempMaterialCheckBox(), bCheck);
+		boolean bReturn = false;
+		bReturn = checkBox(B2WMaterials.getTempMaterialCheckBox(), bCheck);
+		TaskUtils.sleep(1000);
+		return bReturn;
 	}
 
 	public boolean checkTrackableMaterial(boolean bCheck) {
