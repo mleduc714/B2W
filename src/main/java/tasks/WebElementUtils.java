@@ -132,6 +132,35 @@ public class WebElementUtils {
 		return ret;
 	}
 
+	public static WebElement getElementWithContainsChildElementText(List<WebElement> list, By childBy, String text) {
+		if (list.isEmpty()) {
+			log.debug("List of elements to search is empty");
+		}
+		Iterator<WebElement> iter = list.iterator();
+		log.info("List size: " + list.size());
+		WebElement ret = null;
+		while (iter.hasNext()) {
+			WebElement el = iter.next();
+			try {
+				WebElement child = waitForChildElement(el, childBy, SHORT_TIME_OUT);
+				if (text.contains(child.getText())) {
+					ret = el;
+					break;
+				}
+			} catch (NoSuchElementException nse) {
+				log.warn("Parent did not contain Child element: " + childBy.toString());
+				log.debug("Parent Element Class: " + el.getAttribute("class"));
+			}
+
+		}
+		return ret;
+	}
+
+	public static WebElement getElementWithContainsChildElementText(By parentsBy, By childBy, String text) {
+		List<WebElement> parents = waitAndFindDisplayedElements(parentsBy);
+		return getElementWithContainsChildElementText(parents, childBy, text);
+	}
+
 	public static WebElement waitAndFindDisplayedEletment(By locator) {
 		return waitAndFindDisplayedElement(locator, SHORT_TIME_OUT);
 	}

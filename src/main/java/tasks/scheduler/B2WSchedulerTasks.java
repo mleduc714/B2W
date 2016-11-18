@@ -1,9 +1,11 @@
 package tasks.scheduler;
 
+import appobjects.resources.B2WEquipment;
 import appobjects.resources.KendoUI;
 import appobjects.scheduler.B2WScheduleAssignments;
 import org.apache.log4j.Logger;
 import org.jfree.data.general.WaferMapDataset;
+import org.jfree.util.Log;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
@@ -177,6 +179,7 @@ public class B2WSchedulerTasks extends B2WKendoTasks {
                 String sTmp = item.getText();
                 if (sTmp.contains(sMenuOption)) {
                     bReturn = WebElementUtils.clickElement(item);
+                    waitForSchedulePageNoBusy();
                 }
             }
             if (!bReturn) {
@@ -242,6 +245,21 @@ public class B2WSchedulerTasks extends B2WKendoTasks {
         bReturn &= selectButtonOption("Yes");
         return bReturn;
     }
+    public boolean editAssignment() {
+        return selectOptionFromContextMenu("Edit Assignment");
+    }
+    public boolean editNeed() {
+        return selectOptionFromContextMenu("Edit Need");
+    }
+    public boolean editMoveAssignment() {
+        return selectOptionFromContextMenu("Edit Move Assignment");
+    }
+    public boolean editMoveOrder() {
+        return selectOptionFromContextMenu("Edit Move Order");
+    }
+    public boolean editEvent() {
+        return selectOptionFromContextMenu("Edit Event");
+    }
 
     //-- Set Methods
     // Method to set value to FDD fields
@@ -259,7 +277,18 @@ public class B2WSchedulerTasks extends B2WKendoTasks {
         }
         return bReturn;
     }
+    public void clearFields(String sFieldName) {
+        WebElement assignmentWindow = WebElementUtils.waitAndFindElement(B2WScheduleAssignments.getAssignmentWindow());
+        WebElementUtils.switchToFrame(B2WScheduleAssignments.getAssignmentWindow(), 1);
 
+        if (assignmentWindow != null) {
+            WebElement employeeAssignment = WebElementUtils.getKendoFDDElementByLabel(sFieldName);
+            employeeAssignment.clear();
+            waitForSchedulePageNoBusy();
+        } else {
+            log.debug("Create Assignment Window could not be found");
+        }
+    }
     // Set Values on Create Assignment Dialog
     public boolean setJobSite(String sValue) {
         return setFields("Job Site/Place", sValue);
@@ -404,6 +433,85 @@ public class B2WSchedulerTasks extends B2WKendoTasks {
         return bReturn;
     }
 
+
+    // Update methods
+    public boolean updateJobSite(String sValue) {
+        return setJobSite(sValue);
+    }
+    public boolean updateEmployee(String sValue) {
+        List<WebElement> list = WebElementUtils.findElements(B2WScheduleAssignments.getDeleteEmployeeBtn());
+        for (WebElement item : list) {
+            WebElementUtils.clickElement(item);
+        }
+        return setEmployee(sValue);
+    }
+    public boolean updateEquipment(String sValue) {
+        List<WebElement> list = WebElementUtils.findElements(B2WScheduleAssignments.getDeleteEmployeeBtn());
+        for (WebElement item : list) {
+            WebElementUtils.clickElement(item);
+        }
+        return setEquipment(sValue);
+    }
+    public boolean updateEmployeeNeed(String sValue) {
+        List<WebElement> list = WebElementUtils.findElements(B2WScheduleAssignments.getDeleteEmployeeBtn());
+        for (WebElement item : list) {
+            WebElementUtils.clickElement(item);
+        }
+        return setEmployeeNeed(sValue);
+    }
+    public boolean updateEquipmentNeed(String sValue) {
+        List<WebElement> list = WebElementUtils.findElements(B2WScheduleAssignments.getDeleteEmployeeBtn());
+        for (WebElement item : list) {
+            WebElementUtils.clickElement(item);
+        }
+        return setEquipmentNeed(sValue);
+    }
+    public boolean updateCrew(String sValue) {
+        List<WebElement> list = WebElementUtils.findElements(B2WScheduleAssignments.getDeleteEmployeeBtn());
+        for (WebElement item : list) {
+            WebElementUtils.clickElement(item);
+        }
+        return setCrew(sValue);
+    }
+    public boolean updateTransportationCrew(String sValue) {
+        clearFields("Crew");
+        return setCrew(sValue);
+    }
+    public boolean updateCrewNeed(String sValue) {
+        List<WebElement> list = WebElementUtils.findElements(B2WScheduleAssignments.getDeleteEmployeeBtn());
+        for (WebElement item : list) {
+            WebElementUtils.clickElement(item);
+        }
+        return setCrewNeed(sValue);
+    }
+    public boolean updateRequestedBy(String sValue) {
+        clearFields("Requested By");
+        return setRequestedBy(sValue);
+    }
+    public boolean updateNotes(String sValue) {
+        boolean bResult = false;
+        WebElement notesField = WebElementUtils.findElement(B2WScheduleAssignments.getNotesField());
+        if (notesField != null) {
+            notesField.clear();
+            bResult = WebElementUtils.sendKeys(notesField, sValue);
+        } else {
+            log.debug("Element 'Requested By' could not be found on the page." );
+        }
+        return bResult;
+    }
+    public boolean updateEventEmployee(String sValue) {
+        clearFields("Employee");
+        return setEventEmployee(sValue);
+    }
+    public boolean updateEventEquipment(String sValue) {
+        clearFields("Equipment");
+        return setEventEquipment(sValue);
+    }
+    public boolean updateEventLocation(String sValue) {
+        clearFields("Location");
+        return setEventLocation(sValue);
+    }
+
     // Methods for Calendar on Schedule View
     public boolean setCalendarDateRange(String sValue) {
         boolean bReturn = false;
@@ -473,6 +581,7 @@ public class B2WSchedulerTasks extends B2WKendoTasks {
     public int getAssignmentsCount(String sResourceName, String sLocationName) {
         return getAssignmentsByLocationAndResourceName(sResourceName, sLocationName).size();
     }
+    /*
     public WebElement getAssignment(String sResourceName, String sLocationName, String sStartDate, String sEndDate, String sStartTime) {
         WebElement eReturn = null;
         Date startDate = StringUtils.getDateFromStringWithPattern(sStartDate, "M/d/yyyy");
@@ -496,6 +605,7 @@ public class B2WSchedulerTasks extends B2WKendoTasks {
         }
         return eReturn;
     }
+    */
     public WebElement getAssignment(String sResourceName, String sLocationName, String sStartDate, String sEndDate, String sStartTime, String sType) {
         WebElement eReturn = null;
         Date startDate = StringUtils.getDateFromStringWithPattern(sStartDate, "M/d/yyyy");
@@ -567,6 +677,19 @@ public class B2WSchedulerTasks extends B2WKendoTasks {
         }
         return bResult;
     }
+    public boolean clickEditLocation() {
+        boolean bReturn = false;
+        WebElement eLink = WebElementUtils.findElement(B2WScheduleAssignments.getEditLocationLink());
+        if (eLink != null) {
+            bReturn = WebElementUtils.clickElement(eLink);
+        } else {
+            Log.debug("'Edit Location' link could not be found on the page.");
+        }
+        return bReturn;
+    }
+    public boolean clickEditCrew() {
+        return clickSelectCrewBtn();
+    }
 
     //-- Save Methods
     public boolean saveAssignment() {
@@ -602,13 +725,13 @@ public class B2WSchedulerTasks extends B2WKendoTasks {
         waitForSchedulePageNoBusy();
         return bResult;
     }
-    public boolean saveEmployeeNeedAssignment() {
+    public boolean saveEmployeeNeed() {
         boolean bResult;
         bResult = saveAssignment();
         waitForSchedulePageNoBusy();
         return bResult;
     }
-    public boolean saveEquipmentNeedAssignment() {
+    public boolean saveEquipmentNeed() {
         boolean bResult;
         bResult = saveAssignment();
         waitForSchedulePageNoBusy();
@@ -620,17 +743,17 @@ public class B2WSchedulerTasks extends B2WKendoTasks {
         waitForSchedulePageNoBusy();
         return bResult;
     }
-    public boolean saveCrewNeedAssignment() {
+    public boolean saveCrewNeed() {
         boolean bResult;
         bResult = saveAssignment();
         waitForSchedulePageNoBusy();
         return bResult;
     }
     public boolean saveMoveAssignment() {
-        boolean bResult = false;
-        WebElement el = WebElementUtils.findElement(B2WScheduleAssignments.getCreateAssignmentBtn());
-        WebElementUtils.waitForElementClickable(el);
-        if (el != null) {
+        boolean bResult;
+        WebElement el = WebElementUtils.findElement(B2WScheduleAssignments.getSaveAssignmentBtn());
+        bResult = WebElementUtils.waitForElementClickable(el);
+        if (el != null && bResult) {
             bResult = WebElementUtils.clickElement(el);
             WebElementUtils.waitForElementInvisible(el);
             waitForSchedulePageNoBusy();
@@ -642,6 +765,8 @@ public class B2WSchedulerTasks extends B2WKendoTasks {
         return bResult;
     }
     public boolean saveMoveOrder() {
+        return saveMoveAssignment();
+        /*
         boolean bResult = false;
         WebElement el = WebElementUtils.findElement(B2WScheduleAssignments.getCreateMoveOrderBtn());
         if (el != null) {
@@ -655,6 +780,7 @@ public class B2WSchedulerTasks extends B2WKendoTasks {
 
         //bResult &= checkAssignmentExist();
         return bResult;
+        */
     }
     public boolean saveEvent() {
         boolean bResult;
