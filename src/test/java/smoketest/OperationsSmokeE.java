@@ -1,4 +1,4 @@
-package testcases;
+package smoketest;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -134,6 +134,10 @@ public class OperationsSmokeE extends B2WTestCase {
 	public String getCategory() {
 		// Category of the within ops
 		return null;
+	}
+	public String getTestDescription() {
+		// TODO Auto-generated method stub
+		return "Labor Rates, Parts, Place, Organization, Meter";
 	}
 
 	@Override

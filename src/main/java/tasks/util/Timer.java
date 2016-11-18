@@ -2,8 +2,15 @@ package tasks.util;
 
 import java.io.IOException;
 import java.util.Date;
+import java.util.List;
 
 import org.apache.log4j.Logger;
+import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class Timer {
 	private long startTime = 0;
@@ -42,5 +49,39 @@ public class Timer {
 		Date date = new Date();
 		date.setTime(unixTime);
 		return date;
+	}
+
+	public void waitFullLoad(WebDriver driver) throws InterruptedException {
+		waitForLoad(driver);
+		new WebDriverWait(driver, 10)
+				.until(ExpectedConditions.invisibilityOfAllElements(driver.findElements(By.id("ProcessingMessage1"))));
+		List<WebElement> waitItems = driver.findElements(By.className("k-loading-image"));
+		if (waitItems.size() > 0) {
+			new WebDriverWait(driver, 10).until(ExpectedConditions.invisibilityOfAllElements(waitItems));
+		}
+		waitForAjax(driver);
+
+		Thread.sleep(500);
+	}
+
+	private void waitForAjax(WebDriver driver) throws InterruptedException {
+		while (true) {
+			Boolean ajaxIsComplete = (Boolean) ((JavascriptExecutor) driver).executeScript("return jQuery.active == 0");
+			if (ajaxIsComplete) {
+				break;
+			}
+			TaskUtils.sleep(500);
+		}
+	}
+
+	private void waitForLoad(WebDriver driver) throws InterruptedException {
+		while (true) {
+			Boolean loaded = (Boolean) ((JavascriptExecutor) driver).executeScript("return document.readyState")
+					.equals("complete");
+			if (loaded) {
+				break;
+			}
+			TaskUtils.sleep(500);
+		}
 	}
 }

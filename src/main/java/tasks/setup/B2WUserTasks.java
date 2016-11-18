@@ -2,6 +2,7 @@ package tasks.setup;
 
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 
@@ -16,6 +17,9 @@ public class B2WUserTasks extends B2WSetupTasks {
 	public enum ACCESSLEVEL {NONE,FULL,READONLY};
 	
 	ACCESSLEVEL access;
+	
+	Logger log = Logger.getLogger(B2WUserTasks.class);
+	
 	public boolean clickSearchButton(){
 		return WebElementUtils.clickElement(B2WSetup.getB2WSearchButton());
 	}
@@ -38,8 +42,11 @@ public class B2WUserTasks extends B2WSetupTasks {
 		WebElement el = WebElementUtils.getElementWithMatchingText(B2WSetupUsers.getB2WUserListingLastName(), sLastName);
 		if (el != null){
 			WebElementUtils.clickElement(el);
+			waitForProcessingDialogToClear();
 			WebElement waitForThis = WebElementUtils.waitAndFindDisplayedElement(B2WSetupUsers.getUserInformationHeader());
 			bReturn = waitForThis!=null;
+		}else{
+			log.debug("The Element is null for "+sLastName);
 		}
 		return bReturn;
 	}

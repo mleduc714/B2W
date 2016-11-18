@@ -9,6 +9,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.internal.Coordinates;
+import org.openqa.selenium.internal.Locatable;
 
 import appobjects.maintain.B2WMaintain;
 import appobjects.resources.B2WEquipment;
@@ -25,6 +27,7 @@ public abstract class B2WKendoDialog {
 		// when we click we need to find the visble list
 		List<WebElement> list = WebElementUtils.findElements(B2WEquipment.getKendoLists());
 		Iterator<WebElement> iter = list.iterator();
+		log.debug("Looking for item "+sItem);
 		while (iter.hasNext()) {
 			WebElement els = iter.next();
 			String hidden = els.getAttribute("aria-hidden");
@@ -40,6 +43,26 @@ public abstract class B2WKendoDialog {
 			}
 		}
 		return bReturn;
+	}
+	
+	public ArrayList<String> getItemsFromDropDown() {
+		 ArrayList<String> al = new ArrayList<String>();
+		// when we click we need to find the visble list
+		List<WebElement> list = WebElementUtils.findElements(B2WEquipment.getKendoLists());
+		Iterator<WebElement> iter = list.iterator();
+		while (iter.hasNext()) {
+			WebElement els = iter.next();
+			String hidden = els.getAttribute("aria-hidden");
+			if (hidden != null && hidden.equals("false")) {
+				List<WebElement> items = els.findElements(B2WEquipment.getKendoDropDownItem());
+				Iterator<WebElement> iterElements = items.iterator();
+				while (iterElements.hasNext()){
+					WebElement ddItem = iterElements.next(); 
+					al.add(ddItem.getText());
+				}
+			}
+		}
+		return al;
 	}
 	public WebElement getDisplayedWindow() {
 		WebElement window = null;
@@ -183,6 +206,70 @@ public abstract class B2WKendoDialog {
 			bReturn = WebElementUtils.clickElement(cancelbutton);
 		}
 		return bReturn;
+	}
 	
+	protected boolean clickFinish() {
+
+		boolean bReturn = false;
+		TaskUtils.sleep(500);
+		WebElement window = getDisplayedWindow();
+		if (window != null){
+			WebElement buttoncontainer = WebElementUtils.getChildElement(window, B2WEquipment.getKendoButtonContainer());
+			WebElement finishbutton = buttoncontainer.findElement(B2WEquipment.getKendoLargeFinishButton());
+			bReturn = WebElementUtils.clickElement(finishbutton);
+		}
+		return bReturn;
+	}
+	
+	protected boolean selectPart(String sPart, int col){
+		
+		boolean bReturn = false;
+		WebElement window = getDisplayedWindow();
+		log.debug("Looking for Part "+sPart);
+		if (window != null){
+			WebElement grid = WebElementUtils.getChildElement(window, B2WMaintain.getKendoGridContent());
+			if (WebElementUtils.waitForElementStale(grid, 1)){
+				grid = WebElementUtils.getChildElement(window, B2WMaintain.getKendoGridContent());
+			}
+			Iterator<WebElement> itr = getChildElementsFromGrid(grid);
+			while (itr.hasNext()){
+				WebElement item = itr.next();
+				List<WebElement> gridcontent = WebElementUtils.getChildElements(item, By.tagName("td"));
+				String sText = gridcontent.get(col).getText();
+				if (sText.equals("")){
+					Coordinates coordinate = ((Locatable)item).getCoordinates(); 
+					coordinate.onPage(); 
+					coordinate.inViewPort();
+				}
+				sText = gridcontent.get(col).getText();
+				if (sText.startsWith(sPart)){
+					bReturn = WebElementUtils.clickElement(WebElementUtils.getChildElement(gridcontent.get(0),By.tagName("input")));
+					break;
+				}
+			}
+		}
+		return bReturn;
+	}
+	
+	protected boolean selectItemFromDropDown(int i){
+		boolean bReturn = false;
+		// when we click we need to find the visible list
+		List<WebElement> list = WebElementUtils.findElements(B2WEquipment.getKendoLists());
+		Iterator<WebElement> iter = list.iterator();
+		log.debug("There are "+list.size() + " to find the correct drop down");
+		while (iter.hasNext()) {
+			WebElement els = iter.next();
+			String hidden = els.getAttribute("aria-hidden");
+			if (hidden != null && hidden.equals("false")) {
+				List<WebElement> items = els.findElements(B2WEquipment.getKendoDropDownItem());
+				WebElement item = items.get(i);
+				if (item != null) {
+					bReturn = WebElementUtils.clickElement(item);
+				}else{
+					log.debug("Could not select item #"+i);
+				}
+			}
+		}
+		return bReturn;
 	}
 }

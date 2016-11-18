@@ -111,12 +111,16 @@ public class B2WAddToJobs {
 		return bReturn;
 	}
 
-	public void clickAddButton() {
-		WebElement grid = WebElementUtils.findElement(By.className("grid"));
+	public boolean clickAddButton() {
+		boolean bReturn = false;
 		WebElement parent = WebElementUtils.waitAndFindDisplayedElement(bydialog);
 		WebElement el = WebElementUtils.getChildElement(parent, addbutton);
-		WebElementUtils.clickElement(el);
-		WebElementUtils.waitForElementStale(grid, WebElementUtils.LONG_TIME_OUT);
+		//WebElement el = WebElementUtils.findElement(By.xpath("//a[contains(@id,'AddButton')]"));
+		if (el != null){
+			bReturn = WebElementUtils.clickElement(el);
+			bReturn &= WebElementUtils.waitForElementInvisible(el);
+		}
+		return bReturn;
 	}
 	
 	public void clickCancelButton() {

@@ -177,6 +177,18 @@ public class B2WMaintainRequestTasks extends B2WKendoTasks {
 	public boolean selectRequestByDescription(String sDesc){
 		return selectItemFromView(sDesc, 1);
 	}
+	public boolean selectRequest(int i){
+		return selectItemFromView(i);
+	}
+	public boolean clickAddToWorkOrderButton() {
+		boolean bReturn = false;
+		WebElement el = WebElementUtils.findElement(B2WMaintain.getB2WMaintainRequestsAddToWorkOrder());
+		if (el != null){
+			bReturn = WebElementUtils.clickElement(el);
+			bReturn &= WebElementUtils.waitAndFindDisplayedElement(B2WMaintain.getB2WMaintainRequestAddToWorkOrderDialog()) != null;
+		}
+		return bReturn;
+	}
 	
 	
 }

@@ -1,4 +1,4 @@
-package testcases;
+package smoketest;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -141,6 +141,11 @@ public class OperationsSmokeB extends B2WTestCase {
 		return null;
 	}
 
+	public String getTestDescription() {
+		// TODO Auto-generated method stub
+		return "Create Production, Overhead accounts, Materials and Place";
+	}
+	
 	@Override
 	public void testSetUp() throws Throwable {
 		// TODO Auto-generated method stub
@@ -282,7 +287,6 @@ public class OperationsSmokeB extends B2WTestCase {
 		assertTrue("Set Material ID", b2wMat.setMaterialID(sMaterialsIDA));
 		assertTrue("Set Unit Of Measure", b2wMat.selectUnitOfMeasure(sMaterialsUnitOfMeasureA));
 		assertTrue("Set Category", b2wMat.selectCategory("Asphalt"));
-		b2wMat.setAlternateID("Alt-"+sMaterialsIDD);
 		if (logCompare(true, b2wMat.checkTemporaryMaterial(true), "Check Temp Material")) {
 			logCompare(true, b2wMat.checkTrackableMaterial(true), "Trackable Material");
 			logCompare(true, b2wMat.setTotalCount(sMaterialsTotalCountA), "Set Total Cost");
@@ -311,12 +315,12 @@ public class OperationsSmokeB extends B2WTestCase {
 
 		assertTrue("Open Materials", b2wNav.openMaterials());
 		assertTrue("Click Materials Button", b2wMat.clickCreateNewMaterialsButton());
+		logCompare(true, b2wMat.checkTemporaryMaterial(true), "Check Temp Material");
 		assertTrue("Set Description", b2wMat.setDescription(sMaterialsDescriptionB));
 		assertTrue("Set Material ID", b2wMat.setMaterialID(sMaterialsIDB));
 		assertTrue("Set Unit Of Measure", b2wMat.selectUnitOfMeasure(sMaterialsUnitOfMeasureB));
 		assertTrue("Set Category", b2wMat.selectCategory("Asphalt"));
-		b2wMat.setAlternateID("Alt-"+sMaterialsIDD);
-		logCompare(true, b2wMat.checkTemporaryMaterial(true), "Check Temp Material");
+
 		if (logCompare(true, b2wAct.clickTopSaveButton(), "Save the Material")) {
 			logCompare(sMaterialsDescriptionB, b2wMat.getMaterialDescriptionText(), "Verify Text");
 			logCompare(sMaterialsIDB, b2wMat.getMaterialIDText(), "Verify ID");
@@ -413,43 +417,6 @@ public class OperationsSmokeB extends B2WTestCase {
 		
 	}
 
-
-/*
-	public void deleteProductionAccount() {
-		assertTrue("Open Accounts", b2wNav.openAccounts());
-		b2wAct.collapseOverheadAccounts();
-		b2wAct.expandProductionAccounts();
-		logCompare(true, b2wAct.deleteProductionAccountByDescription(sProductionAccountDesc),
-				"Delete " + sProductionAccountDesc);
-
-	}
-
-	public void deleteOverheadAccount() {
-		assertTrue("Open Accounts", b2wNav.openAccounts());
-		b2wAct.collapseProductionAccounts();
-		b2wAct.expandOverheadAccounts();
-		logCompare(true, b2wAct.deleteOverheadAccountByDescription(sOverheadAccountDesc),
-				"Deleted " + sOverheadAccountDesc);
-
-	}
-	public void deletePlace() {
-		b2wNav.openPlaces();
-		b2wPlaces.searchOpenResourceByDescription(sPlaceDescription);
-		b2wPlaces.deleteResource();
-	}
-	
-	
-	public void deleteAll() {
-		deleteProductionAccount();
-		deleteOverheadAccount();
-		deletePlace();
-		assertTrue("Click Home", b2wNav.clickHome());
-		deleteMaterial(sMaterialsDescriptionA);
-		deleteMaterial(sMaterialsDescriptionB);
-		deleteMaterial(sMaterialsDescriptionC);
-		deleteMaterial(sMaterialsDescriptionD);
-
-	}*/
 
 	@Override
 	public void testTearDown() throws Throwable {

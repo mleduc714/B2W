@@ -1,4 +1,4 @@
-package testcases;
+package smoketest;
 
 import com.b2w.test.B2WTestCase;
 
@@ -53,10 +53,14 @@ public class OperationsSmokeA extends B2WTestCase {
 	@Override
 	public void testSetUp() throws Throwable {
 		// TODO Auto-generated method stub
-		sLastName = "Service";
+		sLastName = getEnvProperty("lastname");
 		super.testSetUp();
 		//check do I need to remove access
 		//removeAllAccess();
+	}
+	public String getTestDescription() {
+		// TODO Auto-generated method stub
+		return "Verify level of access for user";
 	}
 
 	@Override
@@ -129,25 +133,25 @@ public class OperationsSmokeA extends B2WTestCase {
 		assertTrue("Go back to home screen", b2wNav.clickHome());
 		assertTrue("Open Manage Equipment", b2wHome.openAdminManageEquipment());
 		assertTrue("Go back to home screen", b2wNav.clickHome());
-		// enable Dispatch
+		// enable Schedule
 		assertTrue("Open Setup Users", b2wNav.openSetupUsers());
 		assertTrue("Open the user",userTasks.openUserByLastName(sLastName));
 		assertTrue("Edit the User",userTasks.clickEditButton());
 		assertTrue("Add Full Track Access", userTasks.changeDispatchAccessToFullAccess());
 		assertTrue("Save the user", userTasks.clickTopSaveButton());
 		assertTrue("Go back to home screen", b2wNav.clickHome());	
-//		assertTrue("Open Dispatch from Navigation", b2wNav.openDispatch());
+		assertTrue("Open Dispatch from Navigation", b2wNav.openSchedule());
+		assertTrue("Go back to home screen", b2wNav.clickHome());
+//		assertTrue("Open dispatch link to job board", b2wHome.openDispatchJobBoard());
 //		assertTrue("Go back to home screen", b2wNav.clickHome());
-		assertTrue("Open dispatch link to job board", b2wHome.openDispatchJobBoard());
-		assertTrue("Go back to home screen", b2wNav.clickHome());
-		assertTrue("Open dispatch link to Delivery Orders",b2wHome.openDispatchDeliveryOrders());
-		assertTrue("Go back to home screen", b2wNav.clickHome());
-		assertTrue("Open dispatch link to Equipment Moves",b2wHome.openDispatchEquipmentMoves());
-		assertTrue("Go back to home screen", b2wNav.clickHome());
-		assertTrue("Open dispatch link to Trucking Orders",b2wHome.openDispatchTruckingOrders());
-		assertTrue("Go back to home screen", b2wNav.clickHome());
-		assertTrue("Open dispatch link to Map Orders",b2wHome.openDispatchMapOrders());
-		assertTrue("Go back to home screen", b2wNav.clickHome());
+//		assertTrue("Open dispatch link to Delivery Orders",b2wHome.openDispatchDeliveryOrders());
+//		assertTrue("Go back to home screen", b2wNav.clickHome());
+//		assertTrue("Open dispatch link to Equipment Moves",b2wHome.openDispatchEquipmentMoves());
+//		assertTrue("Go back to home screen", b2wNav.clickHome());
+//		assertTrue("Open dispatch link to Trucking Orders",b2wHome.openDispatchTruckingOrders());
+//		assertTrue("Go back to home screen", b2wNav.clickHome());
+//		assertTrue("Open dispatch link to Map Orders",b2wHome.openDispatchMapOrders());
+//		assertTrue("Go back to home screen", b2wNav.clickHome());
 		// enable 
 		assertTrue("Open Setup Users", b2wNav.openSetupUsers());
 		assertTrue("Open the user",userTasks.openUserByLastName(sLastName));
@@ -174,6 +178,7 @@ public class OperationsSmokeA extends B2WTestCase {
 		//logCompare("Michael LeDuc",b2wNav.getUserName(), "User Names");
 		//TaskUtils.logScreenCapture();
 		assertTrue("Search for Last Name",userTasks.enterTextAndClickSearch(sLastName));
+		TaskUtils.sleep(500);
 		assertTrue("Open the user",userTasks.openUserByLastName(sLastName));
 		assertTrue("Edit the User",userTasks.clickEditButton());
 		logCompare(true,userTasks.changeDispatchAccessToNone(),"Remove Dispatch");		

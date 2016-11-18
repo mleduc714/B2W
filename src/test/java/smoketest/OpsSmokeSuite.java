@@ -1,4 +1,6 @@
-package testcases;
+package smoketest;
+
+import testcases.TestSuite;
 
 public class OpsSmokeSuite extends TestSuite {
 	

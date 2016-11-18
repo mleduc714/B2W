@@ -258,6 +258,124 @@ public class B2WMaintain extends KendoUI {
 	public static By getB2WPlannedHours() {
 		return By.cssSelector(B2WUIMap.b2w_maintainworkorderplannedhours);
 	}
-	
-	
+	public static By getB2WAddPartsDialogQuanities() {
+		return By.cssSelector(B2WUIMap.b2w_addpartstoworkorderquanitiesgrid);
+	}
+	public static By getB2WCompleteWorkItemsTitle() {
+		return By.cssSelector(B2WUIMap.b2w_kendoworkorderitemstitle);
+	}
+	public static By getB2WWorkItemCompleteMeters() {
+		return By.cssSelector(B2WUIMap.b2w_maintainworkordercomplete);
+	}
+	public static By getB2WorkItemCompleteDialog() {
+		return By.cssSelector(B2WUIMap.b2w_maintainworkordercompletedialog);
+	}
+	public static By getB2WMaintainScheduleCurrentView() {
+		return By.cssSelector(B2WUIMap.b2w_maintainschedulecurrentview);
+	}
+	public static By getB2WMaintainDashboardUserInfo() {
+		return By.cssSelector(B2WUIMap.b2w_maintaindashboarduserinfo);
+	}
+	public static By getB2WMaintainDashboardDate() {
+		return By.cssSelector(B2WUIMap.b2w_maintaindashboarddate);
+	}
+	public static By getB2WMaintainDashboardUpdated() {
+		return By.cssSelector(B2WUIMap.b2w_maintaindashboardupdated);
+	}
+	public static By getB2WMaintainDashboardRefresh() {
+		return By.cssSelector(B2WUIMap.b2w_maintaindashboardrefresh);
+	}
+	public static By getB2WMaintainDashboardNewRequests() {
+		return By.cssSelector(B2WUIMap.b2w_maintaindashboardnewrequests);
+	}
+	public static By getB2WMaintainDashboardRequestsAndAssigned() {
+		return By.cssSelector(B2WUIMap.b2w_maintaindashboardrequestedandassigned);
+	}
+	public static By getB2WMaintainDashboardUnscheduleWorkOrders() {
+		return By.cssSelector(B2WUIMap.b2w_maintaindashboardunscheduledworkorders);
+	}
+	public static By getB2WMaintainDashboardPastDue() {
+		return By.cssSelector(B2WUIMap.b2w_maintaindashboardpastdue);
+	}
+	public static By getB2WMaintainDashboardPendingCards() {
+		return By.cssSelector(B2WUIMap.b2w_maintaindashboardpendingtimecards);
+	}
+	public static By getB2WMaintainDashboardWorkOrderList() {
+		return By.cssSelector(B2WUIMap.b2w_maintaindashboardworkorderlist);
+	}
+	public static By getB2WMaintainDashboardWorkOrders() {
+		return By.cssSelector(B2WUIMap.b2w_maintaindashboardworkorders);
+	}
+	public static By getB2WMaintainDashboardWorkOrderCharts() {
+		return By.cssSelector(B2WUIMap.b2w_maintaindashboardworkordercharts);
+	}
+	public static By getB2WMaintainDashboardTimeCards() {
+		return By.cssSelector(B2WUIMap.b2w_maintaindashboardtimecards);
+	}
+	public static By getB2WMaintainDashboardWorkOrdersContent() {
+		return By.cssSelector(B2WUIMap.b2w_maintaindashboardworkorderscontent);
+	}
+	public static By getB2WMaintainDashboardWorkOrderContainer() {
+		return By.cssSelector(B2WUIMap.b2w_maintaindashboardworkordercontainer);
+	}
+	public static By getB2WMaintainDashboardYearToDateLink() {
+		return By.linkText(B2WUIMap.b2w_maintaindashboardyeartodatelink);
+	}
+	public static By getB2WMaintainDashboardMonthToDateLink() {
+		return By.linkText(B2WUIMap.b2w_maintaindashboardmonthtodatelink);
+	}
+	public static By getB2WMaintainDashboardTimeCardsLink() {
+		return By.linkText(B2WUIMap.b2w_maintaindashboardtimecardslink);
+	}
+	public static By getB2WMaintainDashboardViewWorksLink() {
+		return By.linkText(B2WUIMap.b2w_maintaindashboardviewworkorderslink);
+	}
+	public static By getB2WMaintainDashboardWorkOrderTitle() {
+		return By.cssSelector(B2WUIMap.b2w_maintaindashboardworkordertitle);
+	}
+	public static By getB2WMaintainDashboardNumber() {
+		return By.cssSelector(B2WUIMap.b2w_maintaindashboardnumber);
+	}
+	public static By getB2WMaintainDashboardWorkOrderData() {
+		return By.cssSelector(B2WUIMap.b2w_maintaindashboardworkorderdata);
+	}
+	public static By getB2WMaintainDashboardScheduleToolTip() {
+		return By.cssSelector(B2WUIMap.b2w_maintaindashboardscheduletooltip);
+	}
+     public static By getB2WMaintainSchedulePopup(){
+    	return By.cssSelector(B2WUIMap.b2w_maintaindashboardscheduletooltip);
+     }
+    public static By getB2WMaintainSchedulePopupWorkOrderTitle(){
+    	return By.cssSelector(B2WUIMap.b2w_maintainschedulepopupworkordertitle);
+    }
+    public static By getB2WMaintainSchedulePopupWorkOrderTime(){
+    	return By.cssSelector(B2WUIMap.b2w_maintainschedulepopupworkourdertime);
+    }
+    public static By getB2WMaintainSchedulePopupWarning(){
+    	return By.cssSelector(B2WUIMap.b2w_maintainschedulepopupwarning);
+    }
+    public static By getB2WMaintainSchedulePopupSectionTitle(){
+    	return By.cssSelector(B2WUIMap.b2w_maintainschedulepopupsectiontitle);
+    }
+    public static By getB2WMaintainSchedulePopupClose(){
+    	return By.cssSelector(B2WUIMap.b2w_maintainschedulepopupclose);
+    }
+    public static By getB2WMaintainDashboardWorkOrdersFilter() {
+    	return By.cssSelector(B2WUIMap.b2w_maintaindashboardscheduledworkOrdersfilterbutton);
+    }
+    public static By getB2WMaintainDashboardFiltersDialog() {
+    	return By.cssSelector(B2WUIMap.b2w_maintainscheduleworkorderfilters);
+    }
+    public static By getB2WMaintainDashboardFiltersApply() {
+    	return By.cssSelector(B2WUIMap.b2w_maintainscheduleworkorderfilterapply);
+    }
+    public static By getB2WMaintainDashboardFiltersCancel() {
+    	return By.cssSelector(B2WUIMap.b2w_maintainscheduleworkorderfiltercancel);
+    }
+    public static By getB2WMaintainRequestsAddToWorkOrder() {
+    	return By.cssSelector(B2WUIMap.b2w_maintainrequestsaddtoworkorder);
+    }
+    public static By getB2WMaintainRequestAddToWorkOrderDialog() {
+    	return By.cssSelector(B2WUIMap.b2w_maintainrequestsaddtoworkorderdialog);
+    }
 }
