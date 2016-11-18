@@ -378,4 +378,10 @@ public class B2WMaintain extends KendoUI {
     public static By getB2WMaintainRequestAddToWorkOrderDialog() {
     	return By.cssSelector(B2WUIMap.b2w_maintainrequestsaddtoworkorderdialog);
     }
+    public static By getB2WMaintainWorkOrderListView() {
+    	return By.cssSelector(B2WUIMap.b2w_maintainworkorderslistview);
+    }
+    public static By getB2WMaintainRequestListView() {
+    	return By.cssSelector(B2WUIMap.b2w_maintainrequestlistview);
+    }
 }

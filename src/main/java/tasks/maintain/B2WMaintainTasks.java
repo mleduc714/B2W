@@ -138,6 +138,7 @@ public class B2WMaintainTasks extends B2WKendoTasks {
 				WebElementUtils.clickElement(item);
 				bReturn = waitForPageNotBusy(WebElementUtils.MEDIUM_TIME_OUT);
 				bReturn &= getSelectedMenuItem().equals(sMenuItem);
+
 			}
 		}
 

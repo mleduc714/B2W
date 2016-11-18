@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebElement;
@@ -102,6 +103,7 @@ public abstract class B2WKendoTasks {
 		}else{
 			log.info("Page is done loading. waited: "+iSeconds + " Seconds");
 		}
+		waitForAjax();
 		return bReturn;
 		
 	}
@@ -286,7 +288,7 @@ public abstract class B2WKendoTasks {
 	protected boolean selectItemFromView(int i){
 		boolean bReturn = false;
 
-		WebElement grid = WebElementUtils.findElement(B2WEquipment.getKendoGridContent());
+		WebElement grid = WebElementUtils.waitAndFindDisplayedElement(B2WEquipment.getKendoGridContent());
 		List<WebElement> items = WebElementUtils.getChildElements(grid, By.tagName("tr"));
 		if (i < items.size()){
 			WebElement item = items.get(i);
@@ -294,6 +296,7 @@ public abstract class B2WKendoTasks {
 			coordinate.onPage();
 			coordinate.inViewPort();
 			bReturn = WebElementUtils.clickElement(item);
+			waitForPageNotBusy(WebElementUtils.MEDIUM_TIME_OUT);
 		}
 		return bReturn;
 	
@@ -355,13 +358,23 @@ public abstract class B2WKendoTasks {
 
 	}
 	
-	public String getSelectedItemFromView(int iColumn) {
+	protected String getSelectedItemFromView(int iColumn) {
 		String sText = "";
 		WebElement grid = WebElementUtils.findElement(B2WEquipment.getKendoGridContent());
 		WebElement selected = WebElementUtils.getChildElement(grid, B2WMaintain.getKendoSelected());
 		List<WebElement> gridcontent = WebElementUtils.getChildElements(selected, By.tagName("td"));
 		sText = gridcontent.get(iColumn).getText();
 		return sText;
+	}
+	
+	private void waitForAjax() {
+		while (true) {
+			Boolean ajaxIsComplete = (Boolean) ((JavascriptExecutor) BrowserUtils.getDriver()).executeScript("return jQuery.active == 0");
+			if (ajaxIsComplete) {
+				break;
+			}
+			TaskUtils.sleep(500);
+		}
 	}
 	
 }

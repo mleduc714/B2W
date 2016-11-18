@@ -869,7 +869,8 @@ public class B2WUIMap {
 	public static final String b2w_maintainrequestedcommentbutton = "span.btn-addcomment";
 	public static final String b2w_maintainrequestsaddtoworkorder = ".btn-add-work-order";
 	public static final String b2w_maintainrequestsaddtoworkorderdialog = "div#add_to_work_order_popup_view.wizard-dialog.add-work-order-item-popup-view.k-window-content.k-content";
-	// work orders 
+	// work orders
+	public static final String b2w_maintainworkorderslistview = "div#work_order_list_view";
 	public static final String b2w_maintainworkordersview = "div#work_order_create_view";
 	public static final String b2w_maintainworkorderadditembutton = "a.btn-orig.add-item";
 	public static final String b2w_maintainworkorderadditemview = "div.create-new-request";
