@@ -239,5 +239,15 @@ public class B2WMaintainRequestTasks extends B2WKendoTasks {
 		}
 		return bReturn;
 	}
-	
+	public String getSelectedRequestDueDate() {
+		return getDueDate();
+	}
+	public String getSelectedRequestStatus() {
+		String sText = "";
+		WebElement el = WebElementUtils.findElement(B2WMaintain.getB2WMaintainRequestOrderStatus());
+		if (el != null){
+			sText = el.getText();
+		}
+		return sText;
+	}
 }

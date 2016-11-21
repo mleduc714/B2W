@@ -878,6 +878,10 @@ public class B2WUIMap {
 	public static final String b2w_maintainworkordercreateitembutton = "button.btn-form.large.create";
 	public static final String b2w_maintainworkorderdetailcontentview = "div.detail-content-view";
 	public static final String b2w_maintainworkorderaddpartstoorder = "div#edit-work-order-add-parts.k-window-content.k-content.wizard-dialog.add-parts-popup-view";
+	public static final String b2w_maintainworkordersduedate = "//span[@data-bind='text: detailsViewModel.displayDueDate']";
+	public static final String b2w_maintainworkorderstatus = "//td[@data-bind='text: detailsViewModel.displayStatus']";
+	public static final String b2w_maintainrequestsstatus =  "//span[@data-bind='text: detailsViewModel.displayStatus']";
+			
 	
 	public static final String b2w_scheduleanimationcontainer = ".k-animation-container";
 	public static final String b2w_schedulelinks = "span.k-link";
@@ -992,7 +996,13 @@ public class B2WUIMap {
 	public static final String b2w_schedulesoutherndivisionpaversgraders = "Southwest Division Pavers--Graders";
 	public static final String b2w_schedulerandomcharacters = "exact:Z!\"#$%&'()*+-./:;<=>?@[\\\\]^_`{|}~����!\"#$%&'()*+-./:;<=>?@[\\\\]^_`{|}~����";
 
-	public static String b2w_kendoworkorderitemstitle = "div.complete-workorder-items-title";
+	public static final String b2w_kendoworkorderitemstitle = "div.complete-workorder-items-title";
+
+	public static final String b2w_maintaincompleteworkordercomplete = "//a[@data-bind='visible: workOrderCompletionViewModel.isSaveVisible']";
+	public static final String b2w_maintaincompletworkordernext ="//a[@data-bind='visible: workOrderCompletionViewModel.isNextVisible,dataEnabled: workOrderCompletionViewModel.isNextEnabled']";
+
+	public static final String b2w_schedulemaintenancedialogworkorder = "//label[@data-bind='text: scheduleCreateViewModel.displayDescription']";
+	public static final String b2w_schedulemaintenancedialogequipment = "//label[@data-bind='text: scheduleCreateViewModel.equipment.displayValue']";
 	public static final String b2w_schedulesouthwestdivisionpaversgraders = "Southwest Division Pavers--Graders";
 
 	

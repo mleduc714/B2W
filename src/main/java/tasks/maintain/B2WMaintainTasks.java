@@ -130,7 +130,7 @@ public class B2WMaintainTasks extends B2WKendoTasks {
 		}
 		if (getSelectedMenuItem().startsWith(sMenuItem)) {
 			bReturn = true;
-			log.debug(DASHBOARD + " is already selected");
+			log.debug("That Item is already selected");
 		} else {
 
 			WebElement item = WebElementUtils.waitAndFindDisplayedElement(by);

@@ -170,11 +170,18 @@ public class B2WMaintainScheduleTasks extends B2WKendoTasks {
 		List<WebElement> events = WebElementUtils.getChildElements(workorderlist,
 				B2WMaintain.getB2WMaintainschedulerworkorderunscheduled());
 		if (i < events.size()){
-			if (WebElementUtils.clickElement(events.get(i))){
+			WebElement item = events.get(i);
+			Coordinates coordinate = ((Locatable) item).getCoordinates();
+			coordinate.onPage();
+			coordinate.inViewPort();
+			Actions actions = new Actions(BrowserUtils.getDriver());
+			actions.doubleClick(item);
+			actions.perform();
 			bReturn = WebElementUtils.waitAndFindDisplayedElement(
 					B2WMaintain.getB2WMaintainSchedulerScheduleMaintenancePopupWindow()) != null;
+
 			}
-		}
+		
 		return bReturn;
 	}
 	

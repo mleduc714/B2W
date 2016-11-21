@@ -309,6 +309,7 @@ public abstract class B2WKendoTasks {
 		if (el != null){
 			bReturn =WebElementUtils.clickElement(el);
 			bReturn &= WebElementUtils.waitForElementInvisible(el);
+			waitForPageNotBusy(WebElementUtils.MEDIUM_TIME_OUT);
 		}
 		return bReturn;
 	}
@@ -348,10 +349,14 @@ public abstract class B2WKendoTasks {
 		List<WebElement> nvps = WebElementUtils.getChildElements(el, B2WEquipment.getKendoNameValuePair());
 		Iterator<WebElement> iter = nvps.iterator();
 		while (iter.hasNext()) {
+			try {
 			WebElement nvp = iter.next();
 			WebElement label = nvp.findElement(By.cssSelector(".label"));
 			if (label.getText().equals(sItem)) {
 				sItem = nvp.findElement(By.cssSelector(".data")).getText();
+				break;
+			}
+			}catch (NoSuchElementException e){
 			}
 		}
 		return sItem;
@@ -376,5 +381,22 @@ public abstract class B2WKendoTasks {
 			TaskUtils.sleep(500);
 		}
 	}
-	
+	protected String getDueDate(){
+		String sText = "";
+		WebElement el = WebElementUtils.findElement(B2WMaintain.getB2WMaintainWorkOrderShortDate());
+		if (el != null){
+			sText = el.getText();
+		}
+		return sText;
+		
+	}
+	protected String getStatus(){
+		String sText = "";
+		WebElement el = WebElementUtils.findElement(B2WMaintain.getB2WMaintainWorkOrderStatus());
+		if (el != null){
+			sText = el.getText();
+		}
+		return sText;
+		
+	}
 }

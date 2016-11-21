@@ -77,4 +77,13 @@ public abstract class BaseTestCase extends BaseAssert implements BaseTestCaseInt
 		}
 		return randnumber;
 	}
+
+	public static int getRandomNumber(int iRange) {
+
+		Random rand = new Random();
+
+		randnumber = rand.nextInt(iRange) + 1;
+
+		return randnumber;
+	}
 }

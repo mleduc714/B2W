@@ -1,8 +1,5 @@
 package tasks.maintain;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -25,9 +22,6 @@ public class B2WWorkOrdersTasks extends B2WKendoTasks {
 	
 
 	Logger log = Logger.getLogger(B2WWorkOrdersTasks.class);
-	
-	
-	private static List<WebElement> pageElement = new ArrayList<WebElement>();
 
 
 	public boolean clickCreateNewWorkOrderButton() {
@@ -37,9 +31,6 @@ public class B2WWorkOrdersTasks extends B2WKendoTasks {
 		if (button != null){
 			bReturn = WebElementUtils.clickElement(button);
 			bReturn &= WebElementUtils.waitAndFindElement(B2WMaintain.getB2WMaintainNewWorkOrderView()) != null;
-			if (bReturn){
-				pageElement = getFormElements(B2WMaintain.getB2WMaintainNewWorkOrderView());
-			}
 		}
 		return bReturn;
 	}
@@ -49,10 +40,7 @@ public class B2WWorkOrdersTasks extends B2WKendoTasks {
 	public boolean selectEquipment(String sText) {
 		boolean bReturn = false;
 		TaskUtils.sleep(1000);
-		if (pageElement.isEmpty()){
-			pageElement = getFormElements(B2WMaintain.getB2WMaintainNewWorkOrderView());
-		}
-		WebElement equipment = pageElement.get(iEquipment);
+		WebElement equipment = getFormElements(B2WMaintain.getB2WMaintainNewWorkOrderView()).get(iEquipment);
 		if (equipment != null){
 			WebElement el = WebElementUtils.getChildElement(equipment, B2WMaintain.getKendoDropDown());
 			if (el != null){
@@ -97,10 +85,7 @@ public class B2WWorkOrdersTasks extends B2WKendoTasks {
 	
 	public boolean setWorkOrderDescription(String sText){
 		boolean bReturn = false;
-		if (pageElement.isEmpty()){
-			pageElement = getFormElements(B2WMaintain.getB2WMaintainNewWorkOrderView());
-		}
-		WebElement equipment = pageElement.get(iRequestDesc);
+		WebElement equipment = getFormElements(B2WMaintain.getB2WMaintainNewWorkOrderView()).get(iRequestDesc);
 		if (equipment != null){
 			WebElement el = WebElementUtils.getChildElement(equipment,B2WMaintain.getKendoDescription());
 			bReturn = WebElementUtils.sendKeys(el, sText);
@@ -110,11 +95,7 @@ public class B2WWorkOrdersTasks extends B2WKendoTasks {
 	}
 	public boolean setAlternativeID(String sText){
 		boolean bReturn = false;
-		if (pageElement.isEmpty()){
-			pageElement = getFormElements(B2WMaintain.getB2WMaintainNewWorkOrderView());
-		}
-
-		WebElement equipment = pageElement.get(iAltID);
+		WebElement equipment = getFormElements(B2WMaintain.getB2WMaintainNewWorkOrderView()).get(iAltID);
 		if (equipment != null){
 			WebElement el = WebElementUtils.getChildElement(equipment,B2WMaintain.getKendoDescription());
 			bReturn = WebElementUtils.sendKeys(el, sText);
@@ -125,11 +106,7 @@ public class B2WWorkOrdersTasks extends B2WKendoTasks {
 	
 	public boolean setDueDate(String sText){
 		boolean bReturn = false;
-		if (pageElement.isEmpty()){
-			pageElement = getFormElements(B2WMaintain.getB2WMaintainNewWorkOrderView());
-		}
-
-		WebElement equipment = pageElement.get(iDueDate);
+		WebElement equipment = getFormElements(B2WMaintain.getB2WMaintainNewWorkOrderView()).get(iDueDate);
 		if (equipment != null){
 			WebElement el = WebElementUtils.getChildElement(equipment,B2WMaintain.getKendoDropDown());
 			el.click();
@@ -141,11 +118,7 @@ public class B2WWorkOrdersTasks extends B2WKendoTasks {
 	
 	public boolean selectLaborRateClassFromDD(String sText){
 		boolean bReturn = false;
-		if (pageElement.isEmpty()){
-			pageElement = getFormElements(B2WMaintain.getB2WMaintainNewWorkOrderView());
-		}
-
-		WebElement equipment = pageElement.get(iLaborRateClass);
+		WebElement equipment = getFormElements(B2WMaintain.getB2WMaintainNewWorkOrderView()).get(iLaborRateClass);
 		if (equipment != null){
 			//WebElement desc = WebElementUtils.findElement(By.cssSelector("#request_create_view > div.edit-form-content > div.box-content.form > p.form-required > input[name='RequestDescription']"));
 			WebElement el = WebElementUtils.getChildElement(equipment,B2WMaintain.getKendoDropDown());
@@ -157,11 +130,7 @@ public class B2WWorkOrdersTasks extends B2WKendoTasks {
 	
 	public boolean selectPlannedLocationDD(String sText){
 		boolean bReturn = false;
-		if (pageElement.isEmpty()){
-			pageElement = getFormElements(B2WMaintain.getB2WMaintainNewWorkOrderView());
-		}
-
-		WebElement equipment = pageElement.get(iPlannedWorkLocation);
+		WebElement equipment = getFormElements(B2WMaintain.getB2WMaintainNewWorkOrderView()).get(iPlannedWorkLocation);
 		if (equipment != null){
 			//WebElement desc = WebElementUtils.findElement(By.cssSelector("#request_create_view > div.edit-form-content > div.box-content.form > p.form-required > input[name='RequestDescription']"));
 			WebElement el = WebElementUtils.getChildElement(equipment,B2WMaintain.getKendoDropDown());
@@ -173,11 +142,7 @@ public class B2WWorkOrdersTasks extends B2WKendoTasks {
 	
 	public boolean selectPriorityFromDD(String sText){
 		boolean bReturn = false;
-		if (pageElement.isEmpty()){
-			pageElement = getFormElements(B2WMaintain.getB2WMaintainNewWorkOrderView());
-		}
-
-		WebElement equipment = pageElement.get(iPriority);
+		WebElement equipment = getFormElements(B2WMaintain.getB2WMaintainNewWorkOrderView()).get(iPriority);
 		if (equipment != null){
 			//WebElement desc = WebElementUtils.findElement(By.cssSelector("#request_create_view > div.edit-form-content > div.box-content.form > p.form-required > input[name='RequestDescription']"));
 			WebElement el = WebElementUtils.getChildElement(equipment,B2WMaintain.getKendoDropDown());
@@ -317,5 +282,14 @@ public class B2WWorkOrdersTasks extends B2WKendoTasks {
 		}
 		return bReturn;
 	}
-	
+	public String getSelectedWorkOrderDueDate() {
+		return getDueDate();
+	}
+	public String getSelectedWorkOrderStatus() {
+		return getStatus();
+	}
+	public String getValueOfItem(String sItem){
+		return getValueOfItem(sItem, By.cssSelector("div.detail-content-view"));
+	}
+
 }

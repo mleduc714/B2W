@@ -22,6 +22,16 @@ public class B2WScheduleMaintenance extends B2WKendoDialog {
 		}
 		return bReturn;
 	}
+	
+	public String scheduleMaintainancePopupSelectAnyMechanic() {
+		String sText = "";
+		WebElement el = getWebElementFromScheduleMaintenanceDialog(0);
+		if (el != null) {
+			WebElementUtils.clickElement(el);
+			sText = selectRandomItemFromDropDown();
+		}
+		return sText;
+	}
 
 	public boolean scheduleMaintainancePopupSelectStartDate(String startDate) {
 		boolean bReturn = false;
@@ -75,6 +85,19 @@ public class B2WScheduleMaintenance extends B2WKendoDialog {
 		}
 		return bReturn;
 	}
+	public String scheduleMaintainancePopupSelectAnyWorkLocation(){
+		String sText = "";
+		WebElement el = getWebElementFromScheduleMaintenanceDialog(5);
+		if (el != null){
+			WebElementUtils.clickElement(el);
+			WebElementUtils.sendKeys(el,"a");
+			TaskUtils.sleep(500);
+			sText = selectRandomItemFromDropDown();
+			
+		}
+		return sText;
+	}
+	
 	
 	public boolean scheduleMaintainancePopupSelectEvent(String sText){
 		boolean bReturn = false;
@@ -84,6 +107,16 @@ public class B2WScheduleMaintenance extends B2WKendoDialog {
 			bReturn &= selectItemFromDropDown(sText);
 		}
 		return bReturn;
+	}
+	
+	public String scheduleMaintainancePopupSelectAnyEvent(){
+		String sText = "";
+		WebElement el = getWebElementFromScheduleMaintenanceDialog(6);
+		if (el != null){
+			WebElementUtils.clickElement(el);
+			sText = selectRandomItemFromDropDown();
+		}
+		return sText;
 	}
 	
 	public boolean saveScheduleMaintenance() {
@@ -102,8 +135,44 @@ public class B2WScheduleMaintenance extends B2WKendoDialog {
 				.waitAndFindDisplayedElement(B2WMaintain.getB2WMaintainSchedulerScheduleMaintenancePopupWindow());
 		List<WebElement> list = WebElementUtils.getChildElements(el, B2WMaintain.getKendoDropDown());
 		return list.get(i);
-
 	}
-
-
+	
+	public String getWorkOrder() {
+		String sWorkOrder = "";
+		WebElement el = WebElementUtils.waitAndFindDisplayedElement(B2WMaintain.getB2WMaintainSchedulerScheduleMaintenancePopupWindowWorkOrder());
+		if (el != null){
+			sWorkOrder = el.getText();
+		}
+		return sWorkOrder;
+		
+	}
+	
+	public String getWorkOrderDescription() {
+		String sText = getWorkOrder();
+		return sText.substring(0, sText.indexOf("[")).trim();
+	}
+	
+	public String getWorkOrderID() {
+		String sText = getWorkOrder();
+		return sText.substring(sText.indexOf("[")+1, sText.indexOf("]"));
+	}
+	
+	
+	public String getEquipment() {
+		String sEquipment = "";
+		WebElement el = WebElementUtils.waitAndFindDisplayedElement(B2WMaintain.getB2WMaintainSchedulerScheduleMaintenancePopupWindowEquipment());
+		if (el != null){
+			sEquipment = el.getText();
+		}
+		return sEquipment;
+	}
+	
+	public String getEquipmentID(){
+		String sText = getEquipment();
+		return sText.substring(0, sText.indexOf("[")).trim();
+	}
+	public String getEquipmentDescription() {
+		String sText = getEquipment();
+		return sText.substring(sText.indexOf("[")+1, sText.indexOf("]"));
+	}
 }

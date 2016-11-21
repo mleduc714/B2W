@@ -384,4 +384,19 @@ public class B2WMaintain extends KendoUI {
     public static By getB2WMaintainRequestListView() {
     	return By.cssSelector(B2WUIMap.b2w_maintainrequestlistview);
     }
+    public static By getB2WMaintainWorkOrderShortDate() {
+    	return By.xpath(B2WUIMap.b2w_maintainworkordersduedate);
+    }
+    public static By getB2WMaintainWorkOrderStatus() {
+    	return By.xpath(B2WUIMap.b2w_maintainworkorderstatus);
+    }
+    public static By getB2WMaintainRequestOrderStatus() {
+    	return By.xpath(B2WUIMap.b2w_maintainrequestsstatus);
+    }
+    public static By getB2WMaintainSchedulerScheduleMaintenancePopupWindowWorkOrder() {
+    	return By.xpath(B2WUIMap.b2w_schedulemaintenancedialogworkorder);
+    }
+    public static By getB2WMaintainSchedulerScheduleMaintenancePopupWindowEquipment() {
+    	return By.xpath(B2WUIMap.b2w_schedulemaintenancedialogequipment);
+    }
 }
