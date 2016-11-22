@@ -7,6 +7,7 @@ import tasks.jobs.B2WAddToJobs;
 import tasks.jobs.B2WJobsTasks;
 import tasks.jobs.B2WTMWorkItemTab;
 import tasks.setup.B2WUserTasks;
+import tasks.util.TaskUtils;
 
 public class OperationsSmokeF extends B2WTestCase {
 
@@ -258,6 +259,7 @@ public class OperationsSmokeF extends B2WTestCase {
 		logCompare(true,b2wJobsAdd.clickSearchButton(),"Click Search");
 		logCompare(true,b2wJobsAdd.setIDText(sMaterialsIDD),"Set ID");
 		if (logCompare(true,b2wJobsAdd.clickSelectButton(), "Select button")){
+			TaskUtils.sleep(500);
 			logCompare(true,b2wJobsAdd.clickAddButton(), "Click Add Button");
 		}else{
 			b2wJobsAdd.clickCancelButton();

@@ -224,9 +224,14 @@ public class B2WWorkOrdersTasks extends B2WKendoTasks {
 		return getHeaderandExpandOrCollapse("Hours", true);
 	}
 	public boolean clickAddPlannedHours() {
+		boolean bReturn = false;
 		WebElement el = getButton(6);
-		return WebElementUtils.clickElement(el);
-	
+		if (el != null){
+			bReturn = WebElementUtils.clickElement(el);
+			bReturn &= WebElementUtils.waitAndFindDisplayedElement(B2WMaintain.getB2WPlannedHours()) != null;
+		}
+		return bReturn;
+		
 	}
 	public boolean clickAddReportedHours() {
 		WebElement el = getButton(7);
