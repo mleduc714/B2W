@@ -1,5 +1,8 @@
 package tasks.jobs;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Random;
 
 import org.openqa.selenium.WebElement;
@@ -60,46 +63,7 @@ public class B2WJobsTasks extends B2WResourceTasks {
 		return bReturn;
 	}
 	
-	public String getJobNumberText() {
-		String sText = "";
-		WebElement el = WebElementUtils.findElement(B2WJobs.getB2WJobnumbertext());
-			if (el != null){
-				sText = el.getText();
-			}
-		return sText;
-	}
 	
-	public boolean setJobTitle(String sText){
-		boolean bReturn = false;
-		WebElement el = WebElementUtils.findElement(B2WJobs.getB2WJobtitle());
-		if (el != null){
-			bReturn = WebElementUtils.sendKeys(el, sText);
-		}
-		return bReturn;
-	}
-	
-	public String getJobTitleText() {
-		String sText = "";
-		WebElement el = WebElementUtils.findElement(B2WJobs.getB2WJobtitletext());
-			if (el != null){
-				sText = el.getText();
-			}
-		return sText;
-	}
-	
-	public boolean setProjectManagerFromDD(String sText){
-		return WebElementUtils.selectItemFromOpsDropDownMenu(B2WJobs.getB2WJobprojectmanagerdd(), sText);
-	}
-	
-	public String getProjectManagerText() {
-		String sText = "";
-		WebElement el = WebElementUtils.findElement(B2WJobs.getB2WJopprojectmanagertext());
-			if (el != null){
-				sText = el.getText();
-			}
-		return sText;
-	}
-
 	public boolean setProjectName(String sProjectName){
 		boolean bReturn = false;
 		WebElement el = WebElementUtils.findElement(B2WJobs.getB2WJobprojectname());
@@ -120,48 +84,19 @@ public class B2WJobsTasks extends B2WResourceTasks {
 	public boolean setProjectStatusFromDD(String sText){
 		return WebElementUtils.selectItemFromOpsDropDownMenu(B2WJobs.getB2WJobstatusdd(), sText);
 	}
-	public String getProjectStatusText() {
-		String sText = "";
-		WebElement el = WebElementUtils.findElement(B2WJobs.getB2WJobstatustext());
-			if (el != null){
-				sText = el.getText();
-			}
-		return sText;
-	}
+
 	public boolean setProjectCustomerFromDD(String sText){
 		return WebElementUtils.selectItemFromOpsDropDownMenu(B2WJobs.getB2WJobcustomerdd(), sText);
 	}
-	public String getCustomerText() {
-		String sText = "";
-		WebElement el = WebElementUtils.findElement(B2WJobs.getB2WJobcustomertext());
-			if (el != null){
-				sText = el.getText();
-			}
-		return sText;
-	}
+
 	public boolean setDefaultLaborRateClassFromDD(String sLaborRate){
 		return WebElementUtils.selectItemFromOpsDropDownMenu(B2WJobs.getB2WJobdefaultlaborrateclassdd(), sLaborRate);
 	}
-	public String getDefaultLaborRateClassText() {
-		String sText = "";
-		WebElement el = WebElementUtils.findElement(B2WJobs.getB2WJobdefaultlaborrateclasstext());
-			if (el != null){
-				sText = el.getText();
-			}
-		return sText;
-	}
+
 	public boolean setEquipmentRateClassFromDD(String sEquipmentRate){
 		return WebElementUtils.selectItemFromOpsDropDownMenu(B2WJobs.getB2WJobdefaultequipmentrateclass(), sEquipmentRate);
 	}
-	public String getEquipmentRateClassText() {
-		String sText = "";
-		WebElement el = WebElementUtils.findElement(B2WJobs.getB2WJobdefaultequipmentrateclasstext());
-			if (el != null){
-				sText = el.getText();
-			}
-		return sText;
-	}
-	
+
 	public boolean setJobSiteDescription(String sDesc) {
 		return b2wPlace.setDescription(sDesc);
 	}
@@ -835,5 +770,146 @@ public class B2WJobsTasks extends B2WResourceTasks {
 		WebElementUtils.selectItemFromOpsDropDownMenu(B2WJobs.getB2WChangeOrderUnitOfMeasure(), sText);
 		
 		return WebElementUtils.getSelectedTextFromDropDown(B2WJobs.getB2WChangeOrderUnitOfMeasure()).equals(sText);
+	}
+	public boolean setJobTitle(String sText){
+		boolean bReturn = false;
+		WebElement el = WebElementUtils.findElement(B2WJobs.getB2WJobtitle());
+		if (el != null){
+			bReturn = WebElementUtils.sendKeys(el, sText);
+		}
+		return bReturn;
+	}
+	public boolean setProjectManagerFromDD(String sText){
+		return WebElementUtils.selectItemFromOpsDropDownMenu(B2WJobs.getB2WJobprojectmanagerdd(), sText);
+	}
+	
+	public String getJobNumberText() {
+		String sText = "";
+		WebElement el = WebElementUtils.findElement(B2WJobs.getB2WJobnumbertext());
+			if (el != null){
+				sText = el.getText();
+			}
+		return sText;
+	}
+	
+	public String getJobTitleText() {
+		String sText = "";
+		WebElement el = WebElementUtils.findElement(B2WJobs.getB2WJobtitletext());
+			if (el != null){
+				sText = el.getText();
+			}
+		return sText;
+	}
+	
+	public String getProjectManagerText() {
+		String sText = "";
+		WebElement el = WebElementUtils.findElement(B2WJobs.getB2WJopprojectmanagertext());
+			if (el != null){
+				sText = el.getText();
+			}
+		return sText;
+	}
+	public String getProjectStatusText() {
+		String sText = "";
+		WebElement el = WebElementUtils.findElement(B2WJobs.getB2WJobstatustext());
+			if (el != null){
+				sText = el.getText();
+			}
+		return sText;
+	}
+	public String getCustomerText() {
+		String sText = "";
+		WebElement el = WebElementUtils.findElement(B2WJobs.getB2WJobcustomertext());
+			if (el != null){
+				sText = el.getText();
+			}
+		return sText;
+	}
+	public String getEquipmentRateClassText() {
+		String sText = "";
+		WebElement el = WebElementUtils.findElement(B2WJobs.getB2WJobdefaultequipmentrateclasstext());
+			if (el != null){
+				sText = el.getText();
+			}
+		return sText;
+	}
+	
+	public ArrayList<String> getJobSiteDescriptions() {
+		ArrayList<String> al = new ArrayList<String>();
+		List<WebElement> list = WebElementUtils.findElements(B2WJobs.getB2WJobssitedesc());
+		if (list.size() > 0){
+			Iterator<WebElement> iter = list.iterator();
+			while (iter.hasNext()){
+				al.add(iter.next().getText());
+			}
+		}
+		return al;
+	}
+	public ArrayList<String> getJobSupervisors() {
+		ArrayList<String> al = new ArrayList<String>();
+		List<WebElement> list = WebElementUtils.findElements(B2WJobs.getB2wJobssitesitesupervisor());
+		if (list.size() > 0){
+			Iterator<WebElement> iter = list.iterator();
+			while (iter.hasNext()){
+				al.add(iter.next().getText());
+			}
+		}
+		return al;
+	}
+
+	public ArrayList<String> getJobSiteAddresses() {
+		ArrayList<String> al = new ArrayList<String>();
+		List<WebElement> list = WebElementUtils.findElements(B2WJobs.getB2wJobssiteaddress());
+		if (list.size() > 0){
+			Iterator<WebElement> iter = list.iterator();
+			while (iter.hasNext()){
+				al.add(iter.next().getText());
+			}
+		}
+		return al;
+	}
+	public ArrayList<String> getJobSiteCities() {
+		ArrayList<String> al = new ArrayList<String>();
+		List<WebElement> list = WebElementUtils.findElements(B2WJobs.getB2wJobssitecity());
+		if (list.size() > 0){
+			Iterator<WebElement> iter = list.iterator();
+			while (iter.hasNext()){
+				al.add(iter.next().getText());
+			}
+		}
+		return al;
+	}
+	public ArrayList<String> getJobSiteStates() {
+		ArrayList<String> al = new ArrayList<String>();
+		List<WebElement> list = WebElementUtils.findElements(B2WJobs.getB2wJobssitestate());
+		if (list.size() > 0){
+			Iterator<WebElement> iter = list.iterator();
+			while (iter.hasNext()){
+				al.add(iter.next().getText());
+			}
+		}
+		return al;
+	}
+	public ArrayList<String> getEstimateItemsIDs() {
+		ArrayList<String> al = new ArrayList<String>();
+		List<WebElement> list = WebElementUtils.findElements(B2WJobs.getB2WEstimateITemID());
+		if (list.size() > 0){
+			Iterator<WebElement> iter = list.iterator();
+			while (iter.hasNext()){
+				al.add(iter.next().getText());
+			}
+		}
+		return al;
+	}
+	public ArrayList<String> getJobProductionAccountsTrackingIDs() {
+		ArrayList<String> al = new ArrayList<String>();
+		List<WebElement> list = WebElementUtils.findElements(B2WJobs.getJobProductionAccountID());
+		if (list.size() > 0){
+			Iterator<WebElement> iter = list.iterator();
+			while (iter.hasNext()){
+				al.add(iter.next().getText());
+			}
+		}
+		return al;
 	}
 }

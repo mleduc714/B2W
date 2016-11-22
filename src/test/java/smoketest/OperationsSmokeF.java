@@ -5,6 +5,7 @@ import com.b2w.test.B2WTestCase;
 import tasks.B2WNavigationTasks;
 import tasks.BrowserUtils;
 import tasks.jobs.B2WAddToJobs;
+import tasks.jobs.B2WJobsGetters;
 import tasks.jobs.B2WJobsTasks;
 import tasks.jobs.B2WTMWorkItemTab;
 import tasks.setup.B2WUserTasks;
@@ -15,6 +16,7 @@ public class OperationsSmokeF extends B2WTestCase {
 	B2WNavigationTasks b2wNT = new B2WNavigationTasks();
 	B2WUserTasks userTasks = new B2WUserTasks();
 	B2WJobsTasks b2wJobs = new B2WJobsTasks();
+	B2WJobsGetters bw2Text = new B2WJobsGetters();
 	
 	
 	String sJobNumberID, sJobTitle, sProjectManager, sProjectName, sJobStatus, sJobCustomer, sBusinessUnit, sLaborRateClass, sEquipRateClass, sNotes;
@@ -213,7 +215,6 @@ public class OperationsSmokeF extends B2WTestCase {
 		logCompare(sProjectManager, b2wJobs.getProjectManagerText(), "Verify Project Manager");
 		logCompare(sJobStatus, b2wJobs.getProjectStatusText(), "Verify Project Status");
 		logCompare(sJobCustomer, b2wJobs.getCustomerText(), "Verify Customer");
-		logCompare(sLaborRateClass, b2wJobs.getDefaultLaborRateClassText(), "Labor Rate Class");
 		logCompare(sEquipRateClass, b2wJobs.getEquipmentRateClassText(), "Equip Rate Class");
 		
 	}

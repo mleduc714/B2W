@@ -11,7 +11,7 @@ import appobjects.maintain.B2WMaintain;
 import tasks.BrowserUtils;
 import tasks.WebElementUtils;
 
-public class B2WMaintainWorkOrderPopup {
+public class B2WMaintainSchedulePopupToolTip {
 	
 	String ITEMS = "Items";
 	String ASSIGNEDTO = "Assigned to";
