@@ -310,7 +310,7 @@ public class B2WJobs extends KendoUI {
 		return By.cssSelector(B2WUIMap.b2w_verifyestimate);
 	}
 	
-	public static By getB2WEstimateITemID(){
+	public static By getB2WEstimateItemIDs(){
 		return By.cssSelector(B2WUIMap.b2w_jobsestimateitemid);
 	}
 	

@@ -10,6 +10,7 @@ import org.openqa.selenium.WebElement;
 import appobjects.B2WCommonObjects;
 import appobjects.jobs.B2WJobs;
 import appobjects.resources.B2WPlaces;
+import appobjects.setup.B2WSetupUsers;
 import tasks.WebElementUtils;
 import tasks.resources.B2WPlaceTasks;
 import tasks.resources.B2WResourceTasks;
@@ -188,7 +189,7 @@ public class B2WJobsTasks extends B2WResourceTasks {
 
 	public boolean openEstimateItemByItemID(String b2w_jobsestimateitemid) {
 		boolean bReturn = false;
-		WebElement el = WebElementUtils.getElementWithMatchingText(B2WJobs.getB2WEstimateITemID(), b2w_jobsestimateitemid);
+		WebElement el = WebElementUtils.getElementWithMatchingText(B2WJobs.getB2WEstimateItemIDs(), b2w_jobsestimateitemid);
 		if (el != null){
 			WebElementUtils.clickElement(el);
 			WebElement waitForThis = WebElementUtils.waitAndFindDisplayedElement(B2WJobs.getB2WEstimateTableVerification());
@@ -892,7 +893,7 @@ public class B2WJobsTasks extends B2WResourceTasks {
 	}
 	public ArrayList<String> getEstimateItemsIDs() {
 		ArrayList<String> al = new ArrayList<String>();
-		List<WebElement> list = WebElementUtils.findElements(B2WJobs.getB2WEstimateITemID());
+		List<WebElement> list = WebElementUtils.findElements(B2WJobs.getB2WEstimateItemIDs());
 		if (list.size() > 0){
 			Iterator<WebElement> iter = list.iterator();
 			while (iter.hasNext()){
@@ -912,4 +913,28 @@ public class B2WJobsTasks extends B2WResourceTasks {
 		}
 		return al;
 	}
+	
+	public boolean openJobProjectManager() {
+		boolean bReturn = false;
+		WebElement el = WebElementUtils.findElement(B2WJobs.getB2WJopprojectmanagertext());
+		if (el != null){
+			bReturn = WebElementUtils.clickElement(el);
+			new TaskUtils().waitForProductPanel("Employees");
+		}
+		return bReturn;
+	}
+	public boolean openJobSite(String sDescription){
+		boolean bReturn = false;
+		List<WebElement> jobsites = WebElementUtils.findElements(B2WJobs.getB2WJobssitedesc());
+		Iterator<WebElement> iter = jobsites.iterator();
+		while (iter.hasNext()){
+			WebElement el = iter.next();
+			if (el.getText().equals(sDescription)){
+				bReturn = WebElementUtils.clickElement(el);
+				bReturn &= WebElementUtils.waitAndFindDisplayedElement(B2WSetupUsers.getUserInformationHeader()) != null;
+			}
+		}
+		return bReturn;
+	}
+	
 }
