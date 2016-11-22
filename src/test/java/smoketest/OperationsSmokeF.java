@@ -269,6 +269,7 @@ public class OperationsSmokeF extends B2WTestCase {
 	}
 	
 	public void addSubsAndVendors() {
+		
 		logCompare(true,b2wJobs.clickSubsVendorsTab(),"Click Subs Vendor Tab");
 		logCompare(true,b2wJobs.clickAddSubcontractorsButton(), "Add Subcontractors button");
 		B2WAddToJobs b2wJobsAdd = new B2WAddToJobs(B2WJobsTasks.JOBSDIALOG.ADDSUBCONTRACTORS);
