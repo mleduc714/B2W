@@ -3,6 +3,7 @@ package smoketest;
 import com.b2w.test.B2WTestCase;
 
 import tasks.B2WNavigationTasks;
+import tasks.BrowserUtils;
 import tasks.jobs.B2WAddToJobs;
 import tasks.jobs.B2WJobsTasks;
 import tasks.jobs.B2WTMWorkItemTab;
@@ -176,9 +177,10 @@ public class OperationsSmokeF extends B2WTestCase {
 		createNewJobOverheadAccount();
 		createEstimateItem();
 		createChangeOrder();
-		addMaterials();
 		addSubsAndVendors();
-		//addCreateNewTMWorkItem();
+		addMaterials();
+
+		addCreateNewTMWorkItem();
 	}
 
 	public String getTestDescription() {
@@ -317,7 +319,7 @@ public class OperationsSmokeF extends B2WTestCase {
 		b2wTM.selectRandomRequestedByFromDD();
 		b2wTM.selectRandomAccountIDFromDD();
 		assertTrue("Save TM Work Item",b2wTM.saveTMWorkItem());
-		logCompare(true,b2wNT.clickHome(), "Go Home");
+		BrowserUtils.getDriver().navigate().to(getEnvProperty("deploy") + "Maintenance/Dashboard.aspx");
 	}
 	
 	public void createEstimateItem(){
