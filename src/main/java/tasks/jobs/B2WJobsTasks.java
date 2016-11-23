@@ -5,6 +5,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.WebElement;
 
 import appobjects.B2WCommonObjects;
@@ -14,6 +15,7 @@ import appobjects.setup.B2WSetupUsers;
 import tasks.WebElementUtils;
 import tasks.resources.B2WPlaceTasks;
 import tasks.resources.B2WResourceTasks;
+import tasks.util.StringUtils;
 import tasks.util.TaskUtils;
 
 public class B2WJobsTasks extends B2WResourceTasks {
@@ -55,14 +57,7 @@ public class B2WJobsTasks extends B2WResourceTasks {
 		return bReturn;
 	}
 	
-	public boolean setJobNumber(String sText){
-		boolean bReturn = false;
-		WebElement el = WebElementUtils.findElement(B2WJobs.getB2WJobnumber());
-		if (el != null){
-			bReturn = WebElementUtils.sendKeys(el, sText);
-		}
-		return bReturn;
-	}
+
 	
 	
 	public String getJobProjectManagerText() {
@@ -74,119 +69,7 @@ public class B2WJobsTasks extends B2WResourceTasks {
 		return sText;
 	}
 
-	public boolean setJobProjectName(String sProjectName){
-		boolean bReturn = false;
-		WebElement el = WebElementUtils.findElement(B2WJobs.getB2WJobprojectname());
-		if (el != null){
-			bReturn = WebElementUtils.sendKeys(el, sProjectName);
-		}
-		return bReturn;
-	}
-	
-	public String getJobProjectNameText() {
-		String sText = "";
-		WebElement el = WebElementUtils.findElement(B2WJobs.getB2WJobprojectnametext());
-			if (el != null){
-				sText = el.getText();
-			}
-		return sText;
-	}
-	public boolean setJobProjectStatusFromDD(String sText){
-		return WebElementUtils.selectItemFromOpsDropDownMenu(B2WJobs.getB2WJobstatusdd(), sText);
-	}
-	public String getJobProjectStatusText() {
-		String sText = "";
-		WebElement el = WebElementUtils.findElement(B2WJobs.getB2WJobstatustext());
-			if (el != null){
-				sText = el.getText();
-			}
-		return sText;
-	}
 
-	public boolean setJobProjectCustomerFromDD(String sText){
-		return WebElementUtils.selectItemFromOpsDropDownMenu(B2WJobs.getB2WJobcustomerdd(), sText);
-	}
-	public String getJobCustomerText() {
-		String sText = "";
-		WebElement el = WebElementUtils.findElement(B2WJobs.getB2WJobcustomertext());
-			if (el != null){
-				sText = el.getText();
-			}
-		return sText;
-	}
-
-	public boolean setJobDefaultLaborRateClassFromDD(String sLaborRate){
-		return WebElementUtils.selectItemFromOpsDropDownMenu(B2WJobs.getB2WJobdefaultlaborrateclassdd(), sLaborRate);
-	}
-	public String getJobDefaultLaborRateClassText() {
-		String sText = "";
-		WebElement el = WebElementUtils.findElement(B2WJobs.getB2WJobdefaultlaborrateclasstext());
-			if (el != null){
-				sText = el.getText();
-			}
-		return sText;
-	}
-
-	public boolean setJobEquipmentRateClassFromDD(String sEquipmentRate){
-		return WebElementUtils.selectItemFromOpsDropDownMenu(B2WJobs.getB2WJobdefaultequipmentrateclass(), sEquipmentRate);
-	}
-
-	public boolean setJobSiteDescription(String sDesc) {
-		return b2wPlace.setDescription(sDesc);
-	}
-	public boolean setJobSiteSupervisor(String sText){
-		return WebElementUtils.selectItemFromOpsDropDownMenu(B2WJobs.getB2WJobSiteSupervisorDD(), sText);
-	}
-	public boolean setJobSiteStartDate(String sText){
-		return b2wPlace.setStartDate(sText);
-	}
-	public boolean setJobSiteDurationType(String sText) {
-		return b2wPlace.setDurationType(sText);
-	}
-	public boolean setJobSiteNonWorkingDayMonday(boolean bCheck){
-		return b2wPlace.setNonWorkingDayMonday(bCheck);
-	}
-	public boolean setJobSiteNonWorkingDayTuesday(boolean bCheck){
-		return b2wPlace.setNonWorkingDayTuesday(bCheck);
-	}
-	public boolean setJobSiteNonWorkingDayWednesday(boolean bCheck){
-		return b2wPlace.setNonWorkingDayWednesday(bCheck);
-	}
-	public boolean setJobSiteNonWorkingDayThursday(boolean bCheck){
-		return b2wPlace.setNonWorkingDayThursday(bCheck);
-	}
-	public boolean setJobSiteNonWorkingDayFriday(boolean bCheck){
-		return b2wPlace.setNonWorkingDayFriday(bCheck);
-	}
-	public boolean setJobSiteNonWorkingDaySaturday(boolean bCheck){
-		return b2wPlace.setNonWorkingDaySaturday(bCheck);
-	}
-	public boolean setJobSiteNonWorkingDaySunday(boolean bCheck){
-		return b2wPlace.setNonWorkingDaySunday(bCheck);
-	}
-	public boolean setShowOnJobBoard(boolean bCheck){
-		return checkBox(B2WJobs.getB2WJobSiteShowOnJobBoard(),bCheck);
-	}
-	public boolean setJobSiteAddress(String sText){
-		return b2wPlace.setLocationAddress1(sText);
-	}
-	public boolean setJobSiteCity(String sText){
-		return b2wPlace.setLocationCity(sText);
-	}
-	public boolean setJobSiteState(String sText){
-		boolean bReturn = false;
-		WebElement el = WebElementUtils.findElement(B2WJobs.getB2WJobsSiteState());
-		if (el != null){
-			bReturn = WebElementUtils.sendKeys(el, sText);
-		}
-		return bReturn;
-	}
-	public boolean setJobSiteZip(String sText){
-		return b2wPlace.setLocationPostalCode(sText);
-	}
-	public boolean setJobCountry(String sText){
-		return b2wPlace.setLocationCountry(sText); 
-	}
 	public boolean clickAddJobSiteButton() {
 		boolean bReturn = false;
 		if (WebElementUtils.clickElement(B2WJobs.getB2WAddJobSiteButton())) {
@@ -254,7 +137,7 @@ public class B2WJobsTasks extends B2WResourceTasks {
 	
 	public boolean openTrackingAccountByTrackingID(String b2w_jobstrackingaccountid) {
 		boolean bReturn = false;
-		WebElement el = WebElementUtils.getElementWithMatchingText(B2WJobs.getB2WEstimateTrackingAccountsVerification(), b2w_jobstrackingaccountid);
+		WebElement el = WebElementUtils.getElementWithMatchingText(B2WJobs.getB2WJobProductionListAccountTrackingID(), b2w_jobstrackingaccountid);
 		if (el != null){
 			WebElementUtils.clickElement(el);
 			WebElement waitForThis = WebElementUtils.waitAndFindDisplayedElement(B2WJobs.getB2WEstimateTrackingAccountsVerification());
@@ -265,7 +148,7 @@ public class B2WJobsTasks extends B2WResourceTasks {
 	
 	public boolean openTrackingAccountByDescription(String b2w_jobstrackingaccountdescription) {
 		boolean bReturn = false;
-		WebElement el = WebElementUtils.getElementWithMatchingText(B2WJobs.getB2WEstimateTrackingAccountsVerification(), b2w_jobstrackingaccountdescription);
+		WebElement el = WebElementUtils.getElementWithMatchingText(B2WJobs.getB2WJobProductionListAccountDescription(), b2w_jobstrackingaccountdescription);
 		if (el != null){
 			WebElementUtils.clickElement(el);
 			WebElement waitForThis = WebElementUtils.waitAndFindDisplayedElement(B2WJobs.getB2WEstimateTrackingAccountsVerification());
@@ -276,7 +159,7 @@ public class B2WJobsTasks extends B2WResourceTasks {
 	
 	public boolean openMaterialByDescription(String b2w_jobsmaterialsdescription) {
 		boolean bReturn = false;
-		WebElement el = WebElementUtils.getElementWithMatchingText(B2WJobs.getB2WEstimateMaterialsVerification(), b2w_jobsmaterialsdescription);
+		WebElement el = WebElementUtils.getElementWithMatchingText(B2WJobs.getB2WJobMaterialListDesc(), b2w_jobsmaterialsdescription);
 		if (el != null){
 			WebElementUtils.clickElement(el);
 			WebElement waitForThis = WebElementUtils.waitAndFindDisplayedElement(B2WJobs.getB2WEstimateMaterialsVerification());
@@ -287,7 +170,7 @@ public class B2WJobsTasks extends B2WResourceTasks {
 	
 	public boolean openMaterialByMaterialID(String b2w_jobsmaterialsmaterialid) {
 		boolean bReturn = false;
-		WebElement el = WebElementUtils.getElementWithMatchingText(B2WJobs.getB2WEstimateMaterialsVerification(), b2w_jobsmaterialsmaterialid);
+		WebElement el = WebElementUtils.getElementWithMatchingText(B2WJobs.getB2WJobMaterialListID(), b2w_jobsmaterialsmaterialid);
 		if (el != null){
 			WebElementUtils.clickElement(el);
 			WebElement waitForThis = WebElementUtils.waitAndFindDisplayedElement(B2WJobs.getB2WEstimateMaterialsVerification());
@@ -298,7 +181,7 @@ public class B2WJobsTasks extends B2WResourceTasks {
 	
 	public boolean openJobSubcontractorsByCompanyName(String b2w_jobsubcontractorscompanyname) {
 		boolean bReturn = false;
-		WebElement el = WebElementUtils.getElementWithMatchingText(B2WJobs.getB2WEstimateJobSubcontractorsVerification(), b2w_jobsubcontractorscompanyname);
+		WebElement el = WebElementUtils.getElementWithMatchingText(B2WJobs.getB2WJobssubsvendorsListcompname(), b2w_jobsubcontractorscompanyname);
 		if (el != null){
 			WebElementUtils.clickElement(el);
 			WebElement waitForThis = WebElementUtils.waitAndFindDisplayedElement(B2WJobs.getB2WEstimateJobSubcontractorsVerification());
@@ -309,7 +192,7 @@ public class B2WJobsTasks extends B2WResourceTasks {
 	
 	public boolean openJobSubcontractorsByCompanyID(String b2w_jobsubcontractorscompanyid) {
 		boolean bReturn = false;
-		WebElement el = WebElementUtils.getElementWithMatchingText(B2WJobs.getB2WEstimateJobSubcontractorsVerification(), b2w_jobsubcontractorscompanyid);
+		WebElement el = WebElementUtils.getElementWithMatchingText(B2WJobs.getB2WJobstruckingsubsListcompanyid(), b2w_jobsubcontractorscompanyid);
 		if (el != null){
 			WebElementUtils.clickElement(el);
 			WebElement waitForThis = WebElementUtils.waitAndFindDisplayedElement(B2WJobs.getB2WEstimateJobSubcontractorsVerification());
@@ -320,7 +203,7 @@ public class B2WJobsTasks extends B2WResourceTasks {
 	
 	public boolean openJobTruckingSubcontractorsByCompanyName(String b2w_jobtruckingsubcontractorscompanyname) {
 		boolean bReturn = false;
-		WebElement el = WebElementUtils.getElementWithMatchingText(B2WJobs.getB2WEstimateJobTruckingSubcontractorVerification(), b2w_jobtruckingsubcontractorscompanyname);
+		WebElement el = WebElementUtils.getElementWithMatchingText(B2WJobs.getB2WJobstruckingsubsListcompanyname(), b2w_jobtruckingsubcontractorscompanyname);
 		if (el != null){
 			WebElementUtils.clickElement(el);
 			WebElement waitForThis = WebElementUtils.waitAndFindDisplayedElement(B2WJobs.getB2WEstimateJobTruckingSubcontractorVerification());
@@ -331,7 +214,7 @@ public class B2WJobsTasks extends B2WResourceTasks {
 	
 	public boolean openJobVendorsByCompanyName(String b2w_jobvendorscompanyname) {
 		boolean bReturn = false;
-		WebElement el = WebElementUtils.getElementWithMatchingText(B2WJobs.getB2WEstimateJobVendorsVerification(), b2w_jobvendorscompanyname);
+		WebElement el = WebElementUtils.getElementWithMatchingText(B2WJobs.getB2WJobssubsvendorsListcompname(), b2w_jobvendorscompanyname);
 		if (el != null){
 			WebElementUtils.clickElement(el);
 			WebElement waitForThis = WebElementUtils.waitAndFindDisplayedElement(B2WJobs.getB2WEstimateJobVendorsVerification());
@@ -342,7 +225,7 @@ public class B2WJobsTasks extends B2WResourceTasks {
 	
 	public boolean openJobVendorsByCompanyID(String b2w_jobvendorscompanyid) {
 		boolean bReturn = false;
-		WebElement el = WebElementUtils.getElementWithMatchingText(B2WJobs.getB2WEstimateJobVendorsVerification(), b2w_jobvendorscompanyid);
+		WebElement el = WebElementUtils.getElementWithMatchingText(B2WJobs.getB2WJobssubsvendorsListcompid(), b2w_jobvendorscompanyid);
 		if (el != null){
 			WebElementUtils.clickElement(el);
 			WebElement waitForThis = WebElementUtils.waitAndFindDisplayedElement(B2WJobs.getB2WEstimateJobVendorsVerification());
@@ -353,7 +236,7 @@ public class B2WJobsTasks extends B2WResourceTasks {
 	
 	public boolean openJobTruckingSubcontractorsByCompanyID(String b2w_jobtruckingsubcontractorscompanyid) {
 		boolean bReturn = false;
-		WebElement el = WebElementUtils.getElementWithMatchingText(B2WJobs.getB2WEstimateJobTruckingSubcontractorVerification(), b2w_jobtruckingsubcontractorscompanyid);
+		WebElement el = WebElementUtils.getElementWithMatchingText(B2WJobs.getB2WJobstruckingsubsListcompanyid(), b2w_jobtruckingsubcontractorscompanyid);
 		if (el != null){
 			WebElementUtils.clickElement(el);
 			WebElement waitForThis = WebElementUtils.waitAndFindDisplayedElement(B2WJobs.getB2WEstimateJobTruckingSubcontractorVerification());
@@ -364,7 +247,7 @@ public class B2WJobsTasks extends B2WResourceTasks {
 	
 	public boolean openChangeOrderByID(String b2w_changeorderid) {
 		boolean bReturn = false;
-		WebElement el = WebElementUtils.getElementWithMatchingText(B2WJobs.getB2WEstimateChangeOrdersIDVerification(), b2w_changeorderid);
+		WebElement el = WebElementUtils.getElementWithMatchingText(B2WJobs.getB2WJobschangeorderchangeorderid(), b2w_changeorderid);
 		if (el != null){
 			WebElementUtils.clickElement(el);
 			WebElement waitForThis = WebElementUtils.waitAndFindDisplayedElement(B2WJobs.getB2WEstimateChangeOrdersIDVerification());
@@ -375,7 +258,7 @@ public class B2WJobsTasks extends B2WResourceTasks {
 	
 	public boolean openChangeOrderByDescription(String b2w_changeorderdescription) {
 		boolean bReturn = false;
-		WebElement el = WebElementUtils.getElementWithMatchingText(B2WJobs.getB2WEstimateChangeOrdersDescriptionVerification(), b2w_changeorderdescription);
+		WebElement el = WebElementUtils.getElementWithMatchingText(B2WJobs.getB2WJobschangeorderdesc(), b2w_changeorderdescription);
 		if (el != null){
 			WebElementUtils.clickElement(el);
 			WebElement waitForThis = WebElementUtils.waitAndFindDisplayedElement(B2WJobs.getB2WEstimateChangeOrdersDescriptionVerification());
@@ -416,149 +299,12 @@ public class B2WJobsTasks extends B2WResourceTasks {
 		}
 		return bReturn;
 	}
-	
-	public boolean setJobProductionAccountTrackingIDText(String sText){
-		boolean bReturn = false;
-		WebElement el = WebElementUtils.findElement(B2WJobs.getB2WJobProductionAccountTrackingID());
-		if (el != null){
-			bReturn = WebElementUtils.sendKeys(el, sText);
-		}
-		return bReturn;
-	}
 
-	public boolean selectJobProductionAccountIDFromDD(String sText){
-		return WebElementUtils.selectItemFromOpsDropDownMenu(B2WJobs.getB2WJobProductionAccountIDDD(), sText);
-	}
-	public String selectJobProductionAccountID() {
-		return WebElementUtils.selectAnyItemFromOpsDropDownMenu(B2WJobs.getB2WJobProductionAccountIDDD());
-	}
-	public boolean selectJobProductionUnitOfMeasureFromDD(String sText){
-		return WebElementUtils.selectItemFromOpsDropDownMenu(B2WJobs.getB2WJobProductionUnitOfMeasureDD(), sText);
-	}
-	public boolean selectJobProductionRateUnitOfMeasureFromDD(String sText){
-		return WebElementUtils.selectItemFromOpsDropDownMenu(B2WJobs.getB2WJobProductionRateUnitOfMeasure(), sText);
-	}
-	public boolean selectJobProductionEstimatedProductionRateFromDD(String sText){
-		return WebElementUtils.selectItemFromOpsDropDownMenu(B2WJobs.getB2WJobProductionEstimatedProductionRate(), sText);
-	}
-	public boolean setJobProductionSupervisorProjectedUnitCost(String sText){
-		boolean bReturn = false;
-		WebElement el = WebElementUtils.findElement(B2WJobs.getB2WJobproductionsupervisorprojectedunitcost());
-		if (el != null){
-			bReturn = WebElementUtils.sendKeys(el, sText);
-		}
-		return bReturn;
-	}
-	public boolean setJobProductionManagerProjectedUnitCost (String sText){
-		boolean bReturn = false;
-		WebElement el = WebElementUtils.findElement(B2WJobs.getB2WJobproductionmanagerprojectedunitcost());
-		if (el != null){
-			bReturn = WebElementUtils.sendKeys(el, sText);
-		}
-		return bReturn;
-	}
-	public boolean setJobProductionEstimatedQuantity(String sText){
-		boolean bReturn = false;
-		WebElement el = WebElementUtils.findElement(B2WJobs.getB2WJobproductionmanagerestimatedquanity());
-		if (el != null){
-			bReturn = WebElementUtils.sendKeys(el, sText);
-		}
-		return bReturn;
-	}
-	public boolean setJobProductionChangeOrderQuantity (String sText){
-		boolean bReturn = false;
-		WebElement el = WebElementUtils.findElement(B2WJobs.getB2WJobproductionchangeorderquanitytextbox());
-		if (el != null){
-			bReturn = WebElementUtils.sendKeys(el, sText);
-		}
-		return bReturn;
-	}
-	public boolean setJobProductionAccountDescriptionText(String sText){
-		boolean bReturn = false;
-		WebElement el = WebElementUtils.findElement(B2WJobs.getB2WJobProductionAccountDescription());
-		if (el != null){
-			bReturn = WebElementUtils.sendKeys(el, sText);
-		}
-		return bReturn;
-	}
-	
-	public boolean setJobProductionAccountComplete(boolean bCheck){
-		return checkBox(B2WJobs.getB2WJobProductionCompleteCheckBox(), bCheck);
-	}
-	
-	public boolean setJobOverheadTrackingID(String sText){
-		boolean bReturn = false;
-		WebElement el = WebElementUtils.findElement(B2WJobs.getB2WJoboverheadtrackingidtextbox());
-		if (el != null){
-			bReturn = WebElementUtils.sendKeys(el, sText);
-		}
-		return bReturn;
-	}
 
-	public boolean selectJobOverheadAccountIDFromDD(String sText){
-		return WebElementUtils.selectItemFromOpsDropDownMenu(B2WJobs.getB2WJoboverheadaccountiddropdown(), sText);
-	}
-	
-	public String selectJobOverheadAccountID() {
-		return WebElementUtils.selectAnyItemFromOpsDropDownMenu(B2WJobs.getB2WJoboverheadaccountiddropdown());
-	}
-
-	public boolean setJobOverheadDescription(String sText){
-		boolean bReturn = false;
-		WebElement el = WebElementUtils.findElement(B2WJobs.getB2WJoboverheaddescriptiontextbox());
-		if (el != null){
-			bReturn = WebElementUtils.sendKeys(el, sText);
-		}
-		return bReturn;
-	}
-	public boolean selectJobOverheadAccountValueTypeFromDD(String sText){
-		return WebElementUtils.selectItemFromOpsDropDownMenu(B2WJobs.getB2WJoboverheadvaluetypedropdown(), sText);
-	}
-	
-	public boolean selectJobOverheadAccountCostCalcDD(String sText){
-		return WebElementUtils.selectItemFromOpsDropDownMenu(B2WJobs.getB2WJoboverheadtotalcostcalcdd(), sText);
-	}
-	public boolean setJobOverheadDefaultValue(String sText){
-		boolean bReturn = false;
-		WebElement el = WebElementUtils.findElement(B2WJobs.getB2WJoboverheadtotalcostcalcdd());
-		if (el != null){
-			bReturn = WebElementUtils.sendKeys(el, sText);
-		}
-		return bReturn;
-	}
-	public boolean setJobOverheadEstimatedHours(String sText){
-		boolean bReturn = false;
-		WebElement el = WebElementUtils.findElement(B2WJobs.getB2WJoboverheadestimatedunittextbox());
-		if (el != null){
-			bReturn = WebElementUtils.sendKeys(el, sText);
-		}
-		return bReturn;
-	}
-	public boolean setJobOverheadChangeOrderHours(String sText){
-		boolean bReturn = false;
-		WebElement el = WebElementUtils.findElement(B2WJobs.getB2WJoboverheadchangeorderunittextbox());
-		if (el != null){
-			bReturn = WebElementUtils.sendKeys(el, sText);
-		}
-		return bReturn;
-	}
-	public boolean setJobOverheadPerUnitPercentage(String sText){
-		boolean bReturn = false;
-		WebElement el = WebElementUtils.findElement(B2WJobs.getB2WJoboverheadperunitpercentagetextbox());
-		if (el != null){
-			bReturn = WebElementUtils.sendKeys(el, sText);
-		}
-		return bReturn;
-	}
-	public boolean setJobOverheadAccountComplete(boolean bCheck){
-		return checkBox(B2WJobs.getB2WJobOverheadCompleteCheckBox(), bCheck);
-	}
 	public boolean clickAddEstimateItemCostBreakdown(){
 		return WebElementUtils.clickElement(B2WJobs.getB2WAddEstimateItemCostBreakdownButton());
 	}
-	public boolean clickAddChangeOrderCostBreakdownButton() {
-		return WebElementUtils.clickElement(B2WJobs.getB2WAddChangeOrderCostBreakdown());
-	}
+
 	
 	public boolean clickEstimatesItemsTab() {
 		return WebElementUtils.clickElement(B2WJobs.getB2WJobstabestimateitems());
@@ -624,13 +370,11 @@ public class B2WJobsTasks extends B2WResourceTasks {
 		}
 		return bReturn;
 	}
-	public boolean saveJobSite() {
-		return b2wPlace.clickSaveBin();
-	}
+	
 	public boolean clickCreateNewTMWorkItemButton() {
 		boolean bReturn = false;
 		if (WebElementUtils.clickElement(B2WJobs.getB2WJobAddNewTMWorkItemButton())){
-			bReturn = new B2WTMWorkItemTab().waitForPageNotBusy(WebElementUtils.MEDIUM_TIME_OUT);
+			bReturn = new B2WTMWorkItemTasks().waitForPageNotBusy(WebElementUtils.MEDIUM_TIME_OUT);
 		}
 		return bReturn;
 	}
@@ -655,179 +399,9 @@ public class B2WJobsTasks extends B2WResourceTasks {
 		}
 		return bReturn;
 	}
-	
-	public boolean setEstimateItemNumber(String sText){
-		boolean bReturn = false;
-		
-		WebElement el = WebElementUtils.findElement(B2WJobs.getB2WEstimateItemNumber());
-		if (el != null){
-			bReturn = WebElementUtils.sendKeys(el, sText);
-		}
-		return bReturn;
-	}
-	
-	public boolean setEstimateEstimatedQuantity(String sText){
-		boolean bReturn = false;
-		
-		WebElement el = WebElementUtils.findElement(B2WJobs.getB2WEstimateEstimatedQuantity());
-		if (el != null){
-			bReturn = WebElementUtils.sendKeys(el, sText);
-		}
-		return bReturn;
-	}
-	
-	public boolean setEstimateItemID(String sText){
-		boolean bReturn = false;
-		
-		WebElement el = WebElementUtils.findElement(B2WJobs.getB2WEstimateItemID());
-		if (el != null){
-			bReturn = WebElementUtils.sendKeys(el, sText);
-		}
-		return bReturn;
-	}
-	
-	public boolean setEstimateChangeOrderQuantity(String sText){
-		boolean bReturn = false;
-		
-		WebElement el = WebElementUtils.findElement(B2WJobs.getB2WEstimateChangeOrderQuantity());
-		if (el != null){
-			bReturn = WebElementUtils.sendKeys(el, sText);
-		}
-		return bReturn;
-	}
-	
-	public boolean setEstimateDescription(String sText){
-		boolean bReturn = false;
-		
-		WebElement el = WebElementUtils.findElement(B2WJobs.getB2WEstimateDescription());
-		if (el != null){
-			bReturn = WebElementUtils.sendKeys(el, sText);
-		}
-		return bReturn;
-	}
-	
-	public boolean setEstimateUnitBidPriceEstimated(String sText){
-		boolean bReturn = false;
-		
-		WebElement el = WebElementUtils.findElement(B2WJobs.getB2WEstimateUnitBidPriceEstimated());
-		if (el != null){
-			bReturn = WebElementUtils.sendKeys(el, sText);
-		}
-		return bReturn;
-	}
-	
-	public boolean setEstimateUnitBidPriceChangeOrder(String sText){
-		boolean bReturn = false;
-		
-		WebElement el = WebElementUtils.findElement(B2WJobs.getB2WEstimateUnitBidPriceChangeOrder());
-		if (el != null){
-			bReturn = WebElementUtils.sendKeys(el, sText);
-		}
-		return bReturn;
-	}
-	
-	public boolean setEstimateTotalBidPriceEstimated(String sText){
-		boolean bReturn = false;
-		
-		WebElement el = WebElementUtils.findElement(B2WJobs.getB2WEstimateTotalBidPriceEstimated());
-		if (el != null){
-			bReturn = WebElementUtils.sendKeys(el, sText);
-		}
-		return bReturn;
-	}
-	
-	public boolean setEstimateTotalBidPriceChangeOrder(String sText){
-		boolean bReturn = false;
-		
-		WebElement el = WebElementUtils.findElement(B2WJobs.getB2WEstimateTotalBidPriceChangeOrder());
-		if (el != null){
-			bReturn = WebElementUtils.sendKeys(el, sText);
-		}
-		return bReturn;
-	}
-	
-	
-	
-	public boolean setChangeOrdersID(String sText){
-		boolean bReturn = false;
-		
-		WebElement el = WebElementUtils.findElement(B2WJobs.getB2WChangeOrdersID());
-		if (el != null){
-			bReturn = WebElementUtils.sendKeys(el, sText);
-		}
-		return bReturn;
-	}
-	
-	public boolean setChangeOrdersAlternateID(String sText){
-		boolean bReturn = false;
-		
-		WebElement el = WebElementUtils.findElement(B2WJobs.getB2WChaneOrdersAlternateID());
-		if (el != null){
-			bReturn = WebElementUtils.sendKeys(el, sText);
-		}
-		return bReturn;
-	}
-	
-	public boolean setChangeOrdersDescription(String sText){
-		boolean bReturn = false;
-		
-		WebElement el = WebElementUtils.findElement(B2WJobs.getB2WChangeOrdersDescription());
-		if (el != null){
-			bReturn = WebElementUtils.sendKeys(el, sText);
-		}
-		return bReturn;
-	}
-	
-	public boolean setChangeOrdersEstimatedQuantity(String sText){
-		boolean bReturn = false;
-		
-		WebElement el = WebElementUtils.findElement(B2WJobs.getB2WChangeOrderEstimatedQuantity());
-		if (el != null){
-			bReturn = WebElementUtils.sendKeys(el, sText);
-		}
-		return bReturn;
-	}
 
 	
 	
-	public boolean setEstimateUnitOfMeasure(String sText){
-		WebElementUtils.selectItemFromOpsDropDownMenu(B2WJobs.getB2WEstimateUnitOfMeasure(), sText);
-		
-		return WebElementUtils.getSelectedTextFromDropDown(B2WJobs.getB2WEstimateUnitOfMeasure()).equals(sText);
-	}
-	
-	
-	
-	public boolean setChangeOrdersType(String sText){
-		WebElementUtils.selectAnyItemFromOpsDropDownMenu(B2WJobs.getB2WChangeOrdersType());
-		
-		return WebElementUtils.getSelectedTextFromDropDown(B2WJobs.getB2WChangeOrdersType()).equals(sText);
-	}
-	
-	public boolean setChangeOrdersStatus(String sText){
-		WebElementUtils.selectAnyItemFromOpsDropDownMenu(B2WJobs.getB2WChangeOrdersStatus());
-		
-		return WebElementUtils.getSelectedTextFromDropDown(B2WJobs.getB2WChangeOrdersStatus()).equals(sText);
-	}
-	
-	public boolean setChangeOrdersUnitOfMeasure(String sText){
-		WebElementUtils.selectItemFromOpsDropDownMenu(B2WJobs.getB2WChangeOrderUnitOfMeasure(), sText);
-		
-		return WebElementUtils.getSelectedTextFromDropDown(B2WJobs.getB2WChangeOrderUnitOfMeasure()).equals(sText);
-	}
-	
-	
-	public boolean setJobTitle(String sText){
-		boolean bReturn = false;
-		WebElement el = WebElementUtils.findElement(B2WJobs.getB2WJobtitle());
-		if (el != null){
-			bReturn = WebElementUtils.sendKeys(el, sText);
-		}
-		return bReturn;
-	}
-	public boolean setProjectManagerFromDD(String sText){
-		return WebElementUtils.selectItemFromOpsDropDownMenu(B2WJobs.getB2WJobprojectmanagerdd(), sText);
-	}
 	
 	public String getJobNumberText() {
 		String sText = "";
@@ -949,7 +523,7 @@ public class B2WJobsTasks extends B2WResourceTasks {
 	}
 	public ArrayList<String> getJobProductionAccountsTrackingIDs() {
 		ArrayList<String> al = new ArrayList<String>();
-		List<WebElement> list = WebElementUtils.findElements(B2WJobs.getJobProductionAccountID());
+		List<WebElement> list = WebElementUtils.findElements(B2WJobs.getB2WJobProductionListAccountTrackingID());
 		if (list.size() > 0){
 			Iterator<WebElement> iter = list.iterator();
 			while (iter.hasNext()){
@@ -970,16 +544,213 @@ public class B2WJobsTasks extends B2WResourceTasks {
 	}
 	public boolean openJobSite(String sDescription){
 		boolean bReturn = false;
-		List<WebElement> jobsites = WebElementUtils.findElements(B2WJobs.getB2WJobssitedesc());
-		Iterator<WebElement> iter = jobsites.iterator();
-		while (iter.hasNext()){
-			WebElement el = iter.next();
-			if (el.getText().equals(sDescription)){
-				bReturn = WebElementUtils.clickElement(el);
-				bReturn &= WebElementUtils.waitAndFindDisplayedElement(B2WSetupUsers.getUserInformationHeader()) != null;
-			}
+		WebElement el = WebElementUtils.getElementWithMatchingText(B2WJobs.getB2WJobssitedesc(),sDescription);
+		if (el != null){
+			bReturn = WebElementUtils.clickElement(el);
+			bReturn &= WebElementUtils.waitAndFindDisplayedElement(B2WSetupUsers.getUserInformationHeader()) != null;
 		}
 		return bReturn;
 	}
 	
+	public boolean editJobSite(String sDescription){
+		boolean bReturn = false;
+		WebElement el = WebElementUtils.getElementWithMatchingText(B2WJobs.getB2WJobssitedesc(),sDescription);
+		if (el != null){
+			int iNumber = StringUtils.getNumberFromID(el.getAttribute("id"));
+			List<WebElement> edits = WebElementUtils.findElements(B2WSetupUsers.getB2WUserListingEdit());
+			WebElementUtils.clickElement(edits.get(iNumber));
+			WebElement waitForThis = WebElementUtils.waitAndFindDisplayedElement(B2WJobs.getB2WJobssitedesc());
+			bReturn = waitForThis != null;
+		}
+		return bReturn;
+	}
+	
+	public boolean editJobByNumber(String s){
+		boolean bReturn = false;
+		WebElement el = WebElementUtils.getElementWithMatchingText(B2WJobs.getB2WListViewJobNunber(), s);
+		if (el != null){
+			int iNumber = StringUtils.getNumberFromID(el.getAttribute("id"));
+			List<WebElement> edits = WebElementUtils.findElements(B2WSetupUsers.getB2WUserListingEdit());
+			WebElementUtils.clickElement(edits.get(iNumber));
+			WebElement waitForThis = WebElementUtils.waitAndFindDisplayedElement(B2WJobs.getB2WJobnumber());
+			bReturn = waitForThis != null;
+		}
+		return bReturn;
+	}
+	
+	public boolean editJobByTitle(String s){
+		boolean bReturn = false;
+		WebElement el = WebElementUtils.getElementWithMatchingText(B2WJobs.getB2WListViewJobTitle(), s);
+		if (el != null){
+			int iNumber = StringUtils.getNumberFromID(el.getAttribute("id"));
+			List<WebElement> edits = WebElementUtils.findElements(B2WSetupUsers.getB2WUserListingEdit());
+			WebElementUtils.clickElement(edits.get(iNumber));
+			WebElement waitForThis = WebElementUtils.waitAndFindDisplayedElement(B2WJobs.getB2WJobnumber());
+			bReturn = waitForThis != null;
+		}
+		return bReturn;
+	}
+	
+	public boolean editEstimateItemByID(String s){
+		boolean bReturn = false;
+		return bReturn;
+	}
+	public boolean editEstimateItemByDescription(String s){
+		boolean bReturn = false;
+		WebElement el = WebElementUtils.getElementWithMatchingText(B2WJobs.getB2WEstimateItemDescription(), s);
+		if (el != null){
+			int iNumber = StringUtils.getNumberFromID(el.getAttribute("id"));
+			List<WebElement> edits = WebElementUtils.findElements(B2WSetupUsers.getB2WUserListingEdit());
+			WebElementUtils.clickElement(edits.get(iNumber));
+			WebElement waitForThis = WebElementUtils.waitAndFindDisplayedElement(B2WJobs.getB2WEstimateDescription());
+			bReturn = waitForThis != null;
+		}
+		return bReturn;
+	}
+	public boolean editEstimateItemByItemID(String s){
+		boolean bReturn = false;
+		WebElement el = WebElementUtils.getElementWithMatchingText(B2WJobs.getB2WEstimateItemIDs(), s);
+		if (el != null){
+			int iNumber = StringUtils.getNumberFromID(el.getAttribute("id"));
+			List<WebElement> edits = WebElementUtils.findElements(B2WSetupUsers.getB2WUserListingEdit());
+			WebElementUtils.clickElement(edits.get(iNumber));
+			WebElement waitForThis = WebElementUtils.waitAndFindDisplayedElement(B2WJobs.getB2WEstimateDescription());
+			bReturn = waitForThis != null;
+		}
+		return bReturn;
+	}
+	public boolean editJobProductionAccountByTrackingID(String s){
+		boolean bReturn = false;
+		WebElement el = WebElementUtils.getElementWithMatchingText(B2WJobs.getB2WJobProductionListAccountTrackingID(), s);
+		if (el != null){
+			int iNumber = StringUtils.getNumberFromID(el.getAttribute("id"));
+			List<WebElement> edits = WebElementUtils.findElements(B2WJobs.getB2WJobProductionAccountEdit());
+			WebElementUtils.clickElement(edits.get(iNumber));
+			WebElement waitForThis = WebElementUtils.waitAndFindDisplayedElement(B2WJobs.getB2WJobProductionAccountTrackingID());
+			bReturn = waitForThis != null;
+		}
+		return bReturn;
+	}
+	public boolean editJobOverheadAccountByTrackingID(String s){
+		boolean bReturn = false;
+		WebElement el = WebElementUtils.getElementWithMatchingText(B2WJobs.getB2WJobOverheadAccountTrackingID(), s);
+		if (el != null){
+			int iNumber = StringUtils.getNumberFromID(el.getAttribute("id"));
+			List<WebElement> edits = WebElementUtils.findElements(B2WJobs.getB2WJobOverheadAccountEdit());
+			WebElementUtils.clickElement(edits.get(iNumber));
+			WebElement waitForThis = WebElementUtils.waitAndFindDisplayedElement(B2WJobs.getB2WJobProductionAccountTrackingID());
+			bReturn = waitForThis != null;
+		}
+		return bReturn;
+	}
+	public boolean deleteJobMaterialByDescription(String s){
+		boolean bReturn = false;
+		WebElement el = WebElementUtils.getElementWithMatchingText(B2WJobs.getB2WJobMaterialListDesc(), s);
+		if (el != null){
+			int iNumber = StringUtils.getNumberFromID(el.getAttribute("id"));
+			List<WebElement> edits = WebElementUtils.findElements(B2WJobs.getB2WJobMaterialListDelete());
+			WebElementUtils.clickElement(edits.get(iNumber));
+			Alert alert = TaskUtils.getAlertDialog();
+			if (alert != null){
+				alert.accept();
+				bReturn = true;
+			}
+			
+		}
+		return bReturn;
+	}
+	
+	public boolean deleteChangeOrderByDescription(String s){
+		boolean bReturn = false;
+		WebElement el = WebElementUtils.getElementWithMatchingText(B2WJobs.getB2WJobschangeorderdesc(), s);
+		if (el != null){
+			int iNumber = StringUtils.getNumberFromID(el.getAttribute("id"));
+			List<WebElement> edits = WebElementUtils.findElements(B2WJobs.getB2WJobschangeorderdelete());
+			WebElementUtils.clickElement(edits.get(iNumber));
+			Alert alert = TaskUtils.getAlertDialog();
+			if (alert != null){
+				alert.accept();
+				bReturn = true;
+			}
+			
+		}
+		return bReturn;
+	}
+	public boolean editChangeOrderByDescription(String s){
+		boolean bReturn = false;
+		WebElement el = WebElementUtils.getElementWithMatchingText(B2WJobs.getB2WJobschangeorderdesc(), s);
+		if (el != null){
+			int iNumber = StringUtils.getNumberFromID(el.getAttribute("id"));
+			List<WebElement> edits = WebElementUtils.findElements(B2WJobs.getB2WJobschangeorderedit());
+			WebElementUtils.clickElement(edits.get(iNumber));
+			WebElement waitForThis = WebElementUtils.waitAndFindDisplayedElement(B2WJobs.getB2WChangeOrdersID());
+			bReturn = waitForThis != null;
+		}
+		return bReturn;
+	}
+	public boolean deleteChangeOrderByID(String s){
+		boolean bReturn = false;
+		WebElement el = WebElementUtils.getElementWithMatchingText(B2WJobs.getB2WJobschangeorderchangeorderid(), s);
+		if (el != null){
+			int iNumber = StringUtils.getNumberFromID(el.getAttribute("id"));
+			List<WebElement> edits = WebElementUtils.findElements(B2WJobs.getB2WJobschangeorderdelete());
+			WebElementUtils.clickElement(edits.get(iNumber));
+			Alert alert = TaskUtils.getAlertDialog();
+			if (alert != null){
+				alert.accept();
+				bReturn = true;
+			}
+			
+		}
+		return bReturn;
+	}
+	public boolean editChangeOrderByID(String s){
+		boolean bReturn = false;
+		WebElement el = WebElementUtils.getElementWithMatchingText(B2WJobs.getB2WJobschangeorderchangeorderid(), s);
+		if (el != null){
+			int iNumber = StringUtils.getNumberFromID(el.getAttribute("id"));
+			List<WebElement> edits = WebElementUtils.findElements(B2WJobs.getB2WJobschangeorderedit());
+			WebElementUtils.clickElement(edits.get(iNumber));
+			WebElement waitForThis = WebElementUtils.waitAndFindDisplayedElement(B2WJobs.getB2WChangeOrdersID());
+			bReturn = waitForThis != null;
+		}
+		return bReturn;
+	}
+	public String getJobProjectNameText() {
+		String sText = "";
+		WebElement el = WebElementUtils.findElement(B2WJobs.getB2WJobprojectnametext());
+			if (el != null){
+				sText = el.getText();
+			}
+		return sText;
+	}
+
+	public String getJobProjectStatusText() {
+		String sText = "";
+		WebElement el = WebElementUtils.findElement(B2WJobs.getB2WJobstatustext());
+			if (el != null){
+				sText = el.getText();
+			}
+		return sText;
+	}
+
+
+	public String getJobCustomerText() {
+		String sText = "";
+		WebElement el = WebElementUtils.findElement(B2WJobs.getB2WJobcustomertext());
+			if (el != null){
+				sText = el.getText();
+			}
+		return sText;
+	}
+
+
+	public String getJobDefaultLaborRateClassText() {
+		String sText = "";
+		WebElement el = WebElementUtils.findElement(B2WJobs.getB2WJobdefaultlaborrateclasstext());
+			if (el != null){
+				sText = el.getText();
+			}
+		return sText;
+	}
 }

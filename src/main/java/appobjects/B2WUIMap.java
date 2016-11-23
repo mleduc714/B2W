@@ -1047,6 +1047,10 @@ public class B2WUIMap {
     public static final String b2w_maintainscheduleworkorderfilters = "div.popup--filters.k-window-content.k-content";
     public static final String b2w_maintainscheduleworkorderfilterapply = "button.js-apply.btn-form.large";
     public static final String b2w_maintainscheduleworkorderfiltercancel = "button.js-cancel.btn-form";
-
+    //list view stuff
+    public static final String b2w_joboverheadaccounttrackingid = "a[id^='PageContent_OverheadAccountGridView_TrackingID']";
+    public static final String b2w_joboverheadaccountdescription = "a[id^='PageContent_OverheadAccountGridView_Description']";
+    public static final String b2w_joboverheadaccounteditbutton = "a[id^='PageContent_OverheadAccountGridView_Edit']";
+    public static final String b2w_joboverheadaccountdeletebutton = "a[id^='PageContent_OverheadAccountGridView_Delete']";
 
 }

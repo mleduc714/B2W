@@ -12,9 +12,9 @@ import appobjects.resources.KendoUI;
 import tasks.WebElementUtils;
 import tasks.resources.B2WKendoTasks;
 
-public class B2WTMWorkItemTab extends B2WKendoTasks {
+public class B2WTMWorkItemTasks extends B2WKendoTasks {
 
-	Logger log = Logger.getLogger(B2WTMWorkItemTab.class);
+	Logger log = Logger.getLogger(B2WTMWorkItemTasks.class);
 	
 	public boolean setTMWorkItemDescription(String sText) {
 		return setText(sText,"Description");

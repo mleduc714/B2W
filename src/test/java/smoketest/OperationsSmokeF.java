@@ -5,8 +5,14 @@ import com.b2w.test.B2WTestCase;
 import tasks.B2WNavigationTasks;
 import tasks.BrowserUtils;
 import tasks.jobs.B2WAddToJobs;
+import tasks.jobs.B2WCreateChangeOrderTasks;
+import tasks.jobs.B2WCreateEstimateItemTasks;
+import tasks.jobs.B2WCreateJobOverheadAccountTasks;
+import tasks.jobs.B2WCreateJobProductionAccountTasks;
+import tasks.jobs.B2WCreateJobSiteTasks;
+import tasks.jobs.B2WCreateJobTasks;
 import tasks.jobs.B2WJobsTasks;
-import tasks.jobs.B2WTMWorkItemTab;
+import tasks.jobs.B2WTMWorkItemTasks;
 import tasks.setup.B2WUserTasks;
 import tasks.util.TaskUtils;
 
@@ -15,7 +21,12 @@ public class OperationsSmokeF extends B2WTestCase {
 	B2WNavigationTasks b2wNT = new B2WNavigationTasks();
 	B2WUserTasks userTasks = new B2WUserTasks();
 	B2WJobsTasks b2wJobs = new B2WJobsTasks();
-	
+	B2WCreateJobTasks b2wCreate = new B2WCreateJobTasks();
+	B2WCreateJobSiteTasks b2wJobSite = new B2WCreateJobSiteTasks();
+	B2WCreateJobProductionAccountTasks jobProd = new B2WCreateJobProductionAccountTasks();
+	B2WCreateJobOverheadAccountTasks jobOver = new B2WCreateJobOverheadAccountTasks();
+	B2WCreateEstimateItemTasks b2wEstimate = new B2WCreateEstimateItemTasks();
+	B2WCreateChangeOrderTasks b2wChangeOrder = new B2WCreateChangeOrderTasks();
 	
 	String sJobNumberID, sJobTitle, sProjectManager, sProjectName, sJobStatus, sJobCustomer, sBusinessUnit, sLaborRateClass, sEquipRateClass, sNotes;
 	
@@ -198,14 +209,14 @@ public class OperationsSmokeF extends B2WTestCase {
 		
 		logCompare(true,b2wNT.openJobs(),"Open Jobs");
 		logCompare(true,b2wJobs.clickCreateNewJob(), "Create New Job");
-		logCompare(true, b2wJobs.setJobNumber(sJobNumberID), "Set Job Number ID");
-		logCompare(true, b2wJobs.setJobTitle(sJobTitle), "Set Job Title");
-		logCompare(true, b2wJobs.setProjectManagerFromDD(sProjectManager), "Set Project Manager");
-		logCompare(true, b2wJobs.setJobProjectName(sProjectName), "Set Project Name");
-		logCompare(true, b2wJobs.setJobProjectStatusFromDD(sJobStatus), "Set Job Status");
-		logCompare(true, b2wJobs.setJobProjectCustomerFromDD(sJobCustomer), "Set Job Customer");
-		logCompare(true, b2wJobs.setJobDefaultLaborRateClassFromDD(sLaborRateClass), "Labor Rate Class");
-		logCompare(true, b2wJobs.setJobEquipmentRateClassFromDD(sEquipRateClass), "Equipment Rate Class");
+		logCompare(true, b2wCreate.setJobNumber(sJobNumberID), "Set Job Number ID");
+		logCompare(true, b2wCreate.setJobTitle(sJobTitle), "Set Job Title");
+		logCompare(true, b2wCreate.setProjectManagerFromDD(sProjectManager), "Set Project Manager");
+		logCompare(true, b2wCreate.setJobProjectName(sProjectName), "Set Project Name");
+		logCompare(true, b2wCreate.setJobProjectStatusFromDD(sJobStatus), "Set Job Status");
+		logCompare(true, b2wCreate.setJobProjectCustomerFromDD(sJobCustomer), "Set Job Customer");
+		logCompare(true, b2wCreate.setJobDefaultLaborRateClassFromDD(sLaborRateClass), "Labor Rate Class");
+		logCompare(true, b2wCreate.setJobEquipmentRateClassFromDD(sEquipRateClass), "Equipment Rate Class");
 		assertTrue("Save Job", b2wJobs.clickBottomSaveButton());
 		
 		logCompare(sJobNumberID, b2wJobs.getJobNumberText(), "Verify job Number");
@@ -219,12 +230,12 @@ public class OperationsSmokeF extends B2WTestCase {
 	
 	public void addJobSite(){
 		logCompare(true, b2wJobs.clickAddJobSiteButton(), "Create new Job site");
-		logCompare(true, b2wJobs.setJobSiteDescription(sJobSiteDesc), "Job Desc");
-		logCompare(true, b2wJobs.setJobSiteAddress(sJobSiteAddress), "Job Site Address");
-		logCompare(true, b2wJobs.setJobSiteCity(sJobSiteCity), "Job Site City");
-		logCompare(true, b2wJobs.setJobSiteState(sJobSiteState), "Job State");
-		logCompare(true, b2wJobs.setJobSiteZip(sJobSiteZipCode), "Zip Code");
-		assertTrue("Save Job Site",b2wJobs.saveJobSite());
+		logCompare(true, b2wJobSite.setJobSiteDescription(sJobSiteDesc), "Job Desc");
+		logCompare(true, b2wJobSite.setJobSiteAddress(sJobSiteAddress), "Job Site Address");
+		logCompare(true, b2wJobSite.setJobSiteCity(sJobSiteCity), "Job Site City");
+		logCompare(true, b2wJobSite.setJobSiteState(sJobSiteState), "Job State");
+		logCompare(true, b2wJobSite.setJobSiteZip(sJobSiteZipCode), "Zip Code");
+		assertTrue("Save Job Site",b2wJobSite.saveJobSite());
 		
 	}
 	
@@ -233,9 +244,9 @@ public class OperationsSmokeF extends B2WTestCase {
 
 		logCompare(true,b2wJobs.clickTrackingAccountsTab(), "Click Tracking Accounts tab");
 		logCompare(true,b2wJobs.clickAddNewJobProductionAccount(), "Click Add New Job Production Account");
-		logCompare(true,b2wJobs.setJobProductionAccountTrackingIDText(sNewJobProductionAccountTrackID), "Set Account tracking ID");
-		logCompare(true,b2wJobs.setJobProductionAccountDescriptionText(sNewJobProductionAccountDescription), "Job Production Desc");
-		logCompare(true,b2wJobs.selectJobProductionAccountIDFromDD(sProductionAccountID + " - "+ sProductionAccountDesc), "Select Production Account ID");
+		logCompare(true,jobProd.setJobProductionAccountTrackingIDText(sNewJobProductionAccountTrackID), "Set Account tracking ID");
+		logCompare(true,jobProd.setJobProductionAccountDescriptionText(sNewJobProductionAccountDescription), "Job Production Desc");
+		logCompare(true,jobProd.selectJobProductionAccountIDFromDD(sProductionAccountID + " - "+ sProductionAccountDesc), "Select Production Account ID");
 		assertTrue("Save Account",b2wJobs.clickTopSaveButton());
 		
 	}
@@ -243,9 +254,9 @@ public class OperationsSmokeF extends B2WTestCase {
 	public void createNewJobOverheadAccount() {
 		logCompare(true,b2wJobs.clickTrackingAccountsTab(), "Click Tracking Accounts tab");
 		logCompare(true,b2wJobs.clickAddNewOverheadAccount(), "Create New Overhead Account");
-		logCompare(true,b2wJobs.setJobOverheadDescription(sNewJobOverheadAccountDescription), "Overhead acocunt description");
-		logCompare(true,b2wJobs.setJobOverheadTrackingID(sNewJobOverheadAccountTrackID), "Overhead account tracking id");
-		logCompare(true,b2wJobs.selectJobOverheadAccountIDFromDD(sOverheadAccountID + " - "+ sOverheadAccountDesc), "Select Account ID");
+		logCompare(true,jobOver.setJobOverheadDescription(sNewJobOverheadAccountDescription), "Overhead acocunt description");
+		logCompare(true,jobOver.setJobOverheadTrackingID(sNewJobOverheadAccountTrackID), "Overhead account tracking id");
+		logCompare(true,jobOver.selectJobOverheadAccountIDFromDD(sOverheadAccountID + " - "+ sOverheadAccountDesc), "Select Account ID");
 		assertTrue("Create New Job Overhead", b2wJobs.clickTopSaveButton());
 		
 	}
@@ -310,7 +321,7 @@ public class OperationsSmokeF extends B2WTestCase {
 	}
 	
 	public void addCreateNewTMWorkItem() {
-		B2WTMWorkItemTab b2wTM = new B2WTMWorkItemTab();
+		B2WTMWorkItemTasks b2wTM = new B2WTMWorkItemTasks();
 		logCompare(true,b2wJobs.clickTMWorkTab(), "Click TM Work Item Tab");
 		logCompare(true,b2wJobs.clickCreateNewTMWorkItemButton(),"Click create new TM Work Item button");
 		logCompare(true,b2wTM.setTMWorkItemDescription(sTMWorkItemDescription), "Set TM Work Item Desc");
@@ -324,27 +335,27 @@ public class OperationsSmokeF extends B2WTestCase {
 	public void createEstimateItem(){
 		logCompare(true,b2wJobs.clickEstimatesItemsTab(), "Click on Estimate Tab");
 		logCompare(true,b2wJobs.clickCreateNewEstimateButton(),"Create Estimate Item");
-		logCompare(true,b2wJobs.setEstimateItemNumber(sEstimateItemNumber), "Fill Item Number");
-		logCompare(true,b2wJobs.setEstimateEstimatedQuantity(sEstimateEstimatedQuantity),"Fill Estimated Quantity");
-		logCompare(true,b2wJobs.setEstimateItemID(sEstimateItemID),"Fill Item ID");
-		logCompare(true,b2wJobs.setEstimateChangeOrderQuantity(sEstimateChangeOrderQuantity),"Fill Change Order Quantity");
-		logCompare(true,b2wJobs.setEstimateDescription(sEstimateDescription),"Fill Description");
-		logCompare(true,b2wJobs.setEstimateUnitOfMeasure(sEstimateUnitOfMeasure), "Fill Unit of Measure");
-		logCompare(true,b2wJobs.setEstimateUnitBidPriceEstimated(sEstimateUnitBidPriceEstimated), "Fill Unit Bid Price Estimated");
-		logCompare(true,b2wJobs.setEstimateUnitBidPriceChangeOrder(sEstimateUnitBidPriceChangeOrder), "Fill Unit Bid Proce Change Order");
-		logCompare(true,b2wJobs.setEstimateTotalBidPriceEstimated(sEstimateTotalBidPriceEstimated), "Fill Total Bid Price Estimated");
-		logCompare(true,b2wJobs.setEstimateTotalBidPriceChangeOrder(sEstimateTotalBidPriceChangeOrder),"Fill Total Bid Price Change Order");
+		logCompare(true,b2wEstimate.setEstimateItemNumber(sEstimateItemNumber), "Fill Item Number");
+		logCompare(true,b2wEstimate.setEstimateEstimatedQuantity(sEstimateEstimatedQuantity),"Fill Estimated Quantity");
+		logCompare(true,b2wEstimate.setEstimateItemID(sEstimateItemID),"Fill Item ID");
+		logCompare(true,b2wEstimate.setEstimateChangeOrderQuantity(sEstimateChangeOrderQuantity),"Fill Change Order Quantity");
+		logCompare(true,b2wEstimate.setEstimateDescription(sEstimateDescription),"Fill Description");
+		logCompare(true,b2wEstimate.setEstimateUnitOfMeasure(sEstimateUnitOfMeasure), "Fill Unit of Measure");
+		logCompare(true,b2wEstimate.setEstimateUnitBidPriceEstimated(sEstimateUnitBidPriceEstimated), "Fill Unit Bid Price Estimated");
+		logCompare(true,b2wEstimate.setEstimateUnitBidPriceChangeOrder(sEstimateUnitBidPriceChangeOrder), "Fill Unit Bid Proce Change Order");
+		logCompare(true,b2wEstimate.setEstimateTotalBidPriceEstimated(sEstimateTotalBidPriceEstimated), "Fill Total Bid Price Estimated");
+		logCompare(true,b2wEstimate.setEstimateTotalBidPriceChangeOrder(sEstimateTotalBidPriceChangeOrder),"Fill Total Bid Price Change Order");
 		logCompare(true,b2wJobs.clickBottomSaveButton(),"Save Button Clicked");
 	}
 	
 	public void createChangeOrder(){
 		logCompare(true,b2wJobs.clickChangeOrderTab(),"Click on Change Orders Tab");
 		logCompare(true,b2wJobs.clickCreateNewChangeOrderButton(),"Create Change Order");
-		logCompare(true,b2wJobs.setChangeOrdersID(sChangeOrdersID),"Fill Change Order ID");
-		logCompare(true,b2wJobs.setChangeOrdersAlternateID(sChangeOrdersAlternateID),"Fill Alternate ID");
-		logCompare(true,b2wJobs.setChangeOrdersDescription(sChangeOrdersDescription),"Fill Description");
-		logCompare(true,b2wJobs.setChangeOrdersEstimatedQuantity(sChangeOrdersEstimatedQuantity),"Fill Estimated Quantity");
-		logCompare(true,b2wJobs.setChangeOrdersUnitOfMeasure(sChangeOrdersUnitOfMeasure),"Fill Unit of Measure");
+		logCompare(true,b2wChangeOrder.setChangeOrdersID(sChangeOrdersID),"Fill Change Order ID");
+		logCompare(true,b2wChangeOrder.setChangeOrdersAlternateID(sChangeOrdersAlternateID),"Fill Alternate ID");
+		logCompare(true,b2wChangeOrder.setChangeOrdersDescription(sChangeOrdersDescription),"Fill Description");
+		logCompare(true,b2wChangeOrder.setChangeOrdersEstimatedQuantity(sChangeOrdersEstimatedQuantity),"Fill Estimated Quantity");
+		logCompare(true,b2wChangeOrder.setChangeOrdersUnitOfMeasure(sChangeOrdersUnitOfMeasure),"Fill Unit of Measure");
 		logCompare(true,b2wJobs.clickBottomSaveButton(),"Save Button Clicked");
 	}
 
