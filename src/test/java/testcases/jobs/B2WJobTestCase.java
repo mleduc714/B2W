@@ -36,11 +36,11 @@ public class B2WJobTestCase extends B2WTestCase {
 		String jobTitle = "This is a new Job Title #" + jobsTasks.randomNumberGenerator();
 		logCompare(true, jobsTasks.setJobTitle(jobTitle), "Set Job Title");
 		logCompare(true, jobsTasks.setProjectManagerFromDD("Abigail Mitchell"), "Set Project Manager from Dropdown");
-		logCompare(true, jobsTasks.setProjectName("This is a New Job Project"), "Set Project Name");
-		logCompare(true, jobsTasks.setProjectStatusFromDD("Complete"), "Set Project Status from Dropdowm");
-		logCompare(true, jobsTasks.setProjectCustomerFromDD("Agnerson Construction"), "Set Project Customer from Dropdown");
-		logCompare(true, jobsTasks.setDefaultLaborRateClassFromDD("New Hampshire Rates"), "Set Default Labor Rate Class from Dropdown");
-		logCompare(true, jobsTasks.setEquipmentRateClassFromDD("Do Not Use Active Rates"), "Set Equipment Rate Class from Dropdown");
+		logCompare(true, jobsTasks.setJobProjectName("This is a New Job Project"), "Set Project Name");
+		logCompare(true, jobsTasks.setJobProjectStatusFromDD("Complete"), "Set Project Status from Dropdowm");
+		logCompare(true, jobsTasks.setJobProjectCustomerFromDD("Agnerson Construction"), "Set Project Customer from Dropdown");
+		logCompare(true, jobsTasks.setJobDefaultLaborRateClassFromDD("New Hampshire Rates"), "Set Default Labor Rate Class from Dropdown");
+		logCompare(true, jobsTasks.setJobEquipmentRateClassFromDD("Do Not Use Active Rates"), "Set Equipment Rate Class from Dropdown");
 		jobsTasks.clickBottomSaveButton();
 		
 		//Create a Job Site

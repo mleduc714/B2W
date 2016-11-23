@@ -201,19 +201,19 @@ public class OperationsSmokeF extends B2WTestCase {
 		logCompare(true, b2wJobs.setJobNumber(sJobNumberID), "Set Job Number ID");
 		logCompare(true, b2wJobs.setJobTitle(sJobTitle), "Set Job Title");
 		logCompare(true, b2wJobs.setProjectManagerFromDD(sProjectManager), "Set Project Manager");
-		logCompare(true, b2wJobs.setProjectName(sProjectName), "Set Project Name");
-		logCompare(true, b2wJobs.setProjectStatusFromDD(sJobStatus), "Set Job Status");
-		logCompare(true, b2wJobs.setProjectCustomerFromDD(sJobCustomer), "Set Job Customer");
-		logCompare(true, b2wJobs.setDefaultLaborRateClassFromDD(sLaborRateClass), "Labor Rate Class");
-		logCompare(true, b2wJobs.setEquipmentRateClassFromDD(sEquipRateClass), "Equipment Rate Class");
+		logCompare(true, b2wJobs.setJobProjectName(sProjectName), "Set Project Name");
+		logCompare(true, b2wJobs.setJobProjectStatusFromDD(sJobStatus), "Set Job Status");
+		logCompare(true, b2wJobs.setJobProjectCustomerFromDD(sJobCustomer), "Set Job Customer");
+		logCompare(true, b2wJobs.setJobDefaultLaborRateClassFromDD(sLaborRateClass), "Labor Rate Class");
+		logCompare(true, b2wJobs.setJobEquipmentRateClassFromDD(sEquipRateClass), "Equipment Rate Class");
 		assertTrue("Save Job", b2wJobs.clickBottomSaveButton());
 		
 		logCompare(sJobNumberID, b2wJobs.getJobNumberText(), "Verify job Number");
 		logCompare(sJobTitle, b2wJobs.getJobTitleText(), "Verify Job Title");
-		logCompare(sProjectManager, b2wJobs.getProjectManagerText(), "Verify Project Manager");
-		logCompare(sJobStatus, b2wJobs.getProjectStatusText(), "Verify Project Status");
-		logCompare(sJobCustomer, b2wJobs.getCustomerText(), "Verify Customer");
-		logCompare(sLaborRateClass, b2wJobs.getDefaultLaborRateClassText(), "Labor Rate Class");
+		logCompare(sProjectManager, b2wJobs.getJobProjectManagerText(), "Verify Project Manager");
+		logCompare(sJobStatus, b2wJobs.getJobProjectStatusText(), "Verify Project Status");
+		logCompare(sJobCustomer, b2wJobs.getJobCustomerText(), "Verify Customer");
+		logCompare(sLaborRateClass, b2wJobs.getJobDefaultLaborRateClassText(), "Labor Rate Class");
 		logCompare(sEquipRateClass, b2wJobs.getEquipmentRateClassText(), "Equip Rate Class");
 		
 	}
