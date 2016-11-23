@@ -411,7 +411,6 @@ public class WebElementUtils {
 					try {
 						log.debug("First click failed - " + e.getMessage());
 						TaskUtils.sleep(500);
-						getAllInfo(element);
 						new Actions(BrowserUtils.getDriver()).click(element).perform();
 						bReturn = true;
 					} catch (WebDriverException e2) {

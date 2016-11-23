@@ -185,7 +185,6 @@ public class B2WTMWorkItemTab extends B2WKendoTasks {
 	public boolean setComplete(){
 		boolean bReturn = false;
 		WebElement el = WebElementUtils.findElement(B2WJobs.getB2WJobTMWorkItemCompleteCheckbox());
-		WebElementUtils.getAllInfo(el);
 		if (el != null){
 			bReturn = WebElementUtils.clickElement(el);
 		}

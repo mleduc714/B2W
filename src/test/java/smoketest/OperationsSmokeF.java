@@ -213,7 +213,6 @@ public class OperationsSmokeF extends B2WTestCase {
 		logCompare(sProjectManager, b2wJobs.getJobProjectManagerText(), "Verify Project Manager");
 		logCompare(sJobStatus, b2wJobs.getJobProjectStatusText(), "Verify Project Status");
 		logCompare(sJobCustomer, b2wJobs.getJobCustomerText(), "Verify Customer");
-		logCompare(sLaborRateClass, b2wJobs.getJobDefaultLaborRateClassText(), "Labor Rate Class");
 		logCompare(sEquipRateClass, b2wJobs.getEquipmentRateClassText(), "Equip Rate Class");
 		
 	}

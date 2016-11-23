@@ -908,7 +908,6 @@ public class B2WUIMap {
 	public static final String b2w_maintainschedulerworkordersummary = "div.workOrderSummary";
 	public static final String b2w_maintainschedulerunscheduledworkorderslist= "div#unscheduled-work-orders-list.k-widget.k-listview";
 	public static final String b2w_maintainschedulerunscheduledpastduelist = "div#past-due-date-work-order-list.k-widget.k-listview";
-	public static final String b2w_maintainschedulerpastdueworkorderlist = "div#past-due-date-work-order-list.k-widget.k-listview";
 	public static final String b2w_maintainschedulerpastdueworkorder = "div.workOrder.scheduled.pastDue";
 	public static final String b2w_maintainschedulercontent = "div.k-scheduler-content";
 	public static final String b2w_maintainschedulerevents = "div.k-event.k-event-inverse";
@@ -940,8 +939,8 @@ public class B2WUIMap {
 	
 	
 	
-	public static final String unscheduledWorkOrdersContextMenu = "ul#unscheduledWorkOrdersContextMenu";
-	
+	public static final String unscheduledworkorderscontextmenu = "ul#unscheduledWorkOrdersContextMenu";
+	public static final String scheduleworkorderscontentmenu = "ul#scheduledWorkOrdersContextMenu";
 	
 	//B2W Schedule Tests
 	public static final String b2w_scheduleviewcrews = "Crews";
