@@ -811,7 +811,10 @@ public class B2WUIMap {
 	public static final String b2w_schedule_contextmenu_deletebuttons = ".//button";
 	public static final String b2w_schedule_deleteemployeebtn = ".//span[contains(@class, 'k-i-close')][text() = 'delete']";
 	public static final String b2w_schedule_editlocationlink = ".//a[contains(text(), 'Edit Location')]";
-
+	public static final String b2w_schedule_placeholder = ".assignment-placeholder";
+	public static final String b2w_schedule_toolbarpanel = ".Toolbar__group--wide";
+	public static final String b2w_scheduled_expandicon = ".Icon.i116-double-angle-down";
+	public static final String b2w_scheduled_collapseicon = ".Icon.i119-double-angle-up";
 
 	// Maintain
 	public static final String b2w_maintainpagemenu = "ul#SubNavMenu_MaintainPageMenu.MaintainPageMenu";
