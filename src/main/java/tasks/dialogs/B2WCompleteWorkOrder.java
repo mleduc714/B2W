@@ -77,16 +77,25 @@ public class B2WCompleteWorkOrder extends B2WKendoDialog {
 
 	
 	public boolean clickNextPage() {
-		// this is temp solution. 
-		WebElement el = WebElementUtils.findElement(By.xpath("//a[@data-bind='visible: workOrderCompletionViewModel.isNextVisible,dataEnabled: workOrderCompletionViewModel.isNextEnabled']"));
-		return WebElementUtils.clickElement(el);
+		boolean bReturn = false;
+		WebElement el = WebElementUtils.findElement(B2WMaintain.getCompleteNextButton());
+		if (el != null){
+		
+			bReturn = WebElementUtils.clickElement(el);
+		}
 	
+		return bReturn;
 	}
 
 	public boolean completeSave() {
-		//temp
-		WebElement el = WebElementUtils.findElement(By.xpath("//a[@data-bind='visible: workOrderCompletionViewModel.isSaveVisible']"));
-		return WebElementUtils.clickElement(el);
+		boolean bReturn = false;
+		WebElement el = WebElementUtils.findElement(B2WMaintain.getCompleteSaveButton());
+		if (el != null) {
+			bReturn = WebElementUtils.clickElement(el);
+			bReturn &= WebElementUtils.waitForElementInvisible(el);
+			waitForPageNotBusy(WebElementUtils.MEDIUM_TIME_OUT);
+		}
+		return bReturn;
 	}
 	
 	public boolean selectCompletedWorkItem(String sItem) {
@@ -121,7 +130,9 @@ public class B2WCompleteWorkOrder extends B2WKendoDialog {
 			WebElement row = iter.next();
 			List<WebElement> ls = row.findElements(By.tagName("td"));
 			String sKey = ls.get(0).getText();
-			Integer reading = new Integer(ls.get(3).getText());
+			String sValue = ls.get(3).getText();
+			sValue = sValue.replace(",","");
+			Integer reading = new Integer(sValue);
 			table.put(sKey, reading);
 		}
 		return table;

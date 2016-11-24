@@ -16,6 +16,15 @@ public class B2WAddMaintenanceReqToWorkOrder extends B2WKendoDialog {
 	// private static List<WebElement> additemsElements = new
 	// ArrayList<WebElement>();
 
+	public boolean doesDialogExist() {
+		boolean bReturn = false;
+		WebElement el = getDialog();
+		if (el != null){
+			bReturn = true;
+		}
+		return bReturn;
+	}
+	
 	public boolean selectCreateNewWorkOrderRadioButton() {
 		boolean bReturn = false;
 		List<WebElement> list = WebElementUtils.getChildElements(getDialog(), By.tagName("input"));

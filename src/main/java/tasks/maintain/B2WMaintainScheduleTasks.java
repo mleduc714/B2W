@@ -10,354 +10,304 @@ import org.openqa.selenium.interactions.internal.Coordinates;
 import org.openqa.selenium.internal.Locatable;
 
 import appobjects.maintain.B2WMaintain;
+import appobjects.scheduler.B2WScheduleAssignments;
 import tasks.BrowserUtils;
 import tasks.WebElementUtils;
 import tasks.resources.B2WKendoTasks;
 
 public class B2WMaintainScheduleTasks extends B2WKendoTasks {
-	
+
+	public enum CLICK {
+		DOUBLE, SINGLE, CONTEXT
+	};
+
+	public enum BY {
+		EQUIPMENT, DESCRIPTION
+	};
+
+	public enum WHERE {
+		SCHEDULE, WORKTAB, PASTTAB
+	}
 
 	public boolean clickDayView() {
 		return WebElementUtils.clickElement(B2WMaintain.getB2WMaintainScheduleDayView());
 	}
+
 	public boolean clickThreeDayView() {
 		return WebElementUtils.clickElement(B2WMaintain.getB2WMaintainScheduleThreeDaysView());
 	}
+
 	public boolean clickWeekView() {
 		return WebElementUtils.clickElement(B2WMaintain.getB2WMaintainScheduleWeekView());
 	}
+
 	public boolean clickTwoWeekView() {
 		return WebElementUtils.clickElement(B2WMaintain.getB2WMaintainScheduleTwoWeekView());
 	}
+
 	public boolean clickMechanicsView() {
 		boolean bReturn = false;
 		bReturn = WebElementUtils.clickElement(B2WMaintain.getB2WMaintainScheduleMechanicsView());
 		return bReturn;
 	}
+
 	public boolean clickToday() {
 		return WebElementUtils.clickElement(B2WMaintain.getB2WMaintainScheduleTodayButton());
 	}
+
 	public boolean clickBackwardArrow() {
 		return WebElementUtils.clickElement(B2WMaintain.getB2WMaintainSchedulerArrowWest());
 	}
+
 	public boolean clickForwardArrow() {
 		return WebElementUtils.clickElement(B2WMaintain.getB2WMaintainSchedulerArrowEast());
 	}
-	
+
 	public String getCurrentScheduleView() {
 		String sView = "";
 		WebElement el = WebElementUtils.findElement(B2WMaintain.getB2WMaintainScheduleCurrentView());
 		sView = el.getAttribute("data-name");
 		return sView;
 	}
-	
+
 	public boolean clickEquipmentView() {
 		boolean bReturn = false;
 		bReturn = WebElementUtils.clickElement(B2WMaintain.getB2WMaintainScheduleEquipmentView());
 		return bReturn;
 	}
 
-	public boolean openWorkOrderToolTipByMechanicByDescription(String s) {
-		boolean bReturn = false;
-		WebElement scheduler = WebElementUtils.findElement(B2WMaintain.getB2WMaintainSchedulerContent());
-		List<WebElement> events = WebElementUtils.getChildElements(scheduler,
-				B2WMaintain.getB2WMaintainSchedulerEvents());
-		Iterator<WebElement> iter = events.iterator();
-		while (iter.hasNext()) {
-			WebElement el = iter.next();
-			WebElement summary = WebElementUtils.getChildElement(el,
-					B2WMaintain.getB2WMaintainschedulerworkordersummary());
-			String sDescAndWorkNumber = summary.getText().substring(0, summary.getText().indexOf("\n"));
-			if (sDescAndWorkNumber.startsWith(s)) {
-				Coordinates coordinate = ((Locatable) el).getCoordinates();
-				coordinate.onPage();
-				coordinate.inViewPort();
-
-				WebElementUtils.clickElement(el);
-			}
-		}
-
-		return bReturn;
+	public boolean clickWorkOrderByDescription(String s) {
+		return workOrder(s,CLICK.SINGLE,BY.DESCRIPTION,WHERE.SCHEDULE,null);
 	}
-
-	public boolean openWorkOrderFromScheduleByDescription(String s) {
-		boolean bReturn = false;
-		WebElement scheduler = WebElementUtils.findElement(B2WMaintain.getB2WMaintainSchedulerContent());
-		List<WebElement> events = WebElementUtils.getChildElements(scheduler,
-				B2WMaintain.getB2WMaintainSchedulerEvents());
-		Iterator<WebElement> iter = events.iterator();
-		while (iter.hasNext()) {
-			WebElement el = iter.next();
-			WebElement summary = WebElementUtils.getChildElement(el,
-					B2WMaintain.getB2WMaintainschedulerworkordersummary());
-			String sDescAndWorkNumber = summary.getText().substring(0, summary.getText().indexOf("\n"));
-			if (sDescAndWorkNumber.startsWith(s)) {
-				Coordinates coordinate = ((Locatable) el).getCoordinates();
-				coordinate.onPage();
-				coordinate.inViewPort();
-				Actions actions = new Actions(BrowserUtils.getDriver());
-				actions.doubleClick(el);
-				actions.perform();
-				bReturn = WebElementUtils.waitAndFindDisplayedElement(
-						B2WMaintain.getB2WMaintainSchedulerEditSchedulePopupWindow()) != null;
-
-			}
-		}
-
-		return bReturn;
+	public boolean clickWorkOrderByEquipment(String s) {
+		return workOrder(s,CLICK.SINGLE,BY.EQUIPMENT,WHERE.SCHEDULE,null);
+	}
+	public boolean openWorkOrderByDescription(String s) {
+		return workOrder(s,CLICK.DOUBLE,BY.DESCRIPTION,WHERE.SCHEDULE,null);
+	}
+	public boolean openWorkOrderByEquipment(String s) {
+		return workOrder(s,CLICK.DOUBLE,BY.EQUIPMENT,WHERE.SCHEDULE,null);
+	}
+	public boolean editScheduleWorkOrderByDescription(String s){
+		return workOrder(s,CLICK.CONTEXT,BY.EQUIPMENT,WHERE.SCHEDULE,"Edit Schedule");
+	}
+	public boolean unscheduleWorkOrderByDescription(String s){
+		return workOrder(s,CLICK.CONTEXT,BY.EQUIPMENT,WHERE.SCHEDULE,"Unschedule");
+	}
+	public boolean editWorkOrderByDescription(String s){
+		return workOrder(s,CLICK.CONTEXT,BY.EQUIPMENT,WHERE.SCHEDULE,"Edit Work Order");
+	}
+	public boolean completeWorkOrderByDescription(String s){
+		return workOrder(s,CLICK.CONTEXT,BY.EQUIPMENT,WHERE.SCHEDULE,"Complete");
 	}
 	
-	public boolean openWorkOrderFromScheduleByEquipment(String s){
+	public boolean openWorkOrderFromWorkOrderTabByDescription(String s) {	
+		return workOrder(s,CLICK.DOUBLE,BY.DESCRIPTION,WHERE.WORKTAB,null);
+	}
+
+	public boolean openWorkOrderFromPastDueTabByDescription(String s) {
+		return workOrder(s,CLICK.DOUBLE,BY.DESCRIPTION,WHERE.PASTTAB,null);
+	}
+
+	public boolean scheduleWorkOrderFromWorkOrderTabByDescription(String s) {
+		return workOrder(s,CLICK.CONTEXT,BY.DESCRIPTION,WHERE.WORKTAB, "Schedule");
+	}
+	public boolean unapproveWorkOrderFromWorkOrderTabByDescription(String s) {
+		return workOrder(s,CLICK.CONTEXT,BY.DESCRIPTION,WHERE.WORKTAB, "Unapprove");
+	}
+	public boolean editWorkOrderFromWorkOrderTabByDescription(String s) {
+		return workOrder(s,CLICK.CONTEXT,BY.DESCRIPTION,WHERE.WORKTAB, "Edit Work Order");
+	}
+
+	public boolean completeWorkOrderFromWorkOrderTabByDescription(String s) {
+		return workOrder(s,CLICK.CONTEXT,BY.DESCRIPTION,WHERE.WORKTAB,  "Complete");
+	}
+	public boolean editscheduleWorkOrderFromPastDueTabByDescription(String s) {
+		return workOrder(s,CLICK.CONTEXT,BY.DESCRIPTION,WHERE.PASTTAB, "Edit Schedule");
+	}
+	public boolean unscheduleWorkOrderFromPastDueTabByDescription(String s) {
+		return workOrder(s,CLICK.CONTEXT,BY.DESCRIPTION,WHERE.PASTTAB, "Unschedule");
+	}
+	public boolean editWorkOrderFromPastDueTabByDescription(String s) {
+		return workOrder(s,CLICK.CONTEXT,BY.DESCRIPTION,WHERE.PASTTAB, "Edit Work Order");
+	}
+	public boolean completeWorkOrderFromPastDueTabByDescription(String s) {
+		return workOrder(s,CLICK.CONTEXT,BY.DESCRIPTION,WHERE.PASTTAB,  "Complete");
+	}
+	public boolean clickWorkOrderFromWorkOrderTabByDescription(String s) {
+		return workOrder(s,CLICK.SINGLE,BY.DESCRIPTION,WHERE.WORKTAB,null);
+	}
+	public boolean clickWorkOrderFromPastDueTabByDescription(String s) {
+		return workOrder(s,CLICK.SINGLE,BY.DESCRIPTION,WHERE.PASTTAB,null);
+	}
+
+	private boolean workOrder(String sText, CLICK click, BY desc, WHERE where, String sMenu) {
 		boolean bReturn = false;
-		WebElement scheduler = WebElementUtils.findElement(B2WMaintain.getB2WMaintainSchedulerContent());
-		List<WebElement> events = WebElementUtils.getChildElements(scheduler,
-				B2WMaintain.getB2WMaintainSchedulerEvents());
+		WebElement workorderlist = null;
+		List<WebElement> events = null;
+		String sDescAndWorkNumber = null;
+		WebElement contextMenu = null;
+
+		switch (where) {
+
+		case SCHEDULE:
+			workorderlist = WebElementUtils.findElement(B2WMaintain.getB2WMaintainSchedulerContent());
+			events = WebElementUtils.getChildElements(workorderlist, B2WMaintain.getB2WMaintainSchedulerEvents());
+			break;
+		case WORKTAB:
+			workorderlist = WebElementUtils.findElement(B2WMaintain.getB2WMaintainschedulerunscheduledworkorderslist());
+			events = WebElementUtils.getChildElements(workorderlist,
+					B2WMaintain.getB2WMaintainschedulerworkorderunscheduled());
+			break;
+		case PASTTAB:
+			workorderlist = WebElementUtils.findElement(B2WMaintain.getB2WMaintainschedulerpastdueworkorderlist());
+			events = WebElementUtils.getChildElements(workorderlist,
+					B2WMaintain.getB2WMaintainschedulerpastdueworkorder());
+			break;
+		}
+
 		Iterator<WebElement> iter = events.iterator();
 		while (iter.hasNext()) {
 			WebElement el = iter.next();
 			WebElement summary = WebElementUtils.getChildElement(el,
 					B2WMaintain.getB2WMaintainschedulerworkordersummary());
-			int iStart = summary.getText().indexOf("\n");
-			int iEnd = summary.getText().indexOf(("\n"), iStart + 1);
-			String sEquipment = summary.getText().substring(++iStart, iEnd);
-			if (sEquipment.startsWith(s)) {
+			switch (desc) {
+			case DESCRIPTION:
+				sDescAndWorkNumber = summary.getText().substring(0, summary.getText().indexOf("\n"));
+				break;
+			case EQUIPMENT:
+				int iStart = summary.getText().indexOf("\n");
+				int iEnd = summary.getText().indexOf(("\n"), iStart + 1);
+				sDescAndWorkNumber = summary.getText().substring(++iStart, iEnd);
+			}
+			if (sDescAndWorkNumber.contains(sText)) {
 				Coordinates coordinate = ((Locatable) el).getCoordinates();
 				coordinate.onPage();
 				coordinate.inViewPort();
 				Actions actions = new Actions(BrowserUtils.getDriver());
-				actions.doubleClick(el);
+				switch (click) {
+				case SINGLE:
+					actions.click(el);
+					break;
+				case DOUBLE:
+					actions.doubleClick(el);
+					break;
+				case CONTEXT:
+					actions.contextClick(el);
+					break;
+				}
 				actions.perform();
-				bReturn = WebElementUtils.waitAndFindDisplayedElement(
-						B2WMaintain.getB2WMaintainSchedulerEditSchedulePopupWindow()) != null;
+				switch (click) {
+				case SINGLE:
+					bReturn = WebElementUtils
+							.waitAndFindDisplayedElement(B2WMaintain.getB2WMaintainSchedulerToolTip()) != null;
+					break;
+				case DOUBLE:
+					switch (where) {
+					case PASTTAB:
+					case SCHEDULE:
+						bReturn = WebElementUtils.waitAndFindDisplayedElement(
+								B2WMaintain.getB2WMaintainSchedulerEditSchedulePopupWindow()) != null;
+						break;
+					case WORKTAB:
 
+						bReturn = WebElementUtils.waitAndFindDisplayedElement(
+								B2WMaintain.getB2WMaintainSchedulerScheduleMaintenancePopupWindow()) != null;
+						break;
+					}
+					break;
+				case CONTEXT:
+					switch (where) {
+					case PASTTAB:
+					case SCHEDULE:
+
+						contextMenu = WebElementUtils
+								.waitAndFindDisplayedElement(B2WMaintain.getB2WMaintainSchedulerScheduledContextMenu());
+
+						break;
+					case WORKTAB:
+
+						contextMenu = WebElementUtils.waitAndFindDisplayedElement(
+								B2WMaintain.getB2WMaintainSchedulerUnscheduledContextMenu());
+						break;
+					}
+					List<WebElement> items = contextMenu.findElements(B2WScheduleAssignments.getLinks());
+					WebElement item = WebElementUtils.getElementWithMatchingText(items, sMenu, false);
+
+					bReturn = WebElementUtils.clickElement(item);
+					break;
+				}
+				break;
 			}
+			
 		}
 
 		return bReturn;
 	}
 
-	public boolean openWorkOrderFromWorkOrderTabByDescription(String s) {
+
+	public boolean clickWorkOrdersTab() {
 		boolean bReturn = false;
-		WebElement workorderlist = WebElementUtils
-				.findElement(B2WMaintain.getB2WMaintainschedulerunscheduledworkorderslist());
-		List<WebElement> events = WebElementUtils.getChildElements(workorderlist,
-				B2WMaintain.getB2WMaintainschedulerworkorderunscheduled());
-		Iterator<WebElement> iter = events.iterator();
-		while (iter.hasNext()) {
-			WebElement el = iter.next();
-			WebElement summary = WebElementUtils.getChildElement(el,
-					B2WMaintain.getB2WMaintainschedulerworkordersummary());
-			String sDescAndWorkNumber = summary.getText().substring(0, summary.getText().indexOf("\n"));
-			if (sDescAndWorkNumber.startsWith(s)) {
-				Coordinates coordinate = ((Locatable) el).getCoordinates();
-				coordinate.onPage();
-				coordinate.inViewPort();
-				Actions actions = new Actions(BrowserUtils.getDriver());
-				actions.doubleClick(el);
-				actions.perform();
-				bReturn = WebElementUtils.waitAndFindDisplayedElement(
-						B2WMaintain.getB2WMaintainSchedulerScheduleMaintenancePopupWindow()) != null;
-			}
+		waitForPageNotBusy(WebElementUtils.MEDIUM_TIME_OUT);
+		WebElement el = WebElementUtils.findElement(B2WMaintain.getB2WMaintainSchedulerWorkOrdersTab());
+		WebElement child = WebElementUtils.getChildElement(el, By.cssSelector("span.k-link"));
+		if (el != null) {
+			bReturn = WebElementUtils.clickElement(child);
 		}
-
 		return bReturn;
 	}
-	
+
+	public boolean clickPastDueWorkOrdersTab() {
+		boolean bReturn = false;
+		waitForPageNotBusy(WebElementUtils.MEDIUM_TIME_OUT);
+		WebElement el = WebElementUtils.findElement(B2WMaintain.getB2WMaintainSchedulerPastDueWorkOrdersTab());
+		WebElement child = WebElementUtils.getChildElement(el, By.cssSelector("span.k-link"));
+		if (el != null) {
+			bReturn = WebElementUtils.clickElement(child);
+		}
+		return bReturn;
+	}
 	public boolean openWorkOrderFromWorkOrderTabByNumber(int i) {
 		boolean bReturn = false;
 		WebElement workorderlist = WebElementUtils
 				.findElement(B2WMaintain.getB2WMaintainschedulerunscheduledworkorderslist());
 		List<WebElement> events = WebElementUtils.getChildElements(workorderlist,
 				B2WMaintain.getB2WMaintainschedulerworkorderunscheduled());
-		if (i < events.size()){
-			if (WebElementUtils.clickElement(events.get(i))){
+		if (i < events.size()) {
+			WebElement item = events.get(i);
+			Coordinates coordinate = ((Locatable) item).getCoordinates();
+			coordinate.onPage();
+			coordinate.inViewPort();
+			Actions actions = new Actions(BrowserUtils.getDriver());
+			actions.doubleClick(item);
+			actions.perform();
 			bReturn = WebElementUtils.waitAndFindDisplayedElement(
 					B2WMaintain.getB2WMaintainSchedulerScheduleMaintenancePopupWindow()) != null;
-			}
+
 		}
+
 		return bReturn;
 	}
-	
-	public boolean openWorkOrderFromPastDueTabByNumber(int i){
+
+	public boolean openWorkOrderFromPastDueTabByNumber(int i) {
 		boolean bReturn = false;
 		WebElement workorderlist = WebElementUtils
 				.findElement(B2WMaintain.getB2WMaintainschedulerpastdueworkorderlist());
 		List<WebElement> events = WebElementUtils.getChildElements(workorderlist,
-				B2WMaintain.getB2WMaintainschedulerworkorderunscheduled());
-		if (i < events.size()){
-			if (WebElementUtils.clickElement(events.get(i))){
-			bReturn = WebElementUtils.waitAndFindDisplayedElement(
-					B2WMaintain.getB2WMaintainSchedulerEditSchedulePopupWindow()) != null;
-			}
-		}
-		return bReturn;
-	}
-	
-	public boolean openWorkOrderFromPastDueTabByDescription(String s){
-		boolean bReturn = false;
-		WebElement workorderlist = WebElementUtils
-				.findElement(B2WMaintain.getB2WMaintainschedulerpastdueworkorderlist());
-		List<WebElement> events = WebElementUtils.getChildElements(workorderlist,
-				B2WMaintain.getB2WMaintainschedulerworkorderunscheduled());
-		Iterator<WebElement> iter = events.iterator();
-		while (iter.hasNext()) {
-			WebElement el = iter.next();
-			WebElement summary = WebElementUtils.getChildElement(el,
-					B2WMaintain.getB2WMaintainschedulerworkordersummary());
-			String sDescAndWorkNumber = summary.getText().substring(0, summary.getText().indexOf("\n"));
-			if (sDescAndWorkNumber.startsWith(s)) {
-				Coordinates coordinate = ((Locatable) el).getCoordinates();
+				B2WMaintain.getB2WMaintainschedulerpastdueworkorder());
+		if (i < events.size()) {
+			if (WebElementUtils.clickElement(events.get(i))) {
+				WebElement item = events.get(i);
+				Coordinates coordinate = ((Locatable) item).getCoordinates();
 				coordinate.onPage();
 				coordinate.inViewPort();
 				Actions actions = new Actions(BrowserUtils.getDriver());
-				actions.doubleClick(el);
+				actions.doubleClick(item);
 				actions.perform();
 				bReturn = WebElementUtils.waitAndFindDisplayedElement(
 						B2WMaintain.getB2WMaintainSchedulerEditSchedulePopupWindow()) != null;
+
 			}
-		}
-
-		return bReturn;
-	}
-	
-	public boolean scheduleWorkOrderFromWorkOrderTabByDescriptionFromContextMenu(String s) {
-		boolean bReturn = false;
-		WebElement workorderlist = WebElementUtils
-				.findElement(B2WMaintain.getB2WMaintainschedulerunscheduledworkorderslist());
-		List<WebElement> events = WebElementUtils.getChildElements(workorderlist,
-				B2WMaintain.getB2WMaintainschedulerworkorderunscheduled());
-		Iterator<WebElement> iter = events.iterator();
-		while (iter.hasNext()) {
-			WebElement el = iter.next();
-			WebElement summary = WebElementUtils.getChildElement(el,
-					B2WMaintain.getB2WMaintainschedulerworkordersummary());
-			String sDescAndWorkNumber = summary.getText().substring(0, summary.getText().indexOf("\n"));
-			if (sDescAndWorkNumber.startsWith(s)) {
-				Coordinates coordinate = ((Locatable) el).getCoordinates();
-				coordinate.onPage();
-				coordinate.inViewPort();
-				Actions actions = new Actions(BrowserUtils.getDriver());
-				actions.contextClick(el);
-				actions.perform();
-				WebElement contextMenu = WebElementUtils.waitAndFindDisplayedElement(B2WMaintain.getB2WMaintainSchedulerUnscheduledContextMenu());
-				WebElementUtils.getChildElement(contextMenu, By.linkText("Schedule")).click();
-				bReturn = WebElementUtils.waitAndFindDisplayedElement(
-						B2WMaintain.getB2WMaintainSchedulerScheduleMaintenancePopupWindow()) != null;
-			}
-		}
-
-		return bReturn;
-	}
-
-	public boolean openToolTipWorkOrderFromWorkOrderTabByDescription(String s) {
-		boolean bReturn = false;
-		WebElement workorderlist = WebElementUtils
-				.findElement(B2WMaintain.getB2WMaintainschedulerunscheduledworkorderslist());
-		List<WebElement> events = WebElementUtils.getChildElements(workorderlist,
-				B2WMaintain.getB2WMaintainschedulerworkorderunscheduled());
-		Iterator<WebElement> iter = events.iterator();
-		while (iter.hasNext()) {
-			WebElement el = iter.next();
-			WebElement summary = WebElementUtils.getChildElement(el,
-					B2WMaintain.getB2WMaintainschedulerworkordersummary());
-			String sDescAndWorkNumber = summary.getText().substring(0, summary.getText().indexOf("\n"));
-			if (sDescAndWorkNumber.startsWith(s)) {
-				Coordinates coordinate = ((Locatable) el).getCoordinates();
-				coordinate.onPage();
-				coordinate.inViewPort();
-				WebElementUtils.clickElement(el);
-				bReturn = WebElementUtils
-						.waitAndFindDisplayedElement(B2WMaintain.getB2WMaintainSchedulerToolTip()) != null;
-			}
-		}
-
-		return bReturn;
-	}
-
-
-	public boolean editMaintainancePopupSelectMechanic(String sText) {
-		boolean bReturn = false;
-		WebElement el = getWebElementFromEditMaintenanceDialog(0);
-		el.click();
-		if (WebElementUtils.waitForElementHasAttributeWithValue(el, "aria-expanded", "true", true,
-				WebElementUtils.SHORT_TIME_OUT)) {
-			bReturn = selectItemFromDropDown(sText);
-		}
-		return bReturn;
-
-	}
-
-	public void editMaintainancePopupSelectStartDate(String startDate) {
-		WebElement el = getWebElementFromEditMaintenanceDialog(1);
-		el.click();
-		WebElementUtils.sendKeys(el, startDate);
-	}
-
-	public void editMaintainancePopupSelectStartTime(String startTime) {
-		WebElement el = getWebElementFromEditMaintenanceDialog(2);
-		el.click();
-		selectItemFromDropDown(startTime);
-	}
-	public void editMaintainancePopupSelectEndDate(String startDate) {
-		WebElement el = getWebElementFromEditMaintenanceDialog(3);
-		el.click();
-		WebElementUtils.sendKeys(el, startDate);
-	}
-
-	public void editMaintainancePopupSelectEndTime(String endTime) {
-		WebElement el = getWebElementFromEditMaintenanceDialog(4);
-		el.click();
-		selectItemFromDropDown(endTime);
-	}
-
-	public void editMaintainancePopupSelectWorkLocation(String sText){
-		WebElement el = getWebElementFromEditMaintenanceDialog(5);
-		el.click();
-		WebElementUtils.sendKeys(el, sText);
-	}
-	
-	public void editMaintainancePopupSelectEvent(String sText){
-		WebElement el = getWebElementFromEditMaintenanceDialog(5);
-		el.click();
-		selectItemFromDropDown(sText);
-	}
-	
-	public boolean saveEditMaintenance() {
-		boolean bReturn = false;
-		WebElement el = WebElementUtils.waitAndFindDisplayedElement(B2WMaintain.getB2WMaintainSchedulerEditSchedulePopupWindow());
-		WebElement button = WebElementUtils.getChildElement(el, B2WMaintain.getKendoLargeSaveButton());
-		if (button != null) {
-			bReturn = WebElementUtils.clickElement(button);
-			bReturn &= WebElementUtils.waitForElementInvisible(el);
-		}
-		return bReturn;
-	}
-
-	private WebElement getWebElementFromEditMaintenanceDialog(int i) {
-		WebElement el = WebElementUtils
-				.waitAndFindDisplayedElement(B2WMaintain.getB2WMaintainSchedulerEditSchedulePopupWindow());
-		List<WebElement> list = WebElementUtils.getChildElements(el, B2WMaintain.getKendoDropDown());
-		return list.get(i);
-	}
-	
-	public boolean clickWorkOrdersTab() {
-		boolean bReturn = false;
-		waitForPageNotBusy(WebElementUtils.MEDIUM_TIME_OUT);
-		WebElement el = WebElementUtils.findElement(B2WMaintain.getB2WMaintainSchedulerWorkOrdersTab());
-		WebElement child = WebElementUtils.getChildElement(el, By.cssSelector("span.k-link"));
-		if (el != null){
-			bReturn = WebElementUtils.clickElement(child);
-		}
-		return bReturn;
-	}
-	
-	public boolean clickPastDueWorkOrdersTab() {
-		boolean bReturn = false;
-		waitForPageNotBusy(WebElementUtils.MEDIUM_TIME_OUT);
-		WebElement el = WebElementUtils.findElement(B2WMaintain.getB2WMaintainSchedulerPastDueWorkOrdersTab());
-		WebElement child = WebElementUtils.getChildElement(el, By.cssSelector("span.k-link"));
-		if (el != null){
-			bReturn = WebElementUtils.clickElement(child);
 		}
 		return bReturn;
 	}

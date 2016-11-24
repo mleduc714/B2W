@@ -3,7 +3,6 @@ package tasks.util;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.TimeZone;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -54,5 +53,13 @@ public class StringUtils {
 	public static String getStringFromDateByPattern(Date date, String sPattern) {
 		SimpleDateFormat sdf = new SimpleDateFormat(sPattern);
 		return sdf.format(date);
+	}
+	
+	public static int getNumberFromID(String sID){
+
+		int iLastIndex = sID.lastIndexOf("_");
+		String s = sID.substring(++iLastIndex, sID.length());
+		return new Integer(s).intValue();
+		
 	}
 }

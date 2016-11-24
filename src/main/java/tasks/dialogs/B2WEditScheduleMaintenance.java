@@ -8,10 +8,10 @@ import appobjects.maintain.B2WMaintain;
 import tasks.WebElementUtils;
 import tasks.util.TaskUtils;
 
-public class B2WScheduleMaintenance extends B2WKendoDialog {
-	public boolean scheduleMaintainancePopupSelectMechanic(String sText) {
+public class B2WEditScheduleMaintenance extends B2WKendoDialog {
+	public boolean editScheduleMaintainancePopupSelectMechanic(String sText) {
 		boolean bReturn = false;
-		WebElement el = getWebElementFromScheduleMaintenanceDialog(0);
+		WebElement el = getWebElementFromEditScheduleMaintenanceDialog(0);
 		if (el != null) {
 			bReturn = WebElementUtils.clickElement(el);
 
@@ -23,9 +23,9 @@ public class B2WScheduleMaintenance extends B2WKendoDialog {
 		return bReturn;
 	}
 	
-	public String scheduleMaintainancePopupSelectAnyMechanic() {
+	public String editScheduleMaintainancePopupSelectAnyMechanic() {
 		String sText = "";
-		WebElement el = getWebElementFromScheduleMaintenanceDialog(0);
+		WebElement el = getWebElementFromEditScheduleMaintenanceDialog(0);
 		if (el != null) {
 			WebElementUtils.clickElement(el);
 			sText = selectRandomItemFromDropDown();
@@ -33,9 +33,9 @@ public class B2WScheduleMaintenance extends B2WKendoDialog {
 		return sText;
 	}
 
-	public boolean scheduleMaintainancePopupSelectStartDate(String startDate) {
+	public boolean editScheduleMaintainancePopupSelectStartDate(String startDate) {
 		boolean bReturn = false;
-		WebElement el = getWebElementFromScheduleMaintenanceDialog(1);
+		WebElement el = getWebElementFromEditScheduleMaintenanceDialog(1);
 		if (el != null){
 			bReturn = WebElementUtils.clickElement(el);
 			bReturn &= WebElementUtils.sendKeys(el, startDate);
@@ -43,19 +43,19 @@ public class B2WScheduleMaintenance extends B2WKendoDialog {
 		return bReturn;
 	}
 
-	public boolean scheduleMaintainancePopupSelectStartTime(String startTime) {
+	public boolean editScheduleMaintainancePopupSelectStartTime(String startTime) {
 		boolean bReturn = false;
 		
-		WebElement el = getWebElementFromScheduleMaintenanceDialog(2);
+		WebElement el = getWebElementFromEditScheduleMaintenanceDialog(2);
 		if (el != null){
 			WebElementUtils.clickElement(el);
 			bReturn = selectItemFromDropDown(startTime);
 		}
 		return bReturn;
 	}
-	public boolean scheduleMaintainancePopupSelectEndDate(String endDate) {
+	public boolean editScheduleMaintainancePopupSelectEndDate(String endDate) {
 		boolean bReturn = false;
-		WebElement el = getWebElementFromScheduleMaintenanceDialog(3);
+		WebElement el = getWebElementFromEditScheduleMaintenanceDialog(3);
 		if (el != null){
 			bReturn = WebElementUtils.clickElement(el);
 			bReturn &= WebElementUtils.sendKeys(el, endDate);
@@ -63,9 +63,9 @@ public class B2WScheduleMaintenance extends B2WKendoDialog {
 		return bReturn;
 	}
 
-	public boolean scheduleMaintainancePopupSelectEndTime(String endTime) {
+	public boolean editScheduleMaintainancePopupSelectEndTime(String endTime) {
 		boolean bReturn = false;
-		WebElement el = getWebElementFromScheduleMaintenanceDialog(4);
+		WebElement el = getWebElementFromEditScheduleMaintenanceDialog(4);
 		if (el != null){
 			WebElementUtils.clickElement(el);
 			bReturn = selectItemFromDropDown(endTime);
@@ -74,9 +74,9 @@ public class B2WScheduleMaintenance extends B2WKendoDialog {
 
 	}
 
-	public boolean scheduleMaintainancePopupSelectWorkLocation(String sText){
+	public boolean editScheduleMaintainancePopupSelectWorkLocation(String sText){
 		boolean bReturn = false;
-		WebElement el = getWebElementFromScheduleMaintenanceDialog(5);
+		WebElement el = getWebElementFromEditScheduleMaintenanceDialog(5);
 		if (el != null){
 			WebElementUtils.clickElement(el);
 			bReturn = WebElementUtils.sendKeys(el, sText);
@@ -85,9 +85,9 @@ public class B2WScheduleMaintenance extends B2WKendoDialog {
 		}
 		return bReturn;
 	}
-	public String scheduleMaintainancePopupSelectAnyWorkLocation(){
+	public String editScheduleMaintainancePopupSelectAnyWorkLocation(){
 		String sText = "";
-		WebElement el = getWebElementFromScheduleMaintenanceDialog(5);
+		WebElement el = getWebElementFromEditScheduleMaintenanceDialog(5);
 		if (el != null){
 			WebElementUtils.clickElement(el);
 			WebElementUtils.sendKeys(el,"a");
@@ -99,9 +99,9 @@ public class B2WScheduleMaintenance extends B2WKendoDialog {
 	}
 	
 	
-	public boolean scheduleMaintainancePopupSelectEvent(String sText){
+	public boolean editScheduleMaintainancePopupSelectEvent(String sText){
 		boolean bReturn = false;
-		WebElement el = getWebElementFromScheduleMaintenanceDialog(6);
+		WebElement el = getWebElementFromEditScheduleMaintenanceDialog(6);
 		if (el != null){
 			bReturn = WebElementUtils.clickElement(el);
 			bReturn &= selectItemFromDropDown(sText);
@@ -109,9 +109,9 @@ public class B2WScheduleMaintenance extends B2WKendoDialog {
 		return bReturn;
 	}
 	
-	public String scheduleMaintainancePopupSelectAnyEvent(){
+	public String editScheduleMaintainancePopupSelectAnyEvent(){
 		String sText = "";
-		WebElement el = getWebElementFromScheduleMaintenanceDialog(6);
+		WebElement el = getWebElementFromEditScheduleMaintenanceDialog(6);
 		if (el != null){
 			WebElementUtils.clickElement(el);
 			sText = selectRandomItemFromDropDown();
@@ -130,9 +130,9 @@ public class B2WScheduleMaintenance extends B2WKendoDialog {
 		}
 		return bReturn;
 	}
-	private WebElement getWebElementFromScheduleMaintenanceDialog(int i) {
+	private WebElement getWebElementFromEditScheduleMaintenanceDialog(int i) {
 		WebElement el = WebElementUtils
-				.waitAndFindDisplayedElement(B2WMaintain.getB2WMaintainSchedulerScheduleMaintenancePopupWindow());
+				.waitAndFindDisplayedElement(B2WMaintain.getB2WMaintainSchedulerEditSchedulePopupWindow());
 		List<WebElement> list = WebElementUtils.getChildElements(el, B2WMaintain.getKendoDropDown());
 		return list.get(i);
 	}
@@ -160,7 +160,7 @@ public class B2WScheduleMaintenance extends B2WKendoDialog {
 	
 	public String getEquipment() {
 		String sEquipment = "";
-		WebElement el = WebElementUtils.waitAndFindDisplayedElement(B2WMaintain.getB2WMaintainSchedulerScheduleMaintenancePopupWindowEquipment());
+		WebElement el = WebElementUtils.waitAndFindDisplayedElement(B2WMaintain.getB2WMaintainSchedulerEditSchedulePopupWindow());
 		if (el != null){
 			sEquipment = el.getText();
 		}

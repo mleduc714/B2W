@@ -310,7 +310,7 @@ public class B2WJobs extends KendoUI {
 		return By.cssSelector(B2WUIMap.b2w_verifyestimate);
 	}
 	
-	public static By getB2WEstimateITemID(){
+	public static By getB2WEstimateItemIDs(){
 		return By.cssSelector(B2WUIMap.b2w_jobsestimateitemid);
 	}
 	
@@ -357,4 +357,132 @@ public class B2WJobs extends KendoUI {
 	public static By getB2WEstimateTimeAndMaterialWorkItemsVerification() {
 		return By.cssSelector(B2WUIMap.b2w_timeandmaterialworkitems);
 	}
+	public static By getB2WJobOverheadAccountTrackingID() {
+		return By.cssSelector(B2WUIMap.b2w_joboverheadaccounttrackingid);
+	}
+	public static By getB2WJobOverheadAccountDescription() {
+		return By.cssSelector(B2WUIMap.b2w_joboverheadaccountdescription);
+	}
+	public static By getB2WJobOverheadAccountEdit() {
+		return By.cssSelector(B2WUIMap.b2w_joboverheadaccounteditbutton);
+	}
+	public static By getB2WJobOverheadAccountDelete() {
+		return By.cssSelector(B2WUIMap.b2w_joboverheadaccountdeletebutton);
+	}
+	public static By getB2WJobProductionListAccountTrackingID() {
+		return By.cssSelector(B2WUIMap.b2w_jobstrackacctstrackingid);
+	}
+	public static By getB2WJobProductionListAccountDescription() {
+		return By.cssSelector(B2WUIMap.b2w_jobstrackacctsdesc);
+	}
+	public static By getB2WJobProductionAccountEdit() {
+		return By.cssSelector(B2WUIMap.b2w_jobstrackacctsviewedit);
+	}
+	public static By getB2WJobProductionAccountDelete() {
+		return By.cssSelector(B2WUIMap.b2w_jobstrackacctsviewdelete);
+	}
+	public static By getB2WJobMaterialListDesc() {
+		return By.cssSelector(B2WUIMap.b2w_jobsmaterialsdesc);
+	}
+	public static By getB2WJobMaterialListID() {
+		return By.cssSelector(B2WUIMap.b2w_jobsmaterialsmaterialid);
+	}
+	public static By getB2WJobMaterialListDelete() {
+		return By.cssSelector(B2WUIMap.b2w_jobsmaterialsviewdelete);
+	}
+	public static By getB2WJobSubcontractorDelete() {
+		return By.cssSelector(B2WUIMap.b2w_jobssubsvendorsdelete);
+	}
+	public static By getB2WJobTruckingcontractorDelete() {
+		return By.cssSelector(B2WUIMap.b2w_jobstruckingsubsdelete);
+	}
+	public static By getB2WJobVendorDelete() {
+		return By.cssSelector(B2WUIMap.b2w_jobsvendorsdelete);
+	}
+	public static By getB2WJobssubsvendorsListcompname() {
+		return By.cssSelector(B2WUIMap.b2w_jobssubsvendorscompname);
+	}
+	public static By getB2WJobssubsvendorsListcompid() {
+		return By.cssSelector(B2WUIMap.b2w_jobssubsvendorscompid);
+	}
+	public static By getB2WJobssubsvendorsListcomptype() {
+		return By.cssSelector(B2WUIMap.b2w_jobssubsvendorscomptype);
+	}
+	public static By getB2WJobssubsvendorsListdelete() {
+		return By.cssSelector(B2WUIMap.b2w_jobssubsvendorsdelete);
+	}
+	public static By getB2WJobstruckingsubsListcompanyname() {
+		return By.cssSelector(B2WUIMap.b2w_jobstruckingsubscompanyname);
+	}
+	public static By getB2WJobstruckingsubsListcompanyid() {
+		return By.cssSelector(B2WUIMap.b2w_jobstruckingsubscompanyid);
+	}
+	public static By getB2WJobstruckingsubsListcompanytype() {
+		return By.cssSelector(B2WUIMap.b2w_jobstruckingsubscompanytype);
+	}
+	public static By getB2WJobstruckingsubsListdelete() {
+		return By.cssSelector(B2WUIMap.b2w_jobstruckingsubsdelete);
+	}
+	public static By getB2WJobsvendorsListcompname() {
+		return By.cssSelector(B2WUIMap.b2w_jobsvendorscompname);
+	}
+	public static By getB2WJobsvendorsListcompid() {
+		return By.cssSelector(B2WUIMap.b2w_jobsvendorscompid);
+	}
+	public static By getB2WJobsvendorsListcomptype() {
+		return By.cssSelector(B2WUIMap.b2w_jobsvendorscomptype);
+	}
+	public static By getB2WJobsvendorsListdelete() {
+		return By.cssSelector(B2WUIMap.b2w_jobsvendorsdelete);
+	}
+	
+	public static By getB2WJobschangeordercreatedon() {
+		return By.cssSelector(B2WUIMap.b2w_jobschangeordercreatedon);
+	}
+
+	public static By getB2WJobschangeorderchangeorderid() {
+		return By.cssSelector(B2WUIMap.b2w_jobschangeorderchangeorderid);
+	}
+
+	public static By getB2WJobschangeorderaltorderid() {
+		return By.cssSelector(B2WUIMap.b2w_jobschangeorderaltorderid);
+	}
+
+	public static By getB2WJobschangeorderdesc() {
+		return By.cssSelector(B2WUIMap.b2w_jobschangeorderdesc);
+	}
+
+	public static By getB2WJobschangeorderviewstatus() {
+		return By.cssSelector(B2WUIMap.b2w_jobschangeorderviewstatus);
+	}
+
+	public static By getB2WJobschangeordertype() {
+		return By.cssSelector(B2WUIMap.b2w_jobschangeordertype);
+	}
+
+	public static By getB2WJobschangeorderestquanity() {
+		return By.cssSelector(B2WUIMap.b2w_jobschangeorderestquanity);
+	}
+
+	public static By getB2WJobschangeorderunitofmeasure() {
+		return By.cssSelector(B2WUIMap.b2w_jobschangeorderunitofmeasure);
+	}
+
+	public static By getB2WJobschangeorderestimatedtotalcost() {
+		return By.cssSelector(B2WUIMap.b2w_jobschangeorderestimatedtotalcost);
+	}
+
+	public static By getB2WJobschangeordertotalprice() {
+		return By.cssSelector(B2WUIMap.b2w_jobschangeordertotalprice);
+	}
+
+	public static By getB2WJobschangeorderedit() {
+		return By.cssSelector(B2WUIMap.b2w_jobschangeorderedit);
+	}
+
+	public static By getB2WJobschangeorderdelete() {
+		return By.cssSelector(B2WUIMap.b2w_jobschangeorderdelete);
+	}
+	
+
 }

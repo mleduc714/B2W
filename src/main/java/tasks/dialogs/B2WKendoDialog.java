@@ -3,6 +3,7 @@ package tasks.dialogs;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Random;
 
 import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
@@ -271,5 +272,31 @@ public abstract class B2WKendoDialog {
 			}
 		}
 		return bReturn;
+	}
+	
+	protected String selectRandomItemFromDropDown(){
+		String sText = "";
+		// when we click we need to find the visible list
+		List<WebElement> list = WebElementUtils.findElements(B2WEquipment.getKendoLists());
+		Iterator<WebElement> iter = list.iterator();
+		log.debug("There are "+list.size() + " to find the correct drop down");
+		while (iter.hasNext()) {
+			WebElement els = iter.next();
+			String hidden = els.getAttribute("aria-hidden");
+			if (hidden != null && hidden.equals("false")) {
+				List<WebElement> items = els.findElements(B2WEquipment.getKendoDropDownItem());
+				Random rand = new Random();
+				int randnumber = rand.nextInt(items.size() - 1);
+				WebElement item = items.get(randnumber);
+				
+				if (item != null) {
+					sText = item.getText();
+					WebElementUtils.clickElement(item);
+				}else{
+					log.debug("Could not select item");
+				}
+			}
+		}
+		return sText;
 	}
 }

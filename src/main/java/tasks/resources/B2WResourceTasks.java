@@ -11,6 +11,7 @@ import appobjects.resources.B2WMaterials;
 import appobjects.resources.B2WResources;
 import tasks.B2WSetupTasks;
 import tasks.WebElementUtils;
+import tasks.util.TaskUtils;
 
 public abstract class B2WResourceTasks extends B2WSetupTasks {
 	
@@ -123,6 +124,16 @@ public abstract class B2WResourceTasks extends B2WSetupTasks {
 			sText = el.getText();
 		}
 		return sText;
+	}
+	
+	public boolean openBusinessUnitLink() {
+		boolean bReturn = false;
+		WebElement el = WebElementUtils.findElement(B2WResources.getBusinessUnitHyperLink());
+		if (el != null){
+			bReturn = WebElementUtils.clickElement(el);
+			new TaskUtils().waitForProductPanel("Business Units");
+		}
+		return bReturn;
 	}
 
 	public boolean selectInactiveCheckBox(boolean bCheck) {
