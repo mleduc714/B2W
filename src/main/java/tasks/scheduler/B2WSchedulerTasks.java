@@ -36,6 +36,8 @@ public class B2WSchedulerTasks extends B2WKendoTasks {
     public final String EMPLOYEE_EVENT_TYPE = "employee-event";
     public final String EQUIPMENT_EVENT_TYPE = "equipment-event";
     public final String JOBSITE_EVENT_TYPE = "jobsite-event";
+    public final String SUBSTITUTION_TYPE = "substitution";
+    public final String SUBSTITUTED_TYPE = "substituted";
 
     private int daysSelectedCount = 0;
 
@@ -273,6 +275,12 @@ public class B2WSchedulerTasks extends B2WKendoTasks {
         bReturn &= selectButtonOption("Yes");
         return bReturn;
     }
+    public boolean deleteSubstitution() {
+        boolean bReturn;
+        bReturn = selectOptionFromContextMenu("Delete Substitution");
+        bReturn &= selectButtonOption("Yes");
+        return bReturn;
+    }
     public boolean deleteNeed() {
         boolean bReturn;
         bReturn = selectOptionFromContextMenu("Delete Need");
@@ -312,7 +320,12 @@ public class B2WSchedulerTasks extends B2WKendoTasks {
     public boolean editEvent() {
         return selectOptionFromContextMenu("Edit Event");
     }
-
+    public boolean editSubstitution() {
+        return selectOptionFromContextMenu("Edit Substitution");
+    }
+    public boolean createSubstitution() {
+        return selectOptionFromContextMenu("Create Substitution");
+    }
     //-- Set Methods
     // Method to set value to FDD fields
     public boolean setFields(String sFieldName, String sValue) {
@@ -356,8 +369,11 @@ public class B2WSchedulerTasks extends B2WKendoTasks {
         }
         return bResult;
     }
-    public boolean setEmployee(String sValue) {
+    public boolean setEmployees(String sValue) {
         return setFields("Employees", sValue);
+    }
+    public boolean setEmployee(String sValue) {
+        return setFields("Employee", sValue);
     }
     public boolean setEmployeeNeed(String sValue) {
         return setFields("Employee Needs", sValue);
@@ -489,11 +505,15 @@ public class B2WSchedulerTasks extends B2WKendoTasks {
     public boolean updateJobSite(String sValue) {
         return setJobSite(sValue);
     }
-    public boolean updateEmployee(String sValue) {
+    public boolean updateEmployees(String sValue) {
         List<WebElement> list = WebElementUtils.findElements(B2WScheduleAssignments.getDeleteEmployeeBtn());
         for (WebElement item : list) {
             WebElementUtils.clickElement(item);
         }
+        return setEmployees(sValue);
+    }
+    public boolean updateEmployee(String sValue) {
+        clearFields("Employee");
         return setEmployee(sValue);
     }
     public boolean updateEquipment(String sValue) {
@@ -704,6 +724,12 @@ public class B2WSchedulerTasks extends B2WKendoTasks {
     }
     public WebElement getEmployeeAssignment(String sResourceName, String sLocationName, String sStartDate, String sEndDate, String sStartTime) {
         return getAssignment(sResourceName, sLocationName, sStartDate, sEndDate, sStartTime, EMPLOYEE_TYPE);
+    }
+    public WebElement getEmployeeSubstitution(String sResourceName, String sLocationName, String sStartDate, String sEndDate, String sStartTime) {
+        return getAssignment(sResourceName, sLocationName, sStartDate, sEndDate, sStartTime, SUBSTITUTION_TYPE);
+    }
+    public WebElement getEmployeeSubstituted(String sResourceName, String sLocationName, String sStartDate, String sEndDate, String sStartTime) {
+        return getAssignment(sResourceName, sLocationName, sStartDate, sEndDate, sStartTime, SUBSTITUTED_TYPE);
     }
     public WebElement getEmployeeNeed(String sResourceName, String sLocationName, String sStartDate, String sEndDate, String sStartTime) {
         return getAssignment(sResourceName, sLocationName, sStartDate, sEndDate, sStartTime, EMPLOYEE_NEED_TYPE);
