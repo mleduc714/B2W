@@ -250,4 +250,7 @@ public class B2WMaintainRequestTasks extends B2WKendoTasks {
 		}
 		return sText;
 	}
+	public boolean setRequestNotes(String sText){
+		return setNotes(sText);
+	}
 }
