@@ -402,4 +402,7 @@ public class B2WMaintain extends KendoUI {
     public static By getB2WMaintainSchedulerScheduleMaintenancePopupWindowEquipment() {
     	return By.xpath(B2WUIMap.b2w_schedulemaintenancedialogequipment);
     }
+    public static By getB2WMaintainDashboardWorkOrdersChartsLeft() {
+    	return By.cssSelector(B2WUIMap.b2w_maintainworkorderscharts);
+    }
 }

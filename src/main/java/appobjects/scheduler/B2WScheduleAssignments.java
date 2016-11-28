@@ -39,9 +39,17 @@ public class B2WScheduleAssignments extends KendoUI {
     public static By getGrid() { return By.cssSelector(B2WUIMap.b2w_schedule_grid); }
     public static By getAssignment() { return By.cssSelector(B2WUIMap.b2w_schedule_assignment); }
     public static By getResourceName() { return By.cssSelector(B2WUIMap.b2w_schedule_resourcename); }
+    public static By getSpecificResourceName(String sValue) {
+        if (sValue.contains("\\")) {sValue = sValue.replace("\\", "\\\\");}
+        return By.cssSelector(B2WUIMap.b2w_schedule_resourcename + "[title='" + sValue + "']");
+    }
     public static By getAddressSection() { return By.cssSelector(B2WUIMap.b2w_schedule_addresssection); }
     public static By getContextMenu() { return By.cssSelector(B2WUIMap.b2w_schedule_contextmenu); }
     public static By getDeleteOptionBtn(String sValue) { return By.xpath(B2WUIMap.b2w_schedule_contextmenu_deletebuttons + "[contains(text(), '" + sValue + "')]"); }
     public static By getDeleteEmployeeBtn() { return By.xpath(B2WUIMap.b2w_schedule_deleteemployeebtn); }
-    public static By getEditLocationLink() {return By.xpath(B2WUIMap.b2w_schedule_editlocationlink); }
+    public static By getEditLocationLink() { return By.xpath(B2WUIMap.b2w_schedule_editlocationlink); }
+    public static By getPlaceholders() { return By.cssSelector(B2WUIMap.b2w_schedule_placeholder); }
+    public static By getToolBarPanel() { return By.cssSelector(B2WUIMap.b2w_schedule_toolbarpanel); }
+    public static By getExpandIcon() { return By.cssSelector(B2WUIMap.b2w_scheduled_expandicon); }
+    public static By getCollapseIcon() { return By.cssSelector(B2WUIMap.b2w_scheduled_collapseicon); }
 }

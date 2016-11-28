@@ -721,43 +721,14 @@ public class B2WUIMap {
 	public static final String b2w_jobscancelbutton = "a[id$='Dialog_CancelButton']";
 	public static final String b2w_jobsgridview = "a[id$='Dialog_GridView']";
 
-	//public static final String b2w_jobsaddmaterialssearchjs =
-	//"PageContent_AddMaterialDialog_SearchControl_SearchTextBox";
-	// public static final String b2w_jobsaddmaterialsidjs =
-	// "PageContent_AddMaterialDialog_SelectControl_SelectTextBox";
-	// public static final String b2w_jobsaddmaterialssearchbutton =
-	// "a#PageContent_AddMaterialDialog_SearchControl_SearchButton";
-	// public static final String b2w_jobsaddmaterialsselectbutton =
-	// "a#PageContent_AddMaterialDialog_SelectControl_SelectButton";
-	// public static final String b2w_jobsaddmaterialsaddbutton =
-	// "a#PageContent_AddMaterialDialog_AddButton";
 	public static final String b2w_jobsaddmaterialsgridview = "table#PageContent_AddMaterialDialog_GridView";
 	public static final String b2w_jobsaddmaterialgridviewcheckbox = "input[id^='PageContent_AddMaterialDialog_GridView_SelectedCheckBox']";
 	public static final String b2w_jobsaddmaterialdialog = "div#PageContent_AddMaterialDialog_DialogPanel";
-	// public static final String b2w_jobsaddsubcontractorssearch =
-	// "PageContent_AddSubcontractorDialog_SearchControl_SearchTextBox";
-	// public static final String b2w_jobsaddsubcontractorsid =
-	// "PageContent_AddSubcontractorDialog_SelectControl_SelectTextBox";
-	// public static final String b2w_jobsaddsubcontractorssearchbutton =
-	// "a#PageContent_AddSubcontractorDialog_SearchControl_SearchButton";
-	// public static final String b2w_jobsaddsubcontractorsselectbutton =
-	// "a#PageContent_AddSubcontractorDialog_SelectControl_SelectButton";
-	// public static final String b2w_jobsaddsubcontractorsaddbutton =
-	// "a#PageContent_AddSubcontractorDialog_AddButton";
+
 	public static final String b2w_jobsaddsubcontractorsgridview = "table#PageContent_AddSubcontractorDialog_GridView";
 	public static final String b2w_jobsaddsubcontractorgridviewcheckbox = "input[id^='PageContent_AddSubcontractorDialog_GridView_SelectedCheckBox']";
 	public static final String b2w_jobsaddsubcontractordialog = "div#PageContent_AddSubcontractorDialog_DialogPanel";
 
-	// public static final String b2w_jobsaddtrucksubcontractorssearch =
-	// "PageContent_AddTruckingSubcontractorDialog_SearchControl_SearchTextBox";
-	// public static final String b2w_jobsaddtrucksubcontractorsid =
-	// "PageContent_AddTruckingSubcontractorDialog_SelectControl_SelectTextBox";
-	// public static final String b2w_jobsaddtrucksubcontractorssearchbutton =
-	// "a#PageContent_AddTruckingSubcontractorDialog_SearchControl_SearchButton";
-	// public static final String b2w_jobsaddtrucksubcontractorsselectbutton =
-	// "a#PageContent_AddTruckingSubcontractorDialog_SelectControl_SelectButton";
-	// public static final String b2w_jobsaddtrucksubcontractorsaddbutton =
-	// "a#PageContent_AddTruckingSubcontractorDialog_AddButton";
 	public static final String b2w_jobsaddtrucksubcontractorsgridview = "table#PageContent_AddTruckingSubcontractorDialog_GridView";
 	public static final String b2w_jobsaddtrucksubcontractorgridviewcheckbox = "input[id^='PageContent_AddTruckingSubcontractorDialog_GridView_SelectedCheckBox']";
 	public static final String b2w_jobaddtrucksubcontractordialog = "div#PageContent_AddTruckingSubcontractorDialog_DialogPanel";
@@ -811,7 +782,10 @@ public class B2WUIMap {
 	public static final String b2w_schedule_contextmenu_deletebuttons = ".//button";
 	public static final String b2w_schedule_deleteemployeebtn = ".//span[contains(@class, 'k-i-close')][text() = 'delete']";
 	public static final String b2w_schedule_editlocationlink = ".//a[contains(text(), 'Edit Location')]";
-
+	public static final String b2w_schedule_placeholder = ".assignment-placeholder";
+	public static final String b2w_schedule_toolbarpanel = ".Toolbar__group--wide";
+	public static final String b2w_scheduled_expandicon = ".Icon.i116-double-angle-down";
+	public static final String b2w_scheduled_collapseicon = ".Icon.i119-double-angle-up";
 
 	// Maintain
 	public static final String b2w_maintainpagemenu = "ul#SubNavMenu_MaintainPageMenu.MaintainPageMenu";
@@ -833,6 +807,7 @@ public class B2WUIMap {
 	public static final String b2w_maintainadditemsdialog = "div.wizard-dialog.add-request-template-popup.k-window-content.k-content";
 	public static final String b2w_maintainadditemsavebutton = "a.btn-form.large.save";
 	public static final String b2w_maintaincollapsebutton = "a.collapse-button";
+	public static final String b2w_maintainworkorderscharts = "div.workorder_charts_col_left";
 
 	public static final String b2w_maintainnewintervalbutton = "a.btn-orig.new-interval-button";
 
@@ -881,8 +856,8 @@ public class B2WUIMap {
 	public static final String b2w_maintainworkordersduedate = "//span[@data-bind='text: detailsViewModel.displayDueDate']";
 	public static final String b2w_maintainworkorderstatus = "//td[@data-bind='text: detailsViewModel.displayStatus']";
 	public static final String b2w_maintainrequestsstatus =  "//span[@data-bind='text: detailsViewModel.displayStatus']";
-			
-	
+
+
 	public static final String b2w_scheduleanimationcontainer = ".k-animation-container";
 	public static final String b2w_schedulelinks = "span.k-link";
 	public static final String b2w_scheduleeventtypedropdown = ".//select[@kendo-b2w-drop-down-list = 'eventTypes']";
@@ -908,6 +883,7 @@ public class B2WUIMap {
 	public static final String b2w_maintainschedulerworkordersummary = "div.workOrderSummary";
 	public static final String b2w_maintainschedulerunscheduledworkorderslist= "div#unscheduled-work-orders-list.k-widget.k-listview";
 	public static final String b2w_maintainschedulerunscheduledpastduelist = "div#past-due-date-work-order-list.k-widget.k-listview";
+	public static final String b2w_maintainschedulerpastdueworkorderlist = "div#past-due-date-work-order-list.k-widget.k-listview";
 	public static final String b2w_maintainschedulerpastdueworkorder = "div.workOrder.scheduled.pastDue";
 	public static final String b2w_maintainschedulercontent = "div.k-scheduler-content";
 	public static final String b2w_maintainschedulerevents = "div.k-event.k-event-inverse";

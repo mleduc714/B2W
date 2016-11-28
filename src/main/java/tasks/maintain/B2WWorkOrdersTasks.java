@@ -5,7 +5,6 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
 import appobjects.maintain.B2WMaintain;
-import appobjects.setup.B2WSchedules;
 import tasks.WebElementUtils;
 import tasks.resources.B2WKendoTasks;
 import tasks.util.TaskUtils;
@@ -245,13 +244,7 @@ public class B2WWorkOrdersTasks extends B2WKendoTasks {
 		bReturn &= waitForPageNotBusy(WebElementUtils.MEDIUM_TIME_OUT);
 		return bReturn;
 	}
-	public boolean setBodyText(String sText){
-		WebElement el = WebElementUtils.findElement(B2WSchedules.notes());
-		return WebElementUtils.sendKeys(el, sText);
-		
-	}
-	
-	
+
 	public boolean selectAllWorkOrders() {
 		return selectViewFromDropDown("Open Work Orders");
 	}
@@ -296,5 +289,7 @@ public class B2WWorkOrdersTasks extends B2WKendoTasks {
 	public String getValueOfItem(String sItem){
 		return getValueOfItem(sItem, By.cssSelector("div.detail-content-view"));
 	}
-
+	public boolean setWorkOrderNotes(String sText){
+		return setNotes(sText);
+	}
 }

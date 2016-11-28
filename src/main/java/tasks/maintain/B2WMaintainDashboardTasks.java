@@ -126,11 +126,9 @@ public class B2WMaintainDashboardTasks extends B2WMaintainTasks {
 		while (iter.hasNext()){
 			WebElement workorder = iter.next();
 			List<WebElement> list = WebElementUtils.getChildElements(workorder, B2WMaintain.getB2WMaintainDashboardWorkOrderData());
-			System.out.println(list.size());
 			WebElement location = list.get(0);
 			String sLocation = location.getAttribute("title");
-			System.out.println(sLocation);
-			if (sLocation.startsWith(s)){
+			if (sLocation.contains(s)){
 				Coordinates coordinate = ((Locatable)workorder).getCoordinates(); 
 				coordinate.onPage(); 
 				coordinate.inViewPort();
