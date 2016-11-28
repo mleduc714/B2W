@@ -782,7 +782,10 @@ public class B2WUIMap {
 	public static final String b2w_schedule_contextmenu_deletebuttons = ".//button";
 	public static final String b2w_schedule_deleteemployeebtn = ".//span[contains(@class, 'k-i-close')][text() = 'delete']";
 	public static final String b2w_schedule_editlocationlink = ".//a[contains(text(), 'Edit Location')]";
-
+	public static final String b2w_schedule_placeholder = ".assignment-placeholder";
+	public static final String b2w_schedule_toolbarpanel = ".Toolbar__group--wide";
+	public static final String b2w_scheduled_expandicon = ".Icon.i116-double-angle-down";
+	public static final String b2w_scheduled_collapseicon = ".Icon.i119-double-angle-up";
 
 	// Maintain
 	public static final String b2w_maintainpagemenu = "ul#SubNavMenu_MaintainPageMenu.MaintainPageMenu";
@@ -853,8 +856,8 @@ public class B2WUIMap {
 	public static final String b2w_maintainworkordersduedate = "//span[@data-bind='text: detailsViewModel.displayDueDate']";
 	public static final String b2w_maintainworkorderstatus = "//td[@data-bind='text: detailsViewModel.displayStatus']";
 	public static final String b2w_maintainrequestsstatus =  "//span[@data-bind='text: detailsViewModel.displayStatus']";
-			
-	
+
+
 	public static final String b2w_scheduleanimationcontainer = ".k-animation-container";
 	public static final String b2w_schedulelinks = "span.k-link";
 	public static final String b2w_scheduleeventtypedropdown = ".//select[@kendo-b2w-drop-down-list = 'eventTypes']";
@@ -880,6 +883,7 @@ public class B2WUIMap {
 	public static final String b2w_maintainschedulerworkordersummary = "div.workOrderSummary";
 	public static final String b2w_maintainschedulerunscheduledworkorderslist= "div#unscheduled-work-orders-list.k-widget.k-listview";
 	public static final String b2w_maintainschedulerunscheduledpastduelist = "div#past-due-date-work-order-list.k-widget.k-listview";
+	public static final String b2w_maintainschedulerpastdueworkorderlist = "div#past-due-date-work-order-list.k-widget.k-listview";
 	public static final String b2w_maintainschedulerpastdueworkorder = "div.workOrder.scheduled.pastDue";
 	public static final String b2w_maintainschedulercontent = "div.k-scheduler-content";
 	public static final String b2w_maintainschedulerevents = "div.k-event.k-event-inverse";

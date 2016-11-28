@@ -422,7 +422,7 @@ public class B2WScheduleViewTest extends B2WTestCase{
 		timer.start();
 		schedulerTasks.waitForSchedulePageNoBusy();
 		timer.end();
-		linkTable.put("Z!\"#$%&'()*+-./:;<=>?@[\\]^_`{|}~“”‘’!\"#$%&'()*+-./:;<=>?@[\\]^_`{|}~“”‘’", timer.getTotalTime());
+		linkTable.put("Z!\"#$%&'()*+-./:;<=>?@[\\]^_`{|}~ï¿½ï¿½ï¿½ï¿½!\"#$%&'()*+-./:;<=>?@[\\]^_`{|}~ï¿½ï¿½ï¿½ï¿½", timer.getTotalTime());
 		
 		
         Set<String> keys = linkTable.keySet();
