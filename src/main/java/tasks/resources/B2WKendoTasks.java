@@ -411,6 +411,7 @@ public abstract class B2WKendoTasks {
 				WebElement body = driver.findElement(By.tagName("body"));
 				WebElementUtils.clickElement(body);
 				bReturn = WebElementUtils.sendKeys(body, sText);
+				BrowserUtils.getDriver().switchTo().defaultContent();
 				break;
 			}
 		}
