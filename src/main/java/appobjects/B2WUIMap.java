@@ -815,6 +815,8 @@ public class B2WUIMap {
 	public static final String b2w_schedule_toolbarpanel = ".Toolbar__group--wide";
 	public static final String b2w_scheduled_expandicon = ".Icon.i116-double-angle-down";
 	public static final String b2w_scheduled_collapseicon = ".Icon.i119-double-angle-up";
+	public static final String b2w_schedule_assignmentrightedge = ".Assignment__handle.Assignment__handle--right.active";
+	public static final String b2w_schedule_assignmentleftedge = ".Assignment__handle.Assignment__handle--left.active";
 
 	// Maintain
 	public static final String b2w_maintainpagemenu = "ul#SubNavMenu_MaintainPageMenu.MaintainPageMenu";

@@ -35,19 +35,19 @@ public class B2WSchedulerTasks extends B2WKendoTasks {
     public final String CREW_NEED_TYPE = "crew-need";
     public final String EMPLOYEE_EVENT_TYPE = "employee-event";
     public final String EQUIPMENT_EVENT_TYPE = "equipment-event";
-    public final String JOBSITE_EVENT_TYPE = "jobsite-event";
+    public final String LOCATION_EVENT_TYPE = "jobsite-event";
     public final String SUBSTITUTION_TYPE = "substitution";
     public final String SUBSTITUTED_TYPE = "substituted";
 
     private int daysSelectedCount = 0;
 
-    Logger log = Logger.getLogger(B2WSchedulerTasks.class);
+    private final Logger log = Logger.getLogger(B2WSchedulerTasks.class);
 
     // Property
-    public int getDaysSelectedCount() {
+    private int getDaysSelectedCount() {
         return daysSelectedCount;
     }
-    public void setDaysSelectedCount(int daysSelectedCount) {
+    private void setDaysSelectedCount(int daysSelectedCount) {
         this.daysSelectedCount = daysSelectedCount;
     }
 
@@ -67,7 +67,6 @@ public class B2WSchedulerTasks extends B2WKendoTasks {
                     WebElement panel = WebElementUtils.waitAndFindDisplayedElement(B2WScheduleAssignments.getScheduleViewNavigateMenu());
                     WebElementUtils.switchToFrame(B2WScheduleAssignments.getScheduleViewNavigateMenu(), 1);
 
-                    //List<WebElement> items = panel.findElements(By.cssSelector("li"));
                     List<WebElement> items = WebElementUtils.getChildElements(panel, By.cssSelector("li"));
                     WebElement item = WebElementUtils.getElementWithMatchingText(items, sViewName, true);
                     if (item != null) {
@@ -169,17 +168,19 @@ public class B2WSchedulerTasks extends B2WKendoTasks {
             bResult = false;
             TaskUtils.sleep(100);
             List<WebElement> list = WebElementUtils.findElements(B2WScheduleAssignments.getLinksContainer());
-            Iterator<WebElement> iterator = list.iterator();
-            while (iterator.hasNext() && !bResult) {
-                WebElement els = iterator.next();
+            if (list.size() > 0) {
+                Iterator<WebElement> iterator = list.iterator();
+                while (iterator.hasNext() && !bResult) {
+                    WebElement els = iterator.next();
 
-                if (els.isDisplayed()) {
-                    List<WebElement> items = els.findElements(B2WScheduleAssignments.getLinks());
-                    WebElement item = WebElementUtils.getElementWithMatchingText(items, sItem, false);
-                    if (item != null) {
-                        bResult = WebElementUtils.clickElement(item);
-                    } else {
-                        log.debug("Item with could not be found matching 'Employee'");
+                    if (els.isDisplayed()) {
+                        List<WebElement> items = els.findElements(B2WScheduleAssignments.getLinks());
+                        WebElement item = WebElementUtils.getElementWithMatchingText(items, sItem, false);
+                        if (item != null) {
+                            bResult = WebElementUtils.clickElement(item);
+                        } else {
+                            log.debug("Item with could not be found matching 'Employee'");
+                        }
                     }
                 }
             }
@@ -638,9 +639,7 @@ public class B2WSchedulerTasks extends B2WKendoTasks {
     public List<WebElement> getAssignmentsByLocationAndResourceName(String sResourceName, String sLocationName) {
         List<WebElement> lReturn = new ArrayList<WebElement>();
         List<WebElement> list = getAssignmentsByLocation(sLocationName);
-        Iterator<WebElement> iterator = list.iterator();
-        while (iterator.hasNext()) {
-            WebElement eTmp = iterator.next();
+        for (WebElement eTmp : list) {
             WebElement parent = WebElementUtils.getParentUntilTagName(eTmp, "td");
             WebElement eResourceName = WebElementUtils.getChildElement(parent, B2WScheduleAssignments.getResourceName());
             if (eResourceName.getAttribute("title").equals(sResourceName)) {
@@ -652,9 +651,7 @@ public class B2WSchedulerTasks extends B2WKendoTasks {
     public List<WebElement> getAssignmentsByLocationAndResourceName(String sResourceName, String sLocationName, String sType) {
         List<WebElement> lReturn = new ArrayList<WebElement>();
         List<WebElement> list = getAssignmentsByLocation(sLocationName);
-        Iterator<WebElement> iterator = list.iterator();
-        while (iterator.hasNext()) {
-            WebElement eTmp = iterator.next();
+        for (WebElement eTmp : list) {
             WebElement parent = WebElementUtils.getParentUntilTagName(eTmp, "td");
             WebElement eResourceName = WebElementUtils.getChildElement(parent, B2WScheduleAssignments.getResourceName());
             String type = WebElementUtils.getParentElement(eTmp).getAttribute("class");
@@ -675,6 +672,20 @@ public class B2WSchedulerTasks extends B2WKendoTasks {
             try {
                 WebElement parent = WebElementUtils.getParentElement(item);
                 return StringUtils.getDateFromStringWithPattern(parent.getAttribute("b2w-assignment-start"), "yyyy-M-d");
+            } catch (Exception ex) {
+                log.debug("Could not get Parent element for: " + item.toString());
+                return null;
+            }
+        } else {
+            log.debug("Item is NULL.");
+            return null;
+        }
+    }
+    public Date getAssignmentEndDate(WebElement item) {
+        if (item != null) {
+            try {
+                WebElement parent = WebElementUtils.getParentElement(item);
+                return StringUtils.getDateFromStringWithPattern(parent.getAttribute("b2w-assignment-end"), "yyyy-M-d");
             } catch (Exception ex) {
                 log.debug("Could not get Parent element for: " + item.toString());
                 return null;
@@ -747,7 +758,7 @@ public class B2WSchedulerTasks extends B2WKendoTasks {
         return getAssignment(sResourceName, sLocationName, sStartDate, sEndDate, sStartTime, EQUIPMENT_EVENT_TYPE);
     }
     public WebElement getJobSiteEvent(String sResourceName, String sLocationName, String sStartDate, String sEndDate, String sStartTime) {
-        return getAssignment(sResourceName, sLocationName, sStartDate, sEndDate, sStartTime, JOBSITE_EVENT_TYPE);
+        return getAssignment(sResourceName, sLocationName, sStartDate, sEndDate, sStartTime, LOCATION_EVENT_TYPE);
     }
 
     // Click Methods
@@ -943,6 +954,33 @@ public class B2WSchedulerTasks extends B2WKendoTasks {
         return bReturn;
     }
 
+    //Resize methods
+    public boolean resizeAssignmentRightToDate(WebElement eAssignment, Date date) {
+        boolean bReturn = false;
+        if (eAssignment != null) {
+            WebElement rightEdge = WebElementUtils.getChildElement(WebElementUtils.getParentElement(eAssignment), B2WScheduleAssignments.getAssignmentRightEdge());
+            if (rightEdge != null) {
+                bReturn = moveAssignmentToDate(rightEdge, date);
+            } else {
+                log.debug("Could not get right edge of assignment.");
+            }
+
+        }
+        return bReturn;
+    }
+    public boolean resizeAssignmentLeftToDate(WebElement eAssignment, Date date) {
+        boolean bReturn = false;
+        if (eAssignment != null) {
+            WebElement leftEdge = WebElementUtils.getChildElement(WebElementUtils.getParentElement(eAssignment), B2WScheduleAssignments.getAssignmentLeftEdge());
+            if (leftEdge != null) {
+                bReturn = moveAssignmentToDate(leftEdge, date);
+            } else {
+                log.debug("Could not get right edge of assignment.");
+            }
+
+        }
+        return bReturn;
+    }
     //-- Support Functions
     public DateRange getSelectedDates() {
         Date startDate = null;
@@ -975,20 +1013,19 @@ public class B2WSchedulerTasks extends B2WKendoTasks {
             }
         }
 
-        DateRange dateRange = new DateRange(startDate, endDate);
-        return dateRange;
+        return new DateRange(startDate, endDate);
     }
     public String correctDate(String sValue) {
         String sResult = "";
         if (sValue.contains("/")) {
             String[] stringList = sValue.split("/");
-            Integer iTmp = Integer.parseInt(stringList[1].toString());
+            Integer iTmp = Integer.parseInt(stringList[1]);
             iTmp++;
             stringList[1] = String.valueOf(iTmp);
             sResult = stringList[0] + "/" + stringList[1] + "/" + stringList[2];
         } else if (sValue.contains("-")) {
             String[] stringList = sValue.split("-");
-            Integer iTmp = Integer.parseInt(stringList[1].toString());
+            Integer iTmp = Integer.parseInt(stringList[1]);
             iTmp++;
             stringList[1] = String.valueOf(iTmp);
             sResult = stringList[0] + "-" + stringList[1] + "-" + stringList[2];
