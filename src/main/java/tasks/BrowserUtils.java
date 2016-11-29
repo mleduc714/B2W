@@ -82,7 +82,7 @@ public class BrowserUtils {
     		setFireFoxDriver();
     		break;
     	case EXPLORER:
-    		break;
+    		setExplorerDriver();
     	case SAFARI:
     		break;
     	case EDGE:
@@ -119,10 +119,12 @@ public class BrowserUtils {
 			driver = new ChromeDriver(options);
 	 }
 	 
-	 public static void setExplorerDriver() {
-		 driver = new InternetExplorerDriver();
-		 
-	 }
+	public static void setExplorerDriver() {
+		sDriverName = "IEDriverServer.exe";
+		file = new File(libDir + webdriverDir + sDriverName);
+		System.setProperty(ieDriverLocationProp, file.getAbsolutePath());
+		driver = new InternetExplorerDriver();
+	}
 	 public static boolean isFirefox(){
 		return browser.equals(Browser.FIREFOX);
 	 }

@@ -9,6 +9,7 @@ import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.StaleElementReferenceException;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.internal.Coordinates;
 import org.openqa.selenium.internal.Locatable;
@@ -298,5 +299,20 @@ public abstract class B2WKendoDialog {
 			}
 		}
 		return sText;
+	}
+	protected boolean setNotes(String sText){
+		boolean bReturn = false;
+		List<WebElement> iframes = BrowserUtils.getDriver().findElements(By.tagName("iframe"));
+		for (WebElement iframe : iframes) {
+			if (iframe.isDisplayed()==true){
+				// we want this one.
+				WebDriver driver = BrowserUtils.getDriver().switchTo().frame(iframe);
+				WebElement body = driver.findElement(By.tagName("body"));
+				WebElementUtils.clickElement(body);
+				bReturn = WebElementUtils.sendKeys(body, sText);
+				break;
+			}
+		}
+		return bReturn;
 	}
 }
