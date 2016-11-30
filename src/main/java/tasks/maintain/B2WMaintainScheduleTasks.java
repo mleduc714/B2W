@@ -213,7 +213,6 @@ public class B2WMaintainScheduleTasks extends B2WKendoTasks {
 			switch (desc) {
 			case DESCRIPTION:
 				sDescAndWorkNumber = summary.getText().substring(0, summary.getText().indexOf("\n"));
-				System.out.println(sDescAndWorkNumber);
 				break;
 			case EQUIPMENT:
 				int iStart = summary.getText().indexOf("\n");
