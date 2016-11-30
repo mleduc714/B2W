@@ -28,7 +28,7 @@ public class B2WAddMaintenanceReqToWorkOrder extends B2WKendoDialog {
 	public boolean selectCreateNewWorkOrderRadioButton() {
 		boolean bReturn = false;
 		List<WebElement> list = WebElementUtils.getChildElements(getDialog(), By.tagName("input"));
-		List<WebElement> radiobuttons = WebElementUtils.getElementsWithWithMatchingAttribute(list, "type", "radio");
+		List<WebElement> radiobuttons = WebElementUtils.getElementsWithMatchingAttribute(list, "type", "radio");
 		bReturn = WebElementUtils.clickElement(radiobuttons.get(0));
 		return bReturn;
 
@@ -37,7 +37,7 @@ public class B2WAddMaintenanceReqToWorkOrder extends B2WKendoDialog {
 	public boolean selectAddToExistingWorkOrderRadioButton() {
 		boolean bReturn = false;
 		List<WebElement> list = WebElementUtils.getChildElements(getDialog(), By.tagName("input"));
-		List<WebElement> radiobuttons = WebElementUtils.getElementsWithWithMatchingAttribute(list, "type", "radio");
+		List<WebElement> radiobuttons = WebElementUtils.getElementsWithMatchingAttribute(list, "type", "radio");
 		bReturn = WebElementUtils.clickElement(radiobuttons.get(1));
 		return bReturn;
 

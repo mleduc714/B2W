@@ -1,9 +1,15 @@
 package tasks.maintain;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
+import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.interactions.internal.Coordinates;
@@ -16,7 +22,10 @@ import tasks.WebElementUtils;
 import tasks.resources.B2WKendoTasks;
 
 public class B2WMaintainScheduleTasks extends B2WKendoTasks {
-
+	
+	Logger log = Logger.getLogger(B2WMaintainScheduleTasks.class);
+	SimpleDateFormat sd = new SimpleDateFormat("EEE, M/d");
+	SimpleDateFormat md = new SimpleDateFormat("M/d");
 	public enum CLICK {
 		DOUBLE, SINGLE, CONTEXT
 	};
@@ -52,7 +61,11 @@ public class B2WMaintainScheduleTasks extends B2WKendoTasks {
 	}
 
 	public boolean clickToday() {
-		return WebElementUtils.clickElement(B2WMaintain.getB2WMaintainScheduleTodayButton());
+		boolean bReturn = false;
+		if (WebElementUtils.clickElement(B2WMaintain.getB2WMaintainScheduleTodayButton())){
+			bReturn = waitForPageNotBusy(WebElementUtils.MEDIUM_TIME_OUT);
+		}
+		return bReturn;
 	}
 
 	public boolean clickBackwardArrow() {
@@ -60,14 +73,41 @@ public class B2WMaintainScheduleTasks extends B2WKendoTasks {
 	}
 
 	public boolean clickForwardArrow() {
-		return WebElementUtils.clickElement(B2WMaintain.getB2WMaintainSchedulerArrowEast());
+		boolean bReturn = false;
+		if (WebElementUtils.clickElement(B2WMaintain.getB2WMaintainSchedulerArrowEast())){
+			bReturn = waitForPageNotBusy(WebElementUtils.MEDIUM_TIME_OUT);
+		}
+		return bReturn;
 	}
 
 	public String getCurrentScheduleView() {
 		String sView = "";
 		WebElement el = WebElementUtils.findElement(B2WMaintain.getB2WMaintainScheduleCurrentView());
-		sView = el.getAttribute("data-name");
+		if (el != null){
+			sView = el.getAttribute("data-name");
+		}
 		return sView;
+	}
+	
+	public int getNumberOfDaysInView() {
+		int i = 0;
+		String sView = getCurrentScheduleView();
+		
+		if (sView.equals("Day")){
+			i = 1;
+		}
+		if (sView.equals("3Days")){
+			i = 3;
+		}
+		if (sView.equals("Week")){
+			i = 7;
+		}
+		if (sView.equals("2Weeks")){
+			i = 14;
+		}
+		return i;
+		
+		
 	}
 
 	public boolean clickEquipmentView() {
@@ -141,12 +181,11 @@ public class B2WMaintainScheduleTasks extends B2WKendoTasks {
 		return workOrder(s,CLICK.SINGLE,BY.DESCRIPTION,WHERE.PASTTAB,null);
 	}
 
-	private boolean workOrder(String sText, CLICK click, BY desc, WHERE where, String sMenu) {
-		boolean bReturn = false;
+	private WebElement getWorkOrder(String sText, BY desc, WHERE where){
+		WebElement el = null;
 		WebElement workorderlist = null;
 		List<WebElement> events = null;
 		String sDescAndWorkNumber = null;
-		WebElement contextMenu = null;
 
 		switch (where) {
 
@@ -168,12 +207,13 @@ public class B2WMaintainScheduleTasks extends B2WKendoTasks {
 
 		Iterator<WebElement> iter = events.iterator();
 		while (iter.hasNext()) {
-			WebElement el = iter.next();
+			el = iter.next();
 			WebElement summary = WebElementUtils.getChildElement(el,
 					B2WMaintain.getB2WMaintainschedulerworkordersummary());
 			switch (desc) {
 			case DESCRIPTION:
 				sDescAndWorkNumber = summary.getText().substring(0, summary.getText().indexOf("\n"));
+				System.out.println(sDescAndWorkNumber);
 				break;
 			case EQUIPMENT:
 				int iStart = summary.getText().indexOf("\n");
@@ -184,65 +224,71 @@ public class B2WMaintainScheduleTasks extends B2WKendoTasks {
 				Coordinates coordinate = ((Locatable) el).getCoordinates();
 				coordinate.onPage();
 				coordinate.inViewPort();
-				Actions actions = new Actions(BrowserUtils.getDriver());
-				switch (click) {
-				case SINGLE:
-					actions.click(el);
-					break;
-				case DOUBLE:
-					actions.doubleClick(el);
-					break;
-				case CONTEXT:
-					actions.contextClick(el);
-					break;
-				}
-				actions.perform();
-				switch (click) {
-				case SINGLE:
-					bReturn = WebElementUtils
-							.waitAndFindDisplayedElement(B2WMaintain.getB2WMaintainSchedulerToolTip()) != null;
-					break;
-				case DOUBLE:
-					switch (where) {
-					case PASTTAB:
-					case SCHEDULE:
-						bReturn = WebElementUtils.waitAndFindDisplayedElement(
-								B2WMaintain.getB2WMaintainSchedulerEditSchedulePopupWindow()) != null;
-						break;
-					case WORKTAB:
-
-						bReturn = WebElementUtils.waitAndFindDisplayedElement(
-								B2WMaintain.getB2WMaintainSchedulerScheduleMaintenancePopupWindow()) != null;
-						break;
-					}
-					break;
-				case CONTEXT:
-					switch (where) {
-					case PASTTAB:
-					case SCHEDULE:
-
-						contextMenu = WebElementUtils
-								.waitAndFindDisplayedElement(B2WMaintain.getB2WMaintainSchedulerScheduledContextMenu());
-
-						break;
-					case WORKTAB:
-
-						contextMenu = WebElementUtils.waitAndFindDisplayedElement(
-								B2WMaintain.getB2WMaintainSchedulerUnscheduledContextMenu());
-						break;
-					}
-					List<WebElement> items = contextMenu.findElements(B2WScheduleAssignments.getLinks());
-					WebElement item = WebElementUtils.getElementWithMatchingText(items, sMenu, false);
-
-					bReturn = WebElementUtils.clickElement(item);
-					break;
-				}
 				break;
 			}
-			
+		}
+			return el;
+	}
+	
+	private boolean workOrder(String sText, CLICK click, BY desc, WHERE where, String sMenu) {
+		boolean bReturn = false;
+		WebElement contextMenu = null;
+		WebElement el = getWorkOrder(sText, desc, where);
+		Actions actions = new Actions(BrowserUtils.getDriver());
+		switch (click) {
+		case SINGLE:
+			actions.click(el);
+			break;
+		case DOUBLE:
+			actions.doubleClick(el);
+			break;
+		case CONTEXT:
+			actions.contextClick(el);
+			break;
+		}
+		actions.perform();
+		switch (click) {
+		case SINGLE:
+			bReturn = WebElementUtils.waitAndFindDisplayedElement(B2WMaintain.getB2WMaintainSchedulerToolTip()) != null;
+			break;
+		case DOUBLE:
+			switch (where) {
+			case PASTTAB:
+			case SCHEDULE:
+				bReturn = WebElementUtils.waitAndFindDisplayedElement(
+						B2WMaintain.getB2WMaintainSchedulerEditSchedulePopupWindow()) != null;
+				break;
+			case WORKTAB:
+
+				bReturn = WebElementUtils.waitAndFindDisplayedElement(
+						B2WMaintain.getB2WMaintainSchedulerScheduleMaintenancePopupWindow()) != null;
+				break;
+			}
+			break;
+		case CONTEXT:
+			switch (where) {
+			case PASTTAB:
+			case SCHEDULE:
+
+				contextMenu = WebElementUtils
+						.waitAndFindDisplayedElement(B2WMaintain.getB2WMaintainSchedulerScheduledContextMenu());
+
+				break;
+			case WORKTAB:
+
+				contextMenu = WebElementUtils
+						.waitAndFindDisplayedElement(B2WMaintain.getB2WMaintainSchedulerUnscheduledContextMenu());
+				break;
+			}
+			List<WebElement> items = contextMenu.findElements(B2WScheduleAssignments.getLinks());
+			WebElement item = WebElementUtils.getElementWithMatchingText(items, sMenu, false);
+
+			bReturn = WebElementUtils.clickElement(item);
+			break;
 		}
 
 		return bReturn;
+
 	}
 
 
@@ -311,5 +357,104 @@ public class B2WMaintainScheduleTasks extends B2WKendoTasks {
 		}
 		return bReturn;
 	}
+	
+	public ArrayList<Date> getDates() {
+		
+		ArrayList<Date> al = new ArrayList<Date>();
+		try {
+		WebElement header = WebElementUtils.findElement(B2WMaintain.getB2WMaintainScheduleHeader());
+		List<WebElement> strongs = WebElementUtils.getChildElements(header, By.tagName("strong"));
+		for (WebElement el: strongs){
+			String sDate = el.getText();
+			SimpleDateFormat sd = new SimpleDateFormat("EEE, M/d");
+			Date date = parseDate(sDate, sd);
+			al.add(date);
+		}
+		}catch (StaleElementReferenceException e){
+			return getDates();
+		}
+		return al;
+	}
+	
+	
+	
+	public void goToDate(String sDate){
+		clickToday();
+		Date date = parseDate(sDate, md);
+		ArrayList<Date> al = getDates();
+		if (!al.contains(date)){
+			clickForwardArrow();
+			al = getDates();
+		}
+	}
+	
+	public ArrayList<String> getMechanicsFromSchedule() {
+		ArrayList<String> al = new ArrayList<String>();
+		List<WebElement> mechanics = WebElementUtils.findElements(By.cssSelector("span.caption"));
+		for (WebElement el: mechanics){
+			al.add(WebElementUtils.getParentElement(el).getAttribute("title"));
+		}
+		return al;
+	}
+	
+	public void goToMechanicInView(String s) {
+		List<WebElement> mechanics = WebElementUtils.findElements(By.cssSelector("span.caption"));
+		ArrayList<String> al = getMechanicsFromSchedule();
+		int i = al.indexOf(s);
+		if (i + 1 != al.size()){
+			i++;
+		}
+		Coordinates coordinate = ((Locatable) mechanics.get(i)).getCoordinates();
+		coordinate.onPage();
+		coordinate.inViewPort();
+		
+	}
+	
+	public WebElement getMechanicDay(String sMechanic, Date date) {
+		List<WebElement> list = WebElementUtils.findElements(B2WMaintain.getB2WMaintainSchedulerContent());
+		WebElement el = WebElementUtils.getElementWithMatchingAttribute(list, "data-role", "droptargetarea");
+		List<WebElement> rows = WebElementUtils.getChildElements(el, By.tagName("tr"));
+		int iMechanicNumber = getMechanicsFromSchedule().indexOf(sMechanic);
+		WebElement mechanicRow = rows.get(iMechanicNumber);
+		List<WebElement> datecolumns = WebElementUtils.getChildElements(mechanicRow, By.tagName("td"));
+		ArrayList<Date> dates = getDates();
+		int iRow = dates.indexOf(date);
+		return datecolumns.get(iRow);
+	}
+	
+	private Date parseDate(String s, SimpleDateFormat sd){
+		Date date = null;
+		try {
+			date = sd.parse(s);
+		} catch (ParseException e) {
+			log.warn("Issue parsing the date "+s);
+		}
+		return date;
+	}
+	
+	public boolean dragDropWorkOrderToMechanic(String sMechanic, String sDate, String sWorkOrder){
+		boolean bReturn = false;
+		
+		if (clickToday()) {
+			// go to the date in schedule view
+			goToDate(sDate);
+			// scroll down to get the mechanic in the view
+			goToMechanicInView(sMechanic);
+			Date date = parseDate(sDate, md);
+			// this will get the target to drag to
+			WebElement column = getMechanicDay(sMechanic, date);
+			clickWorkOrdersTab();
+			// grab the work order
+			WebElement workorder = getWorkOrder(sWorkOrder, BY.DESCRIPTION, WHERE.WORKTAB);
+			Actions action = new Actions(BrowserUtils.getDriver());
+			action.dragAndDrop(workorder, column);
+			action.perform();
+			bReturn = WebElementUtils
+				.waitAndFindDisplayedElement(B2WMaintain.getB2WMaintainSchedulerScheduleMaintenancePopupWindow()) != null;
+		}
+		return bReturn;
+		
 
+	}
+	
 }

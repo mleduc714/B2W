@@ -897,6 +897,13 @@ public class B2WUIMap {
 	public static final String b2w_maintainworkordercomplete = "div.complete-workorder-meters.grid.k-grid.k-widget";
 	public static final String b2w_maintainworkordercompletedialog = "div.wizard-dialog.complete-workorder-popup-view.k-window-content.k-content";
 	public static final String b2w_maintainschedulecurrentview = "li.k-current-view";
+	public static final String b2w_maintainscheduletable = ".k-scheduler-table";
+	public static final String b2w_maintainscheduletimes = ".k-scheduler-times";
+	public static final String b2w_maintainscheduleheader = ".k-scheduler-header-wrap";
+	public static final String b2w_maintainscheduleworkorder = "div#workOrdersScheduler";
+	
+	
+	
 	
 	// links
 	public static final String b2w_maintainscheduletodaylink = "Today";
@@ -904,6 +911,8 @@ public class B2WUIMap {
 	public static final String b2w_maintainscheduleThreeDayslink = "3 Days";
 	public static final String b2w_maintainscheduleweeklink = "Week";
 	public static final String b2w_maintainscheduletwoweekslink = "2 Weeks";
+	public static final String b2w_maintainscheduleviewlinks = ".k-scheduler-views";
+
 
 	// time cards
 	public static final String b2w_maintaintimecardbuttons = "div.item-actions.add-timecard-btn";
@@ -987,7 +996,7 @@ public class B2WUIMap {
 	//Schedule Setup
 	public static final String b2w_schedulesetupnewschedulebutton = " ";
 
-	//maintain schedule
+	//maintain dashboard
 	public static final String b2w_maintaindashboarduserinfo = "div#userInfo";
 	public static final String b2w_maintaindashboarddate = "div.date";
 	public static final String b2w_maintaindashboardupdated = "div.updated";

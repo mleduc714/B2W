@@ -52,7 +52,7 @@ public class B2WEquipmentTasks extends B2WKendoTasks {
 		boolean bReturn = false;
 
 		List<WebElement> els = WebElementUtils.findElements(KendoUI.getKendoDescription());
-		WebElement el = WebElementUtils.getElementWithWithMatchingAttribute(els, "name", "Description");
+		WebElement el = WebElementUtils.getElementWithMatchingAttribute(els, "name", "Description");
 		
 		if (el != null && WebElementUtils.waitForElementIsDisplayed(el, WebElementUtils.MEDIUM_TIME_OUT)) {
 			bReturn = WebElementUtils.sendKeys(el, sText);
@@ -67,7 +67,7 @@ public class B2WEquipmentTasks extends B2WKendoTasks {
 		boolean bReturn = false;
 
 		List<WebElement> els = WebElementUtils.findElements(B2WEquipment.getKendoDescription());
-		WebElement el = WebElementUtils.getElementWithWithMatchingAttribute(els, "name", "EquipmentID");
+		WebElement el = WebElementUtils.getElementWithMatchingAttribute(els, "name", "EquipmentID");
 		
 		if (el != null && WebElementUtils.waitForElementIsDisplayed(el, WebElementUtils.MEDIUM_TIME_OUT)) {
 			bReturn = WebElementUtils.sendKeys(el, sText);

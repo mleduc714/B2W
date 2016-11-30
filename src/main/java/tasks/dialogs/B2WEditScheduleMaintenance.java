@@ -122,7 +122,7 @@ public class B2WEditScheduleMaintenance extends B2WKendoDialog {
 	public boolean saveScheduleMaintenance() {
 		boolean bReturn = false;
 		
-		WebElement el = WebElementUtils.waitAndFindDisplayedElement(B2WMaintain.getB2WMaintainSchedulerScheduleMaintenancePopupWindow());
+		WebElement el = WebElementUtils.waitAndFindDisplayedElement(B2WMaintain.getB2WMaintainSchedulerEditSchedulePopupWindow());
 		if (el != null){
 			WebElement button = WebElementUtils.getChildElement(el, B2WMaintain.getKendoLargeSaveButton());
 			bReturn = WebElementUtils.clickElement(button);
@@ -139,7 +139,7 @@ public class B2WEditScheduleMaintenance extends B2WKendoDialog {
 	
 	public String getWorkOrder() {
 		String sWorkOrder = "";
-		WebElement el = WebElementUtils.waitAndFindDisplayedElement(B2WMaintain.getB2WMaintainSchedulerScheduleMaintenancePopupWindowWorkOrder());
+		WebElement el = WebElementUtils.waitAndFindDisplayedElement(B2WMaintain.getB2WMaintainSchedulerEditSchedulePopupWindow());
 		if (el != null){
 			sWorkOrder = el.getText();
 		}

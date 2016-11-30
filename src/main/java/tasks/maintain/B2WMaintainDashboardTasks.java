@@ -77,6 +77,7 @@ public class B2WMaintainDashboardTasks extends B2WMaintainTasks {
 
 		WebElement el = WebElementUtils.findElement(B2WMaintain.getB2WMaintainDashboardPastDue());
 		String number = WebElementUtils.getChildElement(el, B2WMaintain.getB2WMaintainDashboardNumber()).getText();
+		System.out.println(number);
 		return new Integer(number).intValue();
 	}
 	

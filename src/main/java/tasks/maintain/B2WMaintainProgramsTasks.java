@@ -37,7 +37,7 @@ public class B2WMaintainProgramsTasks extends B2WMaintainTasks {
 		boolean bReturn = false;
 
 		List<WebElement> els = WebElementUtils.findElements(KendoUI.getKendoDescription());
-		WebElement el = WebElementUtils.getElementWithWithMatchingAttribute(els, "name", "Description");
+		WebElement el = WebElementUtils.getElementWithMatchingAttribute(els, "name", "Description");
 
 		if (el != null && WebElementUtils.waitForElementIsDisplayed(el, WebElementUtils.MEDIUM_TIME_OUT)) {
 			bReturn = WebElementUtils.sendKeys(el, sText);

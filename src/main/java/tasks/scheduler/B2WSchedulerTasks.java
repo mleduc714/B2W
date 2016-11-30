@@ -634,7 +634,7 @@ public class B2WSchedulerTasks extends B2WKendoTasks {
         return WebElementUtils.findElements(B2WScheduleAssignments.getAssignment());
     }
     public List<WebElement> getAssignmentsByLocation(String sLocationName) {
-        return WebElementUtils.getElementsWithWithMatchingAttribute(getAllAssignments(), "title", sLocationName);
+        return WebElementUtils.getElementsWithMatchingAttribute(getAllAssignments(), "title", sLocationName);
     }
     public List<WebElement> getAssignmentsByLocationAndResourceName(String sResourceName, String sLocationName) {
         List<WebElement> lReturn = new ArrayList<WebElement>();

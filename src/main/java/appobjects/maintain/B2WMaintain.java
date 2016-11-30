@@ -169,6 +169,10 @@ public class B2WMaintain extends KendoUI {
 	public static By getB2WMaintainScheduleTwoWeekView() {
 		return By.linkText(B2WUIMap.b2w_maintainscheduletwoweekslink);
 	}
+	
+	public static By getB2WMaintainScheduleLinkViews() {
+		return By.cssSelector(B2WUIMap.b2w_maintainscheduleviewlinks);
+	}
 
 	public static By getB2WMaintainschedulernewworkorderbutton() {
 		return By.cssSelector(B2WUIMap.b2w_maintainschedulernewworkorderbutton);
@@ -405,4 +409,17 @@ public class B2WMaintain extends KendoUI {
     public static By getB2WMaintainDashboardWorkOrdersChartsLeft() {
     	return By.cssSelector(B2WUIMap.b2w_maintainworkorderscharts);
     }
+    public static By getB2WMaintainScheduleTable() {
+    	return By.cssSelector(B2WUIMap.b2w_maintainscheduletable);
+    }
+    public static By getB2WMaintainScheduleTimes() {
+    	return By.cssSelector(B2WUIMap.b2w_maintainscheduletimes);
+    }
+    public static By getB2WMaintainScheduleHeader() {
+    	return By.cssSelector(B2WUIMap.b2w_maintainscheduleheader);
+    }
+    public static By getB2WWorkOrderScheduler() {
+    	return By.cssSelector(B2WUIMap.b2w_maintainscheduleworkorder);
+    }
+    
 }
