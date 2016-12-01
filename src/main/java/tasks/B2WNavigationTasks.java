@@ -27,7 +27,7 @@ public class B2WNavigationTasks implements Navigation {
 	
 	
 	public B2WNavigationTasks() {
-		//driver = BrowserUtils.getDriver();
+		
 	}
 	
 	public boolean clickHome() {

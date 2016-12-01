@@ -77,7 +77,7 @@ public class B2WTestCase extends BaseTestCase {
 
 	public boolean isSupported() {
 		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 
 	public String getEnvProperty(String name) {
