@@ -88,27 +88,6 @@ public class B2WMaintainScheduleTasks extends B2WKendoTasks {
 		}
 		return sView;
 	}
-	
-	private int getNumberOfDaysInView() {
-		int i = 0;
-		String sView = getCurrentScheduleView();
-		
-		if (sView.equals("Day")){
-			i = 1;
-		}
-		if (sView.equals("3Days")){
-			i = 3;
-		}
-		if (sView.equals("Week")){
-			i = 7;
-		}
-		if (sView.equals("2Weeks")){
-			i = 14;
-		}
-		return i;
-		
-		
-	}
 
 	public boolean clickEquipmentView() {
 		boolean bReturn = false;
@@ -213,7 +192,6 @@ public class B2WMaintainScheduleTasks extends B2WKendoTasks {
 			switch (desc) {
 			case DESCRIPTION:
 				sDescAndWorkNumber = summary.getText().substring(0, summary.getText().indexOf("\n"));
-
 				break;
 			case EQUIPMENT:
 				int iStart = summary.getText().indexOf("\n");
