@@ -204,8 +204,11 @@ public class B2WSchedulesTasks extends B2WKendoTasks {
         if (eAddFilterDD != null) {
             bReturn = clickAndSelectValueFromKendoFDD(eAddFilterDD, sType);
             WebElement item = WebElementUtils.getElementWithMatchingChildElementText(B2WSchedules.addFilterDropDown(), B2WSchedules.filterItemLabel(), sType);
-            WebElement parent = WebElementUtils.getParentElement(item);
-            bReturn &= clickAndSelectValueFromKendoFDD(parent, sValue);
+            if (item != null){
+
+                WebElement parent = WebElementUtils.getParentElement(item);
+                bReturn &= clickAndSelectValueFromKendoFDD(parent, sValue);	
+            }
         } else {
             log.debug("'Add a filter' dropdown could not be found on the page.");
         }
@@ -290,7 +293,7 @@ public class B2WSchedulesTasks extends B2WKendoTasks {
             waitForSchedulesPageNoBusy();
             bReturn &= findScheduleView(sValue) != null;
         } catch (Exception e) {
-            log.debug("Exception during executing: " + e.toString() );
+            log.debug("Exception during executing: " + e.toString());
         }
         return bReturn;
     }
