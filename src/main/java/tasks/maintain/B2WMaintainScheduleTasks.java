@@ -89,7 +89,7 @@ public class B2WMaintainScheduleTasks extends B2WKendoTasks {
 		return sView;
 	}
 	
-	public int getNumberOfDaysInView() {
+	private int getNumberOfDaysInView() {
 		int i = 0;
 		String sView = getCurrentScheduleView();
 		
@@ -213,7 +213,7 @@ public class B2WMaintainScheduleTasks extends B2WKendoTasks {
 			switch (desc) {
 			case DESCRIPTION:
 				sDescAndWorkNumber = summary.getText().substring(0, summary.getText().indexOf("\n"));
-				System.out.println(sDescAndWorkNumber);
+
 				break;
 			case EQUIPMENT:
 				int iStart = summary.getText().indexOf("\n");
@@ -335,6 +335,27 @@ public class B2WMaintainScheduleTasks extends B2WKendoTasks {
 		return bReturn;
 	}
 
+	public ArrayList<String> getWorkOrdersFromTab() {
+		
+		ArrayList<String> al = new ArrayList<String>();
+		WebElement el = null;
+		WebElement workorderlist = WebElementUtils
+				.findElement(B2WMaintain.getB2WMaintainschedulerunscheduledworkorderslist());
+		List<WebElement> events = WebElementUtils.getChildElements(workorderlist,
+				B2WMaintain.getB2WMaintainschedulerworkorderunscheduled());
+		Iterator<WebElement> iter = events.iterator();
+		while (iter.hasNext()) {
+			el = iter.next();
+			WebElement summary = WebElementUtils.getChildElement(el,
+					B2WMaintain.getB2WMaintainschedulerworkordersummary());
+			String sDescAndWorkNumber = summary.getText().substring(0, summary.getText().indexOf("\n"));
+			al.add(sDescAndWorkNumber);
+		}
+		return al;
+		
+	}
+	
+	
 	public boolean openWorkOrderFromPastDueTabByNumber(int i) {
 		boolean bReturn = false;
 		WebElement workorderlist = WebElementUtils
@@ -350,6 +371,7 @@ public class B2WMaintainScheduleTasks extends B2WKendoTasks {
 				Actions actions = new Actions(BrowserUtils.getDriver());
 				actions.doubleClick(item);
 				actions.perform();
+				waitForPageNotBusy(WebElementUtils.MEDIUM_TIME_OUT);
 				bReturn = WebElementUtils.waitAndFindDisplayedElement(
 						B2WMaintain.getB2WMaintainSchedulerEditSchedulePopupWindow()) != null;
 
@@ -397,6 +419,7 @@ public class B2WMaintainScheduleTasks extends B2WKendoTasks {
 		return al;
 	}
 	
+	
 	public void goToMechanicInView(String s) {
 		List<WebElement> mechanics = WebElementUtils.findElements(By.cssSelector("span.caption"));
 		ArrayList<String> al = getMechanicsFromSchedule();
@@ -410,7 +433,7 @@ public class B2WMaintainScheduleTasks extends B2WKendoTasks {
 		
 	}
 	
-	public WebElement getMechanicDay(String sMechanic, Date date) {
+	private WebElement getMechanicDay(String sMechanic, Date date) {
 		List<WebElement> list = WebElementUtils.findElements(B2WMaintain.getB2WMaintainSchedulerContent());
 		WebElement el = WebElementUtils.getElementWithMatchingAttribute(list, "data-role", "droptargetarea");
 		List<WebElement> rows = WebElementUtils.getChildElements(el, By.tagName("tr"));
