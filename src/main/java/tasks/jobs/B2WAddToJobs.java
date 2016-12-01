@@ -1,5 +1,8 @@
 package tasks.jobs;
 
+import java.util.Iterator;
+import java.util.List;
+
 import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -98,14 +101,28 @@ public class B2WAddToJobs {
 		boolean bReturn = false;
 		WebElement parent = WebElementUtils.waitAndFindDisplayedElement(bydialog);
 		WebElement grid = WebElementUtils.waitAndFindDisplayedElement(gridview);
-		WebElement checkbox = WebElementUtils.findElement(gridcheckbox);
+		List<WebElement> checkbox = WebElementUtils.findElements(gridcheckbox);
+
 		if (checkbox == null) {
 			log.debug("Did not find any items in the search");
 
 		} else {
+
 			WebElement el = WebElementUtils.getChildElement(parent, selectbutton);
 			if (WebElementUtils.clickElement(el)) {
 				bReturn = WebElementUtils.waitForElementStale(grid, WebElementUtils.SHORT_TIME_OUT);
+			}
+
+			checkbox = WebElementUtils.findElements(gridcheckbox);
+			Iterator<WebElement> iter = checkbox.iterator();
+			while (iter.hasNext()){
+				while (iter.hasNext()){
+					WebElement chkbox = iter.next();
+					if (chkbox.isSelected()){
+						log.debug("checkbox is selected");
+						break;
+					}
+				}
 			}
 		}
 		return bReturn;
@@ -129,44 +146,5 @@ public class B2WAddToJobs {
 		WebElementUtils.clickElement(el);
 	}
 	
-//	private WebElement findTheDisplayedElement(List<WebElement> list) {
-//		WebElement el = null;
-//		Iterator<WebElement> iter = list.iterator();
-//		while (iter.hasNext()) {
-//			el = iter.next();
-//			if (el.isEnabled()) {
-//				break;
-//			}
-//		}
-//		return el;
-//	}
-	
-	
-	
-	
-		
-//	public boolean isAnItemChecked() {
-//	
-//		boolean bReturn = false;
-//		try {
-//		List<WebElement> ls = WebElementUtils.waitAndFindDisplayedElements(gridcheckbox);
-//		Iterator<WebElement> iter = ls.iterator();
-//		while (iter.hasNext()){
-//			
-//			WebElement el = iter.next();
-//			WebElementUtils.getAllInfo(el);
-//			String sChecked = el.getAttribute("checked");
-//			if (sChecked!=null){
-//				bReturn = true;
-//				break;
-//			}
-//		}
-//		} catch(StaleElementReferenceException e){
-//			log.warn("Caught a stale element exception");
-//			return isAnItemChecked();
-//		}
-//		return bReturn;
-//	}
 
-	
 }

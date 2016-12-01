@@ -6,8 +6,10 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.StaleElementReferenceException;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.internal.Coordinates;
 import org.openqa.selenium.internal.Locatable;
@@ -102,6 +104,7 @@ public abstract class B2WKendoTasks {
 		}else{
 			log.info("Page is done loading. waited: "+iSeconds + " Seconds");
 		}
+		waitForAjax();
 		return bReturn;
 		
 	}
@@ -286,7 +289,7 @@ public abstract class B2WKendoTasks {
 	protected boolean selectItemFromView(int i){
 		boolean bReturn = false;
 
-		WebElement grid = WebElementUtils.findElement(B2WEquipment.getKendoGridContent());
+		WebElement grid = WebElementUtils.waitAndFindDisplayedElement(B2WEquipment.getKendoGridContent());
 		List<WebElement> items = WebElementUtils.getChildElements(grid, By.tagName("tr"));
 		if (i < items.size()){
 			WebElement item = items.get(i);
@@ -294,6 +297,7 @@ public abstract class B2WKendoTasks {
 			coordinate.onPage();
 			coordinate.inViewPort();
 			bReturn = WebElementUtils.clickElement(item);
+			waitForPageNotBusy(WebElementUtils.MEDIUM_TIME_OUT);
 		}
 		return bReturn;
 	
@@ -306,6 +310,7 @@ public abstract class B2WKendoTasks {
 		if (el != null){
 			bReturn =WebElementUtils.clickElement(el);
 			bReturn &= WebElementUtils.waitForElementInvisible(el);
+			waitForPageNotBusy(WebElementUtils.MEDIUM_TIME_OUT);
 		}
 		return bReturn;
 	}
@@ -345,17 +350,21 @@ public abstract class B2WKendoTasks {
 		List<WebElement> nvps = WebElementUtils.getChildElements(el, B2WEquipment.getKendoNameValuePair());
 		Iterator<WebElement> iter = nvps.iterator();
 		while (iter.hasNext()) {
+			try {
 			WebElement nvp = iter.next();
 			WebElement label = nvp.findElement(By.cssSelector(".label"));
 			if (label.getText().equals(sItem)) {
 				sItem = nvp.findElement(By.cssSelector(".data")).getText();
+				break;
+			}
+			}catch (NoSuchElementException e){
 			}
 		}
 		return sItem;
 
 	}
 	
-	public String getSelectedItemFromView(int iColumn) {
+	protected String getSelectedItemFromView(int iColumn) {
 		String sText = "";
 		WebElement grid = WebElementUtils.findElement(B2WEquipment.getKendoGridContent());
 		WebElement selected = WebElementUtils.getChildElement(grid, B2WMaintain.getKendoSelected());
@@ -364,4 +373,48 @@ public abstract class B2WKendoTasks {
 		return sText;
 	}
 	
+	private void waitForAjax() {
+		while (true) {
+			Boolean ajaxIsComplete = (Boolean) ((JavascriptExecutor) BrowserUtils.getDriver()).executeScript("return jQuery.active == 0");
+			if (ajaxIsComplete) {
+				break;
+			}
+			TaskUtils.sleep(500);
+		}
+	}
+	protected String getDueDate(){
+		String sText = "";
+		WebElement el = WebElementUtils.findElement(B2WMaintain.getB2WMaintainWorkOrderShortDate());
+		if (el != null){
+			sText = el.getText();
+		}
+		return sText;
+		
+	}
+	protected String getStatus(){
+		String sText = "";
+		WebElement el = WebElementUtils.findElement(B2WMaintain.getB2WMaintainWorkOrderStatus());
+		if (el != null){
+			sText = el.getText();
+		}
+		return sText;
+		
+	}
+	
+	protected boolean setNotes(String sText){
+		boolean bReturn = false;
+		List<WebElement> iframes = BrowserUtils.getDriver().findElements(By.tagName("iframe"));
+		for (WebElement iframe : iframes) {
+			if (iframe.isDisplayed()==true){
+				// we want this one.
+				WebDriver driver = BrowserUtils.getDriver().switchTo().frame(iframe);
+				WebElement body = driver.findElement(By.tagName("body"));
+				WebElementUtils.clickElement(body);
+				bReturn = WebElementUtils.sendKeys(body, sText);
+				BrowserUtils.getDriver().switchTo().defaultContent();
+				break;
+			}
+		}
+		return bReturn;
+	}
 }

@@ -120,5 +120,10 @@ public abstract class KendoUI {
 	public static By getKendoSelected() {
 		return By.cssSelector(B2WUIMap.b2w_kendoselected);
 	}
-	
+	public static By getCompleteSaveButton() {
+		return By.xpath(B2WUIMap.b2w_maintaincompleteworkordercomplete);
+	}
+	public static By getCompleteNextButton() {
+		return By.xpath(B2WUIMap.b2w_maintaincompletworkordernext);
+	}
 }

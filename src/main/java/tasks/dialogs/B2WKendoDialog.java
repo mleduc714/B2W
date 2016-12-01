@@ -3,11 +3,13 @@ package tasks.dialogs;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Random;
 
 import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.StaleElementReferenceException;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.internal.Coordinates;
 import org.openqa.selenium.internal.Locatable;
@@ -268,6 +270,47 @@ public abstract class B2WKendoDialog {
 				}else{
 					log.debug("Could not select item #"+i);
 				}
+			}
+		}
+		return bReturn;
+	}
+	
+	protected String selectRandomItemFromDropDown(){
+		String sText = "";
+		// when we click we need to find the visible list
+		List<WebElement> list = WebElementUtils.findElements(B2WEquipment.getKendoLists());
+		Iterator<WebElement> iter = list.iterator();
+		log.debug("There are "+list.size() + " to find the correct drop down");
+		while (iter.hasNext()) {
+			WebElement els = iter.next();
+			String hidden = els.getAttribute("aria-hidden");
+			if (hidden != null && hidden.equals("false")) {
+				List<WebElement> items = els.findElements(B2WEquipment.getKendoDropDownItem());
+				Random rand = new Random();
+				int randnumber = rand.nextInt(items.size() - 1);
+				WebElement item = items.get(randnumber);
+				
+				if (item != null) {
+					sText = item.getText();
+					WebElementUtils.clickElement(item);
+				}else{
+					log.debug("Could not select item");
+				}
+			}
+		}
+		return sText;
+	}
+	protected boolean setNotes(String sText){
+		boolean bReturn = false;
+		List<WebElement> iframes = BrowserUtils.getDriver().findElements(By.tagName("iframe"));
+		for (WebElement iframe : iframes) {
+			if (iframe.isDisplayed()==true){
+				// we want this one.
+				WebDriver driver = BrowserUtils.getDriver().switchTo().frame(iframe);
+				WebElement body = driver.findElement(By.tagName("body"));
+				WebElementUtils.clickElement(body);
+				bReturn = WebElementUtils.sendKeys(body, sText);
+				break;
 			}
 		}
 		return bReturn;

@@ -249,7 +249,7 @@ public class WebElementUtils {
 		return ret;
 	}
 
-	public static WebElement getElementWithWithMatchingAttribute(List<WebElement> list, String sAttribute,
+	public static WebElement getElementWithMatchingAttribute(List<WebElement> list, String sAttribute,
 			String sAttributeValue) {
 		Iterator<WebElement> iter = list.iterator();
 		log.debug("Number of Elements to search thru " + list.size());
@@ -257,7 +257,8 @@ public class WebElementUtils {
 		while (iter.hasNext()) {
 			WebElement el = iter.next();
 			String sName = el.getAttribute(sAttribute);
-			if (sName.equals(sAttributeValue)) {
+			
+			if (sName != null && sName.equals(sAttributeValue)) {
 				ret = el;
 				break;
 			}
@@ -265,7 +266,7 @@ public class WebElementUtils {
 		return ret;
 	}
 
-	public static List<WebElement> getElementsWithWithMatchingAttribute(List<WebElement> list, String sAttribute,
+	public static List<WebElement> getElementsWithMatchingAttribute(List<WebElement> list, String sAttribute,
 																 String sAttributeValue) {
 		List<WebElement> listResult = new ArrayList<WebElement>();
 		Iterator<WebElement> iter = list.iterator();
@@ -411,7 +412,6 @@ public class WebElementUtils {
 					try {
 						log.debug("First click failed - " + e.getMessage());
 						TaskUtils.sleep(500);
-						getAllInfo(element);
 						new Actions(BrowserUtils.getDriver()).click(element).perform();
 						bReturn = true;
 					} catch (WebDriverException e2) {

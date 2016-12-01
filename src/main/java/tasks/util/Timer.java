@@ -61,7 +61,6 @@ public class Timer {
 		}
 		waitForAjax(driver);
 
-		Thread.sleep(500);
 	}
 
 	private void waitForAjax(WebDriver driver) throws InterruptedException {

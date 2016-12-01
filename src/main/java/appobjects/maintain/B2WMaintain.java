@@ -169,6 +169,10 @@ public class B2WMaintain extends KendoUI {
 	public static By getB2WMaintainScheduleTwoWeekView() {
 		return By.linkText(B2WUIMap.b2w_maintainscheduletwoweekslink);
 	}
+	
+	public static By getB2WMaintainScheduleLinkViews() {
+		return By.cssSelector(B2WUIMap.b2w_maintainscheduleviewlinks);
+	}
 
 	public static By getB2WMaintainschedulernewworkorderbutton() {
 		return By.cssSelector(B2WUIMap.b2w_maintainschedulernewworkorderbutton);
@@ -193,7 +197,7 @@ public class B2WMaintain extends KendoUI {
 		return By.cssSelector(B2WUIMap.b2w_maintainschedulerunscheduledworkorderslist);
 	}
 	public static By getB2WMaintainschedulerpastdueworkorderlist() {
-		return By.cssSelector(B2WUIMap.b2w_maintainschedulerpastdueworkorderlist);
+		return By.cssSelector(B2WUIMap.b2w_maintainschedulerunscheduledpastduelist);
 	}
 	public static By getB2WMaintainschedulerpastdueworkorder() {
 		return By.cssSelector(B2WUIMap.b2w_maintainschedulerpastdueworkorder);
@@ -217,7 +221,10 @@ public class B2WMaintain extends KendoUI {
 		return By.cssSelector(B2WUIMap.b2w_maintainschedulerschedulemaintenance);
 	}
 	public static By getB2WMaintainSchedulerUnscheduledContextMenu() {
-		return By.cssSelector(B2WUIMap.unscheduledWorkOrdersContextMenu);
+		return By.cssSelector(B2WUIMap.unscheduledworkorderscontextmenu);
+	}
+	public static By getB2WMaintainSchedulerScheduledContextMenu() {
+		return By.cssSelector(B2WUIMap.scheduleworkorderscontentmenu);
 	}
 	public static By getB2WMaintainSchedulerWorkOrdersTab() {
 		return By.cssSelector(B2WUIMap.b2w_maintainschedulertabone);
@@ -378,4 +385,41 @@ public class B2WMaintain extends KendoUI {
     public static By getB2WMaintainRequestAddToWorkOrderDialog() {
     	return By.cssSelector(B2WUIMap.b2w_maintainrequestsaddtoworkorderdialog);
     }
+    public static By getB2WMaintainWorkOrderListView() {
+    	return By.cssSelector(B2WUIMap.b2w_maintainworkorderslistview);
+    }
+    public static By getB2WMaintainRequestListView() {
+    	return By.cssSelector(B2WUIMap.b2w_maintainrequestlistview);
+    }
+    public static By getB2WMaintainWorkOrderShortDate() {
+    	return By.xpath(B2WUIMap.b2w_maintainworkordersduedate);
+    }
+    public static By getB2WMaintainWorkOrderStatus() {
+    	return By.xpath(B2WUIMap.b2w_maintainworkorderstatus);
+    }
+    public static By getB2WMaintainRequestOrderStatus() {
+    	return By.xpath(B2WUIMap.b2w_maintainrequestsstatus);
+    }
+    public static By getB2WMaintainSchedulerScheduleMaintenancePopupWindowWorkOrder() {
+    	return By.xpath(B2WUIMap.b2w_schedulemaintenancedialogworkorder);
+    }
+    public static By getB2WMaintainSchedulerScheduleMaintenancePopupWindowEquipment() {
+    	return By.xpath(B2WUIMap.b2w_schedulemaintenancedialogequipment);
+    }
+    public static By getB2WMaintainDashboardWorkOrdersChartsLeft() {
+    	return By.cssSelector(B2WUIMap.b2w_maintainworkorderscharts);
+    }
+    public static By getB2WMaintainScheduleTable() {
+    	return By.cssSelector(B2WUIMap.b2w_maintainscheduletable);
+    }
+    public static By getB2WMaintainScheduleTimes() {
+    	return By.cssSelector(B2WUIMap.b2w_maintainscheduletimes);
+    }
+    public static By getB2WMaintainScheduleHeader() {
+    	return By.cssSelector(B2WUIMap.b2w_maintainscheduleheader);
+    }
+    public static By getB2WWorkOrderScheduler() {
+    	return By.cssSelector(B2WUIMap.b2w_maintainscheduleworkorder);
+    }
+    
 }

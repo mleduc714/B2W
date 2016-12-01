@@ -16,12 +16,12 @@ public class B2WMaintainDashboardTasks extends B2WMaintainTasks {
 	
 	public String getUserWelcome() {
 		String sUser = "";
-		WebElement el = WebElementUtils.findElement(B2WMaintain.getB2WMaintainDashboardUserInfo());
+		WebElement el = WebElementUtils.waitAndFindDisplayedElement(B2WMaintain.getB2WMaintainDashboardUserInfo());
 		sUser = WebElementUtils.getChildElement(el, By.tagName("strong")).getText();
 		return sUser;
 	}
 	public int getUnassignedRepairRequests(){
-		WebElement el = WebElementUtils.findElement(B2WMaintain.getB2WMaintainDashboardNewRequests());
+		WebElement el = WebElementUtils.waitAndFindDisplayedElement(B2WMaintain.getB2WMaintainDashboardNewRequests());
 		String number = WebElementUtils.getChildElement(el, B2WMaintain.getB2WMaintainDashboardNumber()).getText();
 		return new Integer(number).intValue();
 	}
@@ -61,7 +61,7 @@ public class B2WMaintainDashboardTasks extends B2WMaintainTasks {
 		String number = WebElementUtils.getChildElement(el, B2WMaintain.getB2WMaintainDashboardNumber()).getText();
 		return new Integer(number).intValue();
 	}
-	public boolean opeUnscheduledWorkOrders() {
+	public boolean openUnscheduledWorkOrders() {
 		boolean bReturn = false;
 		WebElement el = WebElementUtils.findElement(B2WMaintain.getB2WMaintainDashboardUnscheduleWorkOrders());
 		if (el != null){
@@ -77,6 +77,7 @@ public class B2WMaintainDashboardTasks extends B2WMaintainTasks {
 
 		WebElement el = WebElementUtils.findElement(B2WMaintain.getB2WMaintainDashboardPastDue());
 		String number = WebElementUtils.getChildElement(el, B2WMaintain.getB2WMaintainDashboardNumber()).getText();
+		System.out.println(number);
 		return new Integer(number).intValue();
 	}
 	
@@ -126,11 +127,9 @@ public class B2WMaintainDashboardTasks extends B2WMaintainTasks {
 		while (iter.hasNext()){
 			WebElement workorder = iter.next();
 			List<WebElement> list = WebElementUtils.getChildElements(workorder, B2WMaintain.getB2WMaintainDashboardWorkOrderData());
-			System.out.println(list.size());
 			WebElement location = list.get(0);
 			String sLocation = location.getAttribute("title");
-			System.out.println(sLocation);
-			if (sLocation.startsWith(s)){
+			if (sLocation.contains(s)){
 				Coordinates coordinate = ((Locatable)workorder).getCoordinates(); 
 				coordinate.onPage(); 
 				coordinate.inViewPort();

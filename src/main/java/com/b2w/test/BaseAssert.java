@@ -100,6 +100,38 @@ public class BaseAssert {
 		return bReturn;
 	}
 	
+
+	/**
+	 * Compares the two ints. Logs the output
+	 * @param iExpected
+	 * @param iActual
+	 * @param sLogMessage Message you want logged	
+	 * @return boolean result
+	 */
+	public static boolean logCompare(int iExpected, int iActual, String sLogMessage){
+		boolean bReturn = false;
+		Level level = null;
+
+        // compare expected with actual & save result in bReturn
+		// set return value T == pass, F == fail
+		// set correct pass/fail result string
+		if(iExpected == iActual){
+			bReturn = true;
+			level = LogLevel.PASSED;
+		}else{
+			bReturn = false;
+			bTestCasePass = bReturn;
+			level = LogLevel.FAILED;
+		}
+
+		// report compare results to log & console
+		logMessage(level, 
+				sLogMessage 
+				+ " :: Expected: (" + iExpected + ") Actual: (" + iActual + ")");
+		
+		return bReturn;
+	}
+	
 	/**
 	 * Compares two booleans together. Logs the output
 	 * @param bExpected

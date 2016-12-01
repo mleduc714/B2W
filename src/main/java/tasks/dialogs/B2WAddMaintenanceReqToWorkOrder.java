@@ -16,10 +16,19 @@ public class B2WAddMaintenanceReqToWorkOrder extends B2WKendoDialog {
 	// private static List<WebElement> additemsElements = new
 	// ArrayList<WebElement>();
 
+	public boolean doesDialogExist() {
+		boolean bReturn = false;
+		WebElement el = getDialog();
+		if (el != null){
+			bReturn = true;
+		}
+		return bReturn;
+	}
+	
 	public boolean selectCreateNewWorkOrderRadioButton() {
 		boolean bReturn = false;
 		List<WebElement> list = WebElementUtils.getChildElements(getDialog(), By.tagName("input"));
-		List<WebElement> radiobuttons = WebElementUtils.getElementsWithWithMatchingAttribute(list, "type", "radio");
+		List<WebElement> radiobuttons = WebElementUtils.getElementsWithMatchingAttribute(list, "type", "radio");
 		bReturn = WebElementUtils.clickElement(radiobuttons.get(0));
 		return bReturn;
 
@@ -28,7 +37,7 @@ public class B2WAddMaintenanceReqToWorkOrder extends B2WKendoDialog {
 	public boolean selectAddToExistingWorkOrderRadioButton() {
 		boolean bReturn = false;
 		List<WebElement> list = WebElementUtils.getChildElements(getDialog(), By.tagName("input"));
-		List<WebElement> radiobuttons = WebElementUtils.getElementsWithWithMatchingAttribute(list, "type", "radio");
+		List<WebElement> radiobuttons = WebElementUtils.getElementsWithMatchingAttribute(list, "type", "radio");
 		bReturn = WebElementUtils.clickElement(radiobuttons.get(1));
 		return bReturn;
 
@@ -38,7 +47,7 @@ public class B2WAddMaintenanceReqToWorkOrder extends B2WKendoDialog {
 		return WebElementUtils.findElement(B2WMaintain.getB2WMaintainRequestAddToWorkOrderDialog());
 	}
 
-	private ArrayList<String> getRequestIDs() {
+	public ArrayList<String> getRequestIDs() {
 
 		ArrayList<String> al = new ArrayList<String>();
 		Iterator<WebElement> iterRequests = getRequestWorkOrderElements();
@@ -50,7 +59,8 @@ public class B2WAddMaintenanceReqToWorkOrder extends B2WKendoDialog {
 		return al;
 	}
 	
-	public void addAllRequests(){
+	public boolean addAllRequests(){
+		boolean bReturn = false;
 		ArrayList<String> al = getRequestIDs();
 		Iterator<String> iter = al.iterator();
 		while (iter.hasNext()){
@@ -60,15 +70,22 @@ public class B2WAddMaintenanceReqToWorkOrder extends B2WKendoDialog {
 				List<WebElement> td  = elements.next().findElements(By.tagName("td"));
 				String sText = td.get(0).getText().trim();
 				if (sItem.equals(sText)){
+					bReturn = true;
 					WebElement checkbox = WebElementUtils.getChildElement(td.get(0), By.tagName("input"));
 					if (!checkbox.isSelected()){
-						WebElementUtils.clickElement(checkbox);
+						bReturn &= WebElementUtils.clickElement(checkbox);
 					}
 					break;
 				}
 			}
 		}
+		return bReturn;
 	}
+	
+	public int getNumberOfRequestsToAddToWorkOrder() {
+		return getRequestIDs().size();
+	}
+	
 
 	public boolean clickNextButton() {
 		boolean bReturn = false;
@@ -86,6 +103,7 @@ public class B2WAddMaintenanceReqToWorkOrder extends B2WKendoDialog {
 		if (clickFinish()){
 			bReturn = WebElementUtils.waitForElementInvisible(parent);
 			bReturn &= waitForPageNotBusy(WebElementUtils.MEDIUM_TIME_OUT);
+			bReturn &= WebElementUtils.waitAndFindDisplayedElements(B2WMaintain.getB2WMaintainBoxContent()) != null;
 		}
 		return bReturn;
 	}

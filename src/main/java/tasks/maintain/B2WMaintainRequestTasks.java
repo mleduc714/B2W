@@ -190,5 +190,67 @@ public class B2WMaintainRequestTasks extends B2WKendoTasks {
 		return bReturn;
 	}
 	
+	public String getSelectedItemDescription() {
+		return getSelectedItemFromView(1);
+	}
+	public String getSelectedItemID() {
+		return getSelectedItemFromView(0);
+	}
+
+	public boolean selectOpenRequests() {
+		return selectViewFromDropDown("Open Requests");
+	}
+	public boolean selectCompletedRequests(){
+		return selectViewFromDropDown("Completed Requests");
+	}
+	public boolean selectUnassignedRequests(){
+		return selectViewFromDropDown("Unassigned Requests");
+	}
+	public boolean selectWarrantyRequests(){
+		return selectViewFromDropDown("Warranty Requests");
+	}
+	public boolean selectProgramRequests(){
+		return selectViewFromDropDown("Program Requests");
+	}
+	public boolean selectAllRequestsGroupedByEquipment(){
+		return selectViewFromDropDown("All Requests Grouped By Equipment");
+	}
+	public boolean selectOpenRequestsGroupedByEquipment(){
+		return selectViewFromDropDown("Open Requests Grouped By Equipment");
+	}
+	public boolean selectCompletedRequestsGroupedByEquipment(){
+		return selectViewFromDropDown("Completed Requests Grouped By Equipment");
+	}
+	public boolean selectUnassignedRequestsGroupedByEquipment(){
+		return selectViewFromDropDown("Unassigned Requests Grouped By Equipment");
+	}
+	public boolean selectWarrantyRequestsGroupedByEquipment(){
+		return selectViewFromDropDown("Warranty Requests Grouped By Equipment");
+	}
 	
+
+	private boolean selectViewFromDropDown(String sText){
+		boolean bReturn = false;
+		WebElement listView = WebElementUtils.waitAndFindDisplayedElement(B2WMaintain.getB2WMaintainRequestListView());
+		WebElement dd = WebElementUtils.getChildElement(listView, B2WMaintain.getKendoDropDown());
+		if (dd != null){
+			WebElementUtils.clickElement(dd);
+			bReturn = selectItemFromDropDown(sText);
+		}
+		return bReturn;
+	}
+	public String getSelectedRequestDueDate() {
+		return getDueDate();
+	}
+	public String getSelectedRequestStatus() {
+		String sText = "";
+		WebElement el = WebElementUtils.findElement(B2WMaintain.getB2WMaintainRequestOrderStatus());
+		if (el != null){
+			sText = el.getText();
+		}
+		return sText;
+	}
+	public boolean setRequestNotes(String sText){
+		return setNotes(sText);
+	}
 }
