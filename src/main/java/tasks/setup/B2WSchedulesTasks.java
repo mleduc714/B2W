@@ -206,7 +206,6 @@ public class B2WSchedulesTasks extends B2WKendoTasks {
             bReturn = clickAndSelectValueFromKendoFDD(eAddFilterDD, sType);
             WebElement item = WebElementUtils.getElementWithMatchingChildElementText(B2WSchedules.addFilterDropDown(), B2WSchedules.filterItemLabel(), sType);
             if (item != null){
-
                 WebElement parent = WebElementUtils.getParentElement(item);
                 bReturn &= clickAndSelectValueFromKendoFDD(parent, sValue);	
             }
