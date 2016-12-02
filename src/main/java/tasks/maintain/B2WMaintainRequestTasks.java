@@ -54,6 +54,18 @@ public class B2WMaintainRequestTasks extends B2WKendoTasks {
 		
 	}
 	
+	public String selectAnyPieceOfEquipment() {
+		String sText = "";
+		WebElement equipment = pageElement.get(iEquipment);
+		if (equipment != null){
+			WebElement el = WebElementUtils.getChildElement(equipment, B2WMaintain.getKendoDropDown());
+			WebElementUtils.clickElement(el);
+			WebElementUtils.sendKeys(el, "a");
+			sText = selectRandomItemFromDropDown();
+		}
+		return sText;
+	}
+	
 	public boolean setRequestDescription(String sText){
 		boolean bReturn = false;
 		WebElement equipment = pageElement.get(iRequestDesc);
@@ -84,6 +96,19 @@ public class B2WMaintainRequestTasks extends B2WKendoTasks {
 			bReturn = selectItemFromDropDown(sText);
 		}
 		return bReturn;
+		
+	}
+	
+	public String selectAnyTypeFromDD() {
+		String sText = "";
+		WebElement equipment = pageElement.get(iType);
+		if (equipment != null){
+			//WebElement desc = WebElementUtils.findElement(By.cssSelector("#request_create_view > div.edit-form-content > div.box-content.form > p.form-required > input[name='RequestDescription']"));
+			WebElement el = WebElementUtils.getChildElement(equipment,B2WMaintain.getKendoDropDown());
+			WebElementUtils.clickElement(el);
+			sText = selectRandomItemFromDropDown();
+		}
+		return sText;
 		
 	}
 	
@@ -185,11 +210,9 @@ public class B2WMaintainRequestTasks extends B2WKendoTasks {
 		WebElement el = WebElementUtils.findElement(B2WMaintain.getB2WMaintainRequestsAddToWorkOrder());
 		if (el != null){
 			bReturn = WebElementUtils.clickElement(el);
-			bReturn &= WebElementUtils.waitAndFindDisplayedElement(B2WMaintain.getB2WMaintainRequestAddToWorkOrderDialog()) != null;
 		}
 		return bReturn;
 	}
-	
 	public String getSelectedItemDescription() {
 		return getSelectedItemFromView(1);
 	}
@@ -239,6 +262,22 @@ public class B2WMaintainRequestTasks extends B2WKendoTasks {
 		}
 		return bReturn;
 	}
+	
+	public String getSelectedItemFromDropDown() {
+		String sText = "";
+		WebElement listView = WebElementUtils.waitAndFindDisplayedElement(B2WMaintain.getB2WMaintainRequestListView());
+		List<WebElement> inputs = WebElementUtils.getChildElements(listView, B2WMaintain.getKendoDropDown());
+		WebElement dd = WebElementUtils.getElementWithMatchingAttribute(inputs, "unselectable", "on");
+		if (dd != null){
+			sText = dd.getText();
+		}
+		return sText;
+	}
+	
+	public int getTheNumberOfRequestsInView() {
+		return getNumberOfItemsFromView();
+	}
+	
 	public String getSelectedRequestDueDate() {
 		return getDueDate();
 	}

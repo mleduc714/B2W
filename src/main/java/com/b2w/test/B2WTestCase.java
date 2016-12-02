@@ -17,6 +17,7 @@ public class B2WTestCase extends BaseTestCase {
 	protected Properties properties;
 	@SuppressWarnings("unused")
 	private String propfile = null;
+	
 
 	public void testSetUp() throws Throwable {
 		// Prepare browser for testing
@@ -38,7 +39,7 @@ public class B2WTestCase extends BaseTestCase {
 			fail("Failed to load initial URL due to WebDriver issue");
 		}
 		BrowserUtils.moveMouseOffScreen();
-
+		
 		bTestCasePass = true;
 	}
 

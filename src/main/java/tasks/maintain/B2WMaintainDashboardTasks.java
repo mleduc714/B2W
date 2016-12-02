@@ -46,6 +46,8 @@ public class B2WMaintainDashboardTasks extends B2WMaintainTasks {
 			if (WebElementUtils.clickElement(el)){
 				bReturn = waitForPageNotBusy(WebElementUtils.MEDIUM_TIME_OUT);
 				bReturn &= new TaskUtils().waitForProductPanel("Requests");
+				bReturn &= WebElementUtils.waitAndFindDisplayedElement(B2WMaintain.getKendoGridContent()) != null;
+				
 			}
 		}
 		return bReturn;
