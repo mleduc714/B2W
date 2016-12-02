@@ -20,6 +20,20 @@ public class B2WMaintainDashboardTasks extends B2WMaintainTasks {
 		sUser = WebElementUtils.getChildElement(el, By.tagName("strong")).getText();
 		return sUser;
 	}
+	
+	public String getDateFromDashboard() {
+		String sDate = "";
+		WebElement el = WebElementUtils.waitAndFindDisplayedElement(B2WMaintain.getB2WMaintainDashboardUserInfo());
+		List<WebElement> list = WebElementUtils.getChildElements(el,By.tagName("strong"));
+		List<WebElement> list1 = WebElementUtils.getChildElements(el, By.tagName("span"));
+		WebElement day =  WebElementUtils.getElementWithMatchingAttribute(list1, "data-bind", "text:getDay");
+		WebElement date = WebElementUtils.getElementWithMatchingAttribute(list, "data-bind", "text:getDate");
+		if (date != null && day != null){
+			sDate = day.getText()+ "," + " "+date.getText();
+		}
+		return sDate;
+	}
+	
 	public int getUnassignedRepairRequests(){
 		WebElement el = WebElementUtils.waitAndFindDisplayedElement(B2WMaintain.getB2WMaintainDashboardNewRequests());
 		String number = WebElementUtils.getChildElement(el, B2WMaintain.getB2WMaintainDashboardNumber()).getText();
@@ -32,6 +46,8 @@ public class B2WMaintainDashboardTasks extends B2WMaintainTasks {
 			if (WebElementUtils.clickElement(el)){
 				bReturn = waitForPageNotBusy(WebElementUtils.MEDIUM_TIME_OUT);
 				bReturn &= new TaskUtils().waitForProductPanel("Requests");
+				bReturn &= WebElementUtils.waitAndFindDisplayedElement(B2WMaintain.getKendoGridContent()) != null;
+				
 			}
 		}
 		return bReturn;
@@ -157,6 +173,18 @@ public class B2WMaintainDashboardTasks extends B2WMaintainTasks {
 		}
 		return bReturn;
 	}
+	
+	public String getDashboardUpdatedText() {
+		String sText = "";
+		WebElement el = WebElementUtils.findElement(B2WMaintain.getB2WMaintainDashboardUserInfo());
+		List<WebElement> list = WebElementUtils.getChildElements(el, By.tagName("span"));
+		WebElement day =  WebElementUtils.getElementWithMatchingAttribute(list, "data-bind", "text:getDateAndTime");
+		if (day != null){
+			sText = day.getText();
+		}
+		return sText;
+	}
+	
 	
 	public boolean clickYearToDate() {
 		boolean bReturn = false;
