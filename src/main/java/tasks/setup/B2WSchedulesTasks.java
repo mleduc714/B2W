@@ -190,6 +190,7 @@ public class B2WSchedulesTasks extends B2WKendoTasks {
         boolean bReturn = false;
         WebElement eSecurityRole = WebElementUtils.getKendoFDDElementByLabel("Roles with access to the schedule");
         if (eSecurityRole != null) {
+            WebElementUtils.moveVirtualMouseOverElement(eSecurityRole);
             bReturn = WebElementUtils.clickElement(eSecurityRole);
             bReturn &= selectItemFromDropDown(sValue);
         } else {

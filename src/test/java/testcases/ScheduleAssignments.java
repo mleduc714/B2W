@@ -15,57 +15,57 @@ import java.util.List;
 public class ScheduleAssignments extends B2WTestCase {
 
     /*
-        1. Create Employee Schedule View - Done
-        2. Create Equipment Schedule View - Done
-        3. Create Crew Schedule View - Done
-        4. Create Location Schedule View - Done
-        5. Create Employee Assignment - Done
-        6. Create Equipment Assignment - Done
-        7. Create Employee Need - Done
-        8. Create Equipment Need - Done
-        9. Create Crew Assignment - Done
-        10.	Create Crew Need - Done
-        11.	Create Move Assignment - Done
-        12.	Create Move Order - Done
-        13.	Create Employee Event - Done
-        14.	Create Equipment Event - Done
-        15.	Create Location Event - Done
-        16. Create Employee Substitution - Done
-        17.	Move Employee Assignment - Done
-        18.	Move Equipment Assignment - Done
-        19.	Move Employee Need - Done
-        20.	Move Equipment Need - Done
-        21.	Move Crew Assignment - Done
-        22.	Move Crew Need - Done
-        23.	Move Move Assignment - Done
-        24.	Move Move Order - Done
-        25.	Move Employee Event - Done
-        26.	Move Equipment Event - Done
-        27.	Move Location Event - Done
-        28. Move Employee Substitution - Done
-        29.	Update Employee Assignment - Done
-        30.	Update Equipment Assignment - Done
-        31.	Update Employee Need - Done
-        32.	Update Equipment Need - Done
-        33.	Update Crew Assignment - Done
-        34.	Update Crew Need - Done
-        35.	Update Move Assignment - Done
-        36.	Update Move Order - Done
-        37.	Update Employee Event - Done
-        38.	Update Equipment Event - Done
-        39.	Update Location Event - Done
-        40. Update Employee Substitution - Done
-        41. Resize Employee Assignment
-        42. Resize Equipment Assignment
-        43. Resize Employee Need
-        44. Resize Equipment Need
-        45. Resize Crew Assignment
-        46. Resize Crew Need
-        47. Resize Move Assignment
-        48. Resize Move Order
-        49. Resize Employee Event
-        50. Resize Equipment Event
-        51. Resize Location Event
+        1. Create Employee Schedule View        - Done
+        2. Create Equipment Schedule View       - Done
+        3. Create Crew Schedule View            - Done
+        4. Create Location Schedule View        - Done
+        5. Create Employee Assignment           - Done
+        6. Create Equipment Assignment          - Done
+        7. Create Employee Need                 - Done
+        8. Create Equipment Need                - Done
+        9. Create Crew Assignment               - Done
+        10.	Create Crew Need                    - Done
+        11.	Create Move Assignment              - Done
+        12.	Create Move Order                   - Done
+        13.	Create Employee Event               - Done
+        14.	Create Equipment Event              - Done
+        15.	Create Location Event               - Done
+        16. Create Employee Substitution        - Done
+        17.	Move Employee Assignment            - Done
+        18.	Move Equipment Assignment           - Done
+        19.	Move Employee Need                  - Done
+        20.	Move Equipment Need                 - Done
+        21.	Move Crew Assignment                - Done
+        22.	Move Crew Need                      - Done
+        23.	Move Move Assignment                - Done
+        24.	Move Move Order                     - Done
+        25.	Move Employee Event                 - Done
+        26.	Move Equipment Event                - Done
+        27.	Move Location Event                 - Done
+        28. Move Employee Substitution          - Done
+        29.	Update Employee Assignment          - Done
+        30.	Update Equipment Assignment         - Done
+        31.	Update Employee Need                - Done
+        32.	Update Equipment Need               - Done
+        33.	Update Crew Assignment              - Done
+        34.	Update Crew Need                    - Done
+        35.	Update Move Assignment              - Done
+        36.	Update Move Order                   - Done
+        37.	Update Employee Event               - Done
+        38.	Update Equipment Event              - Done
+        39.	Update Location Event               - Done
+        40. Update Employee Substitution        - Done
+        41. Resize Employee Assignment          - Done
+        42. Resize Equipment Assignment         - Done
+        43. Resize Employee Need                - Done
+        44. Resize Equipment Need               - Done
+        45. Resize Crew Assignment              - Done
+        46. Resize Crew Need                    - Done
+        47. Resize Move Assignment              - Done
+        48. Resize Move Order                   - Done
+        49. Resize Employee Event               - Done
+        50. Resize Equipment Event              - Done
+        51. Resize Location Event               - Done
         52. View Orders and Need Panel
         53. View Conflicts Panel
         54. Fill Assignment Need
@@ -90,22 +90,22 @@ public class ScheduleAssignments extends B2WTestCase {
         73. View Location Event Tooltip
         74. View Schedule Alerts for Column
         75. View Schedule Alerts for Resource
-        76.	Delete Employee Assignment - Done
-        77.	Delete Equipment Assignment - Done
-        78.	Delete Employee Need - Done
-        79.	Delete Equipment Need - Done
-        80.	Delete Crew Assignment - Done
-        81.	Delete Crew Need - Done
-        81.	Delete Move Assignment - Done
-        82.	Delete Move Order - Done
-        83.	Delete Employee Event - Done
-        84.	Delete Equipment Event - Done
-        85.	Delete Location Event - Done
-        86.	Delete Employee Schedule View - Done
-        87.	Delete Equipment Schedule View - Done
-        88.	Delete Crew Schedule View - Done
-        89.	Delete Location Schedule View - Done
-        90. Delete Employee Substitution - Done
+        76.	Delete Employee Assignment          - Done
+        77.	Delete Equipment Assignment         - Done
+        78.	Delete Employee Need                - Done
+        79.	Delete Equipment Need               - Done
+        80.	Delete Crew Assignment              - Done
+        81.	Delete Crew Need                    - Done
+        81.	Delete Move Assignment              - Done
+        82.	Delete Move Order                   - Done
+        83.	Delete Employee Event               - Done
+        84.	Delete Equipment Event              - Done
+        85.	Delete Location Event               - Done
+        86.	Delete Employee Schedule View       - Done
+        87.	Delete Equipment Schedule View      - Done
+        88.	Delete Crew Schedule View           - Done
+        89.	Delete Location Schedule View       - Done
+        90. Delete Employee Substitution        - Done
     */
 
     private final B2WNavigationTasks b2wNav = new B2WNavigationTasks();
@@ -148,7 +148,9 @@ public class ScheduleAssignments extends B2WTestCase {
     private String sNotesTextUpd;
     private String sAssignmentDuration;
     private String sAssignmentDurationUpd;
+    private String sEventDuration;
     private String sAssignmentStartTime;
+    private String sEventStartTime;
     private String sAssignmentStartTimeUpd;
     private String sMoveDate;
     private Date dMoveDate;
@@ -181,6 +183,10 @@ public class ScheduleAssignments extends B2WTestCase {
     private String sDropoffJobSiteNameUpd;
     private String sTransportationCrewName;
     private String sTransportationCrewNameUpd;
+    private String sPickupDate;
+    private String sPickupTime;
+    private String sDropoffDate;
+    private String sDropoffTime;
 
     // Event
     private String sEmployeeEventType;
@@ -277,6 +283,11 @@ public class ScheduleAssignments extends B2WTestCase {
         sDropoffJobSiteName = getProperty("sDropoffJobSiteName");
         sDropoffJobSiteNameUpd = getProperty("sDropoffJobSiteNameUpd");
 
+        sPickupDate = getProperty("sPickupDate");
+        sPickupTime = getProperty("sPickupTime");
+        sDropoffDate = getProperty("sDropoffDate");
+        sDropoffTime = getProperty("sDropoffTime");
+
         sTransportationCrewName = getProperty("sTransportationCrewName");
         sTransportationCrewNameUpd = getProperty("sTransportationCrewNameUpd");
 
@@ -294,9 +305,11 @@ public class ScheduleAssignments extends B2WTestCase {
 
         sAssignmentDuration = getProperty("sAssignmentDuration");
         sAssignmentDurationUpd = getProperty("sAssignmentDurationUpd");
+        sEventDuration = "0 HR";
 
         sAssignmentStartTime = getProperty("sAssignmentStartTime");
         sAssignmentStartTimeUpd = getProperty("sAssignmentStartTimeUpd");
+        sEventStartTime = "00:00 AM";
 
         sCalendarDateRange = getProperty("sCalendarDateRange");
 
@@ -308,7 +321,6 @@ public class ScheduleAssignments extends B2WTestCase {
     }
 
     public void testMain() throws Throwable {
-
         //=== Setup Schedule View
         createNewEmployeeScheduleView();
         createNewEquipmentScheduleView();
@@ -316,26 +328,26 @@ public class ScheduleAssignments extends B2WTestCase {
         createNewJobSiteScheduleView();
 
         //=== Create Schedule Assignments
-        createEmployeeAssignment();
-        createEmployeeAssignment(sEmployeeNameForSubstitution, sJobSiteName, sRequestedBy, sNotesText, sAssignmentDuration, sAssignmentStartTime);
-        createEmployeeSubstitution();
-        createEmployeeNeed();
-        createEmployeeNeed(sEmployeeNeedName1, sJobSiteName, sRequestedBy, sNotesText, sAssignmentDuration, sAssignmentStartTime);
-        createEquipmentAssignment();
-        createEquipmentNeed();
-        createEquipmentNeed(sEquipmentNeedNameUpd, sJobSiteName, sCalendarStartDate, sCalendarStartDate, sAssignmentDuration, sAssignmentStartTime);
-        createCrewAssignment();
-        createCrewNeed();
-        createCrewNeed(sCrewNeedNameUpd, sJobSiteName, sAssignmentDuration, sAssignmentStartTime);
-        createMoveAssignment();
-        createMoveOrder();
-        createEmployeeSubstitution();
-        createEmployeeEvent();
-        createEquipmentEvent();
-        createLocationEvent();
+        createEmployeeAssignment(sEmployeeView, sEmployeeName, sJobSiteName, sRequestedBy, sNotesText, sAssignmentStartTime, sAssignmentDuration);
+        createEmployeeAssignment(sEmployeeView, sEmployeeNameForSubstitution, sJobSiteName, sRequestedBy, sNotesText, sAssignmentStartTime, sAssignmentDuration);
+        createEmployeeSubstitution(sEmployeeView, sEmployeeNameForSubstitution, sEmployeeSubstitution, sJobSiteName, sCalendarStartDate, sCalendarStartDate, sAssignmentStartTime, sAssignmentDuration);
+        createEmployeeNeed(sEmployeeView, sEmployeeNeedName, sJobSiteName, sRequestedBy, sNotesText, sAssignmentStartTime, sAssignmentDuration);
+        createEmployeeNeed(sEmployeeView, sEmployeeNeedName1, sJobSiteName, sRequestedBy, sNotesText, sAssignmentStartTime, sAssignmentDuration);
+        createEquipmentAssignment(sEquipmentView, sEquipmentName, sJobSiteName, sRequestedBy, sNotesText, sAssignmentStartTime, sAssignmentDuration);
+        createEquipmentNeed(sEquipmentView, sEquipmentNeedName, sJobSiteName, sCalendarStartDate, sCalendarStartDate, sAssignmentStartTime, sAssignmentDuration);
+        createEquipmentNeed(sEquipmentView, sEquipmentNeedNameUpd, sJobSiteName, sCalendarStartDate, sCalendarStartDate, sAssignmentStartTime, sAssignmentDuration);
+        createCrewAssignment(sCrewView, sCrewName, sJobSiteName, sRequestedBy, sNotesText, sAssignmentStartTime, sAssignmentDuration);
+        createCrewNeed(sCrewView, sCrewNeedName, sJobSiteName, sRequestedBy, sNotesText, sAssignmentStartTime, sAssignmentDuration);
+        createCrewNeed(sCrewView, sCrewNeedNameUpd, sJobSiteName, sRequestedBy, sNotesText, sAssignmentStartTime, sAssignmentDuration);
+        createMoveAssignment(sEquipmentView, sEquipmentName, sDropoffJobSiteName, sPickupJobSiteName, sTransportationCrewName, sRequestedBy, sNotesText, sPickupDate, sPickupTime, sDropoffDate, sDropoffTime);
+        createMoveOrder(sEquipmentView, sEquipmentName, sDropoffJobSiteName, sPickupJobSiteName, sPickupDate, sPickupTime,sDropoffDate, sDropoffTime, sRequestedBy, sNotesText);
+        createEmployeeEvent(sEmployeeView, sEmployeeName, sEmployeeEventType, sNotesText, sCalendarStartDate, sCalendarStartDate, sEventStartTime, sEventDuration);
+        createEquipmentEvent(sEquipmentView, sEquipmentName, sEquipmentEventType, sNotesText, sCalendarStartDate, sCalendarStartDate, sEventStartTime, sEventDuration);
+        createLocationEvent(sLocationView, sJobSiteName, sLocationEventType, sNotesText, sCalendarStartDate, sCalendarStartDate, sEventStartTime, sEventDuration);
 
         //=== Move Assignments
         moveEmployeeAssignment();
+        moveSubstitution();
         moveEmployeeNeed();
         moveEquipmentAssignment();
         moveEquipmentNeed();
@@ -346,10 +358,10 @@ public class ScheduleAssignments extends B2WTestCase {
         moveEmployeeEvent();
         moveEquipmentEvent();
         moveLocationEvent();
-        moveSubstitution();
 
         //=== Edit Assignments
         updateEmployeeAssignment();
+        updateSubstitution();
         updateEmployeeNeed();
         updateEquipmentAssignment();
         updateEquipmentNeed();
@@ -360,38 +372,37 @@ public class ScheduleAssignments extends B2WTestCase {
         updateEmployeeEvent();
         updateEquipmentEvent();
         updateLocationEvent();
-        updateSubstitution();
 
         //=== Resize Assignments
         resizeEmployeeAssignment();
         resizeEquipmentAssignment();
         resizeCrewAssignment();
-        resizeMoveAssignment();
         resizeEmployeeNeed();
         resizeEquipmentNeed();
         resizeCrewNeed();
+        resizeMoveAssignment();
         resizeMoveOrder();
         resizeEmployeeEvent();
         resizeEquipmentEvent();
         resizeLocationEvent();
 
         //=== Delete Assignments
-        deleteEmployeeAssignment();
-        deleteEmployeeNeed();
-        deleteEmployeeNeed(sEmployeeView, sEmployeeNeedName, sJobSiteName, sMoveDate, sMoveDate, sAssignmentStartTime);
+        deleteEmployeeAssignment(sEmployeeView, sEmployeeNameUpd, sJobSiteNameUpd, sMoveDate, sMoveDate, sAssignmentStartTimeUpd, sAssignmentDurationUpd);
+        deleteEmployeeNeed(sEmployeeView, sEmployeeNeedNameUpd, sJobSiteNameUpd, sMoveDate, sMoveDate, sAssignmentStartTimeUpd, sAssignmentDurationUpd);
+        deleteEmployeeNeed(sEmployeeView, sEmployeeNeedName, sJobSiteName, sMoveDate, sMoveDate, sAssignmentStartTime, sAssignmentDuration);
         deleteEquipmentAssignment();
-        deleteEquipmentNeed();
-        deleteEquipmentNeed(sEquipmentNeedName, sJobSiteName, sMoveDate, sMoveDate, sAssignmentStartTime);
+        deleteEquipmentNeed(sEquipmentNeedNameUpd, sJobSiteNameUpd, sMoveDate, sMoveDate, sAssignmentStartTimeUpd, sAssignmentDurationUpd);
+        deleteEquipmentNeed(sEquipmentNeedName, sJobSiteName, sMoveDate, sMoveDate, sAssignmentStartTime, sAssignmentDuration);
         deleteCrewAssignment();
-        deleteCrewNeed();
-        deleteCrewNeed(sCrewNeedName, sJobSiteName, sMoveDate, sMoveDate, sAssignmentStartTime);
+        deleteCrewNeed(sCrewNeedNameUpd, sJobSiteNameUpd, sMoveDate, sMoveDate, sAssignmentStartTimeUpd, sAssignmentDurationUpd);
+        deleteCrewNeed(sCrewNeedName, sJobSiteName, sMoveDate, sMoveDate, sAssignmentStartTime, sAssignmentDuration);
         deleteMoveAssignment();
         deleteMoveOrder();
+        deleteEmployeeSubstitution();
+        deleteEmployeeAssignment(sEmployeeView, sEmployeeNameForSubstitution, sJobSiteName, sCalendarStartDate, sCalendarStartDate, sAssignmentStartTime, sAssignmentDuration);
         deleteEmployeeEvent();
         deleteEquipmentEvent();
         deleteLocationEvent();
-        deleteEmployeeSubstitution();
-        deleteEmployeeAssignment(sEmployeeView, sCalendarStartDate, sCalendarDateRange, sAssignmentStartTime, sEmployeeNameForSubstitution, sJobSiteName);
 
         //=== Delete Schedule View
         deleteScheduleView(sEmployeeView);
@@ -421,7 +432,7 @@ public class ScheduleAssignments extends B2WTestCase {
         item.setResourceName("Employees");
         itemList.add(item);
 
-        createScheduleView(sEmployeeView, sBU, sSchedulesNotes, sGroupingLevel1, sGroupingLevel2, sSecurityRole, sView, itemList);
+        createScheduleView(sEmployeeView, sBU, sSchedulesNotes, sGroupingLevel1, sGroupingLevel2, sFilterType, sFilterValue, sSecurityRole, sView, itemList);
     }
 
     public void createNewEquipmentScheduleView() {
@@ -439,7 +450,7 @@ public class ScheduleAssignments extends B2WTestCase {
         item.setResourceName("Equipment");
         itemList.add(item);
 
-        createScheduleView(sEquipmentView, sBU, sSchedulesNotes, sGroupingLevel1, sGroupingLevel2, sSecurityRole, sView, itemList);
+        createScheduleView(sEquipmentView, sBU, sSchedulesNotes, sGroupingLevel1, sGroupingLevel2, sFilterType, sFilterValue, sSecurityRole, sView, itemList);
     }
 
     public void createNewCrewScheduleView() {
@@ -461,7 +472,7 @@ public class ScheduleAssignments extends B2WTestCase {
         item1.setResourceName("Transportation Crews");
         itemList.add(item1);
 
-        createScheduleView(sCrewView, sBU, sSchedulesNotes, sGroupingLevel1, sGroupingLevel2, sSecurityRole, sView, itemList);
+        createScheduleView(sCrewView, sBU, sSchedulesNotes, sGroupingLevel1, sGroupingLevel2, sFilterType, sFilterValue, sSecurityRole, sView, itemList);
     }
 
     public void createNewJobSiteScheduleView() {
@@ -479,11 +490,12 @@ public class ScheduleAssignments extends B2WTestCase {
         item.setResourceName("Job Sites");
         itemList.add(item);
 
-        createScheduleView(sLocationView, sBU, sSchedulesNotes, sGroupingLevel1, sGroupingLevel2, sSecurityRole, sView, itemList);
+        createScheduleView(sLocationView, sBU, sSchedulesNotes, sGroupingLevel1, sGroupingLevel2, sFilterType, sFilterValue, sSecurityRole, sView, itemList);
     }
 
     public void createScheduleView(String sScheduleViewName, String sBUName, String sSchedulesNotes, String sGroupingLevel1,
-                                   String sGroupingLevel2, String sSecurityRole, String sView, List<B2WScheduleItem> itemList) {
+                                   String sGroupingLevel2, String sFilterType, String sFilterValue, String sSecurityRole,
+                                   String sView, List<B2WScheduleItem> itemList) {
         /*
          * 1. Navigate to Setup -> Schedules
          * 2. Open Create Schedule View dialog.
@@ -501,8 +513,7 @@ public class ScheduleAssignments extends B2WTestCase {
         logCompare(true, b2wSchedulesTasks.setItems(itemList), "Select Items on Schedule");
         logCompare(true, b2wSchedulesTasks.setGrouping("Group items by", sGroupingLevel1), "Select Grouping item by");
         logCompare(true, b2wSchedulesTasks.setGrouping("Secondary grouping", sGroupingLevel2), "Select Secondary grouping");
-        //ToDO: Remove comments after fixing
-        //logCompare(true, b2wSchedulesTasks.setFilter(sFilterType, sFilterValue), "Set Filter");
+        logCompare(true, b2wSchedulesTasks.setFilter(sFilterType, sFilterValue), "Set Filter");
         logCompare(true, b2wSchedulesTasks.setSecurityRole(sSecurityRole), "Select Security Role");
         logCompare(true, b2wSchedulesTasks.saveSchedule(), "Save " + sScheduleViewName + " Schedule View");
         logCompare(true, b2wSchedulesTasks.isScheduleExist(sScheduleViewName), "Check that " + sScheduleViewName + " Schedule View has been created.");
@@ -517,12 +528,8 @@ public class ScheduleAssignments extends B2WTestCase {
     }
 
     //=== Create Assignments/Needs/Orders/Events ===
-    public void createEmployeeAssignment() {
-        createEmployeeAssignment(sEmployeeName, sJobSiteName, sRequestedBy, sNotesText, sAssignmentDuration, sAssignmentStartTime);
-    }
-
-    public void createEmployeeAssignment(String sEmployeeName, String sJobSiteName, String sRequestedBy,
-                                         String sNotesText, String sAssignmentDuration, String sAssignmentStartTime) {
+    public void createEmployeeAssignment(String sScheduleView, String sEmployeeName, String sJobSiteName, String sRequestedBy,
+                                         String sNotesText, String sAssignmentStartTime, String sAssignmentDuration) {
         /*
          * 1. Open Employee Schedule View
          * 2. Change Schedule View Date Range
@@ -538,9 +545,7 @@ public class ScheduleAssignments extends B2WTestCase {
          * 12. Check that the particular assignment is created
          */
 
-        NavigateToScheduleView(sDefaultEmployeeView, sCalendarStartDate, sCalendarDateRange, sEmployeeName);
-        //ToDo: Remove after Fix problems with grouping view
-        //NavigateToScheduleView(sScheduleView, sCalendarStartDate, sCalendarDateRange, sEmployeeName);
+        NavigateToScheduleView(sScheduleView, sCalendarStartDate, sCalendarDateRange, sEmployeeName);
 
         int initialCount = b2wScheduler.getAssignmentsCount(sEmployeeName, sJobSiteName, b2wScheduler.EMPLOYEE_TYPE);
         logCompare(true, b2wScheduler.createNewEmployeeAssignment(), "Open Create Employee Assignment Dialog");
@@ -554,11 +559,12 @@ public class ScheduleAssignments extends B2WTestCase {
 
         int actualCount = b2wScheduler.getAssignmentsCount(sEmployeeName, sJobSiteName, b2wScheduler.EMPLOYEE_TYPE);
         logCompare(true, actualCount == initialCount + 1, "Verification that Employee Assignment has been created.");
-        WebElement result = b2wScheduler.getEmployeeAssignment(sEmployeeName, sJobSiteName, sCalendarStartDate, sCalendarStartDate, sAssignmentStartTime);
+        WebElement result = b2wScheduler.getEmployeeAssignment(sEmployeeName, sJobSiteName, sCalendarStartDate, sCalendarStartDate, sAssignmentStartTime, sAssignmentDuration);
         logCompare(true,  result != null, "Verification that specific Employee Assignment has been created.");
     }
 
-    public void createEquipmentAssignment() {
+    public void createEquipmentAssignment(String sScheduleView, String sEquipmentName, String sJobSiteName, String sRequestedBy,
+                                          String sNotesText, String sAssignmentStartTime, String sAssignmentDuration) {
         /*
          * 1. Open Schedule View with Equipment Schedule
          * 2. Change Date Range on Schedule View
@@ -573,9 +579,7 @@ public class ScheduleAssignments extends B2WTestCase {
          * 11. Check that the particular assignment is created
          */
 
-        NavigateToScheduleView(sDefaultEquipmentView, sCalendarStartDate, sCalendarDateRange, sEquipmentName);
-        //ToDo: Remove after Fix problems with grouping view
-        //NavigateToScheduleView(sEquipmentView, sCalendarStartDate, sCalendarDateRange, sEquipmentName);
+        NavigateToScheduleView(sScheduleView, sCalendarStartDate, sCalendarDateRange, sEquipmentName);
 
         int initialCount = b2wScheduler.getAssignmentsCount(sEquipmentName, sJobSiteName, b2wScheduler.EQUIPMENT_TYPE);
         logCompare(true, b2wScheduler.createNewEquipmentAssignment(), "Open Create Equipment Assignment Dialog");
@@ -587,22 +591,13 @@ public class ScheduleAssignments extends B2WTestCase {
         logCompare(true, b2wScheduler.setStartTime(sAssignmentStartTime), "Set Notes");
         logCompare(true, b2wScheduler.saveEquipmentAssignment(), "Save New Equipment Assignment");
 
-        //ToDo remove after fix SCHED-3321
-        logCompare(true, b2wScheduler.setSearchValue("aaa"), "Set Filter by Employee Need");
-        logCompare(true, b2wScheduler.setSearchValue(sEquipmentName), "Set Filter by Employee Need");
-        //=============================
-
         int actualCount = b2wScheduler.getAssignmentsCount(sEquipmentName, sJobSiteName, b2wScheduler.EQUIPMENT_TYPE);
         logCompare(true, actualCount == initialCount + 1, "Verification that Equipment Assignment has been created.");
-        WebElement result = b2wScheduler.getEquipmentAssignment(sEquipmentName, sJobSiteName, sCalendarStartDate, sCalendarStartDate, sAssignmentStartTime);
+        WebElement result = b2wScheduler.getEquipmentAssignment(sEquipmentName, sJobSiteName, sCalendarStartDate, sCalendarStartDate, sAssignmentStartTime, sAssignmentDuration);
         logCompare(true,  result != null, "Verification that specific Equipment Assignment has been created.");
     }
 
-    public void createEmployeeNeed() {
-        this.createEmployeeNeed(sEmployeeNeedName, sJobSiteName, sRequestedBy, sNotesText, sAssignmentDuration, sAssignmentStartTime);
-    }
-
-    public void createEmployeeNeed(String sEmployeeNeedName, String sJobSiteName, String sRequestedBy, String sNotesText, String sAssignmentDuration, String sAssignmentStartTime) {
+    public void createEmployeeNeed(String sScheduleView, String sEmployeeNeedName, String sJobSiteName, String sRequestedBy, String sNotesText, String sAssignmentStartTime, String sAssignmentDuration) {
         /*
          * 1. Open Schedule View with Employee Schedule
          * 2. Change Date Range on Schedule View
@@ -617,9 +612,7 @@ public class ScheduleAssignments extends B2WTestCase {
          * 11. Check that the particular assignment is created
          */
 
-        NavigateToScheduleView(sDefaultEmployeeView, sCalendarStartDate, sCalendarDateRange, sEmployeeNeedName);
-        //ToDo: Remove after Fix problems with grouping view
-        //NavigateToScheduleView(sEmployeeView, sCalendarStartDate, sCalendarDateRange, sEmployeeNeedName);
+        NavigateToScheduleView(sScheduleView, sCalendarStartDate, sCalendarDateRange, sEmployeeNeedName);
 
         int initialCount = b2wScheduler.getAssignmentsCount(sEmployeeNeedName, sJobSiteName, b2wScheduler.EMPLOYEE_NEED_TYPE);
         logCompare(true, b2wScheduler.createNewEmployeeNeed(), "Open Create Employee Need Dialog");
@@ -632,21 +625,16 @@ public class ScheduleAssignments extends B2WTestCase {
         logCompare(true, b2wScheduler.saveEmployeeNeed(), "Save New Employee Need");
 
         //ToDo remove after fix SCHED-3321
-        logCompare(true, b2wScheduler.setSearchValue("aaa"), "Set Filter by Employee Need");
-        logCompare(true, b2wScheduler.setSearchValue(sEmployeeNeedName), "Set Filter by Employee Need");
+        logCompare(true, b2wScheduler.expandAll(), "Expand All Levels");
         //=============================
 
         int actualCount = b2wScheduler.getAssignmentsCount(sEmployeeNeedName, sJobSiteName, b2wScheduler.EMPLOYEE_NEED_TYPE);
         logCompare(true, actualCount == initialCount + 1, "Verification that Employee Need has been created.");
-        WebElement result = b2wScheduler.getEmployeeNeed(sEmployeeNeedName, sJobSiteName, sCalendarStartDate, sCalendarStartDate, sAssignmentStartTime);
+        WebElement result = b2wScheduler.getEmployeeNeed(sEmployeeNeedName, sJobSiteName, sCalendarStartDate, sCalendarStartDate, sAssignmentStartTime, sAssignmentDuration);
         logCompare(true,  result != null, "Verification that specific Employee Need has been created.");
     }
 
-    public void createEquipmentNeed() {
-        createEquipmentNeed(sEquipmentNeedName, sJobSiteName, sCalendarStartDate, sCalendarStartDate, sAssignmentDuration, sAssignmentStartTime);
-    }
-
-    public void createEquipmentNeed(String sEquipmentNeedName, String sJobSiteName, String sStartDate, String sEndDate, String sAssignmentDuration, String sAssignmentStartTime) {
+    public void createEquipmentNeed(String sScheduleView, String sEquipmentNeedName, String sJobSiteName, String sStartDate, String sEndDate, String sAssignmentStartTime, String sAssignmentDuration) {
         /*
          * 1. Open Schedule View with Equipment Schedule
          * 2. Change Date Range on Schedule View
@@ -661,9 +649,7 @@ public class ScheduleAssignments extends B2WTestCase {
          * 11. Check that the particular assignment is created
          */
 
-        NavigateToScheduleView(sDefaultEquipmentView, sCalendarStartDate, sCalendarDateRange, sEquipmentNeedName);
-        //ToDo: Remove after Fix problems with grouping view
-        //NavigateToScheduleView(sEquipmentView, sCalendarStartDate, sCalendarDateRange, sEquipmentNeedName);
+        NavigateToScheduleView(sScheduleView, sCalendarStartDate, sCalendarDateRange, sEquipmentNeedName);
 
         int initialCount = b2wScheduler.getAssignmentsCount(sEquipmentNeedName, sJobSiteName, b2wScheduler.EQUIPMENT_NEED_TYPE);
         logCompare(true, b2wScheduler.createNewEquipmentNeed(), "Open Create Equipment Need Dialog");
@@ -675,18 +661,18 @@ public class ScheduleAssignments extends B2WTestCase {
         logCompare(true, b2wScheduler.setStartTime(sAssignmentStartTime), "Set Start Time");
         logCompare(true, b2wScheduler.saveEquipmentNeed(), "Save New Equipment Need");
 
-        //ToDo remove after fix SCHED-3321
-        logCompare(true, b2wScheduler.setSearchValue("Aaa"), "Set Filter by Employee Need");
-        logCompare(true, b2wScheduler.setSearchValue(sEquipmentNeedName), "Set Filter by Employee Need");
+        //ToDo remove after fix SCHED-3457
+        logCompare(true, b2wScheduler.expandAll(), "Expand All levels");
         //=============================
 
         int actualCount = b2wScheduler.getAssignmentsCount(sEquipmentNeedName, sJobSiteName, b2wScheduler.EQUIPMENT_NEED_TYPE);
         logCompare(true, actualCount == initialCount + 1, "Verification that Equipment Need has been created.");
-        WebElement result = b2wScheduler.getEquipmentNeed(sEquipmentNeedName, sJobSiteName, sStartDate, sEndDate, sAssignmentStartTime);
+        WebElement result = b2wScheduler.getEquipmentNeed(sEquipmentNeedName, sJobSiteName, sStartDate, sEndDate, sAssignmentStartTime, sAssignmentDuration);
         logCompare(true,  result != null, "Verification that specific Equipment Need has been created.");
     }
 
-    public void createCrewAssignment() {
+    public void createCrewAssignment(String sScheduleView, String sCrewName, String sJobSiteName, String sRequestedBy, String sNotesText,
+                                     String sAssignmentStartTime, String sAssignmentDuration) {
         /*
          * 1. Open Schedule View with Crew Schedule
          * 2. Change Date Range on Schedule View
@@ -701,9 +687,7 @@ public class ScheduleAssignments extends B2WTestCase {
          * 11. Check that the particular assignment is created
          */
 
-        NavigateToScheduleView(sDefaultCrewView, sCalendarStartDate, sCalendarDateRange, sCrewName);
-        //ToDo: Remove after Fix problems with grouping view
-        //NavigateToScheduleView(sCrewView, sCalendarStartDate, sCalendarDateRange, sCrewName);
+        NavigateToScheduleView(sScheduleView, sCalendarStartDate, sCalendarDateRange, sCrewName);
 
         int initialCount = b2wScheduler.getAssignmentsCount(sCrewName, sJobSiteName, b2wScheduler.CREW_TYPE);
         logCompare(true, b2wScheduler.createNewCrewAssignment(), "Open Create Crew Assignment Dialog");
@@ -717,15 +701,11 @@ public class ScheduleAssignments extends B2WTestCase {
 
         int actualCount = b2wScheduler.getAssignmentsCount(sCrewName, sJobSiteName, b2wScheduler.CREW_TYPE);
         logCompare(true, actualCount == initialCount + 1, "Verification that Crew Assignment has been created.");
-        WebElement result = b2wScheduler.getCrewAssignment(sCrewName, sJobSiteName, sCalendarStartDate, sCalendarStartDate, sAssignmentStartTime);
+        WebElement result = b2wScheduler.getCrewAssignment(sCrewName, sJobSiteName, sCalendarStartDate, sCalendarStartDate, sAssignmentStartTime, sAssignmentDuration);
         logCompare(true,  result != null, "Verification that specific Crew Assignment has been created.");
     }
 
-    public void createCrewNeed() {
-        createCrewNeed(sCrewNeedName, sJobSiteName, sAssignmentDuration, sAssignmentStartTime);
-    }
-
-    public void createCrewNeed(String sCrewNeedName, String sJobSiteName, String sAssignmentDuration, String sAssignmentStartTime) {
+    public void createCrewNeed(String sScheduleView, String sCrewNeedName, String sJobSiteName, String sRequestedBy, String sNotesText, String sAssignmentStartTime, String sAssignmentDuration) {
         /*
          * 1. Open Schedule View with Crew Schedule
          * 2. Change Date Range on Schedule View
@@ -740,9 +720,7 @@ public class ScheduleAssignments extends B2WTestCase {
          * 11. Check that the particular assignment is created
          */
 
-        NavigateToScheduleView(sDefaultCrewView, sCalendarStartDate, sCalendarDateRange, sCrewNeedName);
-        //ToDo: Remove after Fix problems with grouping view
-        //NavigateToScheduleView(sCrewView, sCalendarStartDate, sCalendarDateRange, sCrewNeedName);
+        NavigateToScheduleView(sScheduleView, sCalendarStartDate, sCalendarDateRange, sCrewNeedName);
 
         int initialCount = b2wScheduler.getAssignmentsCount(sCrewNeedName, sJobSiteName, b2wScheduler.CREW_NEED_TYPE);
         logCompare(true, b2wScheduler.createNewCrewNeed(), "Open Create New Crew Need Dialog");
@@ -754,18 +732,23 @@ public class ScheduleAssignments extends B2WTestCase {
         logCompare(true, b2wScheduler.setStartTime(sAssignmentStartTime), "Set Notes");
         logCompare(true, b2wScheduler.saveCrewNeed(), "Save New Crew Need");
 
-        //ToDo remove after fix SCHED-3321
+        //ToDo remove after fix SCHED-3457
+        logCompare(true, b2wScheduler.expandAll(), "Expand All Levels");
+        /*
         logCompare(true, b2wScheduler.setSearchValue("aaa"), "Set Filter by Employee Need");
         logCompare(true, b2wScheduler.setSearchValue(sCrewNeedName), "Set Filter by Employee Need");
+        */
         //===========================================
 
         int actualCount = b2wScheduler.getAssignmentsCount(sCrewNeedName, sJobSiteName, b2wScheduler.CREW_NEED_TYPE);
         logCompare(true, actualCount == initialCount + 1, "Verification that Crew Need has been created.");
-        WebElement result = b2wScheduler.getCrewNeed(sCrewNeedName, sJobSiteName, sCalendarStartDate, sCalendarStartDate, sAssignmentStartTime);
+        WebElement result = b2wScheduler.getCrewNeed(sCrewNeedName, sJobSiteName, sCalendarStartDate, sCalendarStartDate, sAssignmentStartTime, sAssignmentDuration);
         logCompare(true,  result != null, "Verification that specific Crew Need has been created.");
     }
 
-    public void createMoveAssignment() {
+    public void createMoveAssignment(String sScheduleView, String sEquipmentName, String sDropoffJobSiteName, String sPickupJobSiteName,
+                                     String sTransportationCrewName, String sRequestedBy, String sNotesText, String sPickupDate, String sPickupTime,
+                                     String sDropoffDate, String sDropoffTime) {
         /*
          * 1. Open Schedule View with Equipment Schedule
          * 2. Change Date Range on Schedule View
@@ -780,13 +763,15 @@ public class ScheduleAssignments extends B2WTestCase {
          * 11. Check that the particular assignment is created
          */
 
-        NavigateToScheduleView(sDefaultEquipmentView, sCalendarStartDate, sCalendarDateRange, sEquipmentName);
-        //ToDo: Remove after Fix problems with grouping view
-        //NavigateToScheduleView(sEquipmentView, sCalendarStartDate, sCalendarDateRange, sEquipmentName);
+        NavigateToScheduleView(sScheduleView, sCalendarStartDate, sCalendarDateRange, sEquipmentName);
 
         int initialCount = b2wScheduler.getAssignmentsCount(sEquipmentName, sDropoffJobSiteName, b2wScheduler.MOVE_ASSIGNMENT_TYPE);
         logCompare(true, b2wScheduler.createNewMoveAssignment(), "Open Create Move Assignment Dialog");
         logCompare(true, b2wScheduler.setEquipment(sEquipmentName), "Set Equipment");
+        logCompare(true, b2wScheduler.setPickupDate(sPickupDate), "Set Pickup Date");
+        logCompare(true, b2wScheduler.setPickupTime(sPickupTime), "Set Pickup Time");
+        logCompare(true, b2wScheduler.setDropoffDate(sDropoffDate), "Set Dropoff Date");
+        logCompare(true, b2wScheduler.setDropoffTime(sDropoffTime), "Set Dropoff Time");
         logCompare(true, b2wScheduler.setPickupLocation("Job Site/Place", sPickupJobSiteName), "Set Pickup Location");
         logCompare(true, b2wScheduler.setDropoffLocation("Job Site/Place", sDropoffJobSiteName), "Set Drop-off Location");
         logCompare(true, b2wScheduler.clickSelectCrew(), "Open Select Crew Dialog");
@@ -796,17 +781,23 @@ public class ScheduleAssignments extends B2WTestCase {
         logCompare(true, b2wScheduler.saveMoveAssignment(), "Save New Move Assignment");
 
         //ToDo remove after fix SCHED-3321
+        /*
         logCompare(true, b2wScheduler.setSearchValue("aaa"), "Set Filter");
         logCompare(true, b2wScheduler.setSearchValue(sEquipmentName), "Set Filter");
+        */
         //===========================================
 
         int actualCount = b2wScheduler.getAssignmentsCount(sEquipmentName, sDropoffJobSiteName, b2wScheduler.MOVE_ASSIGNMENT_TYPE);
         logCompare(true, actualCount == initialCount + 1, "Verification that Move Assignment has been created.");
-        WebElement result = b2wScheduler.getMoveAssignment(sEquipmentName, sDropoffJobSiteName, sCalendarStartDate, sCalendarStartDate, sAssignmentStartTime);
+        //ToDo: Issue SCHED-3142
+        //WebElement result = b2wScheduler.getMoveAssignment(sEquipmentName, sDropoffJobSiteName, sPickupDate, sDropoffDate, sPickupTime, sDropoffTime);
+        WebElement result = b2wScheduler.getMoveAssignment(sEquipmentName, sDropoffJobSiteName, sPickupDate, sDropoffDate, sEventStartTime, sEventStartTime);
         logCompare(true,  result != null, "Verification that specific Move Assignment has been created.");
     }
 
-    public void createMoveOrder() {
+    public void createMoveOrder(String sScheduleView, String sEquipmentName, String sDropoffJobSiteName, String sPickupJobSiteName,
+                                String sPickupDate, String sPickupTime, String sDropoffDate, String sDropoffTime, String sRequestedBy,
+                                String sNotesText) {
         /*
          * 1. Open Schedule View with Equipment Schedule
          * 2. Change Date Range on Schedule View
@@ -821,31 +812,31 @@ public class ScheduleAssignments extends B2WTestCase {
          * 11. Check that the particular assignment is created
          */
 
-        NavigateToScheduleView(sDefaultEquipmentView, sCalendarStartDate, sCalendarDateRange, sEquipmentName);
-        //ToDo: Remove after Fix problems with grouping view
-        //NavigateToScheduleView(sEquipmentView, sCalendarStartDate, sCalendarDateRange, sEquipmentName);
+        NavigateToScheduleView(sScheduleView, sCalendarStartDate, sCalendarDateRange, sEquipmentName);
 
         int initialCount = b2wScheduler.getAssignmentsCount(sEquipmentName, sDropoffJobSiteName, b2wScheduler.MOVE_ORDER_TYPE);
         logCompare(true, b2wScheduler.createNewMoveOrder(), "Open Create Move Order Dialog");
         logCompare(true, b2wScheduler.setEquipment(sEquipmentName), "Set Equipment");
+        logCompare(true, b2wScheduler.setPickupAfter(sPickupDate), "Set Pickup After");
+        logCompare(true, b2wScheduler.setPickupTime(sPickupTime), "Set Pickup Time");
+        logCompare(true, b2wScheduler.setDropoffBefore(sDropoffDate), "Set Drop-off Before");
+        logCompare(true, b2wScheduler.setDropoffTime(sDropoffTime), "Set Drop-off Time");
         logCompare(true, b2wScheduler.setPickupLocation("Job Site/Place", sPickupJobSiteName), "Set Pickup Location");
         logCompare(true, b2wScheduler.setDropoffLocation("Job Site/Place", sDropoffJobSiteName), "Set Drop-off Location");
         logCompare(true, b2wScheduler.setRequestedBy(sRequestedBy), "Set Requested By");
         logCompare(true, b2wScheduler.setNotes(sNotesText), "Set Notes");
         logCompare(true, b2wScheduler.saveMoveOrder(), "Save New Move Order");
 
-        //ToDo remove after fix SCHED-3321
-        logCompare(true, b2wScheduler.setSearchValue("aaa"), "Set Filter by Employee Need");
-        logCompare(true, b2wScheduler.setSearchValue(sEquipmentName), "Set Filter by Employee Need");
-        //===========================================
-
         int actualCount = b2wScheduler.getAssignmentsCount(sEquipmentName, sDropoffJobSiteName, b2wScheduler.MOVE_ORDER_TYPE);
         logCompare(true, actualCount == initialCount + 1, "Verification that Move Order has been created.");
-        WebElement result = b2wScheduler.getMoveOrder(sEquipmentName, sDropoffJobSiteName, sCalendarStartDate, sCalendarStartDate, sAssignmentStartTime);
+        //ToDo: Issue SCHED-3142
+        //WebElement result = b2wScheduler.getMoveOrder(sEquipmentName, sDropoffJobSiteName, sPickupDate, sDropoffDate, sPickupTime, sDropoffTime);
+        WebElement result = b2wScheduler.getMoveOrder(sEquipmentName, sDropoffJobSiteName, sPickupDate, sDropoffDate, sEventStartTime, sEventStartTime);
         logCompare(true,  result != null, "Verification that specific Move Order has been created.");
     }
 
-    public void createEmployeeEvent() {
+    public void createEmployeeEvent(String sScheduleView, String sEmployeeName, String sEmployeeEventType, String sNotesText,
+                                    String sEventStartDate, String sEventEndDate, String sEventStartTime, String sEventDuration) {
         /*
          * 1. Open Schedule View with Employee Schedule
          * 2. Change Date Range on Schedule View
@@ -860,9 +851,7 @@ public class ScheduleAssignments extends B2WTestCase {
          * 11. Check that the particular assignment is created
          */
 
-        NavigateToScheduleView(sDefaultEmployeeView, sCalendarStartDate, sCalendarDateRange, sEmployeeName);
-        //ToDo: Remove after Fix problems with grouping view
-        //NavigateToScheduleView(sEmployeeView, sCalendarStartDate, sCalendarDateRange, sEmployeeName);
+        NavigateToScheduleView(sScheduleView, sCalendarStartDate, sCalendarDateRange, sEmployeeName);
 
         int initialCount = b2wScheduler.getAssignmentsCount(sEmployeeName, sEmployeeEventType, b2wScheduler.EMPLOYEE_EVENT_TYPE);
         logCompare(true, b2wScheduler.createNewEmployeeEvent(), "Open Create Employee Event Dialog");
@@ -873,11 +862,12 @@ public class ScheduleAssignments extends B2WTestCase {
 
         int actualCount = b2wScheduler.getAssignmentsCount(sEmployeeName, sEmployeeEventType, b2wScheduler.EMPLOYEE_EVENT_TYPE);
         logCompare(true, actualCount == initialCount + 1, "Verification that Employee Event has been created.");
-        WebElement result = b2wScheduler.getEmployeeEvent(sEmployeeName, sEmployeeEventType, sCalendarStartDate, sCalendarStartDate, sAssignmentStartTime);
+        WebElement result = b2wScheduler.getEmployeeEvent(sEmployeeName, sEmployeeEventType, sEventStartDate, sEventEndDate, sEventStartTime, sEventDuration);
         logCompare(true,  result != null, "Verification that specific Employee Event has been created.");
     }
 
-    public void createEquipmentEvent() {
+    public void createEquipmentEvent(String sScheduleView, String sEquipmentName, String sEquipmentEventType, String sNotesText,
+                                     String sEventStartDate, String sEventEndDate, String sEventStartTime, String sEventDuration) {
         /*
          * 1. Open Schedule View with Equipment Schedule
          * 2. Change Date Range on Schedule View
@@ -892,9 +882,7 @@ public class ScheduleAssignments extends B2WTestCase {
          * 11. Check that the particular event is created
          */
 
-        NavigateToScheduleView(sDefaultEquipmentView, sCalendarStartDate, sCalendarDateRange, sEquipmentName);
-        //ToDo: Remove after Fix problems with grouping view
-        //NavigateToScheduleView(sEquipmentView, sCalendarStartDate, sCalendarDateRange, sEquipmentName);
+        NavigateToScheduleView(sScheduleView, sCalendarStartDate, sCalendarDateRange, sEquipmentName);
 
         int initialCount = b2wScheduler.getAssignmentsCount(sEquipmentName, sEquipmentEventType, b2wScheduler.EQUIPMENT_EVENT_TYPE);
         logCompare(true, b2wScheduler.createNewEquipmentEvent(), "Open Create Equipment Event Dialog");
@@ -905,11 +893,12 @@ public class ScheduleAssignments extends B2WTestCase {
 
         int actualCount = b2wScheduler.getAssignmentsCount(sEquipmentName, sEquipmentEventType, b2wScheduler.EQUIPMENT_EVENT_TYPE);
         logCompare(true, actualCount == initialCount + 1, "Verification that Equipment Event has been created.");
-        WebElement result = b2wScheduler.getEquipmentEvent(sEquipmentName, sEquipmentEventType, sCalendarStartDate, sCalendarStartDate, sAssignmentStartTime);
+        WebElement result = b2wScheduler.getEquipmentEvent(sEquipmentName, sEquipmentEventType, sEventStartDate, sEventEndDate, sEventStartTime, sEventDuration);
         logCompare(true,  result != null, "Verification that specific Equipment Event has been created.");
     }
 
-    public void createLocationEvent() {
+    public void createLocationEvent(String sScheduleView, String sJobSiteName, String sLocationEventType, String sNotesText,
+                                    String sEventStartDate, String sEventEndDate, String sEventStartTime, String sEventDuration) {
         /*
          * 1. Open Schedule View with Location Schedule
          * 2. Change Date Range on Schedule View
@@ -924,9 +913,7 @@ public class ScheduleAssignments extends B2WTestCase {
          * 11. Check that the particular event is created
          */
 
-        NavigateToScheduleView(sDefaultLocationView, sCalendarStartDate, sCalendarDateRange, sJobSiteName);
-        //ToDo: Remove after Fix problems with grouping view
-        //NavigateToScheduleView(sLocationView, sCalendarStartDate, sCalendarDateRange, sJobSiteName);
+        NavigateToScheduleView(sScheduleView, sCalendarStartDate, sCalendarDateRange, sJobSiteName);
 
         int initialCount = b2wScheduler.getAssignmentsCount(sJobSiteName, sLocationEventType, b2wScheduler.LOCATION_EVENT_TYPE);
         logCompare(true, b2wScheduler.createNewLocationEvent(), "Open Create Location Event Dialog");
@@ -935,18 +922,14 @@ public class ScheduleAssignments extends B2WTestCase {
         logCompare(true, b2wScheduler.setNotes(sNotesText), "Set Notes");
         logCompare(true, b2wScheduler.saveEvent(), "Save New Location Event Type");
 
-        //ToDo remove after fix SCHED-3321
-        logCompare(true, b2wScheduler.setSearchValue(sJobSiteNameUpd), "Set Filter by Employee Need");
-        logCompare(true, b2wScheduler.setSearchValue(sJobSiteName), "Set Filter by Employee Need");
-        //===========================================
-
         int actualCount = b2wScheduler.getAssignmentsCount(sJobSiteName, sLocationEventType, b2wScheduler.LOCATION_EVENT_TYPE);
         logCompare(true, actualCount == initialCount + 1, "Verification that JobSite Event has been created.");
-        WebElement result = b2wScheduler.getJobSiteEvent(sJobSiteName, sLocationEventType, sCalendarStartDate, sCalendarStartDate, sAssignmentStartTime);
+        WebElement result = b2wScheduler.getJobSiteEvent(sJobSiteName, sLocationEventType, sEventStartDate, sEventEndDate, sEventStartTime, sEventDuration);
         logCompare(true,  result != null, "Verification that specific JobSite Event has been created.");
     }
 
-    public void createEmployeeSubstitution() {
+    public void createEmployeeSubstitution(String sScheduleView, String sEmployeeName, String sEmployeeSubstitution, String sJobSiteName, String sStartDate,
+                                           String sEndDate, String sAssignmentStartTime, String sAssignmentDuration) {
         /*
          * 1. Open Schedule View with Employee Schedule
          * 2. Change Date Range on Schedule View
@@ -961,23 +944,22 @@ public class ScheduleAssignments extends B2WTestCase {
          * 11. Check that the particular substitution was created
          */
 
-        NavigateToScheduleView(sDefaultEmployeeView, sCalendarStartDate, sCalendarDateRange, sEmployeeNameForSubstitution);
-        //NavigateToScheduleView(sEmployeeView, sCalendarStartDate, sCalendarDateRange, sEmployeeNameForSubstitution);
+        NavigateToScheduleView(sScheduleView, sCalendarStartDate, sCalendarDateRange, sEmployeeName);
 
-        WebElement assignment = b2wScheduler.getEmployeeAssignment(sEmployeeNameForSubstitution, sJobSiteName, sCalendarStartDate, sCalendarStartDate, sAssignmentStartTime);
+        WebElement assignment = b2wScheduler.getEmployeeAssignment(sEmployeeName, sJobSiteName, sStartDate, sEndDate, sAssignmentStartTime, sAssignmentDuration);
         if (assignment != null) {
             logCompare(true, b2wScheduler.openContextMenu(assignment), "Open Assignment's Context Menu");
             logCompare(true, b2wScheduler.createSubstitution(), "Select 'Create Substitution' option");
             logCompare(true, b2wScheduler.setEmployee(sEmployeeSubstitution), "Set Employee Substitution");
             logCompare(true, b2wScheduler.saveEmployeeAssignment(), "Save Employee Substitution");
 
-            WebElement result = b2wScheduler.getEmployeeSubstituted(sEmployeeNameForSubstitution, sJobSiteName, sCalendarStartDate, sCalendarStartDate, sAssignmentStartTime);
+            WebElement result = b2wScheduler.getEmployeeSubstituted(sEmployeeName, sJobSiteName, sStartDate, sEndDate, sAssignmentStartTime, sAssignmentDuration);
             logCompare(true, result != null, "Verification that specific Assignment converted to Substituted.");
             logCompare(true, b2wScheduler.setSearchValue(sEmployeeSubstitution), "Set Filter by Employee Name");
-            result = b2wScheduler.getEmployeeSubstitution(sEmployeeSubstitution, sJobSiteName, sCalendarStartDate, sCalendarStartDate, sAssignmentStartTime);
+            result = b2wScheduler.getEmployeeSubstitution(sEmployeeSubstitution, sJobSiteName, sStartDate, sEndDate, sAssignmentStartTime, sAssignmentDuration);
             logCompare(true, result != null, "Verification that specific Substitution has been created.");
         } else {
-            logCompare(true, false, "Employee Assignment for " + sEmployeeNameForSubstitution + " could not be found on the page.");
+            logCompare(true, false, "Employee Assignment for " + sEmployeeName + " could not be found on the page.");
         }
     }
 
@@ -997,7 +979,7 @@ public class ScheduleAssignments extends B2WTestCase {
 
         NavigateToScheduleView(sEmployeeView, sCalendarStartDate, sCalendarDateRange, sEmployeeName);
 
-        WebElement assignment = b2wScheduler.getEmployeeAssignment(sEmployeeName, sJobSiteName, sCalendarStartDate, sCalendarStartDate, sAssignmentStartTime);
+        WebElement assignment = b2wScheduler.getEmployeeAssignment(sEmployeeName, sJobSiteName, sCalendarStartDate, sCalendarStartDate, sAssignmentStartTime, sAssignmentDuration);
         if (assignment != null) {
             logCompare(true, b2wScheduler.openContextMenu(assignment), "Open Assignment's Context Menu");
             logCompare(true, b2wScheduler.editAssignment(), "Select 'Edit Assignment' option");
@@ -1010,7 +992,7 @@ public class ScheduleAssignments extends B2WTestCase {
             logCompare(true, b2wScheduler.saveEmployeeAssignment(), "Update Employee Assignment");
             logCompare(true, b2wScheduler.setSearchValue(sEmployeeNameUpd), "Set Filter by updated Employee Name");
 
-            WebElement result = b2wScheduler.getEmployeeAssignment(sEmployeeNameUpd, sJobSiteNameUpd, sCalendarStartDate, sCalendarStartDate, sAssignmentStartTimeUpd);
+            WebElement result = b2wScheduler.getEmployeeAssignment(sEmployeeNameUpd, sJobSiteNameUpd, sCalendarStartDate, sCalendarStartDate, sAssignmentStartTimeUpd, sAssignmentDurationUpd);
             logCompare(true, result != null, "Verification that specific Employee Assignment has been updated.");
         } else {
             logCompare(true, false, "Employee Assignment for " + sEmployeeName + " could not be found on the page.");
@@ -1032,7 +1014,7 @@ public class ScheduleAssignments extends B2WTestCase {
 
         NavigateToScheduleView(sEquipmentView, sCalendarStartDate, sCalendarDateRange, sEquipmentName);
 
-        WebElement assignment = b2wScheduler.getEquipmentAssignment(sEquipmentName, sJobSiteName, sCalendarStartDate, sCalendarStartDate, sAssignmentStartTime);
+        WebElement assignment = b2wScheduler.getEquipmentAssignment(sEquipmentName, sJobSiteName, sCalendarStartDate, sCalendarStartDate, sAssignmentStartTime, sAssignmentDuration);
         if (assignment != null) {
             logCompare(true, b2wScheduler.openContextMenu(assignment), "Open Assignment's Context Menu");
             logCompare(true, b2wScheduler.editAssignment(), "Select 'Edit Assignment' option");
@@ -1044,7 +1026,7 @@ public class ScheduleAssignments extends B2WTestCase {
             logCompare(true, b2wScheduler.setStartTime(sAssignmentStartTimeUpd), "Update Start Time");
             logCompare(true, b2wScheduler.saveEquipmentAssignment(), "Save updated Equipment Assignment");
             logCompare(true, b2wScheduler.setSearchValue(sEquipmentNameUpd), "Set Filter by updated Equipment Name");
-            WebElement result = b2wScheduler.getEquipmentAssignment(sEquipmentNameUpd, sJobSiteNameUpd, sCalendarStartDate, sCalendarStartDate, sAssignmentStartTimeUpd);
+            WebElement result = b2wScheduler.getEquipmentAssignment(sEquipmentNameUpd, sJobSiteNameUpd, sCalendarStartDate, sCalendarStartDate, sAssignmentStartTimeUpd, sAssignmentDurationUpd);
             logCompare(true, result != null, "Verification that specific Equipment Assignment has been updated.");
         } else {
             logCompare(true, false, "Equipment Assignment for " + sEquipmentName + " could not be found on the page." );
@@ -1066,7 +1048,7 @@ public class ScheduleAssignments extends B2WTestCase {
 
         NavigateToScheduleView(sEmployeeView, sCalendarStartDate, sCalendarDateRange, sEmployeeNeedName);
 
-        WebElement assignment = b2wScheduler.getEmployeeNeed(sEmployeeNeedName, sJobSiteName, sCalendarStartDate, sCalendarStartDate, sAssignmentStartTime);
+        WebElement assignment = b2wScheduler.getEmployeeNeed(sEmployeeNeedName, sJobSiteName, sCalendarStartDate, sCalendarStartDate, sAssignmentStartTime, sAssignmentDuration);
         if (assignment != null) {
             logCompare(true, b2wScheduler.openContextMenu(assignment), "Open Assignment's Context Menu");
             logCompare(true, b2wScheduler.editNeed(), "Select 'Edit Need' option");
@@ -1078,7 +1060,7 @@ public class ScheduleAssignments extends B2WTestCase {
             logCompare(true, b2wScheduler.setStartTime(sAssignmentStartTimeUpd), "Update Start Time");
             logCompare(true, b2wScheduler.saveEmployeeNeed(), "Update Employee Need");
             logCompare(true, b2wScheduler.setSearchValue(sEmployeeNeedNameUpd), "Set Filter by updated Employee Need");
-            WebElement result = b2wScheduler.getEmployeeNeed(sEmployeeNeedNameUpd, sJobSiteNameUpd, sCalendarStartDate, sCalendarStartDate, sAssignmentStartTimeUpd);
+            WebElement result = b2wScheduler.getEmployeeNeed(sEmployeeNeedNameUpd, sJobSiteNameUpd, sCalendarStartDate, sCalendarStartDate, sAssignmentStartTimeUpd, sAssignmentDurationUpd);
             logCompare(true, result != null, "Verification that specific Employee Need has been updated.");
         } else {
             logCompare(true, false, "Employee Need for " + sEmployeeNeedName + " could not be found on the page." );
@@ -1100,7 +1082,7 @@ public class ScheduleAssignments extends B2WTestCase {
 
         NavigateToScheduleView(sEquipmentView, sCalendarStartDate, sCalendarDateRange, sEquipmentNeedName);
 
-        WebElement assignment = b2wScheduler.getEquipmentNeed(sEquipmentNeedName, sJobSiteName, sCalendarStartDate, sCalendarStartDate, sAssignmentStartTime);
+        WebElement assignment = b2wScheduler.getEquipmentNeed(sEquipmentNeedName, sJobSiteName, sCalendarStartDate, sCalendarStartDate, sAssignmentStartTime, sAssignmentDuration);
         if (assignment != null) {
             logCompare(true, b2wScheduler.openContextMenu(assignment), "Open Assignment's Context Menu");
             logCompare(true, b2wScheduler.editNeed(), "Select 'Edit Need' option");
@@ -1112,7 +1094,7 @@ public class ScheduleAssignments extends B2WTestCase {
             logCompare(true, b2wScheduler.setStartTime(sAssignmentStartTimeUpd), "Update Start Time");
             logCompare(true, b2wScheduler.saveEquipmentNeed(), "Update Equipment Need");
             logCompare(true, b2wScheduler.setSearchValue(sEquipmentNeedNameUpd), "Set Filter by updated Employee Need");
-            WebElement result = b2wScheduler.getEquipmentNeed(sEquipmentNeedNameUpd, sJobSiteNameUpd, sCalendarStartDate, sCalendarStartDate, sAssignmentStartTimeUpd);
+            WebElement result = b2wScheduler.getEquipmentNeed(sEquipmentNeedNameUpd, sJobSiteNameUpd, sCalendarStartDate, sCalendarStartDate, sAssignmentStartTimeUpd, sAssignmentDurationUpd);
             logCompare(true, result != null, "Verification that specific Equipment Need has been updated.");
         } else {
             logCompare(true, false, "Equipment Need for " + sEquipmentNeedName + " could not be found on the page." );
@@ -1134,7 +1116,7 @@ public class ScheduleAssignments extends B2WTestCase {
 
         NavigateToScheduleView(sCrewView, sCalendarStartDate, sCalendarDateRange, sCrewName);
 
-        WebElement assignment = b2wScheduler.getCrewAssignment(sCrewName, sJobSiteName, sCalendarStartDate, sCalendarStartDate, sAssignmentStartTime);
+        WebElement assignment = b2wScheduler.getCrewAssignment(sCrewName, sJobSiteName, sCalendarStartDate, sCalendarStartDate, sAssignmentStartTime, sAssignmentDuration);
         if (assignment != null) {
             logCompare(true, b2wScheduler.openContextMenu(assignment), "Open Assignment's Context Menu");
             logCompare(true, b2wScheduler.editAssignment(), "Select 'Edit Assignment' option");
@@ -1146,7 +1128,7 @@ public class ScheduleAssignments extends B2WTestCase {
             logCompare(true, b2wScheduler.setStartTime(sAssignmentStartTimeUpd), "Update Start Time");
             logCompare(true, b2wScheduler.saveCrewAssignment(), "Update Crew Assignment");
             logCompare(true, b2wScheduler.setSearchValue(sCrewNameUpd), "Set Filter by updated Crew Name");
-            WebElement result = b2wScheduler.getCrewAssignment(sCrewNameUpd, sJobSiteNameUpd, sCalendarStartDate, sCalendarStartDate, sAssignmentStartTimeUpd);
+            WebElement result = b2wScheduler.getCrewAssignment(sCrewNameUpd, sJobSiteNameUpd, sCalendarStartDate, sCalendarStartDate, sAssignmentStartTimeUpd, sAssignmentDurationUpd);
             logCompare(true, result != null, "Verification that specific Crew Assignment has been updated.");
         } else {
             logCompare(true, false, "Crew Assignment for " + sCrewName + " could not be found on the page." );
@@ -1168,7 +1150,7 @@ public class ScheduleAssignments extends B2WTestCase {
 
         NavigateToScheduleView(sCrewView, sCalendarStartDate, sCalendarDateRange, sCrewNeedName);
 
-        WebElement assignment = b2wScheduler.getCrewNeed(sCrewNeedName, sJobSiteName, sCalendarStartDate, sCalendarStartDate, sAssignmentStartTime);
+        WebElement assignment = b2wScheduler.getCrewNeed(sCrewNeedName, sJobSiteName, sCalendarStartDate, sCalendarStartDate, sAssignmentStartTime, sAssignmentDuration);
         if (assignment != null) {
             logCompare(true, b2wScheduler.openContextMenu(assignment), "Open Need's Context Menu");
             logCompare(true, b2wScheduler.editNeed(), "Select 'Edit Need' option");
@@ -1180,7 +1162,7 @@ public class ScheduleAssignments extends B2WTestCase {
             logCompare(true, b2wScheduler.setStartTime(sAssignmentStartTimeUpd), "Update Start Time");
             logCompare(true, b2wScheduler.saveCrewNeed(), "Update Crew Need");
             logCompare(true, b2wScheduler.setSearchValue(sCrewNeedNameUpd), "Set Filter by updated Crew Need");
-            WebElement result = b2wScheduler.getCrewNeed(sCrewNeedNameUpd, sJobSiteNameUpd, sCalendarStartDate, sCalendarStartDate, sAssignmentStartTimeUpd);
+            WebElement result = b2wScheduler.getCrewNeed(sCrewNeedNameUpd, sJobSiteNameUpd, sCalendarStartDate, sCalendarStartDate, sAssignmentStartTimeUpd, sAssignmentDurationUpd);
             logCompare(true, result != null, "Verification that specific Crew Need has been updated.");
         } else {
             logCompare(true, false, "Crew Need for " + sCrewNeedName + " could not be found on the page." );
@@ -1202,7 +1184,9 @@ public class ScheduleAssignments extends B2WTestCase {
 
         NavigateToScheduleView(sEquipmentView, sCalendarStartDate, sCalendarDateRange, sEquipmentName);
 
-        WebElement assignment = b2wScheduler.getMoveAssignment(sEquipmentName, sDropoffJobSiteName, sCalendarStartDate, sCalendarStartDate, sAssignmentStartTime);
+        //ToDo: Issue SCHED-3142
+        //WebElement assignment = b2wScheduler.getMoveAssignment(sEquipmentName, sDropoffJobSiteName, sPickupDate, sDropoffDate, sPickupTime, sDropoffTime);
+        WebElement assignment = b2wScheduler.getMoveAssignment(sEquipmentName, sDropoffJobSiteName, sPickupDate, sDropoffDate, sEventStartTime, sEventStartTime);
         if (assignment != null) {
             logCompare(true, b2wScheduler.openContextMenu(assignment), "Open Assignment's Context Menu");
             logCompare(true, b2wScheduler.editMoveAssignment(), "Select 'Edit Move Assignment' option");
@@ -1215,7 +1199,9 @@ public class ScheduleAssignments extends B2WTestCase {
             logCompare(true, b2wScheduler.updateNotes(sNotesTextUpd), "Update Notes");
             logCompare(true, b2wScheduler.saveMoveAssignment(), "Update Move Assignment");
             logCompare(true, b2wScheduler.setSearchValue(sEquipmentName), "Set Filter by updated Equipment Name");
-            WebElement result = b2wScheduler.getMoveAssignment(sEquipmentName, sDropoffJobSiteNameUpd, sCalendarStartDate, sCalendarStartDate, sAssignmentStartTimeUpd);
+            //ToDo: Issue SCHED-3142
+            //WebElement result = b2wScheduler.getMoveAssignment(sEquipmentName, sDropoffJobSiteNameUpd, sPickupDate, sDropoffDate, sPickupTime, sDropoffTime);
+            WebElement result = b2wScheduler.getMoveAssignment(sEquipmentName, sDropoffJobSiteNameUpd, sPickupDate, sDropoffDate, sEventStartTime, sEventStartTime);
             logCompare(true, result != null, "Verification that specific Move Assignment has been updated.");
         } else {
             logCompare(true, false, "Move Assignment for " + sEquipmentName + " could not be found on the page." );
@@ -1237,7 +1223,9 @@ public class ScheduleAssignments extends B2WTestCase {
 
         NavigateToScheduleView(sEquipmentView, sCalendarStartDate, sCalendarDateRange, sEquipmentName);
 
-        WebElement assignment = b2wScheduler.getMoveOrder(sEquipmentName, sDropoffJobSiteName, sCalendarStartDate, sCalendarStartDate, sAssignmentStartTime);
+        //ToDo: Issue SCHED-3142
+        //WebElement assignment = b2wScheduler.getMoveOrder(sEquipmentName, sDropoffJobSiteName, sPickupDate, sDropoffDate, sPickupTime, sDropoffTime);
+        WebElement assignment = b2wScheduler.getMoveOrder(sEquipmentName, sDropoffJobSiteName, sPickupDate, sDropoffDate, sEventStartTime, sEventStartTime);
         if (assignment != null) {
             logCompare(true, b2wScheduler.openContextMenu(assignment), "Open Order's Context Menu");
             logCompare(true, b2wScheduler.editMoveOrder(), "Select 'Edit Move Order' option");
@@ -1247,7 +1235,9 @@ public class ScheduleAssignments extends B2WTestCase {
             logCompare(true, b2wScheduler.updateNotes(sNotesTextUpd), "Update Notes");
             logCompare(true, b2wScheduler.saveMoveOrder(), "Update Move Order");
             logCompare(true, b2wScheduler.setSearchValue(sEquipmentName), "Set Filter by updated Equipment Name");
-            WebElement result = b2wScheduler.getMoveOrder(sEquipmentName, sDropoffJobSiteNameUpd, sCalendarStartDate, sCalendarStartDate, sAssignmentStartTimeUpd);
+            //ToDo: Issue SCHED-3142
+            //WebElement result = b2wScheduler.getMoveOrder(sEquipmentName, sDropoffJobSiteNameUpd, sPickupDate, sDropoffDate, sPickupTime, sDropoffTime);
+            WebElement result = b2wScheduler.getMoveOrder(sEquipmentName, sDropoffJobSiteNameUpd, sPickupDate, sDropoffDate, sEventStartTime, sEventStartTime);
             logCompare(true, result != null, "Verification that specific Move Order has been updated.");
         } else {
             logCompare(true, false, "Move Order for " + sEquipmentName + " could not be found on the page." );
@@ -1267,12 +1257,9 @@ public class ScheduleAssignments extends B2WTestCase {
          * 9. Verify that Assignment was updated.
          */
 
-        logCompare(true, b2wNav.openSchedule(), "Open Schedule View");
-        logCompare(true, b2wScheduler.navigateToScheduleView(sEmployeeView, sEmployeeView), "Open Employee Schedule View");
-        logCompare(true, b2wScheduler.setCalendarDateRange(sCalendarDateRange), "Set Calendar Date Range");
-        logCompare(true, b2wScheduler.setCalendarStartDate(sCalendarStartDate), "Set Calendar Start");
-        logCompare(true, b2wScheduler.setSearchValue(sEmployeeName), "Set Filter by Employee Name");
-        WebElement assignment = b2wScheduler.getEmployeeEvent(sEmployeeName, sEmployeeEventType, sCalendarStartDate, sCalendarStartDate, sAssignmentStartTime);
+        NavigateToScheduleView(sEmployeeView, sCalendarStartDate, sCalendarDateRange, sEmployeeName);
+
+        WebElement assignment = b2wScheduler.getEmployeeEvent(sEmployeeName, sEmployeeEventType, sCalendarStartDate, sCalendarStartDate, sEventStartTime, sEventDuration);
         if (assignment != null) {
             logCompare(true, b2wScheduler.openContextMenu(assignment), "Open Event's Context Menu");
             logCompare(true, b2wScheduler.editEvent(), "Select 'Edit Event' option");
@@ -1281,7 +1268,7 @@ public class ScheduleAssignments extends B2WTestCase {
             logCompare(true, b2wScheduler.updateNotes(sNotesTextUpd), "Update Notes");
             logCompare(true, b2wScheduler.saveEvent(), "Update Employee Event");
             logCompare(true, b2wScheduler.setSearchValue(sEmployeeNameUpd), "Set Filter by updated Employee Name");
-            WebElement result = b2wScheduler.getEmployeeEvent(sEmployeeNameUpd, sEmployeeEventTypeUpd, sCalendarStartDate, sCalendarStartDate, sAssignmentStartTime);
+            WebElement result = b2wScheduler.getEmployeeEvent(sEmployeeNameUpd, sEmployeeEventTypeUpd, sCalendarStartDate, sCalendarStartDate, sEventStartTime, sEventDuration);
             logCompare(true, result != null, "Verification that specific Employee Event has been updated.");
         } else {
             logCompare(true, false, "Employee Event for " + sEmployeeName + " could not be found on the page.");
@@ -1301,12 +1288,9 @@ public class ScheduleAssignments extends B2WTestCase {
          * 9. Verify that Assignment was updated.
          */
 
-        logCompare(true, b2wNav.openSchedule(), "Open Schedule View");
-        logCompare(true, b2wScheduler.navigateToScheduleView(sEquipmentView, sEquipmentView), "Open Equipment Schedule View");
-        logCompare(true, b2wScheduler.setCalendarDateRange(sCalendarDateRange), "Set Calendar Date Range");
-        logCompare(true, b2wScheduler.setCalendarStartDate(sCalendarStartDate), "Set Calendar Start Date");
-        logCompare(true, b2wScheduler.setSearchValue(sEquipmentName), "Set Filter by Equipment Name");
-        WebElement assignment = b2wScheduler.getEquipmentEvent(sEquipmentName, sEquipmentEventType, sCalendarStartDate, sCalendarStartDate, sAssignmentStartTime);
+        NavigateToScheduleView(sEquipmentView, sCalendarStartDate, sCalendarDateRange, sEquipmentName);
+
+        WebElement assignment = b2wScheduler.getEquipmentEvent(sEquipmentName, sEquipmentEventType, sCalendarStartDate, sCalendarStartDate, sEventStartTime, sEventDuration);
         if (assignment != null) {
             logCompare(true, b2wScheduler.openContextMenu(assignment), "Open Event's Context Menu");
             logCompare(true, b2wScheduler.editEvent(), "Select 'Edit Event' option");
@@ -1315,7 +1299,7 @@ public class ScheduleAssignments extends B2WTestCase {
             logCompare(true, b2wScheduler.updateNotes(sNotesTextUpd), "Update Notes");
             logCompare(true, b2wScheduler.saveEvent(), "Update Equipment Event");
             logCompare(true, b2wScheduler.setSearchValue(sEquipmentNameUpd), "Set Filter by updated Employee Name");
-            WebElement result = b2wScheduler.getEquipmentEvent(sEquipmentNameUpd, sEquipmentEventTypeUpd, sCalendarStartDate, sCalendarStartDate, sAssignmentStartTime);
+            WebElement result = b2wScheduler.getEquipmentEvent(sEquipmentNameUpd, sEquipmentEventTypeUpd, sCalendarStartDate, sCalendarStartDate, sEventStartTime, sEventDuration);
             logCompare(true, result != null, "Verification that specific Equipment Event has been updated.");
         } else {
             logCompare(true, false, "Equipment Event for " + sEquipmentName + " could not be found on the page.");
@@ -1335,24 +1319,25 @@ public class ScheduleAssignments extends B2WTestCase {
          * 9. Verify that Assignment was updated.
          */
 
-        logCompare(true, b2wNav.openSchedule(), "Open Schedule View");
-        //ToDo: remove after fix
-        //logCompare(true, b2wScheduler.navigateToScheduleView(sLocationView, sLocationView), "Open JobSites Schedule View");
-        logCompare(true, b2wScheduler.navigateToScheduleView(sDefaultLocationView, sDefaultLocationView), "Open JobSites Schedule View");
-        logCompare(true, b2wScheduler.setCalendarDateRange(sCalendarDateRange), "Set Calendar Date Range");
-        logCompare(true, b2wScheduler.setCalendarStartDate(sCalendarStartDate), "Set Calendar Start Date");
-        logCompare(true, b2wScheduler.setSearchValue(sJobSiteName), "Set Filter by Location Name");
+        //ToDo: Issue with grouping on Location View
+        //NavigateToScheduleView(sLocationView, sCalendarStartDate, sCalendarDateRange, sJobSiteName);
+        NavigateToScheduleView(sDefaultLocationView, sCalendarStartDate, sCalendarDateRange, sJobSiteName);
 
-        WebElement assignment = b2wScheduler.getJobSiteEvent(sJobSiteName, sLocationEventType, sCalendarStartDate, sCalendarStartDate, sAssignmentStartTime);
-        logCompare(true, b2wScheduler.openContextMenu(assignment), "Open Event's Context Menu");
-        logCompare(true, b2wScheduler.editEvent(), "Select 'Edit Event' option");
-        logCompare(true, b2wScheduler.updateEventLocation(sJobSiteNameUpd), "Update Location");
-        logCompare(true, b2wScheduler.setEventType(sLocationEventTypeUpd), "Update Location Event Type");
-        logCompare(true, b2wScheduler.updateNotes(sNotesTextUpd), "Update Notes");
-        logCompare(true, b2wScheduler.saveEvent(), "Update Equipment Event");
-        logCompare(true, b2wScheduler.setSearchValue(sJobSiteNameUpd), "Set Filter by updated Location Name");
-        WebElement result = b2wScheduler.getJobSiteEvent(sJobSiteNameUpd, sLocationEventTypeUpd, sCalendarStartDate, sCalendarStartDate, sAssignmentStartTime);
-        logCompare(true,  result != null, "Verification that specific Location Event has been updated.");
+        WebElement assignment = b2wScheduler.getJobSiteEvent(sJobSiteName, sLocationEventType, sCalendarStartDate, sCalendarStartDate, sEventStartTime, sEventDuration);
+        if (assignment != null) {
+
+            logCompare(true, b2wScheduler.openContextMenu(assignment), "Open Event's Context Menu");
+            logCompare(true, b2wScheduler.editEvent(), "Select 'Edit Event' option");
+            logCompare(true, b2wScheduler.updateEventLocation(sJobSiteNameUpd), "Update Location");
+            logCompare(true, b2wScheduler.setEventType(sLocationEventTypeUpd), "Update Location Event Type");
+            logCompare(true, b2wScheduler.updateNotes(sNotesTextUpd), "Update Notes");
+            logCompare(true, b2wScheduler.saveEvent(), "Update Equipment Event");
+            logCompare(true, b2wScheduler.setSearchValue(sJobSiteNameUpd), "Set Filter by updated Location Name");
+            WebElement result = b2wScheduler.getJobSiteEvent(sJobSiteNameUpd, sLocationEventTypeUpd, sCalendarStartDate, sCalendarStartDate, sEventStartTime, sEventDuration);
+            logCompare(true, result != null, "Verification that specific Location Event has been updated.");
+        } else {
+            logCompare(true, false, "Location Event for " + sJobSiteName + " could not be found on the page.");
+        }
     }
 
     public void updateSubstitution() {
@@ -1370,7 +1355,7 @@ public class ScheduleAssignments extends B2WTestCase {
 
         NavigateToScheduleView(sEmployeeView, sCalendarStartDate, sCalendarDateRange, sEmployeeSubstitution);
 
-        WebElement assignment = b2wScheduler.getEmployeeSubstitution(sEmployeeSubstitution, sJobSiteName, sCalendarStartDate, sCalendarStartDate, sAssignmentStartTime);
+        WebElement assignment = b2wScheduler.getEmployeeSubstitution(sEmployeeSubstitution, sJobSiteName, sCalendarStartDate, sCalendarStartDate, sAssignmentStartTime, sAssignmentDuration);
         if (assignment != null) {
             logCompare(true, b2wScheduler.openContextMenu(assignment), "Open Assignment's Context Menu");
             logCompare(true, b2wScheduler.editSubstitution(), "Select 'Edit Substitution' option");
@@ -1378,7 +1363,8 @@ public class ScheduleAssignments extends B2WTestCase {
             logCompare(true, b2wScheduler.saveEmployeeAssignment(), "Update Employee Substitution");
 
             logCompare(true, b2wScheduler.setSearchValue(sEmployeeNameUpd), "Set Filter by updated Employee Name");
-            WebElement result = b2wScheduler.getEmployeeSubstitution(sEmployeeNameUpd, sJobSiteName, sCalendarStartDate, sCalendarStartDate, sAssignmentStartTimeUpd);
+            //WebElement result = b2wScheduler.getEmployeeSubstitution(sEmployeeNameUpd, sJobSiteName, sCalendarStartDate, sCalendarStartDate, sAssignmentStartTimeUpd, sAssignmentDurationUpd);
+            WebElement result = b2wScheduler.getEmployeeSubstitution(sEmployeeNameUpd, sJobSiteName, sCalendarStartDate, sCalendarStartDate, sAssignmentStartTime, sAssignmentDuration);
             logCompare(true, result != null, "Verification that specific Employee Assignment has been updated.");
         } else {
             logCompare(true, false, "Employee substitution " + sEmployeeSubstitution + " could not be found on the page.");
@@ -1400,28 +1386,29 @@ public class ScheduleAssignments extends B2WTestCase {
          * 8. Move Assignment to original date and resource
          * 9. Verify that Assignment was updated.
          */
-        logCompare(true, b2wNav.openSchedule(), "Open Schedule View");
-        logCompare(true, b2wScheduler.navigateToScheduleView(sDefaultEmployeeView, sDefaultEmployeeView), "Open Employee Schedule View");
-        logCompare(true, b2wScheduler.setCalendarDateRange(sCalendarDateRange), "Set Calendar Date Range");
-        logCompare(true, b2wScheduler.setCalendarStartDate(sCalendarStartDate), "Set Calendar Start");
-        logCompare(true, b2wScheduler.setSearchValue(sEmployeeName), "Set Filter by Employee Name");
 
-        WebElement assignment = b2wScheduler.getEmployeeAssignment(sEmployeeName, sJobSiteName, sCalendarStartDate, sCalendarStartDate, sAssignmentStartTime);
-        logCompare(true, b2wScheduler.moveAssignmentToDate(assignment, dMoveDate), "Move Assignment to the specific date");
-        WebElement result = b2wScheduler.getEmployeeAssignment(sEmployeeName, sJobSiteName, sMoveDate, sMoveDate, sAssignmentStartTime);
-        logCompare(true, b2wScheduler.getAssignmentStartDate(result).equals(dMoveDate), "Verify that Employee Assignment was moved to the specific date.");
+        NavigateToScheduleView(sDefaultEmployeeView, sCalendarStartDate, sCalendarDateRange, sEmployeeName);
 
-        //ToDo: There is a BUG in the APP
-        logCompare(true, b2wScheduler.clearSearchValue(), "Clear search value.");
+        WebElement assignment = b2wScheduler.getEmployeeAssignment(sEmployeeName, sJobSiteName, sCalendarStartDate, sCalendarStartDate, sAssignmentStartTime, sAssignmentDuration);
+        if (assignment != null) {
+            logCompare(true, b2wScheduler.moveAssignmentToDate(assignment, dMoveDate), "Move Assignment to the specific date");
+            WebElement result = b2wScheduler.getEmployeeAssignment(sEmployeeName, sJobSiteName, sMoveDate, sMoveDate, sAssignmentStartTime, sAssignmentDuration);
+            logCompare(true, b2wScheduler.getAssignmentStartDate(result).equals(dMoveDate), "Verify that Employee Assignment was moved to the specific date.");
 
-        assignment = b2wScheduler.getEmployeeAssignment(sEmployeeName, sJobSiteName, sMoveDate, sMoveDate, sAssignmentStartTime);
-        logCompare(true, b2wScheduler.moveAssignmentToResourceAndDate(assignment, sEmployeeNameUpd, dCalendarStartDate), "Move Assignment to the specific date");
-        result = b2wScheduler.getEmployeeAssignment(sEmployeeNameUpd, sJobSiteName, sCalendarStartDate, sCalendarStartDate, sAssignmentStartTime);
-        logCompare(true, b2wScheduler.getAssignmentStartDate(result).equals(dCalendarStartDate), "Verify that Employee Assignment was moved to the specific date.");
+            //ToDo: There is a BUG in the APP
+            logCompare(true, b2wScheduler.clearSearchValue(), "Clear search value.");
 
-        logCompare(true, b2wScheduler.moveAssignmentToResourceAndDate(result, sEmployeeName, dCalendarStartDate), "Move Assignment to the specific date");
-        result = b2wScheduler.getEmployeeAssignment(sEmployeeName, sJobSiteName, sCalendarStartDate, sCalendarStartDate, sAssignmentStartTime);
-        logCompare(true, b2wScheduler.getAssignmentStartDate(result).equals(dCalendarStartDate), "Verify that Employee Assignment was moved to the specific date.");
+            assignment = b2wScheduler.getEmployeeAssignment(sEmployeeName, sJobSiteName, sMoveDate, sMoveDate, sAssignmentStartTime, sAssignmentDuration);
+            logCompare(true, b2wScheduler.moveAssignmentToResourceAndDate(assignment, sEmployeeNameUpd, dCalendarStartDate), "Move Assignment to the specific date");
+            result = b2wScheduler.getEmployeeAssignment(sEmployeeNameUpd, sJobSiteName, sCalendarStartDate, sCalendarStartDate, sAssignmentStartTime, sAssignmentDuration);
+            logCompare(true, b2wScheduler.getAssignmentStartDate(result).equals(dCalendarStartDate), "Verify that Employee Assignment was moved to the specific date.");
+
+            logCompare(true, b2wScheduler.moveAssignmentToResourceAndDate(result, sEmployeeName, dCalendarStartDate), "Move Assignment to the specific date");
+            result = b2wScheduler.getEmployeeAssignment(sEmployeeName, sJobSiteName, sCalendarStartDate, sCalendarStartDate, sAssignmentStartTime, sAssignmentDuration);
+            logCompare(true, b2wScheduler.getAssignmentStartDate(result).equals(dCalendarStartDate), "Verify that Employee Assignment was moved to the specific date.");
+        } else {
+            logCompare(true, false, "Employee assignment for " + sEmployeeName + " could not be found on the page.");
+        }
     }
 
     public void moveEmployeeNeed() {
@@ -1438,24 +1425,25 @@ public class ScheduleAssignments extends B2WTestCase {
          * 8. Move Assignment to original date and resource
          * 9. Verify that Assignment was updated.
          */
-        logCompare(true, b2wNav.openSchedule(), "Open Schedule View");
-        logCompare(true, b2wScheduler.navigateToScheduleView(sDefaultEmployeeView, sDefaultEmployeeView), "Open Employee Schedule View");
-        logCompare(true, b2wScheduler.setCalendarDateRange(sCalendarDateRange), "Set Calendar Date Range");
-        logCompare(true, b2wScheduler.setCalendarStartDate(sCalendarStartDate), "Set Calendar Start");
-        logCompare(true, b2wScheduler.setSearchValue(sEmployeeNeedName), "Set Filter by Employee Need");
 
-        WebElement assignment = b2wScheduler.getEmployeeNeed(sEmployeeNeedName, sJobSiteName, sCalendarStartDate, sCalendarStartDate, sAssignmentStartTime);
-        logCompare(true, b2wScheduler.moveAssignmentToDate(assignment, dMoveDate), "Move Need to the specific date");
-        WebElement result = b2wScheduler.getEmployeeNeed(sEmployeeNeedName, sJobSiteName, sMoveDate, sMoveDate, sAssignmentStartTime);
-        logCompare(true, b2wScheduler.getAssignmentStartDate(result).equals(dMoveDate), "Verify that Employee Need was moved to the specific date.");
+        NavigateToScheduleView(sDefaultEmployeeView, sCalendarStartDate, sCalendarDateRange, sEmployeeNeedName);
 
-        //ToDo There is a BUG in the APP
-        logCompare(true, b2wScheduler.clearSearchValue(), "Clear search value.");
+        WebElement assignment = b2wScheduler.getEmployeeNeed(sEmployeeNeedName, sJobSiteName, sCalendarStartDate, sCalendarStartDate, sAssignmentStartTime, sAssignmentDuration);
+        if (assignment != null) {
+            logCompare(true, b2wScheduler.moveAssignmentToDate(assignment, dMoveDate), "Move Need to the specific date");
+            WebElement result = b2wScheduler.getEmployeeNeed(sEmployeeNeedName, sJobSiteName, sMoveDate, sMoveDate, sAssignmentStartTime, sAssignmentDuration);
+            logCompare(true, b2wScheduler.getAssignmentStartDate(result).equals(dMoveDate), "Verify that Employee Need was moved to the specific date.");
 
-        assignment = b2wScheduler.getEmployeeNeed(sEmployeeNeedName1, sJobSiteName, sCalendarStartDate, sCalendarStartDate, sAssignmentStartTime);
-        logCompare(true, b2wScheduler.moveAssignmentToResourceAndDate(assignment, sEmployeeNeedName, dCalendarStartDate), "Move Need to the specific date");
-        result = b2wScheduler.getEmployeeNeed(sEmployeeNeedName, sJobSiteName, sCalendarStartDate, sCalendarStartDate, sAssignmentStartTime);
-        logCompare(true, b2wScheduler.getAssignmentStartDate(result).equals(dCalendarStartDate), "Verify that Employee Need was moved to the specific date.");
+            //ToDo There is a BUG in the APP
+            logCompare(true, b2wScheduler.clearSearchValue(), "Clear search value.");
+
+            assignment = b2wScheduler.getEmployeeNeed(sEmployeeNeedName1, sJobSiteName, sCalendarStartDate, sCalendarStartDate, sAssignmentStartTime, sAssignmentDuration);
+            logCompare(true, b2wScheduler.moveAssignmentToResourceAndDate(assignment, sEmployeeNeedName, dCalendarStartDate), "Move Need to the specific date");
+            result = b2wScheduler.getEmployeeNeed(sEmployeeNeedName, sJobSiteName, sCalendarStartDate, sCalendarStartDate, sAssignmentStartTime, sAssignmentDuration);
+            logCompare(true, b2wScheduler.getAssignmentStartDate(result).equals(dCalendarStartDate), "Verify that Employee Need was moved to the specific date.");
+        } else {
+            logCompare(true, false, "Employee Need for " + sEmployeeNeedName + " could not be found on the page.");
+        }
     }
 
     public void moveEquipmentAssignment() {
@@ -1472,32 +1460,33 @@ public class ScheduleAssignments extends B2WTestCase {
          * 8. Move Assignment to original date and resource
          * 9. Verify that Assignment was updated.
          */
-        logCompare(true, b2wNav.openSchedule(), "Open Schedule View");
-        logCompare(true, b2wScheduler.navigateToScheduleView(sDefaultEquipmentView, sDefaultEquipmentView), "Open Equipment Schedule View");
-        logCompare(true, b2wScheduler.setCalendarDateRange(sCalendarDateRange), "Set Calendar Date Range");
-        logCompare(true, b2wScheduler.setCalendarStartDate(sCalendarStartDate), "Set Calendar Start Date");
-        logCompare(true, b2wScheduler.setSearchValue(sEquipmentName), "Set Filter by Equipment Name");
+
+        NavigateToScheduleView(sDefaultEquipmentView, sCalendarStartDate, sCalendarDateRange, sEquipmentName);
 
         //Move assignment to the latest date in the calendar period.
-        WebElement assignment = b2wScheduler.getEquipmentAssignment(sEquipmentName, sJobSiteName, sCalendarStartDate, sCalendarStartDate, sAssignmentStartTime);
-        logCompare(true, b2wScheduler.moveAssignmentToDate(assignment, dMoveDate), "Move Assignment to the specific date");
-        WebElement result = b2wScheduler.getEquipmentAssignment(sEquipmentName, sJobSiteName, sMoveDate, sMoveDate, sAssignmentStartTime);
-        logCompare(true, b2wScheduler.getAssignmentStartDate(result).equals(dMoveDate), "Verify that Equipment Assignment was moved to the specific date.");
+        WebElement assignment = b2wScheduler.getEquipmentAssignment(sEquipmentName, sJobSiteName, sCalendarStartDate, sCalendarStartDate, sAssignmentStartTime, sAssignmentDuration);
+        if (assignment != null) {
+            logCompare(true, b2wScheduler.moveAssignmentToDate(assignment, dMoveDate), "Move Assignment to the specific date");
+            WebElement result = b2wScheduler.getEquipmentAssignment(sEquipmentName, sJobSiteName, sMoveDate, sMoveDate, sAssignmentStartTime, sAssignmentDuration);
+            logCompare(true, b2wScheduler.getAssignmentStartDate(result).equals(dMoveDate), "Verify that Equipment Assignment was moved to the specific date.");
 
-        //ToDo: There is a BUG in the APP
-        logCompare(true, b2wScheduler.clearSearchValue(), "Clear search value.");
+            //ToDo: There is a BUG in the APP
+            logCompare(true, b2wScheduler.clearSearchValue(), "Clear search value.");
 
-        //Move assignment to the another resource
-        assignment = b2wScheduler.getEquipmentAssignment(sEquipmentName, sJobSiteName, sMoveDate, sMoveDate, sAssignmentStartTime);
-        logCompare(true, b2wScheduler.moveAssignmentToResourceAndDate(assignment, sEquipmentNameUpd, dCalendarStartDate), "Move Equipment Assignment to the specific date and another resource");
-        result = b2wScheduler.getEquipmentAssignment(sEquipmentNameUpd, sJobSiteName, sCalendarStartDate, sCalendarStartDate, sAssignmentStartTime);
-        logCompare(true, b2wScheduler.getAssignmentStartDate(result).equals(dCalendarStartDate), "Verify that Equipment Assignment was moved to the specific date.");
+            //Move assignment to the another resource
+            assignment = b2wScheduler.getEquipmentAssignment(sEquipmentName, sJobSiteName, sMoveDate, sMoveDate, sAssignmentStartTime, sAssignmentDuration);
+            logCompare(true, b2wScheduler.moveAssignmentToResourceAndDate(assignment, sEquipmentNameUpd, dCalendarStartDate), "Move Equipment Assignment to the specific date and another resource");
+            result = b2wScheduler.getEquipmentAssignment(sEquipmentNameUpd, sJobSiteName, sCalendarStartDate, sCalendarStartDate, sAssignmentStartTime, sAssignmentDuration);
+            logCompare(true, b2wScheduler.getAssignmentStartDate(result).equals(dCalendarStartDate), "Verify that Equipment Assignment was moved to the specific date.");
 
-        //Move assignment to the original date and resource
-        assignment = b2wScheduler.getEquipmentAssignment(sEquipmentNameUpd, sJobSiteName, sCalendarStartDate, sCalendarStartDate, sAssignmentStartTime);
-        logCompare(true, b2wScheduler.moveAssignmentToResourceAndDate(assignment, sEquipmentName    , dCalendarStartDate), "Move Equipment Assignment to the original date and resource");
-        result = b2wScheduler.getEquipmentAssignment(sEquipmentName, sJobSiteName, sCalendarStartDate, sCalendarStartDate, sAssignmentStartTime);
-        logCompare(true, b2wScheduler.getAssignmentStartDate(result).equals(dCalendarStartDate), "Verify that Equipment Assignment was moved to the specific date.");
+            //Move assignment to the original date and resource
+            assignment = b2wScheduler.getEquipmentAssignment(sEquipmentNameUpd, sJobSiteName, sCalendarStartDate, sCalendarStartDate, sAssignmentStartTime, sAssignmentDuration);
+            logCompare(true, b2wScheduler.moveAssignmentToResourceAndDate(assignment, sEquipmentName, dCalendarStartDate), "Move Equipment Assignment to the original date and resource");
+            result = b2wScheduler.getEquipmentAssignment(sEquipmentName, sJobSiteName, sCalendarStartDate, sCalendarStartDate, sAssignmentStartTime, sAssignmentDuration);
+            logCompare(true, b2wScheduler.getAssignmentStartDate(result).equals(dCalendarStartDate), "Verify that Equipment Assignment was moved to the specific date.");
+        } else {
+            logCompare(true, false, "Equipment Assignment for " + sEquipmentName + " could not be found on the page.");
+        }
     }
 
     public void moveEquipmentNeed() {
@@ -1514,26 +1503,27 @@ public class ScheduleAssignments extends B2WTestCase {
          * 8. Move Assignment to original date and resource
          * 9. Verify that Assignment was updated.
          */
-        logCompare(true, b2wNav.openSchedule(), "Open Schedule View");
-        logCompare(true, b2wScheduler.navigateToScheduleView(sDefaultEquipmentView, sDefaultEquipmentView), "Open Equipment Schedule View");
-        logCompare(true, b2wScheduler.setCalendarDateRange(sCalendarDateRange), "Set Calendar Date Range");
-        logCompare(true, b2wScheduler.setCalendarStartDate(sCalendarStartDate), "Set Calendar Start Date");
-        logCompare(true, b2wScheduler.setSearchValue(sEquipmentNeedName), "Set Filter by Equipment Need");
+
+        NavigateToScheduleView(sDefaultEquipmentView, sCalendarStartDate, sCalendarDateRange, sEquipmentNeedName);
 
         //Move need to the latest date in the calendar period.
-        WebElement assignment = b2wScheduler.getEquipmentNeed(sEquipmentNeedName, sJobSiteName, sCalendarStartDate, sCalendarStartDate, sAssignmentStartTime);
-        logCompare(true, b2wScheduler.moveAssignmentToDate(assignment, dMoveDate), "Move Equipment Need to the specific date");
-        WebElement result = b2wScheduler.getEquipmentNeed(sEquipmentNeedName, sJobSiteName, sMoveDate, sMoveDate, sAssignmentStartTime);
-        logCompare(true, b2wScheduler.getAssignmentStartDate(result).equals(dMoveDate), "Verify that Equipment Need was moved to the specific date.");
+        WebElement assignment = b2wScheduler.getEquipmentNeed(sEquipmentNeedName, sJobSiteName, sCalendarStartDate, sCalendarStartDate, sAssignmentStartTime, sAssignmentDuration);
+        if (assignment != null) {
+            logCompare(true, b2wScheduler.moveAssignmentToDate(assignment, dMoveDate), "Move Equipment Need to the specific date");
+            WebElement result = b2wScheduler.getEquipmentNeed(sEquipmentNeedName, sJobSiteName, sMoveDate, sMoveDate, sAssignmentStartTime, sAssignmentDuration);
+            logCompare(true, b2wScheduler.getAssignmentStartDate(result).equals(dMoveDate), "Verify that Equipment Need was moved to the specific date.");
 
-        //ToDo: There is a BUG in the APP
-        logCompare(true, b2wScheduler.clearSearchValue(), "Clear search value.");
+            //ToDo: There is a BUG in the APP
+            logCompare(true, b2wScheduler.clearSearchValue(), "Clear search value.");
 
-        //Move need to the another resource
-        assignment = b2wScheduler.getEquipmentNeed(sEquipmentNeedNameUpd, sJobSiteName, sCalendarStartDate, sCalendarStartDate, sAssignmentStartTime);
-        logCompare(true, b2wScheduler.moveAssignmentToResourceAndDate(assignment, sEquipmentNeedName, dCalendarStartDate), "Move Equipment Need to the specific date and another resource");
-        result = b2wScheduler.getEquipmentNeed(sEquipmentNeedName, sJobSiteName, sCalendarStartDate, sCalendarStartDate, sAssignmentStartTime);
-        logCompare(true, b2wScheduler.getAssignmentStartDate(result).equals(dCalendarStartDate), "Verify that Equipment Need was moved to the specific date.");
+            //Move need to the another resource
+            assignment = b2wScheduler.getEquipmentNeed(sEquipmentNeedNameUpd, sJobSiteName, sCalendarStartDate, sCalendarStartDate, sAssignmentStartTime, sAssignmentDuration);
+            logCompare(true, b2wScheduler.moveAssignmentToResourceAndDate(assignment, sEquipmentNeedName, dCalendarStartDate), "Move Equipment Need to the specific date and another resource");
+            result = b2wScheduler.getEquipmentNeed(sEquipmentNeedName, sJobSiteName, sCalendarStartDate, sCalendarStartDate, sAssignmentStartTime, sAssignmentDuration);
+            logCompare(true, b2wScheduler.getAssignmentStartDate(result).equals(dCalendarStartDate), "Verify that Equipment Need was moved to the specific date.");
+        } else {
+            logCompare(true, false, "Equipment Need for " + sEquipmentNeedName + " could not be found on the page.");
+        }
     }
 
     public void moveCrewAssignment() {
@@ -1550,32 +1540,33 @@ public class ScheduleAssignments extends B2WTestCase {
          * 8. Move Assignment to original date and resource
          * 9. Verify that Assignment was updated.
          */
-        logCompare(true, b2wNav.openSchedule(), "Open Schedule View");
-        logCompare(true, b2wScheduler.navigateToScheduleView(sDefaultCrewView, sDefaultCrewView), "Open Crews Schedule View");
-        logCompare(true, b2wScheduler.setCalendarDateRange(sCalendarDateRange), "Set Calendar Date Range");
-        logCompare(true, b2wScheduler.setCalendarStartDate(sCalendarStartDate), "Set Calendar Start");
-        logCompare(true, b2wScheduler.setSearchValue(sCrewName), "Set Filter by Crew Name");
+
+        NavigateToScheduleView(sDefaultCrewView, sCalendarStartDate, sCalendarDateRange, sCrewName);
 
         //Move assignment to the latest date in the calendar period.
-        WebElement assignment = b2wScheduler.getCrewAssignment(sCrewName, sJobSiteName, sCalendarStartDate, sCalendarStartDate, sAssignmentStartTime);
-        logCompare(true, b2wScheduler.moveAssignmentToDate(assignment, dMoveDate), "Move Crew Assignment to the specific date");
-        WebElement result = b2wScheduler.getCrewAssignment(sCrewName, sJobSiteName, sMoveDate, sMoveDate, sAssignmentStartTime);
-        logCompare(true, b2wScheduler.getAssignmentStartDate(result).equals(dMoveDate), "Verify that Crew Assignment was moved to the specific date.");
+        WebElement assignment = b2wScheduler.getCrewAssignment(sCrewName, sJobSiteName, sCalendarStartDate, sCalendarStartDate, sAssignmentStartTime, sAssignmentDuration);
+        if (assignment != null) {
+            logCompare(true, b2wScheduler.moveAssignmentToDate(assignment, dMoveDate), "Move Crew Assignment to the specific date");
+            WebElement result = b2wScheduler.getCrewAssignment(sCrewName, sJobSiteName, sMoveDate, sMoveDate, sAssignmentStartTime, sAssignmentDuration);
+            logCompare(true, b2wScheduler.getAssignmentStartDate(result).equals(dMoveDate), "Verify that Crew Assignment was moved to the specific date.");
 
-        //ToDo: There is a BUG in the APP
-        logCompare(true, b2wScheduler.clearSearchValue(), "Clear search value.");
+            //ToDo: There is a BUG in the APP
+            logCompare(true, b2wScheduler.clearSearchValue(), "Clear search value.");
 
-        //Move assignment to the another resource
-        assignment = b2wScheduler.getCrewAssignment(sCrewName, sJobSiteName, sMoveDate, sMoveDate, sAssignmentStartTime);
-        logCompare(true, b2wScheduler.moveAssignmentToResourceAndDate(assignment, sCrewNameUpd, dCalendarStartDate), "Move Crew Assignment to the specific date and another resource");
-        result = b2wScheduler.getCrewAssignment(sCrewNameUpd, sJobSiteName, sCalendarStartDate, sCalendarStartDate, sAssignmentStartTime);
-        logCompare(true, b2wScheduler.getAssignmentStartDate(result).equals(dCalendarStartDate), "Verify that Crew Assignment was moved to the specific date.");
+            //Move assignment to the another resource
+            assignment = b2wScheduler.getCrewAssignment(sCrewName, sJobSiteName, sMoveDate, sMoveDate, sAssignmentStartTime, sAssignmentDuration);
+            logCompare(true, b2wScheduler.moveAssignmentToResourceAndDate(assignment, sCrewNameUpd, dCalendarStartDate), "Move Crew Assignment to the specific date and another resource");
+            result = b2wScheduler.getCrewAssignment(sCrewNameUpd, sJobSiteName, sCalendarStartDate, sCalendarStartDate, sAssignmentStartTime, sAssignmentDuration);
+            logCompare(true, b2wScheduler.getAssignmentStartDate(result).equals(dCalendarStartDate), "Verify that Crew Assignment was moved to the specific date.");
 
-        //Move assignment to the original date and resource
-        assignment = b2wScheduler.getCrewAssignment(sCrewNameUpd, sJobSiteName, sCalendarStartDate, sCalendarStartDate, sAssignmentStartTime);
-        logCompare(true, b2wScheduler.moveAssignmentToResourceAndDate(assignment, sCrewName, dCalendarStartDate), "Move Crew Assignment to the original date and resource");
-        result = b2wScheduler.getCrewAssignment(sCrewName, sJobSiteName, sCalendarStartDate, sCalendarStartDate, sAssignmentStartTime);
-        logCompare(true, b2wScheduler.getAssignmentStartDate(result).equals(dCalendarStartDate), "Verify that Crew Assignment was moved to the specific date.");
+            //Move assignment to the original date and resource
+            assignment = b2wScheduler.getCrewAssignment(sCrewNameUpd, sJobSiteName, sCalendarStartDate, sCalendarStartDate, sAssignmentStartTime, sAssignmentDuration);
+            logCompare(true, b2wScheduler.moveAssignmentToResourceAndDate(assignment, sCrewName, dCalendarStartDate), "Move Crew Assignment to the original date and resource");
+            result = b2wScheduler.getCrewAssignment(sCrewName, sJobSiteName, sCalendarStartDate, sCalendarStartDate, sAssignmentStartTime, sAssignmentDuration);
+            logCompare(true, b2wScheduler.getAssignmentStartDate(result).equals(dCalendarStartDate), "Verify that Crew Assignment was moved to the specific date.");
+        } else {
+            logCompare(true, false, "Crew Assignment for " + sCrewName + " could not be found on the page.");
+        }
     }
 
     public void moveCrewNeed() {
@@ -1592,26 +1583,27 @@ public class ScheduleAssignments extends B2WTestCase {
          * 8. Move Assignment to original date and resource
          * 9. Verify that Assignment was updated.
          */
-        logCompare(true, b2wNav.openSchedule(), "Open Schedule View");
-        logCompare(true, b2wScheduler.navigateToScheduleView(sDefaultCrewView, sDefaultCrewView), "Open Crews Schedule View");
-        logCompare(true, b2wScheduler.setCalendarDateRange(sCalendarDateRange), "Set Calendar Date Range");
-        logCompare(true, b2wScheduler.setCalendarStartDate(sCalendarStartDate), "Set Calendar Start");
-        logCompare(true, b2wScheduler.setSearchValue(sCrewNeedName), "Set Filter by Crew Need");
+
+        NavigateToScheduleView(sDefaultCrewView, sCalendarStartDate, sCalendarDateRange, sCrewNeedName);
 
         //Move need to the latest date in the calendar period.
-        WebElement assignment = b2wScheduler.getCrewNeed(sCrewNeedName, sJobSiteName, sCalendarStartDate, sCalendarStartDate, sAssignmentStartTime);
-        logCompare(true, b2wScheduler.moveAssignmentToDate(assignment, dMoveDate), "Move Crew Need to the specific date");
-        WebElement result = b2wScheduler.getCrewNeed(sCrewNeedName, sJobSiteName, sMoveDate, sMoveDate, sAssignmentStartTime);
-        logCompare(true, b2wScheduler.getAssignmentStartDate(result).equals(dMoveDate), "Verify that Crew Need was moved to the specific date.");
+        WebElement assignment = b2wScheduler.getCrewNeed(sCrewNeedName, sJobSiteName, sCalendarStartDate, sCalendarStartDate, sAssignmentStartTime, sAssignmentDuration);
+        if (assignment != null) {
+            logCompare(true, b2wScheduler.moveAssignmentToDate(assignment, dMoveDate), "Move Crew Need to the specific date");
+            WebElement result = b2wScheduler.getCrewNeed(sCrewNeedName, sJobSiteName, sMoveDate, sMoveDate, sAssignmentStartTime, sAssignmentDuration);
+            logCompare(true, b2wScheduler.getAssignmentStartDate(result).equals(dMoveDate), "Verify that Crew Need was moved to the specific date.");
 
-        //ToDo: There is a BUG in the APP
-        logCompare(true, b2wScheduler.clearSearchValue(), "Clear search value.");
+            //ToDo: There is a BUG in the APP
+            logCompare(true, b2wScheduler.clearSearchValue(), "Clear search value.");
 
-        //Move need to the another resource
-        assignment = b2wScheduler.getCrewNeed(sCrewNeedNameUpd, sJobSiteName, sCalendarStartDate, sCalendarStartDate, sAssignmentStartTime);
-        logCompare(true, b2wScheduler.moveAssignmentToResourceAndDate(assignment, sCrewNeedName, dCalendarStartDate), "Move Crew Need to the specific date and another resource");
-        result = b2wScheduler.getCrewNeed(sCrewNeedName, sJobSiteName, sCalendarStartDate, sCalendarStartDate, sAssignmentStartTime);
-        logCompare(true, b2wScheduler.getAssignmentStartDate(result).equals(dCalendarStartDate), "Verify that Crew Need was moved to the specific date.");
+            //Move need to the another resource
+            assignment = b2wScheduler.getCrewNeed(sCrewNeedNameUpd, sJobSiteName, sCalendarStartDate, sCalendarStartDate, sAssignmentStartTime, sAssignmentDuration);
+            logCompare(true, b2wScheduler.moveAssignmentToResourceAndDate(assignment, sCrewNeedName, dCalendarStartDate), "Move Crew Need to the specific date and another resource");
+            result = b2wScheduler.getCrewNeed(sCrewNeedName, sJobSiteName, sCalendarStartDate, sCalendarStartDate, sAssignmentStartTime, sAssignmentDuration);
+            logCompare(true, b2wScheduler.getAssignmentStartDate(result).equals(dCalendarStartDate), "Verify that Crew Need was moved to the specific date.");
+        } else {
+            logCompare(true, false, "Crew Need for " + sCrewNeedName + " could not be found on the page.");
+        }
     }
 
     public void moveMoveAssignment() {
@@ -1628,22 +1620,31 @@ public class ScheduleAssignments extends B2WTestCase {
          * 8. Move Assignment to original date and resource
          * 9. Verify that Assignment was updated.
          */
-        logCompare(true, b2wNav.openSchedule(), "Open Schedule View");
-        logCompare(true, b2wScheduler.navigateToScheduleView(sDefaultEquipmentView, sDefaultEquipmentView), "Open Equipment Schedule View");
-        logCompare(true, b2wScheduler.setCalendarDateRange(sCalendarDateRange), "Set Calendar Date Range");
-        logCompare(true, b2wScheduler.setCalendarStartDate(sCalendarStartDate), "Set Calendar Start Date");
-        logCompare(true, b2wScheduler.setSearchValue(sEquipmentName), "Set Filter by Equipment Name");
+
+        NavigateToScheduleView(sDefaultEquipmentView, sCalendarStartDate, sCalendarDateRange, sEquipmentName);
 
         //Move assignment to the latest date in the calendar period.
-        WebElement assignment = b2wScheduler.getMoveAssignment(sEquipmentName, sDropoffJobSiteName, sCalendarStartDate, sCalendarStartDate, sAssignmentStartTime);
-        logCompare(true, b2wScheduler.moveAssignmentToDate(assignment, dMoveDate), "Move Move Assignment to the specific date");
-        WebElement result = b2wScheduler.getMoveAssignment(sEquipmentName, sDropoffJobSiteName, sMoveDate, sMoveDate, sAssignmentStartTime);
-        logCompare(true, b2wScheduler.getAssignmentStartDate(result).equals(dMoveDate), "Verify that Move Assignment was moved to the specific date.");
+        //ToDo: Issue SCHED-3142
+        //WebElement assignment = b2wScheduler.getMoveAssignment(sEquipmentName, sDropoffJobSiteName, sPickupDate, sDropoffDate, sPickupTime, sDropoffTime);
+        WebElement assignment = b2wScheduler.getMoveAssignment(sEquipmentName, sDropoffJobSiteName, sPickupDate, sDropoffDate, sEventStartTime, sEventStartTime);
+        if (assignment != null) {
+            logCompare(true, b2wScheduler.moveAssignmentToDate(assignment, dMoveDate), "Move Move Assignment to the specific date");
+            //ToDo: Issue SCHED-3142
+            //WebElement result = b2wScheduler.getMoveAssignment(sEquipmentName, sDropoffJobSiteName, sMoveDate, sMoveDate, sPickupTime, sDropoffTime);
+            WebElement result = b2wScheduler.getMoveAssignment(sEquipmentName, sDropoffJobSiteName, sMoveDate, sMoveDate, sEventStartTime, sEventStartTime);
+            logCompare(true, b2wScheduler.getAssignmentStartDate(result).equals(dMoveDate), "Verify that Move Assignment was moved to the specific date.");
 
-        assignment = b2wScheduler.getMoveAssignment(sEquipmentName, sDropoffJobSiteName, sMoveDate, sMoveDate, sAssignmentStartTime);
-        logCompare(true, b2wScheduler.moveAssignmentToDate(assignment, dCalendarStartDate), "Move Move Assignment to the specific date");
-        result = b2wScheduler.getMoveAssignment(sEquipmentName, sDropoffJobSiteName, sCalendarStartDate, sCalendarStartDate, sAssignmentStartTime);
-        logCompare(true, b2wScheduler.getAssignmentStartDate(result).equals(dCalendarStartDate), "Verify that Move Assignment was moved to the specific date.");
+            //ToDo: Issue SCHED-3142
+            //assignment = b2wScheduler.getMoveAssignment(sEquipmentName, sDropoffJobSiteName, sMoveDate, sMoveDate, sPickupTime, sDropoffTime);
+            assignment = b2wScheduler.getMoveAssignment(sEquipmentName, sDropoffJobSiteName, sMoveDate, sMoveDate, sEventStartTime, sEventStartTime);
+            logCompare(true, b2wScheduler.moveAssignmentToDate(assignment, dCalendarStartDate), "Move Move Assignment to the specific date");
+            //ToDo: Issue SCHED-3142
+            //result = b2wScheduler.getMoveAssignment(sEquipmentName, sDropoffJobSiteName, sPickupDate, sDropoffDate, sPickupTime, sDropoffTime);
+            result = b2wScheduler.getMoveAssignment(sEquipmentName, sDropoffJobSiteName, sPickupDate, sDropoffDate, sEventStartTime, sEventStartTime);
+            logCompare(true, b2wScheduler.getAssignmentStartDate(result).equals(dCalendarStartDate), "Verify that Move Assignment was moved to the specific date.");
+        } else {
+            logCompare(true, false, "Move Assignment for " + sEquipmentName + " could not be found on the page.");
+        }
     }
 
     public void moveMoveOrder() {
@@ -1660,22 +1661,31 @@ public class ScheduleAssignments extends B2WTestCase {
          * 8. Move Assignment to original date and resource
          * 9. Verify that Assignment was updated.
          */
-        logCompare(true, b2wNav.openSchedule(), "Open Schedule View");
-        logCompare(true, b2wScheduler.navigateToScheduleView(sDefaultEquipmentView, sDefaultEquipmentView), "Open Equipment Schedule View");
-        logCompare(true, b2wScheduler.setCalendarDateRange(sCalendarDateRange), "Set Calendar Date Range");
-        logCompare(true, b2wScheduler.setCalendarStartDate(sCalendarStartDate), "Set Calendar Start Date");
-        logCompare(true, b2wScheduler.setSearchValue(sEquipmentName), "Set Filter by Equipment Name");
+
+        NavigateToScheduleView(sDefaultEquipmentView, sCalendarStartDate, sCalendarDateRange, sEquipmentName);
 
         //Move assignment to the latest date in the calendar period.
-        WebElement assignment = b2wScheduler.getMoveOrder(sEquipmentName, sDropoffJobSiteName, sCalendarStartDate, sCalendarStartDate, sAssignmentStartTime);
-        logCompare(true, b2wScheduler.moveAssignmentToDate(assignment, dMoveDate), "Move Move Order to the specific date");
-        WebElement result = b2wScheduler.getMoveOrder(sEquipmentName, sDropoffJobSiteName, sMoveDate, sMoveDate, sAssignmentStartTime);
-        logCompare(true, b2wScheduler.getAssignmentStartDate(result).equals(dMoveDate), "Verify that Move Order was moved to the specific date.");
+        //ToDo: Issue SCHED-3142
+        //WebElement assignment = b2wScheduler.getMoveOrder(sEquipmentName, sDropoffJobSiteName, sPickupDate, sDropoffDate, sPickupTime, sDropoffTime);
+        WebElement assignment = b2wScheduler.getMoveOrder(sEquipmentName, sDropoffJobSiteName, sPickupDate, sDropoffDate, sEventStartTime, sEventStartTime);
+        if (assignment != null) {
+            logCompare(true, b2wScheduler.moveAssignmentToDate(assignment, dMoveDate), "Move Move Order to the specific date");
+            //ToDo: Issue SCHED-3142
+            //WebElement result = b2wScheduler.getMoveOrder(sEquipmentName, sDropoffJobSiteName, sMoveDate, sMoveDate, sPickupTime, sDropoffTime);
+            WebElement result = b2wScheduler.getMoveOrder(sEquipmentName, sDropoffJobSiteName, sMoveDate, sMoveDate, sEventStartTime, sEventStartTime);
+            logCompare(true, b2wScheduler.getAssignmentStartDate(result).equals(dMoveDate), "Verify that Move Order was moved to the specific date.");
 
-        assignment = b2wScheduler.getMoveOrder(sEquipmentName, sDropoffJobSiteName, sMoveDate, sMoveDate, sAssignmentStartTime);
-        logCompare(true, b2wScheduler.moveAssignmentToDate(assignment, dCalendarStartDate), "Move Move Order to the specific date");
-        result = b2wScheduler.getMoveOrder(sEquipmentName, sDropoffJobSiteName, sCalendarStartDate, sCalendarStartDate, sAssignmentStartTime);
-        logCompare(true, b2wScheduler.getAssignmentStartDate(result).equals(dCalendarStartDate), "Verify that Move Order was moved to the specific date.");
+            //ToDo: Issue SCHED-3142
+            //assignment = b2wScheduler.getMoveOrder(sEquipmentName, sDropoffJobSiteName, sMoveDate, sMoveDate, sPickupTime, sDropoffTime);
+            assignment = b2wScheduler.getMoveOrder(sEquipmentName, sDropoffJobSiteName, sMoveDate, sMoveDate, sEventStartTime, sEventStartTime);
+            logCompare(true, b2wScheduler.moveAssignmentToDate(assignment, dCalendarStartDate), "Move Move Order to the specific date");
+            //ToDo: Issue SCHED-3142
+            //result = b2wScheduler.getMoveOrder(sEquipmentName, sDropoffJobSiteName, sCalendarStartDate, sCalendarStartDate, sPickupTime, sDropoffTime);
+            result = b2wScheduler.getMoveOrder(sEquipmentName, sDropoffJobSiteName, sCalendarStartDate, sCalendarStartDate, sEventStartTime, sEventStartTime);
+            logCompare(true, b2wScheduler.getAssignmentStartDate(result).equals(dCalendarStartDate), "Verify that Move Order was moved to the specific date.");
+        } else {
+            logCompare(true, false, "Move Order for " + sEquipmentName + " could not be found on the page.");
+        }
     }
 
     public void moveEmployeeEvent() {
@@ -1692,33 +1702,34 @@ public class ScheduleAssignments extends B2WTestCase {
          * 8. Move Assignment to original date and resource
          * 9. Verify that Assignment was updated.
          */
-        logCompare(true, b2wNav.openSchedule(), "Open Schedule View");
-        logCompare(true, b2wScheduler.navigateToScheduleView(sDefaultEmployeeView, sDefaultEmployeeView), "Open Employee Schedule View");
-        logCompare(true, b2wScheduler.setCalendarDateRange(sCalendarDateRange), "Set Calendar Date Range");
-        logCompare(true, b2wScheduler.setCalendarStartDate(sCalendarStartDate), "Set Calendar Start");
-        logCompare(true, b2wScheduler.setSearchValue(sEmployeeName), "Set Filter by Employee Name");
 
-        WebElement assignment = b2wScheduler.getEmployeeEvent(sEmployeeName, sEmployeeEventType, sCalendarStartDate, sCalendarStartDate, sAssignmentStartTime);
-        logCompare(true, b2wScheduler.moveAssignmentToDate(assignment, dMoveDate), "Move Employee Event to the specific date");
-        WebElement result = b2wScheduler.getEmployeeEvent(sEmployeeName, sEmployeeEventType, sMoveDate, sMoveDate, sAssignmentStartTime);
-        logCompare(true, b2wScheduler.getAssignmentStartDate(result).equals(dMoveDate), "Verify that Employee Event was moved to the specific date.");
+        NavigateToScheduleView(sDefaultEmployeeView, sCalendarStartDate, sCalendarDateRange, sEmployeeName);
 
-        //ToDo: There is a BUG in the APP
-        //logCompare(true, b2wScheduler.clearSearchValue(), "Clear search value.");
-        b2wScheduler.clearSearchValue();
-        BrowserUtils.getDriver().navigate().refresh();
-        b2wScheduler.waitForSchedulePageNoBusy();
-        //=================
+        WebElement assignment = b2wScheduler.getEmployeeEvent(sEmployeeName, sEmployeeEventType, sCalendarStartDate, sCalendarStartDate, sEventStartTime, sEventDuration);
+        if (assignment != null) {
+            logCompare(true, b2wScheduler.moveAssignmentToDate(assignment, dMoveDate), "Move Employee Event to the specific date");
+            WebElement result = b2wScheduler.getEmployeeEvent(sEmployeeName, sEmployeeEventType, sMoveDate, sMoveDate, sEventStartTime, sEventDuration);
+            logCompare(true, b2wScheduler.getAssignmentStartDate(result).equals(dMoveDate), "Verify that Employee Event was moved to the specific date.");
 
-        assignment = b2wScheduler.getEmployeeEvent(sEmployeeName, sEmployeeEventType, sMoveDate, sMoveDate, sAssignmentStartTime);
-        logCompare(true, b2wScheduler.moveAssignmentToResourceAndDate(assignment, sEmployeeNameUpd, dCalendarStartDate), "Move Employee Event to the specific date");
-        result = b2wScheduler.getEmployeeEvent(sEmployeeNameUpd, sEmployeeEventType, sCalendarStartDate, sCalendarStartDate, sAssignmentStartTime);
-        logCompare(true, b2wScheduler.getAssignmentStartDate(result).equals(dCalendarStartDate), "Verify that Employee Event was moved to the specific date.");
+            //ToDo: There is a BUG in the APP
+            //logCompare(true, b2wScheduler.clearSearchValue(), "Clear search value.");
+            b2wScheduler.clearSearchValue();
+            BrowserUtils.getDriver().navigate().refresh();
+            b2wScheduler.waitForSchedulePageNoBusy();
+            //=================
 
-        assignment = b2wScheduler.getEmployeeEvent(sEmployeeNameUpd, sEmployeeEventType, sCalendarStartDate, sCalendarStartDate, sAssignmentStartTime);
-        logCompare(true, b2wScheduler.moveAssignmentToResourceAndDate(assignment, sEmployeeName, dCalendarStartDate), "Move Employee Event to the specific date");
-        result = b2wScheduler.getEmployeeEvent(sEmployeeName, sEmployeeEventType, sCalendarStartDate, sCalendarStartDate, sAssignmentStartTime);
-        logCompare(true, b2wScheduler.getAssignmentStartDate(result).equals(dCalendarStartDate), "Verify that Employee Event was moved to the specific date.");
+            assignment = b2wScheduler.getEmployeeEvent(sEmployeeName, sEmployeeEventType, sMoveDate, sMoveDate, sEventStartTime, sEventDuration);
+            logCompare(true, b2wScheduler.moveAssignmentToResourceAndDate(assignment, sEmployeeNameUpd, dCalendarStartDate), "Move Employee Event to the specific date");
+            result = b2wScheduler.getEmployeeEvent(sEmployeeNameUpd, sEmployeeEventType, sCalendarStartDate, sCalendarStartDate, sEventStartTime, sEventDuration);
+            logCompare(true, b2wScheduler.getAssignmentStartDate(result).equals(dCalendarStartDate), "Verify that Employee Event was moved to the specific date.");
+
+            assignment = b2wScheduler.getEmployeeEvent(sEmployeeNameUpd, sEmployeeEventType, sCalendarStartDate, sCalendarStartDate, sEventStartTime, sEventDuration);
+            logCompare(true, b2wScheduler.moveAssignmentToResourceAndDate(assignment, sEmployeeName, dCalendarStartDate), "Move Employee Event to the specific date");
+            result = b2wScheduler.getEmployeeEvent(sEmployeeName, sEmployeeEventType, sCalendarStartDate, sCalendarStartDate, sEventStartTime, sEventDuration);
+            logCompare(true, b2wScheduler.getAssignmentStartDate(result).equals(dCalendarStartDate), "Verify that Employee Event was moved to the specific date.");
+        } else {
+            logCompare(true, false, "Employee Event for " + sEmployeeName + " could not be found on the page.");
+        }
     }
 
     public void moveEquipmentEvent() {
@@ -1735,32 +1746,29 @@ public class ScheduleAssignments extends B2WTestCase {
          * 8. Move Assignment to original date and resource
          * 9. Verify that Assignment was updated.
          */
-        logCompare(true, b2wNav.openSchedule(), "Open Schedule View");
-        logCompare(true, b2wScheduler.navigateToScheduleView(sDefaultEquipmentView, sDefaultEquipmentView), "Open Equipment Schedule View");
-        logCompare(true, b2wScheduler.setCalendarDateRange(sCalendarDateRange), "Set Calendar Date Range");
-        logCompare(true, b2wScheduler.setCalendarStartDate(sCalendarStartDate), "Set Calendar Start Date");
-        logCompare(true, b2wScheduler.setSearchValue(sEquipmentName), "Set Filter by Equipment Name");
+
+        NavigateToScheduleView(sDefaultEquipmentView, sCalendarStartDate, sCalendarDateRange, sEquipmentName);
 
         //Move assignment to the latest date in the calendar period.
-        WebElement assignment = b2wScheduler.getEquipmentEvent(sEquipmentName, sEquipmentEventType, sCalendarStartDate, sCalendarStartDate, sAssignmentStartTime);
+        WebElement assignment = b2wScheduler.getEquipmentEvent(sEquipmentName, sEquipmentEventType, sCalendarStartDate, sCalendarStartDate, sEventStartTime, sEventDuration);
         if (assignment != null) {
             logCompare(true, b2wScheduler.moveAssignmentToDate(assignment, dMoveDate), "Move Equipment Event to the specific date");
-            WebElement result = b2wScheduler.getEquipmentEvent(sEquipmentName, sEquipmentEventType, sMoveDate, sMoveDate, sAssignmentStartTime);
+            WebElement result = b2wScheduler.getEquipmentEvent(sEquipmentName, sEquipmentEventType, sMoveDate, sMoveDate, sEventStartTime, sEventDuration);
             logCompare(true, b2wScheduler.getAssignmentStartDate(result).equals(dMoveDate), "Verify that Equipment Event was moved to the specific date.");
 
             //ToDo: There is a BUG in the APP
             logCompare(true, b2wScheduler.clearSearchValue(), "Clear search value.");
 
             //Move assignment to the another resource
-            assignment = b2wScheduler.getEquipmentEvent(sEquipmentName, sEquipmentEventType, sMoveDate, sMoveDate, sAssignmentStartTime);
+            assignment = b2wScheduler.getEquipmentEvent(sEquipmentName, sEquipmentEventType, sMoveDate, sMoveDate, sEventStartTime, sEventDuration);
             logCompare(true, b2wScheduler.moveAssignmentToResourceAndDate(assignment, sEquipmentNameUpd, dCalendarStartDate), "Move Equipment Event to the specific date and another resource");
-            result = b2wScheduler.getEquipmentEvent(sEquipmentNameUpd, sEquipmentEventType, sCalendarStartDate, sCalendarStartDate, sAssignmentStartTime);
+            result = b2wScheduler.getEquipmentEvent(sEquipmentNameUpd, sEquipmentEventType, sCalendarStartDate, sCalendarStartDate, sEventStartTime, sEventDuration);
             logCompare(true, b2wScheduler.getAssignmentStartDate(result).equals(dCalendarStartDate), "Verify that Equipment Event was moved to the specific date.");
 
             //Move assignment to the original date and resource
-            assignment = b2wScheduler.getEquipmentEvent(sEquipmentNameUpd, sEquipmentEventType, sCalendarStartDate, sCalendarStartDate, sAssignmentStartTime);
+            assignment = b2wScheduler.getEquipmentEvent(sEquipmentNameUpd, sEquipmentEventType, sCalendarStartDate, sCalendarStartDate, sEventStartTime, sEventDuration);
             logCompare(true, b2wScheduler.moveAssignmentToResourceAndDate(assignment, sEquipmentName, dCalendarStartDate), "Move Equipment Event to the original date and resource");
-            result = b2wScheduler.getEquipmentEvent(sEquipmentName, sEquipmentEventType, sCalendarStartDate, sCalendarStartDate, sAssignmentStartTime);
+            result = b2wScheduler.getEquipmentEvent(sEquipmentName, sEquipmentEventType, sCalendarStartDate, sCalendarStartDate, sEventStartTime, sEventDuration);
             logCompare(true, b2wScheduler.getAssignmentStartDate(result).equals(dCalendarStartDate), "Verify that Equipment Event was moved to the specific date.");
         } else {
             logCompare(true, false, "Equipment Event for " + sEquipmentName + " could be found on the page.");
@@ -1785,25 +1793,29 @@ public class ScheduleAssignments extends B2WTestCase {
         NavigateToScheduleView(sDefaultLocationView, sCalendarStartDate, sCalendarDateRange, sJobSiteName);
 
         //Move assignment to the latest date in the calendar period.
-        WebElement assignment = b2wScheduler.getJobSiteEvent(sJobSiteName, sLocationEventType, sCalendarStartDate, sCalendarStartDate, sAssignmentStartTime);
-        logCompare(true, b2wScheduler.moveAssignmentToDate(assignment, dMoveDate), "Move Location Event to the specific date");
-        WebElement result = b2wScheduler.getJobSiteEvent(sJobSiteName, sLocationEventType, sMoveDate, sMoveDate, sAssignmentStartTime);
-        logCompare(true, b2wScheduler.getAssignmentStartDate(result).equals(dMoveDate), "Verify that Location Event was moved to the specific date.");
+        WebElement assignment = b2wScheduler.getJobSiteEvent(sJobSiteName, sLocationEventType, sCalendarStartDate, sCalendarStartDate, sEventStartTime, sEventDuration);
+        if (assignment != null) {
+            logCompare(true, b2wScheduler.moveAssignmentToDate(assignment, dMoveDate), "Move Location Event to the specific date");
+            WebElement result = b2wScheduler.getJobSiteEvent(sJobSiteName, sLocationEventType, sMoveDate, sMoveDate, sEventStartTime, sEventDuration);
+            logCompare(true, b2wScheduler.getAssignmentStartDate(result).equals(dMoveDate), "Verify that Location Event was moved to the specific date.");
 
-        //ToDo: There is a BUG in the APP
-        logCompare(true, b2wScheduler.clearSearchValue(), "Clear search value.");
+            //ToDo: There is a BUG in the APP
+            logCompare(true, b2wScheduler.clearSearchValue(), "Clear search value.");
 
-        //Move assignment to the another resource
-        assignment = b2wScheduler.getJobSiteEvent(sJobSiteName, sLocationEventType, sMoveDate, sMoveDate, sAssignmentStartTime);
-        logCompare(true, b2wScheduler.moveAssignmentToResourceAndDate(assignment, sJobSiteNameUpd, dCalendarStartDate), "Move Location Event to the specific date and another resource");
-        result = b2wScheduler.getJobSiteEvent(sJobSiteNameUpd, sLocationEventType, sCalendarStartDate, sCalendarStartDate, sAssignmentStartTime);
-        logCompare(true, b2wScheduler.getAssignmentStartDate(result).equals(dCalendarStartDate), "Verify that Location Event was moved to the specific date.");
+            //Move assignment to the another resource
+            assignment = b2wScheduler.getJobSiteEvent(sJobSiteName, sLocationEventType, sMoveDate, sMoveDate, sEventStartTime, sEventDuration);
+            logCompare(true, b2wScheduler.moveAssignmentToResourceAndDate(assignment, sJobSiteNameUpd, dCalendarStartDate), "Move Location Event to the specific date and another resource");
+            result = b2wScheduler.getJobSiteEvent(sJobSiteNameUpd, sLocationEventType, sCalendarStartDate, sCalendarStartDate, sEventStartTime, sEventDuration);
+            logCompare(true, b2wScheduler.getAssignmentStartDate(result).equals(dCalendarStartDate), "Verify that Location Event was moved to the specific date.");
 
-        //Move assignment to the original date and resource
-        assignment = b2wScheduler.getJobSiteEvent(sJobSiteNameUpd, sLocationEventType, sCalendarStartDate, sCalendarStartDate, sAssignmentStartTime);
-        logCompare(true, b2wScheduler.moveAssignmentToResourceAndDate(assignment, sJobSiteName, dCalendarStartDate), "Move Location Event to the original date and resource");
-        result = b2wScheduler.getJobSiteEvent(sJobSiteName, sLocationEventType, sCalendarStartDate, sCalendarStartDate, sAssignmentStartTime);
-        logCompare(true, b2wScheduler.getAssignmentStartDate(result).equals(dCalendarStartDate), "Verify that Location Event was moved to the specific date.");
+            //Move assignment to the original date and resource
+            assignment = b2wScheduler.getJobSiteEvent(sJobSiteNameUpd, sLocationEventType, sCalendarStartDate, sCalendarStartDate, sEventStartTime, sEventDuration);
+            logCompare(true, b2wScheduler.moveAssignmentToResourceAndDate(assignment, sJobSiteName, dCalendarStartDate), "Move Location Event to the original date and resource");
+            result = b2wScheduler.getJobSiteEvent(sJobSiteName, sLocationEventType, sCalendarStartDate, sCalendarStartDate, sEventStartTime, sEventDuration);
+            logCompare(true, b2wScheduler.getAssignmentStartDate(result).equals(dCalendarStartDate), "Verify that Location Event was moved to the specific date.");
+        } else {
+            logCompare(true, false, "Location Event for " + sJobSiteName + " could be found on the page.");
+        }
     }
 
     public void moveSubstitution() {
@@ -1823,30 +1835,34 @@ public class ScheduleAssignments extends B2WTestCase {
 
         NavigateToScheduleView(sDefaultEmployeeView, sCalendarStartDate, sCalendarDateRange, "");
 
-        WebElement assignment = b2wScheduler.getEmployeeSubstitution(sEmployeeSubstitution, sJobSiteName, sCalendarStartDate, sCalendarStartDate, sAssignmentStartTime);
-        logCompare(true, b2wScheduler.moveAssignmentToResourceAndDate(assignment, sEmployeeNameUpd, dCalendarStartDate), "Move Assignment to the specific date");
-        WebElement result = b2wScheduler.getEmployeeSubstitution(sEmployeeNameUpd, sJobSiteName, sCalendarStartDate, sCalendarStartDate, sAssignmentStartTime);
-        logCompare(true, b2wScheduler.getAssignmentStartDate(result).equals(dCalendarStartDate), "Verify that Employee Assignment was moved to the specific date.");
+        WebElement assignment = b2wScheduler.getEmployeeSubstitution(sEmployeeSubstitution, sJobSiteName, sCalendarStartDate, sCalendarStartDate, sAssignmentStartTime, sAssignmentDuration);
+        if (assignment != null) {
+            logCompare(true, b2wScheduler.moveAssignmentToResourceAndDate(assignment, sEmployeeNameUpd, dCalendarStartDate), "Move Assignment to the specific date");
+            WebElement result = b2wScheduler.getEmployeeSubstitution(sEmployeeNameUpd, sJobSiteName, sCalendarStartDate, sCalendarStartDate, sAssignmentStartTime, sAssignmentDuration);
+            logCompare(true, b2wScheduler.getAssignmentStartDate(result).equals(dCalendarStartDate), "Verify that Employee Assignment was moved to the specific date.");
 
-        assignment = b2wScheduler.getEmployeeSubstitution(sEmployeeNameUpd, sJobSiteName, sCalendarStartDate, sCalendarStartDate, sAssignmentStartTime);
-        logCompare(true, b2wScheduler.moveAssignmentToResourceAndDate(assignment, sEmployeeSubstitution, dCalendarStartDate), "Move Assignment to the specific date");
-        result = b2wScheduler.getEmployeeSubstitution(sEmployeeSubstitution, sJobSiteName, sCalendarStartDate, sCalendarStartDate, sAssignmentStartTime);
-        logCompare(true, b2wScheduler.getAssignmentStartDate(result).equals(dCalendarStartDate), "Verify that Employee Assignment was moved to the specific date.");
+            assignment = b2wScheduler.getEmployeeSubstitution(sEmployeeNameUpd, sJobSiteName, sCalendarStartDate, sCalendarStartDate, sAssignmentStartTime, sAssignmentDuration);
+            logCompare(true, b2wScheduler.moveAssignmentToResourceAndDate(assignment, sEmployeeSubstitution, dCalendarStartDate), "Move Assignment to the specific date");
+            result = b2wScheduler.getEmployeeSubstitution(sEmployeeSubstitution, sJobSiteName, sCalendarStartDate, sCalendarStartDate, sAssignmentStartTime, sAssignmentDuration);
+            logCompare(true, b2wScheduler.getAssignmentStartDate(result).equals(dCalendarStartDate), "Verify that Employee Assignment was moved to the specific date.");
+        } else {
+            logCompare(true, false, "Substitution for " + sEmployeeNameUpd + " could be found on the page.");
+        }
     }
 
     //=== Resize Assignments/Needs/Orders/Events ===
     public void resizeEmployeeAssignment() {
         NavigateToScheduleView(sEmployeeView, sCalendarStartDate, sCalendarDateRange, sEmployeeNameUpd);
 
-        WebElement assignment = b2wScheduler.getEmployeeAssignment(sEmployeeNameUpd, sJobSiteNameUpd, sCalendarStartDate, sCalendarStartDate, sAssignmentStartTimeUpd);
+        WebElement assignment = b2wScheduler.getEmployeeAssignment(sEmployeeNameUpd, sJobSiteNameUpd, sCalendarStartDate, sCalendarStartDate, sAssignmentStartTimeUpd, sAssignmentDurationUpd);
         if (assignment != null) {
             logCompare(true, b2wScheduler.resizeAssignmentRightToDate(assignment, dMoveDate), "Resize Assignment to the specific date");
-            WebElement result = b2wScheduler.getEmployeeAssignment(sEmployeeNameUpd, sJobSiteNameUpd, sCalendarStartDate, sMoveDate, sAssignmentStartTime);
+            WebElement result = b2wScheduler.getEmployeeAssignment(sEmployeeNameUpd, sJobSiteNameUpd, sCalendarStartDate, sMoveDate, sAssignmentStartTimeUpd, sAssignmentDurationUpd);
             logCompare(true, result != null, "Verification that specific Employee Assignment has been resized.");
 
-            assignment = b2wScheduler.getEmployeeAssignment(sEmployeeNameUpd, sJobSiteNameUpd, sCalendarStartDate, sMoveDate, sAssignmentStartTime);
+            assignment = b2wScheduler.getEmployeeAssignment(sEmployeeNameUpd, sJobSiteNameUpd, sCalendarStartDate, sMoveDate, sAssignmentStartTimeUpd, sAssignmentDurationUpd);
             logCompare(true, b2wScheduler.resizeAssignmentLeftToDate(assignment, dMoveDate), "Resize Assignment to the specific date");
-            result = b2wScheduler.getEmployeeAssignment(sEmployeeNameUpd, sJobSiteNameUpd, sMoveDate, sMoveDate, sAssignmentStartTime);
+            result = b2wScheduler.getEmployeeAssignment(sEmployeeNameUpd, sJobSiteNameUpd, sMoveDate, sMoveDate, sAssignmentStartTimeUpd, sAssignmentDurationUpd);
             logCompare(true, result != null, "Verification that specific Employee Assignment has been resized.");
         } else {
             logCompare(true, false, "Employee Assignment for " + sEmployeeNameUpd + " could not be found on the page.");
@@ -1856,15 +1872,15 @@ public class ScheduleAssignments extends B2WTestCase {
     public void resizeEquipmentAssignment() {
         NavigateToScheduleView(sEquipmentView, sCalendarStartDate, sCalendarDateRange, sEquipmentNameUpd);
 
-        WebElement assignment = b2wScheduler.getEquipmentAssignment(sEquipmentNameUpd, sJobSiteNameUpd, sCalendarStartDate, sCalendarStartDate, sAssignmentStartTimeUpd);
+        WebElement assignment = b2wScheduler.getEquipmentAssignment(sEquipmentNameUpd, sJobSiteNameUpd, sCalendarStartDate, sCalendarStartDate, sAssignmentStartTimeUpd, sAssignmentDurationUpd);
         if (assignment != null) {
             logCompare(true, b2wScheduler.resizeAssignmentRightToDate(assignment, dMoveDate), "Resize Assignment to the specific date");
-            WebElement result = b2wScheduler.getEquipmentAssignment(sEquipmentNameUpd, sJobSiteNameUpd, sCalendarStartDate, sMoveDate, sAssignmentStartTime);
+            WebElement result = b2wScheduler.getEquipmentAssignment(sEquipmentNameUpd, sJobSiteNameUpd, sCalendarStartDate, sMoveDate, sAssignmentStartTimeUpd, sAssignmentDurationUpd);
             logCompare(true, result != null, "Verification that specific Equipment Assignment has been resized.");
 
-            assignment = b2wScheduler.getEquipmentAssignment(sEquipmentNameUpd, sJobSiteNameUpd, sCalendarStartDate, sMoveDate, sAssignmentStartTime);
+            assignment = b2wScheduler.getEquipmentAssignment(sEquipmentNameUpd, sJobSiteNameUpd, sCalendarStartDate, sMoveDate, sAssignmentStartTimeUpd, sAssignmentDurationUpd);
             logCompare(true, b2wScheduler.resizeAssignmentLeftToDate(assignment, dMoveDate), "Resize Assignment to the specific date");
-            result = b2wScheduler.getEquipmentAssignment(sEquipmentNameUpd, sJobSiteNameUpd, sMoveDate, sMoveDate, sAssignmentStartTime);
+            result = b2wScheduler.getEquipmentAssignment(sEquipmentNameUpd, sJobSiteNameUpd, sMoveDate, sMoveDate, sAssignmentStartTimeUpd, sAssignmentDurationUpd);
             logCompare(true, result != null, "Verification that specific Equipment Assignment has been resized.");
         } else {
             logCompare(true, false, "Equipment Assignment for " + sEquipmentNameUpd + " could not be found on the page.");
@@ -1874,51 +1890,33 @@ public class ScheduleAssignments extends B2WTestCase {
     public void resizeCrewAssignment() {
         NavigateToScheduleView(sCrewView, sCalendarStartDate, sCalendarDateRange, sCrewNameUpd);
 
-        WebElement assignment = b2wScheduler.getCrewAssignment(sCrewNameUpd, sJobSiteNameUpd, sCalendarStartDate, sCalendarStartDate, sAssignmentStartTimeUpd);
+        WebElement assignment = b2wScheduler.getCrewAssignment(sCrewNameUpd, sJobSiteNameUpd, sCalendarStartDate, sCalendarStartDate, sAssignmentStartTimeUpd, sAssignmentDurationUpd);
         if (assignment != null) {
             logCompare(true, b2wScheduler.resizeAssignmentRightToDate(assignment, dMoveDate), "Resize Assignment to the specific date");
-            WebElement result = b2wScheduler.getCrewAssignment(sCrewNameUpd, sJobSiteNameUpd, sCalendarStartDate, sMoveDate, sAssignmentStartTime);
+            WebElement result = b2wScheduler.getCrewAssignment(sCrewNameUpd, sJobSiteNameUpd, sCalendarStartDate, sMoveDate, sAssignmentStartTimeUpd, sAssignmentDurationUpd);
             logCompare(true, result != null, "Verification that specific Crew Assignment has been resized.");
 
-            assignment = b2wScheduler.getCrewAssignment(sCrewNameUpd, sJobSiteNameUpd, sCalendarStartDate, sMoveDate, sAssignmentStartTime);
+            assignment = b2wScheduler.getCrewAssignment(sCrewNameUpd, sJobSiteNameUpd, sCalendarStartDate, sMoveDate, sAssignmentStartTimeUpd, sAssignmentDurationUpd);
             logCompare(true, b2wScheduler.resizeAssignmentLeftToDate(assignment, dMoveDate), "Resize Assignment to the specific date");
-            result = b2wScheduler.getCrewAssignment(sCrewNameUpd, sJobSiteNameUpd, sMoveDate, sMoveDate, sAssignmentStartTime);
+            result = b2wScheduler.getCrewAssignment(sCrewNameUpd, sJobSiteNameUpd, sMoveDate, sMoveDate, sAssignmentStartTimeUpd, sAssignmentDurationUpd);
             logCompare(true, result != null, "Verification that specific Crew Assignment has been resized.");
         } else {
             logCompare(true, false, "Crew Assignment for " + sCrewNameUpd + " could not be found on the page.");
         }
     }
 
-    public void resizeMoveAssignment() {
-        NavigateToScheduleView(sEquipmentView, sCalendarStartDate, sCalendarDateRange, sEquipmentName);
-
-        WebElement assignment = b2wScheduler.getMoveAssignment(sEquipmentName, sDropoffJobSiteNameUpd, sCalendarStartDate, sCalendarStartDate, sAssignmentStartTimeUpd);
-        if (assignment != null) {
-            logCompare(true, b2wScheduler.resizeAssignmentRightToDate(assignment, dMoveDate), "Resize Assignment to the specific date");
-            WebElement result = b2wScheduler.getMoveAssignment(sEquipmentName, sDropoffJobSiteNameUpd, sCalendarStartDate, sMoveDate, sAssignmentStartTime);
-            logCompare(true, result != null, "Verification that specific Move Assignment has been resized.");
-
-            assignment = b2wScheduler.getMoveAssignment(sEquipmentName, sDropoffJobSiteNameUpd, sCalendarStartDate, sMoveDate, sAssignmentStartTime);
-            logCompare(true, b2wScheduler.resizeAssignmentLeftToDate(assignment, dMoveDate), "Resize Assignment to the specific date");
-            result = b2wScheduler.getMoveAssignment(sEquipmentName, sDropoffJobSiteNameUpd, sMoveDate, sMoveDate, sAssignmentStartTime);
-            logCompare(true, result != null, "Verification that specific Move Assignment has been resized.");
-        } else {
-            logCompare(true, false, "Move Assignment for " + sEquipmentName + " could not be found on the page.");
-        }
-    }
-
     public void resizeEmployeeNeed() {
         NavigateToScheduleView(sEmployeeView, sCalendarStartDate, sCalendarDateRange, sEmployeeNeedNameUpd);
 
-        WebElement assignment = b2wScheduler.getEmployeeNeed(sEmployeeNeedNameUpd, sJobSiteNameUpd, sCalendarStartDate, sCalendarStartDate, sAssignmentStartTimeUpd);
+        WebElement assignment = b2wScheduler.getEmployeeNeed(sEmployeeNeedNameUpd, sJobSiteNameUpd, sCalendarStartDate, sCalendarStartDate, sAssignmentStartTimeUpd, sAssignmentDurationUpd);
         if (assignment != null) {
             logCompare(true, b2wScheduler.resizeAssignmentRightToDate(assignment, dMoveDate), "Resize Assignment to the specific date");
-            WebElement result = b2wScheduler.getEmployeeNeed(sEmployeeNeedNameUpd, sJobSiteNameUpd, sCalendarStartDate, sMoveDate, sAssignmentStartTime);
+            WebElement result = b2wScheduler.getEmployeeNeed(sEmployeeNeedNameUpd, sJobSiteNameUpd, sCalendarStartDate, sMoveDate, sAssignmentStartTimeUpd, sAssignmentDurationUpd);
             logCompare(true, result != null, "Verification that specific Employee Need has been resized.");
 
-            assignment = b2wScheduler.getEmployeeNeed(sEmployeeNeedNameUpd, sJobSiteNameUpd, sCalendarStartDate, sMoveDate, sAssignmentStartTime);
+            assignment = b2wScheduler.getEmployeeNeed(sEmployeeNeedNameUpd, sJobSiteNameUpd, sCalendarStartDate, sMoveDate, sAssignmentStartTimeUpd, sAssignmentDurationUpd);
             logCompare(true, b2wScheduler.resizeAssignmentLeftToDate(assignment, dMoveDate), "Resize Need to the specific date");
-            result = b2wScheduler.getEmployeeNeed(sEmployeeNeedNameUpd, sJobSiteNameUpd, sMoveDate, sMoveDate, sAssignmentStartTime);
+            result = b2wScheduler.getEmployeeNeed(sEmployeeNeedNameUpd, sJobSiteNameUpd, sMoveDate, sMoveDate, sAssignmentStartTimeUpd, sAssignmentDurationUpd);
             logCompare(true, result != null, "Verification that specific Employee Need has been resized.");
         } else {
             logCompare(true, false, "Employee Need for " + sEmployeeNeedNameUpd + " could not be found on the page.");
@@ -1928,15 +1926,15 @@ public class ScheduleAssignments extends B2WTestCase {
     public void resizeEquipmentNeed() {
         NavigateToScheduleView(sEquipmentView, sCalendarStartDate, sCalendarDateRange, sEquipmentNeedNameUpd);
 
-        WebElement assignment = b2wScheduler.getEquipmentNeed(sEquipmentNeedNameUpd, sJobSiteNameUpd, sCalendarStartDate, sCalendarStartDate, sAssignmentStartTimeUpd);
+        WebElement assignment = b2wScheduler.getEquipmentNeed(sEquipmentNeedNameUpd, sJobSiteNameUpd, sCalendarStartDate, sCalendarStartDate, sAssignmentStartTimeUpd, sAssignmentDurationUpd);
         if (assignment != null) {
             logCompare(true, b2wScheduler.resizeAssignmentRightToDate(assignment, dMoveDate), "Resize Assignment to the specific date");
-            WebElement result = b2wScheduler.getEquipmentNeed(sEquipmentNeedNameUpd, sJobSiteNameUpd, sCalendarStartDate, sMoveDate, sAssignmentStartTime);
+            WebElement result = b2wScheduler.getEquipmentNeed(sEquipmentNeedNameUpd, sJobSiteNameUpd, sCalendarStartDate, sMoveDate, sAssignmentStartTimeUpd, sAssignmentDurationUpd);
             logCompare(true, result != null, "Verification that specific Equipment Need has been resized.");
 
-            assignment = b2wScheduler.getEquipmentNeed(sEquipmentNeedNameUpd, sJobSiteNameUpd, sCalendarStartDate, sMoveDate, sAssignmentStartTime);
+            assignment = b2wScheduler.getEquipmentNeed(sEquipmentNeedNameUpd, sJobSiteNameUpd, sCalendarStartDate, sMoveDate, sAssignmentStartTimeUpd, sAssignmentDurationUpd);
             logCompare(true, b2wScheduler.resizeAssignmentLeftToDate(assignment, dMoveDate), "Resize Need to the specific date");
-            result = b2wScheduler.getEquipmentNeed(sEquipmentNeedNameUpd, sJobSiteNameUpd, sMoveDate, sMoveDate, sAssignmentStartTime);
+            result = b2wScheduler.getEquipmentNeed(sEquipmentNeedNameUpd, sJobSiteNameUpd, sMoveDate, sMoveDate, sAssignmentStartTimeUpd, sAssignmentDurationUpd);
             logCompare(true, result != null, "Verification that specific Equipment Need has been resized.");
         } else {
             logCompare(true, false, "Equipment Need for " + sEquipmentNeedNameUpd + " could not be found on the page.");
@@ -1946,33 +1944,67 @@ public class ScheduleAssignments extends B2WTestCase {
     public void resizeCrewNeed() {
         NavigateToScheduleView(sCrewView, sCalendarStartDate, sCalendarDateRange, sCrewNeedNameUpd);
 
-        WebElement assignment = b2wScheduler.getCrewNeed(sCrewNeedNameUpd, sJobSiteNameUpd, sCalendarStartDate, sCalendarStartDate, sAssignmentStartTimeUpd);
+        WebElement assignment = b2wScheduler.getCrewNeed(sCrewNeedNameUpd, sJobSiteNameUpd, sCalendarStartDate, sCalendarStartDate, sAssignmentStartTimeUpd, sAssignmentDurationUpd);
         if (assignment != null) {
             logCompare(true, b2wScheduler.resizeAssignmentRightToDate(assignment, dMoveDate), "Resize Assignment to the specific date");
-            WebElement result = b2wScheduler.getCrewNeed(sCrewNeedNameUpd, sJobSiteNameUpd, sCalendarStartDate, sMoveDate, sAssignmentStartTime);
+            WebElement result = b2wScheduler.getCrewNeed(sCrewNeedNameUpd, sJobSiteNameUpd, sCalendarStartDate, sMoveDate, sAssignmentStartTimeUpd, sAssignmentDurationUpd);
             logCompare(true, result != null, "Verification that specific Crew Need has been resized.");
 
-            assignment = b2wScheduler.getCrewNeed(sCrewNeedNameUpd, sJobSiteNameUpd, sCalendarStartDate, sMoveDate, sAssignmentStartTime);
+            assignment = b2wScheduler.getCrewNeed(sCrewNeedNameUpd, sJobSiteNameUpd, sCalendarStartDate, sMoveDate, sAssignmentStartTimeUpd, sAssignmentDurationUpd);
             logCompare(true, b2wScheduler.resizeAssignmentLeftToDate(assignment, dMoveDate), "Resize Need to the specific date");
-            result = b2wScheduler.getCrewNeed(sCrewNeedNameUpd, sJobSiteNameUpd, sMoveDate, sMoveDate, sAssignmentStartTime);
+            result = b2wScheduler.getCrewNeed(sCrewNeedNameUpd, sJobSiteNameUpd, sMoveDate, sMoveDate, sAssignmentStartTimeUpd, sAssignmentDurationUpd);
             logCompare(true, result != null, "Verification that specific Crew Need has been resized.");
         } else {
             logCompare(true, false, "Crew Need for " + sCrewNeedNameUpd + " could not be found on the page.");
         }
     }
 
+    public void resizeMoveAssignment() {
+        NavigateToScheduleView(sEquipmentView, sCalendarStartDate, sCalendarDateRange, sEquipmentName);
+
+        //ToDo: Issue SCHED-3142
+        //WebElement assignment = b2wScheduler.getMoveAssignment(sEquipmentName, sDropoffJobSiteNameUpd, sPickupDate, sPickupDate, sPickupTime, sDropoffTime);
+        WebElement assignment = b2wScheduler.getMoveAssignment(sEquipmentName, sDropoffJobSiteNameUpd, sPickupDate, sPickupDate, sEventStartTime, sEventStartTime);
+        if (assignment != null) {
+            logCompare(true, b2wScheduler.resizeAssignmentRightToDate(assignment, dMoveDate), "Resize Assignment to the specific date");
+            //ToDo: Issue SCHED-3142
+            //WebElement result = b2wScheduler.getMoveAssignment(sEquipmentName, sDropoffJobSiteNameUpd, sPickupDate, sMoveDate, sPickupTime, sDropoffTime);
+            WebElement result = b2wScheduler.getMoveAssignment(sEquipmentName, sDropoffJobSiteNameUpd, sPickupDate, sMoveDate, sEventStartTime, sEventStartTime);
+            logCompare(true, result != null, "Verification that specific Move Assignment has been resized.");
+
+            //ToDo: Issue SCHED-3142
+            //assignment = b2wScheduler.getMoveAssignment(sEquipmentName, sDropoffJobSiteNameUpd, sPickupDate, sMoveDate, sPickupTime, sDropoffTime);
+            assignment = b2wScheduler.getMoveAssignment(sEquipmentName, sDropoffJobSiteNameUpd, sPickupDate, sMoveDate, sEventStartTime, sEventStartTime);
+            logCompare(true, b2wScheduler.resizeAssignmentLeftToDate(assignment, dMoveDate), "Resize Assignment to the specific date");
+            //ToDo: Issue SCHED-3142
+            //result = b2wScheduler.getMoveAssignment(sEquipmentName, sDropoffJobSiteNameUpd, sMoveDate, sMoveDate, sPickupTime, sDropoffTime);
+            result = b2wScheduler.getMoveAssignment(sEquipmentName, sDropoffJobSiteNameUpd, sMoveDate, sMoveDate, sEventStartTime, sEventStartTime);
+            logCompare(true, result != null, "Verification that specific Move Assignment has been resized.");
+        } else {
+            logCompare(true, false, "Move Assignment for " + sEquipmentName + " could not be found on the page.");
+        }
+    }
+
     public void resizeMoveOrder() {
         NavigateToScheduleView(sEquipmentView, sCalendarStartDate, sCalendarDateRange, sEquipmentName);
 
-        WebElement assignment = b2wScheduler.getMoveOrder(sEquipmentName, sDropoffJobSiteNameUpd, sCalendarStartDate, sCalendarStartDate, sAssignmentStartTimeUpd);
+        //ToDo: Issue SCHED-3142
+        //WebElement assignment = b2wScheduler.getMoveOrder(sEquipmentName, sDropoffJobSiteNameUpd, sPickupDate, sDropoffDate, sPickupTime, sDropoffTime);
+        WebElement assignment = b2wScheduler.getMoveOrder(sEquipmentName, sDropoffJobSiteNameUpd, sPickupDate, sDropoffDate, sEventStartTime, sEventStartTime);
         if (assignment != null) {
             logCompare(true, b2wScheduler.resizeAssignmentRightToDate(assignment, dMoveDate), "Resize Order to the specific date");
-            WebElement result = b2wScheduler.getMoveOrder(sEquipmentName, sDropoffJobSiteNameUpd, sCalendarStartDate, sMoveDate, sAssignmentStartTime);
+            //ToDo: Issue SCHED-3142
+            //WebElement result = b2wScheduler.getMoveOrder(sEquipmentName, sDropoffJobSiteNameUpd, sPickupDate, sMoveDate, sPickupTime, sDropoffTime);
+            WebElement result = b2wScheduler.getMoveOrder(sEquipmentName, sDropoffJobSiteNameUpd, sPickupDate, sMoveDate, sEventStartTime, sEventStartTime);
             logCompare(true, result != null, "Verification that specific Move Order has been resized.");
 
-            assignment = b2wScheduler.getMoveOrder(sEquipmentName, sDropoffJobSiteNameUpd, sCalendarStartDate, sMoveDate, sAssignmentStartTime);
+            //ToDo: Issue SCHED-3142
+            //assignment = b2wScheduler.getMoveOrder(sEquipmentName, sDropoffJobSiteNameUpd, sPickupDate, sMoveDate, sPickupTime, sDropoffTime);
+            assignment = b2wScheduler.getMoveOrder(sEquipmentName, sDropoffJobSiteNameUpd, sPickupDate, sMoveDate, sEventStartTime, sEventStartTime);
             logCompare(true, b2wScheduler.resizeAssignmentLeftToDate(assignment, dMoveDate), "Resize Order to the specific date");
-            result = b2wScheduler.getMoveOrder(sEquipmentName, sDropoffJobSiteNameUpd, sMoveDate, sMoveDate, sAssignmentStartTime);
+            //ToDo: Issue SCHED-3142
+            //result = b2wScheduler.getMoveOrder(sEquipmentName, sDropoffJobSiteNameUpd, sMoveDate, sMoveDate, sPickupTime, sDropoffTime);
+            result = b2wScheduler.getMoveOrder(sEquipmentName, sDropoffJobSiteNameUpd, sMoveDate, sMoveDate, sEventStartTime, sEventStartTime);
             logCompare(true, result != null, "Verification that specific Move Order has been resized.");
         } else {
             logCompare(true, false, "Move Order for " + sEquipmentName + " could not be found on the page.");
@@ -1982,15 +2014,15 @@ public class ScheduleAssignments extends B2WTestCase {
     public void resizeEmployeeEvent() {
         NavigateToScheduleView(sEmployeeView, sCalendarStartDate, sCalendarDateRange, sEmployeeNameUpd);
 
-        WebElement assignment = b2wScheduler.getEmployeeEvent(sEmployeeNameUpd, sEmployeeEventTypeUpd, sCalendarStartDate, sCalendarStartDate, sAssignmentStartTimeUpd);
+        WebElement assignment = b2wScheduler.getEmployeeEvent(sEmployeeNameUpd, sEmployeeEventTypeUpd, sCalendarStartDate, sCalendarStartDate, sEventStartTime, sEventDuration);
         if (assignment != null) {
             logCompare(true, b2wScheduler.resizeAssignmentRightToDate(assignment, dMoveDate), "Resize Employee Event to the specific date");
-            WebElement result = b2wScheduler.getEmployeeEvent(sEmployeeNameUpd, sEmployeeEventTypeUpd, sCalendarStartDate, sMoveDate, sAssignmentStartTime);
+            WebElement result = b2wScheduler.getEmployeeEvent(sEmployeeNameUpd, sEmployeeEventTypeUpd, sCalendarStartDate, sMoveDate, sEventStartTime, sEventDuration);
             logCompare(true, result != null, "Verification that specific Employee Event has been resized.");
 
-            assignment = b2wScheduler.getEmployeeEvent(sEmployeeNameUpd, sEmployeeEventTypeUpd, sCalendarStartDate, sMoveDate, sAssignmentStartTime);
+            assignment = b2wScheduler.getEmployeeEvent(sEmployeeNameUpd, sEmployeeEventTypeUpd, sCalendarStartDate, sMoveDate, sEventStartTime, sEventDuration);
             logCompare(true, b2wScheduler.resizeAssignmentLeftToDate(assignment, dMoveDate), "Resize Event to the specific date");
-            result = b2wScheduler.getEmployeeEvent(sEmployeeNameUpd, sEmployeeEventTypeUpd, sMoveDate, sMoveDate, sAssignmentStartTime);
+            result = b2wScheduler.getEmployeeEvent(sEmployeeNameUpd, sEmployeeEventTypeUpd, sMoveDate, sMoveDate, sEventStartTime, sEventDuration);
             logCompare(true, result != null, "Verification that specific Employee Event has been resized.");
         } else {
             logCompare(true, false, "Employee Event for " + sEmployeeNameUpd + " could not be found on the page.");
@@ -2000,15 +2032,15 @@ public class ScheduleAssignments extends B2WTestCase {
     public void resizeEquipmentEvent() {
         NavigateToScheduleView(sEquipmentView, sCalendarStartDate, sCalendarDateRange, sEquipmentNameUpd);
 
-        WebElement assignment = b2wScheduler.getEquipmentEvent(sEquipmentNameUpd, sEquipmentEventTypeUpd, sCalendarStartDate, sCalendarStartDate, sAssignmentStartTimeUpd);
+        WebElement assignment = b2wScheduler.getEquipmentEvent(sEquipmentNameUpd, sEquipmentEventTypeUpd, sCalendarStartDate, sCalendarStartDate, sEventStartTime, sEventDuration);
         if (assignment != null) {
             logCompare(true, b2wScheduler.resizeAssignmentRightToDate(assignment, dMoveDate), "Resize Employee Event to the specific date");
-            WebElement result = b2wScheduler.getEquipmentEvent(sEquipmentNameUpd, sEquipmentEventTypeUpd, sCalendarStartDate, sMoveDate, sAssignmentStartTime);
+            WebElement result = b2wScheduler.getEquipmentEvent(sEquipmentNameUpd, sEquipmentEventTypeUpd, sCalendarStartDate, sMoveDate, sEventStartTime, sEventDuration);
             logCompare(true, result != null, "Verification that specific Employee Event has been resized.");
 
-            assignment = b2wScheduler.getEquipmentEvent(sEquipmentNameUpd, sEquipmentEventTypeUpd, sCalendarStartDate, sMoveDate, sAssignmentStartTime);
+            assignment = b2wScheduler.getEquipmentEvent(sEquipmentNameUpd, sEquipmentEventTypeUpd, sCalendarStartDate, sMoveDate, sEventStartTime, sEventDuration);
             logCompare(true, b2wScheduler.resizeAssignmentLeftToDate(assignment, dMoveDate), "Resize Event to the specific date");
-            result = b2wScheduler.getEquipmentEvent(sEquipmentNameUpd, sEquipmentEventTypeUpd, sMoveDate, sMoveDate, sAssignmentStartTime);
+            result = b2wScheduler.getEquipmentEvent(sEquipmentNameUpd, sEquipmentEventTypeUpd, sMoveDate, sMoveDate, sEventStartTime, sEventDuration);
             logCompare(true, result != null, "Verification that specific Employee Event has been resized.");
         } else {
             logCompare(true, false, "Equipment Event for " + sEquipmentNameUpd + " could not be found on the page.");
@@ -2016,17 +2048,22 @@ public class ScheduleAssignments extends B2WTestCase {
     }
 
     public void resizeLocationEvent() {
-        NavigateToScheduleView(sLocationView, sCalendarStartDate, sCalendarDateRange, sJobSiteNameUpd);
+        //NavigateToScheduleView(sLocationView, sCalendarStartDate, sCalendarDateRange, sJobSiteNameUpd);
+        NavigateToScheduleView(sDefaultLocationView, sCalendarStartDate, sCalendarDateRange, sJobSiteNameUpd);
 
-        WebElement assignment = b2wScheduler.getJobSiteEvent(sJobSiteNameUpd, sLocationEventType, sCalendarStartDate, sCalendarStartDate, sAssignmentStartTime);
+        //ToDo: Issue with grouping
+        logCompare(true, b2wScheduler.expandAll(), "Expand All Levels");
+        //=======
+
+        WebElement assignment = b2wScheduler.getJobSiteEvent(sJobSiteNameUpd, sLocationEventType, sCalendarStartDate, sCalendarStartDate, sEventStartTime, sEventDuration);
         if (assignment != null) {
             logCompare(true, b2wScheduler.resizeAssignmentRightToDate(assignment, dMoveDate), "Resize Location Event to the specific date");
-            WebElement result = b2wScheduler.getJobSiteEvent(sJobSiteNameUpd, sLocationEventType, sCalendarStartDate, sMoveDate, sAssignmentStartTime);
+            WebElement result = b2wScheduler.getJobSiteEvent(sJobSiteNameUpd, sLocationEventType, sCalendarStartDate, sMoveDate, sEventStartTime, sEventDuration);
             logCompare(true, result != null, "Verification that specific Location Event has been resized.");
 
-            assignment = b2wScheduler.getJobSiteEvent(sJobSiteNameUpd, sLocationEventType, sCalendarStartDate, sMoveDate, sAssignmentStartTime);
+            assignment = b2wScheduler.getJobSiteEvent(sJobSiteNameUpd, sLocationEventType, sCalendarStartDate, sMoveDate, sEventStartTime, sEventDuration);
             logCompare(true, b2wScheduler.resizeAssignmentLeftToDate(assignment, dMoveDate), "Resize Event to the specific date");
-            result = b2wScheduler.getJobSiteEvent(sJobSiteNameUpd, sLocationEventType, sMoveDate, sMoveDate, sAssignmentStartTime);
+            result = b2wScheduler.getJobSiteEvent(sJobSiteNameUpd, sLocationEventType, sMoveDate, sMoveDate, sEventStartTime, sEventDuration);
             logCompare(true, result != null, "Verification that specific Location Event has been resized.");
         } else {
             logCompare(true, false, "Location Event for " + sEquipmentNameUpd + " could not be found on the page.");
@@ -2034,23 +2071,8 @@ public class ScheduleAssignments extends B2WTestCase {
     }
 
     //=== Delete Assignments/Needs/Orders/Events ===
-    public void deleteEmployeeAssignment() {
-        /*
-         * 1. Open Schedule View
-         * 2. Change Date Range on Schedule View
-         * 3. Change Start Date on Schedule View
-         * 4. Set Filter
-         * 5. Select Assignment
-         * 6. Delete Assignment
-         * 7. Verify that Assignment was deleted
-         */
-
-        deleteEmployeeAssignment(sEmployeeView, sMoveDate, sMoveDate, sAssignmentStartTime,
-                sEmployeeNameUpd, sJobSiteNameUpd);
-    }
-
-    public void deleteEmployeeAssignment(String sViewName, String sAssignmentStartDate, String sAssignmentEndDate, String sAssignmentStartTime,
-                                         String sAssignmentName, String sJobSiteName) {
+    public void deleteEmployeeAssignment(String sViewName, String sAssignmentName, String sJobSiteName, String sAssignmentStartDate, String sAssignmentEndDate, String sAssignmentStartTime,
+                                         String sAssignmentDuration) {
         /*
          * 1. Open Schedule View
          * 2. Change Date Range on Schedule View
@@ -2063,25 +2085,21 @@ public class ScheduleAssignments extends B2WTestCase {
 
         NavigateToScheduleView(sViewName, sCalendarStartDate, sCalendarDateRange, sAssignmentName);
 
-        int initialCount = b2wScheduler.getAssignmentsCount(sAssignmentName, sJobSiteName);
-        WebElement assignment = b2wScheduler.getEmployeeAssignment(sAssignmentName, sJobSiteName, sAssignmentStartDate, sAssignmentEndDate, sAssignmentStartTime);
+        int initialCount = b2wScheduler.getAssignmentsCount(sAssignmentName, sJobSiteName, b2wScheduler.EMPLOYEE_TYPE);
+        WebElement assignment = b2wScheduler.getEmployeeAssignment(sAssignmentName, sJobSiteName, sAssignmentStartDate, sAssignmentEndDate, sAssignmentStartTime, sAssignmentDuration);
         if ( assignment != null) {
             logCompare(true, b2wScheduler.openContextMenu(assignment), "Open Assignment's Context Menu");
             logCompare(true, b2wScheduler.deleteAssignment(), "Delete Employee Assignment");
-            int actualCount = b2wScheduler.getAssignmentsCount(sAssignmentName, sJobSiteName);
+            int actualCount = b2wScheduler.getAssignmentsCount(sAssignmentName, sJobSiteName, b2wScheduler.EMPLOYEE_TYPE);
             logCompare(true, actualCount == initialCount - 1, "Verification that Employee Assignment has been deleted.");
-            WebElement result = b2wScheduler.getEmployeeAssignment(sAssignmentName, sJobSiteName, sCalendarStartDate, sCalendarStartDate, sAssignmentStartTime);
+            WebElement result = b2wScheduler.getEmployeeAssignment(sAssignmentName, sJobSiteName, sCalendarStartDate, sCalendarStartDate, sAssignmentStartTime, sAssignmentDuration);
             logCompare(true, result == null, "Verification that specific Employee Assignment has been deleted.");
         } else {
             logCompare(true, false, "Assignment for " + sAssignmentName + " on " + sCalendarStartDate + " could not be found.");
         }
     }
 
-    public void deleteEmployeeNeed() {
-        deleteEmployeeNeed(sEmployeeView, sEmployeeNeedNameUpd, sJobSiteNameUpd, sMoveDate, sMoveDate, sAssignmentStartTime);
-    }
-
-    public void deleteEmployeeNeed(String sScheduleView, String sEmployeeNeedName, String sJobSiteName, String sAssignmentStart, String sAssignmentEnd, String sAssignmentStartTime) {
+    public void deleteEmployeeNeed(String sScheduleView, String sEmployeeNeedName, String sJobSiteName, String sAssignmentStart, String sAssignmentEnd, String sAssignmentStartTime, String sAssignmentDuration) {
         /*
          * 1. Open Schedule View
          * 2. Change Date Range on Schedule View
@@ -2094,13 +2112,13 @@ public class ScheduleAssignments extends B2WTestCase {
 
         NavigateToScheduleView(sScheduleView, sCalendarStartDate, sCalendarDateRange, sEmployeeNeedName);
 
-        int initialCount = b2wScheduler.getAssignmentsCount(sEmployeeNeedName, sJobSiteName);
-        WebElement assignment = b2wScheduler.getEmployeeNeed(sEmployeeNeedName, sJobSiteName, sAssignmentStart, sAssignmentEnd, sAssignmentStartTime);
+        int initialCount = b2wScheduler.getAssignmentsCount(sEmployeeNeedName, sJobSiteName, b2wScheduler.EMPLOYEE_NEED_TYPE);
+        WebElement assignment = b2wScheduler.getEmployeeNeed(sEmployeeNeedName, sJobSiteName, sAssignmentStart, sAssignmentEnd, sAssignmentStartTime, sAssignmentDuration);
         logCompare(true, b2wScheduler.openContextMenu(assignment), "Open Need's Context Menu");
         logCompare(true, b2wScheduler.deleteNeed(), "Delete Need");
-        int actualCount = b2wScheduler.getAssignmentsCount(sEmployeeNeedName, sJobSiteName);
+        int actualCount = b2wScheduler.getAssignmentsCount(sEmployeeNeedName, sJobSiteName, b2wScheduler.EMPLOYEE_NEED_TYPE);
         logCompare(true, actualCount == initialCount - 1, "Verification that Employee Need has been deleted.");
-        WebElement result = b2wScheduler.getEmployeeNeed(sEmployeeNeedName, sJobSiteName, sAssignmentStart, sAssignmentEnd, sAssignmentStartTime);
+        WebElement result = b2wScheduler.getEmployeeNeed(sEmployeeNeedName, sJobSiteName, sAssignmentStart, sAssignmentEnd, sAssignmentStartTime, sAssignmentDuration);
         logCompare(true,  result == null, "Verification that specific Employee Need has been deleted.");
     }
 
@@ -2118,24 +2136,20 @@ public class ScheduleAssignments extends B2WTestCase {
         NavigateToScheduleView(sEquipmentView, sCalendarStartDate, sCalendarDateRange, sEquipmentNameUpd);
 
         int initialCount = b2wScheduler.getAssignmentsCount(sEquipmentNameUpd, sJobSiteNameUpd, b2wScheduler.EQUIPMENT_TYPE);
-        WebElement assignment = b2wScheduler.getEquipmentAssignment(sEquipmentNameUpd, sJobSiteNameUpd, sMoveDate, sMoveDate, sAssignmentStartTime);
+        WebElement assignment = b2wScheduler.getEquipmentAssignment(sEquipmentNameUpd, sJobSiteNameUpd, sMoveDate, sMoveDate, sAssignmentStartTimeUpd, sAssignmentDurationUpd);
         if (assignment != null) {
             logCompare(true, b2wScheduler.openContextMenu(assignment), "Open Assignment's Context Menu");
             logCompare(true, b2wScheduler.deleteAssignment(), "Delete Equipment Assignment");
             int actualCount = b2wScheduler.getAssignmentsCount(sEquipmentNameUpd, sJobSiteNameUpd, b2wScheduler.EQUIPMENT_TYPE);
             logCompare(true, actualCount == initialCount - 1, "Verification that Equipment Assignment has been deleted.");
-            WebElement result = b2wScheduler.getEquipmentAssignment(sEquipmentNameUpd, sJobSiteNameUpd, sMoveDate, sMoveDate, sAssignmentStartTime);
+            WebElement result = b2wScheduler.getEquipmentAssignment(sEquipmentNameUpd, sJobSiteNameUpd, sMoveDate, sMoveDate, sAssignmentStartTimeUpd, sAssignmentDurationUpd);
             logCompare(true, result == null, "Verification that specific Equipment Assignment has been deleted.");
         } else {
             logCompare(true, false, "Equipment Assignment for " + sEquipmentNameUpd + " could not be found on the page.");
         }
     }
 
-    public void deleteEquipmentNeed() {
-        deleteEquipmentNeed(sEquipmentNeedNameUpd, sJobSiteNameUpd, sMoveDate, sMoveDate, sAssignmentStartTime);
-    }
-
-    public void deleteEquipmentNeed(String sEquipmentNeedName, String sJobSiteName, String sAssignmentStartDate, String sAssignmentEndDate, String sAssignmentStartTime) {
+    public void deleteEquipmentNeed(String sEquipmentNeedName, String sJobSiteName, String sAssignmentStartDate, String sAssignmentEndDate, String sAssignmentStartTime, String sAssignmentDuration) {
         /*
          * 1. Open Schedule View
          * 2. Change Date Range on Schedule View
@@ -2148,14 +2162,14 @@ public class ScheduleAssignments extends B2WTestCase {
 
         NavigateToScheduleView(sEquipmentView, sCalendarStartDate, sCalendarDateRange, sEquipmentNeedName);
 
-        int initialCount = b2wScheduler.getAssignmentsCount(sEquipmentNeedName, sJobSiteName);
-        WebElement assignment = b2wScheduler.getEquipmentNeed(sEquipmentNeedName, sJobSiteName, sAssignmentStartDate, sAssignmentEndDate, sAssignmentStartTime);
+        int initialCount = b2wScheduler.getAssignmentsCount(sEquipmentNeedName, sJobSiteName, b2wScheduler.EQUIPMENT_NEED_TYPE);
+        WebElement assignment = b2wScheduler.getEquipmentNeed(sEquipmentNeedName, sJobSiteName, sAssignmentStartDate, sAssignmentEndDate, sAssignmentStartTime, sAssignmentDuration);
         if (assignment != null) {
             logCompare(true, b2wScheduler.openContextMenu(assignment), "Open Need's Context Menu");
             logCompare(true, b2wScheduler.deleteNeed(), "Delete Equipment Need");
-            int actualCount = b2wScheduler.getAssignmentsCount(sEquipmentNeedName, sJobSiteName);
+            int actualCount = b2wScheduler.getAssignmentsCount(sEquipmentNeedName, sJobSiteName, b2wScheduler.EQUIPMENT_NEED_TYPE);
             logCompare(true, actualCount == initialCount - 1, "Verification that Equipment Need has been deleted.");
-            WebElement result = b2wScheduler.getEquipmentNeed(sEquipmentNeedName, sJobSiteName, sAssignmentStartDate, sAssignmentEndDate, sAssignmentStartTime);
+            WebElement result = b2wScheduler.getEquipmentNeed(sEquipmentNeedName, sJobSiteName, sAssignmentStartDate, sAssignmentEndDate, sAssignmentStartTime, sAssignmentDuration);
             logCompare(true, result == null, "Verification that specific Equipment Need has been deleted.");
         } else {
             logCompare(true, false, "Equipment Need for " + sEquipmentNeedName + " could not be found on the page.");
@@ -2175,25 +2189,21 @@ public class ScheduleAssignments extends B2WTestCase {
 
         NavigateToScheduleView(sCrewView, sCalendarStartDate, sCalendarDateRange, sCrewNameUpd);
 
-        int initialCount = b2wScheduler.getAssignmentsCount(sCrewNameUpd, sJobSiteNameUpd);
-        WebElement assignment = b2wScheduler.getCrewAssignment(sCrewNameUpd, sJobSiteNameUpd, sMoveDate, sMoveDate, sAssignmentStartTime);
+        int initialCount = b2wScheduler.getAssignmentsCount(sCrewNameUpd, sJobSiteNameUpd, b2wScheduler.CREW_TYPE);
+        WebElement assignment = b2wScheduler.getCrewAssignment(sCrewNameUpd, sJobSiteNameUpd, sMoveDate, sMoveDate, sAssignmentStartTimeUpd, sAssignmentDurationUpd);
         if (assignment != null) {
             logCompare(true, b2wScheduler.openContextMenu(assignment), "Open Crew's Context Menu");
             logCompare(true, b2wScheduler.deleteAssignment(), "Delete Crew Assignment");
-            int actualCount = b2wScheduler.getAssignmentsCount(sCrewNameUpd, sJobSiteNameUpd);
+            int actualCount = b2wScheduler.getAssignmentsCount(sCrewNameUpd, sJobSiteNameUpd, b2wScheduler.CREW_TYPE);
             logCompare(true, actualCount == initialCount - 1, "Verification that Crew Assignment has been deleted.");
-            WebElement result = b2wScheduler.getCrewAssignment(sCrewNameUpd, sJobSiteNameUpd, sMoveDate, sMoveDate, sAssignmentStartTime);
+            WebElement result = b2wScheduler.getCrewAssignment(sCrewNameUpd, sJobSiteNameUpd, sMoveDate, sMoveDate, sAssignmentStartTimeUpd, sAssignmentDurationUpd);
             logCompare(true, result == null, "Verification that specific Crew Assignment has been deleted.");
         } else {
             logCompare(true, false, "Crew Assignment for " + sCrewNameUpd + " could not be found on the page.");
         }
     }
 
-    public void deleteCrewNeed() {
-        deleteCrewNeed(sCrewNeedNameUpd, sJobSiteNameUpd, sMoveDate, sMoveDate, sAssignmentStartTime);
-    }
-
-    public void deleteCrewNeed(String sCrewNeedName, String sJobSiteName, String sStartDate, String sEndDate, String sAssignmentStartTime) {
+    public void deleteCrewNeed(String sCrewNeedName, String sJobSiteName, String sStartDate, String sEndDate, String sAssignmentStartTime, String sAssignmentDurationUpd) {
         /*
          * 1. Open Schedule View
          * 2. Change Date Range on Schedule View
@@ -2207,13 +2217,13 @@ public class ScheduleAssignments extends B2WTestCase {
         NavigateToScheduleView(sCrewView, sCalendarStartDate, sCalendarDateRange, sCrewNeedName);
 
         int initialCount = b2wScheduler.getAssignmentsCount(sCrewNeedName, sJobSiteName, b2wScheduler.CREW_NEED_TYPE);
-        WebElement assignment = b2wScheduler.getCrewNeed(sCrewNeedName, sJobSiteName, sStartDate, sEndDate, sAssignmentStartTime);
+        WebElement assignment = b2wScheduler.getCrewNeed(sCrewNeedName, sJobSiteName, sStartDate, sEndDate, sAssignmentStartTime, sAssignmentDurationUpd);
         if (assignment != null) {
             logCompare(true, b2wScheduler.openContextMenu(assignment), "Open Need's Context Menu");
             logCompare(true, b2wScheduler.deleteNeed(), "Delete Crew Need");
             int actualCount = b2wScheduler.getAssignmentsCount(sCrewNeedName, sJobSiteName, b2wScheduler.CREW_NEED_TYPE);
             logCompare(true, actualCount == initialCount - 1, "Verification that Crew Need has been deleted.");
-            WebElement result = b2wScheduler.getCrewNeed(sCrewNeedName, sJobSiteName, sStartDate, sEndDate, sAssignmentStartTime);
+            WebElement result = b2wScheduler.getCrewNeed(sCrewNeedName, sJobSiteName, sStartDate, sEndDate, sAssignmentStartTime, sAssignmentDurationUpd);
             logCompare(true, result == null, "Verification that specific Crew Need has been deleted.");
         } else {
             logCompare(true, false, "Crew Need for " + sCrewNeedName + " could not be found on the page.");
@@ -2233,14 +2243,18 @@ public class ScheduleAssignments extends B2WTestCase {
 
         NavigateToScheduleView(sEquipmentView, sCalendarStartDate, sCalendarDateRange, sEquipmentName);
 
-        int initialCount = b2wScheduler.getAssignmentsCount(sEquipmentName, sDropoffJobSiteNameUpd);
-        WebElement assignment = b2wScheduler.getMoveAssignment(sEquipmentName, sDropoffJobSiteNameUpd, sMoveDate, sMoveDate, sAssignmentStartTime);
+        int initialCount = b2wScheduler.getAssignmentsCount(sEquipmentName, sDropoffJobSiteNameUpd, b2wScheduler.MOVE_ASSIGNMENT_TYPE);
+        //ToDo: Issue SCHED-3142
+        //WebElement assignment = b2wScheduler.getMoveAssignment(sEquipmentName, sDropoffJobSiteNameUpd, sMoveDate, sMoveDate, sPickupTime, sDropoffTime);
+        WebElement assignment = b2wScheduler.getMoveAssignment(sEquipmentName, sDropoffJobSiteNameUpd, sMoveDate, sMoveDate, sEventStartTime, sEventStartTime);
         if (assignment != null) {
             logCompare(true, b2wScheduler.openContextMenu(assignment), "Open Move's Context Menu");
             logCompare(true, b2wScheduler.deleteMoveAssignment(), "Delete Move Assignment");
-            int actualCount = b2wScheduler.getAssignmentsCount(sEquipmentName, sDropoffJobSiteNameUpd);
+            int actualCount = b2wScheduler.getAssignmentsCount(sEquipmentName, sDropoffJobSiteNameUpd, b2wScheduler.MOVE_ASSIGNMENT_TYPE);
             logCompare(true, actualCount == initialCount - 1, "Verification that Move Assignment has been deleted.");
-            WebElement result = b2wScheduler.getMoveAssignment(sEquipmentName, sDropoffJobSiteNameUpd, sMoveDate, sMoveDate, sAssignmentStartTime);
+            //ToDo: Issue SCHED-3142
+            //WebElement result = b2wScheduler.getMoveAssignment(sEquipmentName, sDropoffJobSiteNameUpd, sMoveDate, sMoveDate, sPickupTime, sDropoffTime);
+            WebElement result = b2wScheduler.getMoveAssignment(sEquipmentName, sDropoffJobSiteNameUpd, sMoveDate, sMoveDate, sEventStartTime, sEventStartTime);
             logCompare(true, result == null, "Verification that specific Move Assignment has been deleted.");
         } else {
             logCompare(true, false, "Move Assignment for " + sEquipmentName + " could not be found on the page.");
@@ -2261,13 +2275,17 @@ public class ScheduleAssignments extends B2WTestCase {
         NavigateToScheduleView(sEquipmentView, sCalendarStartDate, sCalendarDateRange, sEquipmentName);
 
         int initialCount = b2wScheduler.getAssignmentsCount(sEquipmentName, sDropoffJobSiteNameUpd, b2wScheduler.MOVE_ORDER_TYPE);
-        WebElement assignment = b2wScheduler.getMoveOrder(sEquipmentName, sDropoffJobSiteNameUpd, sMoveDate, sMoveDate, sAssignmentStartTime);
+        //ToDo: Issue SCHED-3142
+        //WebElement assignment = b2wScheduler.getMoveOrder(sEquipmentName, sDropoffJobSiteNameUpd, sMoveDate, sMoveDate, sPickupTime, sDropoffTime);
+        WebElement assignment = b2wScheduler.getMoveOrder(sEquipmentName, sDropoffJobSiteNameUpd, sMoveDate, sMoveDate, sEventStartTime, sEventStartTime);
         if (assignment != null) {
             logCompare(true, b2wScheduler.openContextMenu(assignment), "Open Order's Context Menu");
             logCompare(true, b2wScheduler.deleteMoveOrder(), "Delete Move Order");
             int actualCount = b2wScheduler.getAssignmentsCount(sEquipmentName, sDropoffJobSiteNameUpd, b2wScheduler.MOVE_ORDER_TYPE);
             logCompare(true, actualCount == initialCount - 1, "Verification that Move Order has been deleted.");
-            WebElement result = b2wScheduler.getMoveOrder(sEquipmentName, sDropoffJobSiteNameUpd, sMoveDate, sMoveDate, sAssignmentStartTime);
+            //ToDo: Issue SCHED-3142
+            //WebElement result = b2wScheduler.getMoveOrder(sEquipmentName, sDropoffJobSiteNameUpd, sMoveDate, sMoveDate, sPickupTime, sDropoffTime);
+            WebElement result = b2wScheduler.getMoveOrder(sEquipmentName, sDropoffJobSiteNameUpd, sMoveDate, sMoveDate, sEventStartTime, sEventStartTime);
             logCompare(true, result == null, "Verification that specific Move Order has been deleted.");
         } else {
             logCompare(true, false, "Move Order for " + sEquipmentName + " could not be found on the page.");
@@ -2287,14 +2305,14 @@ public class ScheduleAssignments extends B2WTestCase {
 
         NavigateToScheduleView(sEmployeeView, sCalendarStartDate, sCalendarDateRange, sEmployeeNameUpd);
 
-        int initialCount = b2wScheduler.getAssignmentsCount(sEmployeeNameUpd, sEmployeeEventTypeUpd);
-        WebElement assignment = b2wScheduler.getEmployeeEvent(sEmployeeNameUpd, sEmployeeEventTypeUpd, sMoveDate, sMoveDate, sAssignmentStartTime);
+        int initialCount = b2wScheduler.getAssignmentsCount(sEmployeeNameUpd, sEmployeeEventTypeUpd, b2wScheduler.EMPLOYEE_EVENT_TYPE);
+        WebElement assignment = b2wScheduler.getEmployeeEvent(sEmployeeNameUpd, sEmployeeEventTypeUpd, sMoveDate, sMoveDate, sEventStartTime, sEventDuration);
         if (assignment != null) {
             logCompare(true, b2wScheduler.openContextMenu(assignment), "Open Event's Context Menu");
             logCompare(true, b2wScheduler.deleteEvent(), "Delete Employee Event");
-            int actualCount = b2wScheduler.getAssignmentsCount(sEmployeeNameUpd, sEmployeeEventTypeUpd);
+            int actualCount = b2wScheduler.getAssignmentsCount(sEmployeeNameUpd, sEmployeeEventTypeUpd, b2wScheduler.EMPLOYEE_EVENT_TYPE);
             logCompare(true, actualCount == initialCount - 1, "Verification that Employee Event has been deleted.");
-            WebElement result = b2wScheduler.getEmployeeEvent(sEmployeeNameUpd, sEmployeeEventTypeUpd, sMoveDate, sMoveDate, sAssignmentStartTime);
+            WebElement result = b2wScheduler.getEmployeeEvent(sEmployeeNameUpd, sEmployeeEventTypeUpd, sMoveDate, sMoveDate, sEventStartTime, sEventDuration);
             logCompare(true, result == null, "Verification that specific Employee Event has been deleted.");
         } else {
             logCompare(true, false, "Employee Event for " + sEmployeeNameUpd + " could not be found on the page.");
@@ -2313,21 +2331,15 @@ public class ScheduleAssignments extends B2WTestCase {
          */
 
         NavigateToScheduleView(sEquipmentView, sCalendarStartDate, sCalendarDateRange, sEquipmentNameUpd);
-        /*
-        logCompare(true, b2wNav.openSchedule(), "Open Schedule View");
-        logCompare(true, b2wScheduler.navigateToScheduleView(sEquipmentView, sEquipmentView), "Open Equipment Schedule View");
-        logCompare(true, b2wScheduler.setCalendarDateRange(sCalendarDateRange), "Set Calendar Date Range");
-        logCompare(true, b2wScheduler.setCalendarStartDate(sCalendarStartDate), "Set Calendar Start Date");
-        logCompare(true, b2wScheduler.setSearchValue(sEquipmentNameUpd), "Set Filter by Equipment Name");
-        */
-        int initialCount = b2wScheduler.getAssignmentsCount(sEquipmentNameUpd, sEquipmentEventTypeUpd);
-        WebElement assignment = b2wScheduler.getEquipmentEvent(sEquipmentNameUpd, sEquipmentEventTypeUpd, sMoveDate, sMoveDate, sAssignmentStartTime);
+
+        int initialCount = b2wScheduler.getAssignmentsCount(sEquipmentNameUpd, sEquipmentEventTypeUpd, b2wScheduler.EQUIPMENT_EVENT_TYPE);
+        WebElement assignment = b2wScheduler.getEquipmentEvent(sEquipmentNameUpd, sEquipmentEventTypeUpd, sMoveDate, sMoveDate, sEventStartTime, sEventDuration);
         if (assignment != null) {
             logCompare(true, b2wScheduler.openContextMenu(assignment), "Open Event's Context Menu");
             logCompare(true, b2wScheduler.deleteEvent(), "Delete Equipment Event");
-            int actualCount = b2wScheduler.getAssignmentsCount(sEquipmentNameUpd, sEquipmentEventTypeUpd);
+            int actualCount = b2wScheduler.getAssignmentsCount(sEquipmentNameUpd, sEquipmentEventTypeUpd, b2wScheduler.EQUIPMENT_EVENT_TYPE);
             logCompare(true, actualCount == initialCount - 1, "Verification that Equipment Event has been deleted.");
-            WebElement result = b2wScheduler.getEquipmentEvent(sEquipmentNameUpd, sEquipmentEventTypeUpd, sMoveDate, sMoveDate, sAssignmentStartTime);
+            WebElement result = b2wScheduler.getEquipmentEvent(sEquipmentNameUpd, sEquipmentEventTypeUpd, sMoveDate, sMoveDate, sEventStartTime, sEventDuration);
             logCompare(true, result == null, "Verification that specific Equipment Event has been deleted.");
         } else {
             logCompare(true, false, "Equipment Event for " + sEquipmentNameUpd + " could not be found on the page.");
@@ -2345,16 +2357,17 @@ public class ScheduleAssignments extends B2WTestCase {
          * 7. Verify that Assignment was deleted
          */
 
-        NavigateToScheduleView(sLocationView, sCalendarStartDate, sCalendarDateRange, sJobSiteNameUpd);
+        //NavigateToScheduleView(sLocationView, sCalendarStartDate, sCalendarDateRange, sJobSiteNameUpd);
+        NavigateToScheduleView(sDefaultLocationView, sCalendarStartDate, sCalendarDateRange, sJobSiteNameUpd);
 
-        int initialCount = b2wScheduler.getAssignmentsCount(sJobSiteNameUpd, sLocationEventTypeUpd);
-        WebElement assignment = b2wScheduler.getJobSiteEvent(sJobSiteNameUpd, sLocationEventTypeUpd, sMoveDate, sMoveDate, sAssignmentStartTime);
+        int initialCount = b2wScheduler.getAssignmentsCount(sJobSiteNameUpd, sLocationEventTypeUpd, b2wScheduler.LOCATION_EVENT_TYPE);
+        WebElement assignment = b2wScheduler.getJobSiteEvent(sJobSiteNameUpd, sLocationEventTypeUpd, sMoveDate, sMoveDate, sEventStartTime, sEventDuration);
         if (assignment != null) {
             logCompare(true, b2wScheduler.openContextMenu(assignment), "Open Event's Context Menu");
             logCompare(true, b2wScheduler.deleteEvent(), "Delete JobSite Event");
-            int actualCount = b2wScheduler.getAssignmentsCount(sJobSiteNameUpd, sLocationEventTypeUpd);
+            int actualCount = b2wScheduler.getAssignmentsCount(sJobSiteNameUpd, sLocationEventTypeUpd, b2wScheduler.LOCATION_EVENT_TYPE);
             logCompare(true, actualCount == initialCount - 1, "Verification that JobSite Event has been deleted.");
-            WebElement result = b2wScheduler.getJobSiteEvent(sJobSiteNameUpd, sLocationEventTypeUpd, sMoveDate, sMoveDate, sAssignmentStartTime);
+            WebElement result = b2wScheduler.getJobSiteEvent(sJobSiteNameUpd, sLocationEventTypeUpd, sMoveDate, sMoveDate, sEventStartTime, sEventDuration);
             logCompare(true, result == null, "Verification that specific JobSite Event has been deleted.");
         } else {
             logCompare(true, false, "Location Event for " + sJobSiteNameUpd + " could not be found on the page.");
@@ -2376,7 +2389,7 @@ public class ScheduleAssignments extends B2WTestCase {
 
         int initialCountSubstituted = b2wScheduler.getAssignmentsCount(sEmployeeNameForSubstitution, sJobSiteName, b2wScheduler.SUBSTITUTED_TYPE);
         int initialCountSubstitution = b2wScheduler.getAssignmentsCount(sEmployeeNameUpd, sJobSiteName, b2wScheduler.SUBSTITUTION_TYPE);
-        WebElement assignment = b2wScheduler.getEmployeeSubstitution(sEmployeeNameUpd, sJobSiteName, sCalendarStartDate, sCalendarStartDate, sAssignmentStartTime);
+        WebElement assignment = b2wScheduler.getEmployeeSubstitution(sEmployeeNameUpd, sJobSiteName, sCalendarStartDate, sCalendarStartDate, sAssignmentStartTime, sAssignmentDuration);
         if (assignment != null) {
             logCompare(true, b2wScheduler.openContextMenu(assignment), "Open Assignment's Context Menu");
             logCompare(true, b2wScheduler.deleteSubstitution(), "Delete Employee Substitution");
@@ -2385,10 +2398,10 @@ public class ScheduleAssignments extends B2WTestCase {
             logCompare(true, actualCountSubstituted == initialCountSubstituted - 1, "Verification that original Employee Assignment converted to actual.");
             logCompare(true, actualCountSubstitution == initialCountSubstitution - 1, "Verification that Employee substitution has been deleted.");
 
-            WebElement result = b2wScheduler.getEmployeeAssignment(sEmployeeNameForSubstitution, sJobSiteName, sCalendarStartDate, sCalendarStartDate, sAssignmentStartTime);
+            WebElement result = b2wScheduler.getEmployeeAssignment(sEmployeeNameForSubstitution, sJobSiteName, sCalendarStartDate, sCalendarStartDate, sAssignmentStartTime, sAssignmentDuration);
             logCompare(true, result != null, "Verification that specific Employee Substitution has been deleted.");
 
-            result = b2wScheduler.getEmployeeSubstitution(sEmployeeNameUpd, sJobSiteName, sCalendarStartDate, sCalendarStartDate, sAssignmentStartTime);
+            result = b2wScheduler.getEmployeeSubstitution(sEmployeeNameUpd, sJobSiteName, sCalendarStartDate, sCalendarStartDate, sAssignmentStartTime, sAssignmentDuration);
             logCompare(true, result == null, "Verification that specific Employee Substitution has been deleted.");
         } else {
             logCompare(true, false, "Substitution " + sEmployeeNameUpd + " for " + sEmployeeNameForSubstitution + " could not be found on the page.");

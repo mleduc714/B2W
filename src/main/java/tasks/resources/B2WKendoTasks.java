@@ -110,6 +110,7 @@ public abstract class B2WKendoTasks {
 	}
 	public boolean clickAndSelectValueFromKendoFDD(WebElement dropDownElement, String sItem) {
 		boolean bReturn = false;
+		WebElementUtils.moveVirtualMouseOverElement(dropDownElement);
 		if (WebElementUtils.clickElement(dropDownElement)) {
 			TaskUtils.sleep(100);
 			bReturn = selectItemFromFDD(sItem);
