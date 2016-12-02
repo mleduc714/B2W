@@ -13,7 +13,7 @@ import tasks.maintain.B2WMaintainTasks;
 import tasks.maintain.B2WWorkOrdersTasks;
 import tasks.util.TaskUtils;
 
-public class DashboardSmokeTest extends B2WTestCase {
+public class MaintainDashboardSmokeTest extends B2WTestCase {
 	
 	B2WNavigationTasks b2wNav = new B2WNavigationTasks();
 	B2WMaintainDashboardTasks b2wDash = new B2WMaintainDashboardTasks();
