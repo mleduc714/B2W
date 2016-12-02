@@ -15,7 +15,7 @@ import java.util.List;
 public class ScheduleAssignments extends B2WTestCase {
 
     /*
-        1. Create Employee Schedule View - Done
+        1. Create Employee Schedule View    - Done
         2. Create Equipment Schedule View - Done
         3. Create Crew Schedule View - Done
         4. Create Location Schedule View - Done
