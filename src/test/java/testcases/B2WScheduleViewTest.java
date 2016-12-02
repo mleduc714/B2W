@@ -1,8 +1,5 @@
 package testcases;
 
-
-
-
 import java.util.LinkedHashMap;
 import java.util.Set;
 
@@ -430,7 +427,5 @@ public class B2WScheduleViewTest extends B2WTestCase{
                System.out.println(key + " " + linkTable.get(key));
         }
 		
-		
-
 	}
 }

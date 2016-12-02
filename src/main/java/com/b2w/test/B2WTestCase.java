@@ -72,7 +72,7 @@ public class B2WTestCase extends BaseTestCase {
 
 	public String getDataPath() {
 		// TODO Auto-generated method stub
-		return "";
+		return "data";
 	}
 
 	public boolean isSupported() {
