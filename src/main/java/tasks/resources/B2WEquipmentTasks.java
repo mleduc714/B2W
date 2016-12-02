@@ -399,7 +399,52 @@ public class B2WEquipmentTasks extends B2WKendoTasks {
 		return bReturn;
 	}
 	
-
+	public boolean setTextEquipmentSpecs(String sField, String sText){
+		boolean bReturn = false;
+		// get the header
+		WebElement parent = getHeader(EQUIPMENTSPECS);
+		// find all the name value pairs
+		List<WebElement> items = WebElementUtils.getChildElements(parent, B2WMaintain.getKendoNameValuePair());
+		// find the label of the element we wish to set text for
+		WebElement specs = WebElementUtils.getElementWithContainsChildElementText(items, By.tagName("label"), sField);
+		if (specs != null){
+		// get the parent of the label
+			WebElement textParent = WebElementUtils.getParentElement(specs);
+		// find the input
+			WebElement input = WebElementUtils.getChildElement(textParent, By.tagName("input"));
+			bReturn = WebElementUtils.sendKeys(input, sText);
+		}
+		return bReturn;
+	}
+	
+	/**
+	 * @param sField
+	 * @param sItem
+	 * @return
+	 */
+	public boolean selectItemFromDropDownEquipmentSpecs(String sField, String sItem){
+		boolean bReturn = false;
+		// get the header
+		WebElement parent = getHeader(EQUIPMENTSPECS);
+		// find all the name value pairs
+		List<WebElement> items = WebElementUtils.getChildElements(parent, B2WMaintain.getKendoNameValuePair());
+		// find the label of the element we wish to set text for
+		WebElement specs = WebElementUtils.getElementWithContainsChildElementText(items, By.tagName("label"), sField);
+		if (specs != null){
+		// get the parent of the label
+			WebElement textParent = WebElementUtils.getParentElement(specs);
+		// find the input
+			WebElement input = WebElementUtils.getChildElement(textParent, B2WMaintain.getKendoDropDown());
+			Coordinates coordinate = ((Locatable) input).getCoordinates();
+			coordinate.onPage();
+			coordinate.inViewPort();
+			WebElementUtils.clickElement(input);
+			selectItemFromDropDown(sItem);
+		}
+		return bReturn;
+	
+		
+	}
 
 
 	
