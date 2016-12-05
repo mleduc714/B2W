@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.internal.Coordinates;
@@ -12,6 +13,7 @@ import org.openqa.selenium.internal.Locatable;
 import appobjects.maintain.B2WMaintain;
 import tasks.WebElementUtils;
 import tasks.resources.B2WKendoTasks;
+import tasks.util.TaskUtils;
 
 
 
@@ -26,6 +28,7 @@ public class B2WMaintainRequestTasks extends B2WKendoTasks {
 	public int iPriority = 6;
 	
 	private static List<WebElement> pageElement = new ArrayList<WebElement>();
+	Logger log = Logger.getLogger(B2WMaintainRequestTasks.class);
 
 	public boolean clickCreateNewRequestButton() {
 		boolean bReturn = false;
@@ -61,6 +64,7 @@ public class B2WMaintainRequestTasks extends B2WKendoTasks {
 			WebElement el = WebElementUtils.getChildElement(equipment, B2WMaintain.getKendoDropDown());
 			WebElementUtils.clickElement(el);
 			WebElementUtils.sendKeys(el, "a");
+			TaskUtils.sleep(500);
 			sText = selectRandomItemFromDropDown();
 		}
 		return sText;
@@ -105,8 +109,13 @@ public class B2WMaintainRequestTasks extends B2WKendoTasks {
 		if (equipment != null){
 			//WebElement desc = WebElementUtils.findElement(By.cssSelector("#request_create_view > div.edit-form-content > div.box-content.form > p.form-required > input[name='RequestDescription']"));
 			WebElement el = WebElementUtils.getChildElement(equipment,B2WMaintain.getKendoDropDown());
-			WebElementUtils.clickElement(el);
-			sText = selectRandomItemFromDropDown();
+
+			if (WebElementUtils.clickElement(el)){
+				TaskUtils.sleep(1000);
+				sText = selectRandomItemFromDropDown();
+			}else{
+				log.debug("Failed to click element");
+			}
 		}
 		return sText;
 		

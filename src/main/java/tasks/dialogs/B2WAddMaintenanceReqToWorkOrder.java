@@ -19,8 +19,13 @@ public class B2WAddMaintenanceReqToWorkOrder extends B2WKendoDialog {
 	public boolean doesDialogExist() {
 		boolean bReturn = false;
 		WebElement el = getDialog();
-		if (el != null){
+		if (el != null && el.isDisplayed()){
 			bReturn = true;
+		}else{
+			log.debug("is el null "+el==null);
+			if (el != null){
+				log.debug("Is the dialog diaplayed "+el.isDisplayed());
+			}
 		}
 		return bReturn;
 	}
@@ -44,7 +49,7 @@ public class B2WAddMaintenanceReqToWorkOrder extends B2WKendoDialog {
 	}
 
 	private WebElement getDialog() {
-		return WebElementUtils.findElement(B2WMaintain.getB2WMaintainRequestAddToWorkOrderDialog());
+		return WebElementUtils.waitAndFindDisplayedElement(B2WMaintain.getB2WMaintainRequestAddToWorkOrderDialog());
 	}
 
 	public ArrayList<String> getRequestIDs() {

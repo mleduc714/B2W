@@ -150,10 +150,10 @@ public class OperationsSmokeH extends B2WTestCase {
 		//logCompare(true, b2wtimecards.selectChargeToEquipment(), "Select Charge Equipment");
 		logCompare(true, b2wReport.setEquipmentHoursDescription(sMaintenanceTimeCardWorkDesc), "Set Description ");
 		logCompare(true, b2wReport.setEquipmentUsed(sEquipmentID_Desc), "Set Equipment Used");
-		logCompare(true, b2wReport.selectWorkOrder(sMaintenanceWorkOrderDescription), "Select Work Order");
-		logCompare(true, b2wReport.selectWorkOrderItem(sMaintenanceWorkOrderItemDescriptionA), "Select Work Order Item");
+		logCompare(true, b2wReport.selectEquipmentWorkOrder(sMaintenanceWorkOrderDescription), "Select Work Order");
+		logCompare(true, b2wReport.selectEquipmentWorkOrderItem(sMaintenanceWorkOrderItemDescriptionA), "Select Work Order Item");
 	
-		logCompare(true, b2wReport.setRegularMins("30"), "Change Oil");
+		logCompare(true, b2wReport.setEquipmentRegularMins("30"), "Change Oil");
 		logCompare(true, b2wReport.selectEquipmentRateClass("Standard"), "Select Labor Rate");
 		b2wtimecards.saveReportHours();
 
@@ -166,10 +166,10 @@ public class OperationsSmokeH extends B2WTestCase {
 		//logCompare(true, b2wtimecards.selectChargeToEquipment(), "Select Charge Equipment");
 		logCompare(true, b2wReport.setEquipmentHoursDescription(sMaintenanceTimeCardWorkDesc), "Set Description ");
 		logCompare(true, b2wReport.setEquipmentUsed(sEquipmentID_Desc), "Set Equipment Used");
-		logCompare(true, b2wReport.selectWorkOrder(sMaintenanceWorkOrderDescription), "Select Work Order");
-		logCompare(true, b2wReport.selectWorkOrderItem(sMaintenanceWorkOrderItemDescriptionB), "Select Work Order Item");
-		logCompare(true, b2wReport.setRegularHours("1"), "Broken Track 1 hr");
-		logCompare(true, b2wReport.setRegularMins("30"), "Broken Track");
+		logCompare(true, b2wReport.selectEquipmentWorkOrder(sMaintenanceWorkOrderDescription), "Select Work Order");
+		logCompare(true, b2wReport.selectEquipmentWorkOrderItem(sMaintenanceWorkOrderItemDescriptionB), "Select Work Order Item");
+		logCompare(true, b2wReport.setEquipmentRegularHours("1"), "Broken Track 1 hr");
+		logCompare(true, b2wReport.setEquipmentRegularMins("30"), "Broken Track");
 		logCompare(true, b2wReport.selectEquipmentRateClass("Standard"), "Select Labor Rate");
 		logCompare(true, b2wtimecards.saveReportHours(), "Save Report Hours");
 

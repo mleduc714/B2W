@@ -429,12 +429,13 @@ public abstract class B2WKendoTasks {
 		}
 		return bReturn;
 	}
-	public String selectRandomItemFromDropDown(){
+
+	public String selectRandomItemFromDropDown() {
 		String sText = "";
 		// when we click we need to find the visible list
 		List<WebElement> list = WebElementUtils.findElements(B2WEquipment.getKendoLists());
 		Iterator<WebElement> iter = list.iterator();
-		log.debug("There are "+list.size() + " to find the correct drop down");
+		log.debug("There are " + list.size() + " to find the correct drop down");
 		while (iter.hasNext()) {
 			WebElement els = iter.next();
 			String hidden = els.getAttribute("aria-hidden");
@@ -443,11 +444,13 @@ public abstract class B2WKendoTasks {
 				Random rand = new Random();
 				int randnumber = rand.nextInt(items.size() - 1);
 				WebElement item = items.get(randnumber);
-				
 				if (item != null) {
 					sText = item.getText();
-					WebElementUtils.clickElement(item);
-				}else{
+					if (WebElementUtils.clickElement(item)) {
+						WebElementUtils.waitForElementHasAttributeWithValue(els, "aria-hidden", "true", true,
+								WebElementUtils.MEDIUM_TIME_OUT);
+					}
+				} else {
 					log.debug("Could not select item");
 				}
 			}
