@@ -400,9 +400,19 @@ public class B2WEquipmentTasks extends B2WKendoTasks {
 	}
 	
 	public boolean setTextEquipmentSpecs(String sField, String sText){
+		return setTextByField(EQUIPMENTSPECS, sField, sText);
+	}
+	
+	public boolean setFieldAndItemFromDropDownEquipmentSpecs(String sField, String sValue, String sItem){
+		return selectItemValueFromDropDown(EQUIPMENTSPECS, sField, sValue, sItem);
+	}
+	
+	
+	
+	private boolean setTextByField(String sHeader, String sField, String sText){
 		boolean bReturn = false;
 		// get the header
-		WebElement parent = getHeader(EQUIPMENTSPECS);
+		WebElement parent = getHeader(sHeader);
 		// find all the name value pairs
 		List<WebElement> items = WebElementUtils.getChildElements(parent, B2WMaintain.getKendoNameValuePair());
 		// find the label of the element we wish to set text for
@@ -417,33 +427,31 @@ public class B2WEquipmentTasks extends B2WKendoTasks {
 		return bReturn;
 	}
 	
-	/**
-	 * @param sField
-	 * @param sItem
-	 * @return
-	 */
-	public boolean selectItemFromDropDownEquipmentSpecs(String sField, String sItem){
+	private boolean selectItemValueFromDropDown(String sHeader, String sField, String sValue, String sItem){
 		boolean bReturn = false;
 		// get the header
-		WebElement parent = getHeader(EQUIPMENTSPECS);
+		WebElement parent = getHeader(sHeader);
 		// find all the name value pairs
 		List<WebElement> items = WebElementUtils.getChildElements(parent, B2WMaintain.getKendoNameValuePair());
 		// find the label of the element we wish to set text for
 		WebElement specs = WebElementUtils.getElementWithContainsChildElementText(items, By.tagName("label"), sField);
 		if (specs != null){
 		// get the parent of the label
-			WebElement textParent = WebElementUtils.getParentElement(specs);
 		// find the input
-			WebElement input = WebElementUtils.getChildElement(textParent, B2WMaintain.getKendoDropDown());
-			Coordinates coordinate = ((Locatable) input).getCoordinates();
+			List<WebElement> input = WebElementUtils.getChildElements(specs, B2WMaintain.getKendoDropDown());
+			Coordinates coordinate = ((Locatable) input.get(0)).getCoordinates();
 			coordinate.onPage();
 			coordinate.inViewPort();
-			WebElementUtils.clickElement(input);
-			selectItemFromDropDown(sItem);
+			if (sValue != null){
+				WebElementUtils.clickElement(input.get(0));
+				bReturn = WebElementUtils.sendKeys(input.get(1), sValue);
+			}
+			if (sItem != null){
+				WebElementUtils.clickElement(input.get(input.size()-1));
+				bReturn &= selectItemFromDropDown(sItem);
+			}
 		}
 		return bReturn;
-	
-		
 	}
 
 
