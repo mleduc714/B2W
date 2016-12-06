@@ -746,12 +746,29 @@ public class B2WEquipmentTasks extends B2WKendoTasks {
 		return bReturn;
 	}
 	
+	//Allows to populate fields and dropdowns
 	public boolean setTextEquipmentSpecs(String sField, String sText){
 		return setTextByField(EQUIPMENTSPECS, sField, sText);
 	}
 	
 	public boolean setFieldAndItemFromDropDownEquipmentSpecs(String sField, String sValue, String sItem){
 		return selectItemValueFromDropDown(EQUIPMENTSPECS, sField, sValue, sItem);
+	}
+	
+	public boolean setTextComponentSpecs(String sField, String sText){
+		return setTextByField(COMPSPECS, sField, sText);
+	}
+	
+	public boolean setFieldAndItemFromDropDownComponentSpecs(String sField, String sValue, String sItem){
+		return selectItemValueFromDropDown(COMPSPECS, sField, sValue, sItem);
+	}
+	
+	public boolean setTextFinancials(String sField, String sText){
+		return setTextByField(FINANCIALS, sField, sText);
+	}
+	
+	public boolean setFieldAndItemFromDropDownFinancials(String sField, String sValue, String sItem){
+		return selectItemValueFromDropDown(FINANCIALS, sField, sValue, sItem);
 	}
 	
 	
@@ -763,7 +780,7 @@ public class B2WEquipmentTasks extends B2WKendoTasks {
 		// find all the name value pairs
 		List<WebElement> items = WebElementUtils.getChildElements(parent, B2WMaintain.getKendoNameValuePair());
 		// find the label of the element we wish to set text for
-		WebElement specs = WebElementUtils.getElementWithContainsChildElementText(items, By.tagName("label"), sField);
+		WebElement specs = WebElementUtils.getElementWithMatchingChildElementText(items, By.tagName("label"), sField);
 		if (specs != null){
 		// get the parent of the label
 			// find the input
@@ -780,7 +797,7 @@ public class B2WEquipmentTasks extends B2WKendoTasks {
 		// find all the name value pairs
 		List<WebElement> items = WebElementUtils.getChildElements(parent, B2WMaintain.getKendoNameValuePair());
 		// find the label of the element we wish to set text for
-		WebElement specs = WebElementUtils.getElementWithContainsChildElementText(items, By.tagName("label"), sField);
+		WebElement specs = WebElementUtils.getElementWithMatchingChildElementText(items, By.tagName("label"), sField);
 		if (specs != null){
 		// get the parent of the label
 		// find the input

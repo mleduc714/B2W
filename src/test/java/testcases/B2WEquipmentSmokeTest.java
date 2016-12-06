@@ -4,7 +4,6 @@ import com.b2w.test.B2WTestCase;
 
 import tasks.B2WNavigationTasks;
 import tasks.resources.B2WEquipmentTasks;
-import tasks.util.TaskUtils;
 
 public class B2WEquipmentSmokeTest extends B2WTestCase {
 	
@@ -75,8 +74,6 @@ public class B2WEquipmentSmokeTest extends B2WTestCase {
 		
 		equipmentTasks.selectOwnershipTypeSubcontractedFromDropDown();
 		
-		TaskUtils.sleep(5000);
-		
 		//Enter Equipment Specs
 		equipmentTasks.expandEquipmentSpecs();
 		
@@ -88,46 +85,49 @@ public class B2WEquipmentSmokeTest extends B2WTestCase {
 		equipmentTasks.setTextEquipmentSpecs("HutStickerNumber", "67890");
 		equipmentTasks.setTextEquipmentSpecs("EZPassNumber", "12345");
 		
+		equipmentTasks.setFieldAndItemFromDropDownEquipmentSpecs("Lengh", "2354", "Foot [FOOT]");
+		equipmentTasks.setFieldAndItemFromDropDownEquipmentSpecs("Width", "43", "Mile [MILE]");
+		equipmentTasks.setFieldAndItemFromDropDownEquipmentSpecs("Height", "5433", "Millimeter [mm]");
+		equipmentTasks.setFieldAndItemFromDropDownEquipmentSpecs("Max Weight", "445", "Gram [g]");
+		equipmentTasks.setFieldAndItemFromDropDownEquipmentSpecs("Combined Weight", "56", "Ton [TON]");
+		equipmentTasks.setFieldAndItemFromDropDownEquipmentSpecs("Tare Weight", "45", "Kilogram [kg]");
+		equipmentTasks.setFieldAndItemFromDropDownEquipmentSpecs("Ground Pressure", "56", "Thousand Cubic Feet [MCF]");
+		
+		equipmentTasks.collapseEquipmentSpecs();
+		
 		//Enter Component Specs
 		equipmentTasks.expandComponentSpecs();
 		
-		//equipmentTasks.setComponentSpecsEngine("Engine Name");
-		equipmentTasks.setTextEquipmentSpecs("Engine", "Engine Name");
+		equipmentTasks.setTextComponentSpecs("TireSize", "sText");
+		equipmentTasks.setTextComponentSpecs("Engine", "Engine Name");
+		equipmentTasks.setTextComponentSpecs("EngineArrangement", "Arrangement");
+		equipmentTasks.setTextComponentSpecs("EngineSerialNumber", "54321");
+		equipmentTasks.setTextComponentSpecs("HorsePower", "124");
+		equipmentTasks.setTextComponentSpecs("TransmissionModel", "A3B2C1");
+		equipmentTasks.setTextComponentSpecs("TransmissionSerialNumber", "09876");
+		equipmentTasks.setTextComponentSpecs("GET", "13");
+	    equipmentTasks.setTextEquipmentSpecs("HydraulicFlowRate", "23");
 		
-		//equipmentTasks.setComponentSpecsEngineArrangement("Arrangement");
-		equipmentTasks.setTextEquipmentSpecs("EngineArrangement", "Arrangement");
+	    equipmentTasks.setFieldAndItemFromDropDownEquipmentSpecs("Fuel Type", "null", "Gasoline [GAS]");
+		equipmentTasks.setFieldAndItemFromDropDownEquipmentSpecs("Wheel Type", "null", "Rubber Tire [RTR]");
+		equipmentTasks.setFieldAndItemFromDropDownEquipmentSpecs("Track Type", "null", "In-Line Sprocket [ILSP]");
+		equipmentTasks.setFieldAndItemFromDropDownEquipmentSpecs("Brake Type", "null", "Pneumatic Brakes [AIRB]");
+		equipmentTasks.setFieldAndItemFromDropDownEquipmentSpecs("Cutting Edge", "null", "Grader Blades [GRADB]");
+		equipmentTasks.setFieldAndItemFromDropDownEquipmentSpecs("Hydraulic Pump Type", "null", "Load Sensing Pump [LSP]");
 		
-		//equipmentTasks.setComponentSpecsEngineSerialNumber("54321");
-		equipmentTasks.setTextEquipmentSpecs("EngineSerialNumber", "54321");
-		
-		//equipmentTasks.setComponentSpecsHorsePower("124");
-		equipmentTasks.setTextEquipmentSpecs("HorsePower", "124");
-		
-		//equipmentTasks.setComponentSpecsTransmissionModel("A3B2C1");
-		equipmentTasks.setTextEquipmentSpecs("TransmissionModel", "A3B2C1");
-		
-		//equipmentTasks.setComponentSpecsTransmissionSerialNumber("09876");//doesnt work
-		equipmentTasks.setTextEquipmentSpecs("TransmissionSerialNumber", "09876");
-		
-		//equipmentTasks.setComponentSpecsTireSize("13");
-		equipmentTasks.setTextEquipmentSpecs("TireSize", "sText");
-		
-		//equipmentTasks.setComponentSpecsGET("123");
-		equipmentTasks.setTextEquipmentSpecs("GET", "13");
-		
-		//equipmentTasks.setComponentSpecsHydraulicFlowRate("23");//doesnt work
-		equipmentTasks.setTextEquipmentSpecs("HydraulicFlowRate", "23");
-		
-		TaskUtils.sleep(5000);
+		equipmentTasks.collapseComponentSpecs();
 		
 		//Enter Financials
 		equipmentTasks.expandFinancials();
-		equipmentTasks.setFinancialsInsuranceValue("");
-		equipmentTasks.setFinancialsPurchasedFrom("");
-		equipmentTasks.setFinancialsPurchasePrice("");
-		equipmentTasks.setFinancialsSalesPrice("");
-		equipmentTasks.setFinancialsSoldTo("");
-		equipmentTasks.setFinancialsTitleHolder("");
+		
+		equipmentTasks.setTextFinancials("PurchasedFrom", "ABC Construction");
+		equipmentTasks.setTextFinancials("PurchasedPrice", "20000");
+		equipmentTasks.setTextFinancials("InsuranceValue", "10000");
+		equipmentTasks.setTextFinancials("TitleHolder", "TH Title Holder");
+		equipmentTasks.setTextFinancials("SoldTo", "XYZ Builders");
+		equipmentTasks.setTextFinancials("SalePrice", "15000");
+		
+		equipmentTasks.setFieldAndItemFromDropDownEquipmentSpecs("CCA Class", "null", "CCA-3 [CCA-5%]");
 		
 		//Add Meter Types
 		equipmentTasks.expandMeters();
