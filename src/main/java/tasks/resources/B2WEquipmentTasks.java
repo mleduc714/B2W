@@ -766,9 +766,8 @@ public class B2WEquipmentTasks extends B2WKendoTasks {
 		WebElement specs = WebElementUtils.getElementWithContainsChildElementText(items, By.tagName("label"), sField);
 		if (specs != null){
 		// get the parent of the label
-			WebElement textParent = WebElementUtils.getParentElement(specs);
-		// find the input
-			WebElement input = WebElementUtils.getChildElement(textParent, By.tagName("input"));
+			// find the input
+			WebElement input = WebElementUtils.getChildElement(specs, By.tagName("input"));
 			bReturn = WebElementUtils.sendKeys(input, sText);
 		}
 		return bReturn;
