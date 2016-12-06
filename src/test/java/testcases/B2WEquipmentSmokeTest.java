@@ -80,26 +80,44 @@ public class B2WEquipmentSmokeTest extends B2WTestCase {
 		//Enter Equipment Specs
 		equipmentTasks.expandEquipmentSpecs();
 		
-		equipmentTasks.setEquipmentSpecsManufacturer("ABC Construction");
-		equipmentTasks.setEquipmentSpecsModel("New");
-		equipmentTasks.setEquipmentSpecsYear("1999");//Doenst work
-		equipmentTasks.setEquipmentSpecsColor("Blue");
-		equipmentTasks.setEquipmentSpecsLojack("12");
-		equipmentTasks.setEquipmentSpecsHutStickerNumber("67890");
-		equipmentTasks.setEquipmentSpecsEZPassNumber("12345");
+		equipmentTasks.setTextEquipmentSpecs("Manufacturer", "ABC Construction");
+		equipmentTasks.setTextEquipmentSpecs("Model", "5B");
+		equipmentTasks.setTextEquipmentSpecs("Year", "1999");
+		equipmentTasks.setTextEquipmentSpecs("Color", "Blue");
+		equipmentTasks.setTextEquipmentSpecs("Lojack", "12");
+		equipmentTasks.setTextEquipmentSpecs("HutStickerNumber", "67890");
+		equipmentTasks.setTextEquipmentSpecs("EZPassNumber", "12345");
 		
 		//Enter Component Specs
 		equipmentTasks.expandComponentSpecs();
 		
-		equipmentTasks.setComponentSpecsEngine("Engine Name");
-		equipmentTasks.setComponentSpecsEngineArrangement("Arrangement");
-		equipmentTasks.setComponentSpecsEngineSerialNumber("54321");
-		equipmentTasks.setComponentSpecsHorsePower("124");
-		equipmentTasks.setComponentSpecsTransmissionModel("A3B2C1");
-		equipmentTasks.setComponentSpecsTransmissionSerialNumber("09876");//doesnt work
-		equipmentTasks.setComponentSpecsTireSize("13");
-		equipmentTasks.setComponentSpecsGET("123");
-		equipmentTasks.setComponentSpecsHydraulicFlowRate("23");//doesnt work
+		//equipmentTasks.setComponentSpecsEngine("Engine Name");
+		equipmentTasks.setTextEquipmentSpecs("Engine", "Engine Name");
+		
+		//equipmentTasks.setComponentSpecsEngineArrangement("Arrangement");
+		equipmentTasks.setTextEquipmentSpecs("EngineArrangement", "Arrangement");
+		
+		//equipmentTasks.setComponentSpecsEngineSerialNumber("54321");
+		equipmentTasks.setTextEquipmentSpecs("EngineSerialNumber", "54321");
+		
+		//equipmentTasks.setComponentSpecsHorsePower("124");
+		equipmentTasks.setTextEquipmentSpecs("HorsePower", "124");
+		
+		//equipmentTasks.setComponentSpecsTransmissionModel("A3B2C1");
+		equipmentTasks.setTextEquipmentSpecs("TransmissionModel", "A3B2C1");
+		
+		//equipmentTasks.setComponentSpecsTransmissionSerialNumber("09876");//doesnt work
+		equipmentTasks.setTextEquipmentSpecs("TransmissionSerialNumber", "09876");
+		
+		//equipmentTasks.setComponentSpecsTireSize("13");
+		equipmentTasks.setTextEquipmentSpecs("TireSize", "sText");
+		
+		//equipmentTasks.setComponentSpecsGET("123");
+		equipmentTasks.setTextEquipmentSpecs("GET", "13");
+		
+		//equipmentTasks.setComponentSpecsHydraulicFlowRate("23");//doesnt work
+		equipmentTasks.setTextEquipmentSpecs("HydraulicFlowRate", "23");
+		
 		TaskUtils.sleep(5000);
 		
 		//Enter Financials
