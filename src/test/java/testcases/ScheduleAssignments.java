@@ -335,12 +335,6 @@ public class ScheduleAssignments extends B2WTestCase {
         createNewCrewScheduleView();
         createNewJobSiteScheduleView();
 
-        /*
-        sEmployeeView = sDefaultEmployeeView;
-        sEquipmentView = sDefaultEquipmentView;
-        sCrewView = sDefaultCrewView;
-        */
-
         //=== Create Schedule Assignments
         createEmployeeAssignment(sEmployeeView, sEmployeeName, sJobSiteName, sRequestedBy, sNotesText, sAssignmentStartTime, sAssignmentDuration);
         createEmployeeAssignment(sEmployeeView, sEmployeeNameForSubstitution, sJobSiteName, sRequestedBy, sNotesText, sAssignmentStartTime, sAssignmentDuration);
@@ -389,10 +383,10 @@ public class ScheduleAssignments extends B2WTestCase {
 
         //=== Resize Assignments
         resizeEmployeeAssignment();
-        resizeEquipmentAssignment();
-        resizeCrewAssignment();
         resizeEmployeeNeed();
+        resizeEquipmentAssignment();
         resizeEquipmentNeed();
+        resizeCrewAssignment();
         resizeCrewNeed();
         resizeMoveAssignment();
         resizeMoveOrder();

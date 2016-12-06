@@ -24,5 +24,4 @@ public class B2WSchedules {
     public static By deletePopUpWindow() { return By.cssSelector(B2WUIMap.b2w_schedules_deletepopupwindow); }
     public static By yesBtnOnPopupWindow() { return By.cssSelector(B2WUIMap.b2w_schedules_popupwindow_yesbtn); }
     public static By previewLocation() { return By.cssSelector(B2WUIMap.b2w_schedules_previewlocation); }
-
 }

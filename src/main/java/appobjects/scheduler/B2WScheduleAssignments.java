@@ -49,4 +49,6 @@ public class B2WScheduleAssignments extends KendoUI {
     public static By getCollapseIcon() { return By.cssSelector(B2WUIMap.b2w_scheduled_collapseicon); }
     public static By getAssignmentRightEdge() { return By.cssSelector(B2WUIMap.b2w_schedule_assignmentrightedge); }
     public static By getAssignmentLeftEdge() { return By.cssSelector(B2WUIMap.b2w_schedule_assignmentleftedge); }
+    public static By getResourceWarningIcon() { return By.cssSelector(B2WUIMap.b2w_schedule_resourcewarningicon); }
+    public static By getTooltip() { return By.cssSelector(B2WUIMap.b2w_schedule_tooltip); }
 }
