@@ -358,6 +358,31 @@ public class B2WMaintainScheduleTasks extends B2WKendoTasks {
 		return bReturn;
 	}
 	
+	public int getPastDueWorkOrders() {
+		int iNumber = 0;
+		WebElement workorderlist = WebElementUtils
+				.findElement(B2WMaintain.getB2WMaintainschedulerpastdueworkorderlist());
+		if (workorderlist != null){
+		List<WebElement> events = WebElementUtils.getChildElements(workorderlist,
+				B2WMaintain.getB2WMaintainschedulerpastdueworkorder());
+			iNumber = events.size();
+		}
+		return iNumber;
+	}
+
+	public int getWorkOrders() {
+		int iNumber = 0;
+		WebElement workorderlist = WebElementUtils
+				.findElement(B2WMaintain.getB2WMaintainschedulerunscheduledworkorderslist());
+		if (workorderlist != null){
+		List<WebElement> events = WebElementUtils.getChildElements(workorderlist,
+				B2WMaintain.getB2WMaintainschedulerworkorderunscheduled());
+			iNumber = events.size();
+		}
+		return iNumber;
+		
+	}
+	
 	public ArrayList<Date> getDates() {
 		
 		ArrayList<Date> al = new ArrayList<Date>();

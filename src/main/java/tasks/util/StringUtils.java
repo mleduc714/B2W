@@ -62,4 +62,27 @@ public class StringUtils {
 		return new Integer(s).intValue();
 		
 	}
+
+	public static int getHoursFromDuration(String sDuration) {
+		int iLastIndex = sDuration.lastIndexOf(" HR");
+		if (iLastIndex > 0 ) {
+			String s = sDuration.substring(0, iLastIndex);
+			return new Integer(s).intValue();
+		} else {
+			return 0;
+		}
+	}
+
+	public static int getMinutesFromDuration(String sDuration) {
+		int iLastIndex = sDuration.lastIndexOf(" MIN");
+		if (iLastIndex > 0 ) {
+			int iFirstIndex = sDuration.lastIndexOf(", ");
+			if (iFirstIndex < 0) iFirstIndex = -2;
+			String s = sDuration.substring(iFirstIndex + 2, iLastIndex);
+			return new Integer(s).intValue();
+		} else {
+			return 0;
+		}
+	}
+
 }

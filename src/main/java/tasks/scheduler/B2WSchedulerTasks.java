@@ -2,6 +2,7 @@ package tasks.scheduler;
 
 import appobjects.resources.KendoUI;
 import appobjects.scheduler.B2WScheduleAssignments;
+import org.apache.commons.lang3.time.DateUtils;
 import org.apache.log4j.Logger;
 import org.jfree.util.Log;
 import org.openqa.selenium.By;
@@ -256,7 +257,6 @@ public class B2WSchedulerTasks extends B2WKendoTasks {
         }
         return bReturn;
     }
-
     public boolean deleteEntireAssignment() {
         boolean bReturn;
         bReturn = selectOptionFromContextMenu("Delete Assignment");
@@ -327,6 +327,10 @@ public class B2WSchedulerTasks extends B2WKendoTasks {
     public boolean createSubstitution() {
         return selectOptionFromContextMenu("Create Substitution");
     }
+    public boolean copyAssignment() {
+        return selectOptionFromContextMenu("Copy Assignment");
+    }
+
     //-- Set Methods
     // Method to set value to FDD fields
     public boolean setFields(String sFieldName, String sValue) {
@@ -391,11 +395,6 @@ public class B2WSchedulerTasks extends B2WKendoTasks {
     public boolean setCrewNeed(String sValue) {
         return setFields("Crew Need", sValue);
     }
-    public boolean setPickupLocation(String sPickupType, List<String> sPickupDetails) {
-        boolean bResult = false;
-        //ToDo
-        return bResult;
-    }
     public boolean setPickupLocation(String sPickupType, String sPickupJobSiteName) {
         boolean bResult;
         WebElement dropDown = WebElementUtils.getKendoFDDElementByLabel("Pickup Location");
@@ -415,10 +414,59 @@ public class B2WSchedulerTasks extends B2WKendoTasks {
         }
         return bResult;
     }
-    public boolean setDropoffLocation(String sDropoffType, List<String> sDropoffDetails) {
-        boolean bResult = false;
-        //ToDo
-        return bResult;
+    public boolean setPickupDate(String sValue) {
+        boolean bReturn = false;
+        WebElement element = WebElementUtils.getKendoFDDElementByLabel("Pickup Date");
+        if (element != null ) {
+            element.clear();
+            bReturn = WebElementUtils.sendKeys(element, sValue);
+        }
+        return bReturn;
+    }
+    public boolean setPickupAfter(String sValue) {
+        boolean bReturn = false;
+        WebElement element = WebElementUtils.getKendoFDDElementByLabel("Pickup After");
+        if (element != null ) {
+            element.clear();
+            bReturn = WebElementUtils.sendKeys(element, sValue);
+        }
+        return bReturn;
+    }
+    public boolean setPickupTime(String sValue) {
+        boolean bReturn = false;
+        WebElement element = WebElementUtils.getKendoFDDElementByLabel("Pickup Time");
+        if (element != null ) {
+            element.clear();
+            bReturn = WebElementUtils.sendKeys(element, sValue);
+        }
+        return bReturn;
+    }
+    public boolean setDropoffDate(String sValue) {
+        boolean bReturn = false;
+        WebElement element = WebElementUtils.getKendoFDDElementByLabel("Drop-off Date");
+        if (element != null ) {
+            element.clear();
+            bReturn = WebElementUtils.sendKeys(element, sValue);
+        }
+        return bReturn;
+    }
+    public boolean setDropoffBefore(String sValue) {
+        boolean bReturn = false;
+        WebElement element = WebElementUtils.getKendoFDDElementByLabel("Drop-off Before");
+        if (element != null ) {
+            element.clear();
+            bReturn = WebElementUtils.sendKeys(element, sValue);
+        }
+        return bReturn;
+    }
+    public boolean setDropoffTime(String sValue) {
+        boolean bReturn = false;
+        WebElement element = WebElementUtils.getKendoFDDElementByLabel("Drop-off Time");
+        if (element != null ) {
+            element.clear();
+            bReturn = WebElementUtils.sendKeys(element, sValue);
+        }
+        return bReturn;
     }
     public boolean setDropoffLocation(String sDropoffType, String sDropoffJobSiteName) {
         boolean bResult;
@@ -698,22 +746,33 @@ public class B2WSchedulerTasks extends B2WKendoTasks {
     public WebElement getResourceLine(String sResourceName) {
         return WebElementUtils.findElement(B2WScheduleAssignments.getSpecificResourceName(sResourceName));
     }
-    public WebElement getAssignment(String sResourceName, String sLocationName, String sStartDate, String sEndDate, String sStartTime, String sType) {
+    public WebElement getAssignment(String sResourceName, String sLocationName, String sStartDate, String sEndDate, String sStartTime, String sDuration, String sType) {
         WebElement eReturn = null;
-        Date startDate = StringUtils.getDateFromStringWithPattern(sStartDate, "M/d/yyyy");
-        Date endDate = StringUtils.getDateFromStringWithPattern(sEndDate, "M/d/yyyy");
+
+        sStartDate = sStartDate + " " + sStartTime;
+        Date startDate = StringUtils.getDateFromStringWithPattern(sStartDate, "M/d/yyyy h:mm a");
+        Date endDate;
+        if (sDuration.toLowerCase().contains(":") ) {
+            sEndDate = sEndDate + " " + sDuration;
+            endDate = StringUtils.getDateFromStringWithPattern(sEndDate, "M/d/yyyy h:mm a");
+        } else {
+            sEndDate = sEndDate + " " + sStartTime;
+            endDate = StringUtils.getDateFromStringWithPattern(sEndDate, "M/d/yyyy h:mm a");
+            endDate = DateUtils.addHours(endDate, StringUtils.getHoursFromDuration(sDuration));
+            endDate = DateUtils.addMinutes(endDate, StringUtils.getMinutesFromDuration(sDuration));
+        }
+
         List<WebElement> list = getAssignmentsByLocationAndResourceName(sResourceName, sLocationName);
         Iterator<WebElement> iterator = list.iterator();
         boolean flag = false;
         while (iterator.hasNext() && !flag) {
             WebElement eTmp = iterator.next();
             WebElement parent = WebElementUtils.getParentElement(eTmp);
-            Date assignmentStartDate = StringUtils.getDateFromStringWithPattern(parent.getAttribute("b2w-assignment-start"), "yyyy-M-d");
-            Date assignmentEndDate = StringUtils.getDateFromStringWithPattern(parent.getAttribute("b2w-assignment-end"), "yyyy-M-d");
+            String b2wAssignmentStart = parent.getAttribute("b2w-assignment-start").replace('T', ' ');
+            String b2wAssignmentEnd = parent.getAttribute("b2w-assignment-end").replace('T', ' ');
+            Date assignmentStartDate = StringUtils.getDateFromStringWithPattern(b2wAssignmentStart, "yyyy-M-d HH:mm");
+            Date assignmentEndDate = StringUtils.getDateFromStringWithPattern(b2wAssignmentEnd, "yyyy-M-d HH:mm");
             String type = parent.getAttribute("class");
-            //ToDo restore after fixing SCHED-3142
-            String sAssignmentStartTime = parent.getAttribute("b2w-assignment-start-time");
-            //if (assignmentStartDate.equals(startDate) && assignmentEndDate.equals(endDate) && sAssignmentStartTime.equals(sStartTime)) {
             if (assignmentStartDate.equals(startDate) && assignmentEndDate.equals(endDate) && type.contains(sType)) {
                 eReturn = eTmp;
                 flag = true;
@@ -721,44 +780,79 @@ public class B2WSchedulerTasks extends B2WKendoTasks {
         }
         return eReturn;
     }
-    public WebElement getMoveOrder(String sResourceName, String sLocationName, String sStartDate, String sEndDate, String sStartTime) {
-        return getAssignment(sResourceName, sLocationName, sStartDate, sEndDate, sStartTime, MOVE_ORDER_TYPE);
+    public List<WebElement> getAssignments(String sResourceName, String sLocationName, String sStartDate, String sEndDate, String sStartTime, String sDuration, String sType) {
+        List<WebElement> eReturn = new ArrayList<WebElement>();
+
+        sStartDate = sStartDate + " " + sStartTime;
+        Date startDate = StringUtils.getDateFromStringWithPattern(sStartDate, "M/d/yyyy h:mm a");
+        Date endDate;
+        if (sDuration.toLowerCase().contains(":") ) {
+            sEndDate = sEndDate + " " + sDuration;
+            endDate = StringUtils.getDateFromStringWithPattern(sEndDate, "M/d/yyyy h:mm a");
+        } else {
+            sEndDate = sEndDate + " " + sStartTime;
+            endDate = StringUtils.getDateFromStringWithPattern(sEndDate, "M/d/yyyy h:mm a");
+            endDate = DateUtils.addHours(endDate, StringUtils.getHoursFromDuration(sDuration));
+            endDate = DateUtils.addMinutes(endDate, StringUtils.getMinutesFromDuration(sDuration));
+        }
+
+        List<WebElement> list = getAssignmentsByLocationAndResourceName(sResourceName, sLocationName);
+        Iterator<WebElement> iterator = list.iterator();
+
+        for (WebElement eTmp : list) {
+            WebElement parent = WebElementUtils.getParentElement(eTmp);
+            String b2wAssignmentStart = parent.getAttribute("b2w-assignment-start").replace('T', ' ');
+            String b2wAssignmentEnd = parent.getAttribute("b2w-assignment-end").replace('T', ' ');
+            Date assignmentStartDate = StringUtils.getDateFromStringWithPattern(b2wAssignmentStart, "yyyy-M-d HH:mm");
+            Date assignmentEndDate = StringUtils.getDateFromStringWithPattern(b2wAssignmentEnd, "yyyy-M-d HH:mm");
+            String type = parent.getAttribute("class");
+            if (assignmentStartDate.equals(startDate) && assignmentEndDate.equals(endDate) && type.contains(sType)) {
+                eReturn.add(eTmp);
+            }
+        }
+        return eReturn;
     }
-    public WebElement getMoveAssignment(String sResourceName, String sLocationName, String sStartDate, String sEndDate, String sStartTime) {
-        return getAssignment(sResourceName, sLocationName, sStartDate, sEndDate, sStartTime, MOVE_ASSIGNMENT_TYPE);
+    public WebElement getMoveOrder(String sResourceName, String sLocationName, String sStartDate, String sEndDate, String sStartTime, String sDuration) {
+        return getAssignment(sResourceName, sLocationName, sStartDate, sEndDate, sStartTime, sDuration, MOVE_ORDER_TYPE);
     }
-    public WebElement getEquipmentAssignment(String sResourceName, String sLocationName, String sStartDate, String sEndDate, String sStartTime) {
-        return getAssignment(sResourceName, sLocationName, sStartDate, sEndDate, sStartTime, EQUIPMENT_TYPE);
+    public WebElement getMoveAssignment(String sResourceName, String sLocationName, String sStartDate, String sEndDate, String sStartTime, String sDuration) {
+        return getAssignment(sResourceName, sLocationName, sStartDate, sEndDate, sStartTime, sDuration, MOVE_ASSIGNMENT_TYPE);
     }
-    public WebElement getEquipmentNeed(String sResourceName, String sLocationName, String sStartDate, String sEndDate, String sStartTime) {
-        return getAssignment(sResourceName, sLocationName, sStartDate, sEndDate, sStartTime, EQUIPMENT_NEED_TYPE);
+    public WebElement getEquipmentAssignment(String sResourceName, String sLocationName, String sStartDate, String sEndDate, String sStartTime, String sDuration) {
+        return getAssignment(sResourceName, sLocationName, sStartDate, sEndDate, sStartTime, sDuration, EQUIPMENT_TYPE);
     }
-    public WebElement getEmployeeAssignment(String sResourceName, String sLocationName, String sStartDate, String sEndDate, String sStartTime) {
-        return getAssignment(sResourceName, sLocationName, sStartDate, sEndDate, sStartTime, EMPLOYEE_TYPE);
+    public WebElement getEquipmentNeed(String sResourceName, String sLocationName, String sStartDate, String sEndDate, String sStartTime, String sDuration) {
+        return getAssignment(sResourceName, sLocationName, sStartDate, sEndDate, sStartTime, sDuration, EQUIPMENT_NEED_TYPE);
     }
-    public WebElement getEmployeeSubstitution(String sResourceName, String sLocationName, String sStartDate, String sEndDate, String sStartTime) {
-        return getAssignment(sResourceName, sLocationName, sStartDate, sEndDate, sStartTime, SUBSTITUTION_TYPE);
+    public WebElement getEmployeeAssignment(String sResourceName, String sLocationName, String sStartDate, String sEndDate, String sStartTime, String sDuration) {
+        return getAssignment(sResourceName, sLocationName, sStartDate, sEndDate, sStartTime, sDuration, EMPLOYEE_TYPE);
     }
-    public WebElement getEmployeeSubstituted(String sResourceName, String sLocationName, String sStartDate, String sEndDate, String sStartTime) {
-        return getAssignment(sResourceName, sLocationName, sStartDate, sEndDate, sStartTime, SUBSTITUTED_TYPE);
+    public List<WebElement> getEmployeeAssignments(String sResourceName, String sLocationName, String sStartDate, String sEndDate, String sStartTime, String sDuration) {
+        return getAssignments(sResourceName, sLocationName, sStartDate, sEndDate, sStartTime, sDuration, EMPLOYEE_TYPE);
     }
-    public WebElement getEmployeeNeed(String sResourceName, String sLocationName, String sStartDate, String sEndDate, String sStartTime) {
-        return getAssignment(sResourceName, sLocationName, sStartDate, sEndDate, sStartTime, EMPLOYEE_NEED_TYPE);
+    public WebElement getEmployeeSubstitution(String sResourceName, String sLocationName, String sStartDate, String sEndDate, String sStartTime, String sDuration) {
+        return getAssignment(sResourceName, sLocationName, sStartDate, sEndDate, sStartTime, sDuration, SUBSTITUTION_TYPE);
     }
-    public WebElement getCrewAssignment(String sResourceName, String sLocationName, String sStartDate, String sEndDate, String sStartTime) {
-        return getAssignment(sResourceName, sLocationName, sStartDate, sEndDate, sStartTime, CREW_TYPE);
+    public WebElement getEmployeeSubstituted(String sResourceName, String sLocationName, String sStartDate, String sEndDate, String sStartTime, String sDuration) {
+        return getAssignment(sResourceName, sLocationName, sStartDate, sEndDate, sStartTime, sDuration, SUBSTITUTED_TYPE);
     }
-    public WebElement getCrewNeed(String sResourceName, String sLocationName, String sStartDate, String sEndDate, String sStartTime) {
-        return getAssignment(sResourceName, sLocationName, sStartDate, sEndDate, sStartTime, CREW_NEED_TYPE);
+    public WebElement getEmployeeNeed(String sResourceName, String sLocationName, String sStartDate, String sEndDate, String sStartTime, String sDuration) {
+        return getAssignment(sResourceName, sLocationName, sStartDate, sEndDate, sStartTime, sDuration, EMPLOYEE_NEED_TYPE);
     }
-    public WebElement getEmployeeEvent(String sResourceName, String sLocationName, String sStartDate, String sEndDate, String sStartTime) {
-        return getAssignment(sResourceName, sLocationName, sStartDate, sEndDate, sStartTime, EMPLOYEE_EVENT_TYPE);
+    public WebElement getCrewAssignment(String sResourceName, String sLocationName, String sStartDate, String sEndDate, String sStartTime, String sDuration) {
+        return getAssignment(sResourceName, sLocationName, sStartDate, sEndDate, sStartTime, sDuration, CREW_TYPE);
     }
-    public WebElement getEquipmentEvent(String sResourceName, String sLocationName, String sStartDate, String sEndDate, String sStartTime) {
-        return getAssignment(sResourceName, sLocationName, sStartDate, sEndDate, sStartTime, EQUIPMENT_EVENT_TYPE);
+    public WebElement getCrewNeed(String sResourceName, String sLocationName, String sStartDate, String sEndDate, String sStartTime, String sDuration) {
+        return getAssignment(sResourceName, sLocationName, sStartDate, sEndDate, sStartTime, sDuration, CREW_NEED_TYPE);
     }
-    public WebElement getJobSiteEvent(String sResourceName, String sLocationName, String sStartDate, String sEndDate, String sStartTime) {
-        return getAssignment(sResourceName, sLocationName, sStartDate, sEndDate, sStartTime, LOCATION_EVENT_TYPE);
+    public WebElement getEmployeeEvent(String sResourceName, String sLocationName, String sStartDate, String sEndDate, String sStartTime, String sDuration) {
+        return getAssignment(sResourceName, sLocationName, sStartDate, sEndDate, sStartTime, sDuration, EMPLOYEE_EVENT_TYPE);
+    }
+    public WebElement getEquipmentEvent(String sResourceName, String sLocationName, String sStartDate, String sEndDate, String sStartTime, String sDuration) {
+        return getAssignment(sResourceName, sLocationName, sStartDate, sEndDate, sStartTime, sDuration, EQUIPMENT_EVENT_TYPE);
+    }
+    public WebElement getJobSiteEvent(String sResourceName, String sLocationName, String sStartDate, String sEndDate, String sStartTime, String sDuration) {
+        return getAssignment(sResourceName, sLocationName, sStartDate, sEndDate, sStartTime, sDuration, LOCATION_EVENT_TYPE);
     }
 
     // Click Methods
@@ -1068,5 +1162,11 @@ public class B2WSchedulerTasks extends B2WKendoTasks {
             calendar.add(Calendar.DAY_OF_YEAR, 1);
         }
         return i;
+    }
+    public boolean conflictIconIsDisplayed() {
+        boolean bReturn = false;
+
+
+        return bReturn;
     }
 }
