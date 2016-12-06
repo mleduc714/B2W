@@ -1,5 +1,6 @@
 package testcases;
 
+import appobjects.setup.B2WSchedules;
 import com.b2w.test.B2WTestCase;
 import org.openqa.selenium.WebElement;
 import tasks.B2WNavigationTasks;
@@ -196,6 +197,10 @@ public class ScheduleAssignments extends B2WTestCase {
     private String sLocationEventType;
     private String sLocationEventTypeUpd;
 
+    // Conflict
+    private String sConflictEmployeeName;
+    private String sConflictJobSite;
+
 
     @Override
     public String getAuthor() {
@@ -318,6 +323,9 @@ public class ScheduleAssignments extends B2WTestCase {
 
         sMoveDate = getProperty("sMoveDate");
         dMoveDate = StringUtils.getDateFromStringWithPattern(sMoveDate, "M/d/yyyy");
+
+        sConflictEmployeeName = getProperty("sConflictEmployeeName");
+        sConflictJobSite = getProperty("sConflictJobSite");
     }
 
     public void testMain() throws Throwable {
@@ -326,6 +334,12 @@ public class ScheduleAssignments extends B2WTestCase {
         createNewEquipmentScheduleView();
         createNewCrewScheduleView();
         createNewJobSiteScheduleView();
+
+        /*
+        sEmployeeView = sDefaultEmployeeView;
+        sEquipmentView = sDefaultEquipmentView;
+        sCrewView = sDefaultCrewView;
+        */
 
         //=== Create Schedule Assignments
         createEmployeeAssignment(sEmployeeView, sEmployeeName, sJobSiteName, sRequestedBy, sNotesText, sAssignmentStartTime, sAssignmentDuration);
@@ -385,6 +399,13 @@ public class ScheduleAssignments extends B2WTestCase {
         resizeEmployeeEvent();
         resizeEquipmentEvent();
         resizeLocationEvent();
+
+        //=== Conflict Panel
+        /*
+        createEmployeeAssignment(sDefaultEmployeeView, sConflictEmployeeName, sConflictJobSite, sRequestedBy, sNotesText, sAssignmentStartTime, sAssignmentDuration);
+        copyEmployeeAssignment(sDefaultEmployeeView, sConflictEmployeeName, sConflictJobSite, sCalendarStartDate, sCalendarStartDate, sAssignmentStartTime, sAssignmentDuration);
+        checkResourceConflict(sDefaultEmployeeView, sConflictEmployeeName);
+        */
 
         //=== Delete Assignments
         deleteEmployeeAssignment(sEmployeeView, sEmployeeNameUpd, sJobSiteNameUpd, sMoveDate, sMoveDate, sAssignmentStartTimeUpd, sAssignmentDurationUpd);
@@ -469,7 +490,7 @@ public class ScheduleAssignments extends B2WTestCase {
         itemList.add(item);
         B2WScheduleItem item1 = new B2WScheduleItem();
         item1.setScheduleFormat(sView);
-        item1.setResourceName("Transportation Crews");
+        item1.setResourceName("Transport Crews");
         itemList.add(item1);
 
         createScheduleView(sCrewView, sBU, sSchedulesNotes, sGroupingLevel1, sGroupingLevel2, sFilterType, sFilterValue, sSecurityRole, sView, itemList);
@@ -514,7 +535,7 @@ public class ScheduleAssignments extends B2WTestCase {
         logCompare(true, b2wSchedulesTasks.setGrouping("Group items by", sGroupingLevel1), "Select Grouping item by");
         logCompare(true, b2wSchedulesTasks.setGrouping("Secondary grouping", sGroupingLevel2), "Select Secondary grouping");
         logCompare(true, b2wSchedulesTasks.setFilter(sFilterType, sFilterValue), "Set Filter");
-        logCompare(true, b2wSchedulesTasks.setSecurityRole(sSecurityRole), "Select Security Role");
+        logCompare(true, b2wSchedulesTasks.setSecurityAccess("Restricted Access", b2wSchedulesTasks.SECURITY_ROLE, sSecurityRole), "Select Security Role");
         logCompare(true, b2wSchedulesTasks.saveSchedule(), "Save " + sScheduleViewName + " Schedule View");
         logCompare(true, b2wSchedulesTasks.isScheduleExist(sScheduleViewName), "Check that " + sScheduleViewName + " Schedule View has been created.");
     }
@@ -1369,6 +1390,44 @@ public class ScheduleAssignments extends B2WTestCase {
         } else {
             logCompare(true, false, "Employee substitution " + sEmployeeSubstitution + " could not be found on the page.");
         }
+    }
+
+    //=== Copy Assignments/Needs/Orders/Events ===
+    public void copyEmployeeAssignment(String sScheduleView, String sEmployeeName, String sJobSiteName, String sAssignmentStartDate,
+                                       String sAssignmentEndDate, String sAssignmentStartTime, String sAssignmentDuration) {
+        /*
+         * 1. Open Schedule View
+         * 2. Change Date Range
+         * 3. Change Start Date
+         * 4. Set Filter
+         * 5. Select Assignment
+         * 6. Select Copy from context menu
+         * 8. Save Assignment
+         * 9. Verify that Assignment was created.
+         */
+
+        NavigateToScheduleView(sScheduleView, sCalendarStartDate, sCalendarDateRange, sEmployeeName);
+
+        int initialCount = b2wScheduler.getEmployeeAssignments(sEmployeeName, sJobSiteName, sAssignmentStartDate, sAssignmentEndDate, sAssignmentStartTime, sAssignmentDuration).size();
+        WebElement assignment = b2wScheduler.getEmployeeAssignment(sEmployeeName, sJobSiteName, sAssignmentStartDate, sAssignmentEndDate, sAssignmentStartTime, sAssignmentDuration);
+
+        if (assignment != null) {
+            logCompare(true, b2wScheduler.openContextMenu(assignment), "Open Assignment's Context Menu");
+            logCompare(true, b2wScheduler.copyAssignment(), "Select 'Edit Assignment' option");
+            logCompare(true, b2wScheduler.saveEmployeeAssignment(), "Save Copy of Employee Assignment");
+
+            int actualCount = b2wScheduler.getEmployeeAssignments(sEmployeeName, sJobSiteName, sAssignmentStartDate, sAssignmentEndDate, sAssignmentStartTime, sAssignmentDuration).size();
+            logCompare(true, actualCount == initialCount + 1, "Verification that Employee Assignment has been created.");
+        } else {
+            logCompare(true, false, "Employee Assignment for " + sEmployeeName + " could not be found on the page.");
+        }
+    }
+
+    //=== Conflicts ===
+    public void checkResourceConflict(String sScheduleView, String sResourceName) {
+        NavigateToScheduleView(sScheduleView, sCalendarStartDate, sCalendarDateRange, sResourceName);
+
+        logCompare(true, b2wScheduler.conflictIconIsDisplayed(), "Check that Conflict Icon is displayed.");
     }
 
     //=== Move Assignments/Needs/Orders/Events ===

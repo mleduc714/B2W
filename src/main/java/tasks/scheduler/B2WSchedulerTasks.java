@@ -257,7 +257,6 @@ public class B2WSchedulerTasks extends B2WKendoTasks {
         }
         return bReturn;
     }
-
     public boolean deleteEntireAssignment() {
         boolean bReturn;
         bReturn = selectOptionFromContextMenu("Delete Assignment");
@@ -328,6 +327,10 @@ public class B2WSchedulerTasks extends B2WKendoTasks {
     public boolean createSubstitution() {
         return selectOptionFromContextMenu("Create Substitution");
     }
+    public boolean copyAssignment() {
+        return selectOptionFromContextMenu("Copy Assignment");
+    }
+
     //-- Set Methods
     // Method to set value to FDD fields
     public boolean setFields(String sFieldName, String sValue) {
@@ -777,6 +780,38 @@ public class B2WSchedulerTasks extends B2WKendoTasks {
         }
         return eReturn;
     }
+    public List<WebElement> getAssignments(String sResourceName, String sLocationName, String sStartDate, String sEndDate, String sStartTime, String sDuration, String sType) {
+        List<WebElement> eReturn = new ArrayList<WebElement>();
+
+        sStartDate = sStartDate + " " + sStartTime;
+        Date startDate = StringUtils.getDateFromStringWithPattern(sStartDate, "M/d/yyyy h:mm a");
+        Date endDate;
+        if (sDuration.toLowerCase().contains(":") ) {
+            sEndDate = sEndDate + " " + sDuration;
+            endDate = StringUtils.getDateFromStringWithPattern(sEndDate, "M/d/yyyy h:mm a");
+        } else {
+            sEndDate = sEndDate + " " + sStartTime;
+            endDate = StringUtils.getDateFromStringWithPattern(sEndDate, "M/d/yyyy h:mm a");
+            endDate = DateUtils.addHours(endDate, StringUtils.getHoursFromDuration(sDuration));
+            endDate = DateUtils.addMinutes(endDate, StringUtils.getMinutesFromDuration(sDuration));
+        }
+
+        List<WebElement> list = getAssignmentsByLocationAndResourceName(sResourceName, sLocationName);
+        Iterator<WebElement> iterator = list.iterator();
+
+        for (WebElement eTmp : list) {
+            WebElement parent = WebElementUtils.getParentElement(eTmp);
+            String b2wAssignmentStart = parent.getAttribute("b2w-assignment-start").replace('T', ' ');
+            String b2wAssignmentEnd = parent.getAttribute("b2w-assignment-end").replace('T', ' ');
+            Date assignmentStartDate = StringUtils.getDateFromStringWithPattern(b2wAssignmentStart, "yyyy-M-d HH:mm");
+            Date assignmentEndDate = StringUtils.getDateFromStringWithPattern(b2wAssignmentEnd, "yyyy-M-d HH:mm");
+            String type = parent.getAttribute("class");
+            if (assignmentStartDate.equals(startDate) && assignmentEndDate.equals(endDate) && type.contains(sType)) {
+                eReturn.add(eTmp);
+            }
+        }
+        return eReturn;
+    }
     public WebElement getMoveOrder(String sResourceName, String sLocationName, String sStartDate, String sEndDate, String sStartTime, String sDuration) {
         return getAssignment(sResourceName, sLocationName, sStartDate, sEndDate, sStartTime, sDuration, MOVE_ORDER_TYPE);
     }
@@ -791,6 +826,9 @@ public class B2WSchedulerTasks extends B2WKendoTasks {
     }
     public WebElement getEmployeeAssignment(String sResourceName, String sLocationName, String sStartDate, String sEndDate, String sStartTime, String sDuration) {
         return getAssignment(sResourceName, sLocationName, sStartDate, sEndDate, sStartTime, sDuration, EMPLOYEE_TYPE);
+    }
+    public List<WebElement> getEmployeeAssignments(String sResourceName, String sLocationName, String sStartDate, String sEndDate, String sStartTime, String sDuration) {
+        return getAssignments(sResourceName, sLocationName, sStartDate, sEndDate, sStartTime, sDuration, EMPLOYEE_TYPE);
     }
     public WebElement getEmployeeSubstitution(String sResourceName, String sLocationName, String sStartDate, String sEndDate, String sStartTime, String sDuration) {
         return getAssignment(sResourceName, sLocationName, sStartDate, sEndDate, sStartTime, sDuration, SUBSTITUTION_TYPE);
@@ -1124,5 +1162,11 @@ public class B2WSchedulerTasks extends B2WKendoTasks {
             calendar.add(Calendar.DAY_OF_YEAR, 1);
         }
         return i;
+    }
+    public boolean conflictIconIsDisplayed() {
+        boolean bReturn = false;
+
+
+        return bReturn;
     }
 }

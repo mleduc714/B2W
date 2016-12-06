@@ -137,6 +137,7 @@ public class B2WUIMap {
 	public static final String b2w_schedules_deletebtn = ".btn-delete";
 	public static final String b2w_schedules_deletepopupwindow = ".k-widget.k-window";
 	public static final String b2w_schedules_popupwindow_yesbtn = ".btn-form.dialog-button.large.confirm";
+	public static final String b2w_schedules_previewlocation = ".preview-location";
 
 	// page filter
 	public static final String b2w_page_filter_letterA = "a#PageContent_FilterControl_AButton";

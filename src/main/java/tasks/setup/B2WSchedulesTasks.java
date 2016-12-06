@@ -3,6 +3,7 @@ package tasks.setup;
 import java.util.Iterator;
 import java.util.List;
 
+import appobjects.resources.KendoUI;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -13,6 +14,8 @@ import tasks.resources.B2WKendoTasks;
 import tasks.util.B2WScheduleItem;
 
 public class B2WSchedulesTasks extends B2WKendoTasks {
+    public final String SECURITY_ROLE = "Roles with access to this schedule";
+    public final String SECURITY_USERS = "Users with access to this schedule";
 
     Logger log = Logger.getLogger(B2WSchedulesTasks.class);
 
@@ -185,10 +188,34 @@ public class B2WSchedulesTasks extends B2WKendoTasks {
         }
         return bReturn;
     }
-    public boolean setSecurityRole(String sValue) {
-        //ToDo
+    public boolean setSecurityAccess(String sAccess, String sAccessType, String sValue) {
         boolean bReturn = false;
-        WebElement eSecurityRole = WebElementUtils.getKendoFDDElementByLabel("Roles with access to the schedule");
+        if (sAccess.toLowerCase().equals("restricted access")) {
+            WebElement ePreviewLocation = WebElementUtils.findElement(B2WSchedules.previewLocation());
+            if (ePreviewLocation != null) {
+                WebElement parent = WebElementUtils.getParentElement(ePreviewLocation);
+                WebElement eSelect = WebElementUtils.getChildElement(parent, KendoUI.getKendoDropDown());
+                bReturn = WebElementUtils.clickElement(eSelect);
+                bReturn &= selectItemFromDropDown(sAccess);
+                if (bReturn) {
+                    if (sAccessType.equals(SECURITY_ROLE)) {
+                        bReturn &= setSecurityRole(sValue);
+                    } else if (sAccessType.equals(SECURITY_USERS)) {
+
+                    } else {
+                        log.debug("Incorrect Security Access type.");
+                        bReturn = false;
+                    }
+                }
+            }
+        } else {
+            bReturn = true;
+        }
+        return bReturn;
+    }
+    public boolean setSecurityRole(String sValue) {
+        boolean bReturn = false;
+        WebElement eSecurityRole = WebElementUtils.getKendoFDDElementByLabel("Roles with access to this schedule");
         if (eSecurityRole != null) {
             WebElementUtils.moveVirtualMouseOverElement(eSecurityRole);
             WebElementUtils.waitForElementClickable(eSecurityRole);
@@ -200,7 +227,6 @@ public class B2WSchedulesTasks extends B2WKendoTasks {
         return bReturn;
     }
     public boolean setFilter(String sType, String sValue) {
-        //ToDo
         boolean bReturn = false;
         WebElement eAddFilterDD = WebElementUtils.findElement(B2WSchedules.addFilterDropDown());
         if (eAddFilterDD != null) {
