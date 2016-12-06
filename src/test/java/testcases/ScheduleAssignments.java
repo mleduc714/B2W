@@ -5,6 +5,7 @@ import com.b2w.test.B2WTestCase;
 import org.openqa.selenium.WebElement;
 import tasks.B2WNavigationTasks;
 import tasks.BrowserUtils;
+import tasks.WebElementUtils;
 import tasks.scheduler.B2WSchedulerTasks;
 import tasks.setup.B2WSchedulesTasks;
 import tasks.util.B2WScheduleItem;
@@ -335,12 +336,6 @@ public class ScheduleAssignments extends B2WTestCase {
         createNewCrewScheduleView();
         createNewJobSiteScheduleView();
 
-        /*
-        sEmployeeView = sDefaultEmployeeView;
-        sEquipmentView = sDefaultEquipmentView;
-        sCrewView = sDefaultCrewView;
-        */
-
         //=== Create Schedule Assignments
         createEmployeeAssignment(sEmployeeView, sEmployeeName, sJobSiteName, sRequestedBy, sNotesText, sAssignmentStartTime, sAssignmentDuration);
         createEmployeeAssignment(sEmployeeView, sEmployeeNameForSubstitution, sJobSiteName, sRequestedBy, sNotesText, sAssignmentStartTime, sAssignmentDuration);
@@ -389,10 +384,10 @@ public class ScheduleAssignments extends B2WTestCase {
 
         //=== Resize Assignments
         resizeEmployeeAssignment();
-        resizeEquipmentAssignment();
-        resizeCrewAssignment();
         resizeEmployeeNeed();
+        resizeEquipmentAssignment();
         resizeEquipmentNeed();
+        resizeCrewAssignment();
         resizeCrewNeed();
         resizeMoveAssignment();
         resizeMoveOrder();
@@ -2422,6 +2417,7 @@ public class ScheduleAssignments extends B2WTestCase {
         int initialCount = b2wScheduler.getAssignmentsCount(sJobSiteNameUpd, sLocationEventTypeUpd, b2wScheduler.LOCATION_EVENT_TYPE);
         WebElement assignment = b2wScheduler.getJobSiteEvent(sJobSiteNameUpd, sLocationEventTypeUpd, sMoveDate, sMoveDate, sEventStartTime, sEventDuration);
         if (assignment != null) {
+            WebElementUtils.moveVirtualMouseOverElement(assignment);
             logCompare(true, b2wScheduler.openContextMenu(assignment), "Open Event's Context Menu");
             logCompare(true, b2wScheduler.deleteEvent(), "Delete JobSite Event");
             int actualCount = b2wScheduler.getAssignmentsCount(sJobSiteNameUpd, sLocationEventTypeUpd, b2wScheduler.LOCATION_EVENT_TYPE);

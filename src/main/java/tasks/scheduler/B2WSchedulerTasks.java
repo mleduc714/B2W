@@ -2,6 +2,7 @@ package tasks.scheduler;
 
 import appobjects.resources.KendoUI;
 import appobjects.scheduler.B2WScheduleAssignments;
+import appobjects.setup.B2WSchedules;
 import org.apache.commons.lang3.time.DateUtils;
 import org.apache.log4j.Logger;
 import org.jfree.util.Log;
@@ -97,6 +98,7 @@ public class B2WSchedulerTasks extends B2WKendoTasks {
     public boolean openContextMenu(WebElement eAssignment) {
         boolean bReturn = false;
         if (eAssignment != null) {
+            WebElementUtils.moveVirtualMouseOverElement(eAssignment);
             bReturn = WebElementUtils.clickElement(eAssignment);
             waitForSchedulePageNoBusy();
             bReturn &= WebElementUtils.waitAndFindDisplayedElement(B2WScheduleAssignments.getContextMenu()) != null;
@@ -1165,8 +1167,18 @@ public class B2WSchedulerTasks extends B2WKendoTasks {
     }
     public boolean conflictIconIsDisplayed() {
         boolean bReturn = false;
-
-
+        WebElement eResourceWarningIcon = WebElementUtils.findElement(B2WScheduleAssignments.getResourceWarningIcon());
+        if (eResourceWarningIcon != null) {
+            bReturn = WebElementUtils.clickElement(eResourceWarningIcon);
+            WebElement eTooltip = WebElementUtils.waitAndFindDisplayedElement(B2WScheduleAssignments.getTooltip());
+            if (eTooltip != null) {
+                bReturn = WebElementUtils.getElementWithContainsChildElementText(B2WScheduleAssignments.getTooltip(), By.cssSelector("a"), "View in Conflicts Panel ") != null;
+            } else {
+                log.debug("Tooltip is not displayed.");
+            }
+        } else {
+            log.debug("Warning Icon could not be found for Resource.");
+        }
         return bReturn;
     }
 }
