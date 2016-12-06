@@ -784,6 +784,9 @@ public class B2WUIMap {
 	public static final String b2w_schedule_assignmentleftedge = ".Assignment__handle.Assignment__handle--left.active";
 	public static final String b2w_schedule_resourcewarningicon = ".Icon.clickable.ng-isolate-scope.i152-warning";
 	public static final String b2w_schedule_tooltip = ".k-tooltip-content.ng-scope";
+	public static final String b2w_schedule_conflictbutton = ".Icon.Icon--lg.i152-warning";
+	public static final String b2w_schedule_conflictspanel = "b2w-conflicts-panel";
+	public static final String b2w_schedule_conflicblock = "b2w-conflict-block";
 
 	// Maintain
 	public static final String b2w_maintainpagemenu = "ul#SubNavMenu_MaintainPageMenu.MaintainPageMenu";

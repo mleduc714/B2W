@@ -1,6 +1,5 @@
 package testcases;
 
-import appobjects.setup.B2WSchedules;
 import com.b2w.test.B2WTestCase;
 import org.openqa.selenium.WebElement;
 import tasks.B2WNavigationTasks;
@@ -331,6 +330,7 @@ public class ScheduleAssignments extends B2WTestCase {
     public void testMain() throws Throwable {
         //=== Setup Schedule View
         createNewEmployeeScheduleView();
+        /*
         createNewEquipmentScheduleView();
         createNewCrewScheduleView();
         createNewJobSiteScheduleView();
@@ -393,14 +393,14 @@ public class ScheduleAssignments extends B2WTestCase {
         resizeEmployeeEvent();
         resizeEquipmentEvent();
         resizeLocationEvent();
+        */
 
         //=== Conflict Panel
-        /*
         createEmployeeAssignment(sDefaultEmployeeView, sConflictEmployeeName, sConflictJobSite, sRequestedBy, sNotesText, sAssignmentStartTime, sAssignmentDuration);
         copyEmployeeAssignment(sDefaultEmployeeView, sConflictEmployeeName, sConflictJobSite, sCalendarStartDate, sCalendarStartDate, sAssignmentStartTime, sAssignmentDuration);
         checkResourceConflict(sDefaultEmployeeView, sConflictEmployeeName);
-        */
 
+        /*
         //=== Delete Assignments
         deleteEmployeeAssignment(sEmployeeView, sEmployeeNameUpd, sJobSiteNameUpd, sMoveDate, sMoveDate, sAssignmentStartTimeUpd, sAssignmentDurationUpd);
         deleteEmployeeNeed(sEmployeeView, sEmployeeNeedNameUpd, sJobSiteNameUpd, sMoveDate, sMoveDate, sAssignmentStartTimeUpd, sAssignmentDurationUpd);
@@ -420,10 +420,13 @@ public class ScheduleAssignments extends B2WTestCase {
         deleteLocationEvent();
 
         //=== Delete Schedule View
+        */
         deleteScheduleView(sEmployeeView);
+        /*
         deleteScheduleView(sEquipmentView);
         deleteScheduleView(sCrewView);
         deleteScheduleView(sLocationView);
+        */
     }
 
     @Override
@@ -1422,6 +1425,13 @@ public class ScheduleAssignments extends B2WTestCase {
         NavigateToScheduleView(sScheduleView, sCalendarStartDate, sCalendarDateRange, sResourceName);
 
         logCompare(true, b2wScheduler.conflictIconIsDisplayed(), "Check that Conflict Icon is displayed.");
+        logCompare(true, b2wScheduler.openConflictPanel(), "Open Conflict panel.");
+        WebElement conflict = b2wScheduler.getConflictForResource(sResourceName);
+        if (conflict != null) {
+            logCompare(true, b2wScheduler.selectConflict(conflict), "Select Conflict on the panel..");
+        } else {
+            logCompare(true, false, "Conflict for " + sResourceName + " could not be found on the page.");
+        }
     }
 
     //=== Move Assignments/Needs/Orders/Events ===

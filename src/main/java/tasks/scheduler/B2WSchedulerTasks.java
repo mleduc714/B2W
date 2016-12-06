@@ -3,6 +3,7 @@ package tasks.scheduler;
 import appobjects.resources.KendoUI;
 import appobjects.scheduler.B2WScheduleAssignments;
 import appobjects.setup.B2WSchedules;
+import org.apache.commons.collections.iterators.ListIteratorWrapper;
 import org.apache.commons.lang3.time.DateUtils;
 import org.apache.log4j.Logger;
 import org.jfree.util.Log;
@@ -102,6 +103,17 @@ public class B2WSchedulerTasks extends B2WKendoTasks {
             bReturn = WebElementUtils.clickElement(eAssignment);
             waitForSchedulePageNoBusy();
             bReturn &= WebElementUtils.waitAndFindDisplayedElement(B2WScheduleAssignments.getContextMenu()) != null;
+        }
+        return bReturn;
+    }
+    public boolean openConflictPanel() {
+        boolean bReturn = false;
+        WebElement eConflictBtn = WebElementUtils.findElement(B2WScheduleAssignments.getConflictButton());
+        if (eConflictBtn != null) {
+            bReturn = WebElementUtils.clickElement(eConflictBtn);
+            bReturn &= WebElementUtils.waitAndFindDisplayedElement(B2WScheduleAssignments.getConflictsPanel(), WebElementUtils.LONG_TIME_OUT) != null;
+        } else {
+            log.debug("Conflict button could not be found on the page.");
         }
         return bReturn;
     }
@@ -856,6 +868,12 @@ public class B2WSchedulerTasks extends B2WKendoTasks {
     public WebElement getJobSiteEvent(String sResourceName, String sLocationName, String sStartDate, String sEndDate, String sStartTime, String sDuration) {
         return getAssignment(sResourceName, sLocationName, sStartDate, sEndDate, sStartTime, sDuration, LOCATION_EVENT_TYPE);
     }
+    public List<WebElement> getAllConflictsFromPanel() {
+        return WebElementUtils.findElements(B2WScheduleAssignments.getConflictFromPanel());
+    }
+    public WebElement getConflictForResource(String sResourceName) {
+        return WebElementUtils.getElementWithContainsChildElementText(getAllConflictsFromPanel(), By.cssSelector("div.ng-binding"), sResourceName);
+    }
 
     // Click Methods
     public boolean clickSelectCrewBtn() {
@@ -1179,6 +1197,10 @@ public class B2WSchedulerTasks extends B2WKendoTasks {
         } else {
             log.debug("Warning Icon could not be found for Resource.");
         }
+        return bReturn;
+    }
+    public boolean selectConflict(WebElement eConflict) {
+        boolean bReturn = false;
         return bReturn;
     }
 }
