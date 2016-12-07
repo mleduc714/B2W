@@ -331,6 +331,7 @@ public class ScheduleAssignments extends B2WTestCase {
 
     public void testMain() throws Throwable {
         //=== Setup Schedule View
+        /*
         createNewEmployeeScheduleView();
         createNewEquipmentScheduleView();
         createNewCrewScheduleView();
@@ -403,7 +404,7 @@ public class ScheduleAssignments extends B2WTestCase {
         */
 
         //=== Delete Assignments
-        deleteEmployeeAssignment(sEmployeeView, sEmployeeNameUpd, sJobSiteNameUpd, sMoveDate, sMoveDate, sAssignmentStartTimeUpd, sAssignmentDurationUpd);
+/*        deleteEmployeeAssignment(sEmployeeView, sEmployeeNameUpd, sJobSiteNameUpd, sMoveDate, sMoveDate, sAssignmentStartTimeUpd, sAssignmentDurationUpd);
         deleteEmployeeNeed(sEmployeeView, sEmployeeNeedNameUpd, sJobSiteNameUpd, sMoveDate, sMoveDate, sAssignmentStartTimeUpd, sAssignmentDurationUpd);
         deleteEmployeeNeed(sEmployeeView, sEmployeeNeedName, sJobSiteName, sMoveDate, sMoveDate, sAssignmentStartTime, sAssignmentDuration);
         deleteEquipmentAssignment();
@@ -417,14 +418,14 @@ public class ScheduleAssignments extends B2WTestCase {
         deleteEmployeeSubstitution();
         deleteEmployeeAssignment(sEmployeeView, sEmployeeNameForSubstitution, sJobSiteName, sCalendarStartDate, sCalendarStartDate, sAssignmentStartTime, sAssignmentDuration);
         deleteEmployeeEvent();
-        deleteEquipmentEvent();
+        deleteEquipmentEvent();*/
         deleteLocationEvent();
 
         //=== Delete Schedule View
-        deleteScheduleView(sEmployeeView);
+/*        deleteScheduleView(sEmployeeView);
         deleteScheduleView(sEquipmentView);
         deleteScheduleView(sCrewView);
-        deleteScheduleView(sLocationView);
+        deleteScheduleView(sLocationView);*/
     }
 
     @Override
@@ -2412,12 +2413,12 @@ public class ScheduleAssignments extends B2WTestCase {
          */
 
         //NavigateToScheduleView(sLocationView, sCalendarStartDate, sCalendarDateRange, sJobSiteNameUpd);
-        NavigateToScheduleView(sDefaultLocationView, sCalendarStartDate, sCalendarDateRange, sJobSiteNameUpd);
+        //NavigateToScheduleView(sDefaultLocationView, sCalendarStartDate, sCalendarDateRange, sJobSiteNameUpd);
+        NavigateToScheduleView(sDefaultLocationView, sMoveDate, sCalendarDateRange, sJobSiteNameUpd);
 
         int initialCount = b2wScheduler.getAssignmentsCount(sJobSiteNameUpd, sLocationEventTypeUpd, b2wScheduler.LOCATION_EVENT_TYPE);
         WebElement assignment = b2wScheduler.getJobSiteEvent(sJobSiteNameUpd, sLocationEventTypeUpd, sMoveDate, sMoveDate, sEventStartTime, sEventDuration);
         if (assignment != null) {
-            WebElementUtils.moveVirtualMouseOverElement(assignment);
             logCompare(true, b2wScheduler.openContextMenu(assignment), "Open Event's Context Menu");
             logCompare(true, b2wScheduler.deleteEvent(), "Delete JobSite Event");
             int actualCount = b2wScheduler.getAssignmentsCount(sJobSiteNameUpd, sLocationEventTypeUpd, b2wScheduler.LOCATION_EVENT_TYPE);
