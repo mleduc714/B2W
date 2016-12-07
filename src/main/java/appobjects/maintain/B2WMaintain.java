@@ -421,5 +421,8 @@ public class B2WMaintain extends KendoUI {
     public static By getB2WWorkOrderScheduler() {
     	return By.cssSelector(B2WUIMap.b2w_maintainscheduleworkorder);
     }
+    public static By getB2WProgramGenerateItem() {
+    	return By.cssSelector(B2WUIMap.b2w_maintainprogramgeneraterequestlink);
+    }
     
 }

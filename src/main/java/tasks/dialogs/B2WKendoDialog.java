@@ -82,11 +82,15 @@ public abstract class B2WKendoDialog {
 
 	public Iterator<WebElement> getChildElementsFromGrid(WebElement grid){
 		Iterator<WebElement> itr = null;
-		List<WebElement> items = WebElementUtils.getChildElements(grid, By.tagName("tr"));
+		List<WebElement> items = getListofElementsFromGrid(grid);
 		if (items.size()> 0){
 			itr = items.iterator();
 		}
 		return itr;
+	}
+	
+	public List<WebElement> getListofElementsFromGrid(WebElement grid){
+		return WebElementUtils.getChildElements(grid, By.tagName("tr"));
 	}
 	public boolean waitForPageNotBusy(int iSecs) {
 		boolean bReturn = false;
@@ -223,7 +227,7 @@ public abstract class B2WKendoDialog {
 		return bReturn;
 	}
 	
-	protected boolean selectPart(String sPart, int col){
+	protected boolean selectFromDialog(String sPart, int col){
 		
 		boolean bReturn = false;
 		WebElement window = getDisplayedWindow();
@@ -251,6 +255,34 @@ public abstract class B2WKendoDialog {
 			}
 		}
 		return bReturn;
+	}
+	
+	protected String selectAnyItemFromDialog() {
+		String sText = "";
+		
+		WebElement window = getDisplayedWindow();
+		if (window != null) {
+			WebElement grid = WebElementUtils.getChildElement(window, B2WMaintain.getKendoGridContent());
+			if (WebElementUtils.waitForElementStale(grid, 1)) {
+				grid = WebElementUtils.getChildElement(window, B2WMaintain.getKendoGridContent());
+			}
+			List<WebElement> list = getListofElementsFromGrid(grid);
+			Random rand = new Random();
+
+			int randnumber = rand.nextInt(list.size());
+			WebElement item = list.get(randnumber);
+
+			List<WebElement> gridcontent = WebElementUtils.getChildElements(item, By.tagName("td"));
+			sText = gridcontent.get(1).getText();
+			if (sText.equals("")) {
+				Coordinates coordinate = ((Locatable) item).getCoordinates();
+				coordinate.onPage();
+				coordinate.inViewPort();
+			}
+			sText = gridcontent.get(1).getText();
+			WebElementUtils.clickElement(WebElementUtils.getChildElement(gridcontent.get(0),By.tagName("input")));
+		}
+		return sText;
 	}
 	
 	protected boolean selectItemFromDropDown(int i){
