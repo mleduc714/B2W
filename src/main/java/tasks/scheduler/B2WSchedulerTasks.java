@@ -98,8 +98,8 @@ public class B2WSchedulerTasks extends B2WKendoTasks {
     public boolean openContextMenu(WebElement eAssignment) {
         boolean bReturn = false;
         if (eAssignment != null) {
-            WebElementUtils.moveVirtualMouseOverElement(eAssignment);
             bReturn = WebElementUtils.clickElement(eAssignment);
+            WebElementUtils.waitForElementClickable(eAssignment);
             waitForSchedulePageNoBusy();
             bReturn &= WebElementUtils.waitAndFindDisplayedElement(B2WScheduleAssignments.getContextMenu()) != null;
         }
