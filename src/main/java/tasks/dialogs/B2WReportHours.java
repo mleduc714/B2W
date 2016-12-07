@@ -108,14 +108,14 @@ public class B2WReportHours extends B2WKendoDialog {
 		return bReturn;
 	}
 	
-	public boolean selectRandomEmployee(){
-		boolean bReturn = false;
+	public String selectRandomEmployee(){
+		String sText = "";
 		WebElement el = getWebElementFromTimeCardsDialog(0);
 		if (el != null){
-			bReturn = WebElementUtils.clickElement(el);
-			selectRandomItemFromDropDown();
+			WebElementUtils.clickElement(el);
+			sText = selectRandomItemFromDropDown();
 		}
-		return bReturn;
+		return sText;
 	}
 	
 	public boolean setDate(String sText){
@@ -255,6 +255,20 @@ public class B2WReportHours extends B2WKendoDialog {
 			bReturn = WebElementUtils.sendKeys(el, sText);
 			TaskUtils.sleep(1000);
 			selectItemFromDropDown(0);
+		}
+		return bReturn;
+	}
+	
+	public boolean selectAnyJob(){
+		boolean bReturn = false;
+		WebElement el = getWebElementFromJobChargedDialog(0);
+		if (el != null){
+			WebElementUtils.clickElement(el);
+			bReturn = WebElementUtils.sendKeys(el, "a");
+			TaskUtils.sleep(1000);
+			selectRandomItemFromDropDown();
+			waitForPageNotBusy(WebElementUtils.LONG_TIME_OUT);
+			bReturn = true;
 		}
 		return bReturn;
 	}

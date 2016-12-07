@@ -143,7 +143,7 @@ public class WebElementUtils {
 			WebElement el = iter.next();
 			try {
 				WebElement child = waitForChildElement(el, childBy, SHORT_TIME_OUT);
-				if (text.contains(child.getText())) {
+				if (text.equals(child.getText())) {
 					ret = el;
 					break;
 				}

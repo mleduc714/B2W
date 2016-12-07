@@ -13,12 +13,12 @@ import tasks.WebElementUtils;
 public class B2WAddPartsToWorkItem extends B2WKendoDialog {
 
 	public boolean selectPartToAddToWorkItemByDescription(String sPart){
-		return selectPart(sPart, 1);
+		return selectFromDialog(sPart, 1);
 		
 	}
 	
 	public boolean selectPartToAddToWorkItemByID(String sPart){
-		return selectPart(sPart, 0);
+		return selectFromDialog(sPart, 0);
 	}
 	
 	public boolean partsNext() {

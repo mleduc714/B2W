@@ -897,7 +897,10 @@ public class B2WUIMap {
 	public static final String b2w_maintainscheduletimes = ".k-scheduler-times";
 	public static final String b2w_maintainscheduleheader = ".k-scheduler-header-wrap";
 	public static final String b2w_maintainscheduleworkorder = "div#workOrdersScheduler";
-	
+	public static final String b2w_maintainprogramsiconplus = ".k-icon.k-plus";
+	public static final String b2w_maintainprogramsiconminus = ".k-icon.k-minus";
+	public static final String b2w_kendomasterrow = ".k-master-row";
+	public static final String b2w_maintainprogramgeneraterequestlink = "a.generateProgramRequestLink";
 	
 	
 	
