@@ -330,7 +330,6 @@ public class ScheduleAssignments extends B2WTestCase {
     public void testMain() throws Throwable {
         //=== Setup Schedule View
         createNewEmployeeScheduleView();
-        /*
         createNewEquipmentScheduleView();
         createNewCrewScheduleView();
         createNewJobSiteScheduleView();
@@ -393,14 +392,13 @@ public class ScheduleAssignments extends B2WTestCase {
         resizeEmployeeEvent();
         resizeEquipmentEvent();
         resizeLocationEvent();
-        */
 
         //=== Conflict Panel
         createEmployeeAssignment(sDefaultEmployeeView, sConflictEmployeeName, sConflictJobSite, sRequestedBy, sNotesText, sAssignmentStartTime, sAssignmentDuration);
         copyEmployeeAssignment(sDefaultEmployeeView, sConflictEmployeeName, sConflictJobSite, sCalendarStartDate, sCalendarStartDate, sAssignmentStartTime, sAssignmentDuration);
-        checkResourceConflict(sDefaultEmployeeView, sConflictEmployeeName);
+        checkResourceConflict(sDefaultEmployeeView, sConflictEmployeeName, sConflictJobSite, sCalendarStartDate, sCalendarStartDate, sAssignmentStartTime, sAssignmentDuration);
+        deleteEmployeeAssignment(sDefaultEmployeeView, sConflictEmployeeName, sConflictJobSite, sCalendarStartDate, sCalendarStartDate, sAssignmentStartTime, sAssignmentDuration);
 
-        /*
         //=== Delete Assignments
         deleteEmployeeAssignment(sEmployeeView, sEmployeeNameUpd, sJobSiteNameUpd, sMoveDate, sMoveDate, sAssignmentStartTimeUpd, sAssignmentDurationUpd);
         deleteEmployeeNeed(sEmployeeView, sEmployeeNeedNameUpd, sJobSiteNameUpd, sMoveDate, sMoveDate, sAssignmentStartTimeUpd, sAssignmentDurationUpd);
@@ -420,13 +418,10 @@ public class ScheduleAssignments extends B2WTestCase {
         deleteLocationEvent();
 
         //=== Delete Schedule View
-        */
         deleteScheduleView(sEmployeeView);
-        /*
         deleteScheduleView(sEquipmentView);
         deleteScheduleView(sCrewView);
         deleteScheduleView(sLocationView);
-        */
     }
 
     @Override
@@ -1421,14 +1416,25 @@ public class ScheduleAssignments extends B2WTestCase {
     }
 
     //=== Conflicts ===
-    public void checkResourceConflict(String sScheduleView, String sResourceName) {
-        NavigateToScheduleView(sScheduleView, sCalendarStartDate, sCalendarDateRange, sResourceName);
+    public void checkResourceConflict(String sScheduleView, String sResourceName, String sJobSiteName, String sAssignmentStartDate,
+                                      String sAssignmentEndDate, String sAssignmentStartTime, String sAssignmentDuration) {
+        NavigateToScheduleView(sScheduleView, sCalendarStartDate, sCalendarDateRange, "");
 
-        logCompare(true, b2wScheduler.conflictIconIsDisplayed(), "Check that Conflict Icon is displayed.");
+        logCompare(true, b2wScheduler.conflictIconIsDisplayed(sResourceName), "Check that Conflict Icon is displayed.");
         logCompare(true, b2wScheduler.openConflictPanel(), "Open Conflict panel.");
         WebElement conflict = b2wScheduler.getConflictForResource(sResourceName);
         if (conflict != null) {
             logCompare(true, b2wScheduler.selectConflict(conflict), "Select Conflict on the panel..");
+            WebElement assignment = b2wScheduler.getEmployeeAssignment(sResourceName, sJobSiteName, sAssignmentStartDate, sAssignmentEndDate, sAssignmentStartTime, sAssignmentDuration);
+            if ( assignment != null) {
+                logCompare(true, b2wScheduler.openContextMenu(assignment), "Open Assignment's Context Menu");
+                logCompare(true, b2wScheduler.deleteAssignment(), "Delete Employee Assignment");
+                b2wScheduler.waitForSchedulePageNoBusy();
+                logCompare(false, b2wScheduler.conflictIconIsDisplayed(sResourceName), "Check that Conflict Icon is not displayed anymore.");
+                logCompare(true, b2wScheduler.closeConflictPanel(), "Check that Conflict Panel is closed.");
+            } else {
+                log.debug("Could not find assignment.");
+            }
         } else {
             logCompare(true, false, "Conflict for " + sResourceName + " could not be found on the page.");
         }
