@@ -356,6 +356,9 @@ public class B2WSchedulerTasks extends B2WKendoTasks {
     public boolean copyAssignment() {
         return selectOptionFromContextMenu("Copy Assignment");
     }
+    public boolean copyEvent() {
+        return selectOptionFromContextMenu("Copy Event");
+    }
 
     //-- Set Methods
     // Method to set value to FDD fields
@@ -844,8 +847,14 @@ public class B2WSchedulerTasks extends B2WKendoTasks {
     public WebElement getMoveAssignment(String sResourceName, String sLocationName, String sStartDate, String sEndDate, String sStartTime, String sDuration) {
         return getAssignment(sResourceName, sLocationName, sStartDate, sEndDate, sStartTime, sDuration, MOVE_ASSIGNMENT_TYPE);
     }
+    public List<WebElement> getMoveAssignments(String sResourceName, String sLocationName, String sStartDate, String sEndDate, String sStartTime, String sDuration) {
+        return getAssignments(sResourceName, sLocationName, sStartDate, sEndDate, sStartTime, sDuration, MOVE_ASSIGNMENT_TYPE);
+    }
     public WebElement getEquipmentAssignment(String sResourceName, String sLocationName, String sStartDate, String sEndDate, String sStartTime, String sDuration) {
         return getAssignment(sResourceName, sLocationName, sStartDate, sEndDate, sStartTime, sDuration, EQUIPMENT_TYPE);
+    }
+    public List<WebElement> getEquipmentAssignments(String sResourceName, String sLocationName, String sStartDate, String sEndDate, String sStartTime, String sDuration) {
+        return getAssignments(sResourceName, sLocationName, sStartDate, sEndDate, sStartTime, sDuration, EQUIPMENT_TYPE);
     }
     public WebElement getEquipmentNeed(String sResourceName, String sLocationName, String sStartDate, String sEndDate, String sStartTime, String sDuration) {
         return getAssignment(sResourceName, sLocationName, sStartDate, sEndDate, sStartTime, sDuration, EQUIPMENT_NEED_TYPE);
@@ -868,17 +877,29 @@ public class B2WSchedulerTasks extends B2WKendoTasks {
     public WebElement getCrewAssignment(String sResourceName, String sLocationName, String sStartDate, String sEndDate, String sStartTime, String sDuration) {
         return getAssignment(sResourceName, sLocationName, sStartDate, sEndDate, sStartTime, sDuration, CREW_TYPE);
     }
+    public List<WebElement> getCrewAssignments(String sResourceName, String sLocationName, String sStartDate, String sEndDate, String sStartTime, String sDuration) {
+        return getAssignments(sResourceName, sLocationName, sStartDate, sEndDate, sStartTime, sDuration, CREW_TYPE);
+    }
     public WebElement getCrewNeed(String sResourceName, String sLocationName, String sStartDate, String sEndDate, String sStartTime, String sDuration) {
         return getAssignment(sResourceName, sLocationName, sStartDate, sEndDate, sStartTime, sDuration, CREW_NEED_TYPE);
     }
     public WebElement getEmployeeEvent(String sResourceName, String sLocationName, String sStartDate, String sEndDate, String sStartTime, String sDuration) {
         return getAssignment(sResourceName, sLocationName, sStartDate, sEndDate, sStartTime, sDuration, EMPLOYEE_EVENT_TYPE);
     }
+    public List<WebElement> getEmployeeEvents(String sResourceName, String sLocationName, String sStartDate, String sEndDate, String sStartTime, String sDuration) {
+        return getAssignments(sResourceName, sLocationName, sStartDate, sEndDate, sStartTime, sDuration, EMPLOYEE_EVENT_TYPE);
+    }
     public WebElement getEquipmentEvent(String sResourceName, String sLocationName, String sStartDate, String sEndDate, String sStartTime, String sDuration) {
         return getAssignment(sResourceName, sLocationName, sStartDate, sEndDate, sStartTime, sDuration, EQUIPMENT_EVENT_TYPE);
     }
-    public WebElement getJobSiteEvent(String sResourceName, String sLocationName, String sStartDate, String sEndDate, String sStartTime, String sDuration) {
+    public List<WebElement> getEquipmentEvents(String sResourceName, String sLocationName, String sStartDate, String sEndDate, String sStartTime, String sDuration) {
+        return getAssignments(sResourceName, sLocationName, sStartDate, sEndDate, sStartTime, sDuration, EQUIPMENT_EVENT_TYPE);
+    }
+    public WebElement getLocationEvent(String sResourceName, String sLocationName, String sStartDate, String sEndDate, String sStartTime, String sDuration) {
         return getAssignment(sResourceName, sLocationName, sStartDate, sEndDate, sStartTime, sDuration, LOCATION_EVENT_TYPE);
+    }
+    public List<WebElement> getLocationEvents(String sResourceName, String sLocationName, String sStartDate, String sEndDate, String sStartTime, String sDuration) {
+        return getAssignments(sResourceName, sLocationName, sStartDate, sEndDate, sStartTime, sDuration, LOCATION_EVENT_TYPE);
     }
     public List<WebElement> getAllConflictsFromPanel() {
         return WebElementUtils.findElements(B2WScheduleAssignments.getConflictFromPanel());
@@ -1195,18 +1216,24 @@ public class B2WSchedulerTasks extends B2WKendoTasks {
         }
         return i;
     }
-    public boolean conflictIconIsDisplayed(String sResourceName) {
+    public boolean conflictIconIsDisplayed(String sResourceName, String sAssignmentType) {
         boolean bReturn = false;
         WebElement eResourceLine = getResourceLine(sResourceName);
         if (eResourceLine != null) {
-            //WebElement eResourceWarningIcon = WebElementUtils.findElement(B2WScheduleAssignments.getResourceWarningIcon());
             WebElement parent = WebElementUtils.getParentElement(eResourceLine);
-            WebElement eResourceWarningIcon = WebElementUtils.getChildElement(parent, B2WScheduleAssignments.getResourceWarningIcon());
+            WebElement eResourceWarningIcon = null;
+            if (sAssignmentType.equals(EMPLOYEE_TYPE) || sAssignmentType.equals(EQUIPMENT_TYPE)) {
+                eResourceWarningIcon = WebElementUtils.getChildElement(parent, B2WScheduleAssignments.getResourceWarningIcon_i152());
+            } else if (sAssignmentType.equals(CREW_TYPE)) {
+                eResourceWarningIcon = WebElementUtils.getChildElement(parent, B2WScheduleAssignments.getResourceWarningIcon_i228());
+            }
             if (eResourceWarningIcon != null && WebElementUtils.getParentElement(eResourceWarningIcon).isDisplayed()) {
                 bReturn = WebElementUtils.clickElement(eResourceWarningIcon);
                 WebElement eTooltip = WebElementUtils.waitAndFindDisplayedElement(B2WScheduleAssignments.getTooltip());
                 if (eTooltip != null) {
-                    bReturn = WebElementUtils.getElementWithContainsChildElementText(B2WScheduleAssignments.getTooltip(), By.cssSelector("a"), "View in Conflicts Panel ") != null;
+                    WebElement eLink = WebElementUtils.getChildElementContainsText(eTooltip, By.cssSelector("a.Text--link"), "View in Conflicts Panel");
+                    bReturn = eLink != null;
+                    //bReturn &= !WebElementUtils.getParentElement(eLink).getAttribute("class").equals("ng-hide");
                 } else {
                     log.debug("Tooltip is not displayed.");
                 }

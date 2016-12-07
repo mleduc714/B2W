@@ -98,6 +98,30 @@ public class WebElementUtils {
 		return el;
 	}
 
+	public static WebElement getChildElementContainsText(WebElement parent, By childBy, String text) {
+		WebElement ret = null;
+		List<WebElement> list = getChildElements(parent, childBy);
+		if (!list.isEmpty()) {
+			Iterator<WebElement> iter = list.iterator();
+			log.info("List size: " + list.size());
+			while (iter.hasNext()) {
+				WebElement child = iter.next();
+				try {
+					if (child.getText().contains(text)) {
+						ret = child;
+						break;
+					}
+				} catch (NoSuchElementException nse) {
+					log.warn("Parent did not contain Child element: " + childBy.toString());
+				}
+
+			}
+		} else {
+			log.debug("List of elements to search is empty");
+		}
+		return ret;
+	}
+
 	// not checking if displayed. Could add that?
 	public static WebElement getElementWithMatchingChildElementText(By parentsBy, By childBy, String text) {
 		List<WebElement> parents = waitAndFindDisplayedElements(parentsBy);

@@ -4,7 +4,6 @@ import com.b2w.test.B2WTestCase;
 import org.openqa.selenium.WebElement;
 import tasks.B2WNavigationTasks;
 import tasks.BrowserUtils;
-import tasks.WebElementUtils;
 import tasks.scheduler.B2WSchedulerTasks;
 import tasks.setup.B2WSchedulesTasks;
 import tasks.util.B2WScheduleItem;
@@ -199,6 +198,8 @@ public class ScheduleAssignments extends B2WTestCase {
 
     // Conflict
     private String sConflictEmployeeName;
+    private String sConflictEquipmentName;
+    private String sConflictCrewName;
     private String sConflictJobSite;
 
 
@@ -325,12 +326,14 @@ public class ScheduleAssignments extends B2WTestCase {
         dMoveDate = StringUtils.getDateFromStringWithPattern(sMoveDate, "M/d/yyyy");
 
         sConflictEmployeeName = getProperty("sConflictEmployeeName");
+        sConflictEquipmentName = getProperty("sConflictEquipmentName");
+        sConflictCrewName = getProperty("sConflictCrewName");
         sConflictJobSite = getProperty("sConflictJobSite");
     }
 
     public void testMain() throws Throwable {
         //=== Setup Schedule View
-        createNewEmployeeScheduleView();
+/*        createNewEmployeeScheduleView();
         createNewEquipmentScheduleView();
         createNewCrewScheduleView();
         createNewJobSiteScheduleView();
@@ -393,21 +396,25 @@ public class ScheduleAssignments extends B2WTestCase {
         resizeEmployeeEvent();
         resizeEquipmentEvent();
         resizeLocationEvent();
-
+*/
         //=== Conflict Panel
-        createEmployeeAssignment(sDefaultEmployeeView, sConflictEmployeeName, sConflictJobSite, sRequestedBy, sNotesText, sAssignmentStartTime, sAssignmentDuration);
-        copyEmployeeAssignment(sDefaultEmployeeView, sConflictEmployeeName, sConflictJobSite, sCalendarStartDate, sCalendarStartDate, sAssignmentStartTime, sAssignmentDuration);
-        checkResourceConflict(sDefaultEmployeeView, sConflictEmployeeName, sConflictJobSite, sCalendarStartDate, sCalendarStartDate, sAssignmentStartTime, sAssignmentDuration);
-        deleteEmployeeAssignment(sDefaultEmployeeView, sConflictEmployeeName, sConflictJobSite, sCalendarStartDate, sCalendarStartDate, sAssignmentStartTime, sAssignmentDuration);
-
+        //verifyEmployeeAssignmentConflict();
+        //verifyEquipmentAssignmentConflict();
+        verifyCrewAssignmentConflict();
+        //verifyMoveAssignmentConflict();
+        //verifyEmployeeEventConflict();
+        //verifyEquipmentEventConflict();
+        //verifyLocationEventConflict();
+/*
         //=== Delete Assignments
         deleteEmployeeAssignment(sEmployeeView, sEmployeeNameUpd, sJobSiteNameUpd, sMoveDate, sMoveDate, sAssignmentStartTimeUpd, sAssignmentDurationUpd);
         deleteEmployeeNeed(sEmployeeView, sEmployeeNeedNameUpd, sJobSiteNameUpd, sMoveDate, sMoveDate, sAssignmentStartTimeUpd, sAssignmentDurationUpd);
         deleteEmployeeNeed(sEmployeeView, sEmployeeNeedName, sJobSiteName, sMoveDate, sMoveDate, sAssignmentStartTime, sAssignmentDuration);
-        deleteEquipmentAssignment();
+        deleteEquipmentAssignment(sEquipmentView, sEquipmentNameUpd, sJobSiteNameUpd, sMoveDate, sMoveDate, sAssignmentStartTimeUpd, sAssignmentDurationUpd);
+        //deleteEquipmentAssignment();
         deleteEquipmentNeed(sEquipmentNeedNameUpd, sJobSiteNameUpd, sMoveDate, sMoveDate, sAssignmentStartTimeUpd, sAssignmentDurationUpd);
         deleteEquipmentNeed(sEquipmentNeedName, sJobSiteName, sMoveDate, sMoveDate, sAssignmentStartTime, sAssignmentDuration);
-        deleteCrewAssignment();
+        deleteCrewAssignment(sCrewView, sCrewNameUpd, sJobSiteNameUpd, sMoveDate, sMoveDate, sAssignmentStartTimeUpd, sAssignmentDurationUpd);
         deleteCrewNeed(sCrewNeedNameUpd, sJobSiteNameUpd, sMoveDate, sMoveDate, sAssignmentStartTimeUpd, sAssignmentDurationUpd);
         deleteCrewNeed(sCrewNeedName, sJobSiteName, sMoveDate, sMoveDate, sAssignmentStartTime, sAssignmentDuration);
         deleteMoveAssignment();
@@ -423,6 +430,7 @@ public class ScheduleAssignments extends B2WTestCase {
         deleteScheduleView(sEquipmentView);
         deleteScheduleView(sCrewView);
         deleteScheduleView(sLocationView);
+*/
     }
 
     @Override
@@ -938,7 +946,7 @@ public class ScheduleAssignments extends B2WTestCase {
 
         int actualCount = b2wScheduler.getAssignmentsCount(sJobSiteName, sLocationEventType, b2wScheduler.LOCATION_EVENT_TYPE);
         logCompare(true, actualCount == initialCount + 1, "Verification that JobSite Event has been created.");
-        WebElement result = b2wScheduler.getJobSiteEvent(sJobSiteName, sLocationEventType, sEventStartDate, sEventEndDate, sEventStartTime, sEventDuration);
+        WebElement result = b2wScheduler.getLocationEvent(sJobSiteName, sLocationEventType, sEventStartDate, sEventEndDate, sEventStartTime, sEventDuration);
         logCompare(true,  result != null, "Verification that specific JobSite Event has been created.");
     }
 
@@ -1337,7 +1345,7 @@ public class ScheduleAssignments extends B2WTestCase {
         //NavigateToScheduleView(sLocationView, sCalendarStartDate, sCalendarDateRange, sJobSiteName);
         NavigateToScheduleView(sDefaultLocationView, sCalendarStartDate, sCalendarDateRange, sJobSiteName);
 
-        WebElement assignment = b2wScheduler.getJobSiteEvent(sJobSiteName, sLocationEventType, sCalendarStartDate, sCalendarStartDate, sEventStartTime, sEventDuration);
+        WebElement assignment = b2wScheduler.getLocationEvent(sJobSiteName, sLocationEventType, sCalendarStartDate, sCalendarStartDate, sEventStartTime, sEventDuration);
         if (assignment != null) {
 
             logCompare(true, b2wScheduler.openContextMenu(assignment), "Open Event's Context Menu");
@@ -1347,7 +1355,7 @@ public class ScheduleAssignments extends B2WTestCase {
             logCompare(true, b2wScheduler.updateNotes(sNotesTextUpd), "Update Notes");
             logCompare(true, b2wScheduler.saveEvent(), "Update Equipment Event");
             logCompare(true, b2wScheduler.setSearchValue(sJobSiteNameUpd), "Set Filter by updated Location Name");
-            WebElement result = b2wScheduler.getJobSiteEvent(sJobSiteNameUpd, sLocationEventTypeUpd, sCalendarStartDate, sCalendarStartDate, sEventStartTime, sEventDuration);
+            WebElement result = b2wScheduler.getLocationEvent(sJobSiteNameUpd, sLocationEventTypeUpd, sCalendarStartDate, sCalendarStartDate, sEventStartTime, sEventDuration);
             logCompare(true, result != null, "Verification that specific Location Event has been updated.");
         } else {
             logCompare(true, false, "Location Event for " + sJobSiteName + " could not be found on the page.");
@@ -1416,22 +1424,199 @@ public class ScheduleAssignments extends B2WTestCase {
         }
     }
 
+    public void copyEquipmentAssignment(String sScheduleView, String sEquipmentName, String sJobSiteName, String sAssignmentStartDate,
+                                       String sAssignmentEndDate, String sAssignmentStartTime, String sAssignmentDuration) {
+        /*
+         * 1. Open Schedule View
+         * 2. Change Date Range
+         * 3. Change Start Date
+         * 4. Set Filter
+         * 5. Select Assignment
+         * 6. Select Copy from context menu
+         * 8. Save Assignment
+         * 9. Verify that Assignment was created.
+         */
+
+        NavigateToScheduleView(sScheduleView, sCalendarStartDate, sCalendarDateRange, sEquipmentName);
+
+        int initialCount = b2wScheduler.getEquipmentAssignments(sEquipmentName, sJobSiteName, sAssignmentStartDate, sAssignmentEndDate, sAssignmentStartTime, sAssignmentDuration).size();
+        WebElement assignment = b2wScheduler.getEquipmentAssignment(sEquipmentName, sJobSiteName, sAssignmentStartDate, sAssignmentEndDate, sAssignmentStartTime, sAssignmentDuration);
+
+        if (assignment != null) {
+            logCompare(true, b2wScheduler.openContextMenu(assignment), "Open Assignment's Context Menu");
+            logCompare(true, b2wScheduler.copyAssignment(), "Select 'Edit Assignment' option");
+            logCompare(true, b2wScheduler.saveEquipmentAssignment(), "Save Copy of Equipment Assignment");
+
+            int actualCount = b2wScheduler.getEquipmentAssignments(sEquipmentName, sJobSiteName, sAssignmentStartDate, sAssignmentEndDate, sAssignmentStartTime, sAssignmentDuration).size();
+            logCompare(true, actualCount == initialCount + 1, "Verification that Equipment Assignment has been created.");
+        } else {
+            logCompare(true, false, "Equipment Assignment for " + sEquipmentName + " could not be found on the page.");
+        }
+    }
+
+    public void copyCrewAssignment(String sScheduleView, String sCrewName, String sJobSiteName, String sAssignmentStartDate,
+                                        String sAssignmentEndDate, String sAssignmentStartTime, String sAssignmentDuration) {
+        /*
+         * 1. Open Schedule View
+         * 2. Change Date Range
+         * 3. Change Start Date
+         * 4. Set Filter
+         * 5. Select Assignment
+         * 6. Select Copy from context menu
+         * 8. Save Assignment
+         * 9. Verify that Assignment was created.
+         */
+
+        NavigateToScheduleView(sScheduleView, sCalendarStartDate, sCalendarDateRange, sCrewName);
+
+        int initialCount = b2wScheduler.getCrewAssignments(sCrewName, sJobSiteName, sAssignmentStartDate, sAssignmentEndDate, sAssignmentStartTime, sAssignmentDuration).size();
+        WebElement assignment = b2wScheduler.getCrewAssignment(sCrewName, sJobSiteName, sAssignmentStartDate, sAssignmentEndDate, sAssignmentStartTime, sAssignmentDuration);
+
+        if (assignment != null) {
+            logCompare(true, b2wScheduler.openContextMenu(assignment), "Open Assignment's Context Menu");
+            logCompare(true, b2wScheduler.copyAssignment(), "Select 'Edit Assignment' option");
+            logCompare(true, b2wScheduler.saveCrewAssignment(), "Save Copy of Crew Assignment");
+
+            int actualCount = b2wScheduler.getCrewAssignments(sCrewName, sJobSiteName, sAssignmentStartDate, sAssignmentEndDate, sAssignmentStartTime, sAssignmentDuration).size();
+            logCompare(true, actualCount == initialCount + 1, "Verification that Crew Assignment has been created.");
+        } else {
+            logCompare(true, false, "Crew Assignment for " + sCrewName + " could not be found on the page.");
+        }
+    }
+
+    public void copyMoveAssignment(String sScheduleView, String sMoveAssignment, String sDropoffJobSiteName, String sAssignmentStartDate,
+                                   String sAssignmentEndDate, String sAssignmentStartTime, String sAssignmentDuration) {
+        /*
+         * 1. Open Schedule View
+         * 2. Change Date Range
+         * 3. Change Start Date
+         * 4. Set Filter
+         * 5. Select Assignment
+         * 6. Select Copy from context menu
+         * 8. Save Assignment
+         * 9. Verify that Assignment was created.
+         */
+
+        NavigateToScheduleView(sScheduleView, sCalendarStartDate, sCalendarDateRange, sMoveAssignment);
+
+        int initialCount = b2wScheduler.getMoveAssignments(sMoveAssignment, sDropoffJobSiteName, sAssignmentStartDate, sAssignmentEndDate, sAssignmentStartTime, sAssignmentDuration).size();
+        WebElement assignment = b2wScheduler.getMoveAssignment(sMoveAssignment, sDropoffJobSiteName, sAssignmentStartDate, sAssignmentEndDate, sAssignmentStartTime, sAssignmentDuration);
+
+        if (assignment != null) {
+            logCompare(true, b2wScheduler.openContextMenu(assignment), "Open Assignment's Context Menu");
+            logCompare(true, b2wScheduler.copyAssignment(), "Select 'Edit Assignment' option");
+            logCompare(true, b2wScheduler.saveMoveAssignment(), "Save Copy of Move Assignment");
+
+            int actualCount = b2wScheduler.getMoveAssignments(sMoveAssignment, sDropoffJobSiteName, sAssignmentStartDate, sAssignmentEndDate, sAssignmentStartTime, sAssignmentDuration).size();
+            logCompare(true, actualCount == initialCount + 1, "Verification that Move Assignment has been created.");
+        } else {
+            logCompare(true, false, "Move Assignment for " + sMoveAssignment + " could not be found on the page.");
+        }
+    }
+
+    public void copyEmployeeEvent(String sScheduleView, String sEmployeeName, String sEmployeeEventType, String sAssignmentStartDate,
+                                       String sAssignmentEndDate, String sAssignmentStartTime, String sAssignmentDuration) {
+        /*
+         * 1. Open Schedule View
+         * 2. Change Date Range
+         * 3. Change Start Date
+         * 4. Set Filter
+         * 5. Select Assignment
+         * 6. Select Copy from context menu
+         * 8. Save Assignment
+         * 9. Verify that Assignment was created.
+         */
+
+        NavigateToScheduleView(sScheduleView, sCalendarStartDate, sCalendarDateRange, sEmployeeName);
+        int initialCount = b2wScheduler.getEmployeeEvents(sEmployeeName, sEmployeeEventType, sAssignmentStartDate, sAssignmentEndDate, sAssignmentStartTime, sAssignmentDuration).size();
+        WebElement assignment = b2wScheduler.getEmployeeEvent(sEmployeeName, sEmployeeEventType, sAssignmentStartDate, sAssignmentEndDate, sAssignmentStartTime, sAssignmentDuration);
+
+        if (assignment != null) {
+            logCompare(true, b2wScheduler.openContextMenu(assignment), "Open Events's Context Menu");
+            logCompare(true, b2wScheduler.copyEvent(), "Select 'Edit Event' option");
+            logCompare(true, b2wScheduler.saveEvent(), "Save Copy of Employee Event");
+
+            int actualCount = b2wScheduler.getEmployeeEvents(sEmployeeName, sEmployeeEventType, sAssignmentStartDate, sAssignmentEndDate, sAssignmentStartTime, sAssignmentDuration).size();
+            logCompare(true, actualCount == initialCount + 1, "Verification that Employee Event has been created.");
+        } else {
+            logCompare(true, false, "Employee Event for " + sEmployeeName + " could not be found on the page.");
+        }
+    }
+
+    public void copyEquipmentEvent(String sScheduleView, String sEquipmentName, String sEquipmentEventType, String sAssignmentStartDate,
+                                  String sAssignmentEndDate, String sAssignmentStartTime, String sAssignmentDuration) {
+        /*
+         * 1. Open Schedule View
+         * 2. Change Date Range
+         * 3. Change Start Date
+         * 4. Set Filter
+         * 5. Select Assignment
+         * 6. Select Copy from context menu
+         * 8. Save Assignment
+         * 9. Verify that Assignment was created.
+         */
+
+        NavigateToScheduleView(sScheduleView, sCalendarStartDate, sCalendarDateRange, sEquipmentName);
+        int initialCount = b2wScheduler.getEquipmentEvents(sEquipmentName, sEquipmentEventType, sAssignmentStartDate, sAssignmentEndDate, sAssignmentStartTime, sAssignmentDuration).size();
+        WebElement assignment = b2wScheduler.getEquipmentEvent(sEquipmentName, sEquipmentEventType, sAssignmentStartDate, sAssignmentEndDate, sAssignmentStartTime, sAssignmentDuration);
+
+        if (assignment != null) {
+            logCompare(true, b2wScheduler.openContextMenu(assignment), "Open Events's Context Menu");
+            logCompare(true, b2wScheduler.copyEvent(), "Select 'Edit Event' option");
+            logCompare(true, b2wScheduler.saveEvent(), "Save Copy of Equipment Event");
+
+            int actualCount = b2wScheduler.getEquipmentEvents(sEquipmentName, sEquipmentEventType, sAssignmentStartDate, sAssignmentEndDate, sAssignmentStartTime, sAssignmentDuration).size();
+            logCompare(true, actualCount == initialCount + 1, "Verification that Equipment Event has been created.");
+        } else {
+            logCompare(true, false, "Equipment Event for " + sEquipmentName + " could not be found on the page.");
+        }
+    }
+
+    public void copyLocationEvent(String sScheduleView, String sJobSiteName, String sLocationEventType, String sAssignmentStartDate,
+                                   String sAssignmentEndDate, String sAssignmentStartTime, String sAssignmentDuration) {
+        /*
+         * 1. Open Schedule View
+         * 2. Change Date Range
+         * 3. Change Start Date
+         * 4. Set Filter
+         * 5. Select Assignment
+         * 6. Select Copy from context menu
+         * 8. Save Assignment
+         * 9. Verify that Assignment was created.
+         */
+
+        NavigateToScheduleView(sScheduleView, sCalendarStartDate, sCalendarDateRange, sJobSiteName);
+        int initialCount = b2wScheduler.getLocationEvents(sJobSiteName, sLocationEventType, sAssignmentStartDate, sAssignmentEndDate, sAssignmentStartTime, sAssignmentDuration).size();
+        WebElement assignment = b2wScheduler.getLocationEvent(sJobSiteName, sLocationEventType, sAssignmentStartDate, sAssignmentEndDate, sAssignmentStartTime, sAssignmentDuration);
+
+        if (assignment != null) {
+            logCompare(true, b2wScheduler.openContextMenu(assignment), "Open Events's Context Menu");
+            logCompare(true, b2wScheduler.copyEvent(), "Select 'Edit Event' option");
+            logCompare(true, b2wScheduler.saveEvent(), "Save Copy of Location Event");
+
+            int actualCount = b2wScheduler.getLocationEvents(sJobSiteName, sLocationEventType, sAssignmentStartDate, sAssignmentEndDate, sAssignmentStartTime, sAssignmentDuration).size();
+            logCompare(true, actualCount == initialCount + 1, "Verification that Location Event has been created.");
+        } else {
+            logCompare(true, false, "Location Event for " + sJobSiteName + " could not be found on the page.");
+        }
+    }
+
     //=== Conflicts ===
     public void checkResourceConflict(String sScheduleView, String sResourceName, String sJobSiteName, String sAssignmentStartDate,
-                                      String sAssignmentEndDate, String sAssignmentStartTime, String sAssignmentDuration) {
+                                      String sAssignmentEndDate, String sAssignmentStartTime, String sAssignmentDuration, String sAssignmentType) {
         NavigateToScheduleView(sScheduleView, sCalendarStartDate, sCalendarDateRange, "");
 
-        logCompare(true, b2wScheduler.conflictIconIsDisplayed(sResourceName), "Check that Conflict Icon is displayed.");
+        logCompare(true, b2wScheduler.conflictIconIsDisplayed(sResourceName, sAssignmentType), "Check that Conflict Icon is displayed.");
         logCompare(true, b2wScheduler.openConflictPanel(), "Open Conflict panel.");
         WebElement conflict = b2wScheduler.getConflictForResource(sResourceName);
         if (conflict != null) {
             logCompare(true, b2wScheduler.selectConflict(conflict), "Select Conflict on the panel..");
-            WebElement assignment = b2wScheduler.getEmployeeAssignment(sResourceName, sJobSiteName, sAssignmentStartDate, sAssignmentEndDate, sAssignmentStartTime, sAssignmentDuration);
+            WebElement assignment = b2wScheduler.getAssignment(sResourceName, sJobSiteName, sAssignmentStartDate, sAssignmentEndDate, sAssignmentStartTime, sAssignmentDuration, sAssignmentType);
             if ( assignment != null) {
                 logCompare(true, b2wScheduler.openContextMenu(assignment), "Open Assignment's Context Menu");
-                logCompare(true, b2wScheduler.deleteAssignment(), "Delete Employee Assignment");
+                logCompare(true, b2wScheduler.deleteAssignment(), "Delete Assignment");
                 b2wScheduler.waitForSchedulePageNoBusy();
-                logCompare(false, b2wScheduler.conflictIconIsDisplayed(sResourceName), "Check that Conflict Icon is not displayed anymore.");
+                logCompare(false, b2wScheduler.conflictIconIsDisplayed(sResourceName, sAssignmentType), "Check that Conflict Icon is not displayed anymore.");
                 logCompare(true, b2wScheduler.closeConflictPanel(), "Check that Conflict Panel is closed.");
             } else {
                 log.debug("Could not find assignment.");
@@ -1440,6 +1625,65 @@ public class ScheduleAssignments extends B2WTestCase {
             logCompare(true, false, "Conflict for " + sResourceName + " could not be found on the page.");
         }
     }
+
+    public void checkEmployeeResourceConflict(String sScheduleView, String sResourceName, String sJobSiteName, String sAssignmentStartDate,
+                                               String sAssignmentEndDate, String sAssignmentStartTime, String sAssignmentDuration) {
+        checkResourceConflict(sScheduleView, sResourceName, sJobSiteName, sAssignmentStartDate, sAssignmentEndDate, sAssignmentStartTime, sAssignmentDuration, b2wScheduler.EMPLOYEE_TYPE);
+    }
+
+    public void checkEquipmentResourceConflict(String sScheduleView, String sResourceName, String sJobSiteName, String sAssignmentStartDate,
+                                              String sAssignmentEndDate, String sAssignmentStartTime, String sAssignmentDuration) {
+        checkResourceConflict(sScheduleView, sResourceName, sJobSiteName, sAssignmentStartDate, sAssignmentEndDate, sAssignmentStartTime, sAssignmentDuration, b2wScheduler.EQUIPMENT_TYPE);
+    }
+
+    public void checkCrewResourceConflict(String sScheduleView, String sResourceName, String sJobSiteName, String sAssignmentStartDate,
+                                               String sAssignmentEndDate, String sAssignmentStartTime, String sAssignmentDuration) {
+        checkResourceConflict(sScheduleView, sResourceName, sJobSiteName, sAssignmentStartDate, sAssignmentEndDate, sAssignmentStartTime, sAssignmentDuration, b2wScheduler.CREW_TYPE);
+    }
+
+    public void checkMoveResourceConflict(String sScheduleView, String sResourceName, String sJobSiteName, String sAssignmentStartDate,
+                                          String sAssignmentEndDate, String sAssignmentStartTime, String sAssignmentDuration) {
+        checkResourceConflict(sScheduleView, sResourceName, sJobSiteName, sAssignmentStartDate, sAssignmentEndDate, sAssignmentStartTime, sAssignmentDuration, b2wScheduler.MOVE_ASSIGNMENT_TYPE);
+    }
+
+    public void verifyEmployeeAssignmentConflict() {
+        createEmployeeAssignment(sDefaultEmployeeView, sConflictEmployeeName, sConflictJobSite, sRequestedBy, sNotesText, sAssignmentStartTime, sAssignmentDuration);
+        copyEmployeeAssignment(sDefaultEmployeeView, sConflictEmployeeName, sConflictJobSite, sCalendarStartDate, sCalendarStartDate, sAssignmentStartTime, sAssignmentDuration);
+        checkEmployeeResourceConflict(sDefaultEmployeeView, sConflictEmployeeName, sConflictJobSite, sCalendarStartDate, sCalendarStartDate, sAssignmentStartTime, sAssignmentDuration);
+        deleteEmployeeAssignment(sDefaultEmployeeView, sConflictEmployeeName, sConflictJobSite, sCalendarStartDate, sCalendarStartDate, sAssignmentStartTime, sAssignmentDuration);
+    }
+
+    public void verifyEquipmentAssignmentConflict() {
+        createEquipmentAssignment(sDefaultEquipmentView, sConflictEquipmentName, sConflictJobSite, sRequestedBy, sNotesText, sAssignmentStartTime, sAssignmentDuration);
+        copyEquipmentAssignment(sDefaultEquipmentView, sConflictEquipmentName, sConflictJobSite, sCalendarStartDate, sCalendarStartDate, sAssignmentStartTime, sAssignmentDuration);
+        checkEquipmentResourceConflict(sDefaultEquipmentView, sConflictEquipmentName, sConflictJobSite, sCalendarStartDate, sCalendarStartDate, sAssignmentStartTime, sAssignmentDuration);
+        deleteEquipmentAssignment(sDefaultEquipmentView, sConflictEquipmentName, sConflictJobSite, sCalendarStartDate, sCalendarStartDate, sAssignmentStartTime, sAssignmentDuration);
+    }
+
+    public void verifyCrewAssignmentConflict() {
+        createCrewAssignment(sDefaultCrewView, sConflictCrewName, sConflictJobSite, sRequestedBy, sNotesText, sAssignmentStartTime, sAssignmentDuration);
+        copyCrewAssignment(sDefaultCrewView, sConflictCrewName, sConflictJobSite, sCalendarStartDate, sCalendarStartDate, sAssignmentStartTime, sAssignmentDuration);
+        checkCrewResourceConflict(sDefaultCrewView, sConflictCrewName, sConflictJobSite, sCalendarStartDate, sCalendarStartDate, sAssignmentStartTime, sAssignmentDuration);
+        deleteCrewAssignment(sDefaultCrewView, sConflictCrewName, sConflictJobSite, sCalendarStartDate, sCalendarStartDate, sAssignmentStartTime, sAssignmentDuration);
+    }
+
+    public void verifyMoveAssignmentConflict() {
+
+    }
+
+    public void verifyEmployeeEventConflict() {
+
+    }
+
+    public void verifyEquipmentEventConflict() {
+
+    }
+
+    public void verifyLocationEventConflict() {
+
+
+    }
+
 
     //=== Move Assignments/Needs/Orders/Events ===
     public void moveEmployeeAssignment() {
@@ -1863,25 +2107,25 @@ public class ScheduleAssignments extends B2WTestCase {
         NavigateToScheduleView(sDefaultLocationView, sCalendarStartDate, sCalendarDateRange, sJobSiteName);
 
         //Move assignment to the latest date in the calendar period.
-        WebElement assignment = b2wScheduler.getJobSiteEvent(sJobSiteName, sLocationEventType, sCalendarStartDate, sCalendarStartDate, sEventStartTime, sEventDuration);
+        WebElement assignment = b2wScheduler.getLocationEvent(sJobSiteName, sLocationEventType, sCalendarStartDate, sCalendarStartDate, sEventStartTime, sEventDuration);
         if (assignment != null) {
             logCompare(true, b2wScheduler.moveAssignmentToDate(assignment, dMoveDate), "Move Location Event to the specific date");
-            WebElement result = b2wScheduler.getJobSiteEvent(sJobSiteName, sLocationEventType, sMoveDate, sMoveDate, sEventStartTime, sEventDuration);
+            WebElement result = b2wScheduler.getLocationEvent(sJobSiteName, sLocationEventType, sMoveDate, sMoveDate, sEventStartTime, sEventDuration);
             logCompare(true, b2wScheduler.getAssignmentStartDate(result).equals(dMoveDate), "Verify that Location Event was moved to the specific date.");
 
             //ToDo: There is a BUG in the APP
             logCompare(true, b2wScheduler.clearSearchValue(), "Clear search value.");
 
             //Move assignment to the another resource
-            assignment = b2wScheduler.getJobSiteEvent(sJobSiteName, sLocationEventType, sMoveDate, sMoveDate, sEventStartTime, sEventDuration);
+            assignment = b2wScheduler.getLocationEvent(sJobSiteName, sLocationEventType, sMoveDate, sMoveDate, sEventStartTime, sEventDuration);
             logCompare(true, b2wScheduler.moveAssignmentToResourceAndDate(assignment, sJobSiteNameUpd, dCalendarStartDate), "Move Location Event to the specific date and another resource");
-            result = b2wScheduler.getJobSiteEvent(sJobSiteNameUpd, sLocationEventType, sCalendarStartDate, sCalendarStartDate, sEventStartTime, sEventDuration);
+            result = b2wScheduler.getLocationEvent(sJobSiteNameUpd, sLocationEventType, sCalendarStartDate, sCalendarStartDate, sEventStartTime, sEventDuration);
             logCompare(true, b2wScheduler.getAssignmentStartDate(result).equals(dCalendarStartDate), "Verify that Location Event was moved to the specific date.");
 
             //Move assignment to the original date and resource
-            assignment = b2wScheduler.getJobSiteEvent(sJobSiteNameUpd, sLocationEventType, sCalendarStartDate, sCalendarStartDate, sEventStartTime, sEventDuration);
+            assignment = b2wScheduler.getLocationEvent(sJobSiteNameUpd, sLocationEventType, sCalendarStartDate, sCalendarStartDate, sEventStartTime, sEventDuration);
             logCompare(true, b2wScheduler.moveAssignmentToResourceAndDate(assignment, sJobSiteName, dCalendarStartDate), "Move Location Event to the original date and resource");
-            result = b2wScheduler.getJobSiteEvent(sJobSiteName, sLocationEventType, sCalendarStartDate, sCalendarStartDate, sEventStartTime, sEventDuration);
+            result = b2wScheduler.getLocationEvent(sJobSiteName, sLocationEventType, sCalendarStartDate, sCalendarStartDate, sEventStartTime, sEventDuration);
             logCompare(true, b2wScheduler.getAssignmentStartDate(result).equals(dCalendarStartDate), "Verify that Location Event was moved to the specific date.");
         } else {
             logCompare(true, false, "Location Event for " + sJobSiteName + " could be found on the page.");
@@ -2125,15 +2369,15 @@ public class ScheduleAssignments extends B2WTestCase {
         logCompare(true, b2wScheduler.expandAll(), "Expand All Levels");
         //=======
 
-        WebElement assignment = b2wScheduler.getJobSiteEvent(sJobSiteNameUpd, sLocationEventType, sCalendarStartDate, sCalendarStartDate, sEventStartTime, sEventDuration);
+        WebElement assignment = b2wScheduler.getLocationEvent(sJobSiteNameUpd, sLocationEventType, sCalendarStartDate, sCalendarStartDate, sEventStartTime, sEventDuration);
         if (assignment != null) {
             logCompare(true, b2wScheduler.resizeAssignmentRightToDate(assignment, dMoveDate), "Resize Location Event to the specific date");
-            WebElement result = b2wScheduler.getJobSiteEvent(sJobSiteNameUpd, sLocationEventType, sCalendarStartDate, sMoveDate, sEventStartTime, sEventDuration);
+            WebElement result = b2wScheduler.getLocationEvent(sJobSiteNameUpd, sLocationEventType, sCalendarStartDate, sMoveDate, sEventStartTime, sEventDuration);
             logCompare(true, result != null, "Verification that specific Location Event has been resized.");
 
-            assignment = b2wScheduler.getJobSiteEvent(sJobSiteNameUpd, sLocationEventType, sCalendarStartDate, sMoveDate, sEventStartTime, sEventDuration);
+            assignment = b2wScheduler.getLocationEvent(sJobSiteNameUpd, sLocationEventType, sCalendarStartDate, sMoveDate, sEventStartTime, sEventDuration);
             logCompare(true, b2wScheduler.resizeAssignmentLeftToDate(assignment, dMoveDate), "Resize Event to the specific date");
-            result = b2wScheduler.getJobSiteEvent(sJobSiteNameUpd, sLocationEventType, sMoveDate, sMoveDate, sEventStartTime, sEventDuration);
+            result = b2wScheduler.getLocationEvent(sJobSiteNameUpd, sLocationEventType, sMoveDate, sMoveDate, sEventStartTime, sEventDuration);
             logCompare(true, result != null, "Verification that specific Location Event has been resized.");
         } else {
             logCompare(true, false, "Location Event for " + sEquipmentNameUpd + " could not be found on the page.");
@@ -2192,7 +2436,9 @@ public class ScheduleAssignments extends B2WTestCase {
         logCompare(true,  result == null, "Verification that specific Employee Need has been deleted.");
     }
 
-    public void deleteEquipmentAssignment() {
+    public void deleteEquipmentAssignment(String sScheduleView, String sEquipmentName, String sJobSiteName,
+                                          String sAssignmentStartDate, String sAssignmentEndDate,
+                                          String sAssignmentStartTime, String sAssignmentDuration) {
         /*
          * 1. Open Schedule View
          * 2. Change Date Range on Schedule View
@@ -2203,19 +2449,19 @@ public class ScheduleAssignments extends B2WTestCase {
          * 7. Verify that Assignment was deleted
          */
 
-        NavigateToScheduleView(sEquipmentView, sCalendarStartDate, sCalendarDateRange, sEquipmentNameUpd);
+        NavigateToScheduleView(sScheduleView, sCalendarStartDate, sCalendarDateRange, sEquipmentName);
 
-        int initialCount = b2wScheduler.getAssignmentsCount(sEquipmentNameUpd, sJobSiteNameUpd, b2wScheduler.EQUIPMENT_TYPE);
-        WebElement assignment = b2wScheduler.getEquipmentAssignment(sEquipmentNameUpd, sJobSiteNameUpd, sMoveDate, sMoveDate, sAssignmentStartTimeUpd, sAssignmentDurationUpd);
+        int initialCount = b2wScheduler.getAssignmentsCount(sEquipmentName, sJobSiteName, b2wScheduler.EQUIPMENT_TYPE);
+        WebElement assignment = b2wScheduler.getEquipmentAssignment(sEquipmentName, sJobSiteName, sAssignmentStartDate, sAssignmentEndDate, sAssignmentStartTime, sAssignmentDuration);
         if (assignment != null) {
             logCompare(true, b2wScheduler.openContextMenu(assignment), "Open Assignment's Context Menu");
             logCompare(true, b2wScheduler.deleteAssignment(), "Delete Equipment Assignment");
-            int actualCount = b2wScheduler.getAssignmentsCount(sEquipmentNameUpd, sJobSiteNameUpd, b2wScheduler.EQUIPMENT_TYPE);
+            int actualCount = b2wScheduler.getAssignmentsCount(sEquipmentName, sJobSiteName, b2wScheduler.EQUIPMENT_TYPE);
             logCompare(true, actualCount == initialCount - 1, "Verification that Equipment Assignment has been deleted.");
-            WebElement result = b2wScheduler.getEquipmentAssignment(sEquipmentNameUpd, sJobSiteNameUpd, sMoveDate, sMoveDate, sAssignmentStartTimeUpd, sAssignmentDurationUpd);
+            WebElement result = b2wScheduler.getEquipmentAssignment(sEquipmentName, sJobSiteName, sAssignmentStartDate, sAssignmentEndDate, sAssignmentStartTime, sAssignmentDuration);
             logCompare(true, result == null, "Verification that specific Equipment Assignment has been deleted.");
         } else {
-            logCompare(true, false, "Equipment Assignment for " + sEquipmentNameUpd + " could not be found on the page.");
+            logCompare(true, false, "Equipment Assignment for " + sEquipmentName + " could not be found on the page.");
         }
     }
 
@@ -2246,7 +2492,9 @@ public class ScheduleAssignments extends B2WTestCase {
         }
     }
 
-    public void deleteCrewAssignment() {
+    public void deleteCrewAssignment(String sScheduleView, String sCrewName, String sJobSiteName,
+                                     String sAssignmentStartDate, String sAssignmentEndDate,
+                                     String sAssignmentStartTime, String sAssignmentDuration) {
         /*
          * 1. Open Schedule View
          * 2. Change Date Range on Schedule View
@@ -2257,19 +2505,19 @@ public class ScheduleAssignments extends B2WTestCase {
          * 7. Verify that Assignment was deleted
          */
 
-        NavigateToScheduleView(sCrewView, sCalendarStartDate, sCalendarDateRange, sCrewNameUpd);
+        NavigateToScheduleView(sScheduleView, sCalendarStartDate, sCalendarDateRange, sCrewName);
 
-        int initialCount = b2wScheduler.getAssignmentsCount(sCrewNameUpd, sJobSiteNameUpd, b2wScheduler.CREW_TYPE);
-        WebElement assignment = b2wScheduler.getCrewAssignment(sCrewNameUpd, sJobSiteNameUpd, sMoveDate, sMoveDate, sAssignmentStartTimeUpd, sAssignmentDurationUpd);
+        int initialCount = b2wScheduler.getAssignmentsCount(sCrewName, sJobSiteName, b2wScheduler.CREW_TYPE);
+        WebElement assignment = b2wScheduler.getCrewAssignment(sCrewName, sJobSiteName, sAssignmentStartDate, sAssignmentEndDate, sAssignmentStartTime, sAssignmentDuration);
         if (assignment != null) {
             logCompare(true, b2wScheduler.openContextMenu(assignment), "Open Crew's Context Menu");
             logCompare(true, b2wScheduler.deleteAssignment(), "Delete Crew Assignment");
-            int actualCount = b2wScheduler.getAssignmentsCount(sCrewNameUpd, sJobSiteNameUpd, b2wScheduler.CREW_TYPE);
+            int actualCount = b2wScheduler.getAssignmentsCount(sCrewName, sJobSiteName, b2wScheduler.CREW_TYPE);
             logCompare(true, actualCount == initialCount - 1, "Verification that Crew Assignment has been deleted.");
-            WebElement result = b2wScheduler.getCrewAssignment(sCrewNameUpd, sJobSiteNameUpd, sMoveDate, sMoveDate, sAssignmentStartTimeUpd, sAssignmentDurationUpd);
+            WebElement result = b2wScheduler.getCrewAssignment(sCrewName, sJobSiteName, sAssignmentStartDate, sAssignmentEndDate, sAssignmentStartTime, sAssignmentDuration);
             logCompare(true, result == null, "Verification that specific Crew Assignment has been deleted.");
         } else {
-            logCompare(true, false, "Crew Assignment for " + sCrewNameUpd + " could not be found on the page.");
+            logCompare(true, false, "Crew Assignment for " + sCrewName + " could not be found on the page.");
         }
     }
 
@@ -2432,13 +2680,13 @@ public class ScheduleAssignments extends B2WTestCase {
         NavigateToScheduleView(sDefaultLocationView, sMoveDate, sCalendarDateRange, sJobSiteNameUpd);
 
         int initialCount = b2wScheduler.getAssignmentsCount(sJobSiteNameUpd, sLocationEventTypeUpd, b2wScheduler.LOCATION_EVENT_TYPE);
-        WebElement assignment = b2wScheduler.getJobSiteEvent(sJobSiteNameUpd, sLocationEventTypeUpd, sMoveDate, sMoveDate, sEventStartTime, sEventDuration);
+        WebElement assignment = b2wScheduler.getLocationEvent(sJobSiteNameUpd, sLocationEventTypeUpd, sMoveDate, sMoveDate, sEventStartTime, sEventDuration);
         if (assignment != null) {
             logCompare(true, b2wScheduler.openContextMenu(assignment), "Open Event's Context Menu");
             logCompare(true, b2wScheduler.deleteEvent(), "Delete JobSite Event");
             int actualCount = b2wScheduler.getAssignmentsCount(sJobSiteNameUpd, sLocationEventTypeUpd, b2wScheduler.LOCATION_EVENT_TYPE);
             logCompare(true, actualCount == initialCount - 1, "Verification that JobSite Event has been deleted.");
-            WebElement result = b2wScheduler.getJobSiteEvent(sJobSiteNameUpd, sLocationEventTypeUpd, sMoveDate, sMoveDate, sEventStartTime, sEventDuration);
+            WebElement result = b2wScheduler.getLocationEvent(sJobSiteNameUpd, sLocationEventTypeUpd, sMoveDate, sMoveDate, sEventStartTime, sEventDuration);
             logCompare(true, result == null, "Verification that specific JobSite Event has been deleted.");
         } else {
             logCompare(true, false, "Location Event for " + sJobSiteNameUpd + " could not be found on the page.");
