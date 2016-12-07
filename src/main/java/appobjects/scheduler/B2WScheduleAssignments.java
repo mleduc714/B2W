@@ -51,4 +51,10 @@ public class B2WScheduleAssignments extends KendoUI {
     public static By getAssignmentLeftEdge() { return By.cssSelector(B2WUIMap.b2w_schedule_assignmentleftedge); }
     public static By getResourceWarningIcon() { return By.cssSelector(B2WUIMap.b2w_schedule_resourcewarningicon); }
     public static By getTooltip() { return By.cssSelector(B2WUIMap.b2w_schedule_tooltip); }
+    public static By getConflictButton() { return By.cssSelector(B2WUIMap.b2w_schedule_conflictbutton); }
+    public static By getConflictsPanel() { return By.cssSelector(B2WUIMap.b2w_schedule_conflictspanel); }
+    public static By getConflictFromPanel() { return By.cssSelector(B2WUIMap.b2w_schedule_conflicblock); }
+    public static By getFillNeedToolbar() { return By.cssSelector(B2WUIMap.b2w_schedule_conflictoolbar); }
+    public static By getFirstResourceNameInList() { return By.xpath(B2WUIMap.b2w_schedule_firstitem); }
+    public static By getCheckedBtn() { return By.cssSelector(B2WUIMap.b2w_schedule_checkedbtn); }
 }

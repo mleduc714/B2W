@@ -2,7 +2,6 @@ package tasks.scheduler;
 
 import appobjects.resources.KendoUI;
 import appobjects.scheduler.B2WScheduleAssignments;
-import appobjects.setup.B2WSchedules;
 import org.apache.commons.lang3.time.DateUtils;
 import org.apache.log4j.Logger;
 import org.jfree.util.Log;
@@ -102,6 +101,31 @@ public class B2WSchedulerTasks extends B2WKendoTasks {
             WebElementUtils.waitForElementClickable(eAssignment);
             waitForSchedulePageNoBusy();
             bReturn &= WebElementUtils.waitAndFindDisplayedElement(B2WScheduleAssignments.getContextMenu()) != null;
+        }
+        return bReturn;
+    }
+    public boolean openConflictPanel() {
+        boolean bReturn = false;
+        WebElement eConflictBtn = WebElementUtils.findElement(B2WScheduleAssignments.getConflictButton());
+        if (eConflictBtn != null) {
+            bReturn = WebElementUtils.clickElement(eConflictBtn);
+            waitForSchedulePageNoBusy();
+            bReturn &= WebElementUtils.waitAndFindDisplayedElement(B2WScheduleAssignments.getConflictsPanel(), WebElementUtils.LONG_TIME_OUT) != null;
+        } else {
+            log.debug("Conflict button could not be found on the page.");
+        }
+        return bReturn;
+    }
+    public boolean closeConflictPanel() {
+        boolean bReturn = false;
+        WebElement eConflictPanel = WebElementUtils.findElement(B2WScheduleAssignments.getConflictsPanel());
+        WebElement eConflictBtn = WebElementUtils.findElement(B2WScheduleAssignments.getCheckedBtn());
+        if (eConflictBtn != null && eConflictPanel != null) {
+            bReturn = WebElementUtils.clickElement(eConflictBtn);
+            waitForSchedulePageNoBusy();
+            bReturn &= WebElementUtils.waitForElementInvisible(eConflictPanel);
+        } else {
+            log.debug("Conflict button could not be found on the page.");
         }
         return bReturn;
     }
@@ -856,6 +880,12 @@ public class B2WSchedulerTasks extends B2WKendoTasks {
     public WebElement getJobSiteEvent(String sResourceName, String sLocationName, String sStartDate, String sEndDate, String sStartTime, String sDuration) {
         return getAssignment(sResourceName, sLocationName, sStartDate, sEndDate, sStartTime, sDuration, LOCATION_EVENT_TYPE);
     }
+    public List<WebElement> getAllConflictsFromPanel() {
+        return WebElementUtils.findElements(B2WScheduleAssignments.getConflictFromPanel());
+    }
+    public WebElement getConflictForResource(String sResourceName) {
+        return WebElementUtils.getElementWithContainsChildElementText(getAllConflictsFromPanel(), By.cssSelector("div.ng-binding"), sResourceName);
+    }
 
     // Click Methods
     public boolean clickSelectCrewBtn() {
@@ -1165,20 +1195,37 @@ public class B2WSchedulerTasks extends B2WKendoTasks {
         }
         return i;
     }
-    public boolean conflictIconIsDisplayed() {
+    public boolean conflictIconIsDisplayed(String sResourceName) {
         boolean bReturn = false;
-        WebElement eResourceWarningIcon = WebElementUtils.findElement(B2WScheduleAssignments.getResourceWarningIcon());
-        if (eResourceWarningIcon != null) {
-            bReturn = WebElementUtils.clickElement(eResourceWarningIcon);
-            WebElement eTooltip = WebElementUtils.waitAndFindDisplayedElement(B2WScheduleAssignments.getTooltip());
-            if (eTooltip != null) {
-                bReturn = WebElementUtils.getElementWithContainsChildElementText(B2WScheduleAssignments.getTooltip(), By.cssSelector("a"), "View in Conflicts Panel ") != null;
+        WebElement eResourceLine = getResourceLine(sResourceName);
+        if (eResourceLine != null) {
+            //WebElement eResourceWarningIcon = WebElementUtils.findElement(B2WScheduleAssignments.getResourceWarningIcon());
+            WebElement parent = WebElementUtils.getParentElement(eResourceLine);
+            WebElement eResourceWarningIcon = WebElementUtils.getChildElement(parent, B2WScheduleAssignments.getResourceWarningIcon());
+            if (eResourceWarningIcon != null && WebElementUtils.getParentElement(eResourceWarningIcon).isDisplayed()) {
+                bReturn = WebElementUtils.clickElement(eResourceWarningIcon);
+                WebElement eTooltip = WebElementUtils.waitAndFindDisplayedElement(B2WScheduleAssignments.getTooltip());
+                if (eTooltip != null) {
+                    bReturn = WebElementUtils.getElementWithContainsChildElementText(B2WScheduleAssignments.getTooltip(), By.cssSelector("a"), "View in Conflicts Panel ") != null;
+                } else {
+                    log.debug("Tooltip is not displayed.");
+                }
             } else {
-                log.debug("Tooltip is not displayed.");
+                log.debug("Warning Icon could not be found for Resource: " + sResourceName);
             }
         } else {
-            log.debug("Warning Icon could not be found for Resource.");
+            log.debug("Could not find resource line for + " + sResourceName);
         }
+        return bReturn;
+    }
+    public boolean selectConflict(WebElement eConflict) {
+        boolean bReturn = WebElementUtils.clickElement(eConflict);
+        waitForSchedulePageNoBusy();
+        bReturn &= WebElementUtils.waitAndFindElement(B2WScheduleAssignments.getFillNeedToolbar()) != null;
+        WebElement firstItem = WebElementUtils.findElement(B2WScheduleAssignments.getFirstResourceNameInList());
+        String actualValue = firstItem.getAttribute("title");
+        String expectedValue = eConflict.getText();
+        bReturn &= expectedValue.contains(actualValue);
         return bReturn;
     }
 }
