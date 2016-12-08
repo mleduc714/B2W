@@ -356,6 +356,9 @@ public class B2WSchedulerTasks extends B2WKendoTasks {
     public boolean copyAssignment() {
         return selectOptionFromContextMenu("Copy Assignment");
     }
+    public boolean copyMoveAssignment() {
+        return selectOptionFromContextMenu("Copy Move Assignment");
+    }
     public boolean copyEvent() {
         return selectOptionFromContextMenu("Copy Event");
     }
@@ -1222,7 +1225,8 @@ public class B2WSchedulerTasks extends B2WKendoTasks {
         if (eResourceLine != null) {
             WebElement parent = WebElementUtils.getParentElement(eResourceLine);
             WebElement eResourceWarningIcon = null;
-            if (sAssignmentType.equals(EMPLOYEE_TYPE) || sAssignmentType.equals(EQUIPMENT_TYPE)) {
+            if (sAssignmentType.equals(EMPLOYEE_TYPE) || sAssignmentType.equals(EQUIPMENT_TYPE) || sAssignmentType.equals(MOVE_ASSIGNMENT_TYPE) ||
+                    sAssignmentType.equals(EMPLOYEE_EVENT_TYPE) || sAssignmentType.equals(EQUIPMENT_EVENT_TYPE)) {
                 eResourceWarningIcon = WebElementUtils.getChildElement(parent, B2WScheduleAssignments.getResourceWarningIcon_i152());
             } else if (sAssignmentType.equals(CREW_TYPE)) {
                 eResourceWarningIcon = WebElementUtils.getChildElement(parent, B2WScheduleAssignments.getResourceWarningIcon_i228());
@@ -1231,9 +1235,7 @@ public class B2WSchedulerTasks extends B2WKendoTasks {
                 bReturn = WebElementUtils.clickElement(eResourceWarningIcon);
                 WebElement eTooltip = WebElementUtils.waitAndFindDisplayedElement(B2WScheduleAssignments.getTooltip());
                 if (eTooltip != null) {
-                    WebElement eLink = WebElementUtils.getChildElementContainsText(eTooltip, By.cssSelector("a.Text--link"), "View in Conflicts Panel");
-                    bReturn = eLink != null;
-                    //bReturn &= !WebElementUtils.getParentElement(eLink).getAttribute("class").equals("ng-hide");
+                    bReturn = WebElementUtils.getChildElementContainsText(eTooltip, By.cssSelector("a.Text--link"), "View in Conflicts Panel") != null;
                 } else {
                     log.debug("Tooltip is not displayed.");
                 }
