@@ -57,10 +57,6 @@ public class MaintainScheduleDragDropWorkOrder extends B2WTestCase {
 		// check for unscheduled work orders
 		if (b2wDash.getUnscheduledWorkOrders() > 0){
 			logCompare(true, b2wDash.openUnscheduledWorkOrders(), "Open Unscheduled work orders");
-			
-			
-			
-			
 		}
 		
 	}

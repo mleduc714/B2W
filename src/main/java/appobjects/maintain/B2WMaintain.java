@@ -424,5 +424,11 @@ public class B2WMaintain extends KendoUI {
     public static By getB2WProgramGenerateItem() {
     	return By.cssSelector(B2WUIMap.b2w_maintainprogramgeneraterequestlink);
     }
+    public static By getB2WWorkOrderStatus() {
+    	return By.cssSelector(B2WUIMap.b2w_maintainworkorderdisplaystatus);
+    }
+    public static By getB2WWorkItemTable() {
+    	return By.cssSelector(B2WUIMap.b2w_maintainworkordertable);
+    }
     
 }
