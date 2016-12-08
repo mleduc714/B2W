@@ -108,14 +108,14 @@ public class B2WReportHours extends B2WKendoDialog {
 		return bReturn;
 	}
 	
-	public boolean selectRandomEmployee(){
-		boolean bReturn = false;
+	public String selectRandomEmployee(){
+		String sText = "";
 		WebElement el = getWebElementFromTimeCardsDialog(0);
 		if (el != null){
-			bReturn = WebElementUtils.clickElement(el);
-			selectRandomItemFromDropDown();
+			WebElementUtils.clickElement(el);
+			sText = selectRandomItemFromDropDown();
 		}
-		return bReturn;
+		return sText;
 	}
 	
 	public boolean setDate(String sText){
@@ -259,6 +259,19 @@ public class B2WReportHours extends B2WKendoDialog {
 		return bReturn;
 	}
 	
+	public boolean selectAnyJob(){
+		boolean bReturn = false;
+		WebElement el = getWebElementFromJobChargedDialog(0);
+		if (el != null){
+			WebElementUtils.clickElement(el);
+			bReturn = WebElementUtils.sendKeys(el, "a");
+			TaskUtils.sleep(1000);
+			selectRandomItemFromDropDown();
+			bReturn &= waitForPageNotBusy(WebElementUtils.LONG_TIME_OUT);
+		}
+		return bReturn;
+	}
+	
 	public boolean setEmployeeEquipment(String sText){
 		boolean bReturn = false;
 		WebElement el = getWebElementFromEquipmentChargedDialog(0);
@@ -338,7 +351,7 @@ public class B2WReportHours extends B2WKendoDialog {
 		WebElement el = getWebElementFromIsChargedTypeSelected(7);
 		if (el != null){
 			WebElementUtils.clickElement(el);
-			selectItemFromDropDown(sText);
+			bReturn = selectItemFromDropDown(sText);
 		}
 		return bReturn;
 	}
@@ -347,9 +360,11 @@ public class B2WReportHours extends B2WKendoDialog {
 		WebElement el = getReportEquipmentHoursDialog(sChargeTypeSelected);
 
 		WebElement dd = WebElementUtils.getChildElement(el,B2WMaintain.getKendoNumericTextBox());
-		List<WebElement> inputs = WebElementUtils.getChildElements(dd,B2WMaintain.getKendoDropDown());
-		bReturn = WebElementUtils.clickElement(inputs.get(0));
-		bReturn &= WebElementUtils.sendKeys(inputs.get(1), sText);
+		if (dd != null){
+			List<WebElement> inputs = WebElementUtils.getChildElements(dd,B2WMaintain.getKendoDropDown());
+			bReturn = WebElementUtils.clickElement(inputs.get(0));
+			bReturn &= WebElementUtils.sendKeys(inputs.get(1), sText);
+		}
 		return bReturn;
 	}
 	public boolean setEmployeeRegularMins(String sText){

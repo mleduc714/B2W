@@ -125,4 +125,57 @@ public class B2WMaintainProgramsTasks extends B2WMaintainTasks {
 		}
 		return bReturn;
 	}
+	
+	public boolean selectMaintenanceProgram(String sItem) {
+		return selectItemFromView(sItem, 1);
+	}
+	public boolean selectMaintenanceProgram(int i) {
+		return selectItemFromView(i);
+	}
+	
+	public boolean clickAddEquipment() {
+		boolean bReturn = false;
+		List<WebElement> el = WebElementUtils.findElements(B2WMaintain.getKendoButtonAdd());
+		if (el != null){
+			bReturn = WebElementUtils.clickElement(el.get(1));
+			
+		}
+		return bReturn;
+	}
+	
+	public boolean expandEquipmentByID(String sID) {
+		boolean bReturn = false;
+		List<WebElement> masterRows = WebElementUtils.findElements(B2WMaintain.getKendoMasterRow());
+		int i = 0;
+		for (WebElement el: masterRows){
+			
+			String sText = WebElementUtils.getChildElements(el, By.tagName("td")).get(1).getText();
+			if (sText.equals(sID)){
+				List<WebElement> icon = WebElementUtils.findElements(B2WMaintain.getKendoIconPlus());
+				if (icon != null){
+					bReturn = WebElementUtils.clickElement(icon.get(i));
+				}
+			
+			}
+			i++;
+		}
+		return bReturn;
+		
+	}
+	
+	
+	public boolean generateItems() {
+		boolean bReturn = false;
+		List<WebElement> list = WebElementUtils.waitAndFindDisplayedElements(By.linkText("Generate Item"));
+		for (WebElement el: list){
+			if (el.isDisplayed()){
+				WebElementUtils.clickElement(el);
+				bReturn = clickConfirmYes();
+				break;
+			}
+		}
+		return bReturn;
+	}
+	
+	
 }

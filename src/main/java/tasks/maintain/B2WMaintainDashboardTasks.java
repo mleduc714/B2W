@@ -35,9 +35,15 @@ public class B2WMaintainDashboardTasks extends B2WMaintainTasks {
 	}
 	
 	public int getUnassignedRepairRequests(){
-		WebElement el = WebElementUtils.waitAndFindDisplayedElement(B2WMaintain.getB2WMaintainDashboardNewRequests());
-		String number = WebElementUtils.getChildElement(el, B2WMaintain.getB2WMaintainDashboardNumber()).getText();
-		return new Integer(number).intValue();
+
+		String number = "";
+		int iNumber = 0;
+		WebElement el = WebElementUtils.findElement(B2WMaintain.getB2WMaintainDashboardNewRequests());
+		if ( el != null){
+			number = WebElementUtils.getChildElement(el, B2WMaintain.getB2WMaintainDashboardNumber()).getText();
+			iNumber = new Integer(number).intValue();
+		}
+		return iNumber;
 	}
 	public boolean openUnassignedRepairRequests() {
 		boolean bReturn = false;
@@ -53,9 +59,14 @@ public class B2WMaintainDashboardTasks extends B2WMaintainTasks {
 		return bReturn;
 	}
 	public int getUnscheduledPM(){
+		String number = "";
+		int iNumber = 0;
 		WebElement el = WebElementUtils.findElement(B2WMaintain.getB2WMaintainDashboardRequestsAndAssigned());
-		String number = WebElementUtils.getChildElement(el, B2WMaintain.getB2WMaintainDashboardNumber()).getText();
-		return new Integer(number).intValue();
+		if ( el != null){
+			number = WebElementUtils.getChildElement(el, B2WMaintain.getB2WMaintainDashboardNumber()).getText();
+			iNumber = new Integer(number).intValue();
+		}
+		return iNumber;
 	}
 	
 	public boolean openUnscheduledPM() {
@@ -72,10 +83,17 @@ public class B2WMaintainDashboardTasks extends B2WMaintainTasks {
 	
 	
 	public int getUnscheduledWorkOrders(){
+		
 
+		String number = "";
+		int iNumber = 0;
 		WebElement el = WebElementUtils.findElement(B2WMaintain.getB2WMaintainDashboardUnscheduleWorkOrders());
-		String number = WebElementUtils.getChildElement(el, B2WMaintain.getB2WMaintainDashboardNumber()).getText();
-		return new Integer(number).intValue();
+		if ( el != null){
+			number = WebElementUtils.getChildElement(el, B2WMaintain.getB2WMaintainDashboardNumber()).getText();
+			iNumber = new Integer(number).intValue();
+		}
+		return iNumber;
+	
 	}
 	public boolean openUnscheduledWorkOrders() {
 		boolean bReturn = false;
@@ -90,11 +108,14 @@ public class B2WMaintainDashboardTasks extends B2WMaintainTasks {
 	}
 	
 	public int getPastDueWorkOrders() {
-
+		String number = "";
+		int iNumber = 0;
 		WebElement el = WebElementUtils.findElement(B2WMaintain.getB2WMaintainDashboardPastDue());
-		String number = WebElementUtils.getChildElement(el, B2WMaintain.getB2WMaintainDashboardNumber()).getText();
-		System.out.println(number);
-		return new Integer(number).intValue();
+		if ( el != null){
+			number = WebElementUtils.getChildElement(el, B2WMaintain.getB2WMaintainDashboardNumber()).getText();
+			iNumber = new Integer(number).intValue();
+		}
+		return iNumber;
 	}
 	
 	public boolean openPastDueWorkOrder() {
@@ -102,16 +123,20 @@ public class B2WMaintainDashboardTasks extends B2WMaintainTasks {
 		WebElement el = WebElementUtils.findElement(B2WMaintain.getB2WMaintainDashboardPastDue());
 		if (el != null){
 			bReturn = WebElementUtils.clickElement(el);
-			bReturn &= new TaskUtils().waitForProductPanel("Work Order Schedule by Mechanic");
 			bReturn = waitForPageNotBusy(WebElementUtils.MEDIUM_TIME_OUT);
 		}
 		return bReturn;
 	}
 	
 	public int getPendingTimeCards(){
+	String number = "";
+		int iNumber = 0;
 		WebElement el = WebElementUtils.findElement(B2WMaintain.getB2WMaintainDashboardPendingCards());
-		String number = WebElementUtils.getChildElement(el, B2WMaintain.getB2WMaintainDashboardNumber()).getText();
-		return new Integer(number).intValue();
+		if ( el != null){
+			number = WebElementUtils.getChildElement(el, B2WMaintain.getB2WMaintainDashboardNumber()).getText();
+			iNumber = new Integer(number).intValue();
+		}
+		return iNumber;
 	}
 	public boolean openPendingTimeCards() {
 		boolean bReturn = false;
