@@ -404,7 +404,8 @@ public class ScheduleAssignments extends B2WTestCase {
         //=== Conflict Panel
         verifyEmployeeAssignmentConflict();
         verifyEquipmentAssignmentConflict();
-        verifyCrewAssignmentConflict();
+        //ToDo: SCHED-2738
+        //verifyCrewAssignmentConflict();
         verifyMoveAssignmentConflict();
         verifyEmployeeEventConflict();
         verifyEquipmentEventConflict();
@@ -419,7 +420,7 @@ public class ScheduleAssignments extends B2WTestCase {
         deleteCrewAssignment(sCrewView, sCrewNameUpd, sJobSiteNameUpd, sMoveDate, sMoveDate, sAssignmentStartTimeUpd, sAssignmentDurationUpd);
         deleteCrewNeed(sCrewNeedNameUpd, sJobSiteNameUpd, sMoveDate, sMoveDate, sAssignmentStartTimeUpd, sAssignmentDurationUpd);
         deleteCrewNeed(sCrewNeedName, sJobSiteName, sMoveDate, sMoveDate, sAssignmentStartTime, sAssignmentDuration);
-        //Issue
+        //TODO: Issue with APP
         //deleteMoveAssignment(sEquipmentView, sEquipmentName, sDropoffJobSiteNameUpd, sMoveDate, sMoveDate, sPickupTime, sDropoffTime);
         deleteMoveAssignment(sEquipmentView, sEquipmentName, sDropoffJobSiteNameUpd, sMoveDate, sMoveDate, sEventStartTime, sEventStartTime);
         deleteMoveOrder();
