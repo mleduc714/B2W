@@ -158,7 +158,7 @@ public class B2WWorkOrdersTasks extends B2WKendoTasks {
 		WebElement el = WebElementUtils.findElement(B2WMaintain.getKendoLargeSaveButton());
 		if (el != null){
 			bReturn = WebElementUtils.clickElement(el);
-			bReturn &= WebElementUtils.waitForElementInvisible(WebElementUtils.findElement(B2WMaintain.getKendoFakeSaveButton()));
+			bReturn &= WebElementUtils.waitForElementInvisible(WebElementUtils.findElement(B2WMaintain.getKendoFakeSaveButton()), WebElementUtils.LONG_TIME_OUT, true);
 			bReturn &= waitForPageNotBusy(WebElementUtils.MEDIUM_TIME_OUT);
 			bReturn &= WebElementUtils.waitAndFindDisplayedElement(B2WMaintain.getB2WMaintainItemActions(), WebElementUtils.MEDIUM_TIME_OUT) != null;
 		}
