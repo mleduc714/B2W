@@ -202,7 +202,7 @@ public class ScheduleAssignments extends B2WTestCase {
     private String sConflictCrewName;
     private String sConflictJobSite;
     private String sConflictEmployeeEventType;
-    private String sConflictEquimentEventType;
+    private String sConflictEquipmentEventType;
 
 
     @Override
@@ -332,12 +332,12 @@ public class ScheduleAssignments extends B2WTestCase {
         sConflictCrewName = getProperty("sConflictCrewName");
         sConflictJobSite = getProperty("sConflictJobSite");
         sConflictEmployeeEventType = getProperty("sConflictEmployeeEventType");
-        sConflictEquimentEventType = getProperty("sConflictEquimentEventType");
+        sConflictEquipmentEventType = getProperty("sConflictEquipmentEventType");
     }
 
     public void testMain() throws Throwable {
         //=== Setup Schedule View
-        createNewEmployeeScheduleView();
+/*        createNewEmployeeScheduleView();
         createNewEquipmentScheduleView();
         createNewCrewScheduleView();
         createNewJobSiteScheduleView();
@@ -400,7 +400,7 @@ public class ScheduleAssignments extends B2WTestCase {
         resizeEmployeeEvent();
         resizeEquipmentEvent();
         resizeLocationEvent();
-
+*/
         //=== Conflict Panel
         verifyEmployeeAssignmentConflict();
         verifyEquipmentAssignmentConflict();
@@ -409,12 +409,11 @@ public class ScheduleAssignments extends B2WTestCase {
         verifyEmployeeEventConflict();
         verifyEquipmentEventConflict();
 
-        //=== Delete Assignments
+/*        //=== Delete Assignments
         deleteEmployeeAssignment(sEmployeeView, sEmployeeNameUpd, sJobSiteNameUpd, sMoveDate, sMoveDate, sAssignmentStartTimeUpd, sAssignmentDurationUpd);
         deleteEmployeeNeed(sEmployeeView, sEmployeeNeedNameUpd, sJobSiteNameUpd, sMoveDate, sMoveDate, sAssignmentStartTimeUpd, sAssignmentDurationUpd);
         deleteEmployeeNeed(sEmployeeView, sEmployeeNeedName, sJobSiteName, sMoveDate, sMoveDate, sAssignmentStartTime, sAssignmentDuration);
         deleteEquipmentAssignment(sEquipmentView, sEquipmentNameUpd, sJobSiteNameUpd, sMoveDate, sMoveDate, sAssignmentStartTimeUpd, sAssignmentDurationUpd);
-        //deleteEquipmentAssignment();
         deleteEquipmentNeed(sEquipmentNeedNameUpd, sJobSiteNameUpd, sMoveDate, sMoveDate, sAssignmentStartTimeUpd, sAssignmentDurationUpd);
         deleteEquipmentNeed(sEquipmentNeedName, sJobSiteName, sMoveDate, sMoveDate, sAssignmentStartTime, sAssignmentDuration);
         deleteCrewAssignment(sCrewView, sCrewNameUpd, sJobSiteNameUpd, sMoveDate, sMoveDate, sAssignmentStartTimeUpd, sAssignmentDurationUpd);
@@ -435,6 +434,7 @@ public class ScheduleAssignments extends B2WTestCase {
         deleteScheduleView(sEquipmentView);
         deleteScheduleView(sCrewView);
         deleteScheduleView(sLocationView);
+        */
     }
 
     @Override
@@ -1690,7 +1690,7 @@ public class ScheduleAssignments extends B2WTestCase {
     public void verifyMoveAssignmentConflict() {
         createMoveAssignment(sDefaultEquipmentView, sConflictEquipmentName, sConflictJobSite, sPickupJobSiteName,
                 sTransportationCrewName, sPickupDate, sPickupTime, sDropoffDate, sDropoffTime);
-        //Todo: Issue
+        //Todo: Issue SCHED-3142
         //copyMoveAssignment(sDefaultEquipmentView, sConflictEquipmentName, sConflictJobSite, sPickupDate, sPickupTime, sDropoffDate, sDropoffTime);
         copyMoveAssignment(sDefaultEquipmentView, sConflictEquipmentName, sConflictJobSite, sPickupDate, sDropoffDate, sEventStartTime, sEventStartTime);
         //ToDo: Functionality is not implemented in the APP yet.
@@ -1711,10 +1711,10 @@ public class ScheduleAssignments extends B2WTestCase {
     }
 
     public void verifyEquipmentEventConflict() {
-        createEquipmentEvent(sDefaultEquipmentView, sConflictEquipmentName, sConflictEquimentEventType, sCalendarStartDate, sCalendarStartDate, sEventStartTime, sEventDuration);
-        copyEquipmentEvent(sDefaultEquipmentView, sConflictEquipmentName, sConflictEquimentEventType, sCalendarStartDate, sCalendarStartDate, sEventStartTime, sEventDuration);
-        checkEquipmentEventConflict(sDefaultEquipmentView, sConflictEquipmentName, sConflictEquimentEventType, sCalendarStartDate, sCalendarStartDate, sEventStartTime, sEventDuration);
-        deleteEquipmentEvent(sDefaultEquipmentView, sConflictEquipmentName, sConflictEquimentEventType, sCalendarStartDate, sCalendarStartDate, sEventStartTime, sEventDuration);
+        createEquipmentEvent(sDefaultEquipmentView, sConflictEquipmentName, sConflictEquipmentEventType, sCalendarStartDate, sCalendarStartDate, sEventStartTime, sEventDuration);
+        copyEquipmentEvent(sDefaultEquipmentView, sConflictEquipmentName, sConflictEquipmentEventType, sCalendarStartDate, sCalendarStartDate, sEventStartTime, sEventDuration);
+        checkEquipmentEventConflict(sDefaultEquipmentView, sConflictEquipmentName, sConflictEquipmentEventType, sCalendarStartDate, sCalendarStartDate, sEventStartTime, sEventDuration);
+        deleteEquipmentEvent(sDefaultEquipmentView, sConflictEquipmentName, sConflictEquipmentEventType, sCalendarStartDate, sCalendarStartDate, sEventStartTime, sEventDuration);
     }
 
     public void verifyLocationEventConflict() {

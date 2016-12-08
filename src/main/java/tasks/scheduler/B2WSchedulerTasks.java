@@ -1184,30 +1184,6 @@ public class B2WSchedulerTasks extends B2WKendoTasks {
         }
         return sResult;
     }
-    public boolean isDateInRange(DateRange dateRange, String sDate) {
-        Date date = StringUtils.getDateFromString(sDate);
-        return dateRange.contains(date.getTime());
-    }
-    public boolean isValueSelected(List<WebElement> list, String sValue) {
-        //ToDo Remove if could not fix it.
-        boolean bReturn = false;
-        String sTmp;
-        Iterator<WebElement> iterator = list.iterator();
-        while (iterator.hasNext() && !bReturn) {
-            WebElement Item = iterator.next();
-            if (WebElementUtils.getChildElements(Item, By.cssSelector("p")).size() > 0) {
-                WebElement el = WebElementUtils.getChildElement(Item, By.cssSelector("p"));
-                sTmp = el.getAttribute("title");
-            } else {
-                sTmp = Item.getText();
-            }
-
-            if (sTmp.equals(sValue)) {
-                bReturn = true;
-            }
-        }
-        return bReturn;
-    }
     public int getPositionInDateRange(Date end) {
         DateRange selectedDates = getSelectedDates();
         GregorianCalendar calendar = new GregorianCalendar();
