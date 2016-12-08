@@ -337,7 +337,7 @@ public class ScheduleAssignments extends B2WTestCase {
 
     public void testMain() throws Throwable {
         //=== Setup Schedule View
-/*        createNewEmployeeScheduleView();
+        createNewEmployeeScheduleView();
         createNewEquipmentScheduleView();
         createNewCrewScheduleView();
         createNewJobSiteScheduleView();
@@ -400,7 +400,7 @@ public class ScheduleAssignments extends B2WTestCase {
         resizeEmployeeEvent();
         resizeEquipmentEvent();
         resizeLocationEvent();
-*/
+
         //=== Conflict Panel
         verifyEmployeeAssignmentConflict();
         verifyEquipmentAssignmentConflict();
@@ -409,7 +409,7 @@ public class ScheduleAssignments extends B2WTestCase {
         verifyEmployeeEventConflict();
         verifyEquipmentEventConflict();
 
-/*        //=== Delete Assignments
+        //=== Delete Assignments
         deleteEmployeeAssignment(sEmployeeView, sEmployeeNameUpd, sJobSiteNameUpd, sMoveDate, sMoveDate, sAssignmentStartTimeUpd, sAssignmentDurationUpd);
         deleteEmployeeNeed(sEmployeeView, sEmployeeNeedNameUpd, sJobSiteNameUpd, sMoveDate, sMoveDate, sAssignmentStartTimeUpd, sAssignmentDurationUpd);
         deleteEmployeeNeed(sEmployeeView, sEmployeeNeedName, sJobSiteName, sMoveDate, sMoveDate, sAssignmentStartTime, sAssignmentDuration);
@@ -434,7 +434,6 @@ public class ScheduleAssignments extends B2WTestCase {
         deleteScheduleView(sEquipmentView);
         deleteScheduleView(sCrewView);
         deleteScheduleView(sLocationView);
-        */
     }
 
     @Override
