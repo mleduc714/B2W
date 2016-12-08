@@ -146,8 +146,12 @@ public class B2WScheduleMaintenance extends B2WKendoDialog {
 	private WebElement getWebElementFromScheduleMaintenanceDialog(int i) {
 		WebElement el = WebElementUtils
 				.waitAndFindDisplayedElement(B2WMaintain.getB2WMaintainSchedulerScheduleMaintenancePopupWindow());
-		List<WebElement> list = WebElementUtils.getChildElements(el, B2WMaintain.getKendoDropDown());
-		return list.get(i);
+		if (el != null) {
+			List<WebElement> list = WebElementUtils.getChildElements(el, B2WMaintain.getKendoDropDown());
+			return list.get(i);
+		} else {
+			return null;
+		}
 	}
 
 	public String getWorkOrder() {

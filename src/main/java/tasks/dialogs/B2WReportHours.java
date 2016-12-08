@@ -267,8 +267,7 @@ public class B2WReportHours extends B2WKendoDialog {
 			bReturn = WebElementUtils.sendKeys(el, "a");
 			TaskUtils.sleep(1000);
 			selectRandomItemFromDropDown();
-			waitForPageNotBusy(WebElementUtils.LONG_TIME_OUT);
-			bReturn = true;
+			bReturn &= waitForPageNotBusy(WebElementUtils.LONG_TIME_OUT);
 		}
 		return bReturn;
 	}
@@ -352,7 +351,7 @@ public class B2WReportHours extends B2WKendoDialog {
 		WebElement el = getWebElementFromIsChargedTypeSelected(7);
 		if (el != null){
 			WebElementUtils.clickElement(el);
-			selectItemFromDropDown(sText);
+			bReturn = selectItemFromDropDown(sText);
 		}
 		return bReturn;
 	}
@@ -361,9 +360,11 @@ public class B2WReportHours extends B2WKendoDialog {
 		WebElement el = getReportEquipmentHoursDialog(sChargeTypeSelected);
 
 		WebElement dd = WebElementUtils.getChildElement(el,B2WMaintain.getKendoNumericTextBox());
-		List<WebElement> inputs = WebElementUtils.getChildElements(dd,B2WMaintain.getKendoDropDown());
-		bReturn = WebElementUtils.clickElement(inputs.get(0));
-		bReturn &= WebElementUtils.sendKeys(inputs.get(1), sText);
+		if (dd != null){
+			List<WebElement> inputs = WebElementUtils.getChildElements(dd,B2WMaintain.getKendoDropDown());
+			bReturn = WebElementUtils.clickElement(inputs.get(0));
+			bReturn &= WebElementUtils.sendKeys(inputs.get(1), sText);
+		}
 		return bReturn;
 	}
 	public boolean setEmployeeRegularMins(String sText){

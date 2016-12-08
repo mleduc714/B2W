@@ -138,6 +138,7 @@ public class B2WMaintainProgramsTasks extends B2WMaintainTasks {
 		List<WebElement> el = WebElementUtils.findElements(B2WMaintain.getKendoButtonAdd());
 		if (el != null){
 			bReturn = WebElementUtils.clickElement(el.get(1));
+			
 		}
 		return bReturn;
 	}
@@ -145,14 +146,18 @@ public class B2WMaintainProgramsTasks extends B2WMaintainTasks {
 	public boolean expandEquipmentByID(String sID) {
 		boolean bReturn = false;
 		List<WebElement> masterRows = WebElementUtils.findElements(B2WMaintain.getKendoMasterRow());
+		int i = 0;
 		for (WebElement el: masterRows){
+			
 			String sText = WebElementUtils.getChildElements(el, By.tagName("td")).get(1).getText();
 			if (sText.equals(sID)){
-				WebElement icon = WebElementUtils.findElement(B2WMaintain.getKendoIconPlus());
+				List<WebElement> icon = WebElementUtils.findElements(B2WMaintain.getKendoIconPlus());
 				if (icon != null){
-					bReturn = WebElementUtils.clickElement(icon);
+					bReturn = WebElementUtils.clickElement(icon.get(i));
 				}
+			
 			}
+			i++;
 		}
 		return bReturn;
 		
