@@ -10,6 +10,7 @@ import org.openqa.selenium.WebElement;
 import appobjects.maintain.B2WMaintain;
 import tasks.BrowserUtils;
 import tasks.WebElementUtils;
+import tasks.maintain.B2WMaintainTasks;
 
 public class B2WMaintainSchedulePopupToolTip {
 	
@@ -120,7 +121,7 @@ public class B2WMaintainSchedulePopupToolTip {
 		List<WebElement> el = WebElementUtils.getChildElements(getSchedulePopup(), By.tagName("a"));
 		if (el.size() > 1){
 			BrowserUtils.getDriver().navigate().to(el.get(1).getAttribute("href"));
-			bReturn = true;
+			bReturn = new B2WMaintainTasks().waitForPageNotBusy(WebElementUtils.MEDIUM_TIME_OUT);
 		}
 		return bReturn;
 	}
