@@ -1002,6 +1002,7 @@ public class B2WSchedulerTasks extends B2WKendoTasks {
         WebElement el = WebElementUtils.findElement(B2WScheduleAssignments.getSaveAssignmentBtn());
         bResult = WebElementUtils.waitForElementClickable(el);
         if (el != null && bResult) {
+            WebElementUtils.moveVirtualMouseOverElement(el);
             bResult = WebElementUtils.clickElement(el);
             WebElementUtils.waitForElementInvisible(el);
             waitForSchedulePageNoBusy();
@@ -1014,21 +1015,6 @@ public class B2WSchedulerTasks extends B2WKendoTasks {
     }
     public boolean saveMoveOrder() {
         return saveMoveAssignment();
-        /*
-        boolean bResult = false;
-        WebElement el = WebElementUtils.findElement(B2WScheduleAssignments.getCreateMoveOrderBtn());
-        if (el != null) {
-            bResult = WebElementUtils.clickElement(el);
-            waitForSchedulePageNoBusy();
-            WebElementUtils.switchToFrame(B2WScheduleAssignments.getScheduleProductPageIcon(), 1);
-            bResult &= WebElementUtils.waitAndFindDisplayedElement(B2WScheduleAssignments.getScheduleProductPageIcon()) != null;
-        } else {
-            log.debug("Create Move Order Button could not be found.");
-        }
-
-        //bResult &= checkAssignmentExist();
-        return bResult;
-        */
     }
     public boolean saveEvent() {
         boolean bResult;
