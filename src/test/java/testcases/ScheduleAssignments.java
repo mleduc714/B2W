@@ -2444,10 +2444,10 @@ public class ScheduleAssignments extends B2WTestCase {
             logCompare(true, b2wScheduler.deleteAssignment(), "Delete Employee Assignment");
             int actualCount = b2wScheduler.getAssignmentsCount(sAssignmentName, sJobSiteName, b2wScheduler.EMPLOYEE_TYPE);
             logCompare(true, actualCount == initialCount - 1, "Verification that Employee Assignment has been deleted.");
-            WebElement result = b2wScheduler.getEmployeeAssignment(sAssignmentName, sJobSiteName, sCalendarStartDate, sCalendarStartDate, sAssignmentStartTime, sAssignmentDuration);
+            WebElement result = b2wScheduler.getEmployeeAssignment(sAssignmentName, sJobSiteName, sAssignmentStartDate, sAssignmentEndDate, sAssignmentStartTime, sAssignmentDuration);
             logCompare(true, result == null, "Verification that specific Employee Assignment has been deleted.");
         } else {
-            logCompare(true, false, "Assignment for " + sAssignmentName + " on " + sCalendarStartDate + " could not be found.");
+            logCompare(true, false, "Assignment for " + sAssignmentName + " on " + sAssignmentStartDate + " could not be found.");
         }
     }
 
