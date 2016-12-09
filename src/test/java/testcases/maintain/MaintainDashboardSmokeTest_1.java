@@ -7,7 +7,6 @@ import java.util.Calendar;
 import com.b2w.test.B2WTestCase;
 
 import tasks.B2WNavigationTasks;
-import tasks.BrowserUtils;
 import tasks.dialogs.B2WAddEquipmentToMainProgram;
 import tasks.dialogs.B2WAddInterval;
 import tasks.dialogs.B2WAddItemMaintenanceProgram;
@@ -110,7 +109,7 @@ public class MaintainDashboardSmokeTest_1 extends B2WTestCase {
 	public void testMain() throws Throwable {
 		// TODO Auto-generated method stub
 		SimpleDateFormat sd = new SimpleDateFormat("EEEEE, MMMMM d, yyy");
-		BrowserUtils.getDriver().navigate().to(getEnvProperty("deploy") + "Maintenance/Dashboard.aspx");
+		b2wMaintain.openDashboard();
 		String sUser = b2wNav.getUserName() + "!";
 		//String sUpdatedText = b2wDash.getDashboardUpdatedText();
 		logCompare(sUser, b2wDash.getUserWelcome(), "User Name");

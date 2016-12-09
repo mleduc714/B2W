@@ -851,6 +851,7 @@ public class B2WUIMap {
 	public static final String b2w_maintainrequestsaddtoworkorderdialog = "div#add_to_work_order_popup_view.wizard-dialog.add-work-order-item-popup-view.k-window-content.k-content";
 	// work orders
 	public static final String b2w_maintainworkorderslistview = "div#work_order_list_view";
+	public static final String b2w_maintainworkorderdisplaystatus = "td.subhead.right";
 	public static final String b2w_maintainworkordersview = "div#work_order_create_view";
 	public static final String b2w_maintainworkorderadditembutton = "a.btn-orig.add-item";
 	public static final String b2w_maintainworkorderadditemview = "div.create-new-request";
@@ -1045,5 +1046,7 @@ public class B2WUIMap {
     public static final String b2w_joboverheadaccountdescription = "a[id^='PageContent_OverheadAccountGridView_Description']";
     public static final String b2w_joboverheadaccounteditbutton = "a[id^='PageContent_OverheadAccountGridView_Edit']";
     public static final String b2w_joboverheadaccountdeletebutton = "a[id^='PageContent_OverheadAccountGridView_Delete']";
+
+	public static final String b2w_maintainworkordertable = "table.item-overview";
 
 }

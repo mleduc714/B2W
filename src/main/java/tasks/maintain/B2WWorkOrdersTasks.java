@@ -207,7 +207,6 @@ public class B2WWorkOrdersTasks extends B2WKendoTasks {
 	}
 
 	public void getItems() {
-	
 		
 	}
 	public boolean collapseDetails() {
@@ -284,7 +283,13 @@ public class B2WWorkOrdersTasks extends B2WKendoTasks {
 		return getDueDate();
 	}
 	public String getSelectedWorkOrderStatus() {
-		return getStatus();
+		String sStatus = "";
+		WebElement el = WebElementUtils.waitAndFindDisplayedElement(B2WMaintain.getB2WWorkItemTable());
+		if (el != null){
+			WebElement item = WebElementUtils.getChildElement(el, B2WMaintain.getB2WWorkOrderStatus());
+			sStatus = item.getText();
+		}
+		return sStatus;
 	}
 	public String getValueOfItem(String sItem){
 		return getValueOfItem(sItem, By.cssSelector("div.detail-content-view"));
@@ -292,4 +297,6 @@ public class B2WWorkOrdersTasks extends B2WKendoTasks {
 	public boolean setWorkOrderNotes(String sText){
 		return setNotes(sText);
 	}
+	
+	
 }

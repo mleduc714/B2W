@@ -347,4 +347,16 @@ public abstract class B2WKendoDialog {
 		}
 		return bReturn;
 	}
+	
+	protected boolean clickButton(String sButton){
+		WebElement window = getDisplayedWindow();
+		List<WebElement> list = WebElementUtils.getChildElements(window,B2WMaintain.getKendoButton());
+		for (WebElement el: list){
+			if (el.getText().equals(sButton)){
+				el.click();
+			}
+		}
+		return false;
+		
+	}
 }
