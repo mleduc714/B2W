@@ -862,6 +862,7 @@ public class B2WUIMap {
 	public static final String b2w_maintainworkordersduedate = "//span[@data-bind='text: detailsViewModel.displayDueDate']";
 	public static final String b2w_maintainworkorderstatus = "//td[@data-bind='text: detailsViewModel.displayStatus']";
 	public static final String b2w_maintainrequestsstatus =  "//span[@data-bind='text: detailsViewModel.displayStatus']";
+	public static final String b2w_maintainworkorderitemslist = ".item-list";
 
 
 	public static final String b2w_scheduleanimationcontainer = ".k-animation-container";
@@ -1015,7 +1016,6 @@ public class B2WUIMap {
 	public static final String b2w_maintaindashboardpendingtimecards = "div#pendingTimeCards";
 	public static final String b2w_maintaindashboardworkorderlist = "div#workOrdersList";
 	public static final String b2w_maintaindashboardworkorders = "div#workorders";
-    public static final String b2w_maintaindashboardworkordercharts = "div#workordercharts";
     public static final String b2w_maintaindashboardtimecards = "div#timecards";
     public static final String b2w_maintaindashboardworkorderscontent = "div#workOrdersContent";
     public static final String b2w_maintaindashboardworkordercontainer = "div.wo_container";
@@ -1029,6 +1029,10 @@ public class B2WUIMap {
     public static final String b2w_maintaindashboardworkorderdata = ".wo_data.ellipsis";
     public static final String b2w_maintaindashboardscheduletooltip = "div.schedule-tooltip";
     public static final String b2w_maintaindashboardscheduledworkOrdersfilterbutton = "span.b2w-icon.i127-filter";
+    public static final String b2w_maintaindashboardworkordercharts = ".dashboard-workorder-chart";
+    public static final String b2w_maintaindashboardworkorderpopupchart = "div#Dashboard-Chart-Tooltip-Content";
+    public static final String b2w_maintaindashboardworkordermanorderchart = ".manhours-charts-content";
+    public static final String b2w_maintaindashboardpriority = ".data-priority";
     
     // maintain schedule popup
     public static final String b2w_maintainschedulepopupworkordertitle = "span.workorder-title";

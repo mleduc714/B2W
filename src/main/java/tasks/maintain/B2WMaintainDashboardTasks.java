@@ -310,4 +310,46 @@ public class B2WMaintainDashboardTasks extends B2WMaintainTasks {
 		}
 		return bReturn;
 	}
+	
+	public String getLowPriorityPercentage() {
+		String sText = "";
+		WebElement dashboard = WebElementUtils.findElement(B2WMaintain.getB2WDashboardWorkOrderChart());
+		if (dashboard != null){
+			sText = WebElementUtils.getChildElements(dashboard, By.tagName("text")).get(1).getText();
+		}
+		return sText;
+	}
+
+	public String getMediumPriorityPercentage() {
+		String sText = "";
+		WebElement dashboard = WebElementUtils.findElement(B2WMaintain.getB2WDashboardWorkOrderChart());
+		if (dashboard != null){
+			sText = WebElementUtils.getChildElements(dashboard, By.tagName("text")).get(2).getText();
+		}
+		return sText;
+	}
+
+	public String getHighPriorityPercentage() {
+		String sText = "";
+		WebElement dashboard = WebElementUtils.findElement(B2WMaintain.getB2WDashboardWorkOrderChart());
+		if (dashboard != null){
+			sText = WebElementUtils.getChildElements(dashboard, By.tagName("text")).get(3).getText();
+		}
+		return sText;
+	}
+	
+	public ArrayList<String> getMechanicsFromChart() {
+		ArrayList<String> sText = new ArrayList<String>();
+		WebElement dashboard = WebElementUtils.findElement(B2WMaintain.getB2WDashboardWorkOrderManHoursByMechanic());
+		if (dashboard != null){
+			List<WebElement> list = WebElementUtils.getChildElements(dashboard, By.tagName("text"));
+			List<WebElement> mechanics = WebElementUtils.getElementsWithMatchingAttribute(list, "fill", "#4c5356");
+			for (WebElement e: mechanics){
+				String sMechanic = e.getText();
+				log.debug(sMechanic);
+				sText.add(sMechanic);
+			}
+		}
+		return sText;
+	}
 }

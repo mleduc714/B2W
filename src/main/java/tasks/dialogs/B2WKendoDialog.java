@@ -359,4 +359,40 @@ public abstract class B2WKendoDialog {
 		return false;
 		
 	}
+	
+	protected boolean openDragandDrop(WebElement el, String sLabel) {
+		boolean bReturn = false;
+		WebElement label = WebElementUtils.getChildElementContainsText(el, By.tagName("label"), sLabel);
+		if (el != null) {
+			bReturn = WebElementUtils.clickElement(WebElementUtils
+					.getChildElement(WebElementUtils.getParentElement(label), B2WMaintain.getKendoDropDown()));
+		}
+		return bReturn;
+	}
+	
+	protected boolean setNumericField(WebElement el, String sLabel, String sText){
+		boolean bReturn = false;
+		WebElement dd = WebElementUtils.getChildElement(el, B2WMaintain.getKendoNumericTextBox());
+		if (dd != null){
+			List<WebElement> inputs = WebElementUtils.getChildElements(dd, B2WMaintain.getKendoDropDown());
+			bReturn = WebElementUtils.clickElement(inputs.get(0));
+			bReturn &= WebElementUtils.sendKeys(inputs.get(1), sText);
+		}
+		return bReturn;
+
+	}
+	
+	protected boolean setText(WebElement el, String sLabel, String sText){
+		boolean bReturn = false;
+		WebElement dd = WebElementUtils.getChildElement(el, By.tagName("textarea"));
+		if (dd != null){
+			bReturn = WebElementUtils.sendKeys(dd, sText);
+		}
+		return bReturn;
+
+	}
+	
+	
+	
+	
 }
