@@ -220,7 +220,7 @@ public class WebElementUtils {
 		while (iter.hasNext()) {
 			WebElement el = iter.next();
 			// getAllInfo(el);
-			String elementText = el.getText();
+			String elementText = el.getText().trim();
 			if (caseSensitive) {
 				if (text.equals(elementText)) {
 					ret = el;

@@ -38,7 +38,7 @@ public abstract class B2WKendoTasks {
 			String hidden = els.getAttribute("aria-hidden");
 			if (hidden != null && hidden.equals("false")) {
 				List<WebElement> items = els.findElements(B2WEquipment.getKendoDropDownItem());
-				WebElement item = WebElementUtils.getElementWithMatchingStartsWithText(items, sItem);
+				WebElement item = WebElementUtils.getElementWithMatchingText(items, sItem, false);
 				if (item != null) {
 					bReturn = WebElementUtils.clickElement(item);
 					bReturn &= WebElementUtils.waitForElementInvisible(item);
@@ -279,7 +279,8 @@ public abstract class B2WKendoTasks {
 				coordinate.inViewPort();
 			}
 			sText = gridcontent.get(iColumn).getText();
-			if (sText.contains(sItem)) {
+			sText = sText.trim();
+			if (sText.equals(sItem)) {
 				bReturn = WebElementUtils.clickElement(item);
 				bReturn &= waitForPageNotBusy(WebElementUtils.MEDIUM_TIME_OUT);
 				break;
@@ -348,6 +349,13 @@ public abstract class B2WKendoTasks {
 	
 	protected WebElement getButton(int iButton) {
 		List<WebElement> list = WebElementUtils.findElements(B2WMaintain.getKendoButtonAdd());
+//		int i = 0;
+//		for (WebElement butt: list){
+//			System.out.println(i + " "+ butt.isDisplayed());
+//			i++;
+//		}
+//		
+//		
 		WebElement button = list.get(iButton);
 		if (button != null && button.isDisplayed()){
 			return button;
@@ -363,17 +371,28 @@ public abstract class B2WKendoTasks {
 		Iterator<WebElement> iter = nvps.iterator();
 		while (iter.hasNext()) {
 			try {
-			WebElement nvp = iter.next();
-			WebElement label = nvp.findElement(By.cssSelector(".label"));
-			if (label.getText().equals(sItem)) {
-				sItem = nvp.findElement(By.cssSelector(".data")).getText();
-				break;
-			}
-			}catch (NoSuchElementException e){
+				WebElement nvp = iter.next();
+				WebElement label = nvp.findElement(By.cssSelector(".label"));
+				if (label.getText().equals(sItem)) {
+					sItem = nvp.findElement(By.cssSelector(".data")).getText();
+					break;
+				}
+			} catch (NoSuchElementException e) {
 			}
 		}
 		return sItem;
 
+	}
+	
+
+	protected String getPriorityOfItem(By by) {
+		String sText = "";
+		WebElement el = WebElementUtils.waitAndFindDisplayedElement(by);
+		WebElement dataPriority = WebElementUtils.getChildElement(el, B2WMaintain.getB2WPriorityofItem());
+		if (dataPriority != null){
+			sText = WebElementUtils.getChildElements(dataPriority, By.tagName("span")).get(1).getText();
+		}
+		return sText;
 	}
 	
 	protected String getSelectedItemFromView(int iColumn) {
@@ -457,4 +476,31 @@ public abstract class B2WKendoTasks {
 		}
 		return sText;
 	}
+	protected boolean setNumericField(WebElement el, String sLabel, String sText){
+		boolean bReturn = false;
+		WebElement dd = WebElementUtils.getChildElement(el, B2WMaintain.getKendoNumericTextBox());
+		if (dd != null){
+			List<WebElement> inputs = WebElementUtils.getChildElements(dd, B2WMaintain.getKendoDropDown());
+			bReturn = WebElementUtils.clickElement(inputs.get(0));
+			bReturn &= WebElementUtils.sendKeys(inputs.get(1), sText);
+		}
+		return bReturn;
+
+	}
+
+	public ArrayList<String> getText(WebElement parent, int iRow, int iColumn) {
+		ArrayList<String> al = new ArrayList<String>();
+		WebElement rowgroup = WebElementUtils.getChildElement(parent, By.tagName("tbody"));
+		if (rowgroup != null) {
+			try {
+				List<WebElement> rows = WebElementUtils.getChildElements(rowgroup, By.tagName("tr"));
+				List<WebElement> ls = rows.get(iRow).findElements(By.tagName("td"));
+				al.add(ls.get(iColumn).getText());
+			} catch (Exception e) {
+				log.debug("Caught an exception attempt to get text with row/column");
+			}
+		}
+		return al;
+	}
+
 }
