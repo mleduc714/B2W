@@ -1000,9 +1000,9 @@ public class B2WSchedulerTasks extends B2WKendoTasks {
     public boolean saveMoveAssignment() {
         boolean bResult;
         WebElement el = WebElementUtils.findElement(B2WScheduleAssignments.getSaveAssignmentBtn());
+        WebElementUtils.moveVirtualMouseOverElement(el);
         bResult = WebElementUtils.waitForElementClickable(el);
         if (el != null && bResult) {
-            WebElementUtils.moveVirtualMouseOverElement(el);
             bResult = WebElementUtils.clickElement(el);
             WebElementUtils.waitForElementInvisible(el);
             waitForSchedulePageNoBusy();
