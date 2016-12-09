@@ -409,6 +409,10 @@ public class ScheduleAssignments extends B2WTestCase {
         verifyMoveAssignmentConflict();
         verifyEmployeeEventConflict();
         verifyEquipmentEventConflict();
+
+        //=== Order Panel
+        verifyEmployeeNeedOrder();
+
         //=== Delete Assignments
         //deleteEmployeeAssignment(sEmployeeView, sEmployeeNameUpd, sJobSiteNameUpd, sMoveDate, sMoveDate, sAssignmentStartTimeUpd, sAssignmentDurationUpd);
         deleteEmployeeAssignment(sDefaultEmployeeView, sEmployeeNameUpd, sJobSiteNameUpd, sMoveDate, sMoveDate, sAssignmentStartTimeUpd, sAssignmentDurationUpd);
@@ -1666,6 +1670,7 @@ public class ScheduleAssignments extends B2WTestCase {
         checkResourceConflict(sScheduleView, sResourceName, sJobSiteName, sAssignmentStartDate, sAssignmentEndDate, sAssignmentStartTime, sAssignmentDuration, b2wScheduler.EQUIPMENT_EVENT_TYPE);
     }
 
+    //=== Conflict Panel
     public void verifyEmployeeAssignmentConflict() {
         createEmployeeAssignment(sDefaultEmployeeView, sConflictEmployeeName, sConflictJobSite, sRequestedBy, sNotesText, sAssignmentStartTime, sAssignmentDuration);
         copyEmployeeAssignment(sDefaultEmployeeView, sConflictEmployeeName, sConflictJobSite, sCalendarStartDate, sCalendarStartDate, sAssignmentStartTime, sAssignmentDuration);
@@ -1722,6 +1727,10 @@ public class ScheduleAssignments extends B2WTestCase {
 
     }
 
+    //=== Order Panel
+    public void verifyEmployeeNeedOrder() {
+
+    }
 
     //=== Move Assignments/Needs/Orders/Events ===
     public void moveEmployeeAssignment() {
