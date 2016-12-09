@@ -337,7 +337,7 @@ public class ScheduleAssignments extends B2WTestCase {
 
     public void testMain() throws Throwable {
         //=== Setup Schedule View
-/*        createNewEmployeeScheduleView();
+        createNewEmployeeScheduleView();
         createNewEquipmentScheduleView();
         createNewCrewScheduleView();
         createNewJobSiteScheduleView();
@@ -409,11 +409,10 @@ public class ScheduleAssignments extends B2WTestCase {
         verifyMoveAssignmentConflict();
         verifyEmployeeEventConflict();
         verifyEquipmentEventConflict();
-*/
         //=== Delete Assignments
         //deleteEmployeeAssignment(sEmployeeView, sEmployeeNameUpd, sJobSiteNameUpd, sMoveDate, sMoveDate, sAssignmentStartTimeUpd, sAssignmentDurationUpd);
         deleteEmployeeAssignment(sDefaultEmployeeView, sEmployeeNameUpd, sJobSiteNameUpd, sMoveDate, sMoveDate, sAssignmentStartTimeUpd, sAssignmentDurationUpd);
- /*       deleteEmployeeNeed(sEmployeeView, sEmployeeNeedNameUpd, sJobSiteNameUpd, sMoveDate, sMoveDate, sAssignmentStartTimeUpd, sAssignmentDurationUpd);
+        deleteEmployeeNeed(sEmployeeView, sEmployeeNeedNameUpd, sJobSiteNameUpd, sMoveDate, sMoveDate, sAssignmentStartTimeUpd, sAssignmentDurationUpd);
         deleteEmployeeNeed(sEmployeeView, sEmployeeNeedName, sJobSiteName, sMoveDate, sMoveDate, sAssignmentStartTime, sAssignmentDuration);
         deleteEquipmentAssignment(sEquipmentView, sEquipmentNameUpd, sJobSiteNameUpd, sMoveDate, sMoveDate, sAssignmentStartTimeUpd, sAssignmentDurationUpd);
         deleteEquipmentNeed(sEquipmentNeedNameUpd, sJobSiteNameUpd, sMoveDate, sMoveDate, sAssignmentStartTimeUpd, sAssignmentDurationUpd);
@@ -435,7 +434,7 @@ public class ScheduleAssignments extends B2WTestCase {
         deleteScheduleView(sEmployeeView);
         deleteScheduleView(sEquipmentView);
         deleteScheduleView(sCrewView);
-        deleteScheduleView(sLocationView);*/
+        deleteScheduleView(sLocationView);
     }
 
     @Override
