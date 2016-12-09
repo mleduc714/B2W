@@ -337,7 +337,7 @@ public class ScheduleAssignments extends B2WTestCase {
 
     public void testMain() throws Throwable {
         //=== Setup Schedule View
-        createNewEmployeeScheduleView();
+/*        createNewEmployeeScheduleView();
         createNewEquipmentScheduleView();
         createNewCrewScheduleView();
         createNewJobSiteScheduleView();
@@ -409,10 +409,10 @@ public class ScheduleAssignments extends B2WTestCase {
         verifyMoveAssignmentConflict();
         verifyEmployeeEventConflict();
         verifyEquipmentEventConflict();
-
+*/
         //=== Delete Assignments
         deleteEmployeeAssignment(sEmployeeView, sEmployeeNameUpd, sJobSiteNameUpd, sMoveDate, sMoveDate, sAssignmentStartTimeUpd, sAssignmentDurationUpd);
-        deleteEmployeeNeed(sEmployeeView, sEmployeeNeedNameUpd, sJobSiteNameUpd, sMoveDate, sMoveDate, sAssignmentStartTimeUpd, sAssignmentDurationUpd);
+ /*       deleteEmployeeNeed(sEmployeeView, sEmployeeNeedNameUpd, sJobSiteNameUpd, sMoveDate, sMoveDate, sAssignmentStartTimeUpd, sAssignmentDurationUpd);
         deleteEmployeeNeed(sEmployeeView, sEmployeeNeedName, sJobSiteName, sMoveDate, sMoveDate, sAssignmentStartTime, sAssignmentDuration);
         deleteEquipmentAssignment(sEquipmentView, sEquipmentNameUpd, sJobSiteNameUpd, sMoveDate, sMoveDate, sAssignmentStartTimeUpd, sAssignmentDurationUpd);
         deleteEquipmentNeed(sEquipmentNeedNameUpd, sJobSiteNameUpd, sMoveDate, sMoveDate, sAssignmentStartTimeUpd, sAssignmentDurationUpd);
@@ -434,7 +434,7 @@ public class ScheduleAssignments extends B2WTestCase {
         deleteScheduleView(sEmployeeView);
         deleteScheduleView(sEquipmentView);
         deleteScheduleView(sCrewView);
-        deleteScheduleView(sLocationView);
+        deleteScheduleView(sLocationView);*/
     }
 
     @Override
@@ -2435,7 +2435,7 @@ public class ScheduleAssignments extends B2WTestCase {
          * 7. Verify that Assignment was deleted
          */
 
-        NavigateToScheduleView(sViewName, sCalendarStartDate, sCalendarDateRange, sAssignmentName);
+        NavigateToScheduleView(sViewName, sAssignmentStartDate, sCalendarDateRange, sAssignmentName);
 
         int initialCount = b2wScheduler.getAssignmentsCount(sAssignmentName, sJobSiteName, b2wScheduler.EMPLOYEE_TYPE);
         WebElement assignment = b2wScheduler.getEmployeeAssignment(sAssignmentName, sJobSiteName, sAssignmentStartDate, sAssignmentEndDate, sAssignmentStartTime, sAssignmentDuration);
