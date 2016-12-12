@@ -349,13 +349,6 @@ public abstract class B2WKendoTasks {
 	
 	protected WebElement getButton(int iButton) {
 		List<WebElement> list = WebElementUtils.findElements(B2WMaintain.getKendoButtonAdd());
-//		int i = 0;
-//		for (WebElement butt: list){
-//			System.out.println(i + " "+ butt.isDisplayed());
-//			i++;
-//		}
-//		
-//		
 		WebElement button = list.get(iButton);
 		if (button != null && button.isDisplayed()){
 			return button;

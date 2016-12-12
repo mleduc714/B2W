@@ -754,6 +754,21 @@ public class B2WEquipmentTasks extends B2WKendoTasks {
 	
 	}
 
+	public boolean clickAddEquipmentTag() {
+
+		boolean bReturn = false;
+		WebElement button = getButton(11);
+		if (button != null){
+			Coordinates coordinate = ((Locatable) button).getCoordinates();
+			coordinate.onPage();
+			coordinate.inViewPort();
+			bReturn = WebElementUtils.clickElement(button);
+		}
+		
+		return bReturn;
+	
+	}
+	
 	public boolean clickAddPartsButton() {
 		boolean bReturn = false;
 		List<WebElement> ls = WebElementUtils.findElements(B2WEquipment.getKendoHeadersFromView());
@@ -764,7 +779,6 @@ public class B2WEquipmentTasks extends B2WKendoTasks {
 			Coordinates coordinate = ((Locatable) button).getCoordinates();
 			coordinate.onPage();
 			coordinate.inViewPort();
-			TaskUtils.sleep(5000);
 			if (WebElementUtils.clickElement(button)) {
 				bReturn = WebElementUtils.waitForElementIsDisplayed(windows.get(1), WebElementUtils.SHORT_TIME_OUT);
 				bReturn &= waitForPageNotBusy(WebElementUtils.MEDIUM_TIME_OUT);
@@ -802,6 +816,25 @@ public class B2WEquipmentTasks extends B2WKendoTasks {
 
 		return bReturn;
 	}
+	
+	public boolean clickAddWarrantyButton() {
+		boolean bReturn = false;
+
+		WebElement button = getButton(9);
+		Coordinates coordinate = ((Locatable) button).getCoordinates();
+		coordinate.onPage();
+		coordinate.inViewPort();
+		TaskUtils.sleep(5000);
+		if (WebElementUtils.clickElement(button)) {
+			List<WebElement> windows = WebElementUtils.findElements(B2WMaintain.getKendoWindowTitle());
+			bReturn = WebElementUtils.waitForElementIsDisplayed(windows.get(windows.size() - 1),
+					WebElementUtils.SHORT_TIME_OUT);
+		}
+
+		return bReturn;
+	
+		
+	}
 
 	public boolean clickAddProgramButton() {
 		boolean bReturn = false;
@@ -809,7 +842,6 @@ public class B2WEquipmentTasks extends B2WKendoTasks {
 		Coordinates coordinate = ((Locatable) button).getCoordinates();
 		coordinate.onPage();
 		coordinate.inViewPort();
-		TaskUtils.sleep(5000);
 		if (WebElementUtils.clickElement(button)) {
 			bReturn = WebElementUtils.waitAndFindDisplayedEletment(B2WMaintain.getB2WAddProgramDialog()) != null;
 		}
