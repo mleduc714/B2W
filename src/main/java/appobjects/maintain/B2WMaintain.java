@@ -442,4 +442,10 @@ public class B2WMaintain extends KendoUI {
     public static By getB2WWorkOrderItems() {
     	return By.cssSelector(B2WUIMap.b2w_maintainworkorderitemslist);
     }
+    public static By getB2WDashboardWorkOrderRightChart() {
+    	return By.cssSelector(B2WUIMap.b2w_maintaindashboardworkorderchartright);
+    }
+    public static By getB2WDashboardNoData() {
+    	return By.cssSelector(B2WUIMap.b2w_maintaindashboardnodata);
+    }
 }

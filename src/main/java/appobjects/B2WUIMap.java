@@ -1029,10 +1029,12 @@ public class B2WUIMap {
     public static final String b2w_maintaindashboardworkorderdata = ".wo_data.ellipsis";
     public static final String b2w_maintaindashboardscheduletooltip = "div.schedule-tooltip";
     public static final String b2w_maintaindashboardscheduledworkOrdersfilterbutton = "span.b2w-icon.i127-filter";
+    public static final String b2w_maintaindashboardworkorderchartright = ".workorder_charts_col_right";
     public static final String b2w_maintaindashboardworkordercharts = ".dashboard-workorder-chart";
     public static final String b2w_maintaindashboardworkorderpopupchart = "div#Dashboard-Chart-Tooltip-Content";
     public static final String b2w_maintaindashboardworkordermanorderchart = ".manhours-charts-content";
     public static final String b2w_maintaindashboardpriority = ".data-priority";
+    public static final String b2w_maintaindashboardnodata = "div.chart-placeholder.no_data.white";
     
     // maintain schedule popup
     public static final String b2w_maintainschedulepopupworkordertitle = "span.workorder-title";
