@@ -337,9 +337,9 @@ public class ScheduleAssignments extends B2WTestCase {
 
     public void testMain() throws Throwable {
         //=== Setup Schedule View
-        createNewEmployeeScheduleView();
+        //createNewEmployeeScheduleView();
         createNewEquipmentScheduleView();
-        createNewCrewScheduleView();
+        /*createNewCrewScheduleView();
         createNewJobSiteScheduleView();
 
         //=== Create Schedule Assignments
@@ -348,15 +348,19 @@ public class ScheduleAssignments extends B2WTestCase {
         createEmployeeSubstitution(sEmployeeView, sEmployeeNameForSubstitution, sEmployeeSubstitution, sJobSiteName, sCalendarStartDate, sCalendarStartDate, sAssignmentStartTime, sAssignmentDuration);
         createEmployeeNeed(sEmployeeView, sEmployeeNeedName, sJobSiteName, sRequestedBy, sNotesText, sAssignmentStartTime, sAssignmentDuration);
         createEmployeeNeed(sEmployeeView, sEmployeeNeedName1, sJobSiteName, sRequestedBy, sNotesText, sAssignmentStartTime, sAssignmentDuration);
+        */
         createEquipmentAssignment(sEquipmentView, sEquipmentName, sJobSiteName, sRequestedBy, sNotesText, sAssignmentStartTime, sAssignmentDuration);
         createEquipmentNeed(sEquipmentView, sEquipmentNeedName, sJobSiteName, sCalendarStartDate, sCalendarStartDate, sAssignmentStartTime, sAssignmentDuration);
         createEquipmentNeed(sEquipmentView, sEquipmentNeedNameUpd, sJobSiteName, sCalendarStartDate, sCalendarStartDate, sAssignmentStartTime, sAssignmentDuration);
+        /*
         createCrewAssignment(sCrewView, sCrewName, sJobSiteName, sRequestedBy, sNotesText, sAssignmentStartTime, sAssignmentDuration);
         createCrewNeed(sCrewView, sCrewNeedName, sJobSiteName, sRequestedBy, sNotesText, sAssignmentStartTime, sAssignmentDuration);
         createCrewNeed(sCrewView, sCrewNeedNameUpd, sJobSiteName, sRequestedBy, sNotesText, sAssignmentStartTime, sAssignmentDuration);
+        */
         createMoveAssignment(sEquipmentView, sEquipmentName, sDropoffJobSiteName, sPickupJobSiteName, sTransportationCrewName, sPickupDate, sPickupTime, sDropoffDate, sDropoffTime);
         createMoveOrder(sEquipmentView, sEquipmentName, sDropoffJobSiteName, sPickupJobSiteName, sPickupDate, sPickupTime,sDropoffDate, sDropoffTime, sRequestedBy, sNotesText);
-        createEmployeeEvent(sEmployeeView, sEmployeeName, sEmployeeEventType, sCalendarStartDate, sCalendarStartDate, sEventStartTime, sEventDuration);
+        //createEmployeeEvent(sEmployeeView, sEmployeeName, sEmployeeEventType, sCalendarStartDate, sCalendarStartDate, sEventStartTime, sEventDuration);
+        /*
         createEquipmentEvent(sEquipmentView, sEquipmentName, sEquipmentEventType, sCalendarStartDate, sCalendarStartDate, sEventStartTime, sEventDuration);
         createLocationEvent(sLocationView, sJobSiteName, sLocationEventType, sCalendarStartDate, sCalendarStartDate, sEventStartTime, sEventDuration);
 
@@ -364,81 +368,104 @@ public class ScheduleAssignments extends B2WTestCase {
         moveEmployeeAssignment();
         moveSubstitution();
         moveEmployeeNeed();
+        */
         moveEquipmentAssignment();
         moveEquipmentNeed();
+        /*
         moveCrewAssignment();
         moveCrewNeed();
+        */
         moveMoveAssignment();
         moveMoveOrder();
-        moveEmployeeEvent();
+        //moveEmployeeEvent();
         moveEquipmentEvent();
+        /*
         moveLocationEvent();
 
         //=== Edit Assignments
         updateEmployeeAssignment();
         updateSubstitution();
         updateEmployeeNeed();
+        */
         updateEquipmentAssignment();
         updateEquipmentNeed();
+        /*
         updateCrewAssignment();
         updateCrewNeed();
+        */
         updateMoveAssignment();
         updateMoveOrder();
-        updateEmployeeEvent();
+        //updateEmployeeEvent();
         updateEquipmentEvent();
+        /*
         updateLocationEvent();
 
         //=== Resize Assignments
         resizeEmployeeAssignment();
         resizeEmployeeNeed();
+        */
         resizeEquipmentAssignment();
         resizeEquipmentNeed();
+        /*
         resizeCrewAssignment();
         resizeCrewNeed();
+        */
         resizeMoveAssignment();
         resizeMoveOrder();
-        resizeEmployeeEvent();
+        //resizeEmployeeEvent();
         resizeEquipmentEvent();
+        /*
         resizeLocationEvent();
 
         //=== Conflict Panel
         verifyEmployeeAssignmentConflict();
+        */
         verifyEquipmentAssignmentConflict();
         //ToDo: SCHED-2738
         //verifyCrewAssignmentConflict();
+        /*
         verifyMoveAssignmentConflict();
         verifyEmployeeEventConflict();
+        */
         verifyEquipmentEventConflict();
 
         //=== Order Panel
-        verifyEmployeeNeedOrder();
+        //verifyEmployeeNeedOrder();
 
         //=== Delete Assignments
         //deleteEmployeeAssignment(sEmployeeView, sEmployeeNameUpd, sJobSiteNameUpd, sMoveDate, sMoveDate, sAssignmentStartTimeUpd, sAssignmentDurationUpd);
+        /*
         deleteEmployeeAssignment(sDefaultEmployeeView, sEmployeeNameUpd, sJobSiteNameUpd, sMoveDate, sMoveDate, sAssignmentStartTimeUpd, sAssignmentDurationUpd);
         deleteEmployeeNeed(sEmployeeView, sEmployeeNeedNameUpd, sJobSiteNameUpd, sMoveDate, sMoveDate, sAssignmentStartTimeUpd, sAssignmentDurationUpd);
         deleteEmployeeNeed(sEmployeeView, sEmployeeNeedName, sJobSiteName, sMoveDate, sMoveDate, sAssignmentStartTime, sAssignmentDuration);
+        */
         deleteEquipmentAssignment(sEquipmentView, sEquipmentNameUpd, sJobSiteNameUpd, sMoveDate, sMoveDate, sAssignmentStartTimeUpd, sAssignmentDurationUpd);
         deleteEquipmentNeed(sEquipmentNeedNameUpd, sJobSiteNameUpd, sMoveDate, sMoveDate, sAssignmentStartTimeUpd, sAssignmentDurationUpd);
         deleteEquipmentNeed(sEquipmentNeedName, sJobSiteName, sMoveDate, sMoveDate, sAssignmentStartTime, sAssignmentDuration);
+        /*
         deleteCrewAssignment(sCrewView, sCrewNameUpd, sJobSiteNameUpd, sMoveDate, sMoveDate, sAssignmentStartTimeUpd, sAssignmentDurationUpd);
         deleteCrewNeed(sCrewNeedNameUpd, sJobSiteNameUpd, sMoveDate, sMoveDate, sAssignmentStartTimeUpd, sAssignmentDurationUpd);
         deleteCrewNeed(sCrewNeedName, sJobSiteName, sMoveDate, sMoveDate, sAssignmentStartTime, sAssignmentDuration);
+        */
         //TODO: Issue with APP
         //deleteMoveAssignment(sEquipmentView, sEquipmentName, sDropoffJobSiteNameUpd, sMoveDate, sMoveDate, sPickupTime, sDropoffTime);
         deleteMoveAssignment(sEquipmentView, sEquipmentName, sDropoffJobSiteNameUpd, sMoveDate, sMoveDate, sEventStartTime, sEventStartTime);
         deleteMoveOrder();
-        deleteEmployeeSubstitution();
-        deleteEmployeeAssignment(sEmployeeView, sEmployeeNameForSubstitution, sJobSiteName, sCalendarStartDate, sCalendarStartDate, sAssignmentStartTime, sAssignmentDuration);
-        deleteEmployeeEvent(sEmployeeView, sEmployeeNameUpd, sEmployeeEventTypeUpd, sMoveDate, sMoveDate, sEventStartTime, sEventDuration);
+        //deleteEmployeeSubstitution();
+        //deleteEmployeeAssignment(sEmployeeView, sEmployeeNameForSubstitution, sJobSiteName, sCalendarStartDate, sCalendarStartDate, sAssignmentStartTime, sAssignmentDuration);
+        //deleteEmployeeEvent(sEmployeeView, sEmployeeNameUpd, sEmployeeEventTypeUpd, sMoveDate, sMoveDate, sEventStartTime, sEventDuration);
         deleteEquipmentEvent(sEquipmentView, sEquipmentNameUpd, sEquipmentEventTypeUpd, sMoveDate, sMoveDate, sEventStartTime, sEventDuration);
-        deleteLocationEvent();
+        /*deleteLocationEvent();
 
         //=== Delete Schedule View
         deleteScheduleView(sEmployeeView);
+        */
         deleteScheduleView(sEquipmentView);
+        /*
         deleteScheduleView(sCrewView);
         deleteScheduleView(sLocationView);
+         */
+
     }
 
     @Override

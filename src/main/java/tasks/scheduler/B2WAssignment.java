@@ -1,5 +1,8 @@
 package tasks.scheduler;
 
+import tasks.util.StringUtils;
+
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -53,6 +56,18 @@ public class B2WAssignment {
     public static void setDuration(String duration) {
         B2WAssignment.duration = duration;
     }
+    public static void setPickupDate(Date pickupDate) {
+        B2WAssignment.pickupDate = pickupDate;
+    }
+    public static void setPickupTime(String pickupTime) {
+        B2WAssignment.pickupTime = pickupTime;
+    }
+    public static void setDropoffDate(Date dropoffDate) {
+        B2WAssignment.dropoffDate = dropoffDate;
+    }
+    public static void setDropoffTime(String dropoffTime) {
+        B2WAssignment.dropoffTime = dropoffTime;
+    }
 
     public static String getAssignmentType() {
         return assignmentType;
@@ -87,6 +102,19 @@ public class B2WAssignment {
     public static String getDuration() {
         return duration;
     }
+    public static String getStartDate() { return StringUtils.getStringFromDateByPattern(dateList.get(0), "M/d/yyyy"); }
+    public static String getEndDate() { return StringUtils.getStringFromDateByPattern(dateList.get(1), "M/d/yyyy"); }
+    public static Date getPickupDate() { return pickupDate; }
+    public static Date getDropoffDate() {
+        return dropoffDate;
+    }
+    public static String getDropoffTime() {
+        return dropoffTime;
+    }
+    public static String getPickupTime() {
+        return pickupTime;
+    }
+
 
     B2WAssignment(String assignmentType, String resourceName, String locationName, String requestedBy, String notes,
                   List<Date> dateList, String startTime, String duration) {
@@ -97,6 +125,24 @@ public class B2WAssignment {
         this.requestedBy = requestedBy;
         this.notes = notes;
         this.dateList = dateList;
+        this.startTime = startTime;
+        this.duration = duration;
+    }
+
+    public B2WAssignment(String assignmentType, String resourceName, String locationName, String requestedBy, String notes,
+                         String startDate, String endDate, String startTime, String duration) {
+
+        this.assignmentType = assignmentType;
+        this.resourceName = resourceName;
+        this.locationName = locationName;
+        this.requestedBy = requestedBy;
+        this.notes = notes;
+
+        Date dStartDate = StringUtils.getDateFromStringWithPattern(startDate, "M/d/yyyy");
+        Date dEndDate = StringUtils.getDateFromStringWithPattern(endDate, "M/d/yyyy");
+        dateList = new ArrayList<Date>();
+        dateList.add(dStartDate);
+        dateList.add(dEndDate);
         this.startTime = startTime;
         this.duration = duration;
     }
@@ -133,7 +179,20 @@ public class B2WAssignment {
         this.notes = notes;
         this.transportationCrew = transportationCrew;
     }
+
+    public B2WAssignment(B2WAssignment assignment) {
+        this.assignmentType = assignment.getAssignmentType();
+        this.resourceName = assignment.getResourceName();
+        this.locationName = assignment.getLocationName();
+        this.dropoffLocation = assignment.getDropoffLocation();
+        this.requestedBy = assignment.getRequestedBy();
+        this.notes = assignment.getNotes();
+        this.dateList = new ArrayList<Date>(assignment.getDateList());
+        this.startTime = assignment.getStartTime();
+        this.pickupDate = assignment.getPickupDate();
+        this.dropoffDate = assignment.getDropoffDate();
+        this.pickupTime = assignment.getPickupTime();
+        this.dropoffTime = assignment.getDropoffTime();
+        this.duration = assignment.getDuration();
+    }
 }
-
-
-
