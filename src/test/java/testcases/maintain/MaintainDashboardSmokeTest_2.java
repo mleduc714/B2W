@@ -16,6 +16,7 @@ import tasks.dialogs.B2WAddMaintenanceReqToWorkOrder;
 import tasks.dialogs.B2WCompleteWorkOrder;
 import tasks.dialogs.B2WEditScheduleMaintenance;
 import tasks.dialogs.B2WMaintainSchedulePopupToolTip;
+import tasks.dialogs.B2WPlannedHours;
 import tasks.dialogs.B2WReportHours;
 import tasks.dialogs.B2WScheduleMaintenance;
 import tasks.dialogs.B2WSchedulePopupFilter;
@@ -47,11 +48,13 @@ public class MaintainDashboardSmokeTest_2 extends B2WTestCase {
 	B2WAddEquipmentToMainProgram b2wEquipmentProgram = new B2WAddEquipmentToMainProgram();
 	B2WMaintainSchedulePopupToolTip b2wSchedPopup = new B2WMaintainSchedulePopupToolTip();
 	B2WSchedulePopupFilter b2wSchedPopupFilter = new B2WSchedulePopupFilter();
+	B2WReportHours b2wReportedHrs = new B2WReportHours();
+	
 
 	int iUnassignedRepairRequests, iNumberOfRequest, iUnscheduledPM, iUnscheduledWorkOrders, iPastDueWorkOrders, iPendingTimeCards;
 	String dashboardDDRequests = "Unassigned Requests";
 	String sMaintenanceRequestDescription, sCategoryD, sMaintenanceRequestComments, sMaintenanceRequestNotes,
-			sMaintenanceWorkOrderDescription, sDateTwoWeeksFromNow;
+			sMaintenanceWorkOrderDescription, sToday;
 	int iRandomNumber;
 	SimpleDateFormat sd = new SimpleDateFormat("M/d/yyyy");
 	ArrayList<String> requestIDs = new ArrayList<String>();
@@ -67,8 +70,7 @@ public class MaintainDashboardSmokeTest_2 extends B2WTestCase {
 		sMaintenanceRequestComments = "Comments not required";
 		sMaintenanceRequestNotes = "The Notes for this is Woo related";
 		Calendar cal = Calendar.getInstance();
-		cal.add(Calendar.DAY_OF_YEAR, 14);
-		sDateTwoWeeksFromNow = sd.format(cal.getTime());
+		sToday = sd.format(cal.getTime());
 
 	}
 
@@ -120,6 +122,7 @@ public class MaintainDashboardSmokeTest_2 extends B2WTestCase {
 		logCompare(sd.format(Calendar.getInstance().getTime()), b2wDash.getDateFromDashboard(), "Compare Dates");
 
 		logCompare(true,b2wMaintain.openDashboard(),"Open Dashboard");
+		verifyWorkOrderItemHours();
 	}
 	
 	
@@ -161,7 +164,62 @@ public class MaintainDashboardSmokeTest_2 extends B2WTestCase {
 	
 	public void verifyWorkOrdersPriorityChart() {
 		
-		logCompare(true,b2wOrder.editWorkOrder(), "Edit Work Order");
+		int h = b2wDash.getHighPriorityPercentage();
+		int l = b2wDash.getLowPriorityPercentage();
+		int m = b2wDash.getHighPriorityPercentage();
+		b2wDash.selectWorkOrderByNumber(0);
+		logCompare(true,b2wSchedPopup.clickWorkItemLink(),"Click Work Item");
+		TaskUtils.sleep(2000);
+		String priority = b2wOrder.getPriorityOfItem();
+		b2wOrder.editWorkOrder();
+		switch (priority){
+		case "Medium":
+			b2wOrder.selectPriorityFromDD("High");
+			break;
+		case "High":
+			b2wOrder.selectPriorityFromDD("Low");
+			break;
+		case "Low":
+			b2wOrder.selectPriorityFromDD("Medium");
+			break;
+		default:
+		}
+		b2wOrder.saveEditWorkOrder();
+		
+		b2wMaintain.openDashboard();
+		logCompare(true,h != b2wDash.getHighPriorityPercentage(), "The old high percentage was "+h + " the new one is "+b2wDash.getHighPriorityPercentage());
+		logCompare(true,l != b2wDash.getLowPriorityPercentage(), "The old low percentage was "+l + " the new one is "+b2wDash.getLowPriorityPercentage());
+		logCompare(true,m != b2wDash.getMediumPriorityPercentage(), "The old medium percentage was "+m + " the new one is "+b2wDash.getMediumPriorityPercentage());
+
+		
+		TaskUtils.sleep(4000);
+		
+		
+	}
+	
+	public void verifyWorkOrderItemHours() {
+		// verify that not work order items to display, then we can test it
+		if (b2wDash.isCompleteWorkOrderItemHourChartDisplayed()){
+			
+			b2wDash.selectWorkOrderByNumber(0);
+			logCompare(true,b2wSchedPopup.clickWorkItemLink(),"Click Work Item");
+			b2wOrder.editWorkOrder();
+			b2wOrder.expandHours();
+			b2wOrder.clickAddReportedHours();
+			
+			TaskUtils.sleep(4500);
+			b2wReport.selectTypeofHoursEquipment();
+			b2wReport.selectEquipmentUsed("1008 [MS50 MultiStation]");
+			b2wReport.setEmployeeWorkHoursDescription("Working on the chain gang");
+			String sEmployee = b2wReport.selectRandomEmployee();
+			b2wReport.selectEquipmentRateClass("Northeast Rates");
+			//String sLaborType = b2wReport.selectRandomEmployeeLaborType();
+			b2wReport.setDate(sToday);
+			b2wReport.setEmployeeRegularHours("10");
+			b2wReport.setEmployeeRegularMins("15");
+			b2wReport.saveReportedHours();
+			b2wOrder.saveEditWorkOrder();
+		}
 		
 	}
 }
