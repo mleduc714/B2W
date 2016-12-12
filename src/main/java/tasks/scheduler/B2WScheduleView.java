@@ -119,7 +119,7 @@ public class B2WScheduleView {
         return users;
     }
 
-    // === Constructions
+    // === Constructors
     public B2WScheduleView(String name) {
         setName(name);
         setStartDate(new Date());
