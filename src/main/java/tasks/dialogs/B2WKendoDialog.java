@@ -47,6 +47,8 @@ public abstract class B2WKendoDialog {
 		return bReturn;
 	}
 	
+
+	
 	public ArrayList<String> getItemsFromDropDown() {
 		 ArrayList<String> al = new ArrayList<String>();
 		// when we click we need to find the visble list
@@ -366,6 +368,17 @@ public abstract class B2WKendoDialog {
 		if (el != null) {
 			bReturn = WebElementUtils.clickElement(WebElementUtils
 					.getChildElement(WebElementUtils.getParentElement(label), B2WMaintain.getKendoDropDown()));
+		}
+		return bReturn;
+	}
+	
+	protected boolean enterDropDownMenu(WebElement el, String sLabel, String sText){
+		boolean bReturn = false;
+		WebElement label = WebElementUtils.getChildElementContainsText(el, By.tagName("label"), sLabel);
+		if (el != null) {
+			WebElement dd = WebElementUtils.getChildElement(WebElementUtils.getParentElement(label), B2WMaintain.getKendoDropDown());
+			bReturn = WebElementUtils.clickElement(dd);
+			bReturn &= WebElementUtils.sendKeys(dd, sText);
 		}
 		return bReturn;
 	}

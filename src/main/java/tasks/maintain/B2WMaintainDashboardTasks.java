@@ -311,31 +311,35 @@ public class B2WMaintainDashboardTasks extends B2WMaintainTasks {
 		return bReturn;
 	}
 	
-	public String getLowPriorityPercentage() {
-		String sText = "";
+	public int getLowPriorityPercentage() {
+		int iPercentage = 0;
 		WebElement dashboard = WebElementUtils.findElement(B2WMaintain.getB2WDashboardWorkOrderChart());
 		if (dashboard != null){
-			sText = WebElementUtils.getChildElements(dashboard, By.tagName("text")).get(1).getText();
+			String sText = WebElementUtils.getChildElements(dashboard, By.tagName("text")).get(1).getText();
+			sText.substring(0,sText.indexOf("%"));
+			iPercentage = new Integer(sText.substring(0,sText.indexOf("%")).trim()).intValue();
 		}
-		return sText;
+		return iPercentage;
 	}
 
-	public String getMediumPriorityPercentage() {
-		String sText = "";
+	public int getMediumPriorityPercentage() {
+		int iPercentage = 0;
 		WebElement dashboard = WebElementUtils.findElement(B2WMaintain.getB2WDashboardWorkOrderChart());
 		if (dashboard != null){
-			sText = WebElementUtils.getChildElements(dashboard, By.tagName("text")).get(2).getText();
+			String sText = WebElementUtils.getChildElements(dashboard, By.tagName("text")).get(2).getText();
+			iPercentage = new Integer(sText.substring(0,sText.indexOf("%")).trim()).intValue();
 		}
-		return sText;
+		return iPercentage;
 	}
 
-	public String getHighPriorityPercentage() {
-		String sText = "";
+	public int getHighPriorityPercentage() {
+		int iPercentage = 0;
 		WebElement dashboard = WebElementUtils.findElement(B2WMaintain.getB2WDashboardWorkOrderChart());
 		if (dashboard != null){
-			sText = WebElementUtils.getChildElements(dashboard, By.tagName("text")).get(3).getText();
+			String sText = WebElementUtils.getChildElements(dashboard, By.tagName("text")).get(3).getText();
+			iPercentage = new Integer(sText.substring(0,sText.indexOf("%")).trim()).intValue();
 		}
-		return sText;
+		return iPercentage;
 	}
 	
 	public ArrayList<String> getMechanicsFromChart() {
@@ -351,5 +355,15 @@ public class B2WMaintainDashboardTasks extends B2WMaintainTasks {
 			}
 		}
 		return sText;
+	}
+	
+	public boolean isCompleteWorkOrderItemHourChartDisplayed(){
+		boolean bReturn = false;
+		WebElement el = WebElementUtils.findElement(B2WMaintain.getB2WDashboardWorkOrderRightChart());
+		if (el != null){
+			WebElement data = WebElementUtils.getChildElement(el, B2WMaintain.getB2WDashboardNoData());
+			bReturn = data.isDisplayed();
+		}
+		return bReturn;
 	}
 }
