@@ -4,6 +4,8 @@ import com.b2w.test.B2WTestCase;
 import org.openqa.selenium.WebElement;
 import tasks.B2WNavigationTasks;
 import tasks.BrowserUtils;
+import tasks.scheduler.B2WAssignment;
+import tasks.scheduler.B2WAssignmentType;
 import tasks.scheduler.B2WSchedulerTasks;
 import tasks.setup.B2WSchedulesTasks;
 import tasks.util.B2WScheduleItem;
@@ -204,6 +206,10 @@ public class ScheduleAssignments extends B2WTestCase {
     private String sConflictEmployeeEventType;
     private String sConflictEquipmentEventType;
 
+    // Order
+    private String sOrderEmployeeNeedName;
+    private String sOrderjobSite;
+
 
     @Override
     public String getAuthor() {
@@ -333,11 +339,14 @@ public class ScheduleAssignments extends B2WTestCase {
         sConflictJobSite = getProperty("sConflictJobSite");
         sConflictEmployeeEventType = getProperty("sConflictEmployeeEventType");
         sConflictEquipmentEventType = getProperty("sConflictEquipmentEventType");
+
+        sOrderEmployeeNeedName = getProperty("sOrderEmployeeNeedName");
+        sOrderjobSite = getProperty("sOrderjobSite");
     }
 
     public void testMain() throws Throwable {
         //=== Setup Schedule View
-        createNewEmployeeScheduleView();
+/*        createNewEmployeeScheduleView();
         createNewEquipmentScheduleView();
         createNewCrewScheduleView();
         createNewJobSiteScheduleView();
@@ -409,9 +418,12 @@ public class ScheduleAssignments extends B2WTestCase {
         verifyMoveAssignmentConflict();
         verifyEmployeeEventConflict();
         verifyEquipmentEventConflict();
+*/
+        //=== Order Panel
+        verifyEmployeeNeedOrder();
+
         //=== Delete Assignments
-        //deleteEmployeeAssignment(sEmployeeView, sEmployeeNameUpd, sJobSiteNameUpd, sMoveDate, sMoveDate, sAssignmentStartTimeUpd, sAssignmentDurationUpd);
-        deleteEmployeeAssignment(sDefaultEmployeeView, sEmployeeNameUpd, sJobSiteNameUpd, sMoveDate, sMoveDate, sAssignmentStartTimeUpd, sAssignmentDurationUpd);
+/*        deleteEmployeeAssignment(sDefaultEmployeeView, sEmployeeNameUpd, sJobSiteNameUpd, sMoveDate, sMoveDate, sAssignmentStartTimeUpd, sAssignmentDurationUpd);
         deleteEmployeeNeed(sEmployeeView, sEmployeeNeedNameUpd, sJobSiteNameUpd, sMoveDate, sMoveDate, sAssignmentStartTimeUpd, sAssignmentDurationUpd);
         deleteEmployeeNeed(sEmployeeView, sEmployeeNeedName, sJobSiteName, sMoveDate, sMoveDate, sAssignmentStartTime, sAssignmentDuration);
         deleteEquipmentAssignment(sEquipmentView, sEquipmentNameUpd, sJobSiteNameUpd, sMoveDate, sMoveDate, sAssignmentStartTimeUpd, sAssignmentDurationUpd);
@@ -435,6 +447,7 @@ public class ScheduleAssignments extends B2WTestCase {
         deleteScheduleView(sEquipmentView);
         deleteScheduleView(sCrewView);
         deleteScheduleView(sLocationView);
+*/
     }
 
     @Override
@@ -659,6 +672,11 @@ public class ScheduleAssignments extends B2WTestCase {
         WebElement result = b2wScheduler.getEmployeeNeed(sEmployeeNeedName, sJobSiteName, sCalendarStartDate, sCalendarStartDate, sAssignmentStartTime, sAssignmentDuration);
         logCompare(true,  result != null, "Verification that specific Employee Need has been created.");
     }
+
+    public void createEmployeeNeed(String sScheduleView, B2WAssignment need) {
+        createEmployeeNeed(sScheduleView, need.getResourceName(), need.getLocationName(), need.getRequestedBy(), need.getNotes(), need.getStartTime(), need.getDuration());
+    }
+
 
     public void createEquipmentNeed(String sScheduleView, String sEquipmentNeedName, String sJobSiteName, String sStartDate, String sEndDate, String sAssignmentStartTime, String sAssignmentDuration) {
         /*
@@ -1428,6 +1446,40 @@ public class ScheduleAssignments extends B2WTestCase {
         }
     }
 
+    public void copyEmployeeNeed(String sScheduleView, String sEmployeeNeedName, String sJobSiteName, String sAssignmentStartDate,
+                                       String sAssignmentEndDate, String sAssignmentStartTime, String sAssignmentDuration) {
+        /*
+         * 1. Open Schedule View
+         * 2. Change Date Range
+         * 3. Change Start Date
+         * 4. Set Filter
+         * 5. Select Assignment
+         * 6. Select Copy from context menu
+         * 8. Save Assignment
+         * 9. Verify that Assignment was created.
+         */
+
+        NavigateToScheduleView(sScheduleView, sCalendarStartDate, sCalendarDateRange, sEmployeeNeedName);
+
+        int initialCount = b2wScheduler.getEmployeeNeeds(sEmployeeNeedName, sJobSiteName, sAssignmentStartDate, sAssignmentEndDate, sAssignmentStartTime, sAssignmentDuration).size();
+        WebElement assignment = b2wScheduler.getEmployeeNeed(sEmployeeNeedName, sJobSiteName, sAssignmentStartDate, sAssignmentEndDate, sAssignmentStartTime, sAssignmentDuration);
+
+        if (assignment != null) {
+            logCompare(true, b2wScheduler.openContextMenu(assignment), "Open Assignment's Context Menu");
+            logCompare(true, b2wScheduler.copyNeed(), "Select 'Copy Need' option");
+            logCompare(true, b2wScheduler.saveEmployeeNeed(), "Save Copy of Employee Need");
+
+            int actualCount = b2wScheduler.getEmployeeNeeds(sEmployeeNeedName, sJobSiteName, sAssignmentStartDate, sAssignmentEndDate, sAssignmentStartTime, sAssignmentDuration).size();
+            logCompare(true, actualCount == initialCount + 1, "Verification that Employee Assignment has been created.");
+        } else {
+            logCompare(true, false, "Employee Need for " + sEmployeeNeedName + " could not be found on the page.");
+        }
+    }
+
+    public void copyEmployeeNeed(String sScheduleView, B2WAssignment need) {
+        copyEmployeeNeed(sScheduleView, need.getResourceName(), need.getLocationName(), need.getStartDate(), need.getEndDate(), need.getStartTime(), need.getDuration());
+    }
+
     public void copyEquipmentAssignment(String sScheduleView, String sEquipmentName, String sJobSiteName, String sAssignmentStartDate,
                                        String sAssignmentEndDate, String sAssignmentStartTime, String sAssignmentDuration) {
         /*
@@ -1717,11 +1769,21 @@ public class ScheduleAssignments extends B2WTestCase {
         deleteEquipmentEvent(sDefaultEquipmentView, sConflictEquipmentName, sConflictEquipmentEventType, sCalendarStartDate, sCalendarStartDate, sEventStartTime, sEventDuration);
     }
 
-    public void verifyLocationEventConflict() {
-
+    //=== Order Panel
+    public void verifyEmployeeNeedOrder() {
+        B2WAssignment needForOrder = new B2WAssignment(B2WAssignmentType.EMPLOYEE_NEED_TYPE, sOrderEmployeeNeedName, sOrderjobSite,
+                sRequestedBy, sNotesText, sCalendarStartDate, sCalendarStartDate, sAssignmentStartTime, sAssignmentDuration);
+        createEmployeeNeed(sDefaultEmployeeView, needForOrder);
+        copyEmployeeNeed(sDefaultEmployeeView, needForOrder);
+        B2WAssignment copyOfNeedForOrder = new B2WAssignment(needForOrder);
+        logCompare(true, b2wScheduler.warningIconIsDisplayed(needForOrder.getResourceName()), "Verify that Warning Icon is displayed for Resource.");
+        logCompare(true, b2wScheduler.openOrderPanel(), "Open Order panel.");
+        WebElement order = b2wScheduler.getOrderForResource(needForOrder.getResourceName());
+        if (order != null) {
+            logCompare(true, b2wScheduler.selectOrder(order), "Select Conflict on the panel..");
+        }
 
     }
-
 
     //=== Move Assignments/Needs/Orders/Events ===
     public void moveEmployeeAssignment() {

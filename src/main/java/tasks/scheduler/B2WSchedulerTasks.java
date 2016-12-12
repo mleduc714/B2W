@@ -129,6 +129,19 @@ public class B2WSchedulerTasks extends B2WKendoTasks {
         }
         return bReturn;
     }
+    public boolean openOrderPanel() {
+        boolean bReturn = false;
+        WebElement eOrderPanelBtn = WebElementUtils.findElement(B2WScheduleAssignments.getOrderPanelButton());
+        if (eOrderPanelBtn != null) {
+            bReturn = WebElementUtils.clickElement(eOrderPanelBtn);
+            waitForSchedulePageNoBusy();
+            bReturn &= WebElementUtils.waitAndFindDisplayedElement(B2WScheduleAssignments.getOrderPanel(), WebElementUtils.LONG_TIME_OUT) != null;
+        } else {
+            log.debug("Order button could not be found on the page.");
+        }
+        return bReturn;
+    }
+
 
     //-- Grouping Methods
     public boolean expand(String sValue) {
@@ -355,6 +368,9 @@ public class B2WSchedulerTasks extends B2WKendoTasks {
     }
     public boolean copyAssignment() {
         return selectOptionFromContextMenu("Copy Assignment");
+    }
+    public boolean copyNeed() {
+        return selectOptionFromContextMenu("Copy Need");
     }
     public boolean copyMoveAssignment() {
         return selectOptionFromContextMenu("Copy Move Assignment");
@@ -877,6 +893,9 @@ public class B2WSchedulerTasks extends B2WKendoTasks {
     public WebElement getEmployeeNeed(String sResourceName, String sLocationName, String sStartDate, String sEndDate, String sStartTime, String sDuration) {
         return getAssignment(sResourceName, sLocationName, sStartDate, sEndDate, sStartTime, sDuration, EMPLOYEE_NEED_TYPE);
     }
+    public List<WebElement> getEmployeeNeeds(String sResourceName, String sLocationName, String sStartDate, String sEndDate, String sStartTime, String sDuration) {
+        return getAssignments(sResourceName, sLocationName, sStartDate, sEndDate, sStartTime, sDuration, EMPLOYEE_NEED_TYPE);
+    }
     public WebElement getCrewAssignment(String sResourceName, String sLocationName, String sStartDate, String sEndDate, String sStartTime, String sDuration) {
         return getAssignment(sResourceName, sLocationName, sStartDate, sEndDate, sStartTime, sDuration, CREW_TYPE);
     }
@@ -907,10 +926,16 @@ public class B2WSchedulerTasks extends B2WKendoTasks {
     public List<WebElement> getAllConflictsFromPanel() {
         return WebElementUtils.findElements(B2WScheduleAssignments.getConflictFromPanel());
     }
+    public List<WebElement> getAllOrdersFromPanel() {
+        return WebElementUtils.findElements(B2WScheduleAssignments.getOrderFromPanel());
+    }
+
     public WebElement getConflictForResource(String sResourceName) {
         return WebElementUtils.getElementWithContainsChildElementText(getAllConflictsFromPanel(), By.cssSelector("div.ng-binding"), sResourceName);
     }
-
+    public WebElement getOrderForResource(String sResourceName) {
+        return WebElementUtils.getElementWithContainsChildElementText(getAllOrdersFromPanel(), By.cssSelector("div.ng-binding"), sResourceName);
+    }
     // Click Methods
     public boolean clickSelectCrewBtn() {
         boolean bResult = false;
@@ -1209,6 +1234,28 @@ public class B2WSchedulerTasks extends B2WKendoTasks {
         }
         return bReturn;
     }
+    public boolean warningIconIsDisplayed(String sResourceName) {
+        boolean bReturn = false;
+        WebElement eResourceLine = getResourceLine(sResourceName);
+        if (eResourceLine != null) {
+            WebElement parent = WebElementUtils.getParentElement(eResourceLine);
+            WebElement eResourceWarningIcon = WebElementUtils.getChildElement(parent, B2WScheduleAssignments.getResourceWarningIcon_Need_i228());
+            if (eResourceWarningIcon != null && WebElementUtils.getParentElement(eResourceWarningIcon).isDisplayed()) {
+                bReturn = WebElementUtils.clickElement(eResourceWarningIcon);
+                WebElement eTooltip = WebElementUtils.waitAndFindDisplayedElement(B2WScheduleAssignments.getTooltip());
+                if (eTooltip != null) {
+                    bReturn = WebElementUtils.getChildElementContainsText(eTooltip, By.cssSelector("a.Text--link"), "View in Orders/Needs Panel") != null;
+                } else {
+                    log.debug("Tooltip is not displayed.");
+                }
+            } else {
+                log.debug("Warning Icon could not be found for Resource: " + sResourceName);
+            }
+        } else {
+            log.debug("Could not find resource line for + " + sResourceName);
+        }
+        return bReturn;
+    }
     public boolean selectConflict(WebElement eConflict) {
         boolean bReturn = WebElementUtils.clickElement(eConflict);
         waitForSchedulePageNoBusy();
@@ -1216,6 +1263,18 @@ public class B2WSchedulerTasks extends B2WKendoTasks {
         WebElement firstItem = WebElementUtils.findElement(B2WScheduleAssignments.getFirstResourceNameInList());
         String actualValue = firstItem.getAttribute("title");
         String expectedValue = eConflict.getText();
+        bReturn &= expectedValue.contains(actualValue);
+        return bReturn;
+    }
+
+    public boolean selectOrder(WebElement eOrder) {
+        boolean bReturn = WebElementUtils.clickElement(eOrder);
+        waitForSchedulePageNoBusy();
+        bReturn &= WebElementUtils.waitAndFindElement(B2WScheduleAssignments.getFillNeedToolbar()) != null;
+        WebElement table = WebElementUtils.findElement(B2WScheduleAssignments.getFirstTableInOrderList());
+        WebElement firstItem = WebElementUtils.getChildElement(table, B2WScheduleAssignments.getFirstItemInOrderList());
+        String actualValue = firstItem.getAttribute("title");
+        String expectedValue = eOrder.getText();
         bReturn &= expectedValue.contains(actualValue);
         return bReturn;
     }

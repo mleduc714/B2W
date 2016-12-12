@@ -784,12 +784,18 @@ public class B2WUIMap {
 	public static final String b2w_schedule_assignmentleftedge = ".Assignment__handle.Assignment__handle--left.active";
 	public static final String b2w_schedule_resourcewarningicon_i152 = ".Icon.clickable.ng-isolate-scope.i152-warning";
 	public static final String b2w_schedule_resourcewarningicon_i228 = ".Icon.clickable.ng-isolate-scope.i228-conflict-round";
+	public static final String b2w_schedule_resourcewarningicon_need_i228 = ".Icon.clickable.ng-isolate-scope.i218-need";
 	public static final String b2w_schedule_tooltip = ".k-tooltip-content.ng-scope";
-	public static final String b2w_schedule_conflictbutton = ".Icon.Icon--lg.i152-warning";
+	public static final String b2w_schedule_conflictpanelbutton = ".Icon.Icon--lg.i152-warning";
+	public static final String b2w_schedule_orderpaneltbutton = ".Icon.Icon--lg.i218-need";
 	public static final String b2w_schedule_conflictspanel = "b2w-conflicts-panel";
+	public static final String b2w_schedule_orderspanel = "b2w-needs-panel";
 	public static final String b2w_schedule_conflicblock = "b2w-conflict-block";
+	public static final String b2w_schedule_orderblock = "b2w-assignment-block";
 	public static final String b2w_schedule_conflictoolbar = ".Toolbar__fill-need.ng-binding";
 	public static final String b2w_schedule_firstitem = ".//*[@class='k-grid-content']/table/tbody/tr[1]/td[1]/b2w-resource-description/div/div";
+	public static final String b2w_schedule_orderlistfirstitemtable = ".js--Table__tr--active-need.Table__tr--active-need.level0.level0";
+	public static final String b2w_schedule_orderlistfirstitem = ".ResourceDescription__resource-name.level0.notify-icon";
 	public static final String b2w_schedule_checkedbtn = ".Toolbar__toggle-button--checked";
 
 	// Maintain
