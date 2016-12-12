@@ -88,7 +88,8 @@ public class B2WWorkOrdersTasks extends B2WKendoTasks {
 	
 	public boolean setWorkOrderDescription(String sText){
 		boolean bReturn = false;
-		WebElement equipment = getFormElements(B2WMaintain.getB2WMaintainNewWorkOrderView()).get(iRequestDesc);
+		List<WebElement> list = getFormElements(B2WMaintain.getB2WMaintainNewWorkOrderView());
+		WebElement equipment = WebElementUtils.getElementWithMatchingChildElementText(list, By.tagName("label"), "Description");
 		if (equipment != null){
 			WebElement el = WebElementUtils.getChildElement(equipment,B2WMaintain.getKendoDescription());
 			bReturn = WebElementUtils.sendKeys(el, sText);
@@ -98,7 +99,8 @@ public class B2WWorkOrdersTasks extends B2WKendoTasks {
 	}
 	public boolean setAlternativeID(String sText){
 		boolean bReturn = false;
-		WebElement equipment = getFormElements(B2WMaintain.getB2WMaintainNewWorkOrderView()).get(iAltID);
+		List<WebElement> list = getFormElements(B2WMaintain.getB2WMaintainNewWorkOrderView());
+		WebElement equipment = WebElementUtils.getElementWithMatchingChildElementText(list, By.tagName("label"), "Alternate ID");
 		if (equipment != null){
 			WebElement el = WebElementUtils.getChildElement(equipment,B2WMaintain.getKendoDescription());
 			bReturn = WebElementUtils.sendKeys(el, sText);
@@ -109,7 +111,8 @@ public class B2WWorkOrdersTasks extends B2WKendoTasks {
 	
 	public boolean setDueDate(String sText){
 		boolean bReturn = false;
-		WebElement equipment = getFormElements(B2WMaintain.getB2WMaintainNewWorkOrderView()).get(iDueDate);
+		List<WebElement> list = getFormElements(B2WMaintain.getB2WMaintainNewWorkOrderView());
+		WebElement equipment = WebElementUtils.getElementWithMatchingChildElementText(list, By.tagName("label"), "Due Date");
 		if (equipment != null){
 			WebElement el = WebElementUtils.getChildElement(equipment,B2WMaintain.getKendoDropDown());
 			el.click();
@@ -121,7 +124,8 @@ public class B2WWorkOrdersTasks extends B2WKendoTasks {
 	
 	public boolean selectLaborRateClassFromDD(String sText){
 		boolean bReturn = false;
-		WebElement equipment = getFormElements(B2WMaintain.getB2WMaintainNewWorkOrderView()).get(iLaborRateClass);
+		List<WebElement> list = getFormElements(B2WMaintain.getB2WMaintainNewWorkOrderView());
+		WebElement equipment = WebElementUtils.getElementWithMatchingChildElementText(list, By.tagName("label"), "Labor Rate Class");
 		if (equipment != null){
 			//WebElement desc = WebElementUtils.findElement(By.cssSelector("#request_create_view > div.edit-form-content > div.box-content.form > p.form-required > input[name='RequestDescription']"));
 			WebElement el = WebElementUtils.getChildElement(equipment,B2WMaintain.getKendoDropDown());
@@ -133,7 +137,8 @@ public class B2WWorkOrdersTasks extends B2WKendoTasks {
 	
 	public boolean selectPlannedLocationDD(String sText){
 		boolean bReturn = false;
-		WebElement equipment = getFormElements(B2WMaintain.getB2WMaintainNewWorkOrderView()).get(iPlannedWorkLocation);
+		List<WebElement> list = getFormElements(B2WMaintain.getB2WMaintainNewWorkOrderView());
+		WebElement equipment = WebElementUtils.getElementWithMatchingChildElementText(list, By.tagName("label"), "Planned Work Location");
 		if (equipment != null){
 			//WebElement desc = WebElementUtils.findElement(By.cssSelector("#request_create_view > div.edit-form-content > div.box-content.form > p.form-required > input[name='RequestDescription']"));
 			WebElement el = WebElementUtils.getChildElement(equipment,B2WMaintain.getKendoDropDown());
@@ -145,7 +150,9 @@ public class B2WWorkOrdersTasks extends B2WKendoTasks {
 	
 	public boolean selectPriorityFromDD(String sText){
 		boolean bReturn = false;
-		WebElement equipment = getFormElements(B2WMaintain.getB2WMaintainNewWorkOrderView()).get(iPriority);
+		List<WebElement> list = getFormElements(B2WMaintain.getB2WMaintainNewWorkOrderView());
+		WebElement equipment = WebElementUtils.getElementWithMatchingChildElementText(list, By.tagName("label"), "Priority");
+				
 		if (equipment != null){
 			//WebElement desc = WebElementUtils.findElement(By.cssSelector("#request_create_view > div.edit-form-content > div.box-content.form > p.form-required > input[name='RequestDescription']"));
 			WebElement el = WebElementUtils.getChildElement(equipment,B2WMaintain.getKendoDropDown());

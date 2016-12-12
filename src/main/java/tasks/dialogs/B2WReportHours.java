@@ -20,15 +20,6 @@ public class B2WReportHours extends B2WKendoDialog {
 	private final String sChargeTypeEquipment = "visible: isChargeTypeEquipment";
 	private final String sChargeTypeSelected = "visible: isChargeTypeSelected";
 
-	
-	private WebElement getWebElementFromTimeCardsDialog(int i) {
-		WebElement el = WebElementUtils
-				.waitAndFindDisplayedElement(B2WMaintain.getB2WMaintainTimeCardDialog());
-		List<WebElement> list = WebElementUtils.getChildElements(el, B2WMaintain.getKendoDropDown());
-		return list.get(i);
-
-	}
-
 	private WebElement getWebElementFromReportHoursEquipmentDialog(int i) {
 		WebElement el = getReportEquipmentHoursDialog(sReportHours);
 		List<WebElement> list = WebElementUtils.getChildElements(el, B2WMaintain.getKendoDropDown());
@@ -69,12 +60,7 @@ public class B2WReportHours extends B2WKendoDialog {
 		return list.get(i);
 	}
 	
-	private WebElement getWebElementTextFieldFromIsChargedTypeSelected(int i){
-		WebElement el = getReportEquipmentHoursDialog(sChargeTypeSelected);
-		List<WebElement> list = WebElementUtils.getChildElements(el, B2WMaintain.getKendoDescription());
-		return list.get(i);
-	}
-	
+
 	public WebElement getReportEquipmentHoursDialog(String sBind) {
 
 
@@ -99,20 +85,29 @@ public class B2WReportHours extends B2WKendoDialog {
 	
 	public boolean selectEmployee(String sText){
 		boolean bReturn = false;
-		WebElement el = getWebElementFromTimeCardsDialog(0);
-		if (el != null){
-			WebElementUtils.clickElement(el);
+		WebElement window = getDisplayedWindow();
+		if (window != null){
+			openDropDownMenu(window, "Employee");
 			bReturn = selectItemFromDropDown(sText);
 		}
-		
 		return bReturn;
 	}
 	
 	public String selectRandomEmployee(){
 		String sText = "";
-		WebElement el = getWebElementFromTimeCardsDialog(0);
-		if (el != null){
-			WebElementUtils.clickElement(el);
+		WebElement window = getDisplayedWindow();
+		if (window != null){
+			openDropDownMenu(window, "Employee");
+			sText = selectRandomItemFromDropDown();
+		}
+		return sText;
+	}
+	
+	public String selectRandomEmployeeLaborType() {
+		String sText = "";
+		WebElement window = getDisplayedWindow();
+		if (window != null){
+			openDropDownMenu(window, "Labor Type");
 			sText = selectRandomItemFromDropDown();
 		}
 		return sText;
@@ -120,10 +115,11 @@ public class B2WReportHours extends B2WKendoDialog {
 	
 	public boolean setDate(String sText){
 		boolean bReturn = false;
-		WebElement el = getWebElementFromTimeCardsDialog(1);
-		if (el != null){
-			WebElementUtils.clickElement(el);
-			bReturn = WebElementUtils.sendKeys(el, sText);
+		WebElement window = getDisplayedWindow();
+		if (window != null){
+			WebElement parent = WebElementUtils.getParentElement(WebElementUtils.getChildElementContainsText(window, By.tagName("label"), "Date"));
+			WebElement input = WebElementUtils.getChildElement(parent, B2WMaintain.getKendoDropDown());
+			bReturn = WebElementUtils.sendKeys(input, sText);
 		}
 		return bReturn;
 	
@@ -219,10 +215,20 @@ public class B2WReportHours extends B2WKendoDialog {
 
 	public boolean selectEquipmentRateClass(String sText) {
 		boolean bReturn = false;
-		WebElement el = getWebElementFromReportHoursByEquipment(3);
-		if (el != null){
-			WebElementUtils.clickElement(el);
+		WebElement window = getDisplayedWindow();
+		if (window != null){
+			openDropDownMenu(window, "Equipment Rate Class");
 			bReturn = selectItemFromDropDown(sText);
+		}
+		return bReturn;
+	}
+	
+	public boolean selectEquipmentUsed(String sText){
+		boolean bReturn = false;
+		WebElement window = getDisplayedWindow();
+		if (window != null){
+			enterDropDownMenu(window, "Equipment Used", sText);
+			selectItemFromDropDown(0);
 		}
 		return bReturn;
 	}
@@ -329,16 +335,16 @@ public class B2WReportHours extends B2WKendoDialog {
 
 	public boolean setEmployeeWorkHoursDescription(String sText) {
 		boolean bReturn = false;
-		WebElement el = getWebElementTextFieldFromIsChargedTypeSelected(0);
-		if (el != null){
-			WebElementUtils.clickElement(el);
-			bReturn = WebElementUtils.sendKeys(el, sText);
+		WebElement window = getDisplayedWindow();
+		if (window != null){
+			bReturn = setText(window, "Description", sText);
 		}
 		return bReturn;
 	}
 	
 	public boolean selectEmployeeLaborRateClass(String sText) {
 		boolean bReturn = false;
+
 		WebElement el = getWebElementFromIsChargedTypeSelected(6);
 		if (el != null){
 			WebElementUtils.clickElement(el);
@@ -358,7 +364,9 @@ public class B2WReportHours extends B2WKendoDialog {
 	public boolean setEmployeeRegularHours(String sText){
 		boolean bReturn = false;
 		WebElement el = getReportEquipmentHoursDialog(sChargeTypeSelected);
-
+		if (el == null){
+			el = getDisplayedWindow();
+		}
 		WebElement dd = WebElementUtils.getChildElement(el,B2WMaintain.getKendoNumericTextBox());
 		if (dd != null){
 			List<WebElement> inputs = WebElementUtils.getChildElements(dd,B2WMaintain.getKendoDropDown());
@@ -370,7 +378,9 @@ public class B2WReportHours extends B2WKendoDialog {
 	public boolean setEmployeeRegularMins(String sText){
 		boolean bReturn = false;
 		WebElement el = getReportEquipmentHoursDialog(sChargeTypeSelected);
-
+		if (el == null){
+			el = getDisplayedWindow();
+		}
 		List<WebElement> dd = WebElementUtils.getChildElements(el,B2WMaintain.getKendoNumericTextBox());
 		List<WebElement> inputs = WebElementUtils.getChildElements(dd.get(1),B2WMaintain.getKendoDropDown());
 		bReturn = WebElementUtils.clickElement(inputs.get(0));
@@ -380,7 +390,9 @@ public class B2WReportHours extends B2WKendoDialog {
 	public boolean setEmployeeOvertimeHours(String sText){
 		boolean bReturn = false;
 		WebElement el = getReportEquipmentHoursDialog(sChargeTypeSelected);
-
+		if (el == null){
+			el = getDisplayedWindow();
+		}
 		List<WebElement> dd = WebElementUtils.getChildElements(el,B2WMaintain.getKendoNumericTextBox());
 		List<WebElement> inputs = WebElementUtils.getChildElements(dd.get(2),B2WMaintain.getKendoDropDown());
 		bReturn = WebElementUtils.clickElement(inputs.get(0));
@@ -390,7 +402,9 @@ public class B2WReportHours extends B2WKendoDialog {
 	public boolean setEmployeeOvertimeMins(String sText){
 		boolean bReturn = false;
 		WebElement el = getReportEquipmentHoursDialog(sChargeTypeSelected);
-
+		if (el == null){
+			el = getDisplayedWindow();
+		}
 		List<WebElement> dd = WebElementUtils.getChildElements(el,B2WMaintain.getKendoNumericTextBox());
 		List<WebElement> inputs = WebElementUtils.getChildElements(dd.get(3),B2WMaintain.getKendoDropDown());
 		bReturn = WebElementUtils.clickElement(inputs.get(0));
