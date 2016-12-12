@@ -360,7 +360,7 @@ public abstract class B2WKendoDialog {
 		
 	}
 	
-	protected boolean openDragandDrop(WebElement el, String sLabel) {
+	protected boolean openDropDownMenu(WebElement el, String sLabel) {
 		boolean bReturn = false;
 		WebElement label = WebElementUtils.getChildElementContainsText(el, By.tagName("label"), sLabel);
 		if (el != null) {
@@ -372,7 +372,8 @@ public abstract class B2WKendoDialog {
 	
 	protected boolean setNumericField(WebElement el, String sLabel, String sText){
 		boolean bReturn = false;
-		WebElement dd = WebElementUtils.getChildElement(el, B2WMaintain.getKendoNumericTextBox());
+		WebElement label = WebElementUtils.getChildElementContainsText(el, By.tagName("label"), sLabel);
+		WebElement dd = WebElementUtils.getChildElement(WebElementUtils.getParentElement(label), B2WMaintain.getKendoNumericTextBox());
 		if (dd != null){
 			List<WebElement> inputs = WebElementUtils.getChildElements(dd, B2WMaintain.getKendoDropDown());
 			bReturn = WebElementUtils.clickElement(inputs.get(0));
@@ -382,15 +383,29 @@ public abstract class B2WKendoDialog {
 
 	}
 	
-	protected boolean setText(WebElement el, String sLabel, String sText){
+	protected boolean setTextArea(WebElement el, String sLabel, String sText){
 		boolean bReturn = false;
-		WebElement dd = WebElementUtils.getChildElement(el, By.tagName("textarea"));
+		WebElement label = WebElementUtils.getChildElementContainsText(el, By.tagName("label"), sLabel);
+		WebElement dd = WebElementUtils.getChildElement(WebElementUtils.getParentElement(label), By.tagName("textarea"));
 		if (dd != null){
 			bReturn = WebElementUtils.sendKeys(dd, sText);
 		}
 		return bReturn;
 
 	}
+	
+	protected boolean setText(WebElement el, String sLabel, String sText){
+		boolean bReturn = false;
+		WebElement label = WebElementUtils.getChildElementContainsText(el, By.tagName("label"), sLabel);
+		if (label != null) {
+			WebElement dd = WebElementUtils.getChildElement(WebElementUtils.getParentElement(label), B2WMaintain.getKendoInputTextBox());
+			WebElementUtils.clickElement(dd);
+			bReturn = WebElementUtils.sendKeys(dd, sText);
+		}
+		return bReturn;
+	}
+	
+	
 	
 	
 	

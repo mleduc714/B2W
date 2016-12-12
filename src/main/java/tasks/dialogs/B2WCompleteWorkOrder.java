@@ -238,7 +238,7 @@ public class B2WCompleteWorkOrder extends B2WKendoDialog {
 	public boolean selectReportedHoursLaborType(String s){
 		boolean bReturn = false;
 		WebElement reportedHours = WebElementUtils.findElement(By.className(REPORTHRS));
-		if (openDragandDrop(reportedHours,"Labor Type")){
+		if (openDropDownMenu(reportedHours,"Labor Type")){
 			bReturn = selectItemFromDropDown(s);
 		}
 		return bReturn;
