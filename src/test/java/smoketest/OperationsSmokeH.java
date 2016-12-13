@@ -201,7 +201,7 @@ public class OperationsSmokeH extends B2WTestCase {
 		logCompare(true,b2wOrder.expandHours(), "Expand Hours");
 		logCompare(true,b2wOrder.clickAddPlannedHours(), "Add Planned Hours");
 		logCompare(true,b2wPlan.setDescription("Planned Hours"), "Set Desc");
-		logCompare(true,b2wPlan.setLaborType(sLaborTypeB), "Set Labor Type");
+		logCompare(true,b2wPlan.selectLaborType(sLaborTypeB), "Set Labor Type");
 		logCompare(true,b2wPlan.setPlannedHours("1"), "Set Planned Hours");
 		logCompare(true,b2wPlan.savePlannedHours(), "Saved Planned Hours");
 		logCompare(true,b2wOrder.saveEditWorkOrder(), "Save ");

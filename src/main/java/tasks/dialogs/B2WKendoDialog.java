@@ -156,6 +156,22 @@ public abstract class B2WKendoDialog {
 		return dialog;
 	}
 	
+	protected boolean clickSave() {
+
+		boolean bReturn = false;
+		TaskUtils.sleep(500);
+		WebElement window = getDisplayedWindow();
+		if (window != null){
+			WebElement buttoncontainer = WebElementUtils.getChildElement(window, B2WEquipment.getKendoButtonContainer());
+			WebElement savebutton = buttoncontainer.findElement(B2WEquipment.getKendoLargeSaveButton());
+			bReturn = WebElementUtils.clickElement(savebutton);
+			bReturn &= WebElementUtils.waitForElementInvisible(window);
+			waitForPageNotBusy(WebElementUtils.MEDIUM_TIME_OUT);
+		}
+		return bReturn;
+	
+	}
+	
 	public List<WebElement> getFormElements(By by) {
 		List<WebElement> elements = new ArrayList<WebElement>();
 		WebElement parent = WebElementUtils.waitAndFindDisplayedElement(by);
@@ -172,20 +188,16 @@ public abstract class B2WKendoDialog {
 		return elements;
 	}
 	
-	protected boolean clickSave() {
-
-		boolean bReturn = false;
-		TaskUtils.sleep(500);
-		WebElement window = getDisplayedWindow();
-		if (window != null){
-			WebElement buttoncontainer = WebElementUtils.getChildElement(window, B2WEquipment.getKendoButtonContainer());
-			WebElement savebutton = buttoncontainer.findElement(B2WEquipment.getKendoLargeSaveButton());
-			bReturn = WebElementUtils.clickElement(savebutton);
-			bReturn &= WebElementUtils.waitForElementInvisible(window);
-			waitForPageNotBusy(WebElementUtils.MEDIUM_TIME_OUT);
+	public WebElement getFormElement(String sLabel, By by){
+		WebElement child = null;
+		WebElement content = getDisplayedWindow();
+		if (content != null){
+			WebElement label = WebElementUtils.getChildElementContainsText(content, By.tagName("label"), sLabel);
+			if (label != null){
+				child = WebElementUtils.getChildElement(WebElementUtils.getParentElement(label), by);
+			}
 		}
-		return bReturn;
-	
+		return child;
 	}
 	
 	protected boolean clickNext() {

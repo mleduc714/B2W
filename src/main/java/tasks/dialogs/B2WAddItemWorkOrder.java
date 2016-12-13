@@ -113,11 +113,6 @@ public class B2WAddItemWorkOrder extends B2WKendoDialog {
 		WebElement button = WebElementUtils.getChildElement(parent,B2WMaintain.getKendoButtonNew());
 		if (button != null){
 			bReturn = WebElementUtils.clickElement(button);
-			if (bReturn){
-				additemsElements  = getFormElements(B2WMaintain.getB2WMaintainAddItemToWorkOrder());
-			}else{
-				log.warn("Clicking on New Item button retured false");
-			}
 		}else{
 			log.warn("Button to add new item returned null");
 		}
