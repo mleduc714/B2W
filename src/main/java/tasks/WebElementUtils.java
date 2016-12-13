@@ -943,14 +943,15 @@ public class WebElementUtils {
 		return element;
 	}
 
-	  public static boolean hoverOnElement(WebElement element){
-	    if(element == null){
-	      log.warn("The provided WebElement was NULL.");
-	      return false;
-	    }
-	      Actions action = new Actions(BrowserUtils.getDriver());
-	      action.moveToElement(element);
-	      action.perform();
-	      return true;
-	  }
+	public static boolean hoverOnElement(WebElement element) {
+		boolean bReturn = false;
+		if (element != null) {
+
+			Actions action = new Actions(BrowserUtils.getDriver());
+			action.moveToElement(element);
+			action.perform();
+
+		}
+		return bReturn;
+	}
 }
