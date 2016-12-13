@@ -28,7 +28,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class WebElementUtils {
 
-	public static final int LONG_TIME_OUT = 30;
+	public static final int LONG_TIME_OUT = 60;
 	public static final int MEDIUM_TIME_OUT = 10;
 	public static final int SHORT_TIME_OUT = 5;
 
@@ -942,4 +942,19 @@ public class WebElementUtils {
 		}
 		return element;
 	}
+	 /**
+	   * A convenience method to hover over an element
+	   * 
+	   * @param element The WebElement to hover on
+	   */
+	  public static boolean hoverOnElement(WebElement element){
+	    if(element == null){
+	      log.warn("The provided WebElement was NULL.");
+	      return false;
+	    }
+	      Actions action = new Actions(BrowserUtils.getDriver());
+	      action.moveToElement(element);
+	      action.perform();
+	      return true;
+	  }
 }

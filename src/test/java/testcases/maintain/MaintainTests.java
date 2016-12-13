@@ -5,7 +5,7 @@ import testcases.TestSuite;
 public class MaintainTests extends TestSuite {
 
 	public MaintainTests() {
-		super("./src/main/resources/OpsSmoke.tests");
+		super("./src/main/resources/MaintainTests.tests");
 	}
 
 }
