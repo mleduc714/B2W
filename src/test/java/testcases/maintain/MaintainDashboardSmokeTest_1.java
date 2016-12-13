@@ -200,6 +200,8 @@ public class MaintainDashboardSmokeTest_1 extends B2WTestCase {
 			logCompare(true, b2wDash.openUnscheduledWorkOrders(), "Open Unscheduled Workers");
 			logCompare(true, b2wSchd.openWorkOrderFromWorkOrderTabByNumber(0), "Open the first work order from tab");
 			TaskUtils.sleep(500);
+			b2wSchMain.scheduleMaintainancePopupSelectAnyWorkLocation();
+			b2wSchMain.scheduleMaintainancePopupSelectAnyMechanic();
 			String sWorkOrderID = b2wSchMain.getWorkOrderID();
 			logCompare(true, b2wSchMain.saveScheduleMaintenance(), "Save Scheduled Maintenance");
 			TaskUtils.sleep(1000);
