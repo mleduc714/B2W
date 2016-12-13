@@ -4,16 +4,18 @@ import com.b2w.test.B2WTestCase;
 import tasks.B2WNavigationTasks;
 import tasks.scheduler.B2WScheduleView;
 import tasks.scheduler.B2WSchedulerTasks;
-import tasks.setup.B2WSchedulesTasks;
+import tasks.setup.B2WSchedulesTasksTest;
+import tasks.util.B2WScheduleItem;
 import tasks.util.StringUtils;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 public class ScheduleAssignmentsTest extends B2WTestCase {
 
     private final B2WNavigationTasks b2wNav = new B2WNavigationTasks();
     private final B2WSchedulerTasks b2wScheduler = new B2WSchedulerTasks();
-    private final B2WSchedulesTasks b2wSchedulesTasks = new B2WSchedulesTasks();
+    private final B2WSchedulesTasksTest b2wSchedulesTasks = new B2WSchedulesTasksTest();
 
     // Property
     // Schedule Setup
@@ -31,7 +33,7 @@ public class ScheduleAssignmentsTest extends B2WTestCase {
 
     // Schedule View
     private String sEmployeeScheduleViewName;
-    private String sEquipmentView;
+    private String sEquipmentScheduleViewName;
     private String sCrewView;
     private String sLocationView;
     private String sCalendarDateRange;
@@ -152,7 +154,7 @@ public class ScheduleAssignmentsTest extends B2WTestCase {
 
         //Schedule View
         sEmployeeScheduleViewName = sScheduleName + " - Employees - " + n;
-        sEquipmentView = sScheduleName + " - Equipment - " + n;
+        sEquipmentScheduleViewName = sScheduleName + " - Equipment - " + n;
         sCrewView = sScheduleName + " - Crews - " + n;
         sLocationView = sScheduleName + " - Location - " + n;
         sDefaultEmployeeView = getProperty("sDefaultEmployeeView");
@@ -239,6 +241,129 @@ public class ScheduleAssignmentsTest extends B2WTestCase {
     }
 
     public void testMain() throws Throwable {
-        B2WScheduleView employeeScheduleView = new B2WScheduleView(sEmployeeScheduleViewName);
+        B2WScheduleView employeeScheduleView = prepareEmployeeScheduleView(sScheduleFormatResourceListing);
+        B2WScheduleView equipmentScheduleView = prepareEquipmentScheduleView(sScheduleFormatResourceListing);
+        B2WScheduleView crewsScheduleView = prepareCrewsScheduleView(sScheduleFormatCrewView);
+        B2WScheduleView locationScheduleView = prepareLocationScheduleView(sScheduleFormatLocationView);
+        b2wSchedulesTasks.createScheduleView(employeeScheduleView);
+        b2wSchedulesTasks.createScheduleView(equipmentScheduleView);
+        b2wSchedulesTasks.createScheduleView(crewsScheduleView);
+        b2wSchedulesTasks.createScheduleView(locationScheduleView);
+
     }
+
+    private B2WScheduleView prepareEmployeeScheduleView(String sScheduleFormat) {
+        // Prepare Schedule Items based on Schedule Format
+        ArrayList<B2WScheduleItem> itemList = new ArrayList<B2WScheduleItem>();
+        B2WScheduleItem item = new B2WScheduleItem();
+        item.setScheduleFormat(sScheduleFormat);
+        item.setResourceName("Employees");
+        itemList.add(item);
+
+        // Prepare Filters List
+        ArrayList<String[]> filters = new ArrayList<String[]>();
+        String[] filterItem = new String[2];
+        filterItem[0] = sFilterType;
+        filterItem[1] = sFilterValue;
+        filters.add(filterItem);
+
+        // Prepare Roles list
+        ArrayList<String> roles = new ArrayList<String>();
+        roles.add(sSecurityRole);
+
+        // Prepare Users list
+        ArrayList<String> users = new ArrayList<String>();
+
+        return new B2WScheduleView(sEmployeeScheduleViewName, sBU, sSchedulesNotes, itemList, sGroupingLevel1, sGroupingLevel2,
+                filters, roles, users);
+    }
+
+    private B2WScheduleView prepareEquipmentScheduleView(String sScheduleFormat) {
+        // Prepare Schedule Items based on Schedule Format
+        ArrayList<B2WScheduleItem> itemList = new ArrayList<B2WScheduleItem>();
+        B2WScheduleItem item = new B2WScheduleItem();
+        item.setScheduleFormat(sScheduleFormat);
+        item.setResourceName("Equipment");
+        itemList.add(item);
+
+        // Prepare Filters List
+        ArrayList<String[]> filters = new ArrayList<String[]>();
+        String[] filterItem = new String[2];
+        filterItem[0] = sFilterType;
+        filterItem[1] = sFilterValue;
+        filters.add(filterItem);
+
+        // Prepare Roles list
+        ArrayList<String> roles = new ArrayList<String>();
+        roles.add(sSecurityRole);
+
+        // Prepare Users list
+        ArrayList<String> users = new ArrayList<String>();
+
+        return new B2WScheduleView(sEquipmentScheduleViewName, sBU, sSchedulesNotes, itemList, sGroupingLevel1, sGroupingLevel2,
+                filters, roles, users);
+    }
+
+    private B2WScheduleView prepareCrewsScheduleView(String sScheduleFormat) {
+
+        // Prepare Schedule Items based on Schedule Format
+        ArrayList<B2WScheduleItem> itemList = new ArrayList<B2WScheduleItem>();
+        B2WScheduleItem item = new B2WScheduleItem();
+        item.setScheduleFormat(sScheduleFormat);
+        item.setResourceName("Production Crews");
+        itemList.add(item);
+        B2WScheduleItem item1 = new B2WScheduleItem();
+        item1.setScheduleFormat(sScheduleFormat);
+        item1.setResourceName("Transport Crews");
+        itemList.add(item1);
+
+        // Prepare Filters List
+        ArrayList<String[]> filters = new ArrayList<String[]>();
+        String[] filterItem = new String[2];
+        filterItem[0] = sFilterType;
+        filterItem[1] = sFilterValue;
+        filters.add(filterItem);
+
+        // Prepare Roles list
+        ArrayList<String> roles = new ArrayList<String>();
+        roles.add(sSecurityRole);
+
+        // Prepare Users list
+        ArrayList<String> users = new ArrayList<String>();
+
+        return new B2WScheduleView(sEquipmentScheduleViewName, sBU, sSchedulesNotes, itemList, sGroupingLevel1, sGroupingLevel2,
+                filters, roles, users);
+    }
+
+    private B2WScheduleView prepareLocationScheduleView(String sScheduleFormat) {
+        // Prepare Schedule Items based on Schedule Format
+        ArrayList<B2WScheduleItem> itemList = new ArrayList<B2WScheduleItem>();
+        B2WScheduleItem item = new B2WScheduleItem();
+        item.setScheduleFormat(sScheduleFormat);
+        item.setResourceName("Job Sites");
+        itemList.add(item);
+
+        B2WScheduleItem item1 = new B2WScheduleItem();
+        item1.setScheduleFormat(sScheduleFormat);
+        item1.setResourceName("Places");
+        itemList.add(item1);
+
+        // Prepare Filters List
+        ArrayList<String[]> filters = new ArrayList<String[]>();
+        String[] filterItem = new String[2];
+        filterItem[0] = sFilterType;
+        filterItem[1] = sFilterValue;
+        filters.add(filterItem);
+
+        // Prepare Roles list
+        ArrayList<String> roles = new ArrayList<String>();
+        roles.add(sSecurityRole);
+
+        // Prepare Users list
+        ArrayList<String> users = new ArrayList<String>();
+
+        return new B2WScheduleView(sEquipmentScheduleViewName, sBU, sSchedulesNotes, itemList, sGroupingLevel1, sGroupingLevel2,
+                filters, roles, users);
+    }
+
 }

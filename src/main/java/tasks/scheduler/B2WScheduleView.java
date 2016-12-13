@@ -2,6 +2,7 @@ package tasks.scheduler;
 
 import tasks.util.B2WScheduleItem;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -10,12 +11,12 @@ public class B2WScheduleView {
     private String name;
     private String businessUnit;
     private String notes;
-    private List<B2WScheduleItem> itemList;
+    private ArrayList<B2WScheduleItem> scheduleItems;
     private String resourceGrouping;
     private String secondaryGrouping;
-    private String[][] filters;
-    private List<String> roles;
-    private List<String> users;
+    private ArrayList<String[]> filters;
+    private ArrayList<String> roles;
+    private ArrayList<String> users;
 
     private Date startDate;
     private int duration;
@@ -46,8 +47,8 @@ public class B2WScheduleView {
         this.notes = notes;
     }
 
-    public void setItemList(List<B2WScheduleItem> itemList) {
-        this.itemList = itemList;
+    public void setScheduleItems(ArrayList<B2WScheduleItem> scheduleItems) {
+        this.scheduleItems = scheduleItems;
     }
 
     public void setResourceGrouping(String resourceGrouping) {
@@ -58,15 +59,15 @@ public class B2WScheduleView {
         this.secondaryGrouping = secondaryGrouping;
     }
 
-    public void setFilters(String[][] filters) {
+    public void setFilters(ArrayList<String[]> filters) {
         this.filters = filters;
     }
 
-    public void setRoles(List<String> roles) {
+    public void setRoles(ArrayList<String> roles) {
         this.roles = roles;
     }
 
-    public void setUsers(List<String> users) {
+    public void setUsers(ArrayList<String> users) {
         this.users = users;
     }
 
@@ -95,10 +96,6 @@ public class B2WScheduleView {
         return notes;
     }
 
-    public List<B2WScheduleItem> getItemList() {
-        return itemList;
-    }
-
     public String getResourceGrouping() {
         return resourceGrouping;
     }
@@ -107,16 +104,20 @@ public class B2WScheduleView {
         return secondaryGrouping;
     }
 
-    public String[][] getFilters() {
+    public ArrayList<String[]> getFilters() {
         return filters;
     }
 
-    public List<String> getRoles() {
+    public ArrayList<String> getRoles() {
         return roles;
     }
 
-    public List<String> getUsers() {
+    public ArrayList<String> getUsers() {
         return users;
+    }
+
+    public ArrayList<B2WScheduleItem> getScheduleItems() {
+        return scheduleItems;
     }
 
     // === Constructors
@@ -130,6 +131,21 @@ public class B2WScheduleView {
         setName(name);
         setStartDate(startDate);
         setDuration(duration);
+    }
+
+    public B2WScheduleView(String name, String businessUnit, String notes, ArrayList<B2WScheduleItem> scheduleItems,
+                           String resourceGrouping, String secondaryGrouping, ArrayList<String[]> filters,
+                           ArrayList<String> roles, ArrayList<String> users) {
+
+        this.name = name;
+        this.businessUnit = businessUnit;
+        this.notes = notes;
+        this.scheduleItems = new ArrayList<B2WScheduleItem>(scheduleItems);
+        this.resourceGrouping = resourceGrouping;
+        this.secondaryGrouping = secondaryGrouping;
+        this.filters = new ArrayList<String[]>(filters);
+        this.roles = new ArrayList<String>(roles);
+        this.users = new ArrayList<String>(users);
     }
 }
 
