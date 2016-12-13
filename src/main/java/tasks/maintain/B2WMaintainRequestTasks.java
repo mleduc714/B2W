@@ -65,7 +65,7 @@ public class B2WMaintainRequestTasks extends B2WKendoTasks {
 	
 	public boolean setRequestDescription(String sText){
 		boolean bReturn = false;
-		WebElement equipment = getFormElement("Request Description", B2WMaintain.getKendoDropDown());
+		WebElement equipment = getFormElement("Request Description", B2WMaintain.getKendoInputTextBox());
 		if (equipment != null){
 			bReturn = WebElementUtils.sendKeys(equipment, sText);
 		}
@@ -74,7 +74,7 @@ public class B2WMaintainRequestTasks extends B2WKendoTasks {
 	}
 	public boolean setAlternativeID(String sText){
 		boolean bReturn = false;
-		WebElement equipment = getFormElement("Alternate ID", B2WMaintain.getKendoDropDown());
+		WebElement equipment = getFormElement("Alternate ID", B2WMaintain.getKendoInputTextBox());
 		if (equipment != null){
 			bReturn = WebElementUtils.sendKeys(equipment, sText);
 		}
