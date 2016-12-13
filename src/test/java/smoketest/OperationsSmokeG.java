@@ -184,7 +184,7 @@ public class OperationsSmokeG extends B2WTestCase {
 		assertTrue("open Programs", b2wMain.openPrograms());
 		logCompare(true,b2wMainPrograms.createNewMaintenanceProgram(),"Create Maintenance Program");
 		logCompare(true,b2wMainPrograms.setMaintenanceProgramDescription(sMaintenanceProgramDesc), "Set Maintenance Program Desc");
-		logCompare(true,b2wMainPrograms.setBusinessUnit("Hauling"),"Select Business Unit");
+		logCompare(true,b2wMainPrograms.selectBusinessUnit("Hauling"),"Select Business Unit");
 		logCompare(true,b2wMainPrograms.selectLaborRateClass(sLaborRate), "Select Labor Rate Class");
 		logCompare(true,b2wMainPrograms.clickAddItem(),"Click Add Item");
 		logCompare(true,b2wAddItem.setAddItemDescription(sMaintenanceProgramItemADesc),"Set Maintenance item description");

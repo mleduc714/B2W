@@ -8,13 +8,10 @@ import org.openqa.selenium.WebElement;
 
 import appobjects.maintain.B2WMaintain;
 import appobjects.resources.B2WEquipment;
-import appobjects.resources.KendoUI;
 import tasks.WebElementUtils;
 
 public class B2WMaintainProgramsTasks extends B2WMaintainTasks {
 
-	private final String BUSINESSUNIT = "Business Unit";
-	private final String LABORRATES = "Labor Rate Class";
 	private final String ADDITEM = "Add Item";
 
 	//private final String SCHEDULEOCCURANCES = "Schedule the subsequent occurrences";
@@ -35,49 +32,30 @@ public class B2WMaintainProgramsTasks extends B2WMaintainTasks {
 
 	public boolean setMaintenanceProgramDescription(String sText) {
 		boolean bReturn = false;
-
-		List<WebElement> els = WebElementUtils.findElements(KendoUI.getKendoDescription());
-		WebElement el = WebElementUtils.getElementWithMatchingAttribute(els, "name", "Description");
-
-		if (el != null && WebElementUtils.waitForElementIsDisplayed(el, WebElementUtils.MEDIUM_TIME_OUT)) {
+		WebElement el = getFormElement("Description", B2WMaintain.getKendoInputTextBox());
+		if (el != null){
+			WebElementUtils.clickElement(el);
 			bReturn = WebElementUtils.sendKeys(el, sText);
-		} else {
-			log.debug("Element was not available to send text to");
 		}
-
 		return bReturn;
 	}
 
-	public boolean setBusinessUnit(String sText) {
+	public boolean selectBusinessUnit(String sText) {
 		boolean bReturn = false;
-
-		WebElement el = WebElementUtils.findElement(B2WMaintain.getB2WMaintainBoxContent());
-		List<WebElement> items = el.findElements(By.tagName("p"));
-		Iterator<WebElement> iter = items.iterator();
-		while (iter.hasNext()) {
-			WebElement item = iter.next();
-			if (item.getText().startsWith(BUSINESSUNIT)) {
-				item.click();
-				bReturn = selectItemFromDropDown(sText);
-				break;
-			}
+		WebElement el = getFormElement("Business Unit", B2WMaintain.getKendoDropDown());
+		if (el != null){
+			WebElementUtils.clickElement(el);
+			bReturn = selectItemFromDropDown(sText);
 		}
 		return bReturn;
 	}
 
 	public boolean selectLaborRateClass(String sText) {
 		boolean bReturn = false;
-
-		WebElement el = WebElementUtils.findElement(B2WMaintain.getB2WMaintainBoxContent());
-		List<WebElement> items = el.findElements(By.tagName("p"));
-		Iterator<WebElement> iter = items.iterator();
-		while (iter.hasNext()) {
-			WebElement item = iter.next();
-			if (item.getText().startsWith(LABORRATES)) {
-				WebElementUtils.clickElement(WebElementUtils.getChildElement(item,B2WMaintain.getKendoDropDownForTMTab()));
-				bReturn = selectItemFromDropDown(sText);
-				break;
-			}
+		WebElement el = getFormElement("Labor Rate Class", B2WMaintain.getKendoDropDown());
+		if (el != null){
+			WebElementUtils.clickElement(el);
+			bReturn = selectItemFromDropDown(sText);
 		}
 		return bReturn;
 	}

@@ -853,6 +853,7 @@ public class B2WUIMap {
 	public static final String b2w_maintainworkorderslistview = "div#work_order_list_view";
 	public static final String b2w_maintainworkorderdisplaystatus = "td.subhead.right";
 	public static final String b2w_maintainworkordersview = "div#work_order_create_view";
+	public static final String b2w_maintainworkorderseditview = "div#work_order_edit_view";
 	public static final String b2w_maintainworkorderadditembutton = "a.btn-orig.add-item";
 	public static final String b2w_maintainworkorderadditemview = "div.create-new-request";
 	public static final String b2w_maintainworkorderselectitemsview = "div.select-action.select-request";
@@ -863,7 +864,7 @@ public class B2WUIMap {
 	public static final String b2w_maintainworkorderstatus = "//td[@data-bind='text: detailsViewModel.displayStatus']";
 	public static final String b2w_maintainrequestsstatus =  "//span[@data-bind='text: detailsViewModel.displayStatus']";
 	public static final String b2w_maintainworkorderitemslist = ".item-list";
-
+	public static final String b2w_kendoboxcontent = ".box-content";
 
 	public static final String b2w_scheduleanimationcontainer = ".k-animation-container";
 	public static final String b2w_schedulelinks = "span.k-link";

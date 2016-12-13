@@ -245,20 +245,32 @@ public abstract class B2WKendoTasks {
 		return itemstext;
 	}
 	
-	public List<WebElement> getFormElements(By by) {
-		List<WebElement> elements = new ArrayList<WebElement>();
-		WebElement parent = WebElementUtils.waitAndFindDisplayedElement(by);
-		List<WebElement> list = WebElementUtils.getChildElements(parent, By.tagName("p"));
-		Iterator<WebElement> iter = list.iterator();
-		while (iter.hasNext()) {
-			WebElement el = iter.next();
-			String sClass = el.getAttribute("class");
-			if (sClass.startsWith("form")) {
-				elements.add(el);
+//	public List<WebElement> getFormElements(By by) {
+//		List<WebElement> elements = new ArrayList<WebElement>();
+//		WebElement parent = WebElementUtils.waitAndFindDisplayedElement(by);
+//		List<WebElement> list = WebElementUtils.getChildElements(parent, By.tagName("p"));
+//		Iterator<WebElement> iter = list.iterator();
+//		while (iter.hasNext()) {
+//			WebElement el = iter.next();
+//			String sClass = el.getAttribute("class");
+//			if (sClass.startsWith("form")) {
+//				elements.add(el);
+//			}
+//		}
+//
+//		return elements;
+//	}
+	
+	public WebElement getFormElement(String sLabel, By by){
+		WebElement child = null;
+		WebElement content = WebElementUtils.getVisibleElementFromListofElements(WebElementUtils.findElements(B2WMaintain.getB2WMaintainBoxContent()));
+		if (content != null){
+			WebElement label = WebElementUtils.getChildElementContainsText(content, By.tagName("label"), sLabel);
+			if (label != null){
+				child = WebElementUtils.getChildElement(WebElementUtils.getParentElement(label), by);
 			}
 		}
-
-		return elements;
+		return child;
 	}
 	
 	protected boolean selectItemFromView(String sItem, int iColumn) {

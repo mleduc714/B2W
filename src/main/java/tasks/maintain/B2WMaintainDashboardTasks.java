@@ -362,7 +362,7 @@ public class B2WMaintainDashboardTasks extends B2WMaintainTasks {
 		WebElement el = WebElementUtils.findElement(B2WMaintain.getB2WDashboardWorkOrderRightChart());
 		if (el != null){
 			WebElement data = WebElementUtils.getChildElement(el, B2WMaintain.getB2WDashboardNoData());
-			bReturn = data.isDisplayed();
+			bReturn = !data.isDisplayed();
 		}
 		return bReturn;
 	}
