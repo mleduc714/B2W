@@ -942,11 +942,7 @@ public class WebElementUtils {
 		}
 		return element;
 	}
-	 /**
-	   * A convenience method to hover over an element
-	   * 
-	   * @param element The WebElement to hover on
-	   */
+
 	  public static boolean hoverOnElement(WebElement element){
 	    if(element == null){
 	      log.warn("The provided WebElement was NULL.");
