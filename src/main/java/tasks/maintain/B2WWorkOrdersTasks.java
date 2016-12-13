@@ -23,6 +23,10 @@ public class B2WWorkOrdersTasks extends B2WKendoTasks {
 	public int iPlannedWorkLocation= 5;
 	public int iLaborRateClass = 6;
 	
+	public enum PRIORITY {
+		LOW,MEDIUM,HIGH
+	};
+	
 
 	Logger log = Logger.getLogger(B2WWorkOrdersTasks.class);
 
@@ -291,6 +295,20 @@ public class B2WWorkOrdersTasks extends B2WKendoTasks {
 	}
 	public String getPriorityOfItem(){
 		return getPriorityOfItem(B2WMaintain.getB2WMaintainWorkOrderDetailView());
+	}
+	public PRIORITY getPriorityOfItemEnum() {
+		PRIORITY priority = null;
+		String sPriority = getPriorityOfItem(B2WMaintain.getB2WMaintainWorkOrderDetailView());
+		if (sPriority.equals("Low")){
+			priority = PRIORITY.LOW;
+		}
+		if (sPriority.equals("Medium")){
+			priority = PRIORITY.MEDIUM;
+		}
+		if (sPriority.equals("High")){
+			priority = PRIORITY.HIGH;
+		}
+		return priority;
 	}
 	
 	public boolean setWorkOrderNotes(String sText){

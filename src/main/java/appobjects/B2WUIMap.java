@@ -1036,6 +1036,7 @@ public class B2WUIMap {
     public static final String b2w_maintaindashboardworkordermanorderchart = ".manhours-charts-content";
     public static final String b2w_maintaindashboardpriority = ".data-priority";
     public static final String b2w_maintaindashboardnodata = "div.chart-placeholder.no_data.white";
+    public static final String b2w_maintaindashboardmanhrscharts = "div.man-hours-chart.k-b2wdashboardchart.clickable";
     
     // maintain schedule popup
     public static final String b2w_maintainschedulepopupworkordertitle = "span.workorder-title";

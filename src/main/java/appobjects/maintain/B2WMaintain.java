@@ -440,6 +440,9 @@ public class B2WMaintain extends KendoUI {
     public static By getB2WDashboardWorkOrderManHoursByMechanic() {
     	return By.cssSelector(B2WUIMap.b2w_maintaindashboardworkordermanorderchart);
     }
+    public static By getB2WDashboardWorkOrderManHoursChart() {
+    	return By.cssSelector(B2WUIMap.b2w_maintaindashboardmanhrscharts);
+    }
     public static By getB2WPriorityofItem() {
     	return By.cssSelector(B2WUIMap.b2w_maintaindashboardpriority);
     }

@@ -109,6 +109,7 @@ public class MaintainDashboardSmokeTest_1 extends B2WTestCase {
 	public void testMain() throws Throwable {
 		// TODO Auto-generated method stub
 		SimpleDateFormat sd = new SimpleDateFormat("EEEEE, MMMMM d, yyy");
+		b2wNav.openMaintain();
 		b2wMaintain.openDashboard();
 		String sUser = b2wNav.getUserName() + "!";
 		//String sUpdatedText = b2wDash.getDashboardUpdatedText();
@@ -200,6 +201,7 @@ public class MaintainDashboardSmokeTest_1 extends B2WTestCase {
 			logCompare(true, b2wSchd.openWorkOrderFromWorkOrderTabByNumber(0), "Open the first work order from tab");
 			TaskUtils.sleep(500);
 			String sWorkLocation = b2wSchMain.scheduleMaintainancePopupSelectAnyWorkLocation();
+		
 			String sMechanic = b2wSchMain.scheduleMaintainancePopupSelectAnyMechanic();
 			String sWorkOrderID = b2wSchMain.getWorkOrderID();
 			logCompare(true, b2wSchMain.saveScheduleMaintenance(), "Save Scheduled Maintenance");

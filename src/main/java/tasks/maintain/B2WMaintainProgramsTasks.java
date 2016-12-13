@@ -132,6 +132,7 @@ public class B2WMaintainProgramsTasks extends B2WMaintainTasks {
 				List<WebElement> icon = WebElementUtils.findElements(B2WMaintain.getKendoIconPlus());
 				if (icon != null){
 					bReturn = WebElementUtils.clickElement(icon.get(i));
+					waitForPageNotBusy(WebElementUtils.MEDIUM_TIME_OUT);
 				}
 			
 			}

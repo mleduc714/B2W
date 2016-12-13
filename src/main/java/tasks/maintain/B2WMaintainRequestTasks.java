@@ -34,7 +34,7 @@ public class B2WMaintainRequestTasks extends B2WKendoTasks {
 		WebElement button = WebElementUtils.getChildElement(el, B2WMaintain.getKendoButtonAdd());
 		if (button != null){
 			bReturn = WebElementUtils.clickElement(button);
-			bReturn &= WebElementUtils.waitAndFindElement(B2WMaintain.getB2WMaintainRequestCreateView()) != null;
+			bReturn &= WebElementUtils.waitAndFindDisplayedElement(B2WMaintain.getB2WMaintainRequestCreateView()) != null;
 		
 		}
 		
@@ -97,6 +97,7 @@ public class B2WMaintainRequestTasks extends B2WKendoTasks {
 		WebElement equipment = getFormElement("Type", B2WMaintain.getKendoDropDown());
 		if (equipment != null){
 			WebElementUtils.clickElement(equipment);
+			TaskUtils.sleep(500);
 			sText = selectRandomItemFromDropDown();
 		}
 		return sText;

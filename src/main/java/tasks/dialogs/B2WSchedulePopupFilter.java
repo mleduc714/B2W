@@ -20,6 +20,7 @@ public class B2WSchedulePopupFilter extends B2WKendoDialog {
 				TaskUtils.sleep(2000);
 				dropdown = WebElementUtils.getChildElement(el, B2WMaintain.getKendoDropDown());
 				WebElementUtils.clickElement(dropdown);
+				TaskUtils.sleep(500);
 				bReturn = selectItemFromDropDown(sFilterItem);
 				WebElement button = WebElementUtils.getChildElement(el,
 						B2WMaintain.getB2WMaintainDashboardFiltersApply());

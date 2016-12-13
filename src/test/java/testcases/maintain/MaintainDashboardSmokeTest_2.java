@@ -16,7 +16,6 @@ import tasks.dialogs.B2WAddMaintenanceReqToWorkOrder;
 import tasks.dialogs.B2WCompleteWorkOrder;
 import tasks.dialogs.B2WEditScheduleMaintenance;
 import tasks.dialogs.B2WMaintainSchedulePopupToolTip;
-import tasks.dialogs.B2WPlannedHours;
 import tasks.dialogs.B2WReportHours;
 import tasks.dialogs.B2WScheduleMaintenance;
 import tasks.dialogs.B2WSchedulePopupFilter;
@@ -27,6 +26,7 @@ import tasks.maintain.B2WMaintainScheduleTasks;
 import tasks.maintain.B2WMaintainTasks;
 import tasks.maintain.B2WTimeCardTasks;
 import tasks.maintain.B2WWorkOrdersTasks;
+import tasks.maintain.B2WWorkOrdersTasks.PRIORITY;
 import tasks.util.TaskUtils;
 
 public class MaintainDashboardSmokeTest_2 extends B2WTestCase {
@@ -56,6 +56,8 @@ public class MaintainDashboardSmokeTest_2 extends B2WTestCase {
 	String sMaintenanceRequestDescription, sCategoryD, sMaintenanceRequestComments, sMaintenanceRequestNotes,
 			sMaintenanceWorkOrderDescription, sToday;
 	int iRandomNumber;
+	
+	PRIORITY priority = null;
 	SimpleDateFormat sd = new SimpleDateFormat("M/d/yyyy");
 	ArrayList<String> requestIDs = new ArrayList<String>();
 
@@ -122,7 +124,11 @@ public class MaintainDashboardSmokeTest_2 extends B2WTestCase {
 		logCompare(sd.format(Calendar.getInstance().getTime()), b2wDash.getDateFromDashboard(), "Compare Dates");
 
 		logCompare(true,b2wMaintain.openDashboard(),"Open Dashboard");
+		verifyFilters();
+		verifyScheduledWorkOrders();
+		verifyWorkOrdersPriorityChart();
 		verifyWorkOrderItemHours();
+
 	}
 	
 	
@@ -130,7 +136,7 @@ public class MaintainDashboardSmokeTest_2 extends B2WTestCase {
 		ArrayList<String> al = b2wDash.getAllWorkOrderLocations();
 
 		Random rand = new Random();
-		int randnumber = rand.nextInt(al.size()) -1;
+		int randnumber = rand.nextInt(al.size());
 		String sFilterLocation = al.get(randnumber);
 		logCompare(true,b2wDash.clickScheduleWorkOrderFiltersButton(), "Click Work Order Filter Button");
 		logCompare(true,b2wSchedPopupFilter.selectItemFromSchedulerFilter("Work Location", sFilterLocation), "Filter by location");
@@ -140,7 +146,7 @@ public class MaintainDashboardSmokeTest_2 extends B2WTestCase {
 		logCompare(al.size(),b2wDash.getNumberOfScheduledWorkOrders(), "Scheduled orders back without filters");
 		
 		al = b2wDash.getAllWorkOrderEquipment();
-		randnumber = rand.nextInt(al.size()) -1;
+		randnumber = rand.nextInt(al.size());
 		sFilterLocation = al.get(randnumber);
 		logCompare(true,b2wDash.clickScheduleWorkOrderFiltersButton(), "Click Work Order Filter Button");
 		logCompare(true,b2wSchedPopupFilter.selectItemFromSchedulerFilter("Equipment", sFilterLocation), "Filter by Equipment");
@@ -170,20 +176,21 @@ public class MaintainDashboardSmokeTest_2 extends B2WTestCase {
 		b2wDash.selectWorkOrderByNumber(0);
 		logCompare(true,b2wSchedPopup.clickWorkItemLink(),"Click Work Item");
 		TaskUtils.sleep(2000);
-		String priority = b2wOrder.getPriorityOfItem();
+		priority = b2wOrder.getPriorityOfItemEnum();
 		b2wOrder.editWorkOrder();
-//		switch (priority){
-//		case "Medium":s
-//			b2wOrder.selectPriorityFromDD("High");
-//			break;
-//		case "High":
-//			b2wOrder.selectPriorityFromDD("Low");
-//			break;
-//		case "Low":
-//			b2wOrder.selectPriorityFromDD("Medium");
-//			break;
-//		default:
-//		}
+		
+		switch (priority){
+		case MEDIUM:
+			b2wOrder.selectPriorityFromDD("High");
+			break;
+		case HIGH:
+			b2wOrder.selectPriorityFromDD("Low");
+			break;
+		case LOW:
+			b2wOrder.selectPriorityFromDD("Medium");
+			break;
+		default:
+		}
 		b2wOrder.saveEditWorkOrder();
 		
 		b2wMaintain.openDashboard();
@@ -192,34 +199,44 @@ public class MaintainDashboardSmokeTest_2 extends B2WTestCase {
 		logCompare(true,m != b2wDash.getMediumPriorityPercentage(), "The old medium percentage was "+m + " the new one is "+b2wDash.getMediumPriorityPercentage());
 
 		
-		TaskUtils.sleep(4000);
-		
 		
 	}
 	
 	public void verifyWorkOrderItemHours() {
 		// verify that not work order items to display, then we can test it
-		if (b2wDash.isCompleteWorkOrderItemHourChartDisplayed()){
+		if (!b2wDash.isCompleteWorkOrderItemHourChartDisplayed()){
 			
 			b2wDash.selectWorkOrderByNumber(0);
 			logCompare(true,b2wSchedPopup.clickWorkItemLink(),"Click Work Item");
 			b2wOrder.editWorkOrder();
 			b2wOrder.expandHours();
 			b2wOrder.clickAddReportedHours();
-			
-			TaskUtils.sleep(4500);
-			b2wReport.selectTypeofHoursEquipment();
-			b2wReport.selectEquipmentUsed("1008 [MS50 MultiStation]");
-			b2wReport.setEmployeeWorkHoursDescription("Working on the chain gang");
-			String sEmployee = b2wReport.selectRandomEmployee();
-			b2wReport.selectEquipmentRateClass("Northeast Rates");
-			//String sLaborType = b2wReport.selectRandomEmployeeLaborType();
-			b2wReport.setDate(sToday);
-			b2wReport.setEmployeeRegularHours("10");
-			b2wReport.setEmployeeRegularMins("15");
-			b2wReport.saveReportedHours();
+			TaskUtils.sleep(1000);
+			b2wReportedHrs.setEmployeeWorkHoursDescription("Strange Brew");
+			String sEmployee = b2wReportedHrs.selectRandomEmployee();
+			TaskUtils.sleep(500);
+			String sLaborType = b2wReportedHrs.getEmployeeLaborType();
+			if (sLaborType.equals("")){
+				b2wReportedHrs.selectRandomEmployeeLaborType();
+				sLaborType = b2wReportedHrs.getEmployeeLaborType();
+			}
+			TaskUtils.sleep(500);
+			b2wReportedHrs.setDate(sToday);
+			b2wReportedHrs.setEmployeeRegularHours("8");
+			b2wReportedHrs.setEmployeeRegularMins("15");
+			b2wReportedHrs.saveReportedHours();
 			b2wOrder.saveEditWorkOrder();
+			
+			b2wOrder.clickComplete();
+			b2wComplete.clickNextPage();
+			b2wComplete.completeSave();
+			b2wMaintain.openDashboard();
+			logCompare(true, b2wDash.isCompleteWorkOrderItemHourChartDisplayed(), "Chart is displayed");
+			logCompare(true, b2wDash.getMechanicsFromChart().contains(sEmployee), "Employee "+sEmployee+" is in the chart");
+			
 		}
+		
+	
 		
 	}
 }
