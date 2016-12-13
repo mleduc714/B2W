@@ -172,18 +172,18 @@ public class MaintainDashboardSmokeTest_2 extends B2WTestCase {
 		TaskUtils.sleep(2000);
 		String priority = b2wOrder.getPriorityOfItem();
 		b2wOrder.editWorkOrder();
-		switch (priority){
-		case "Medium":
-			b2wOrder.selectPriorityFromDD("High");
-			break;
-		case "High":
-			b2wOrder.selectPriorityFromDD("Low");
-			break;
-		case "Low":
-			b2wOrder.selectPriorityFromDD("Medium");
-			break;
-		default:
-		}
+//		switch (priority){
+//		case "Medium":s
+//			b2wOrder.selectPriorityFromDD("High");
+//			break;
+//		case "High":
+//			b2wOrder.selectPriorityFromDD("Low");
+//			break;
+//		case "Low":
+//			b2wOrder.selectPriorityFromDD("Medium");
+//			break;
+//		default:
+//		}
 		b2wOrder.saveEditWorkOrder();
 		
 		b2wMaintain.openDashboard();
