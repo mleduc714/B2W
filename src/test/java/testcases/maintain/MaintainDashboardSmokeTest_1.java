@@ -258,6 +258,7 @@ public class MaintainDashboardSmokeTest_1 extends B2WTestCase {
 			TaskUtils.sleep(1000);
 			logCompare(true, b2wReport.selectChargeToJob(), "Charge to Job");
 			logCompare(true, b2wReport.selectAnyJob(), "Select Any Job");
+			TaskUtils.sleep(1000);
 			logCompare(true, b2wReport.setEmployeeWorkHoursDescription("This time card is a load of laughs"),
 					"Time card desc");
 			logCompare(true, b2wReport.selectEmployeeLaborType("Foreman"), "Select Foreman");
