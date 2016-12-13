@@ -44,14 +44,10 @@ public class B2WWorkOrdersTasks extends B2WKendoTasks {
 		boolean bReturn = false;
 		TaskUtils.sleep(1000);
 		WebElement equipment = getFormElement("Equipment", B2WMaintain.getKendoDropDown());
-		// WebElement equipment =
-		// getFormElements(B2WMaintain.getB2WMaintainNewWorkOrderView()).get(iEquipment);
 		if (equipment != null) {
 			sendTextAndSelectValueFromKendoFDD(equipment, sText);
 			bReturn = true;
-
 		}
-
 		return bReturn;
 
 	}
