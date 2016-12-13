@@ -112,7 +112,7 @@ public abstract class B2WKendoDialog {
 				log.warn("Page not Busy no such element exception");
 				bReturn = true;
 			}catch (StaleElementReferenceException e){
-				log.warn("Caught a stale element exception");
+				log.debug("Caught a stale element exception");
 				TaskUtils.sleep(250);
 				bReturn =true;
 			}

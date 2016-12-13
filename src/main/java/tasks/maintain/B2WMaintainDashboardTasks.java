@@ -356,6 +356,7 @@ public class B2WMaintainDashboardTasks extends B2WMaintainTasks {
 		}
 		return sText;
 	}
+
 	
 	public boolean isCompleteWorkOrderItemHourChartDisplayed(){
 		boolean bReturn = false;

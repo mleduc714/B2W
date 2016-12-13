@@ -129,6 +129,7 @@ public class B2WReportHours extends B2WKendoDialog {
 		if (window != null){
 			WebElement parent = WebElementUtils.getParentElement(WebElementUtils.getChildElementContainsText(window, By.tagName("label"), "Date"));
 			WebElement input = WebElementUtils.getChildElement(parent, B2WMaintain.getKendoDropDown());
+			WebElementUtils.clickElement(input);
 			bReturn = WebElementUtils.sendKeys(input, sText);
 		}
 		return bReturn;
