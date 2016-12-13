@@ -930,4 +930,16 @@ public class WebElementUtils {
 		}
 
 	}
+	
+	public static WebElement getVisibleElementFromListofElements(List<WebElement> list){
+		WebElement element = null;
+		for (WebElement el: list){
+			if (el.isDisplayed()){
+				log.debug("Found Displayed Element");
+				element = el;
+				break;
+			}
+		}
+		return element;
+	}
 }

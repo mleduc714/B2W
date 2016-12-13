@@ -47,12 +47,10 @@ public class B2WMaintainRequestTasks extends B2WKendoTasks {
 	
 	public boolean selectEquipment(String sText) {
 		boolean bReturn = false;
-		WebElement equipment = pageElement.get(iEquipment);
+		WebElement equipment =getFormElement("Equipment", B2WMaintain.getKendoDropDown());
 		if (equipment != null){
-			WebElement el = WebElementUtils.getChildElement(equipment, B2WMaintain.getKendoDropDown());
-			bReturn = sendTextAndSelectValueFromKendoFDD(el, sText);
+			bReturn = sendTextAndSelectValueFromKendoFDD(equipment, sText);
 		}
-		
 		return bReturn;
 		
 	}

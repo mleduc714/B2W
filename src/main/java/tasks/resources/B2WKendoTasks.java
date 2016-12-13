@@ -261,6 +261,18 @@ public abstract class B2WKendoTasks {
 		return elements;
 	}
 	
+	public WebElement getFormElement(String sLabel, By by){
+		WebElement child = null;
+		WebElement content = WebElementUtils.getVisibleElementFromListofElements(WebElementUtils.findElements(B2WMaintain.getB2WMaintainBoxContent()));
+		if (content != null){
+			WebElement label = WebElementUtils.getChildElementContainsText(content, By.tagName("label"), sLabel);
+			if (label != null){
+				child = WebElementUtils.getChildElement(WebElementUtils.getParentElement(label), by);
+			}
+		}
+		return child;
+	}
+	
 	protected boolean selectItemFromView(String sItem, int iColumn) {
 		boolean bReturn = false;
 

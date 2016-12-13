@@ -110,7 +110,11 @@ public class B2WMaintain extends KendoUI {
 	public static By getB2WMaintainNewWorkOrderView() {
 		return By.cssSelector(B2WUIMap.b2w_maintainworkordersview);
 	}
-
+	
+	public static By getB2WMaintainWorkOrderEditView() {
+		return By.cssSelector(B2WUIMap.b2w_maintainworkorderseditview);
+	}
+	
 	public static By getB2WMaintainNewWorkItemAddItemButton() {
 		return By.cssSelector(B2WUIMap.b2w_maintainworkorderadditembutton);
 	}
