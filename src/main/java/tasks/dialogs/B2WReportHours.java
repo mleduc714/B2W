@@ -113,6 +113,16 @@ public class B2WReportHours extends B2WKendoDialog {
 		return sText;
 	}
 	
+	public String getEmployeeLaborType() {
+		String sText = "";
+		WebElement el = getFormElement("Labor Type", B2WMaintain.getKendoDropDown());
+		if (el != null){
+			sText = el.getText();
+		}
+		return sText;
+
+	}
+	
 	public boolean setDate(String sText){
 		boolean bReturn = false;
 		WebElement window = getDisplayedWindow();
