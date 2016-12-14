@@ -114,7 +114,7 @@ public class B2WMaintainProgramsTasks extends B2WMaintainTasks {
 	public boolean clickAddEquipment() {
 		boolean bReturn = false;
 		List<WebElement> el = WebElementUtils.findElements(B2WMaintain.getKendoButtonAdd());
-		if (el != null){
+		if (el.size() > 1 ){
 			bReturn = WebElementUtils.clickElement(el.get(1));
 			
 		}

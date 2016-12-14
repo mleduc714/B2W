@@ -40,6 +40,7 @@ public abstract class B2WKendoTasks {
 				List<WebElement> items = els.findElements(B2WEquipment.getKendoDropDownItem());
 				WebElement item = WebElementUtils.getElementWithMatchingText(items, sItem, false);
 				if (item != null) {
+					WebElementUtils.waitForElementIsDisplayed(item, WebElementUtils.SHORT_TIME_OUT);
 					bReturn = WebElementUtils.clickElement(item);
 					bReturn &= WebElementUtils.waitForElementInvisible(item);
 				}else{
@@ -62,6 +63,7 @@ public abstract class B2WKendoTasks {
 			if (hidden != null && hidden.equals("false")) {
 				List<WebElement> items = els.findElements(B2WEquipment.getKendoDropDownItem());
 				WebElement item = items.get(i);
+				WebElementUtils.waitForElementIsDisplayed(item, WebElementUtils.SHORT_TIME_OUT);
 				if (item != null) {
 					bReturn = WebElementUtils.clickElement(item);
 				}else{
@@ -438,6 +440,7 @@ public abstract class B2WKendoTasks {
 		}
 		return bReturn;
 	}
+	
 
 	public String selectRandomItemFromDropDown() {
 		String sText = "";
@@ -450,18 +453,24 @@ public abstract class B2WKendoTasks {
 			String hidden = els.getAttribute("aria-hidden");
 			if (hidden != null && hidden.equals("false")) {
 				List<WebElement> items = els.findElements(B2WEquipment.getKendoDropDownItem());
+				log.debug("There are "+items.size() + " items in the drop down");
 				Random rand = new Random();
 				int randnumber = rand.nextInt(items.size() - 1);
 				WebElement item = items.get(randnumber);
+				sText = item.getText();
+				WebElementUtils.waitForElementIsDisplayed(item, WebElementUtils.SHORT_TIME_OUT);
 				if (item != null) {
-					sText = item.getText();
 					if (WebElementUtils.clickElement(item)) {
 						WebElementUtils.waitForElementHasAttributeWithValue(els, "aria-hidden", "true", true,
 								WebElementUtils.MEDIUM_TIME_OUT);
+						waitForPageNotBusy(WebElementUtils.SHORT_TIME_OUT);
+						
+						log.debug("Selected an item");
+						break;
+					}else{
+						log.debug("The item was not clickable in dropdown");
 					}
-				} else {
-					log.debug("Could not select item");
-				}
+				} 
 			}
 		}
 		return sText;

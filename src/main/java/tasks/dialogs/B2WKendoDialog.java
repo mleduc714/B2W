@@ -332,6 +332,7 @@ public abstract class B2WKendoDialog {
 			String hidden = els.getAttribute("aria-hidden");
 			if (hidden != null && hidden.equals("false")) {
 				List<WebElement> items = els.findElements(B2WEquipment.getKendoDropDownItem());
+				log.debug("Found "+items.size() + " in the drop down to select from");
 				Random rand = new Random();
 				int randnumber = rand.nextInt(items.size() - 1);
 				WebElement item = items.get(randnumber);

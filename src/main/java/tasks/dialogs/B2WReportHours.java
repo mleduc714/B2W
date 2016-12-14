@@ -285,6 +285,7 @@ public class B2WReportHours extends B2WKendoDialog {
 			TaskUtils.sleep(1000);
 			selectRandomItemFromDropDown();
 			bReturn &= waitForPageNotBusy(WebElementUtils.LONG_TIME_OUT);
+			TaskUtils.sleep(500);
 		}
 		return bReturn;
 	}

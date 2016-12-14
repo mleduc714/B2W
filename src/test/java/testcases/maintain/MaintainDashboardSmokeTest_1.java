@@ -128,7 +128,6 @@ public class MaintainDashboardSmokeTest_1 extends B2WTestCase {
 	public void verifyUnassignedRequests() {
 		iUnassignedRepairRequests = b2wDash.getUnassignedRepairRequests();
 		logCompare(true, b2wDash.openUnassignedRepairRequests(), "Open Unassigned Repair Requests");
-		TaskUtils.sleep(1000);
 		logCompare(dashboardDDRequests, b2wRequests.getSelectedItemFromDropDown(), "Verify View is correct");
 		logCompare(iUnassignedRepairRequests, b2wRequests.getTheNumberOfRequestsInView(), "Do the Numbers Match");
 		b2wRequests.clickCreateNewRequestButton();
@@ -136,16 +135,15 @@ public class MaintainDashboardSmokeTest_1 extends B2WTestCase {
 		String sAnyType = b2wRequests.selectAnyTypeFromDD();
 		logCompare(true,sAnyType.length()>1,"Verify Selection: "+sAnyType);
 		logCompare(true, b2wRequests.setRequestDescription(sMaintenanceRequestDescription), "Set Description");
-		logCompare(true, b2wRequests.clickNewCommentButton(), "Create a comments");
+		logCompare(true, b2wRequests.clickNewCommentButton(), "Create comments");
 		logCompare(true, b2wRequests.setNewCommentAndSave(sMaintenanceRequestComments), "Comments");
 		logCompare(true, b2wRequests.setRequestNotes(sMaintenanceRequestNotes), "Set Notes");
 		
 		assertTrue("Save request", b2wRequests.clickSaveButton());
-		b2wMaintain.openDashboard();
+		assertTrue("Open Dashboard",b2wMaintain.openDashboard());
 		logCompare(iUnassignedRepairRequests + 1, b2wDash.getUnassignedRepairRequests(), "Unassigned Repair Requests");
 		iUnassignedRepairRequests = b2wDash.getUnassignedRepairRequests();
 		logCompare(true, b2wDash.openUnassignedRepairRequests(), "Open Unassigned Requests");
-		TaskUtils.sleep(1000);
 		
 		if (b2wRequests.selectRequestByDescription(sMaintenanceRequestDescription)) {
 			b2wRequests.clickAddToWorkOrderButton();
@@ -253,13 +251,13 @@ public class MaintainDashboardSmokeTest_1 extends B2WTestCase {
 		String sEmployee = b2wReport.selectRandomEmployee();
 		TaskUtils.sleep(500);
 		if (logCompare(true, b2wtimecards.clickAddTimeButton(), "Click Add Time Button")) {
-			TaskUtils.sleep(1000);
+
 			logCompare(true, b2wReport.selectChargeToJob(), "Charge to Job");
-			logCompare(true, b2wReport.selectAnyJob(), "Select Any Job");
-			TaskUtils.sleep(1000);
 			logCompare(true, b2wReport.setEmployeeWorkHoursDescription("This time card is a load of laughs"),
 					"Time card desc");
-			logCompare(true, b2wReport.selectEmployeeLaborType("Foreman"), "Select Foreman");
+			logCompare(true, b2wReport.selectAnyJob(), "Select Any Job");
+
+			b2wReport.selectRandomEmployeeLaborType();
 			logCompare(true, b2wReport.setEmployeeRegularHours("10"), "Regular Hours");
 			if (logCompare(true, b2wtimecards.saveReportHours(), "Open Report Hours")) {
 				b2wMaintain.openDashboard();

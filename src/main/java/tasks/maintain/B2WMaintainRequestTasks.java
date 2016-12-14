@@ -12,7 +12,6 @@ import org.openqa.selenium.internal.Locatable;
 import appobjects.maintain.B2WMaintain;
 import tasks.WebElementUtils;
 import tasks.resources.B2WKendoTasks;
-import tasks.util.TaskUtils;
 
 
 
@@ -55,10 +54,10 @@ public class B2WMaintainRequestTasks extends B2WKendoTasks {
 		String sText = "";
 		WebElement equipment = getFormElement("Equipment", B2WMaintain.getKendoDropDown());
 		if (equipment != null){
-			WebElementUtils.clickElement(equipment);
 			WebElementUtils.sendKeys(equipment, "a");
-			TaskUtils.sleep(500);
-			sText = selectRandomItemFromDropDown();
+			selectRandomItemFromDropDown();
+			sText = equipment.getText();
+			log.debug("The Piece of Equipment Selected is: "+sText);
 		}
 		return sText;
 	}
@@ -97,8 +96,9 @@ public class B2WMaintainRequestTasks extends B2WKendoTasks {
 		WebElement equipment = getFormElement("Type", B2WMaintain.getKendoDropDown());
 		if (equipment != null){
 			WebElementUtils.clickElement(equipment);
-			TaskUtils.sleep(500);
-			sText = selectRandomItemFromDropDown();
+			selectRandomItemFromDropDown();
+			sText = equipment.getText();
+			log.debug("The Type selected from DD is "+sText);
 		}
 		return sText;
 		
