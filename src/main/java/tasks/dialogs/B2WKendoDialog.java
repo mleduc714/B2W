@@ -97,6 +97,7 @@ public abstract class B2WKendoDialog {
 	public boolean waitForPageNotBusy(int iSecs) {
 		boolean bReturn = false;
 		int iTrys = 0;
+		iSecs = iSecs * 10;
 		while (!bReturn && iTrys < iSecs) {
 			try {
 				WebElement el = BrowserUtils.getDriver().findElement(B2WEquipment.getKendoPageLoading());
