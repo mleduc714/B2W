@@ -270,7 +270,7 @@ public class OperationsSmokeG extends B2WTestCase {
 		logCompare(true, b2wOrder.selectEquipment(sEquipmentID_Desc), "Select "+sEquipmentIDD+" Equipment");
 		logCompare(true, b2wOrder.setWorkOrderDescription(sMaintenanceWorkOrderDescription), "Set Work");
 		logCompare(true, b2wOrder.setDueDate(sDateTwoWeeksFromNow), "Due Date");
-		logCompare(true, b2wOrder.selectPlannedLocationDD("Field"), "Planned in the Field");
+		logCompare(true, b2wOrder.selectPlannedWorkedLocation("Field"), "Planned in the Field");
 		logCompare(true, b2wOrder.selectPriorityFromDD("Medium"), "Medium Priority");
 		logCompare(true, b2wOrder.setWorkOrderNotes("Automation Created this work order"), "Set Notes");
 		logCompare(true, b2wAddItemWO.clickNewItemButton(), "Create New Item");
@@ -281,7 +281,7 @@ public class OperationsSmokeG extends B2WTestCase {
 		logCompare(true, b2wAddItemWO.setAddItemDescription(sMaintenanceWorkOrderItemDescriptionA), "Add Item Description");
 		logCompare(true, b2wAddItemWO.setAddItemTypeFromDD(sCategoryC), "Type");
 		logCompare(true, b2wAddItemWO.setAddItemPriorityFromDD("Medium"), "Medium Priority");
-		logCompare(true, b2wOrder.clickCreateAddItemButton(),"Create add Item");
+		logCompare(true, b2wAddItemWO.clickCreateAddItemButton(),"Create add Item");
 		logCompare(true, b2wOrder.clickFinish(),"Click Finish");
 		logCompare(true, b2wOrder.clickSaveButton(), "Click Save Button");
 		logCompare(true, b2wOrder.selectWorkOrderByDescription(sMaintenanceWorkOrderDescription), "Select Work Order");

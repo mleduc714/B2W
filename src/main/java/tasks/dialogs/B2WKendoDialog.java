@@ -24,6 +24,12 @@ public abstract class B2WKendoDialog {
 	
 	Logger log = Logger.getLogger(B2WKendoDialog.class);
 	
+	private int getRandomNumber(int iSize) {
+		Random rand = new Random();
+		int randnumber = rand.nextInt(iSize);
+		return randnumber;
+	}
+	
 	protected boolean selectItemFromDropDown(String sItem){
 		boolean bReturn = false;
 		try {
@@ -206,6 +212,16 @@ public abstract class B2WKendoDialog {
 		return child;
 	}
 	
+	public WebElement getParentOfLabel(String sLabel){
+		WebElement label = null;
+		WebElement content = getDisplayedWindow();
+		if (content != null){
+			label = WebElementUtils.getParentElement(WebElementUtils.getChildElementContainsText(content, By.tagName("label"), sLabel));
+			
+		}
+		return label;
+	}
+	
 	protected boolean clickNext() {
 
 		boolean bReturn = false;
@@ -279,28 +295,30 @@ public abstract class B2WKendoDialog {
 	
 	protected String selectAnyItemFromDialog() {
 		String sText = "";
-		
+
 		WebElement window = getDisplayedWindow();
 		if (window != null) {
 			WebElement grid = WebElementUtils.getChildElement(window, B2WMaintain.getKendoGridContent());
 			if (WebElementUtils.waitForElementStale(grid, 1)) {
 				grid = WebElementUtils.getChildElement(window, B2WMaintain.getKendoGridContent());
 			}
-			List<WebElement> list = getListofElementsFromGrid(grid);
-			Random rand = new Random();
+			if (grid != null) {
+				List<WebElement> list = getListofElementsFromGrid(grid);
+				Random rand = new Random();
 
-			int randnumber = rand.nextInt(list.size());
-			WebElement item = list.get(randnumber);
+				int randnumber = rand.nextInt(list.size());
+				WebElement item = list.get(randnumber);
 
-			List<WebElement> gridcontent = WebElementUtils.getChildElements(item, By.tagName("td"));
-			sText = gridcontent.get(1).getText();
-			if (sText.equals("")) {
-				Coordinates coordinate = ((Locatable) item).getCoordinates();
-				coordinate.onPage();
-				coordinate.inViewPort();
+				List<WebElement> gridcontent = WebElementUtils.getChildElements(item, By.tagName("td"));
+				sText = gridcontent.get(1).getText();
+				if (sText.equals("")) {
+					Coordinates coordinate = ((Locatable) item).getCoordinates();
+					coordinate.onPage();
+					coordinate.inViewPort();
+				}
+				sText = gridcontent.get(1).getText();
+				WebElementUtils.clickElement(WebElementUtils.getChildElement(gridcontent.get(0), By.tagName("input")));
 			}
-			sText = gridcontent.get(1).getText();
-			WebElementUtils.clickElement(WebElementUtils.getChildElement(gridcontent.get(0),By.tagName("input")));
 		}
 		return sText;
 	}
@@ -328,8 +346,8 @@ public abstract class B2WKendoDialog {
 	}
 	
 	protected String selectRandomItemFromDropDown(){
+		WebElement item = null;
 		String sText = "";
-		// when we click we need to find the visible list
 		List<WebElement> list = WebElementUtils.findElements(B2WEquipment.getKendoLists());
 		Iterator<WebElement> iter = list.iterator();
 		log.debug("There are "+list.size() + " to find the correct drop down");
@@ -338,11 +356,10 @@ public abstract class B2WKendoDialog {
 			String hidden = els.getAttribute("aria-hidden");
 			if (hidden != null && hidden.equals("false")) {
 				List<WebElement> items = els.findElements(B2WEquipment.getKendoDropDownItem());
-				log.debug("Found "+items.size() + " in the drop down to select from");
-				Random rand = new Random();
-				int randnumber = rand.nextInt(items.size() - 1);
-				WebElement item = items.get(randnumber);
-				
+				while (sText.length() < 2){
+					item = items.get(getRandomNumber(items.size()));
+					sText = item.getText();
+				}
 				if (item != null) {
 					sText = item.getText();
 					WebElementUtils.clickElement(item);

@@ -56,6 +56,17 @@ public class B2WWorkOrdersTasks extends B2WKendoTasks {
 
 	}
 	
+	public String selectAnyEquipment() {
+		String sText = "";
+		TaskUtils.sleep(1000);
+		WebElement equipment = getFormElement("Equipment", B2WMaintain.getKendoDropDown());
+		if (equipment != null) {
+			sText = sendTextAndSelectAnyValueFromKendoFDD(equipment);
+		}
+		return sText;
+
+	}
+	
 	public boolean editWorkOrder() {
 		boolean bReturn = false;
 		WebElement el = WebElementUtils.findElement(B2WMaintain.getKendoEditButton());
@@ -116,7 +127,7 @@ public class B2WWorkOrdersTasks extends B2WKendoTasks {
 		
 	}
 	
-	public boolean selectLaborRateClassFromDD(String sText){
+	public boolean selectLaborRateClass(String sText){
 		boolean bReturn = false;
 		WebElement equipment = getFormElement("Labor Rate Class",B2WMaintain.getKendoDropDown());
 		if (equipment != null){
@@ -126,7 +137,17 @@ public class B2WWorkOrdersTasks extends B2WKendoTasks {
 		return bReturn;
 	}
 	
-	public boolean selectPlannedLocationDD(String sText){
+	public String selectAnyLaborRateClass() {
+		String sText = "";
+		WebElement equipment = getFormElement("Labor Rate Class",B2WMaintain.getKendoDropDown());
+		if (equipment != null){
+			WebElementUtils.clickElement(equipment);
+			sText = selectRandomItemFromDropDown();
+		}
+		return sText;
+	}
+	
+	public boolean selectPlannedWorkedLocation(String sText){
 		boolean bReturn = false;
 		WebElement equipment = getFormElement("Planned Work Location",B2WMaintain.getKendoDropDown());
 		if (equipment != null){
@@ -134,6 +155,17 @@ public class B2WWorkOrdersTasks extends B2WKendoTasks {
 			bReturn = selectItemFromDropDown(sText);
 		}
 		return bReturn;
+	}
+	
+	public String selectAnyPlannedWorkLocation(){
+		String sItem = "";
+		WebElement equipment = getFormElement("Planned Work Location",B2WMaintain.getKendoDropDown());
+		if (equipment != null){
+			if (WebElementUtils.clickElement(equipment)){
+				sItem = selectRandomItemFromDropDown();
+			}
+		}
+		return sItem;
 	}
 	
 	public boolean selectPriorityFromDD(String sText){
@@ -173,16 +205,6 @@ public class B2WWorkOrdersTasks extends B2WKendoTasks {
 	}
 
 	
-	public boolean clickCreateAddItemButton() {
-		boolean bReturn = false;
-		WebElement button = WebElementUtils.waitAndFindDisplayedElement(B2WMaintain.getB2WMaintainAddItemCreateButton());
-		if (button != null){
-			bReturn = WebElementUtils.clickElement(button);
-			bReturn &= WebElementUtils.waitForElementInvisible(button);
-		}
-		return bReturn;
-	}
-	
 	public boolean clickApproveButton() {
 		boolean bReturn = false;
 		WebElement el = WebElementUtils.waitAndFindDisplayedElement(B2WMaintain.getB2WMaintainWorkOrderDetailView());
@@ -203,6 +225,10 @@ public class B2WWorkOrdersTasks extends B2WKendoTasks {
 	
 	public boolean selectWorkOrderByPriority(String sText){
 		return selectItemFromView(sText, 2);
+	}
+	
+	public String getSelectWorkOrderID() {
+		return getSelectedItemFromView(0);
 	}
 
 	public boolean collapseDetails() {

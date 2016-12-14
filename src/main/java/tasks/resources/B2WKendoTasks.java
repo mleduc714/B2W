@@ -26,7 +26,11 @@ import tasks.util.TaskUtils;
 public abstract class B2WKendoTasks {
 
 	Logger log = Logger.getLogger(B2WKendoTasks.class);
-	
+	private int getRandomNumber(int iSize) {
+		Random rand = new Random();
+		int randnumber = rand.nextInt(iSize);
+		return randnumber;
+	}
 	public boolean selectItemFromDropDown(String sItem){
 		boolean bReturn = false;
 		// when we click we need to find the visible list
@@ -129,6 +133,18 @@ public abstract class B2WKendoTasks {
 		}
 		return bReturn;
 	}
+	
+	public String sendTextAndSelectAnyValueFromKendoFDD(WebElement dropDownElement){
+		String sRandom = "";
+		dropDownElement.clear();
+		if (WebElementUtils.sendKeys(dropDownElement, "a")) {
+			TaskUtils.sleep(500);
+			sRandom =  selectRandomItemFromDropDown();
+		}
+		return sRandom;
+		
+	}
+	
 	public boolean selectItemFromFDD(String sItem) {
 		boolean bReturn = false;
 		// when we click we need to find the visible list
@@ -150,6 +166,7 @@ public abstract class B2WKendoTasks {
 		if (!bReturn) log.debug("Element with value" + sItem + " could not be found.");
 		return bReturn;
 	}
+	
 
 	// Test methods
 	public List<WebElement> getListSelectedItemsFromAllFDD() {
@@ -443,6 +460,7 @@ public abstract class B2WKendoTasks {
 	
 
 	public String selectRandomItemFromDropDown() {
+		WebElement item = null;
 		String sText = "";
 		// when we click we need to find the visible list
 		List<WebElement> list = WebElementUtils.findElements(B2WEquipment.getKendoLists());
@@ -454,11 +472,11 @@ public abstract class B2WKendoTasks {
 			if (hidden != null && hidden.equals("false")) {
 				List<WebElement> items = els.findElements(B2WEquipment.getKendoDropDownItem());
 				log.debug("There are "+items.size() + " items in the drop down");
-				Random rand = new Random();
-				int randnumber = rand.nextInt(items.size() - 1);
-				WebElement item = items.get(randnumber);
-				sText = item.getText();
-				WebElementUtils.waitForElementIsDisplayed(item, WebElementUtils.SHORT_TIME_OUT);
+				// potential infinate loop here...but oh well
+				while (sText.length() < 1){
+					item = items.get(getRandomNumber(items.size()));
+					sText = item.getText();
+				}
 				if (item != null) {
 					if (WebElementUtils.clickElement(item)) {
 						WebElementUtils.waitForElementHasAttributeWithValue(els, "aria-hidden", "true", true,

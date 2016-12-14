@@ -10,6 +10,7 @@ import org.openqa.selenium.WebElement;
 import appobjects.maintain.B2WMaintain;
 import tasks.WebElementUtils;
 import tasks.resources.B2WKendoTasks;
+import tasks.util.TaskUtils;
 
 public class B2WMaintainTasks extends B2WKendoTasks {
 	
@@ -139,9 +140,12 @@ public class B2WMaintainTasks extends B2WKendoTasks {
 				bReturn = waitForPageNotBusy(WebElementUtils.MEDIUM_TIME_OUT);
 				bReturn &= getSelectedMenuItem().equals(sMenuItem);
 
+			}else{
+				log.warn("The Item to wait for is null!");
 			}
 		}
-
+		// temp fix
+		TaskUtils.sleep(1000);
 		return bReturn;
 	}
 	
