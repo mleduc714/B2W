@@ -26,6 +26,8 @@ public abstract class B2WKendoDialog {
 	
 	protected boolean selectItemFromDropDown(String sItem){
 		boolean bReturn = false;
+		try {
+
 		// when we click we need to find the visble list
 		List<WebElement> list = WebElementUtils.findElements(B2WEquipment.getKendoLists());
 		Iterator<WebElement> iter = list.iterator();
@@ -43,6 +45,9 @@ public abstract class B2WKendoDialog {
 					log.debug("Item with could not be found matching "+sItem);
 				}
 			}
+		}
+		}catch (StaleElementReferenceException e){
+			return selectItemFromDropDown(sItem);
 		}
 		return bReturn;
 	}
