@@ -19,7 +19,7 @@ public class B2WScheduleView {
     private ArrayList<String> users;
 
     private Date startDate;
-    private int duration;
+    private String duration;
     private String quickSearch;
 
     // === Setters
@@ -31,7 +31,7 @@ public class B2WScheduleView {
         this.startDate = startDate;
     }
 
-    public void setDuration(int duration) {
+    public void setDuration(String duration) {
         this.duration = duration;
     }
 
@@ -80,7 +80,7 @@ public class B2WScheduleView {
         return startDate;
     }
 
-    public int getDuration() {
+    public String getDuration() {
         return duration;
     }
 
@@ -121,18 +121,6 @@ public class B2WScheduleView {
     }
 
     // === Constructors
-    public B2WScheduleView(String name) {
-        setName(name);
-        setStartDate(new Date());
-        setDuration(7);
-    }
-
-    public B2WScheduleView(String name, Date startDate, int duration) {
-        setName(name);
-        setStartDate(startDate);
-        setDuration(duration);
-    }
-
     public B2WScheduleView(String name, String businessUnit, String notes, ArrayList<B2WScheduleItem> scheduleItems,
                            String resourceGrouping, String secondaryGrouping, ArrayList<String[]> filters,
                            ArrayList<String> roles, ArrayList<String> users) {

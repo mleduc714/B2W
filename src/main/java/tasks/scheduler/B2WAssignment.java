@@ -116,7 +116,7 @@ public class B2WAssignment {
     }
 
 
-    B2WAssignment(String assignmentType, String resourceName, String locationName, String requestedBy, String notes,
+    public B2WAssignment(String assignmentType, String resourceName, String locationName, String requestedBy, String notes,
                   List<Date> dateList, String startTime, String duration) {
 
         this.assignmentType = assignmentType;
@@ -147,7 +147,7 @@ public class B2WAssignment {
         this.duration = duration;
     }
 
-    B2WAssignment(String assignmentType, String resourceName, String pickupLocation, String dropoffLocation,
+    public B2WAssignment(String assignmentType, String resourceName, String pickupLocation, String dropoffLocation,
                   Date pickupDate, String pickupTime, Date dropoffDate, String dropoffTime,
                   String requestedBy, String notes, String transportationCrew) {
 

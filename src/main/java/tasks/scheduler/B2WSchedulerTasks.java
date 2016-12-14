@@ -235,6 +235,7 @@ public class B2WSchedulerTasks extends B2WKendoTasks {
         bResult = createNewEvent("Location");
         return bResult;
     }
+
     public boolean clearSearchValue() {
         boolean bReturn = false;
         WebElement eSearchBox = WebElementUtils.findElement(B2WScheduleAssignments.getSearchBox());

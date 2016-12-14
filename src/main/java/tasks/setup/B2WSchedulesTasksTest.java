@@ -1,17 +1,23 @@
 package tasks.setup;
 
 import appobjects.resources.KendoUI;
+import appobjects.scheduler.B2WScheduleAssignments;
 import appobjects.setup.B2WSchedules;
 import org.apache.log4j.Logger;
+import org.jfree.data.time.DateRange;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import tasks.B2WNavigationTasks;
 import tasks.WebElementUtils;
 import tasks.resources.B2WKendoTasks;
 import tasks.scheduler.B2WScheduleView;
 import tasks.util.B2WScheduleItem;
+import tasks.util.StringUtils;
+import tasks.util.TaskUtils;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
@@ -45,6 +51,7 @@ public class B2WSchedulesTasksTest extends B2WKendoTasks {
         return bReturn;
     }
 
+    // === Private Methods
     private boolean clickCreateScheduleView() {
         boolean bReturn = false;
         WebElement eNewScheduleBtn = WebElementUtils.findElement(B2WSchedules.createScheduleViewBtn());
@@ -222,22 +229,26 @@ public class B2WSchedulesTasksTest extends B2WKendoTasks {
     }
 
     private boolean setGrouping(String sGroupingFieldName, String sValue) {
-        boolean bReturn = false;
-        WebElement eGrouping;
-        if (sGroupingFieldName.toLowerCase().equals("resource grouping")) {
-            eGrouping = WebElementUtils.findElement(B2WSchedules.groupItemsBy());
-        } else if (sGroupingFieldName.toLowerCase().equals("secondary grouping")) {
-            eGrouping = WebElementUtils.findElement(B2WSchedules.secondaryGrouping());
-        } else {
-            eGrouping = null;
-        }
-        if (eGrouping != null) {
-            WebElement parent = WebElementUtils.getParentElement(eGrouping);
-            bReturn = WebElementUtils.clickElement(parent);
-            bReturn &= selectItemFromDropDown(sValue);
-            waitForSchedulesPageNoBusy();
-        } else {
-            log.debug("'" + sGroupingFieldName + "' dropdown could not be found on the page.");
+        boolean bReturn = true;
+        if (sValue != null) {
+            if (!sValue.equals("")) {
+                WebElement eGrouping;
+                if (sGroupingFieldName.toLowerCase().equals("resource grouping")) {
+                    eGrouping = WebElementUtils.findElement(B2WSchedules.groupItemsBy());
+                } else if (sGroupingFieldName.toLowerCase().equals("secondary grouping")) {
+                    eGrouping = WebElementUtils.findElement(B2WSchedules.secondaryGrouping());
+                } else {
+                    eGrouping = null;
+                }
+                if (eGrouping != null) {
+                    WebElement parent = WebElementUtils.getParentElement(eGrouping);
+                    bReturn = WebElementUtils.clickElement(parent);
+                    bReturn &= selectItemFromDropDown(sValue);
+                    waitForSchedulesPageNoBusy();
+                } else {
+                    log.debug("'" + sGroupingFieldName + "' dropdown could not be found on the page.");
+                }
+            }
         }
         return bReturn;
     }
@@ -246,6 +257,7 @@ public class B2WSchedulesTasksTest extends B2WKendoTasks {
         boolean bReturn = true;
         for (String[] item : filters) {
             bReturn &= setFilter(item[0], item[1]);
+            waitForSchedulesPageNoBusy();
         }
         return bReturn;
     }
@@ -282,7 +294,7 @@ public class B2WSchedulesTasksTest extends B2WKendoTasks {
         if (!users.isEmpty()) {
             bReturn = setRestrictedAccess();
             for (String item : users) {
-                bReturn &= setSecurityRole(SECURITY_USERS, item);;
+                bReturn &= setSecurityUser(SECURITY_USERS, item);;
             }
         }
         return bReturn;
@@ -314,7 +326,7 @@ public class B2WSchedulesTasksTest extends B2WKendoTasks {
         return bReturn;
     }
 
-    private boolean setSecurityUser(String sValue) {
+    private boolean setSecurityUser(String sFieldName, String sValue) {
         boolean bReturn = false;
         return bReturn;
     }
@@ -334,5 +346,4 @@ public class B2WSchedulesTasksTest extends B2WKendoTasks {
     private boolean waitForSchedulesPageNoBusy() {
         return waitForPageNotBusy(WebElementUtils.LONG_TIME_OUT);
     }
-
 }

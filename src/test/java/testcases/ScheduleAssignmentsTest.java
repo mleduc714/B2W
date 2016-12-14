@@ -2,19 +2,19 @@ package testcases;
 
 import com.b2w.test.B2WTestCase;
 import tasks.B2WNavigationTasks;
-import tasks.scheduler.B2WScheduleView;
-import tasks.scheduler.B2WSchedulerTasks;
+import tasks.scheduler.*;
 import tasks.setup.B2WSchedulesTasksTest;
 import tasks.util.B2WScheduleItem;
 import tasks.util.StringUtils;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class ScheduleAssignmentsTest extends B2WTestCase {
 
     private final B2WNavigationTasks b2wNav = new B2WNavigationTasks();
-    private final B2WSchedulerTasks b2wScheduler = new B2WSchedulerTasks();
+    private final B2WSchedulerTasksTest b2wScheduler = new B2WSchedulerTasksTest();
     private final B2WSchedulesTasksTest b2wSchedulesTasks = new B2WSchedulesTasksTest();
 
     // Property
@@ -34,8 +34,8 @@ public class ScheduleAssignmentsTest extends B2WTestCase {
     // Schedule View
     private String sEmployeeScheduleViewName;
     private String sEquipmentScheduleViewName;
-    private String sCrewView;
-    private String sLocationView;
+    private String sCrewScheduleViewName;
+    private String sLocationScheduleViewName;
     private String sCalendarDateRange;
     private String sCalendarStartDate;
     private Date dCalendarStartDate;
@@ -155,8 +155,8 @@ public class ScheduleAssignmentsTest extends B2WTestCase {
         //Schedule View
         sEmployeeScheduleViewName = sScheduleName + " - Employees - " + n;
         sEquipmentScheduleViewName = sScheduleName + " - Equipment - " + n;
-        sCrewView = sScheduleName + " - Crews - " + n;
-        sLocationView = sScheduleName + " - Location - " + n;
+        sCrewScheduleViewName = sScheduleName + " - Crews - " + n;
+        sLocationScheduleViewName = sScheduleName + " - Location - " + n;
         sDefaultEmployeeView = getProperty("sDefaultEmployeeView");
         sDefaultEquipmentView = getProperty("sDefaultEquipmentView");
         sDefaultCrewView = getProperty("sDefaultCrewView");
@@ -241,14 +241,35 @@ public class ScheduleAssignmentsTest extends B2WTestCase {
     }
 
     public void testMain() throws Throwable {
+        // === Create Schedule View
         B2WScheduleView employeeScheduleView = prepareEmployeeScheduleView(sScheduleFormatResourceListing);
+        employeeScheduleView.setStartDate(StringUtils.getDateFromStringWithPattern(sCalendarStartDate, "M/d/yyyy"));
+        employeeScheduleView.setDuration(sCalendarDateRange);
+
         B2WScheduleView equipmentScheduleView = prepareEquipmentScheduleView(sScheduleFormatResourceListing);
         B2WScheduleView crewsScheduleView = prepareCrewsScheduleView(sScheduleFormatCrewView);
         B2WScheduleView locationScheduleView = prepareLocationScheduleView(sScheduleFormatLocationView);
+
         b2wSchedulesTasks.createScheduleView(employeeScheduleView);
+        /*
         b2wSchedulesTasks.createScheduleView(equipmentScheduleView);
         b2wSchedulesTasks.createScheduleView(crewsScheduleView);
         b2wSchedulesTasks.createScheduleView(locationScheduleView);
+        */
+
+        // === Employee Assignment tests
+        ArrayList<Date> dateList = new ArrayList<Date>();
+        dateList.add(employeeScheduleView.getStartDate()); //Start Date
+        dateList.add(employeeScheduleView.getStartDate()); //End Date
+        B2WAssignment employeeAssignment = new B2WAssignment(B2WAssignmentType.EMPLOYEE_TYPE, sEmployeeName, sJobSiteName, sRequestedBy, sNotesText,
+                dateList, sAssignmentStartTime, sAssignmentDuration);
+        logCompare(true, b2wNav.openSchedule(), "Open Schedule View");
+        logCompare(true, b2wScheduler.navigateTo(employeeScheduleView), "Open " + employeeScheduleView.getName() + " Schedule View");
+        logCompare(true, b2wScheduler.setCalendarDateRange(employeeScheduleView), "Set " + employeeScheduleView.getDuration() + " Date Range");
+        logCompare(true, b2wScheduler.setCalendarStartDate(employeeScheduleView), "Set Start Date to " + employeeScheduleView.getStartDate());
+        logCompare(true, b2wScheduler.setSearchValue(employeeAssignment.getResourceName()), "Set Filter by " + employeeAssignment.getResourceName());
+        logCompare(true, b2wScheduler.createEmployeeAssignment(employeeAssignment), "Set Filter by " + employeeAssignment.getResourceName());
+
 
     }
 
@@ -331,7 +352,7 @@ public class ScheduleAssignmentsTest extends B2WTestCase {
         // Prepare Users list
         ArrayList<String> users = new ArrayList<String>();
 
-        return new B2WScheduleView(sEquipmentScheduleViewName, sBU, sSchedulesNotes, itemList, sGroupingLevel1, sGroupingLevel2,
+        return new B2WScheduleView(sCrewScheduleViewName, sBU, sSchedulesNotes, itemList, sGroupingLevel1, sGroupingLevel2,
                 filters, roles, users);
     }
 
@@ -362,7 +383,7 @@ public class ScheduleAssignmentsTest extends B2WTestCase {
         // Prepare Users list
         ArrayList<String> users = new ArrayList<String>();
 
-        return new B2WScheduleView(sEquipmentScheduleViewName, sBU, sSchedulesNotes, itemList, sGroupingLevel1, sGroupingLevel2,
+        return new B2WScheduleView(sLocationScheduleViewName, sBU, sSchedulesNotes, itemList, null, "",
                 filters, roles, users);
     }
 
