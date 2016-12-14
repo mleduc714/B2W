@@ -226,6 +226,14 @@ public class B2WAddItemWorkOrder extends B2WKendoDialog {
 		}
 		return bReturn;
 	}
-	
+	public boolean clickCreateAddItemButton() {
+		boolean bReturn = false;
+		WebElement button = WebElementUtils.waitAndFindDisplayedElement(B2WMaintain.getB2WMaintainAddItemCreateButton());
+		if (button != null){
+			bReturn = WebElementUtils.clickElement(button);
+			bReturn &= WebElementUtils.waitForElementInvisible(button);
+		}
+		return bReturn;
+	}
 	
 }

@@ -282,7 +282,7 @@ public class B2WReportHours extends B2WKendoDialog {
 		if (el != null){
 			WebElementUtils.clickElement(el);
 			bReturn = WebElementUtils.sendKeys(el, "a");
-			TaskUtils.sleep(1000);
+			TaskUtils.sleep(500);
 			selectRandomItemFromDropDown();
 			bReturn &= waitForPageNotBusy(WebElementUtils.LONG_TIME_OUT);
 			TaskUtils.sleep(500);
