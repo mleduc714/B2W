@@ -60,115 +60,115 @@ public class B2WEquipmentSmokeTest extends B2WTestCase {
 		
 		// Navigate to Maintain>Equipment
 		
-		equipmentTasks.createNewEquipment();
+		logCompare(true, equipmentTasks.createNewEquipment(), "");
 		
-		equipmentTasks.setEquipmentDescription("This is a new Test Equipment");
+		logCompare(true, equipmentTasks.setEquipmentDescription("This is a new Test Equipment"), "");
 		
-		equipmentTasks.setEquipmentID("1234567890");
+		logCompare(true, equipmentTasks.setEquipmentID("1234567890"), "");
 		
-		equipmentTasks.selectNewEquipmentBusinessUnitFromDropDown("Northern Division\\Paving");
+		logCompare(true, equipmentTasks.selectNewEquipmentBusinessUnitFromDropDown("Northern Division\\Paving"), "");
 		
-		equipmentTasks.selectNewEquipmentTypeFromDropDown("30 Ton Trucks");
+		logCompare(true, equipmentTasks.selectNewEquipmentTypeFromDropDown("30 Ton Trucks"), "");
 		
-		equipmentTasks.selectMobilityTypeRequiresMoveFromDropDown();
+		logCompare(true, equipmentTasks.selectMobilityTypeRequiresMoveFromDropDown(), "");
 		
-		equipmentTasks.selectOwnershipTypeSubcontractedFromDropDown();
+		logCompare(true, equipmentTasks.selectOwnershipTypeSubcontractedFromDropDown(), "");
 		
 		//Enter Equipment Specs
-		equipmentTasks.expandEquipmentSpecs();
+		logCompare(true, equipmentTasks.expandEquipmentSpecs(), "");
 		
-		equipmentTasks.setTextEquipmentSpecs("Manufacturer", "ABC Construction");
-		equipmentTasks.setTextEquipmentSpecs("Model", "5B");
-		equipmentTasks.setTextEquipmentSpecs("Year", "1999");
-		equipmentTasks.setTextEquipmentSpecs("Color", "Blue");
-		equipmentTasks.setTextEquipmentSpecs("Lojack", "12");
-		equipmentTasks.setTextEquipmentSpecs("Hut Sticker Number", "67890");
-		equipmentTasks.setTextEquipmentSpecs("EZ Pass Number", "12345");
+		logCompare(true, equipmentTasks.setTextEquipmentSpecs("Manufacturer", "ABC Construction"), "");
+		logCompare(true, equipmentTasks.setTextEquipmentSpecs("Model", "5B"), "");
+		logCompare(true, equipmentTasks.setTextEquipmentSpecs("Year", "1999"), "");
+		logCompare(true, equipmentTasks.setTextEquipmentSpecs("Color", "Blue"), "");
+		logCompare(true, equipmentTasks.setTextEquipmentSpecs("Lojack", "12"), "");
+		logCompare(true, equipmentTasks.setTextEquipmentSpecs("Hut Sticker Number", "67890"), "");
+		logCompare(true, equipmentTasks.setTextEquipmentSpecs("EZ Pass Number", "12345"), "");
 		
-		equipmentTasks.setFieldAndItemFromDropDownEquipmentSpecs("Length", "2354", "Foot [FOOT]");
-		equipmentTasks.setFieldAndItemFromDropDownEquipmentSpecs("Width", "43", "Mile [MILE]");
-		equipmentTasks.setFieldAndItemFromDropDownEquipmentSpecs("Height", "5433", "Millimeter [mm]");
-		equipmentTasks.setFieldAndItemFromDropDownEquipmentSpecs("Max Weight", "445", "Gram [g]");
-		equipmentTasks.setFieldAndItemFromDropDownEquipmentSpecs("Combined Weight", "56", "Ton [TON]");
-		equipmentTasks.setFieldAndItemFromDropDownEquipmentSpecs("Tare Weight", "45", "Kilogram [kg]");
-		equipmentTasks.setFieldAndItemFromDropDownEquipmentSpecs("Ground Pressure", "56", "Thousand Cubic Feet [MCF]");
+		logCompare(true, equipmentTasks.setFieldAndItemFromDropDownEquipmentSpecs("Length", "2354", "Foot [FOOT]"), "");
+		logCompare(true, equipmentTasks.setFieldAndItemFromDropDownEquipmentSpecs("Width", "43", "Mile [MILE]"), "");
+		logCompare(true, equipmentTasks.setFieldAndItemFromDropDownEquipmentSpecs("Height", "5433", "Millimeter [mm]"), "");
+		logCompare(true, equipmentTasks.setFieldAndItemFromDropDownEquipmentSpecs("Max Weight", "445", "Gram [g]"), "");
+		logCompare(true, equipmentTasks.setFieldAndItemFromDropDownEquipmentSpecs("Combined Weight", "56", "Ton [TON]"), "");
+		logCompare(true, equipmentTasks.setFieldAndItemFromDropDownEquipmentSpecs("Tare Weight", "45", "Kilogram [kg]"), "");
+		logCompare(true, equipmentTasks.setFieldAndItemFromDropDownEquipmentSpecs("Ground Pressure", "56", "Thousand Cubic Feet [MCF]"), "");
 		
-		equipmentTasks.collapseEquipmentSpecs();
+		logCompare(true, equipmentTasks.collapseEquipmentSpecs(), "");
 		
 		//Enter Component Specs
-		equipmentTasks.expandComponentSpecs();
+		logCompare(true, equipmentTasks.expandComponentSpecs(), "");
 		
 		logCompare(true, equipmentTasks.setTextComponentSpecs("Tire Size", "sText"), "Text Component Specs");
-		equipmentTasks.setTextComponentSpecs("Engine", "Engine Name");
-		equipmentTasks.setTextComponentSpecs("Engine Arrangement", "Arrangement");
-		equipmentTasks.setTextComponentSpecs("Engine Serial Number", "54321");
-		equipmentTasks.setTextComponentSpecs("Horse Power", "124");
-		equipmentTasks.setTextComponentSpecs("Transmission Model", "A3B2C1");
-		equipmentTasks.setTextComponentSpecs("Transmission Serial Number", "09876");
-		equipmentTasks.setTextComponentSpecs("GET", "13");
-	    equipmentTasks.setTextEquipmentSpecs("Hydraulic Flow Rate", "23");
+		logCompare(true, equipmentTasks.setTextComponentSpecs("Engine", "Engine Name"), "");
+		logCompare(true, equipmentTasks.setTextComponentSpecs("Engine Arrangement", "Arrangement"), "");
+		logCompare(true, equipmentTasks.setTextComponentSpecs("Engine Serial Number", "54321"), "");
+		logCompare(true, equipmentTasks.setTextComponentSpecs("Horse Power", "124"), "");
+		logCompare(true, equipmentTasks.setTextComponentSpecs("Transmission Model", "A3B2C1"), "");
+		logCompare(true, equipmentTasks.setTextComponentSpecs("Transmission Serial Number", "09876"), "");
+		logCompare(true, equipmentTasks.setTextComponentSpecs("GET", "13"), "");
+		logCompare(true, equipmentTasks.setTextEquipmentSpecs("Hydraulic Flow Rate", "23"), "");
 		
-	    equipmentTasks.setFieldAndItemFromDropDownEquipmentSpecs("Fuel Type", "null", "Gasoline [GAS]"); //Doesn't Work
-		equipmentTasks.setFieldAndItemFromDropDownEquipmentSpecs("Wheel Type", "null", "Rubber Tire [RTR]"); //Doesn't Work
-		equipmentTasks.setFieldAndItemFromDropDownEquipmentSpecs("Track Type", "null", "In-Line Sprocket [ILSP]"); //Doesn't Work
-		equipmentTasks.setFieldAndItemFromDropDownEquipmentSpecs("Brake Type", "null", "Pneumatic Brakes [AIRB]"); //Doesn't Work
-		equipmentTasks.setFieldAndItemFromDropDownEquipmentSpecs("Cutting Edge", "null", "Grader Blades [GRADB]"); //Doesn't Work
-		equipmentTasks.setFieldAndItemFromDropDownEquipmentSpecs("Hydraulic Pump Type", "null", "Load Sensing Pump [LSP]"); //Doesn't Work
+		logCompare(true, equipmentTasks.setFieldAndItemFromDropDownEquipmentSpecs("Fuel Type", "null", "Gasoline [GAS]"), ""); //Doesn't Work
+	    logCompare(true, equipmentTasks.setFieldAndItemFromDropDownEquipmentSpecs("Wheel Type", "null", "Rubber Tire [RTR]"), ""); //Doesn't Work
+		logCompare(true, equipmentTasks.setFieldAndItemFromDropDownEquipmentSpecs("Track Type", "null", "In-Line Sprocket [ILSP]"), ""); //Doesn't Work
+		logCompare(true, equipmentTasks.setFieldAndItemFromDropDownEquipmentSpecs("Brake Type", "null", "Pneumatic Brakes [AIRB]"), ""); //Doesn't Work
+		logCompare(true, equipmentTasks.setFieldAndItemFromDropDownEquipmentSpecs("Cutting Edge", "null", "Grader Blades [GRADB]"), ""); //Doesn't Work
+		logCompare(true, equipmentTasks.setFieldAndItemFromDropDownEquipmentSpecs("Hydraulic Pump Type", "null", "Load Sensing Pump [LSP]"), ""); //Doesn't Work
 		
-		equipmentTasks.collapseComponentSpecs();
+		logCompare(true, equipmentTasks.collapseComponentSpecs(), "");
 		
 		//Enter Financials
-		equipmentTasks.expandFinancials();
+		logCompare(true, equipmentTasks.expandFinancials(), "");
 		
-		equipmentTasks.setTextFinancials("PurchasedFrom", "ABC Construction");
-		equipmentTasks.setTextFinancials("PurchasedPrice", "20000");
-		equipmentTasks.setTextFinancials("InsuranceValue", "10000");
-		equipmentTasks.setTextFinancials("TitleHolder", "TH Title Holder");
-		equipmentTasks.setTextFinancials("SoldTo", "XYZ Builders");
-		equipmentTasks.setTextFinancials("SalePrice", "15000");
+		logCompare(true, equipmentTasks.setTextFinancials("Purchased From", "ABC Construction"), "");
+		logCompare(true, equipmentTasks.setTextFinancials("Purchased Price", "20000"), "");
+		logCompare(true, equipmentTasks.setTextFinancials("Insurance Value", "10000"), "");
+		logCompare(true, equipmentTasks.setTextFinancials("Title Holder", "TH Title Holder"), "");
+		logCompare(true, equipmentTasks.setTextFinancials("Sold To", "XYZ Builders"), "");
+		logCompare(true, equipmentTasks.setTextFinancials("Sale Price", "15000"), "");
 		
-		equipmentTasks.setFieldAndItemFromDropDownEquipmentSpecs("CCA Class", "null", "CCA-3 [CCA-5%]");
+		logCompare(true, equipmentTasks.setFieldAndItemFromDropDownEquipmentSpecs("CCA Class", "null", "CCA-3 [CCA-5%]"), "");
 		
 		//Add Meter Types
-		equipmentTasks.expandMeters();
+		logCompare(true, equipmentTasks.expandMeters(), "");
 		
-		equipmentTasks.clickAddMeterButton();
+		logCompare(true, equipmentTasks.clickAddMeterButton(), "");
 		
 		//Add Parts
-		equipmentTasks.expandParts();
+		logCompare(true, equipmentTasks.expandParts(), "");
 		
-		equipmentTasks.clickAddPartsButton();
+		logCompare(true, equipmentTasks.clickAddPartsButton(), "");
 		
 		//Add a Warranty
-		equipmentTasks.expandWarrenties();
+		logCompare(true, equipmentTasks.expandWarrenties(), "");
 		
 		// Add a Maintenance Program
-		equipmentTasks.expandPrograms();
+		logCompare(true, equipmentTasks.expandPrograms(), "");
 		
-		equipmentTasks.clickAddProgramButton();
+		logCompare(true, equipmentTasks.clickAddProgramButton(), "");
 		
 		// Add Tags
-		equipmentTasks.expandTags();
+		logCompare(true, equipmentTasks.expandTags(), "");
 		
 		//Add Events
-		equipmentTasks.expandEvents();
+		logCompare(true, equipmentTasks.expandEvents(), "");
 		
 		//Save the Equipment
-		equipmentTasks.saveNewEquipment();
+		logCompare(true, equipmentTasks.saveNewEquipment(), "");
 		
 		// History
-		equipmentTasks.expandHistory();
+		logCompare(true, equipmentTasks.expandHistory(), "");
 		
 		// Location
-		equipmentTasks.expandLocation();
+		logCompare(true, equipmentTasks.expandLocation(), "");
 		
-		equipmentTasks.selectAllEquipmentByTypeView();
+		logCompare(true, equipmentTasks.selectAllEquipmentByTypeView(), "");
 		
-		equipmentTasks.selectFilterByBusinessUnit("Northern Division\\Paving");
+		logCompare(true, equipmentTasks.selectFilterByBusinessUnit("Northern Division\\Paving"), "");
 		
-		equipmentTasks.selectEquipmentFromViewByID("1234567890");
+		logCompare(true, equipmentTasks.selectEquipmentFromViewByID("1234567890"), "");
 		
-		equipmentTasks.selectEquipmentFromViewByDescription("This is a new Test Equipment");
+		logCompare(true, equipmentTasks.selectEquipmentFromViewByDescription("This is a new Test Equipment"), "");
 	}
 	
 }
