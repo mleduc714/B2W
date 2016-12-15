@@ -7,117 +7,126 @@ import java.util.Date;
 import java.util.List;
 
 public class B2WAssignment {
-    private static String assignmentType;
-    private static String resourceName;
-    private static String locationName;
-    private static String pickupLocation;
-    private static String dropoffLocation;
-    private static String transportationCrew;
-    private static String requestedBy;
-    private static String notes;
-    private static List<Date> dateList;
-    private static String startTime;
-    private static Date pickupDate;
-    private static Date dropoffDate;
-    private static String pickupTime;
-    private static String dropoffTime;
-    private static String duration;
+    private String assignmentType;
+    private String resourceName;
+    private String locationName;
+    private String pickupLocation;
+    private String dropoffLocation;
+    private String transportationCrew;
+    private String requestedBy;
+    private String notes;
+    private List<Date> dateList;
+    private String startTime;
+    private Date pickupDate;
+    private Date dropoffDate;
+    private String pickupTime;
+    private String dropoffTime;
+    private String duration;
+    private B2WAssignment substitution;
 
-    public static void setAssignmentType(String assignmentType) {
-        B2WAssignment.assignmentType = assignmentType;
+    public void setAssignmentType(String assignmentType) {
+        this.assignmentType = assignmentType;
     }
-    public static void setResourceName(String resourceName) {
-        B2WAssignment.resourceName = resourceName;
+    public void setResourceName(String resourceName) {
+        this.resourceName = resourceName;
     }
-    public static void setLocationName(String locationName) {
-        B2WAssignment.locationName = locationName;
+    public void setLocationName(String locationName) {
+        this.locationName = locationName;
     }
-    public static void setPickupLocation(String pickupLocation) {
-        B2WAssignment.pickupLocation = pickupLocation;
+    public void setPickupLocation(String pickupLocation) {
+        this.pickupLocation = pickupLocation;
     }
-    public static void setDropoffLocation(String dropoffLocation) {
-        B2WAssignment.dropoffLocation = dropoffLocation;
+    public void setDropoffLocation(String dropoffLocation) {
+        this.dropoffLocation = dropoffLocation;
     }
-    public static void setTransportationCrew(String transportationCrew) {
-        B2WAssignment.transportationCrew = transportationCrew;
+    public void setTransportationCrew(String transportationCrew) {
+        this.transportationCrew = transportationCrew;
     }
-    public static void setRequestedBy(String requestedBy) {
-        B2WAssignment.requestedBy = requestedBy;
+    public void setRequestedBy(String requestedBy) {
+        this.requestedBy = requestedBy;
     }
-    public static void setNotes(String notes) {
-        B2WAssignment.notes = notes;
+    public void setNotes(String notes) {
+        this.notes = notes;
     }
-    public static void setDateList(List<Date> dateList) {
-        B2WAssignment.dateList = dateList;
+    public void setDateList(List<Date> dateList) {
+        this.dateList = dateList;
     }
-    public static void setStartTime(String startTime) {
-        B2WAssignment.startTime = startTime;
+    public void setStartTime(String startTime) {
+        this.startTime = startTime;
     }
-    public static void setDuration(String duration) {
-        B2WAssignment.duration = duration;
+    public void setDuration(String duration) {
+        this.duration = duration;
     }
-    public static void setPickupDate(Date pickupDate) {
-        B2WAssignment.pickupDate = pickupDate;
+    public void setPickupDate(Date pickupDate) {
+        this.pickupDate = pickupDate;
     }
-    public static void setPickupTime(String pickupTime) {
-        B2WAssignment.pickupTime = pickupTime;
+    public void setPickupTime(String pickupTime) {
+        this.pickupTime = pickupTime;
     }
-    public static void setDropoffDate(Date dropoffDate) {
-        B2WAssignment.dropoffDate = dropoffDate;
+    public void setDropoffDate(Date dropoffDate) {
+        this.dropoffDate = dropoffDate;
     }
-    public static void setDropoffTime(String dropoffTime) {
-        B2WAssignment.dropoffTime = dropoffTime;
+    public void setDropoffTime(String dropoffTime) {
+        this.dropoffTime = dropoffTime;
+    }
+    public void makeSubstitution(String substitutionName) {
+        this.substitution = new B2WAssignment(this);
+        this.substitution.setResourceName(substitutionName);
+        this.substitution.setAssignmentType(B2WAssignmentType.SUBSTITUTION_TYPE);
+        this.assignmentType = B2WAssignmentType.SUBSTITUTED_TYPE;
     }
 
-    public static String getAssignmentType() {
+    public String getAssignmentType() {
         return assignmentType;
     }
-    public static String getResourceName() {
+    public String getResourceName() {
         return resourceName;
     }
-    public static String getLocationName() {
+    public String getLocationName() {
         return locationName;
     }
-    public static String getPickupLocation() {
+    public String getPickupLocation() {
         return pickupLocation;
     }
-    public static String getDropoffLocation() {
+    public String getDropoffLocation() {
         return dropoffLocation;
     }
-    public static String getTransportationCrew() {
+    public String getTransportationCrew() {
         return transportationCrew;
     }
-    public static String getRequestedBy() {
+    public String getRequestedBy() {
         return requestedBy;
     }
-    public static String getNotes() {
+    public String getNotes() {
         return notes;
     }
-    public static List<Date> getDateList() {
+    public List<Date> getDateList() {
         return dateList;
     }
-    public static String getStartTime() {
+    public String getStartTime() {
         return startTime;
     }
-    public static String getDuration() {
+    public String getDuration() {
         return duration;
     }
-    public static String getStartDate() { return StringUtils.getStringFromDateByPattern(dateList.get(0), "M/d/yyyy"); }
-    public static String getEndDate() { return StringUtils.getStringFromDateByPattern(dateList.get(1), "M/d/yyyy"); }
-    public static Date getPickupDate() { return pickupDate; }
-    public static Date getDropoffDate() {
+    public String getStartDate() { return StringUtils.getStringFromDateByPattern(dateList.get(0), "M/d/yyyy"); }
+    public String getEndDate() { return StringUtils.getStringFromDateByPattern(dateList.get(1), "M/d/yyyy"); }
+    public Date getPickupDate() { return pickupDate; }
+    public Date getDropoffDate() {
         return dropoffDate;
     }
-    public static String getDropoffTime() {
+    public String getDropoffTime() {
         return dropoffTime;
     }
-    public static String getPickupTime() {
+    public String getPickupTime() {
         return pickupTime;
     }
-
+    public B2WAssignment getSubstitution() {
+        return substitution;
+    }
 
     public B2WAssignment(String assignmentType, String resourceName, String locationName, String requestedBy, String notes,
-                  List<Date> dateList, String startTime, String duration) {
+                         List<Date> dateList, String startTime, String duration) {
 
         this.assignmentType = assignmentType;
         this.resourceName = resourceName;

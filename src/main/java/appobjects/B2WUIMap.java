@@ -757,7 +757,8 @@ public class B2WUIMap {
 	public static final String b2w_schedulecreationsection = "b2w-create-action";
 	public static final String b2w_scheduleassignmentwindow = ".k-widget.k-window.close-button";
 	public static final String b2w_schedulefieldslabel = "label";
-	public static final String b2w_scheduleaddtoschedulebtn = ".Button.Button--large.Button--margin-left";
+	//public static final String b2w_scheduleaddtoschedulebtn = ".Button.Button--large.Button--margin-left";
+	public static final String b2w_scheduleaddtoschedulebtn = "button.Button.Button--large[ng-click='save()']";
 	public static final String b2w_schedule_addresssection = "div[ng-show=\"isAddressVisible\"]";
 	public static final String b2w_scheduleselectcrewbtn = ".Button.Button--large[ng-click=\"next()\"]";
 	public static final String b2w_schedule_savebtn = ".Button.Button--large[ng-click=\"save()\"]";
@@ -791,6 +792,7 @@ public class B2WUIMap {
 	public static final String b2w_schedule_conflictoolbar = ".Toolbar__fill-need.ng-binding";
 	public static final String b2w_schedule_firstitem = ".//*[@class='k-grid-content']/table/tbody/tr[1]/td[1]/b2w-resource-description/div/div";
 	public static final String b2w_schedule_checkedbtn = ".Toolbar__toggle-button--checked";
+	public static final String b2w_schedule_cancelbtn = "button.Button.Button--large[ng-click='cancel()']";
 
 	// Maintain
 	public static final String b2w_maintainpagemenu = "ul#SubNavMenu_MaintainPageMenu.MaintainPageMenu";

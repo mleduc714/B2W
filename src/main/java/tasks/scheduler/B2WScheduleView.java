@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class B2WScheduleView {
+public class B2WScheduleView implements Cloneable {
     // === General Properties
     private String name;
     private String businessUnit;
@@ -134,6 +134,10 @@ public class B2WScheduleView {
         this.filters = new ArrayList<String[]>(filters);
         this.roles = new ArrayList<String>(roles);
         this.users = new ArrayList<String>(users);
+    }
+
+    public B2WScheduleView clone() throws CloneNotSupportedException {
+        return (B2WScheduleView)super.clone();
     }
 }
 

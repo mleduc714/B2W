@@ -1,11 +1,9 @@
 package tasks.scheduler;
 
-import appobjects.resources.KendoUI;
 import appobjects.scheduler.B2WScheduleAssignments;
 import org.apache.commons.lang3.time.DateUtils;
 import org.apache.log4j.Logger;
 import org.jfree.data.time.DateRange;
-import org.jfree.util.Log;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
@@ -23,12 +21,6 @@ import static com.b2w.test.BaseAssert.logCompare;
 
 public class B2WSchedulerTasksTest extends B2WKendoTasks {
     public final String MENU_ASSIGNMENT = "Assignment/Need";
-    public final String MENU_NEED = "Assignment/Need";
-    public final String MENU_CREWASSIGNMENT = "Crew Assignment";
-    public final String CREWNEED = "Crew Need";
-    public final String MOVEORDER = "Move Order";
-    public final String MOVEASSIGNMENT = "Move Assignment";
-    public final String EVENT = "Event";
 
     private Logger log = Logger.getLogger(B2WSchedulerTasksTest.class);
 
@@ -60,7 +52,6 @@ public class B2WSchedulerTasksTest extends B2WKendoTasks {
         }
         return bReturn;
     }
-
     public boolean setCalendarDateRange(B2WScheduleView sValue) {
         boolean bReturn = false;
         WebElement activeDateRange = WebElementUtils.findElement(B2WScheduleAssignments.getCalendarActiveDateRange());
@@ -86,7 +77,6 @@ public class B2WSchedulerTasksTest extends B2WKendoTasks {
         }
         return bReturn;
     }
-
     public boolean setCalendarStartDate(B2WScheduleView scheduleView) {
         boolean bReturn = false;
         String sValue = StringUtils.getStringFromDateByPattern(scheduleView.getStartDate(), "M/d/yyyy");
@@ -104,7 +94,6 @@ public class B2WSchedulerTasksTest extends B2WKendoTasks {
         }
         return bReturn;
     }
-
     public boolean setSearchValue(String sValue) {
         boolean bReturn = false;
         WebElement eSearchBox = WebElementUtils.findElement(B2WScheduleAssignments.getSearchBox());
@@ -120,7 +109,6 @@ public class B2WSchedulerTasksTest extends B2WKendoTasks {
         }
         return bReturn;
     }
-
     public boolean clearSearchValue() {
         boolean bReturn = false;
         WebElement eSearchBox = WebElementUtils.findElement(B2WScheduleAssignments.getSearchBox());
@@ -153,98 +141,253 @@ public class B2WSchedulerTasksTest extends B2WKendoTasks {
          */
 
         boolean bReturn;
-        bReturn = logCompare(true, true, "====== Start Assignment Creation for " + B2WAssignment.getResourceName());
-        int initialCount = getAssignmentsCount(B2WAssignment.getResourceName(), B2WAssignment.getLocationName(), B2WAssignmentType.EMPLOYEE_TYPE);
-        bReturn &= logCompare(true, createNewEmployeeAssignment(), "Open Create Employee Assignment Dialog");
-        bReturn &= logCompare(true, setJobSite(B2WAssignment.getLocationName()), "Set JobSite/Place");
-        bReturn &= logCompare(true, setEmployees(B2WAssignment.getResourceName()), "Set Employee");
-        bReturn &= logCompare(true, setRequestedBy(B2WAssignment.getRequestedBy()), "Set Requested By");
-        bReturn &= logCompare(true, setAssignmentNotes(B2WAssignment.getNotes()), "Set Notes");
-        bReturn &= logCompare(true, setDuration(B2WAssignment.getDuration()), "Set Duration");
-        bReturn &= logCompare(true, setStartTime(B2WAssignment.getStartTime()), "Set Start Time");
-        bReturn &= logCompare(true, saveEmployeeAssignment(), "Save New Employee Assignment");
+        bReturn = logCompare(true, true, "====== Start Assignment Creation for " + assignment.getResourceName());
+        int initialCount = getAssignmentsCount(assignment);
+        bReturn &= logCompare(true, selectNewAssignmentOrNeed(), "Select New -> Assignment/Need menu");
+        bReturn &= logCompare(true, setEmployees(assignment.getResourceName()), "Set Resource: " + assignment.getResourceName());
+        bReturn &= setGeneralFields(assignment);
+        if (bReturn) {
+            bReturn &= logCompare(true, saveAssignment(), "Save Assignment");
 
-        int actualCount = getAssignmentsCount(B2WAssignment.getResourceName(), B2WAssignment.getLocationName(), B2WAssignmentType.EMPLOYEE_TYPE);
-        bReturn &= logCompare(true, actualCount == initialCount + 1, "Verification that Employee Assignment has been created.");
-        WebElement result = getEmployeeAssignment(assignment);
-        bReturn &= logCompare(true,  result != null, "Verification that specific Employee Assignment has been created.");
-        bReturn &= logCompare(true, true, "====== Complete Assignment Creation for " + B2WAssignment.getResourceName());
+            int actualCount = getAssignmentsCount(assignment);
+            bReturn &= logCompare(true, actualCount == initialCount + 1, "Verification that number of Assignment has been increased by 1.");
+            WebElement result = getAssignment(assignment);
+            bReturn &= logCompare(true,  result != null, "Verification that specific Assignment has been created.");
+        } else {
+            cancelAssignment();
+        }
+
+        bReturn &= logCompare(true, true, "====== Complete Assignment Creation for " + assignment.getResourceName());
+        return bReturn;
+    }
+    public boolean createEmployeeNeed(B2WAssignment assignment) {
+        /*
+         * 1. Open Employee Schedule View
+         * 2. Change Schedule View Date Range
+         * 3. Change Schedule View Start Date
+         * 4. Set Filter
+         * 5. Expand groups???
+         * 6. Count number existing assignments for resource.
+         * 7. Open New Employee Assignment Dialog
+         * 8. Fill all fields (JobSite, Employee, Requested By, Notes, Duration, StartTime)
+         * 9. Save New Employee Assignment
+         * 10. Count number existing assignments for resource
+         * 11. Check that the counts difference equal 1
+         * 12. Check that the particular assignment is created
+         */
+
+        boolean bReturn;
+        bReturn = logCompare(true, true, "====== Start Assignment Creation for " + assignment.getResourceName());
+        int initialCount = getAssignmentsCount(assignment);
+        bReturn &= logCompare(true, selectNewAssignmentOrNeed(), "Select New -> Assignment/Need menu");
+        bReturn &= logCompare(true, setEmployeeNeed(assignment.getResourceName()), "Set Resource: " + assignment.getResourceName());
+        bReturn &= setGeneralFields(assignment);
+        if (bReturn) {
+            bReturn &= logCompare(true, saveAssignment(), "Save Assignment");
+
+            //ToDo remove after fix SCHED-3457
+            logCompare(true, expandAll(), "Expand All levels");
+            //=============================
+
+            int actualCount = getAssignmentsCount(assignment);
+            bReturn &= logCompare(true, actualCount == initialCount + 1, "Verification that number of Assignment has been increased by 1.");
+            WebElement result = getAssignment(assignment);
+            bReturn &= logCompare(true,  result != null, "Verification that specific Assignment has been created.");
+        } else {
+            cancelAssignment();
+        }
+
+        bReturn &= logCompare(true, true, "====== Complete Assignment Creation for " + assignment.getResourceName());
+        return bReturn;
+    }
+    public boolean createEquipmentAssignment(B2WAssignment assignment) {
+        /*
+         * 1. Open Employee Schedule View
+         * 2. Change Schedule View Date Range
+         * 3. Change Schedule View Start Date
+         * 4. Set Filter
+         * 5. Expand groups???
+         * 6. Count number existing assignments for resource.
+         * 7. Open New Employee Assignment Dialog
+         * 8. Fill all fields (JobSite, Employee, Requested By, Notes, Duration, StartTime)
+         * 9. Save New Employee Assignment
+         * 10. Count number existing assignments for resource
+         * 11. Check that the counts difference equal 1
+         * 12. Check that the particular assignment is created
+         */
+
+        boolean bReturn;
+        bReturn = logCompare(true, true, "====== Start Assignment Creation for " + assignment.getResourceName());
+        int initialCount = getAssignmentsCount(assignment);
+        bReturn &= logCompare(true, selectNewAssignmentOrNeed(), "Select New -> Assignment/Need menu");
+        bReturn &= logCompare(true, setEquipment(assignment.getResourceName()), "Set Resource: " + assignment.getResourceName());
+
+        bReturn &= setGeneralFields(assignment);
+        if (bReturn) {
+            bReturn &= logCompare(true, saveAssignment(), "Save Assignment");
+
+            int actualCount = getAssignmentsCount(assignment);
+            bReturn &= logCompare(true, actualCount == initialCount + 1, "Verification that number of Assignment has been increased by 1.");
+            WebElement result = getAssignment(assignment);
+            bReturn &= logCompare(true,  result != null, "Verification that specific Assignment has been created.");
+        } else {
+            cancelAssignment();
+        }
+
+        bReturn &= logCompare(true, true, "====== Complete Assignment Creation for " + assignment.getResourceName());
+        return bReturn;
+    }
+    public boolean createEquipmentNeed(B2WAssignment assignment) {
+        /*
+         * 1. Open Employee Schedule View
+         * 2. Change Schedule View Date Range
+         * 3. Change Schedule View Start Date
+         * 4. Set Filter
+         * 5. Expand groups???
+         * 6. Count number existing assignments for resource.
+         * 7. Open New Employee Assignment Dialog
+         * 8. Fill all fields (JobSite, Employee, Requested By, Notes, Duration, StartTime)
+         * 9. Save New Employee Assignment
+         * 10. Count number existing assignments for resource
+         * 11. Check that the counts difference equal 1
+         * 12. Check that the particular assignment is created
+         */
+
+        boolean bReturn;
+        bReturn = logCompare(true, true, "====== Start Assignment Creation for " + assignment.getResourceName());
+        int initialCount = getAssignmentsCount(assignment);
+        bReturn &= logCompare(true, selectNewAssignmentOrNeed(), "Select New -> Assignment/Need menu");
+        bReturn &= logCompare(true, setEquipmentNeed(assignment.getResourceName()), "Set Resource: " + assignment.getResourceName());
+        bReturn &= setGeneralFields(assignment);
+        if (bReturn) {
+            bReturn &= logCompare(true, saveAssignment(), "Save Assignment");
+
+            //ToDo remove after fix SCHED-3457
+            logCompare(true, expandAll(), "Expand All levels");
+            //=============================
+
+            int actualCount = getAssignmentsCount(assignment);
+            bReturn &= logCompare(true, actualCount == initialCount + 1, "Verification that number of Assignment has been increased by 1.");
+            WebElement result = getAssignment(assignment);
+            bReturn &= logCompare(true,  result != null, "Verification that specific Assignment has been created.");
+        } else {
+            cancelAssignment();
+        }
+
+        bReturn &= logCompare(true, true, "====== Complete Assignment Creation for " + assignment.getResourceName());
+        return bReturn;
+    }
+    public boolean createEmployeeSubstitution(B2WAssignment assignment, String sEmployeeSubstitution) {
+        /*
+         * 1. Open Schedule View with Employee Schedule
+         * 2. Change Date Range on Schedule View
+         * 3. Change Start Date on Schedule View
+         * 4. Set Filter
+         * 5. Count number existing substitutions for resource.
+         * 6. Open New Substitution Dialog
+         * 7. Fill all fields (Location, Event Type, Notes)
+         * 8. Save Substitution
+         * 9. Count number existing substitutions for resource.
+         * 10. Check that the counts difference equal 1
+         * 11. Check that the particular substitution was created
+         */
+
+        boolean bReturn = false;
+        WebElement eAssignment = getAssignment(assignment);
+        if (eAssignment != null) {
+            bReturn = logCompare(true, openContextMenu(eAssignment), "Open Assignment's Context Menu");
+            bReturn &= logCompare(true, selectCreateSubstitution(), "Select 'Create Substitution' option");
+            bReturn &= logCompare(true, setEmployee(sEmployeeSubstitution), "Set Employee Substitution");
+            if (bReturn) {
+                bReturn &= logCompare(true, saveAssignment(), "Save Employee Substitution");
+
+                assignment.makeSubstitution(sEmployeeSubstitution);
+                WebElement result = getAssignment(assignment);
+                logCompare(true, result != null, "Verification that specific Assignment converted to Substituted.");
+                logCompare(true, setSearchValue(sEmployeeSubstitution), "Set Filter by Employee Name");
+
+                result = getAssignment(assignment.getSubstitution());
+                logCompare(true, result != null, "Verification that specific Substitution has been created.");
+            } else {
+                cancelAssignment();
+            }
+        } else {
+            logCompare(true, false, "Employee Assignment for " + assignment.getResourceName() + " could not be found on the page.");
+        }
         return bReturn;
     }
 
+    private boolean setGeneralFields(B2WAssignment assignment) {
+        boolean bReturn;
+        bReturn = logCompare(true, setJobSite(assignment.getLocationName()), "Set JobSite/Place: " + assignment.getLocationName());
+        bReturn &= logCompare(true, setRequestedBy(assignment.getRequestedBy()), "Set Requested By: " + assignment.getRequestedBy());
+        bReturn &= logCompare(true, setAssignmentNotes(assignment.getNotes()), "Set Notes: " + assignment.getNotes());
+        bReturn &= logCompare(true, setDuration(assignment.getDuration()), "Set Duration: " + assignment.getDuration());
+        bReturn &= logCompare(true, setStartTime(assignment.getStartTime()), "Set Start Time: " + assignment.getStartTime());
+        return bReturn;
+    }
     // === Private Methods
-    private boolean createNewEmployeeAssignment() {
+    // === Menu for Creation
+    private boolean selectNewAssignmentOrNeed() {
         return openCreateDialog(MENU_ASSIGNMENT);
     }
-    private boolean createNewEquipmentAssignment() {
-        return openCreateDialog(MENU_ASSIGNMENT);
-    }
-    private boolean createNewEmployeeNeed() {
-        return openCreateDialog(MENU_NEED);
-    }
-    private boolean createNewEquipmentNeed() {
-        return openCreateDialog(MENU_NEED);
-    }
-    private boolean createNewCrewAssignment() {
-        return openCreateDialog(MENU_CREWASSIGNMENT);
-    }
-    private boolean createNewCrewNeed() {
-        return openCreateDialog(CREWNEED);
-    }
-    private boolean createNewMoveAssignment() {
-        return openCreateDialog(MOVEASSIGNMENT);
-    }
-    private boolean createNewMoveOrder() {
-        return openCreateDialog(MOVEORDER);
-    }
-    private boolean createNewEvent(String sItem) {
-        boolean bResult;
-        bResult = openCreateDialog(EVENT);
-        if (bResult) {
-            bResult = false;
-            TaskUtils.sleep(100);
-            List<WebElement> list = WebElementUtils.findElements(B2WScheduleAssignments.getLinksContainer());
-            if (list.size() > 0) {
-                Iterator<WebElement> iterator = list.iterator();
-                while (iterator.hasNext() && !bResult) {
-                    WebElement els = iterator.next();
 
-                    if (els.isDisplayed()) {
-                        List<WebElement> items = els.findElements(B2WScheduleAssignments.getLinks());
-                        WebElement item = WebElementUtils.getElementWithMatchingText(items, sItem, false);
-                        if (item != null) {
-                            bResult = WebElementUtils.clickElement(item);
-                        } else {
-                            log.debug("Item with could not be found matching 'Employee'");
-                        }
-                    }
+    // === Context Menu
+    private boolean openContextMenu(WebElement eAssignment) {
+        boolean bReturn = false;
+        if (eAssignment != null) {
+            bReturn = WebElementUtils.clickElement(eAssignment);
+            WebElementUtils.waitForElementClickable(eAssignment);
+            waitForSchedulesPageNoBusy();
+            bReturn &= WebElementUtils.waitAndFindDisplayedElement(B2WScheduleAssignments.getContextMenu()) != null;
+        }
+        return bReturn;
+    }
+    private boolean selectCreateSubstitution() {
+        return selectOptionFromContextMenu("Create Substitution");
+    }
+    private boolean selectOptionFromContextMenu(String sMenuOption) {
+        boolean bReturn = false;
+        WebElement contextMenu = WebElementUtils.waitAndFindDisplayedElement(B2WScheduleAssignments.getContextMenu());
+        if (contextMenu != null) {
+            List<WebElement> list = WebElementUtils.getChildElements(contextMenu, By.cssSelector(".k-link"));
+            Iterator<WebElement> iterator = list.iterator();
+            while (iterator.hasNext() && !bReturn) {
+                WebElement item = iterator.next();
+                String sTmp = item.getText();
+                if (sTmp.contains(sMenuOption)) {
+                    bReturn = WebElementUtils.clickElement(item);
+                    waitForSchedulesPageNoBusy();
                 }
             }
-            if (!bResult) log.debug("Submenu '" + sItem + "' could not be found.");
+            if (!bReturn) {
+                log.debug("Could not found " + sMenuOption + " in the Context Menu.");
+            }
         } else {
-            log.debug("Menu 'New -> Event' could not be clicked.");
+            log.debug("Context menu could not be found on the page.");
         }
-        return bResult;
-    }
-    private boolean createNewEmployeeEvent() {
-        boolean bResult;
-        //bResult = openCreateDialog(EVENT);
-        bResult = createNewEvent("Employee");
-        return bResult;
-    }
-    private boolean createNewEquipmentEvent() {
-        boolean bResult;
-        //bResult = openCreateDialog(EVENT);
-        bResult = createNewEvent("Equipment");
-        return bResult;
-    }
-    private boolean createNewLocationEvent() {
-        boolean bResult;
-        //bResult = openCreateDialog(EVENT);
-        bResult = createNewEvent("Location");
-        return bResult;
+        return bReturn;
     }
 
+    private boolean expandAll() {
+        boolean bReturn = false;
+        WebElement eToolBarPanel = WebElementUtils.findElement(B2WScheduleAssignments.getToolBarPanel());
+        if (eToolBarPanel != null) {
+            List<WebElement> list = WebElementUtils.getChildElements(eToolBarPanel, B2WScheduleAssignments.getExpandIcon());
+            boolean flag = true;
+            for (WebElement el : list) {
+                if (el.isDisplayed()) {
+                    flag &= WebElementUtils.clickElement(el);
+                    waitForSchedulesPageNoBusy();
+                    flag &= WebElementUtils.waitAndFindDisplayedElement(B2WScheduleAssignments.getGrid(), WebElementUtils.LONG_TIME_OUT) != null;
+                }
+            }
+            bReturn = flag;
+        } else {
+            log.debug("ToolBar panel could not be found.");
+        }
+        return bReturn;
+    }
     private String correctDate(String sValue) {
         String sResult = "";
         if (sValue.contains("/")) {
@@ -312,85 +455,39 @@ public class B2WSchedulerTasksTest extends B2WKendoTasks {
     private List<WebElement> getAssignmentsByLocation(String sLocationName) {
         return WebElementUtils.getElementsWithMatchingAttribute(getAllAssignments(), "title", sLocationName);
     }
-    private List<WebElement> getAssignmentsByLocationAndResourceName(String sResourceName, String sLocationName) {
+    private List<WebElement> getAssignmentsByLocationAndResourceName(B2WAssignment assignment) {
         List<WebElement> lReturn = new ArrayList<WebElement>();
-        List<WebElement> list = getAssignmentsByLocation(sLocationName);
-        for (WebElement eTmp : list) {
-            WebElement parent = WebElementUtils.getParentUntilTagName(eTmp, "td");
-            WebElement eResourceName = WebElementUtils.getChildElement(parent, B2WScheduleAssignments.getResourceName());
-            if (eResourceName.getAttribute("title").equals(sResourceName)) {
-                lReturn.add(eTmp);
-            }
-        }
-        return lReturn;
-    }
-    private List<WebElement> getAssignmentsByLocationAndResourceName(String sResourceName, String sLocationName, String sType) {
-        List<WebElement> lReturn = new ArrayList<WebElement>();
-        List<WebElement> list = getAssignmentsByLocation(sLocationName);
+        List<WebElement> list = getAssignmentsByLocation(assignment.getLocationName());
         for (WebElement eTmp : list) {
             WebElement parent = WebElementUtils.getParentUntilTagName(eTmp, "td");
             WebElement eResourceName = WebElementUtils.getChildElement(parent, B2WScheduleAssignments.getResourceName());
             String type = WebElementUtils.getParentElement(eTmp).getAttribute("class");
-            if (eResourceName.getAttribute("title").equals(sResourceName) && type.contains(sType)) {
+            if (eResourceName.getAttribute("title").equals(assignment.getResourceName()) && type.contains(assignment.getAssignmentType())) {
                 lReturn.add(eTmp);
             }
         }
         return lReturn;
     }
-    private int getAssignmentsCount(String sResourceName, String sLocationName) {
-        return getAssignmentsByLocationAndResourceName(sResourceName, sLocationName).size();
+    private int getAssignmentsCount(B2WAssignment assignment) {
+        return getAssignmentsByLocationAndResourceName(assignment).size();
     }
-    private int getAssignmentsCount(String sResourceName, String sLocationName, String sType) {
-        return getAssignmentsByLocationAndResourceName(sResourceName, sLocationName, sType).size();
-    }
-    private Date getAssignmentStartDate(WebElement item) {
-        if (item != null) {
-            try {
-                WebElement parent = WebElementUtils.getParentElement(item);
-                return StringUtils.getDateFromStringWithPattern(parent.getAttribute("b2w-assignment-start"), "yyyy-M-d");
-            } catch (Exception ex) {
-                log.debug("Could not get Parent element for: " + item.toString());
-                return null;
-            }
-        } else {
-            log.debug("Item is NULL.");
-            return null;
-        }
-    }
-    private Date getAssignmentEndDate(WebElement item) {
-        if (item != null) {
-            try {
-                WebElement parent = WebElementUtils.getParentElement(item);
-                return StringUtils.getDateFromStringWithPattern(parent.getAttribute("b2w-assignment-end"), "yyyy-M-d");
-            } catch (Exception ex) {
-                log.debug("Could not get Parent element for: " + item.toString());
-                return null;
-            }
-        } else {
-            log.debug("Item is NULL.");
-            return null;
-        }
-    }
-    private WebElement getResourceLine(String sResourceName) {
-        return WebElementUtils.findElement(B2WScheduleAssignments.getSpecificResourceName(sResourceName));
-    }
-    private WebElement getAssignment(String sResourceName, String sLocationName, String sStartDate, String sEndDate, String sStartTime, String sDuration, String sType) {
+    private WebElement getAssignment(B2WAssignment assignment) {
         WebElement eReturn = null;
 
-        sStartDate = sStartDate + " " + sStartTime;
+        String sStartDate = assignment.getStartDate() + " " + assignment.getStartTime();
         Date startDate = StringUtils.getDateFromStringWithPattern(sStartDate, "M/d/yyyy h:mm a");
         Date endDate;
-        if (sDuration.toLowerCase().contains(":") ) {
-            sEndDate = sEndDate + " " + sDuration;
+        if (assignment.getDuration().toLowerCase().contains(":") ) {
+            String sEndDate = assignment.getEndDate() + " " + assignment.getDuration();
             endDate = StringUtils.getDateFromStringWithPattern(sEndDate, "M/d/yyyy h:mm a");
         } else {
-            sEndDate = sEndDate + " " + sStartTime;
+            String sEndDate = assignment.getEndDate() + " " + assignment.getStartTime();
             endDate = StringUtils.getDateFromStringWithPattern(sEndDate, "M/d/yyyy h:mm a");
-            endDate = DateUtils.addHours(endDate, StringUtils.getHoursFromDuration(sDuration));
-            endDate = DateUtils.addMinutes(endDate, StringUtils.getMinutesFromDuration(sDuration));
+            endDate = DateUtils.addHours(endDate, StringUtils.getHoursFromDuration(assignment.getDuration()));
+            endDate = DateUtils.addMinutes(endDate, StringUtils.getMinutesFromDuration(assignment.getDuration()));
         }
 
-        List<WebElement> list = getAssignmentsByLocationAndResourceName(sResourceName, sLocationName);
+        List<WebElement> list = getAssignmentsByLocationAndResourceName(assignment);
         Iterator<WebElement> iterator = list.iterator();
         boolean flag = false;
         while (iterator.hasNext() && !flag) {
@@ -401,113 +498,13 @@ public class B2WSchedulerTasksTest extends B2WKendoTasks {
             Date assignmentStartDate = StringUtils.getDateFromStringWithPattern(b2wAssignmentStart, "yyyy-M-d HH:mm");
             Date assignmentEndDate = StringUtils.getDateFromStringWithPattern(b2wAssignmentEnd, "yyyy-M-d HH:mm");
             String type = parent.getAttribute("class");
-            if (assignmentStartDate.equals(startDate) && assignmentEndDate.equals(endDate) && type.contains(sType)) {
+            if (assignmentStartDate.equals(startDate) && assignmentEndDate.equals(endDate) && type.contains(assignment.getAssignmentType())) {
                 eReturn = eTmp;
                 flag = true;
             }
         }
         return eReturn;
     }
-    private List<WebElement> getAssignments(String sResourceName, String sLocationName, String sStartDate, String sEndDate, String sStartTime, String sDuration, String sType) {
-        List<WebElement> eReturn = new ArrayList<WebElement>();
-
-        sStartDate = sStartDate + " " + sStartTime;
-        Date startDate = StringUtils.getDateFromStringWithPattern(sStartDate, "M/d/yyyy h:mm a");
-        Date endDate;
-        if (sDuration.toLowerCase().contains(":") ) {
-            sEndDate = sEndDate + " " + sDuration;
-            endDate = StringUtils.getDateFromStringWithPattern(sEndDate, "M/d/yyyy h:mm a");
-        } else {
-            sEndDate = sEndDate + " " + sStartTime;
-            endDate = StringUtils.getDateFromStringWithPattern(sEndDate, "M/d/yyyy h:mm a");
-            endDate = DateUtils.addHours(endDate, StringUtils.getHoursFromDuration(sDuration));
-            endDate = DateUtils.addMinutes(endDate, StringUtils.getMinutesFromDuration(sDuration));
-        }
-
-        List<WebElement> list = getAssignmentsByLocationAndResourceName(sResourceName, sLocationName);
-        Iterator<WebElement> iterator = list.iterator();
-
-        for (WebElement eTmp : list) {
-            WebElement parent = WebElementUtils.getParentElement(eTmp);
-            String b2wAssignmentStart = parent.getAttribute("b2w-assignment-start").replace('T', ' ');
-            String b2wAssignmentEnd = parent.getAttribute("b2w-assignment-end").replace('T', ' ');
-            Date assignmentStartDate = StringUtils.getDateFromStringWithPattern(b2wAssignmentStart, "yyyy-M-d HH:mm");
-            Date assignmentEndDate = StringUtils.getDateFromStringWithPattern(b2wAssignmentEnd, "yyyy-M-d HH:mm");
-            String type = parent.getAttribute("class");
-            if (assignmentStartDate.equals(startDate) && assignmentEndDate.equals(endDate) && type.contains(sType)) {
-                eReturn.add(eTmp);
-            }
-        }
-        return eReturn;
-    }
-    private WebElement getMoveOrder(String sResourceName, String sLocationName, String sStartDate, String sEndDate, String sStartTime, String sDuration) {
-        return getAssignment(sResourceName, sLocationName, sStartDate, sEndDate, sStartTime, sDuration, B2WAssignmentType.MOVE_ORDER_TYPE);
-    }
-    private WebElement getMoveAssignment(String sResourceName, String sLocationName, String sStartDate, String sEndDate, String sStartTime, String sDuration) {
-        return getAssignment(sResourceName, sLocationName, sStartDate, sEndDate, sStartTime, sDuration, B2WAssignmentType.MOVE_ASSIGNMENT_TYPE);
-    }
-    private List<WebElement> getMoveAssignments(String sResourceName, String sLocationName, String sStartDate, String sEndDate, String sStartTime, String sDuration) {
-        return getAssignments(sResourceName, sLocationName, sStartDate, sEndDate, sStartTime, sDuration, B2WAssignmentType.MOVE_ASSIGNMENT_TYPE);
-    }
-    private WebElement getEquipmentAssignment(String sResourceName, String sLocationName, String sStartDate, String sEndDate, String sStartTime, String sDuration) {
-        return getAssignment(sResourceName, sLocationName, sStartDate, sEndDate, sStartTime, sDuration, B2WAssignmentType.EQUIPMENT_TYPE);
-    }
-    private List<WebElement> getEquipmentAssignments(String sResourceName, String sLocationName, String sStartDate, String sEndDate, String sStartTime, String sDuration) {
-        return getAssignments(sResourceName, sLocationName, sStartDate, sEndDate, sStartTime, sDuration, B2WAssignmentType.EQUIPMENT_TYPE);
-    }
-    private WebElement getEquipmentNeed(String sResourceName, String sLocationName, String sStartDate, String sEndDate, String sStartTime, String sDuration) {
-        return getAssignment(sResourceName, sLocationName, sStartDate, sEndDate, sStartTime, sDuration, B2WAssignmentType.EQUIPMENT_NEED_TYPE);
-    }
-    private WebElement getEmployeeAssignment(B2WAssignment assignment) {
-        return getAssignment(assignment.getResourceName(), assignment.getLocationName(), assignment.getStartDate(), assignment.getEndDate(),
-                assignment.getStartTime(), assignment.getDuration(), B2WAssignmentType.EMPLOYEE_TYPE);
-    }
-    private List<WebElement> getEmployeeAssignments(String sResourceName, String sLocationName, String sStartDate, String sEndDate, String sStartTime, String sDuration) {
-        return getAssignments(sResourceName, sLocationName, sStartDate, sEndDate, sStartTime, sDuration, B2WAssignmentType.EMPLOYEE_TYPE);
-    }
-    private WebElement getEmployeeSubstitution(String sResourceName, String sLocationName, String sStartDate, String sEndDate, String sStartTime, String sDuration) {
-        return getAssignment(sResourceName, sLocationName, sStartDate, sEndDate, sStartTime, sDuration, B2WAssignmentType.SUBSTITUTION_TYPE);
-    }
-    private WebElement getEmployeeSubstituted(String sResourceName, String sLocationName, String sStartDate, String sEndDate, String sStartTime, String sDuration) {
-        return getAssignment(sResourceName, sLocationName, sStartDate, sEndDate, sStartTime, sDuration, B2WAssignmentType.SUBSTITUTED_TYPE);
-    }
-    private WebElement getEmployeeNeed(String sResourceName, String sLocationName, String sStartDate, String sEndDate, String sStartTime, String sDuration) {
-        return getAssignment(sResourceName, sLocationName, sStartDate, sEndDate, sStartTime, sDuration, B2WAssignmentType.EMPLOYEE_NEED_TYPE);
-    }
-    private WebElement getCrewAssignment(String sResourceName, String sLocationName, String sStartDate, String sEndDate, String sStartTime, String sDuration) {
-        return getAssignment(sResourceName, sLocationName, sStartDate, sEndDate, sStartTime, sDuration, B2WAssignmentType.CREW_TYPE);
-    }
-    private List<WebElement> getCrewAssignments(String sResourceName, String sLocationName, String sStartDate, String sEndDate, String sStartTime, String sDuration) {
-        return getAssignments(sResourceName, sLocationName, sStartDate, sEndDate, sStartTime, sDuration, B2WAssignmentType.CREW_TYPE);
-    }
-    private WebElement getCrewNeed(String sResourceName, String sLocationName, String sStartDate, String sEndDate, String sStartTime, String sDuration) {
-        return getAssignment(sResourceName, sLocationName, sStartDate, sEndDate, sStartTime, sDuration, B2WAssignmentType.CREW_NEED_TYPE);
-    }
-    private WebElement getEmployeeEvent(String sResourceName, String sLocationName, String sStartDate, String sEndDate, String sStartTime, String sDuration) {
-        return getAssignment(sResourceName, sLocationName, sStartDate, sEndDate, sStartTime, sDuration, B2WAssignmentType.EMPLOYEE_EVENT_TYPE);
-    }
-    private List<WebElement> getEmployeeEvents(String sResourceName, String sLocationName, String sStartDate, String sEndDate, String sStartTime, String sDuration) {
-        return getAssignments(sResourceName, sLocationName, sStartDate, sEndDate, sStartTime, sDuration, B2WAssignmentType.EMPLOYEE_EVENT_TYPE);
-    }
-    private WebElement getEquipmentEvent(String sResourceName, String sLocationName, String sStartDate, String sEndDate, String sStartTime, String sDuration) {
-        return getAssignment(sResourceName, sLocationName, sStartDate, sEndDate, sStartTime, sDuration, B2WAssignmentType.EQUIPMENT_EVENT_TYPE);
-    }
-    private List<WebElement> getEquipmentEvents(String sResourceName, String sLocationName, String sStartDate, String sEndDate, String sStartTime, String sDuration) {
-        return getAssignments(sResourceName, sLocationName, sStartDate, sEndDate, sStartTime, sDuration, B2WAssignmentType.EQUIPMENT_EVENT_TYPE);
-    }
-    private WebElement getLocationEvent(String sResourceName, String sLocationName, String sStartDate, String sEndDate, String sStartTime, String sDuration) {
-        return getAssignment(sResourceName, sLocationName, sStartDate, sEndDate, sStartTime, sDuration, B2WAssignmentType.LOCATION_EVENT_TYPE);
-    }
-    private List<WebElement> getLocationEvents(String sResourceName, String sLocationName, String sStartDate, String sEndDate, String sStartTime, String sDuration) {
-        return getAssignments(sResourceName, sLocationName, sStartDate, sEndDate, sStartTime, sDuration, B2WAssignmentType.LOCATION_EVENT_TYPE);
-    }
-    private List<WebElement> getAllConflictsFromPanel() {
-        return WebElementUtils.findElements(B2WScheduleAssignments.getConflictFromPanel());
-    }
-    private WebElement getConflictForResource(String sResourceName) {
-        return WebElementUtils.getElementWithContainsChildElementText(getAllConflictsFromPanel(), By.cssSelector("div.ng-binding"), sResourceName);
-    }
-
 
     //-- Set Methods
     // Method to set value to FDD fields
@@ -525,24 +522,12 @@ public class B2WSchedulerTasksTest extends B2WKendoTasks {
         }
         return bReturn;
     }
-    private void clearFields(String sFieldName) {
-        WebElement assignmentWindow = WebElementUtils.waitAndFindElement(B2WScheduleAssignments.getAssignmentWindow());
-        WebElementUtils.switchToFrame(B2WScheduleAssignments.getAssignmentWindow(), 1);
 
-        if (assignmentWindow != null) {
-            WebElement employeeAssignment = WebElementUtils.getKendoFDDElementByLabel(sFieldName);
-            employeeAssignment.clear();
-            waitForSchedulesPageNoBusy();
-        } else {
-            log.debug("Create Assignment Window could not be found");
-        }
-    }
     // Set Values on Create Assignment Dialog
     private boolean setJobSite(String sValue) {
         return setFields("Job Site/Place", sValue);
     }
     private boolean setRequestedBy(String sValue) { return setFields("Requested By", sValue); }
-
     private boolean setAssignmentNotes(String sValue) {
         boolean bResult = false;
         WebElement notesField = WebElementUtils.findElement(B2WScheduleAssignments.getNotesField());
@@ -556,9 +541,6 @@ public class B2WSchedulerTasksTest extends B2WKendoTasks {
     private boolean setEmployees(String sValue) {
         return setFields("Employees", sValue);
     }
-    private boolean setEmployee(String sValue) {
-        return setFields("Employee", sValue);
-    }
     private boolean setEmployeeNeed(String sValue) {
         return setFields("Employee Needs", sValue);
     }
@@ -568,129 +550,10 @@ public class B2WSchedulerTasksTest extends B2WKendoTasks {
     private boolean setEquipmentNeed(String sValue) {
         return setFields("Equipment Needs", sValue);
     }
-    private boolean setCrew(String sValue) {
-        return setFields("Crew", sValue);
-    }
-    private boolean setCrewNeed(String sValue) {
-        return setFields("Crew Need", sValue);
-    }
-    private boolean setPickupLocation(String sPickupType, String sPickupJobSiteName) {
-        boolean bResult;
-        WebElement dropDown = WebElementUtils.getKendoFDDElementByLabel("Pickup Location");
-        bResult = clickAndSelectValueFromKendoFDD(dropDown, sPickupType);
-
-        List<WebElement> inputList = WebElementUtils.findElements(B2WScheduleAssignments.getFieldLabel());
-        WebElement el = WebElementUtils.getElementWithMatchingText(inputList, "Pickup Location", false);
-        WebElement parent = WebElementUtils.getParentElement(el);
-        //WebElement elControlPanel = WebElementUtils.getChildElement(parent, B2WScheduleAssignments.getControlPanel());
-        WebElement elControlPanel = WebElementUtils.getChildElement(parent, B2WScheduleAssignments.getAddressSection());
-        WebElement jobSite = WebElementUtils.getChildElement(elControlPanel, KendoUI.getKendoDropDown());
-        if (jobSite != null) {
-            bResult &= sendTextAndSelectValueFromKendoFDD(jobSite, sPickupJobSiteName);
-        } else {
-            bResult = false;
-            log.debug("Job Site/Place field could not be found for Pickup Location.");
-        }
-        return bResult;
-    }
-    private boolean setPickupDate(String sValue) {
-        boolean bReturn = false;
-        WebElement element = WebElementUtils.getKendoFDDElementByLabel("Pickup Date");
-        if (element != null ) {
-            element.clear();
-            bReturn = WebElementUtils.sendKeys(element, sValue);
-        }
-        return bReturn;
-    }
-    private boolean setPickupAfter(String sValue) {
-        boolean bReturn = false;
-        WebElement element = WebElementUtils.getKendoFDDElementByLabel("Pickup After");
-        if (element != null ) {
-            element.clear();
-            bReturn = WebElementUtils.sendKeys(element, sValue);
-        }
-        return bReturn;
-    }
-    private boolean setPickupTime(String sValue) {
-        boolean bReturn = false;
-        WebElement element = WebElementUtils.getKendoFDDElementByLabel("Pickup Time");
-        if (element != null ) {
-            element.clear();
-            bReturn = WebElementUtils.sendKeys(element, sValue);
-        }
-        return bReturn;
-    }
-    private boolean setDropoffDate(String sValue) {
-        boolean bReturn = false;
-        WebElement element = WebElementUtils.getKendoFDDElementByLabel("Drop-off Date");
-        if (element != null ) {
-            element.clear();
-            bReturn = WebElementUtils.sendKeys(element, sValue);
-        }
-        return bReturn;
-    }
-    private boolean setDropoffBefore(String sValue) {
-        boolean bReturn = false;
-        WebElement element = WebElementUtils.getKendoFDDElementByLabel("Drop-off Before");
-        if (element != null ) {
-            element.clear();
-            bReturn = WebElementUtils.sendKeys(element, sValue);
-        }
-        return bReturn;
-    }
-    private boolean setDropoffTime(String sValue) {
-        boolean bReturn = false;
-        WebElement element = WebElementUtils.getKendoFDDElementByLabel("Drop-off Time");
-        if (element != null ) {
-            element.clear();
-            bReturn = WebElementUtils.sendKeys(element, sValue);
-        }
-        return bReturn;
-    }
-    private boolean setDropoffLocation(String sDropoffType, String sDropoffJobSiteName) {
-        boolean bResult;
-        WebElement dropDown = WebElementUtils.getKendoFDDElementByLabel("Drop-off Location");
-        bResult = clickAndSelectValueFromKendoFDD(dropDown, sDropoffType);
-
-        List<WebElement> inputList = WebElementUtils.findElements(B2WScheduleAssignments.getFieldLabel());
-        WebElement el = WebElementUtils.getElementWithMatchingText(inputList, "Drop-off Location", false);
-        WebElement parent = WebElementUtils.getParentElement(el);
-        WebElement elControlPanel = WebElementUtils.getChildElement(parent, B2WScheduleAssignments.getAddressSection());
-        WebElement jobSite = WebElementUtils.getChildElement(elControlPanel, KendoUI.getKendoDropDown());
-        if (jobSite != null) {
-            bResult &= sendTextAndSelectValueFromKendoFDD(jobSite, sDropoffJobSiteName);
-        } else {
-            bResult = false;
-            log.debug("Job Site/Place field could not be found for Drop-off Location.");
-        }
-        return bResult;
-    }
-    private boolean clickSelectCrew() {
-        boolean bResult;
-        bResult = clickSelectCrewBtn();
-        return bResult;
-    }
-    private boolean setEventType(String sTypeName) {
-        boolean bResult = false;
-        WebElement dropDown = WebElementUtils.findElement(B2WScheduleAssignments.getEventTypeDropDown());
-        if (dropDown != null) {
-            WebElement parent = WebElementUtils.getParentElement(dropDown);
-            bResult = WebElementUtils.clickElement(parent);
-            bResult &= selectItemFromDropDown(sTypeName);
-        } else {
-            log.debug("Could not find 'Select event type' dropdown.");
-        }
-        return bResult;
-    }
-    private boolean setEventEmployee(String sValue) {
+    private boolean setEmployee(String sValue) {
         return setFields("Employee", sValue);
     }
-    private boolean setEventEquipment(String sEquipmentName) {
-        return setFields("Equipment", sEquipmentName);
-    }
-    private boolean setEventLocation(String sJobSiteName) {
-        return setFields("Location", sJobSiteName);
-    }
+
     private boolean setDuration(String sValue) { return setFields("Duration", sValue); }
     private boolean setStartTime(String sValue) {
         boolean bReturn = false;
@@ -729,102 +592,34 @@ public class B2WSchedulerTasksTest extends B2WKendoTasks {
             WebElementUtils.waitForElementInvisible(saveBtn);
             waitForSchedulesPageNoBusy();
             WebElementUtils.switchToFrame(B2WScheduleAssignments.getScheduleProductPageIcon(), 1);
-            bResult &= WebElementUtils.waitAndFindDisplayedElement(B2WScheduleAssignments.getScheduleProductPageIcon()) != null;
+            bResult &= WebElementUtils.waitAndFindElement(B2WScheduleAssignments.getGrid()) != null;
         } else {
             log.debug("Add to Schedule button could not be found.");
         }
         return bResult;
     }
-    private boolean saveEmployeeAssignment() {
-        boolean bResult;
-        bResult = saveAssignment();
-        waitForSchedulesPageNoBusy();
-        bResult &= WebElementUtils.waitAndFindElement(B2WScheduleAssignments.getGrid()) != null;
-        return bResult;
-    }
-    private boolean saveEquipmentAssignment() {
-        boolean bResult;
-        bResult = saveAssignment();
-        waitForSchedulesPageNoBusy();
-        return bResult;
-    }
-    private boolean saveEmployeeNeed() {
-        boolean bResult;
-        bResult = saveAssignment();
-        waitForSchedulesPageNoBusy();
-        return bResult;
-    }
-    private boolean saveEquipmentNeed() {
-        boolean bResult;
-        bResult = saveAssignment();
-        waitForSchedulesPageNoBusy();
-        return bResult;
-    }
-    private boolean saveCrewAssignment() {
-        boolean bResult;
-        bResult = saveAssignment();
-        waitForSchedulesPageNoBusy();
-        return bResult;
-    }
-    private boolean saveCrewNeed() {
-        boolean bResult;
-        bResult = saveAssignment();
-        waitForSchedulesPageNoBusy();
-        return bResult;
-    }
-    private boolean saveMoveAssignment() {
-        boolean bResult;
-        WebElement el = WebElementUtils.findElement(B2WScheduleAssignments.getSaveAssignmentBtn());
-        WebElementUtils.moveVirtualMouseOverElement(el);
-        bResult = WebElementUtils.waitForElementClickable(el);
-        if (el != null && bResult) {
-            bResult = WebElementUtils.clickElement(el);
-            WebElementUtils.waitForElementInvisible(el);
+    private boolean cancelAssignment() {
+        /*
+         * 1. Click on Add to Schedule button
+         * 2. Check that Schedule View is displayed.
+         */
+        boolean bResult = false;
+        WebElement assignmentWindow = WebElementUtils.waitAndFindElement(B2WScheduleAssignments.getAssignmentWindow());
+        WebElementUtils.switchToFrame(B2WScheduleAssignments.getAssignmentWindow(), 1);
+        WebElement cancelBtn = WebElementUtils.getChildElement(assignmentWindow, B2WScheduleAssignments.getCancelBtn());
+        if (cancelBtn != null) {
+            bResult = WebElementUtils.clickElement(cancelBtn);
+            WebElementUtils.waitForElementInvisible(cancelBtn);
             waitForSchedulesPageNoBusy();
             WebElementUtils.switchToFrame(B2WScheduleAssignments.getScheduleProductPageIcon(), 1);
-            bResult &= WebElementUtils.waitAndFindDisplayedElement(B2WScheduleAssignments.getScheduleProductPageIcon()) != null;
+            bResult &= WebElementUtils.waitAndFindElement(B2WScheduleAssignments.getGrid()) != null;
         } else {
-            log.debug("Create Assignment Button could not be found.");
+            log.debug("Add to Schedule button could not be found.");
         }
-        return bResult;
-    }
-    private boolean saveMoveOrder() {
-        return saveMoveAssignment();
-    }
-    private boolean saveEvent() {
-        boolean bResult;
-        bResult = saveAssignment();
-        waitForSchedulesPageNoBusy();
         return bResult;
     }
 
     // Click Methods
-    public boolean clickSelectCrewBtn() {
-        boolean bResult = false;
-        WebElement assignmentWindow = WebElementUtils.waitAndFindElement(B2WScheduleAssignments.getAssignmentWindow());
-        WebElementUtils.switchToFrame(B2WScheduleAssignments.getAssignmentWindow(), 1);
-        WebElement selectBtn = WebElementUtils.getChildElement(assignmentWindow, B2WScheduleAssignments.getSelectCrewBtn());
-        if (selectBtn != null) {
-            bResult = WebElementUtils.clickElement(selectBtn);
-            bResult &= WebElementUtils.getKendoFDDElementByLabel("Crew") != null;
-        } else {
-            log.debug("Select Crew button could not be found.");
-        }
-        return bResult;
-    }
-    public boolean clickEditLocation() {
-        boolean bReturn = false;
-        WebElement eLink = WebElementUtils.findElement(B2WScheduleAssignments.getEditLocationLink());
-        if (eLink != null) {
-            bReturn = WebElementUtils.clickElement(eLink);
-        } else {
-            Log.debug("'Edit Location' link could not be found on the page.");
-        }
-        return bReturn;
-    }
-    public boolean clickEditCrew() {
-        return clickSelectCrewBtn();
-    }
 
     private boolean waitForSchedulesPageNoBusy() {
         return waitForPageNotBusy(WebElementUtils.LONG_TIME_OUT);

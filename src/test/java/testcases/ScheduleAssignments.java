@@ -343,8 +343,8 @@ public class ScheduleAssignments extends B2WTestCase {
         createNewJobSiteScheduleView();
 
         //=== Create Schedule Assignments
-        createEmployeeAssignment(sEmployeeView, sEmployeeName, sJobSiteName, sRequestedBy, sNotesText, sAssignmentStartTime, sAssignmentDuration);
-        createEmployeeAssignment(sEmployeeView, sEmployeeNameForSubstitution, sJobSiteName, sRequestedBy, sNotesText, sAssignmentStartTime, sAssignmentDuration);
+        //createEmployeeAssignment(sEmployeeView, sEmployeeName, sJobSiteName, sRequestedBy, sNotesText, sAssignmentStartTime, sAssignmentDuration);
+        //createEmployeeAssignment(sEmployeeView, sEmployeeNameForSubstitution, sJobSiteName, sRequestedBy, sNotesText, sAssignmentStartTime, sAssignmentDuration);
         createEmployeeSubstitution(sEmployeeView, sEmployeeNameForSubstitution, sEmployeeSubstitution, sJobSiteName, sCalendarStartDate, sCalendarStartDate, sAssignmentStartTime, sAssignmentDuration);
         createEmployeeNeed(sEmployeeView, sEmployeeNeedName, sJobSiteName, sRequestedBy, sNotesText, sAssignmentStartTime, sAssignmentDuration);
         createEmployeeNeed(sEmployeeView, sEmployeeNeedName1, sJobSiteName, sRequestedBy, sNotesText, sAssignmentStartTime, sAssignmentDuration);
@@ -648,7 +648,7 @@ public class ScheduleAssignments extends B2WTestCase {
         logCompare(true, b2wScheduler.createNewEmployeeNeed(), "Open Create Employee Need Dialog");
         logCompare(true, b2wScheduler.setJobSite(sJobSiteName), "Set JobSite/Place");
         logCompare(true, b2wScheduler.setEmployeeNeed(sEmployeeNeedName), "Set Employee Need");
-        logCompare(true, b2wScheduler.setRequestedBy(sRequestedBy), "Set Requested By");
+        logCompare(true, b2wScheduler.setRequestedBy(sRequestedBy), "Set Requested By/**/");
         logCompare(true, b2wScheduler.setNotes(sNotesText), "Set Notes");
         logCompare(true, b2wScheduler.setDuration(sAssignmentDuration), "Set Notes");
         logCompare(true, b2wScheduler.setStartTime(sAssignmentStartTime), "Set Notes");
