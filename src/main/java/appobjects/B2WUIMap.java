@@ -782,8 +782,23 @@ public class B2WUIMap {
 	public static final String b2w_scheduled_collapseicon = ".Icon.i119-double-angle-up";
 	public static final String b2w_schedule_assignmentrightedge = ".Assignment__handle.Assignment__handle--right.active";
 	public static final String b2w_schedule_assignmentleftedge = ".Assignment__handle.Assignment__handle--left.active";
-	public static final String b2w_schedule_resourcewarningicon = ".Icon.clickable.ng-isolate-scope.i152-warning";
+	public static final String b2w_schedule_resourcewarningicon_i152 = ".Icon.clickable.ng-isolate-scope.i152-warning";
+	public static final String b2w_schedule_resourcewarningicon_i228 = ".Icon.clickable.ng-isolate-scope.i228-conflict-round";
+	public static final String b2w_schedule_resourcewarningicon_need_i228 = ".Icon.clickable.ng-isolate-scope.i218-need";
 	public static final String b2w_schedule_tooltip = ".k-tooltip-content.ng-scope";
+	public static final String b2w_schedule_conflictpanelbutton = ".Icon.Icon--lg.i152-warning";
+	public static final String b2w_schedule_orderpaneltbutton = ".Icon.Icon--lg.i218-need";
+	public static final String b2w_schedule_conflictspanel = "b2w-conflicts-panel";
+	public static final String b2w_schedule_orderspanel = "b2w-needs-panel";
+	public static final String b2w_schedule_conflicblock = "b2w-conflict-block";
+	public static final String b2w_schedule_orderblock = "b2w-assignment-block";
+	public static final String b2w_schedule_conflictoolbar = ".Toolbar__fill-need.ng-binding";
+	public static final String b2w_schedule_firstitem = ".//*[@class='k-grid-content']/table/tbody/tr[1]/td[1]/b2w-resource-description/div/div";
+	public static final String b2w_schedule_orderlistfirstitemtable = ".js--Table__tr--active-need.Table__tr--active-need.level0.level0";
+	public static final String b2w_schedule_orderlistfirstitem = ".ResourceDescription__resource-name.level0.notify-icon";
+	public static final String b2w_schedule_checkedbtn = ".Toolbar__toggle-button--checked";
+	public static final String b2w_schedule_employeecheckbox = "input.ng-pristine";
+	public static final String b2w_schedule_cancelbutton = ".Button.Button--large.Button--link";
 
 	// Maintain
 	public static final String b2w_maintainpagemenu = "ul#SubNavMenu_MaintainPageMenu.MaintainPageMenu";
@@ -844,7 +859,9 @@ public class B2WUIMap {
 	public static final String b2w_maintainrequestsaddtoworkorderdialog = "div#add_to_work_order_popup_view.wizard-dialog.add-work-order-item-popup-view.k-window-content.k-content";
 	// work orders
 	public static final String b2w_maintainworkorderslistview = "div#work_order_list_view";
+	public static final String b2w_maintainworkorderdisplaystatus = "td.subhead.right";
 	public static final String b2w_maintainworkordersview = "div#work_order_create_view";
+	public static final String b2w_maintainworkorderseditview = "div#work_order_edit_view";
 	public static final String b2w_maintainworkorderadditembutton = "a.btn-orig.add-item";
 	public static final String b2w_maintainworkorderadditemview = "div.create-new-request";
 	public static final String b2w_maintainworkorderselectitemsview = "div.select-action.select-request";
@@ -854,7 +871,8 @@ public class B2WUIMap {
 	public static final String b2w_maintainworkordersduedate = "//span[@data-bind='text: detailsViewModel.displayDueDate']";
 	public static final String b2w_maintainworkorderstatus = "//td[@data-bind='text: detailsViewModel.displayStatus']";
 	public static final String b2w_maintainrequestsstatus =  "//span[@data-bind='text: detailsViewModel.displayStatus']";
-
+	public static final String b2w_maintainworkorderitemslist = ".item-list";
+	public static final String b2w_kendoboxcontent = ".box-content";
 
 	public static final String b2w_scheduleanimationcontainer = ".k-animation-container";
 	public static final String b2w_schedulelinks = "span.k-link";
@@ -897,7 +915,10 @@ public class B2WUIMap {
 	public static final String b2w_maintainscheduletimes = ".k-scheduler-times";
 	public static final String b2w_maintainscheduleheader = ".k-scheduler-header-wrap";
 	public static final String b2w_maintainscheduleworkorder = "div#workOrdersScheduler";
-	
+	public static final String b2w_maintainprogramsiconplus = ".k-icon.k-plus";
+	public static final String b2w_maintainprogramsiconminus = ".k-icon.k-minus";
+	public static final String b2w_kendomasterrow = ".k-master-row";
+	public static final String b2w_maintainprogramgeneraterequestlink = "a.generateProgramRequestLink";
 	
 	
 	
@@ -1004,7 +1025,6 @@ public class B2WUIMap {
 	public static final String b2w_maintaindashboardpendingtimecards = "div#pendingTimeCards";
 	public static final String b2w_maintaindashboardworkorderlist = "div#workOrdersList";
 	public static final String b2w_maintaindashboardworkorders = "div#workorders";
-    public static final String b2w_maintaindashboardworkordercharts = "div#workordercharts";
     public static final String b2w_maintaindashboardtimecards = "div#timecards";
     public static final String b2w_maintaindashboardworkorderscontent = "div#workOrdersContent";
     public static final String b2w_maintaindashboardworkordercontainer = "div.wo_container";
@@ -1018,6 +1038,13 @@ public class B2WUIMap {
     public static final String b2w_maintaindashboardworkorderdata = ".wo_data.ellipsis";
     public static final String b2w_maintaindashboardscheduletooltip = "div.schedule-tooltip";
     public static final String b2w_maintaindashboardscheduledworkOrdersfilterbutton = "span.b2w-icon.i127-filter";
+    public static final String b2w_maintaindashboardworkorderchartright = ".workorder_charts_col_right";
+    public static final String b2w_maintaindashboardworkordercharts = ".dashboard-workorder-chart";
+    public static final String b2w_maintaindashboardworkorderpopupchart = "div#Dashboard-Chart-Tooltip-Content";
+    public static final String b2w_maintaindashboardworkordermanorderchart = ".manhours-charts-content";
+    public static final String b2w_maintaindashboardpriority = ".data-priority";
+    public static final String b2w_maintaindashboardnodata = "div.chart-placeholder.no_data.white";
+    public static final String b2w_maintaindashboardmanhrscharts = "div.man-hours-chart.k-b2wdashboardchart.clickable";
     
     // maintain schedule popup
     public static final String b2w_maintainschedulepopupworkordertitle = "span.workorder-title";
@@ -1035,5 +1062,7 @@ public class B2WUIMap {
     public static final String b2w_joboverheadaccountdescription = "a[id^='PageContent_OverheadAccountGridView_Description']";
     public static final String b2w_joboverheadaccounteditbutton = "a[id^='PageContent_OverheadAccountGridView_Edit']";
     public static final String b2w_joboverheadaccountdeletebutton = "a[id^='PageContent_OverheadAccountGridView_Delete']";
+
+	public static final String b2w_maintainworkordertable = "table.item-overview";
 
 }

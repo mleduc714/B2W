@@ -16,8 +16,7 @@ import tasks.WebElementUtils;
 import tasks.util.TaskUtils;
 
 public class B2WEquipmentTasks extends B2WKendoTasks {
-	
-	
+
 	public String EQUIPMENTSPECS = "Equipment Specs";
 	public String COMPSPECS = "Component Specs";
 	public String FILEATTACH = "File Attachments";
@@ -31,8 +30,7 @@ public class B2WEquipmentTasks extends B2WKendoTasks {
 	public String EVENTS = "Events";
 	public String HISTORY = "History";
 	public String LOCATION = "Location";
-	
-	
+
 	Logger log = Logger.getLogger(B2WEquipmentTasks.class);
 
 	public boolean createNewEquipment() {
@@ -42,7 +40,8 @@ public class B2WEquipmentTasks extends B2WKendoTasks {
 			WebElement el = WebElementUtils.getElementWithMatchingText(els, "New Equipment", true);
 			if (el != null) {
 				bReturn = WebElementUtils.clickElement(el);
-				bReturn = WebElementUtils.waitAndFindDisplayedElement(B2WEquipment.getKendoFooter(), WebElementUtils.MEDIUM_TIME_OUT) != null;
+				bReturn = WebElementUtils.waitAndFindDisplayedElement(B2WEquipment.getKendoFooter(),
+						WebElementUtils.MEDIUM_TIME_OUT) != null;
 			}
 		}
 		return bReturn;
@@ -53,400 +52,422 @@ public class B2WEquipmentTasks extends B2WKendoTasks {
 
 		List<WebElement> els = WebElementUtils.findElements(KendoUI.getKendoDescription());
 		WebElement el = WebElementUtils.getElementWithMatchingAttribute(els, "name", "Description");
-		
+
 		if (el != null && WebElementUtils.waitForElementIsDisplayed(el, WebElementUtils.MEDIUM_TIME_OUT)) {
 			bReturn = WebElementUtils.sendKeys(el, sText);
-		}else{
+		} else {
 			log.debug("Element was not available to send text to");
 		}
 
 		return bReturn;
 	}
-	
+
 	public boolean setEquipmentID(String sText) {
 		boolean bReturn = false;
 
 		List<WebElement> els = WebElementUtils.findElements(B2WEquipment.getKendoDescription());
 		WebElement el = WebElementUtils.getElementWithMatchingAttribute(els, "name", "EquipmentID");
-		
+
 		if (el != null && WebElementUtils.waitForElementIsDisplayed(el, WebElementUtils.MEDIUM_TIME_OUT)) {
 			bReturn = WebElementUtils.sendKeys(el, sText);
-		}else{
+		} else {
 			log.debug("Element was not available to set text to");
 		}
 
 		return bReturn;
 	}
-	
-	//***********************THIS IS A TEST************************************
-	
-	//EQUIPMENT SPECS
+
+	// ***********************THIS IS A TEST************************************
+
+	// EQUIPMENT SPECS
 	public boolean setEquipmentSpecsManufacturer(String sText) {
 		boolean bReturn = false;
 
 		List<WebElement> els = WebElementUtils.findElements(KendoUI.getKendoDescription());
 		WebElement el = WebElementUtils.getElementWithMatchingAttribute(els, "name", "Manufacturer");
-		
+
 		if (el != null && WebElementUtils.waitForElementIsDisplayed(el, WebElementUtils.MEDIUM_TIME_OUT)) {
 			bReturn = WebElementUtils.sendKeys(el, sText);
-		}else{
+		} else {
 			log.debug("Element was not available to send text to");
 		}
 
 		return bReturn;
 	}
-	
+
 	public boolean setEquipmentSpecsModel(String sText) {
 		boolean bReturn = false;
 
 		List<WebElement> els = WebElementUtils.findElements(KendoUI.getKendoDescription());
 		WebElement el = WebElementUtils.getElementWithMatchingAttribute(els, "name", "Model");
-		
+
 		if (el != null && WebElementUtils.waitForElementIsDisplayed(el, WebElementUtils.MEDIUM_TIME_OUT)) {
 			bReturn = WebElementUtils.sendKeys(el, sText);
-		}else{
+		} else {
 			log.debug("Element was not available to send text to");
 		}
 
 		return bReturn;
 	}
-	
-	//Year does not Work for some reason
+
+	// Year does not Work for some reason
 	public boolean setEquipmentSpecsYear(String sText) {
 		boolean bReturn = false;
 
 		List<WebElement> els = WebElementUtils.findElements(KendoUI.getKendoDescription());
+
 		WebElement el = WebElementUtils.getElementWithMatchingAttribute(els, "name", "Year");
-		
+
 		if (el != null && WebElementUtils.waitForElementIsDisplayed(el, WebElementUtils.MEDIUM_TIME_OUT)) {
 			bReturn = WebElementUtils.sendKeys(el, sText);
-		}else{
+		} else {
 			log.debug("Element was not available to send text to");
 		}
 
 		return bReturn;
 	}
-	
-	
+
 	public boolean setEquipmentSpecsColor(String sText) {
 		boolean bReturn = false;
 
 		List<WebElement> els = WebElementUtils.findElements(KendoUI.getKendoDescription());
 		WebElement el = WebElementUtils.getElementWithMatchingAttribute(els, "name", "Color");
-		
+
 		if (el != null && WebElementUtils.waitForElementIsDisplayed(el, WebElementUtils.MEDIUM_TIME_OUT)) {
 			bReturn = WebElementUtils.sendKeys(el, sText);
-		}else{
+		} else {
 			log.debug("Element was not available to send text to");
 		}
 
 		return bReturn;
 	}
-	
-	
+
 	public boolean setEquipmentSpecsLojack(String sText) {
 		boolean bReturn = false;
 
 		List<WebElement> els = WebElementUtils.findElements(KendoUI.getKendoDescription());
 		WebElement el = WebElementUtils.getElementWithMatchingAttribute(els, "name", "Lojack");
-		
+
 		if (el != null && WebElementUtils.waitForElementIsDisplayed(el, WebElementUtils.MEDIUM_TIME_OUT)) {
 			bReturn = WebElementUtils.sendKeys(el, sText);
-		}else{
+		} else {
 			log.debug("Element was not available to send text to");
 		}
 
 		return bReturn;
 	}
-	
-	
+
 	public boolean setEquipmentSpecsHutStickerNumber(String sText) {
 		boolean bReturn = false;
 
 		List<WebElement> els = WebElementUtils.findElements(KendoUI.getKendoDescription());
 		WebElement el = WebElementUtils.getElementWithMatchingAttribute(els, "name", "HutStickerNumber");
-		
+
 		if (el != null && WebElementUtils.waitForElementIsDisplayed(el, WebElementUtils.MEDIUM_TIME_OUT)) {
 			bReturn = WebElementUtils.sendKeys(el, sText);
-		}else{
+		} else {
 			log.debug("Element was not available to send text to");
 		}
 
 		return bReturn;
 	}
-	
-	
+
 	public boolean setEquipmentSpecsEZPassNumber(String sText) {
 		boolean bReturn = false;
 
 		List<WebElement> els = WebElementUtils.findElements(KendoUI.getKendoDescription());
 		WebElement el = WebElementUtils.getElementWithMatchingAttribute(els, "name", "EZPassNumber");
-		
+
 		if (el != null && WebElementUtils.waitForElementIsDisplayed(el, WebElementUtils.MEDIUM_TIME_OUT)) {
 			bReturn = WebElementUtils.sendKeys(el, sText);
-		}else{
+		} else {
 			log.debug("Element was not available to send text to");
 		}
 
 		return bReturn;
 	}
-	
-	
-	
-	//COMPONENT SPECS
+
+	// COMPONENT SPECS
 	public boolean setComponentSpecsEngine(String sText) {
 		boolean bReturn = false;
 
 		List<WebElement> els = WebElementUtils.findElements(KendoUI.getKendoDescription());
 		WebElement el = WebElementUtils.getElementWithMatchingAttribute(els, "name", "Engine");
-		
+
 		if (el != null && WebElementUtils.waitForElementIsDisplayed(el, WebElementUtils.MEDIUM_TIME_OUT)) {
 			bReturn = WebElementUtils.sendKeys(el, sText);
-		}else{
+		} else {
 			log.debug("Element was not available to send text to");
 		}
 
 		return bReturn;
 	}
-	
-		public boolean setComponentSpecsEngineArrangement(String sText) {
+
+	public boolean setComponentSpecsEngineArrangement(String sText) {
 		boolean bReturn = false;
 
 		List<WebElement> els = WebElementUtils.findElements(KendoUI.getKendoDescription());
 		WebElement el = WebElementUtils.getElementWithMatchingAttribute(els, "name", "EngineArrangement");
-		
+
 		if (el != null && WebElementUtils.waitForElementIsDisplayed(el, WebElementUtils.MEDIUM_TIME_OUT)) {
 			bReturn = WebElementUtils.sendKeys(el, sText);
-		}else{
+		} else {
 			log.debug("Element was not available to send text to");
 		}
 
 		return bReturn;
 	}
-		
-		public boolean setComponentSpecsEngineSerialNumber(String sText) {
+
+	public boolean setComponentSpecsEngineSerialNumber(String sText) {
 		boolean bReturn = false;
 
 		List<WebElement> els = WebElementUtils.findElements(KendoUI.getKendoDescription());
 		WebElement el = WebElementUtils.getElementWithMatchingAttribute(els, "name", "EngineSerialNumber");
-		
+
 		if (el != null && WebElementUtils.waitForElementIsDisplayed(el, WebElementUtils.MEDIUM_TIME_OUT)) {
 			bReturn = WebElementUtils.sendKeys(el, sText);
-		}else{
+		} else {
 			log.debug("Element was not available to send text to");
 		}
 
 		return bReturn;
 	}
-		
-		public boolean setComponentSpecsHorsePower(String sText) {
+
+	public boolean setComponentSpecsHorsePower(String sText) {
 		boolean bReturn = false;
 
 		List<WebElement> els = WebElementUtils.findElements(KendoUI.getKendoDescription());
 		WebElement el = WebElementUtils.getElementWithMatchingAttribute(els, "name", "HorsePower");
-		
+
 		if (el != null && WebElementUtils.waitForElementIsDisplayed(el, WebElementUtils.MEDIUM_TIME_OUT)) {
 			bReturn = WebElementUtils.sendKeys(el, sText);
-		}else{
+		} else {
 			log.debug("Element was not available to send text to");
 		}
 
 		return bReturn;
 	}
-		
-		public boolean setComponentSpecsTransmissionModel(String sText) {
+
+	public boolean setComponentSpecsTransmissionModel(String sText) {
 		boolean bReturn = false;
 
 		List<WebElement> els = WebElementUtils.findElements(KendoUI.getKendoDescription());
 		WebElement el = WebElementUtils.getElementWithMatchingAttribute(els, "name", "TransmissionModel");
-		
+
 		if (el != null && WebElementUtils.waitForElementIsDisplayed(el, WebElementUtils.MEDIUM_TIME_OUT)) {
 			bReturn = WebElementUtils.sendKeys(el, sText);
-		}else{
+		} else {
 			log.debug("Element was not available to send text to");
 		}
 
 		return bReturn;
 	}
-		
-		public boolean setComponentSpecsTransmissionSerialNumber(String sText) {
+
+	public boolean setComponentSpecsTransmissionSerialNumber(String sText) {
 		boolean bReturn = false;
 
 		List<WebElement> els = WebElementUtils.findElements(KendoUI.getKendoDescription());
 		WebElement el = WebElementUtils.getElementWithMatchingAttribute(els, "name", "TransmissionSerialNumber");
-		
+
 		if (el != null && WebElementUtils.waitForElementIsDisplayed(el, WebElementUtils.MEDIUM_TIME_OUT)) {
 			bReturn = WebElementUtils.sendKeys(el, sText);
-		}else{
+		} else {
 			log.debug("Element was not available to send text to");
 		}
 
 		return bReturn;
 	}
-		
-		public boolean setComponentSpecsTireSize(String sText) {
+
+	public boolean setComponentSpecsTireSize(String sText) {
 		boolean bReturn = false;
 
 		List<WebElement> els = WebElementUtils.findElements(KendoUI.getKendoDescription());
 		WebElement el = WebElementUtils.getElementWithMatchingAttribute(els, "name", "TireSize");
-		
+
 		if (el != null && WebElementUtils.waitForElementIsDisplayed(el, WebElementUtils.MEDIUM_TIME_OUT)) {
 			bReturn = WebElementUtils.sendKeys(el, sText);
-		}else{
+		} else {
 			log.debug("Element was not available to send text to");
 		}
 
 		return bReturn;
 	}
-		
-		public boolean setComponentSpecsGET(String sText) {
+
+	public boolean setComponentSpecsGET(String sText) {
 		boolean bReturn = false;
 
 		List<WebElement> els = WebElementUtils.findElements(KendoUI.getKendoDescription());
 		WebElement el = WebElementUtils.getElementWithMatchingAttribute(els, "name", "GET");
-		
+
 		if (el != null && WebElementUtils.waitForElementIsDisplayed(el, WebElementUtils.MEDIUM_TIME_OUT)) {
 			bReturn = WebElementUtils.sendKeys(el, sText);
-		}else{
+		} else {
 			log.debug("Element was not available to send text to");
 		}
 
 		return bReturn;
 	}
-		
-		public boolean setComponentSpecsHydraulicFlowRate(String sText) {
+
+	public boolean setComponentSpecsHydraulicFlowRate(String sText) {
 		boolean bReturn = false;
 
 		List<WebElement> els = WebElementUtils.findElements(KendoUI.getKendoDescription());
 		WebElement el = WebElementUtils.getElementWithMatchingAttribute(els, "name", "HydraulicFlowRate");
-		
+
 		if (el != null && WebElementUtils.waitForElementIsDisplayed(el, WebElementUtils.MEDIUM_TIME_OUT)) {
 			bReturn = WebElementUtils.sendKeys(el, sText);
-		}else{
+		} else {
 			log.debug("Element was not available to send text to");
 		}
 
 		return bReturn;
 	}
-		
-		
-		
-		//FINANCIALS
-		
-		public boolean setFinancialsPurchasedFrom(String sText) {
+
+	// FINANCIALS
+
+	public boolean setFinancialsPurchasedFrom(String sText) {
 		boolean bReturn = false;
 
 		List<WebElement> els = WebElementUtils.findElements(KendoUI.getKendoDescription());
 		WebElement el = WebElementUtils.getElementWithMatchingAttribute(els, "name", "PurchasedFrom");
-		
+
 		if (el != null && WebElementUtils.waitForElementIsDisplayed(el, WebElementUtils.MEDIUM_TIME_OUT)) {
 			bReturn = WebElementUtils.sendKeys(el, sText);
-		}else{
+		} else {
 			log.debug("Element was not available to send text to");
 		}
 
 		return bReturn;
 	}
-		public boolean setFinancialsPurchasePrice(String sText) {
-		boolean bReturn = false;
 
-		List<WebElement> els = WebElementUtils.findElements(KendoUI.getKendoDescription());
+	public boolean setFinancialsPurchasePrice(String sText) {
+		boolean bReturn = false;
+		List<WebElement> els = WebElementUtils.findElements(KendoUI.getKendoNumericTextBox());
 		WebElement el = WebElementUtils.getElementWithMatchingAttribute(els, "name", "PurchasePrice");
-		
-		if (el != null && WebElementUtils.waitForElementIsDisplayed(el, WebElementUtils.MEDIUM_TIME_OUT)) {
-			bReturn = WebElementUtils.sendKeys(el, sText);
-		}else{
-			log.debug("Element was not available to send text to");
+		if (el != null){
+			List<WebElement> inputs = WebElementUtils.getChildElements(el, B2WMaintain.getKendoDropDown());
+			bReturn = WebElementUtils.clickElement(inputs.get(0));
+			bReturn &= WebElementUtils.sendKeys(inputs.get(1), sText);
 		}
-
 		return bReturn;
 	}
-		public boolean setFinancialsInsuranceValue(String sText) {
+
+	public boolean setFinancialsInsuranceValue(String sText) {
 		boolean bReturn = false;
 
-		List<WebElement> els = WebElementUtils.findElements(KendoUI.getKendoDescription());
+		List<WebElement> els = WebElementUtils.findElements(KendoUI.getKendoNumericTextBox());
 		WebElement el = WebElementUtils.getElementWithMatchingAttribute(els, "name", "InsuranceValue");
-		
-		if (el != null && WebElementUtils.waitForElementIsDisplayed(el, WebElementUtils.MEDIUM_TIME_OUT)) {
-			bReturn = WebElementUtils.sendKeys(el, sText);
-		}else{
-			log.debug("Element was not available to send text to");
+		if (el != null){
+			List<WebElement> inputs = WebElementUtils.getChildElements(el, B2WMaintain.getKendoDropDown());
+			bReturn = WebElementUtils.clickElement(inputs.get(0));
+			bReturn &= WebElementUtils.sendKeys(inputs.get(1), sText);
 		}
-
 		return bReturn;
 	}
-		public boolean setFinancialsTitleHolder(String sText) {
+
+	public boolean setFinancialsTitleHolder(String sText) {
 		boolean bReturn = false;
 
 		List<WebElement> els = WebElementUtils.findElements(KendoUI.getKendoDescription());
 		WebElement el = WebElementUtils.getElementWithMatchingAttribute(els, "name", "TitleHolder");
-		
+
 		if (el != null && WebElementUtils.waitForElementIsDisplayed(el, WebElementUtils.MEDIUM_TIME_OUT)) {
 			bReturn = WebElementUtils.sendKeys(el, sText);
-		}else{
+		} else {
 			log.debug("Element was not available to send text to");
 		}
 
 		return bReturn;
 	}
-		public boolean setFinancialsSoldTo(String sText) {
+	
+	public boolean setFinacialsPurchaseDate(String sText){
+		boolean bReturn = false;
+
+		List<WebElement> els = WebElementUtils.findElements(KendoUI.getKendoDropDown());
+		WebElement el = WebElementUtils.getElementWithMatchingAttribute(els, "name", "Purchased Date");
+
+		if (el != null && WebElementUtils.waitForElementIsDisplayed(el, WebElementUtils.MEDIUM_TIME_OUT)) {
+			bReturn = WebElementUtils.sendKeys(el, sText);
+		} else {
+			log.debug("Element was not available to send text to");
+		}
+
+		return bReturn;
+	
+		
+	}
+	
+	public boolean setFinacialsDispositionDate(String sText){
+		boolean bReturn = false;
+
+		List<WebElement> els = WebElementUtils.findElements(KendoUI.getKendoDropDown());
+		WebElement el = WebElementUtils.getElementWithMatchingAttribute(els, "name", "Disposition Date");
+
+		if (el != null && WebElementUtils.waitForElementIsDisplayed(el, WebElementUtils.MEDIUM_TIME_OUT)) {
+			bReturn = WebElementUtils.sendKeys(el, sText);
+		} else {
+			log.debug("Element was not available to send text to");
+		}
+
+		return bReturn;
+	
+		
+	}
+
+	public boolean setFinancialsSoldTo(String sText) {
 		boolean bReturn = false;
 
 		List<WebElement> els = WebElementUtils.findElements(KendoUI.getKendoDescription());
 		WebElement el = WebElementUtils.getElementWithMatchingAttribute(els, "name", "SoldTo");
-		
+
 		if (el != null && WebElementUtils.waitForElementIsDisplayed(el, WebElementUtils.MEDIUM_TIME_OUT)) {
 			bReturn = WebElementUtils.sendKeys(el, sText);
-		}else{
+		} else {
 			log.debug("Element was not available to send text to");
 		}
 
 		return bReturn;
 	}
-		public boolean setFinancialsSalesPrice(String sText) {
+
+	public boolean setFinancialsSalesPrice(String sText) {
 		boolean bReturn = false;
-
-		List<WebElement> els = WebElementUtils.findElements(KendoUI.getKendoDescription());
+		List<WebElement> els = WebElementUtils.findElements(KendoUI.getKendoNumericTextBox());
 		WebElement el = WebElementUtils.getElementWithMatchingAttribute(els, "name", "SalesPrice");
-		
-		if (el != null && WebElementUtils.waitForElementIsDisplayed(el, WebElementUtils.MEDIUM_TIME_OUT)) {
-			bReturn = WebElementUtils.sendKeys(el, sText);
-		}else{
-			log.debug("Element was not available to send text to");
+		if (el != null){
+			List<WebElement> inputs = WebElementUtils.getChildElements(el, B2WMaintain.getKendoDropDown());
+			bReturn = WebElementUtils.clickElement(inputs.get(0));
+			bReturn &= WebElementUtils.sendKeys(inputs.get(1), sText);
 		}
-
 		return bReturn;
 	}
-		
-	//***********************THIS IS A TEST************************************
-	
 
-	
-	public boolean selectNewEquipmentBusinessUnitFromDropDown(String sText){
+	// ***********************THIS IS A TEST************************************
+
+	public boolean selectNewEquipmentBusinessUnitFromDropDown(String sText) {
 		String sBusinessUnit = "Business Unit";
-		return selectNewEquipmentDropDownItem(sBusinessUnit,sText);
+		return selectNewEquipmentDropDownItem(sBusinessUnit, sText);
 	}
-	
+
 	public boolean selectNewEquipmentTypeFromDropDown(String sText) {
 		String sEquipmentType = "Equipment Type";
 		return selectNewEquipmentDropDownItem(sEquipmentType, sText);
 	}
-	
-	public boolean selectMobilityTypeSelfMobileFromDropDown(){
+
+	public boolean selectMobilityTypeSelfMobileFromDropDown() {
 		String sMobilityType = "Mobility Type";
-		return selectNewEquipmentDropDownItem(sMobilityType,"Self Mobile");
+		return selectNewEquipmentDropDownItem(sMobilityType, "Self Mobile");
 	}
-	
-	public boolean selectMobilityTypeMovesOtherEquipmentFromDropDown(){
+
+	public boolean selectMobilityTypeMovesOtherEquipmentFromDropDown() {
 		String sMobilityType = "Mobility Type";
-		return selectNewEquipmentDropDownItem(sMobilityType,"Moves Other Equipment");
+		return selectNewEquipmentDropDownItem(sMobilityType, "Moves Other Equipment");
 	}
-	
+
 	public boolean selectMobilityTypeRequiresMoveFromDropDown() {
 		String sMobilityType = "Mobility Type";
-		return selectNewEquipmentDropDownItem(sMobilityType,"Requires Move");
+		return selectNewEquipmentDropDownItem(sMobilityType, "Requires Move");
 	}
-	
+
 	private boolean selectNewEquipmentDropDownItem(String sText, String sItem) {
 		boolean bReturn = false;
 		List<WebElement> ls = WebElementUtils.findElements(B2WEquipment.getKendoNameValuePair());
@@ -464,26 +485,28 @@ public class B2WEquipmentTasks extends B2WKendoTasks {
 					WebElement item = WebElementUtils.getElementWithMatchingText(items, sItem, false);
 					if (item != null) {
 						bReturn = WebElementUtils.clickElement(item);
-					}else{
-						log.debug("Item with could not be found matching "+sItem);
+					} else {
+						log.debug("Item with could not be found matching " + sItem);
 					}
 				}
 			}
 		}
 		return bReturn;
 	}
-	
+
 	public boolean selectOwnershipTypeSubcontractedFromDropDown() {
 		String sOwnershipTypeString = "Ownership Type";
-		return selectNewEquipmentDropDownItem(sOwnershipTypeString,"Subcontracted");
+		return selectNewEquipmentDropDownItem(sOwnershipTypeString, "Subcontracted");
 	}
+
 	public boolean selectOwnershipTypeOwnedFromDropDown() {
 		String sOwnershipTypeString = "Ownership Type";
-		return selectNewEquipmentDropDownItem(sOwnershipTypeString,"Owned");
+		return selectNewEquipmentDropDownItem(sOwnershipTypeString, "Owned");
 	}
+
 	public boolean selectOwnershipTypeRentedFromDropDown() {
 		String sOwnershipTypeString = "Ownership Type";
-		return selectNewEquipmentDropDownItem(sOwnershipTypeString,"Rented");
+		return selectNewEquipmentDropDownItem(sOwnershipTypeString, "Rented");
 	}
 
 	public boolean saveNewEquipment() {
@@ -494,11 +517,11 @@ public class B2WEquipmentTasks extends B2WKendoTasks {
 			bReturn = WebElementUtils.clickElement(button);
 			bReturn = WebElementUtils.waitAndFindDisplayedElement(B2WEquipment.getEquipmentItemAction()) != null;
 			bReturn &= waitForEquipmentPageNoBusy();
-			
+
 		}
 		return bReturn;
 	}
-	
+
 	public boolean selectAllEquipmentByTypeView() {
 		boolean bReturn = false;
 		String sItem = "All Equipment By Type";
@@ -507,22 +530,22 @@ public class B2WEquipmentTasks extends B2WKendoTasks {
 			bReturn = findAndSelectItemFromDD(sItem);
 		}
 		return bReturn;
-				
+
 	}
-	
-	public boolean selectFilterByBusinessUnit(String sUnit){
+
+	public boolean selectFilterByBusinessUnit(String sUnit) {
 		boolean bReturn = false;
 		List<WebElement> dd = WebElementUtils.findElements(B2WEquipment.getKendoFilterByDD());
-		if (WebElementUtils.clickElement(dd.get(0))){
-			bReturn =findAndSelectItemFromDD(sUnit);
+		if (WebElementUtils.clickElement(dd.get(0))) {
+			bReturn = findAndSelectItemFromDD(sUnit);
 		}
 		return bReturn;
-		
+
 	}
-	
-	private boolean findAndSelectItemFromDD(String sText){
+
+	private boolean findAndSelectItemFromDD(String sText) {
 		boolean bReturn = false;
-		
+
 		List<WebElement> list = WebElementUtils.findElements(B2WEquipment.getKendoLists());
 		Iterator<WebElement> iter = list.iterator();
 		while (iter.hasNext()) {
@@ -533,153 +556,218 @@ public class B2WEquipmentTasks extends B2WKendoTasks {
 				WebElement item = WebElementUtils.getElementWithMatchingText(items, sText, false);
 				if (item != null) {
 					bReturn = WebElementUtils.clickElement(item);
-				}else{
-					log.debug("Item with could not be found matching "+sText);
+				} else {
+					log.debug("Item with could not be found matching " + sText);
 				}
 			}
 		}
 		return bReturn;
-	
+
 	}
-	public boolean selectEquipmentFromViewByID(String sID){
-		return selectItemFromView(sID,0);
+
+	public boolean selectEquipmentFromViewByID(String sID) {
+		return selectItemFromView(sID, 0);
 	}
-	
+
 	public boolean selectEquipmentFromViewByDescription(String sDesc) {
-		return selectItemFromView(sDesc,1);
+		return selectItemFromView(sDesc, 1);
 	}
-	
+
 	public String getEquipmentHeadline() {
 		return WebElementUtils.waitAndFindDisplayedElement(B2WEquipment.getEquipmentHeadline()).getText();
 	}
-	
+
 	public String getSerialNumberOfItem() {
 		return getTextOfItemFromOverview("Serial Number");
 	}
+
 	public String getLicencePlateOfItem() {
 		return getTextOfItemFromOverview("License Plate");
 	}
+
 	public String getBusinessUnitOfItem() {
 		return getTextOfItemFromOverview("Business Unit");
 	}
+
 	public String getEquipmentTypeOfItem() {
 		return getTextOfItemFromOverview("Equipment Type");
 	}
+
 	public String getMobilityTypeOfItem() {
 		return getTextOfItemFromOverview("Mobility Type");
 	}
+
 	public String getOwnershipTypeOfItem() {
 		return getTextOfItemFromOverview("Ownership Type");
 	}
+
 	public String getLocationOfItem() {
 		return getTextOfItemFromOverview("Location");
 	}
+
 	public String getOrganizationOfItem() {
 		return getTextOfItemFromOverview("Organization");
 	}
+
 	public String getOperatorOfItem() {
 		return getTextOfItemFromOverview("Operator");
 	}
+
 	public String getExcludeFromFieldLogsOfItem() {
 		return getTextOfItemFromOverview("Exclude from Field Logs");
 	}
+
 	public String getNotesOfItem() {
 		return getTextOfItemFromOverview("Notes");
 	}
-	
-	private String getTextOfItemFromOverview(String sItem){
+
+	private String getTextOfItemFromOverview(String sItem) {
 		WebElement el = WebElementUtils.waitAndFindDisplayedElement(B2WEquipment.getEquipmentBoxContent());
 		List<WebElement> nvps = WebElementUtils.getChildElements(el, B2WEquipment.getKendoNameValuePair());
 		Iterator<WebElement> iter = nvps.iterator();
-		while (iter.hasNext()){
+		while (iter.hasNext()) {
 			WebElement nvp = iter.next();
 			WebElement label = nvp.findElement(By.cssSelector(".label"));
-			if (label.getText().equals(sItem)){
+			if (label.getText().equals(sItem)) {
 				sItem = nvp.findElement(By.cssSelector(".data")).getText();
 			}
 		}
 		return sItem;
-		
+
 	}
-	
+
 	public boolean expandEquipmentSpecs() {
 		return getHeaderandExpandOrCollapse(EQUIPMENTSPECS, true);
 	}
-	public boolean collapseEquipmentSpecs(){
+
+	public boolean collapseEquipmentSpecs() {
 		return getHeaderandExpandOrCollapse(EQUIPMENTSPECS, false);
 	}
+
 	public boolean expandComponentSpecs() {
 		return getHeaderandExpandOrCollapse(COMPSPECS, true);
 	}
-	public boolean collapseComponentSpecs(){
+
+	public boolean collapseComponentSpecs() {
 		return getHeaderandExpandOrCollapse(COMPSPECS, false);
 	}
+
 	public boolean expandFileAttachments() {
 		return getHeaderandExpandOrCollapse(FILEATTACH, true);
 	}
-	public boolean collapseFileAttachments(){
+
+	public boolean collapseFileAttachments() {
 		return getHeaderandExpandOrCollapse(FILEATTACH, false);
 	}
+
 	public boolean expandFinancials() {
 		return getHeaderandExpandOrCollapse(FINANCIALS, true);
 	}
+
 	public boolean expandMeters() {
 		return getHeaderandExpandOrCollapse(METERS, true);
 	}
-	public boolean collapseMeters(){
+
+	public boolean collapseMeters() {
 		return getHeaderandExpandOrCollapse(METERS, false);
 	}
+
 	public boolean expandParts() {
 		return getHeaderandExpandOrCollapse(PARTS, true);
 	}
-	public boolean collapseParts(){
+
+	public boolean collapseParts() {
 		return getHeaderandExpandOrCollapse(PARTS, false);
 	}
+
 	public boolean expandWarrenties() {
 		return getHeaderandExpandOrCollapse(WARRANTIES, true);
 	}
-	public boolean collapseWarrenties(){
+
+	public boolean collapseWarrenties() {
 		return getHeaderandExpandOrCollapse(WARRANTIES, false);
 	}
+
 	public boolean expandPrograms() {
 		return getHeaderandExpandOrCollapse(PROGRAMS, true);
 	}
-	public boolean collapsePrograms(){
+
+	public boolean collapsePrograms() {
 		return getHeaderandExpandOrCollapse(PROGRAMS, false);
 	}
+
 	public boolean expandTags() {
 		return getHeaderandExpandOrCollapse(TAGS, true);
 	}
-	public boolean collapseTags(){
+
+	public boolean collapseTags() {
 		return getHeaderandExpandOrCollapse(TAGS, false);
 	}
+
 	public boolean expandCrews() {
 		return getHeaderandExpandOrCollapse(CREWS, true);
 	}
-	public boolean collapseCrews(){
+
+	public boolean collapseCrews() {
 		return getHeaderandExpandOrCollapse(CREWS, false);
 	}
+
 	public boolean expandEvents() {
 		return getHeaderandExpandOrCollapse(EVENTS, true);
 	}
-	public boolean collapseEvents(){
+
+	public boolean collapseEvents() {
 		return getHeaderandExpandOrCollapse(EVENTS, false);
 	}
+
 	public boolean expandHistory() {
 		return getHeaderandExpandOrCollapse(HISTORY, true);
 	}
-	public boolean collapseHistory(){
+
+	public boolean collapseHistory() {
 		return getHeaderandExpandOrCollapse(HISTORY, false);
 	}
+
 	public boolean expandLocation() {
 		return getHeaderandExpandOrCollapse(LOCATION, true);
 	}
-	public boolean collapseLocation(){
+
+	public boolean collapseLocation() {
 		return getHeaderandExpandOrCollapse(LOCATION, false);
 	}
-	
+
 	public boolean waitForEquipmentPageNoBusy() {
 		return waitForPageNotBusy(WebElementUtils.MEDIUM_TIME_OUT);
+	}
+	
+	public boolean clickAddEventButton() {
+
+		boolean bReturn = false;
+		WebElement button = getButton(12);
+		if (button != null){
+			Coordinates coordinate = ((Locatable) button).getCoordinates();
+			coordinate.onPage();
+			coordinate.inViewPort();
+			bReturn = WebElementUtils.clickElement(button);
+		}
+		
+		return bReturn;
+	
+	}
+
+	public boolean clickAddEquipmentTag() {
+
+		boolean bReturn = false;
+		WebElement button = getButton(11);
+		if (button != null){
+			Coordinates coordinate = ((Locatable) button).getCoordinates();
+			coordinate.onPage();
+			coordinate.inViewPort();
+			bReturn = WebElementUtils.clickElement(button);
+		}
+		
+		return bReturn;
+	
 	}
 	
 	public boolean clickAddPartsButton() {
@@ -692,7 +780,6 @@ public class B2WEquipmentTasks extends B2WKendoTasks {
 			Coordinates coordinate = ((Locatable) button).getCoordinates();
 			coordinate.onPage();
 			coordinate.inViewPort();
-			TaskUtils.sleep(5000);
 			if (WebElementUtils.clickElement(button)) {
 				bReturn = WebElementUtils.waitForElementIsDisplayed(windows.get(1), WebElementUtils.SHORT_TIME_OUT);
 				bReturn &= waitForPageNotBusy(WebElementUtils.MEDIUM_TIME_OUT);
@@ -700,21 +787,20 @@ public class B2WEquipmentTasks extends B2WKendoTasks {
 		}
 		return bReturn;
 	}
-	
 
 	public WebElement getDisplayedWindow() {
 		WebElement window = null;
 		List<WebElement> windows = WebElementUtils.findElements(B2WMaintain.getKendoWindow());
 		Iterator<WebElement> iter = windows.iterator();
-		while (iter.hasNext()){
+		while (iter.hasNext()) {
 			WebElement temp = iter.next();
-			if (temp.isDisplayed()){
+			if (temp.isDisplayed()) {
 				window = temp;
 			}
 		}
 		return window;
 	}
-	
+
 	public boolean clickAddMeterButton() {
 		boolean bReturn = false;
 
@@ -732,26 +818,44 @@ public class B2WEquipmentTasks extends B2WKendoTasks {
 		return bReturn;
 	}
 	
+	public boolean clickAddWarrantyButton() {
+		boolean bReturn = false;
+
+		WebElement button = getButton(9);
+		Coordinates coordinate = ((Locatable) button).getCoordinates();
+		coordinate.onPage();
+		coordinate.inViewPort();
+		TaskUtils.sleep(5000);
+		if (WebElementUtils.clickElement(button)) {
+			List<WebElement> windows = WebElementUtils.findElements(B2WMaintain.getKendoWindowTitle());
+			bReturn = WebElementUtils.waitForElementIsDisplayed(windows.get(windows.size() - 1),
+					WebElementUtils.SHORT_TIME_OUT);
+		}
+
+		return bReturn;
+	
+		
+	}
+
 	public boolean clickAddProgramButton() {
 		boolean bReturn = false;
 		WebElement button = getButton(4);
 		Coordinates coordinate = ((Locatable) button).getCoordinates();
 		coordinate.onPage();
 		coordinate.inViewPort();
-		TaskUtils.sleep(5000);
 		if (WebElementUtils.clickElement(button)) {
 			bReturn = WebElementUtils.waitAndFindDisplayedEletment(B2WMaintain.getB2WAddProgramDialog()) != null;
 		}
 
 		return bReturn;
+<<<<<<< HEAD
 	}
 	
 	//Allows to populate fields and dropdowns
 	public boolean setTextEquipmentSpecs(String sField, String sText){
-		return setTextByField(EQUIPMENTSPECS, sField, sText);
-	}
-	
-	public boolean setFieldAndItemFromDropDownEquipmentSpecs(String sField, String sValue, String sItem){
+
+
+	public boolean setFieldAndItemFromDropDownEquipmentSpecs(String sField, String sValue, String sItem) {
 		return selectItemValueFromDropDown(EQUIPMENTSPECS, sField, sValue, sItem);
 	}
 	
@@ -770,10 +874,8 @@ public class B2WEquipmentTasks extends B2WKendoTasks {
 	public boolean setFieldAndItemFromDropDownFinancials(String sField, String sValue, String sItem){
 		return selectItemValueFromDropDown(FINANCIALS, sField, sValue, sItem);
 	}
-	
-	
-	
-	private boolean setTextByField(String sHeader, String sField, String sText){
+
+	private boolean setTextByField(String sHeader, String sField, String sText) {
 		boolean bReturn = false;
 		// get the header
 		WebElement parent = getHeader(sHeader);
@@ -783,14 +885,16 @@ public class B2WEquipmentTasks extends B2WKendoTasks {
 		WebElement specs = WebElementUtils.getElementWithMatchingChildElementText(items, By.tagName("label"), sField);
 		if (specs != null){
 		// get the parent of the label
+		if (specs != null) {
+			// get the parent of the label
 			// find the input
 			WebElement input = WebElementUtils.getChildElement(specs, By.tagName("input"));
 			bReturn = WebElementUtils.sendKeys(input, sText);
 		}
 		return bReturn;
 	}
-	
-	private boolean selectItemValueFromDropDown(String sHeader, String sField, String sValue, String sItem){
+
+	private boolean selectItemValueFromDropDown(String sHeader, String sField, String sValue, String sItem) {
 		boolean bReturn = false;
 		// get the header
 		WebElement parent = getHeader(sHeader);
@@ -801,19 +905,27 @@ public class B2WEquipmentTasks extends B2WKendoTasks {
 		if (specs != null){
 		// get the parent of the label
 		// find the input
+		if (specs != null) {
+			// get the parent of the label
+			// find the input
 			List<WebElement> input = WebElementUtils.getChildElements(specs, B2WMaintain.getKendoDropDown());
 			Coordinates coordinate = ((Locatable) input.get(0)).getCoordinates();
 			coordinate.onPage();
 			coordinate.inViewPort();
-			if (sValue != null){
+			if (sValue != null) {
 				WebElementUtils.clickElement(input.get(0));
 				bReturn = WebElementUtils.sendKeys(input.get(1), sValue);
 			}
-			if (sItem != null){
-				WebElementUtils.clickElement(input.get(input.size()-1));
+			if (sItem != null) {
+				WebElementUtils.clickElement(input.get(input.size() - 1));
 				bReturn &= selectItemFromDropDown(sItem);
 			}
 		}
 		return bReturn;
 	}
+	
+	public String getValueOfItem(String sItem){
+		return getValueOfItem(sItem, B2WMaintain.getB2WMaintainWorkOrderDetailView());
+	}
+
 }

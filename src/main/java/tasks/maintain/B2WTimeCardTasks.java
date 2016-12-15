@@ -5,6 +5,7 @@ import java.util.List;
 import org.openqa.selenium.WebElement;
 
 import appobjects.maintain.B2WMaintain;
+import appobjects.setup.B2WSchedules;
 import tasks.WebElementUtils;
 import tasks.resources.B2WKendoTasks;
 
@@ -39,6 +40,22 @@ public class B2WTimeCardTasks extends B2WKendoTasks {
 		
 	}
 	
+	public boolean clickSaveTimeCard() {
+		boolean bReturn = false;
+		WebElement el = WebElementUtils
+				.waitAndFindDisplayedElement(B2WMaintain.getB2WMaintainTimeCardDialog());
+		if (el != null){
+			WebElement button = WebElementUtils.getChildElement(el, B2WSchedules.saveBtn());
+			if (button != null){
+				bReturn = WebElementUtils.clickElement(button);
+				bReturn &= WebElementUtils.waitForElementInvisible(button);
+			}
+		
+		}
+		return bReturn;
+		
+	}
+	
 
 	public boolean saveReportHours() {
 		boolean bReturn = false;
@@ -47,7 +64,7 @@ public class B2WTimeCardTasks extends B2WKendoTasks {
 		if (el != null){
 			WebElement button = WebElementUtils.getChildElement(el, B2WMaintain.getKendoLargeSaveButton());
 			bReturn = WebElementUtils.clickElement(button);
-			waitForPageNotBusy(WebElementUtils.MEDIUM_TIME_OUT);
+			waitForPageNotBusy(WebElementUtils.LONG_TIME_OUT);
 			bReturn &= WebElementUtils.waitForElementInvisible(button);
 		
 		}

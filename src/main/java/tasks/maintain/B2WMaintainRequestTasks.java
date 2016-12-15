@@ -1,6 +1,5 @@
 package tasks.maintain;
 
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -13,7 +12,6 @@ import org.openqa.selenium.internal.Locatable;
 import appobjects.maintain.B2WMaintain;
 import tasks.WebElementUtils;
 import tasks.resources.B2WKendoTasks;
-import tasks.util.TaskUtils;
 
 
 
@@ -27,7 +25,6 @@ public class B2WMaintainRequestTasks extends B2WKendoTasks {
 	public int iRequestedBy = 5;
 	public int iPriority = 6;
 	
-	private static List<WebElement> pageElement = new ArrayList<WebElement>();
 	Logger log = Logger.getLogger(B2WMaintainRequestTasks.class);
 
 	public boolean clickCreateNewRequestButton() {
@@ -36,10 +33,8 @@ public class B2WMaintainRequestTasks extends B2WKendoTasks {
 		WebElement button = WebElementUtils.getChildElement(el, B2WMaintain.getKendoButtonAdd());
 		if (button != null){
 			bReturn = WebElementUtils.clickElement(button);
-			bReturn &= WebElementUtils.waitAndFindElement(B2WMaintain.getB2WMaintainRequestCreateView()) != null;
-			if (bReturn){
-				pageElement = getFormElements(B2WMaintain.getB2WMaintainRequestCreateView());
-			}
+			bReturn &= WebElementUtils.waitAndFindDisplayedElement(B2WMaintain.getB2WMaintainRequestCreateView()) != null;
+		
 		}
 		
 		return bReturn;
@@ -47,56 +42,49 @@ public class B2WMaintainRequestTasks extends B2WKendoTasks {
 	
 	public boolean selectEquipment(String sText) {
 		boolean bReturn = false;
-		WebElement equipment = pageElement.get(iEquipment);
+		WebElement equipment =getFormElement("Equipment", B2WMaintain.getKendoDropDown());
 		if (equipment != null){
-			WebElement el = WebElementUtils.getChildElement(equipment, B2WMaintain.getKendoDropDown());
-			bReturn = sendTextAndSelectValueFromKendoFDD(el, sText);
+			bReturn = sendTextAndSelectValueFromKendoFDD(equipment, sText);
 		}
-		
 		return bReturn;
 		
 	}
 	
 	public String selectAnyPieceOfEquipment() {
 		String sText = "";
-		WebElement equipment = pageElement.get(iEquipment);
+		WebElement equipment = getFormElement("Equipment", B2WMaintain.getKendoDropDown());
 		if (equipment != null){
-			WebElement el = WebElementUtils.getChildElement(equipment, B2WMaintain.getKendoDropDown());
-			WebElementUtils.clickElement(el);
-			WebElementUtils.sendKeys(el, "a");
-			TaskUtils.sleep(500);
-			sText = selectRandomItemFromDropDown();
+			WebElementUtils.sendKeys(equipment, "a");
+			selectRandomItemFromDropDown();
+			sText = equipment.getText();
+			log.debug("The Piece of Equipment Selected is: "+sText);
 		}
 		return sText;
 	}
 	
 	public boolean setRequestDescription(String sText){
 		boolean bReturn = false;
-		WebElement equipment = pageElement.get(iRequestDesc);
+		WebElement equipment = getFormElement("Request Description", B2WMaintain.getKendoInputTextBox());
 		if (equipment != null){
-			WebElement el = WebElementUtils.getChildElement(equipment,B2WMaintain.getKendoDescription());
-			bReturn = WebElementUtils.sendKeys(el, sText);
+			bReturn = WebElementUtils.sendKeys(equipment, sText);
 		}
 		return bReturn;
 		
 	}
 	public boolean setAlternativeID(String sText){
 		boolean bReturn = false;
-		WebElement equipment = pageElement.get(iAltID);
+		WebElement equipment = getFormElement("Alternate ID", B2WMaintain.getKendoInputTextBox());
 		if (equipment != null){
-			WebElement el = WebElementUtils.getChildElement(equipment,B2WMaintain.getKendoDescription());
-			bReturn = WebElementUtils.sendKeys(el, sText);
+			bReturn = WebElementUtils.sendKeys(equipment, sText);
 		}
 		return bReturn;
 		
 	}
 	public boolean selectTypeFromDD(String sText){
 		boolean bReturn = false;
-		WebElement equipment = pageElement.get(iType);
+		WebElement equipment = getFormElement("Type", B2WMaintain.getKendoDropDown());
 		if (equipment != null){
-			//WebElement desc = WebElementUtils.findElement(By.cssSelector("#request_create_view > div.edit-form-content > div.box-content.form > p.form-required > input[name='RequestDescription']"));
-			WebElement el = WebElementUtils.getChildElement(equipment,B2WMaintain.getKendoDropDown());
-			WebElementUtils.clickElement(el);
+			WebElementUtils.clickElement(equipment);
 			bReturn = selectItemFromDropDown(sText);
 		}
 		return bReturn;
@@ -105,17 +93,12 @@ public class B2WMaintainRequestTasks extends B2WKendoTasks {
 	
 	public String selectAnyTypeFromDD() {
 		String sText = "";
-		WebElement equipment = pageElement.get(iType);
+		WebElement equipment = getFormElement("Type", B2WMaintain.getKendoDropDown());
 		if (equipment != null){
-			//WebElement desc = WebElementUtils.findElement(By.cssSelector("#request_create_view > div.edit-form-content > div.box-content.form > p.form-required > input[name='RequestDescription']"));
-			WebElement el = WebElementUtils.getChildElement(equipment,B2WMaintain.getKendoDropDown());
-
-			if (WebElementUtils.clickElement(el)){
-				TaskUtils.sleep(1000);
-				sText = selectRandomItemFromDropDown();
-			}else{
-				log.debug("Failed to click element");
-			}
+			WebElementUtils.clickElement(equipment);
+			selectRandomItemFromDropDown();
+			sText = equipment.getText();
+			log.debug("The Type selected from DD is "+sText);
 		}
 		return sText;
 		
@@ -123,11 +106,10 @@ public class B2WMaintainRequestTasks extends B2WKendoTasks {
 	
 	public boolean selectProblemCodeFromDD(String sText){
 		boolean bReturn = false;
-		WebElement equipment = pageElement.get(iProblemCode);
+		WebElement equipment = getFormElement("Problem Code", B2WMaintain.getKendoDropDown());
 		if (equipment != null){
 			//WebElement desc = WebElementUtils.findElement(By.cssSelector("#request_create_view > div.edit-form-content > div.box-content.form > p.form-required > input[name='RequestDescription']"));
-			WebElement el = WebElementUtils.getChildElement(equipment,B2WMaintain.getKendoDropDown());
-			WebElementUtils.clickElement(el);
+			WebElementUtils.clickElement(equipment);
 			bReturn = selectItemFromDropDown(sText);
 		}
 		return bReturn;
@@ -135,11 +117,9 @@ public class B2WMaintainRequestTasks extends B2WKendoTasks {
 	
 	public boolean selectRequestedByFromDD(String sText){
 		boolean bReturn = false;
-		WebElement equipment = pageElement.get(iRequestedBy);
+		WebElement equipment = getFormElement("Requested By", B2WMaintain.getKendoDropDown());
 		if (equipment != null){
-			//WebElement desc = WebElementUtils.findElement(By.cssSelector("#request_create_view > div.edit-form-content > div.box-content.form > p.form-required > input[name='RequestDescription']"));
-			WebElement el = WebElementUtils.getChildElement(equipment,B2WMaintain.getKendoDropDown());
-			WebElementUtils.clickElement(el);
+			WebElementUtils.clickElement(equipment);
 			bReturn = selectItemFromDropDown(sText);
 		}
 		return bReturn;
@@ -147,22 +127,14 @@ public class B2WMaintainRequestTasks extends B2WKendoTasks {
 	
 	public boolean selectPriorityFromDD(String sText){
 		boolean bReturn = false;
-		WebElement equipment = pageElement.get(iPriority);
+		WebElement equipment = getFormElement("Priority", B2WMaintain.getKendoDropDown());
 		if (equipment != null){
-			//WebElement desc = WebElementUtils.findElement(By.cssSelector("#request_create_view > div.edit-form-content > div.box-content.form > p.form-required > input[name='RequestDescription']"));
-			WebElement el = WebElementUtils.getChildElement(equipment,B2WMaintain.getKendoDropDown());
-			WebElementUtils.clickElement(el);
+			WebElementUtils.clickElement(equipment);
 			bReturn = selectItemFromDropDown(sText);
 		}
 		return bReturn;
 	}
 	
-//	public boolean setNotes(String sText){
-//		WebElementUtils.switchToFrame(By.cssSelector("iframe.k-content"), 1);
-//		WebElement el = WebElementUtils.findElement(By.cssSelector("html body br.k-br"));
-//		el.click();
-//		return false;
-//	}
 	
 	public boolean clickNewCommentButton() {
 		boolean bReturn = false;
