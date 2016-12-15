@@ -15,7 +15,7 @@ public class B2WAssignment {
     private static String transportationCrew;
     private static String requestedBy;
     private static String notes;
-    private static List<Date> dateList;
+    private static ArrayList<Date> dateList;
     private static String startTime;
     private static Date pickupDate;
     private static Date dropoffDate;
@@ -47,7 +47,7 @@ public class B2WAssignment {
     public static void setNotes(String notes) {
         B2WAssignment.notes = notes;
     }
-    public static void setDateList(List<Date> dateList) {
+    public static void setDateList(ArrayList<Date> dateList) {
         B2WAssignment.dateList = dateList;
     }
     public static void setStartTime(String startTime) {
@@ -93,7 +93,7 @@ public class B2WAssignment {
     public static String getNotes() {
         return notes;
     }
-    public static List<Date> getDateList() {
+    public static ArrayList<Date> getDateList() {
         return dateList;
     }
     public static String getStartTime() {
@@ -117,7 +117,7 @@ public class B2WAssignment {
 
 
     B2WAssignment(String assignmentType, String resourceName, String locationName, String requestedBy, String notes,
-                  List<Date> dateList, String startTime, String duration) {
+                  ArrayList<Date> dateList, String startTime, String duration) {
 
         this.assignmentType = assignmentType;
         this.resourceName = resourceName;

@@ -797,6 +797,8 @@ public class B2WUIMap {
 	public static final String b2w_schedule_orderlistfirstitemtable = ".js--Table__tr--active-need.Table__tr--active-need.level0.level0";
 	public static final String b2w_schedule_orderlistfirstitem = ".ResourceDescription__resource-name.level0.notify-icon";
 	public static final String b2w_schedule_checkedbtn = ".Toolbar__toggle-button--checked";
+	public static final String b2w_schedule_employeecheckbox = "input.ng-pristine";
+	public static final String b2w_schedule_cancelbutton = ".Button.Button--large.Button--link";
 
 	// Maintain
 	public static final String b2w_maintainpagemenu = "ul#SubNavMenu_MaintainPageMenu.MaintainPageMenu";

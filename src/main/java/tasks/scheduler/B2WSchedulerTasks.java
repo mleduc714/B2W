@@ -378,7 +378,9 @@ public class B2WSchedulerTasks extends B2WKendoTasks {
     public boolean copyEvent() {
         return selectOptionFromContextMenu("Copy Event");
     }
-
+    public boolean fillNeed() {
+        return selectOptionFromContextMenu("Fill Need");
+    }
     //-- Set Methods
     // Method to set value to FDD fields
     public boolean setFields(String sFieldName, String sValue) {
@@ -794,6 +796,11 @@ public class B2WSchedulerTasks extends B2WKendoTasks {
     public WebElement getResourceLine(String sResourceName) {
         return WebElementUtils.findElement(B2WScheduleAssignments.getSpecificResourceName(sResourceName));
     }
+    public WebElement getAssignment(B2WAssignment assignment) {
+        return getAssignment(assignment.getResourceName(), assignment.getLocationName(), assignment.getStartDate(), assignment.getEndDate(),
+                assignment.getStartTime(), assignment.getDuration(), assignment.getAssignmentType());
+    }
+
     public WebElement getAssignment(String sResourceName, String sLocationName, String sStartDate, String sEndDate, String sStartTime, String sDuration, String sType) {
         WebElement eReturn = null;
 
@@ -872,14 +879,25 @@ public class B2WSchedulerTasks extends B2WKendoTasks {
     public WebElement getEquipmentAssignment(String sResourceName, String sLocationName, String sStartDate, String sEndDate, String sStartTime, String sDuration) {
         return getAssignment(sResourceName, sLocationName, sStartDate, sEndDate, sStartTime, sDuration, EQUIPMENT_TYPE);
     }
+    public WebElement getEquipmentAssignment(B2WAssignment assignment) {
+        return getAssignment(assignment.getResourceName(), assignment.getLocationName(), assignment.getStartDate(), assignment.getEndDate(),
+                assignment.getStartTime(), assignment.getDuration(), assignment.getAssignmentType());
+    }
     public List<WebElement> getEquipmentAssignments(String sResourceName, String sLocationName, String sStartDate, String sEndDate, String sStartTime, String sDuration) {
         return getAssignments(sResourceName, sLocationName, sStartDate, sEndDate, sStartTime, sDuration, EQUIPMENT_TYPE);
     }
     public WebElement getEquipmentNeed(String sResourceName, String sLocationName, String sStartDate, String sEndDate, String sStartTime, String sDuration) {
         return getAssignment(sResourceName, sLocationName, sStartDate, sEndDate, sStartTime, sDuration, EQUIPMENT_NEED_TYPE);
     }
+    public List<WebElement> getEquipmentNeeds(String sResourceName, String sLocationName, String sStartDate, String sEndDate, String sStartTime, String sDuration) {
+        return getAssignments(sResourceName, sLocationName, sStartDate, sEndDate, sStartTime, sDuration, EQUIPMENT_NEED_TYPE);
+    }
     public WebElement getEmployeeAssignment(String sResourceName, String sLocationName, String sStartDate, String sEndDate, String sStartTime, String sDuration) {
         return getAssignment(sResourceName, sLocationName, sStartDate, sEndDate, sStartTime, sDuration, EMPLOYEE_TYPE);
+    }
+    public WebElement getEmployeeAssignment(B2WAssignment assignment) {
+        return getAssignment(assignment.getResourceName(), assignment.getLocationName(), assignment.getStartDate(), assignment.getEndDate(),
+                assignment.getStartTime(), assignment.getDuration(), assignment.getAssignmentType());
     }
     public List<WebElement> getEmployeeAssignments(String sResourceName, String sLocationName, String sStartDate, String sEndDate, String sStartTime, String sDuration) {
         return getAssignments(sResourceName, sLocationName, sStartDate, sEndDate, sStartTime, sDuration, EMPLOYEE_TYPE);
@@ -892,6 +910,10 @@ public class B2WSchedulerTasks extends B2WKendoTasks {
     }
     public WebElement getEmployeeNeed(String sResourceName, String sLocationName, String sStartDate, String sEndDate, String sStartTime, String sDuration) {
         return getAssignment(sResourceName, sLocationName, sStartDate, sEndDate, sStartTime, sDuration, EMPLOYEE_NEED_TYPE);
+    }
+    public WebElement getEmployeeNeed(B2WAssignment assignment) {
+        return getAssignment(assignment.getResourceName(), assignment.getLocationName(), assignment.getStartDate(), assignment.getEndDate(),
+                assignment.getStartTime(), assignment.getDuration(), assignment.getAssignmentType());
     }
     public List<WebElement> getEmployeeNeeds(String sResourceName, String sLocationName, String sStartDate, String sEndDate, String sStartTime, String sDuration) {
         return getAssignments(sResourceName, sLocationName, sStartDate, sEndDate, sStartTime, sDuration, EMPLOYEE_NEED_TYPE);
@@ -1001,6 +1023,12 @@ public class B2WSchedulerTasks extends B2WKendoTasks {
     public boolean saveEmployeeNeed() {
         boolean bResult;
         bResult = saveAssignment();
+        waitForSchedulePageNoBusy();
+        return bResult;
+    }
+    public boolean saveFillNeed() {
+        boolean bResult;
+        bResult = saveMoveAssignment();
         waitForSchedulePageNoBusy();
         return bResult;
     }
@@ -1142,6 +1170,38 @@ public class B2WSchedulerTasks extends B2WKendoTasks {
         }
         return bReturn;
     }
+
+    //Fill Need methods
+    public boolean fillNeedDialog(B2WAssignment order, String employeeName) {
+        boolean bReturn = false;
+        WebElement dialog = WebElementUtils.findElement(B2WScheduleAssignments.getAssignmentWindow());
+        if (dialog != null) {
+            WebElement searchBox = WebElementUtils.getChildElement(dialog, B2WScheduleAssignments.getSearchBox());
+            if (searchBox != null) {
+                bReturn = WebElementUtils.sendKeys(searchBox, employeeName);
+                WebElement checkbox = WebElementUtils.getChildElement(dialog, B2WScheduleAssignments.getFirstEmployeeCheckbox());
+                if (checkbox != null) {
+                    bReturn &= WebElementUtils.clickElement(checkbox);
+                    bReturn &= saveFillNeed();
+                } else {
+                    log.debug("Could not select Employee " + employeeName + " from the list.");
+                    bReturn = false;
+                }
+                if (!bReturn) {
+                    WebElement cancelBtn = WebElementUtils.findElement(B2WScheduleAssignments.getCancelBtn());
+                    WebElementUtils.clickElement(cancelBtn);
+                    selectButtonOption("Yes");
+                    waitForSchedulePageNoBusy();
+                }
+            } else {
+                log.debug("The search box could not be found on the Fill Need dialog.");
+            }
+        } else {
+            log.debug("The Fill Need Dialog could not be found.");
+        }
+        return bReturn;
+    }
+
     //-- Support Functions
     public DateRange getSelectedDates() {
         Date startDate = null;
@@ -1266,7 +1326,6 @@ public class B2WSchedulerTasks extends B2WKendoTasks {
         bReturn &= expectedValue.contains(actualValue);
         return bReturn;
     }
-
     public boolean selectOrder(WebElement eOrder) {
         boolean bReturn = WebElementUtils.clickElement(eOrder);
         waitForSchedulePageNoBusy();
