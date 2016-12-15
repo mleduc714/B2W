@@ -8,13 +8,10 @@ import org.openqa.selenium.WebElement;
 
 import appobjects.maintain.B2WMaintain;
 import appobjects.resources.B2WEquipment;
-import appobjects.resources.KendoUI;
 import tasks.WebElementUtils;
 
 public class B2WMaintainProgramsTasks extends B2WMaintainTasks {
 
-	private final String BUSINESSUNIT = "Business Unit";
-	private final String LABORRATES = "Labor Rate Class";
 	private final String ADDITEM = "Add Item";
 
 	//private final String SCHEDULEOCCURANCES = "Schedule the subsequent occurrences";
@@ -35,49 +32,30 @@ public class B2WMaintainProgramsTasks extends B2WMaintainTasks {
 
 	public boolean setMaintenanceProgramDescription(String sText) {
 		boolean bReturn = false;
-
-		List<WebElement> els = WebElementUtils.findElements(KendoUI.getKendoDescription());
-		WebElement el = WebElementUtils.getElementWithMatchingAttribute(els, "name", "Description");
-
-		if (el != null && WebElementUtils.waitForElementIsDisplayed(el, WebElementUtils.MEDIUM_TIME_OUT)) {
+		WebElement el = getFormElement("Description", B2WMaintain.getKendoInputTextBox());
+		if (el != null){
+			WebElementUtils.clickElement(el);
 			bReturn = WebElementUtils.sendKeys(el, sText);
-		} else {
-			log.debug("Element was not available to send text to");
 		}
-
 		return bReturn;
 	}
 
-	public boolean setBusinessUnit(String sText) {
+	public boolean selectBusinessUnit(String sText) {
 		boolean bReturn = false;
-
-		WebElement el = WebElementUtils.findElement(B2WMaintain.getB2WMaintainBoxContent());
-		List<WebElement> items = el.findElements(By.tagName("p"));
-		Iterator<WebElement> iter = items.iterator();
-		while (iter.hasNext()) {
-			WebElement item = iter.next();
-			if (item.getText().startsWith(BUSINESSUNIT)) {
-				item.click();
-				bReturn = selectItemFromDropDown(sText);
-				break;
-			}
+		WebElement el = getFormElement("Business Unit", B2WMaintain.getKendoDropDown());
+		if (el != null){
+			WebElementUtils.clickElement(el);
+			bReturn = selectItemFromDropDown(sText);
 		}
 		return bReturn;
 	}
 
 	public boolean selectLaborRateClass(String sText) {
 		boolean bReturn = false;
-
-		WebElement el = WebElementUtils.findElement(B2WMaintain.getB2WMaintainBoxContent());
-		List<WebElement> items = el.findElements(By.tagName("p"));
-		Iterator<WebElement> iter = items.iterator();
-		while (iter.hasNext()) {
-			WebElement item = iter.next();
-			if (item.getText().startsWith(LABORRATES)) {
-				WebElementUtils.clickElement(WebElementUtils.getChildElement(item,B2WMaintain.getKendoDropDownForTMTab()));
-				bReturn = selectItemFromDropDown(sText);
-				break;
-			}
+		WebElement el = getFormElement("Labor Rate Class", B2WMaintain.getKendoDropDown());
+		if (el != null){
+			WebElementUtils.clickElement(el);
+			bReturn = selectItemFromDropDown(sText);
 		}
 		return bReturn;
 	}
@@ -125,4 +103,58 @@ public class B2WMaintainProgramsTasks extends B2WMaintainTasks {
 		}
 		return bReturn;
 	}
+	
+	public boolean selectMaintenanceProgram(String sItem) {
+		return selectItemFromView(sItem, 1);
+	}
+	public boolean selectMaintenanceProgram(int i) {
+		return selectItemFromView(i);
+	}
+	
+	public boolean clickAddEquipment() {
+		boolean bReturn = false;
+		List<WebElement> el = WebElementUtils.findElements(B2WMaintain.getKendoButtonAdd());
+		if (el.size() > 1 ){
+			bReturn = WebElementUtils.clickElement(el.get(1));
+			
+		}
+		return bReturn;
+	}
+	
+	public boolean expandEquipmentByID(String sID) {
+		boolean bReturn = false;
+		List<WebElement> masterRows = WebElementUtils.findElements(B2WMaintain.getKendoMasterRow());
+		int i = 0;
+		for (WebElement el: masterRows){
+			
+			String sText = WebElementUtils.getChildElements(el, By.tagName("td")).get(1).getText();
+			if (sText.equals(sID)){
+				List<WebElement> icon = WebElementUtils.findElements(B2WMaintain.getKendoIconPlus());
+				if (icon != null){
+					bReturn = WebElementUtils.clickElement(icon.get(i));
+					waitForPageNotBusy(WebElementUtils.MEDIUM_TIME_OUT);
+				}
+			
+			}
+			i++;
+		}
+		return bReturn;
+		
+	}
+	
+	
+	public boolean generateItems() {
+		boolean bReturn = false;
+		List<WebElement> list = WebElementUtils.waitAndFindDisplayedElements(By.linkText("Generate Item"));
+		for (WebElement el: list){
+			if (el.isDisplayed()){
+				WebElementUtils.clickElement(el);
+				bReturn = clickConfirmYes();
+				break;
+			}
+		}
+		return bReturn;
+	}
+	
+	
 }

@@ -126,4 +126,14 @@ public abstract class KendoUI {
 	public static By getCompleteNextButton() {
 		return By.xpath(B2WUIMap.b2w_maintaincompletworkordernext);
 	}
+	public static By getKendoIconPlus() {
+		return By.cssSelector(B2WUIMap.b2w_maintainprogramsiconplus);
+	}
+	public static By getKendoIconMinus() {
+		return By.cssSelector(B2WUIMap.b2w_maintainprogramsiconminus);
+	}
+	public static By getKendoMasterRow() {
+		return By.cssSelector(B2WUIMap.b2w_kendomasterrow);
+	}
+
 }
