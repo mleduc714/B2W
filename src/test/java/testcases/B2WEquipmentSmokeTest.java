@@ -82,10 +82,10 @@ public class B2WEquipmentSmokeTest extends B2WTestCase {
 		equipmentTasks.setTextEquipmentSpecs("Year", "1999");
 		equipmentTasks.setTextEquipmentSpecs("Color", "Blue");
 		equipmentTasks.setTextEquipmentSpecs("Lojack", "12");
-		equipmentTasks.setTextEquipmentSpecs("HutStickerNumber", "67890");
-		equipmentTasks.setTextEquipmentSpecs("EZPassNumber", "12345");
+		equipmentTasks.setTextEquipmentSpecs("Hut Sticker Number", "67890");
+		equipmentTasks.setTextEquipmentSpecs("EZ Pass Number", "12345");
 		
-		equipmentTasks.setFieldAndItemFromDropDownEquipmentSpecs("Lengh", "2354", "Foot [FOOT]");
+		equipmentTasks.setFieldAndItemFromDropDownEquipmentSpecs("Length", "2354", "Foot [FOOT]");
 		equipmentTasks.setFieldAndItemFromDropDownEquipmentSpecs("Width", "43", "Mile [MILE]");
 		equipmentTasks.setFieldAndItemFromDropDownEquipmentSpecs("Height", "5433", "Millimeter [mm]");
 		equipmentTasks.setFieldAndItemFromDropDownEquipmentSpecs("Max Weight", "445", "Gram [g]");
@@ -98,22 +98,22 @@ public class B2WEquipmentSmokeTest extends B2WTestCase {
 		//Enter Component Specs
 		equipmentTasks.expandComponentSpecs();
 		
-		equipmentTasks.setTextComponentSpecs("TireSize", "sText");
+		logCompare(true, equipmentTasks.setTextComponentSpecs("Tire Size", "sText"), "Text Component Specs");
 		equipmentTasks.setTextComponentSpecs("Engine", "Engine Name");
-		equipmentTasks.setTextComponentSpecs("EngineArrangement", "Arrangement");
-		equipmentTasks.setTextComponentSpecs("EngineSerialNumber", "54321");
-		equipmentTasks.setTextComponentSpecs("HorsePower", "124");
-		equipmentTasks.setTextComponentSpecs("TransmissionModel", "A3B2C1");
-		equipmentTasks.setTextComponentSpecs("TransmissionSerialNumber", "09876");
+		equipmentTasks.setTextComponentSpecs("Engine Arrangement", "Arrangement");
+		equipmentTasks.setTextComponentSpecs("Engine Serial Number", "54321");
+		equipmentTasks.setTextComponentSpecs("Horse Power", "124");
+		equipmentTasks.setTextComponentSpecs("Transmission Model", "A3B2C1");
+		equipmentTasks.setTextComponentSpecs("Transmission Serial Number", "09876");
 		equipmentTasks.setTextComponentSpecs("GET", "13");
-	    equipmentTasks.setTextEquipmentSpecs("HydraulicFlowRate", "23");
+	    equipmentTasks.setTextEquipmentSpecs("Hydraulic Flow Rate", "23");
 		
-	    equipmentTasks.setFieldAndItemFromDropDownEquipmentSpecs("Fuel Type", "null", "Gasoline [GAS]");
-		equipmentTasks.setFieldAndItemFromDropDownEquipmentSpecs("Wheel Type", "null", "Rubber Tire [RTR]");
-		equipmentTasks.setFieldAndItemFromDropDownEquipmentSpecs("Track Type", "null", "In-Line Sprocket [ILSP]");
-		equipmentTasks.setFieldAndItemFromDropDownEquipmentSpecs("Brake Type", "null", "Pneumatic Brakes [AIRB]");
-		equipmentTasks.setFieldAndItemFromDropDownEquipmentSpecs("Cutting Edge", "null", "Grader Blades [GRADB]");
-		equipmentTasks.setFieldAndItemFromDropDownEquipmentSpecs("Hydraulic Pump Type", "null", "Load Sensing Pump [LSP]");
+	    equipmentTasks.setFieldAndItemFromDropDownEquipmentSpecs("Fuel Type", "null", "Gasoline [GAS]"); //Doesn't Work
+		equipmentTasks.setFieldAndItemFromDropDownEquipmentSpecs("Wheel Type", "null", "Rubber Tire [RTR]"); //Doesn't Work
+		equipmentTasks.setFieldAndItemFromDropDownEquipmentSpecs("Track Type", "null", "In-Line Sprocket [ILSP]"); //Doesn't Work
+		equipmentTasks.setFieldAndItemFromDropDownEquipmentSpecs("Brake Type", "null", "Pneumatic Brakes [AIRB]"); //Doesn't Work
+		equipmentTasks.setFieldAndItemFromDropDownEquipmentSpecs("Cutting Edge", "null", "Grader Blades [GRADB]"); //Doesn't Work
+		equipmentTasks.setFieldAndItemFromDropDownEquipmentSpecs("Hydraulic Pump Type", "null", "Load Sensing Pump [LSP]"); //Doesn't Work
 		
 		equipmentTasks.collapseComponentSpecs();
 		
