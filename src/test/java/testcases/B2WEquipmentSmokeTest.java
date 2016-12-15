@@ -3,6 +3,8 @@ package testcases;
 import com.b2w.test.B2WTestCase;
 
 import tasks.B2WNavigationTasks;
+import tasks.dialogs.B2WAddEvent;
+import tasks.dialogs.B2WAddWarranty;
 import tasks.resources.B2WEquipmentTasks;
 
 public class B2WEquipmentSmokeTest extends B2WTestCase {
@@ -55,6 +57,10 @@ public class B2WEquipmentSmokeTest extends B2WTestCase {
 		B2WEquipmentTasks equipmentTasks = new B2WEquipmentTasks();
 		
 		B2WNavigationTasks navigation = new B2WNavigationTasks();
+		
+		B2WAddWarranty warranty = new B2WAddWarranty();
+		
+		B2WAddEvent events = new B2WAddEvent();
 		
 		navigation.openEquipment();
 		
@@ -142,6 +148,17 @@ public class B2WEquipmentSmokeTest extends B2WTestCase {
 		//Add a Warranty
 		logCompare(true, equipmentTasks.expandWarrenties(), "");
 		
+		//No click 'Add Warranty' button
+		warranty.setWarrantyDescription("This is a newly created warranty");
+		warranty.selectWarrantyType("Equipment");
+		warranty.selectTypeOfDurationCalendar();
+		warranty.setSpan("234");
+		warranty.setSpanDays();
+		warranty.setStarting("12/31/2016");
+		//Click green checkmark on Duration
+		warranty.setWarrantyNotes("These are the warranty notes.");
+		warranty.clickSaveWarranty();
+		
 		// Add a Maintenance Program
 		logCompare(true, equipmentTasks.expandPrograms(), "");
 		
@@ -152,6 +169,13 @@ public class B2WEquipmentSmokeTest extends B2WTestCase {
 		
 		//Add Events
 		logCompare(true, equipmentTasks.expandEvents(), "");
+		
+		//No click 'Add Event' button
+		events.selectEventType("Memo");
+		events.setEventStartDate("12/31/2016");
+		events.setEventEndDate("12/31/2017");
+		events.setEventDescription("This is a description in the Description section for an event");
+		events.clickSaveEvent();
 		
 		//Save the Equipment
 		logCompare(true, equipmentTasks.saveNewEquipment(), "");
