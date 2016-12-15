@@ -109,6 +109,7 @@ public class MaintainDashboardSmokeTest_1 extends B2WTestCase {
 	public void testMain() throws Throwable {
 		// TODO Auto-generated method stub
 		SimpleDateFormat sd = new SimpleDateFormat("EEEEE, MMMMM d, yyy");
+		b2wNav.openMaintain();
 		b2wMaintain.openDashboard();
 		String sUser = b2wNav.getUserName() + "!";
 		//String sUpdatedText = b2wDash.getDashboardUpdatedText();
@@ -127,7 +128,6 @@ public class MaintainDashboardSmokeTest_1 extends B2WTestCase {
 	public void verifyUnassignedRequests() {
 		iUnassignedRepairRequests = b2wDash.getUnassignedRepairRequests();
 		logCompare(true, b2wDash.openUnassignedRepairRequests(), "Open Unassigned Repair Requests");
-		TaskUtils.sleep(1000);
 		logCompare(dashboardDDRequests, b2wRequests.getSelectedItemFromDropDown(), "Verify View is correct");
 		logCompare(iUnassignedRepairRequests, b2wRequests.getTheNumberOfRequestsInView(), "Do the Numbers Match");
 		b2wRequests.clickCreateNewRequestButton();
@@ -135,16 +135,15 @@ public class MaintainDashboardSmokeTest_1 extends B2WTestCase {
 		String sAnyType = b2wRequests.selectAnyTypeFromDD();
 		logCompare(true,sAnyType.length()>1,"Verify Selection: "+sAnyType);
 		logCompare(true, b2wRequests.setRequestDescription(sMaintenanceRequestDescription), "Set Description");
-		logCompare(true, b2wRequests.clickNewCommentButton(), "Create a comments");
+		logCompare(true, b2wRequests.clickNewCommentButton(), "Create comments");
 		logCompare(true, b2wRequests.setNewCommentAndSave(sMaintenanceRequestComments), "Comments");
 		logCompare(true, b2wRequests.setRequestNotes(sMaintenanceRequestNotes), "Set Notes");
 		
 		assertTrue("Save request", b2wRequests.clickSaveButton());
-		b2wMaintain.openDashboard();
+		assertTrue("Open Dashboard",b2wMaintain.openDashboard());
 		logCompare(iUnassignedRepairRequests + 1, b2wDash.getUnassignedRepairRequests(), "Unassigned Repair Requests");
 		iUnassignedRepairRequests = b2wDash.getUnassignedRepairRequests();
 		logCompare(true, b2wDash.openUnassignedRepairRequests(), "Open Unassigned Requests");
-		TaskUtils.sleep(1000);
 		
 		if (b2wRequests.selectRequestByDescription(sMaintenanceRequestDescription)) {
 			b2wRequests.clickAddToWorkOrderButton();
@@ -158,7 +157,7 @@ public class MaintainDashboardSmokeTest_1 extends B2WTestCase {
 			}
 			logCompare(true, b2wOrder.setWorkOrderDescription(sMaintenanceWorkOrderDescription), "Set Work");
 			logCompare(true, b2wOrder.setDueDate(sDateTwoWeeksFromNow), "Due Date");
-			logCompare(true, b2wOrder.selectPlannedLocationDD("Field"), "Planned in the Field");
+			logCompare(true, b2wOrder.selectPlannedWorkedLocation("Field"), "Planned in the Field");
 			logCompare(true, b2wOrder.selectPriorityFromDD("Medium"), "Medium Priority");
 			logCompare(true, b2wOrder.setWorkOrderNotes("Automation Created this work order"), "Set Notes");
 			assertTrue("Save Unassigned Requests", b2wOrder.clickSaveButton());
@@ -199,16 +198,16 @@ public class MaintainDashboardSmokeTest_1 extends B2WTestCase {
 			logCompare(true, b2wDash.openUnscheduledWorkOrders(), "Open Unscheduled Workers");
 			logCompare(true, b2wSchd.openWorkOrderFromWorkOrderTabByNumber(0), "Open the first work order from tab");
 			TaskUtils.sleep(500);
-			String sWorkLocation = b2wSchMain.scheduleMaintainancePopupSelectAnyWorkLocation();
-			String sMechanic = b2wSchMain.scheduleMaintainancePopupSelectAnyMechanic();
+			b2wSchMain.selectAnyWorkLocation();
+			b2wSchMain.selectAnyMechanic();
 			String sWorkOrderID = b2wSchMain.getWorkOrderID();
-			logCompare(true, b2wSchMain.saveScheduleMaintenance(), "Save Scheduled Maintenance");
+			logCompare(true, b2wSchMain.saveScheduledMaintenance(), "Save Scheduled Maintenance");
 			TaskUtils.sleep(1000);
 			if (logCompare(true, b2wMaintain.openWorkOrders(), "Open Work Orders")) {
 				TaskUtils.sleep(500);
 				logCompare(true, b2wOrder.selectWorkOrderByID(sWorkOrderID), "Select Work Order");
-				logCompare(sMechanic, b2wOrder.getValueOfItem("Mechanic"), "Mechanic");
-				logCompare(sWorkLocation, b2wOrder.getValueOfItem("Work Location"), "Work Location");
+				//logCompare(sMechanic, b2wOrder.getValueOfItem("Mechanic"), "Mechanic");
+				//logCompare(sWorkLocation, b2wOrder.getValueOfItem("Work Location"), "Work Location");
 				logCompare("Scheduled", b2wOrder.getSelectedWorkOrderStatus(), "Status");
 				logCompare(true, b2wOrder.clickComplete(), "Complete");
 				logCompare(true, b2wComplete.clickNextPage(), "next page");
@@ -230,14 +229,13 @@ public class MaintainDashboardSmokeTest_1 extends B2WTestCase {
 			Calendar cal = Calendar.getInstance();
 			cal.add(Calendar.DAY_OF_YEAR, 7);
 			logCompare(true,b2wSchd.openWorkOrderFromPastDueTabByNumber(0), "Open Work Order from Past Due");
-			String sWorkOrder = b2wEditSch.getWorkOrder();
 			logCompare(true, b2wEditSch.editScheduleMaintainancePopupSelectStartDate(format.format(cal.getTime())),
-					"Set Start Date to 7 days to "+sWorkOrder);
+					"Set Start Date to 7 days to ");
 			cal.add(Calendar.DAY_OF_YEAR, 14);
 			logCompare(true, b2wEditSch.editScheduleMaintainancePopupSelectEndDate(format.format(cal.getTime())),
-					"Add 7 to start date to "+sWorkOrder);
+					"Add 7 to start date to ");
 			logCompare(true, b2wEditSch.saveScheduleMaintenance(), "Save scheduled maintenance");
-			b2wMaintain.openDashboard();
+			assertTrue("Open Dashboard",b2wMaintain.openDashboard());
 			logCompare(iPastDueWorkOrders - 1, b2wDash.getPastDueWorkOrders(), "Past Due Number Decreases");
 		}
 
@@ -251,31 +249,28 @@ public class MaintainDashboardSmokeTest_1 extends B2WTestCase {
 		logCompare(true, b2wDash.openPendingTimeCards(), "Open Pending Time Cards");
 		logCompare(true, b2wtimecards.clickCreateNewTimeCard(), "Create new Time Card");
 		String sEmployee = b2wReport.selectRandomEmployee();
-		TaskUtils.sleep(500);
 		if (logCompare(true, b2wtimecards.clickAddTimeButton(), "Click Add Time Button")) {
-			TaskUtils.sleep(1000);
+
 			logCompare(true, b2wReport.selectChargeToJob(), "Charge to Job");
-			logCompare(true, b2wReport.selectAnyJob(), "Select Any Job");
 			logCompare(true, b2wReport.setEmployeeWorkHoursDescription("This time card is a load of laughs"),
 					"Time card desc");
-			logCompare(true, b2wReport.selectEmployeeLaborType("Foreman"), "Select Foreman");
+			logCompare(true, b2wReport.selectAnyJob(), "Select Any Job");
+
+			b2wReport.selectRandomEmployeeLaborType();
 			logCompare(true, b2wReport.setEmployeeRegularHours("10"), "Regular Hours");
 			if (logCompare(true, b2wtimecards.saveReportHours(), "Open Report Hours")) {
 				b2wMaintain.openDashboard();
 				logCompare(iPendingTimeCards, b2wDash.getPendingTimeCards(), "Get Pending Time Cards");
 				b2wMaintain.openTimeCards();
-				TaskUtils.sleep(1000);
 				b2wtimecards.selectEmployee(sEmployee);
 				logCompare(true, b2wtimecards.submitTimeCard(), "Submit Time Card");
 				logCompare(true, b2wtimecards.clickConfirmYes(), "Confirm Yes");
-				TaskUtils.sleep(2400);
 				b2wMaintain.openDashboard();
 				logCompare(iPendingTimeCards + 1, b2wDash.getPendingTimeCards(), "Get Pending Time Cards");
 				logCompare(true, b2wDash.openPendingTimeCards(), "Open Pending Time Cards");
 				b2wtimecards.selectEmployee(sEmployee);
 				logCompare(true, b2wtimecards.submitApproved(), "Approve");
 				logCompare(true, b2wtimecards.clickConfirmYes(), "Confirm");
-				TaskUtils.sleep(1000);
 				b2wMaintain.openDashboard();
 				logCompare(iPendingTimeCards, b2wDash.getPendingTimeCards(), "Get Pending Time Cards");
 			}

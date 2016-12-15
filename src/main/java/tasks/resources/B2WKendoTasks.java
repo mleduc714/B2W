@@ -26,7 +26,11 @@ import tasks.util.TaskUtils;
 public abstract class B2WKendoTasks {
 
 	Logger log = Logger.getLogger(B2WKendoTasks.class);
-	
+	private int getRandomNumber(int iSize) {
+		Random rand = new Random();
+		int randnumber = rand.nextInt(iSize);
+		return randnumber;
+	}
 	public boolean selectItemFromDropDown(String sItem){
 		boolean bReturn = false;
 		// when we click we need to find the visible list
@@ -38,8 +42,9 @@ public abstract class B2WKendoTasks {
 			String hidden = els.getAttribute("aria-hidden");
 			if (hidden != null && hidden.equals("false")) {
 				List<WebElement> items = els.findElements(B2WEquipment.getKendoDropDownItem());
-				WebElement item = WebElementUtils.getElementWithMatchingStartsWithText(items, sItem);
+				WebElement item = WebElementUtils.getElementWithMatchingText(items, sItem, false);
 				if (item != null) {
+					WebElementUtils.waitForElementIsDisplayed(item, WebElementUtils.SHORT_TIME_OUT);
 					bReturn = WebElementUtils.clickElement(item);
 					bReturn &= WebElementUtils.waitForElementInvisible(item);
 				}else{
@@ -62,6 +67,7 @@ public abstract class B2WKendoTasks {
 			if (hidden != null && hidden.equals("false")) {
 				List<WebElement> items = els.findElements(B2WEquipment.getKendoDropDownItem());
 				WebElement item = items.get(i);
+				WebElementUtils.waitForElementIsDisplayed(item, WebElementUtils.SHORT_TIME_OUT);
 				if (item != null) {
 					bReturn = WebElementUtils.clickElement(item);
 				}else{
@@ -93,7 +99,7 @@ public abstract class B2WKendoTasks {
 				log.warn("Page not Busy no such element exception");
 				bReturn = true;
 			}catch (StaleElementReferenceException e){
-				log.warn("Caught a stale element exception");
+				log.debug("Caught a stale element exception");
 				TaskUtils.sleep(250);
 				bReturn =true;
 			}
@@ -127,6 +133,18 @@ public abstract class B2WKendoTasks {
 		}
 		return bReturn;
 	}
+	
+	public String sendTextAndSelectAnyValueFromKendoFDD(WebElement dropDownElement){
+		String sRandom = "";
+		dropDownElement.clear();
+		if (WebElementUtils.sendKeys(dropDownElement, "a")) {
+			TaskUtils.sleep(500);
+			sRandom =  selectRandomItemFromDropDown();
+		}
+		return sRandom;
+		
+	}
+	
 	public boolean selectItemFromFDD(String sItem) {
 		boolean bReturn = false;
 		// when we click we need to find the visible list
@@ -148,6 +166,7 @@ public abstract class B2WKendoTasks {
 		if (!bReturn) log.debug("Element with value" + sItem + " could not be found.");
 		return bReturn;
 	}
+	
 
 	// Test methods
 	public List<WebElement> getListSelectedItemsFromAllFDD() {
@@ -245,20 +264,17 @@ public abstract class B2WKendoTasks {
 		return itemstext;
 	}
 	
-	public List<WebElement> getFormElements(By by) {
-		List<WebElement> elements = new ArrayList<WebElement>();
-		WebElement parent = WebElementUtils.waitAndFindDisplayedElement(by);
-		List<WebElement> list = WebElementUtils.getChildElements(parent, By.tagName("p"));
-		Iterator<WebElement> iter = list.iterator();
-		while (iter.hasNext()) {
-			WebElement el = iter.next();
-			String sClass = el.getAttribute("class");
-			if (sClass.startsWith("form")) {
-				elements.add(el);
+
+	public WebElement getFormElement(String sLabel, By by){
+		WebElement child = null;
+		WebElement content = WebElementUtils.getVisibleElementFromListofElements(WebElementUtils.findElements(B2WMaintain.getB2WMaintainBoxContent()));
+		if (content != null){
+			WebElement label = WebElementUtils.getChildElementContainsText(content, By.tagName("label"), sLabel);
+			if (label != null){
+				child = WebElementUtils.getChildElement(WebElementUtils.getParentElement(label), by);
 			}
 		}
-
-		return elements;
+		return child;
 	}
 	
 	protected boolean selectItemFromView(String sItem, int iColumn) {
@@ -279,7 +295,8 @@ public abstract class B2WKendoTasks {
 				coordinate.inViewPort();
 			}
 			sText = gridcontent.get(iColumn).getText();
-			if (sText.contains(sItem)) {
+			sText = sText.trim();
+			if (sText.equals(sItem)) {
 				bReturn = WebElementUtils.clickElement(item);
 				bReturn &= waitForPageNotBusy(WebElementUtils.MEDIUM_TIME_OUT);
 				break;
@@ -363,17 +380,28 @@ public abstract class B2WKendoTasks {
 		Iterator<WebElement> iter = nvps.iterator();
 		while (iter.hasNext()) {
 			try {
-			WebElement nvp = iter.next();
-			WebElement label = nvp.findElement(By.cssSelector(".label"));
-			if (label.getText().equals(sItem)) {
-				sItem = nvp.findElement(By.cssSelector(".data")).getText();
-				break;
-			}
-			}catch (NoSuchElementException e){
+				WebElement nvp = iter.next();
+				WebElement label = nvp.findElement(By.cssSelector(".label"));
+				if (label.getText().equals(sItem)) {
+					sItem = nvp.findElement(By.cssSelector(".data")).getText();
+					break;
+				}
+			} catch (NoSuchElementException e) {
 			}
 		}
 		return sItem;
 
+	}
+	
+
+	protected String getPriorityOfItem(By by) {
+		String sText = "";
+		WebElement el = WebElementUtils.waitAndFindDisplayedElement(by);
+		WebElement dataPriority = WebElementUtils.getChildElement(el, B2WMaintain.getB2WPriorityofItem());
+		if (dataPriority != null){
+			sText = WebElementUtils.getChildElements(dataPriority, By.tagName("span")).get(1).getText();
+		}
+		return sText;
 	}
 	
 	protected String getSelectedItemFromView(int iColumn) {
@@ -429,8 +457,10 @@ public abstract class B2WKendoTasks {
 		}
 		return bReturn;
 	}
+	
 
 	public String selectRandomItemFromDropDown() {
+		WebElement item = null;
 		String sText = "";
 		// when we click we need to find the visible list
 		List<WebElement> list = WebElementUtils.findElements(B2WEquipment.getKendoLists());
@@ -441,20 +471,53 @@ public abstract class B2WKendoTasks {
 			String hidden = els.getAttribute("aria-hidden");
 			if (hidden != null && hidden.equals("false")) {
 				List<WebElement> items = els.findElements(B2WEquipment.getKendoDropDownItem());
-				Random rand = new Random();
-				int randnumber = rand.nextInt(items.size() - 1);
-				WebElement item = items.get(randnumber);
-				if (item != null) {
+				log.debug("There are "+items.size() + " items in the drop down");
+				// potential infinate loop here...but oh well
+				while (sText.length() < 1){
+					item = items.get(getRandomNumber(items.size()));
 					sText = item.getText();
+				}
+				if (item != null) {
 					if (WebElementUtils.clickElement(item)) {
 						WebElementUtils.waitForElementHasAttributeWithValue(els, "aria-hidden", "true", true,
 								WebElementUtils.MEDIUM_TIME_OUT);
+						waitForPageNotBusy(WebElementUtils.SHORT_TIME_OUT);
+						
+						log.debug("Selected an item");
+						break;
+					}else{
+						log.debug("The item was not clickable in dropdown");
 					}
-				} else {
-					log.debug("Could not select item");
-				}
+				} 
 			}
 		}
 		return sText;
 	}
+	protected boolean setNumericField(WebElement el, String sLabel, String sText){
+		boolean bReturn = false;
+		WebElement dd = WebElementUtils.getChildElement(el, B2WMaintain.getKendoNumericTextBox());
+		if (dd != null){
+			List<WebElement> inputs = WebElementUtils.getChildElements(dd, B2WMaintain.getKendoDropDown());
+			bReturn = WebElementUtils.clickElement(inputs.get(0));
+			bReturn &= WebElementUtils.sendKeys(inputs.get(1), sText);
+		}
+		return bReturn;
+
+	}
+
+	public ArrayList<String> getText(WebElement parent, int iRow, int iColumn) {
+		ArrayList<String> al = new ArrayList<String>();
+		WebElement rowgroup = WebElementUtils.getChildElement(parent, By.tagName("tbody"));
+		if (rowgroup != null) {
+			try {
+				List<WebElement> rows = WebElementUtils.getChildElements(rowgroup, By.tagName("tr"));
+				List<WebElement> ls = rows.get(iRow).findElements(By.tagName("td"));
+				al.add(ls.get(iColumn).getText());
+			} catch (Exception e) {
+				log.debug("Caught an exception attempt to get text with row/column");
+			}
+		}
+		return al;
+	}
+
 }

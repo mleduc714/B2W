@@ -28,7 +28,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class WebElementUtils {
 
-	public static final int LONG_TIME_OUT = 30;
+	public static final int LONG_TIME_OUT = 60;
 	public static final int MEDIUM_TIME_OUT = 10;
 	public static final int SHORT_TIME_OUT = 5;
 
@@ -220,7 +220,7 @@ public class WebElementUtils {
 		while (iter.hasNext()) {
 			WebElement el = iter.next();
 			// getAllInfo(el);
-			String elementText = el.getText();
+			String elementText = el.getText().trim();
 			if (caseSensitive) {
 				if (text.equals(elementText)) {
 					ret = el;
@@ -929,5 +929,29 @@ public class WebElementUtils {
 			return null;
 		}
 
+	}
+	
+	public static WebElement getVisibleElementFromListofElements(List<WebElement> list){
+		WebElement element = null;
+		for (WebElement el: list){
+			if (el.isDisplayed()){
+				log.debug("Found Displayed Element");
+				element = el;
+				break;
+			}
+		}
+		return element;
+	}
+
+	public static boolean hoverOnElement(WebElement element) {
+		boolean bReturn = false;
+		if (element != null) {
+
+			Actions action = new Actions(BrowserUtils.getDriver());
+			action.moveToElement(element);
+			action.perform();
+
+		}
+		return bReturn;
 	}
 }

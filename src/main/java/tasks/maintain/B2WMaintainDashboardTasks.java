@@ -310,4 +310,61 @@ public class B2WMaintainDashboardTasks extends B2WMaintainTasks {
 		}
 		return bReturn;
 	}
+	
+	public int getLowPriorityPercentage() {
+		int iPercentage = 0;
+		WebElement dashboard = WebElementUtils.findElement(B2WMaintain.getB2WDashboardWorkOrderChart());
+		if (dashboard != null){
+			String sText = WebElementUtils.getChildElements(dashboard, By.tagName("text")).get(1).getText();
+			sText.substring(0,sText.indexOf("%"));
+			iPercentage = new Integer(sText.substring(0,sText.indexOf("%")).trim()).intValue();
+		}
+		return iPercentage;
+	}
+
+	public int getMediumPriorityPercentage() {
+		int iPercentage = 0;
+		WebElement dashboard = WebElementUtils.findElement(B2WMaintain.getB2WDashboardWorkOrderChart());
+		if (dashboard != null){
+			String sText = WebElementUtils.getChildElements(dashboard, By.tagName("text")).get(2).getText();
+			iPercentage = new Integer(sText.substring(0,sText.indexOf("%")).trim()).intValue();
+		}
+		return iPercentage;
+	}
+
+	public int getHighPriorityPercentage() {
+		int iPercentage = 0;
+		WebElement dashboard = WebElementUtils.findElement(B2WMaintain.getB2WDashboardWorkOrderChart());
+		if (dashboard != null){
+			String sText = WebElementUtils.getChildElements(dashboard, By.tagName("text")).get(3).getText();
+			iPercentage = new Integer(sText.substring(0,sText.indexOf("%")).trim()).intValue();
+		}
+		return iPercentage;
+	}
+	
+	public ArrayList<String> getMechanicsFromChart() {
+		ArrayList<String> sText = new ArrayList<String>();
+		WebElement dashboard = WebElementUtils.findElement(B2WMaintain.getB2WDashboardWorkOrderManHoursByMechanic());
+		if (dashboard != null){
+			List<WebElement> list = WebElementUtils.getChildElements(dashboard, By.tagName("text"));
+			List<WebElement> mechanics = WebElementUtils.getElementsWithMatchingAttribute(list, "fill", "#4c5356");
+			for (WebElement e: mechanics){
+				String sMechanic = e.getText();
+				log.debug(sMechanic);
+				sText.add(sMechanic);
+			}
+		}
+		return sText;
+	}
+
+	
+	public boolean isCompleteWorkOrderItemHourChartDisplayed(){
+		boolean bReturn = false;
+		WebElement el = WebElementUtils.findElement(B2WMaintain.getB2WDashboardWorkOrderRightChart());
+		if (el != null){
+			WebElement data = WebElementUtils.getChildElement(el, B2WMaintain.getB2WDashboardNoData());
+			bReturn = !data.isDisplayed();
+		}
+		return bReturn;
+	}
 }

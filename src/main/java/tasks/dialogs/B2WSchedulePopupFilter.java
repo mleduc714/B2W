@@ -16,10 +16,12 @@ public class B2WSchedulePopupFilter extends B2WKendoDialog {
 			TaskUtils.sleep(500);
 			WebElement dropdown = WebElementUtils.getChildElement(el, B2WMaintain.getKendoDropDown());
 			if (WebElementUtils.clickElement(dropdown)) {
+				TaskUtils.sleep(1000);
 				bReturn = selectItemFromDropDown(sFilterType);
-				TaskUtils.sleep(2000);
+				TaskUtils.sleep(1000);
 				dropdown = WebElementUtils.getChildElement(el, B2WMaintain.getKendoDropDown());
 				WebElementUtils.clickElement(dropdown);
+				TaskUtils.sleep(1000);
 				bReturn = selectItemFromDropDown(sFilterItem);
 				WebElement button = WebElementUtils.getChildElement(el,
 						B2WMaintain.getB2WMaintainDashboardFiltersApply());
@@ -36,13 +38,16 @@ public class B2WSchedulePopupFilter extends B2WKendoDialog {
 	public boolean removeFilter() {
 		boolean bReturn = false;
 		WebElement el = WebElementUtils.findElement(B2WMaintain.getB2WMaintainDashboardFiltersDialog());
-		if (el != null){
-			WebElement filter = WebElementUtils.getChildElement(el,By.linkText("Remove filter"));
-			bReturn = WebElementUtils.clickElement(filter);
-			WebElement button = WebElementUtils.getChildElement(el,B2WMaintain.getB2WMaintainDashboardFiltersApply());
-			if (button != null){
-				bReturn = WebElementUtils.clickElement(button);
-				WebElementUtils.waitForElementInvisible(button);
+		if (el != null) {
+			WebElement filter = WebElementUtils.getChildElement(el, By.linkText("Remove filter"));
+			if (filter != null) {
+				bReturn = WebElementUtils.clickElement(filter);
+				WebElement button = WebElementUtils.getChildElement(el,
+						B2WMaintain.getB2WMaintainDashboardFiltersApply());
+				if (button != null) {
+					bReturn = WebElementUtils.clickElement(button);
+					WebElementUtils.waitForElementInvisible(button);
+				}
 			}
 		}
 		return bReturn;

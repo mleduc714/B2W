@@ -53,11 +53,7 @@ public class MaintainScheduleDragDropWorkOrder extends B2WTestCase {
 
 	public void testMain() throws Throwable {
 		// TODO Auto-generated method stub
-		BrowserUtils.getDriver().navigate().to(getEnvProperty("deploy") + "Maintenance/Dashboard.aspx");
-		// check for unscheduled work orders
-		if (b2wDash.getUnscheduledWorkOrders() > 0){
-			logCompare(true, b2wDash.openUnscheduledWorkOrders(), "Open Unscheduled work orders");
-		}
+		
 		
 	}
 

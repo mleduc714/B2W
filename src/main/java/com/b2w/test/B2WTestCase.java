@@ -38,6 +38,7 @@ public class B2WTestCase extends BaseTestCase {
 		if (!BrowserUtils.loadURL(getEnvProperty("deploy"), getEnvProperty("username"), getEnvProperty("password"))) {
 			fail("Failed to load initial URL due to WebDriver issue");
 		}
+		log.info("The current window size is: "+BrowserUtils.getDriver().manage().window().getSize());
 		BrowserUtils.moveMouseOffScreen();
 		
 		bTestCasePass = true;

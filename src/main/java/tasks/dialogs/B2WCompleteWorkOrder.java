@@ -169,11 +169,7 @@ public class B2WCompleteWorkOrder extends B2WKendoDialog {
 		boolean bReturn = false;
 		WebElement plannedHours = WebElementUtils.findElement(By.className(PLANNEDHRS));
 		if (plannedHours != null) {
-			WebElement dd = WebElementUtils.getChildElement(plannedHours, B2WMaintain.getKendoNumericTextBox());
-			List<WebElement> inputs = WebElementUtils.getChildElements(dd, B2WMaintain.getKendoDropDown());
-			bReturn = WebElementUtils.clickElement(inputs.get(0));
-			bReturn &= WebElementUtils.sendKeys(inputs.get(1), sHours);
-
+			bReturn = setNumericField(plannedHours, "Hours", sHours);
 		}
 		return bReturn;
 	}
@@ -216,5 +212,101 @@ public class B2WCompleteWorkOrder extends B2WKendoDialog {
 		}
 		return bReturn;
 	}
-
+	
+	public boolean setReportHoursDescription(String s){
+		boolean bReturn = false;
+		WebElement reportedHours = WebElementUtils.findElement(By.className(REPORTHRS));
+		if (reportedHours != null) {
+			WebElement el = WebElementUtils.getChildElementContainsText(reportedHours, By.tagName("label"), "Description");		
+			bReturn = WebElementUtils.sendKeys(WebElementUtils.getChildElement(WebElementUtils.getParentElement(el), By.tagName("input")), s);
+			
+		}
+		return bReturn;
+	}
+	
+	public boolean selectEmployee(String s){
+		boolean bReturn = false;
+		WebElement reportedHours = WebElementUtils.findElement(By.className(REPORTHRS));
+		if (reportedHours != null) {
+			WebElement el = WebElementUtils.getChildElementContainsText(reportedHours, By.tagName("label"), "Employee");		
+			bReturn = WebElementUtils.clickElement(WebElementUtils.getChildElement(WebElementUtils.getParentElement(el), B2WMaintain.getKendoDropDown()));
+			bReturn &= selectItemFromDropDown(s);
+		}
+		return bReturn;
+	}
+	
+	public boolean selectReportedHoursLaborType(String s){
+		boolean bReturn = false;
+		WebElement reportedHours = WebElementUtils.findElement(By.className(REPORTHRS));
+		if (openDropDownMenu(reportedHours,"Labor Type")){
+			bReturn = selectItemFromDropDown(s);
+		}
+		return bReturn;
+	}
+	
+	public boolean setReportedHoursDate(String s){
+		boolean bReturn = false;
+		WebElement reportedHours = WebElementUtils.findElement(By.className(REPORTHRS));
+		if (reportedHours != null){
+			bReturn = setNumericField(reportedHours, "Date", s);
+		}
+		return bReturn;
+	}
+	public boolean setReportedRegularHours(String sText){
+		boolean bReturn = false;
+		WebElement reportedHours = WebElementUtils.findElement(By.className(REPORTHRS));
+		if (reportedHours != null){
+			bReturn = setNumericField(reportedHours, "Regular", sText);
+		}
+		return bReturn;
+	}
+	public boolean setReportedRegularMins(String sText){
+		boolean bReturn = false;
+		WebElement reportedHours = WebElementUtils.findElement(By.className(REPORTHRS));
+		WebElement dd = WebElementUtils.getChildElements(reportedHours, B2WMaintain.getKendoNumericTextBox()).get(1);
+		if (dd != null){
+			List<WebElement> inputs = WebElementUtils.getChildElements(dd, B2WMaintain.getKendoDropDown());
+			bReturn = WebElementUtils.clickElement(inputs.get(0));
+			bReturn &= WebElementUtils.sendKeys(inputs.get(1), sText);
+		}
+		return bReturn;
+	}
+	public boolean setReportedOvertimeHours(String sText){
+		boolean bReturn = false;
+		WebElement reportedHours = WebElementUtils.findElement(By.className(REPORTHRS));
+		if (reportedHours != null){
+			bReturn = setNumericField(reportedHours, "Overtime", sText);
+		}
+		return bReturn;
+	}
+	public boolean setReportedOvertimeMins(String sText){
+		boolean bReturn = false;
+		WebElement reportedHours = WebElementUtils.findElement(By.className(REPORTHRS));
+		WebElement dd = WebElementUtils.getChildElements(reportedHours, B2WMaintain.getKendoNumericTextBox()).get(3);
+		if (dd != null){
+			List<WebElement> inputs = WebElementUtils.getChildElements(dd, B2WMaintain.getKendoDropDown());
+			bReturn = WebElementUtils.clickElement(inputs.get(0));
+			bReturn &= WebElementUtils.sendKeys(inputs.get(1), sText);
+		}
+		return bReturn;
+	}
+	
+	public boolean clickReportedHoursAdd() {
+		boolean bReturn = false;
+		WebElement reportedHours = WebElementUtils.findElement(By.className(REPORTHRS));
+		if (reportedHours != null){
+			WebElement el = WebElementUtils.getChildElement(reportedHours, By.cssSelector(".add-hours"));
+			bReturn = WebElementUtils.clickElement(el);
+		}
+		return bReturn;
+	}
+	public boolean clickReportedHoursCancel() {
+		boolean bReturn = false;
+		WebElement reportedHours = WebElementUtils.findElement(By.className(REPORTHRS));
+		if (reportedHours != null){
+			WebElement el = WebElementUtils.getChildElement(reportedHours, By.cssSelector(".cancel-hours"));
+			bReturn = WebElementUtils.clickElement(el);
+		}
+		return bReturn;
+	}
 }
