@@ -270,7 +270,7 @@ public class ScheduleAssignmentsTest extends B2WTestCase {
         logCompare(true, b2wScheduler.setSearchValue(employeeAssignment.getResourceName()), "Set Filter by " + employeeAssignment.getResourceName());
         logCompare(true, b2wScheduler.createEmployeeAssignment(employeeAssignment), "Set Filter by " + employeeAssignment.getResourceName());
 
-
+        // === Equipment Assignment tests
     }
 
     private B2WScheduleView prepareEmployeeScheduleView(String sScheduleFormat) {
