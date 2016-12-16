@@ -333,90 +333,108 @@ public class B2WEquipmentTasks extends B2WKendoTasks {
 		
 		//FINANCIALS
 		
-		public boolean setFinancialsPurchasedFrom(String sText) {
+	public boolean setFinancialsPurchasedFrom(String sText) {
 		boolean bReturn = false;
-
-		List<WebElement> els = WebElementUtils.findElements(KendoUI.getKendoDescription());
-		WebElement el = WebElementUtils.getElementWithMatchingAttribute(els, "name", "PurchasedFrom");
-		
-		if (el != null && WebElementUtils.waitForElementIsDisplayed(el, WebElementUtils.MEDIUM_TIME_OUT)) {
+		WebElement el = getFormElement("Purchased From", B2WMaintain.getKendoDescription());
+		if (el != null) {
+			WebElementUtils.clickElement(el);
 			bReturn = WebElementUtils.sendKeys(el, sText);
-		}else{
-			log.debug("Element was not available to send text to");
 		}
+		return bReturn;
+	}
+
+	public boolean setFinancialsPurchasePrice(String sText) {
+		boolean bReturn = false;
+		WebElement el = getFormElement("Purchased Price", B2WMaintain.getKendoNumericTextBox());
+		List<WebElement> inputs = WebElementUtils.getChildElements(el, B2WMaintain.getKendoDropDown());
+		bReturn = WebElementUtils.clickElement(inputs.get(0));
+		bReturn &= WebElementUtils.sendKeys(inputs.get(1), sText);
 
 		return bReturn;
 	}
-		public boolean setFinancialsPurchasePrice(String sText) {
-		boolean bReturn = false;
 
-		List<WebElement> els = WebElementUtils.findElements(KendoUI.getKendoDescription());
-		WebElement el = WebElementUtils.getElementWithMatchingAttribute(els, "name", "PurchasePrice");
-		
-		if (el != null && WebElementUtils.waitForElementIsDisplayed(el, WebElementUtils.MEDIUM_TIME_OUT)) {
-			bReturn = WebElementUtils.sendKeys(el, sText);
-		}else{
-			log.debug("Element was not available to send text to");
-		}
+	public boolean setFinancialsInsuranceValue(String sText) {
+
+		boolean bReturn = false;
+		WebElement el = getFormElement("Insurance Value", B2WMaintain.getKendoNumericTextBox());
+		List<WebElement> inputs = WebElementUtils.getChildElements(el, B2WMaintain.getKendoDropDown());
+		bReturn = WebElementUtils.clickElement(inputs.get(0));
+		bReturn &= WebElementUtils.sendKeys(inputs.get(1), sText);
 
 		return bReturn;
+
 	}
-		public boolean setFinancialsInsuranceValue(String sText) {
+
+	public boolean setFinancialsTitleHolder(String sText) {
 		boolean bReturn = false;
-
-		List<WebElement> els = WebElementUtils.findElements(KendoUI.getKendoDescription());
-		WebElement el = WebElementUtils.getElementWithMatchingAttribute(els, "name", "InsuranceValue");
-		
-		if (el != null && WebElementUtils.waitForElementIsDisplayed(el, WebElementUtils.MEDIUM_TIME_OUT)) {
+		WebElement el = getFormElement("Title Holder", B2WMaintain.getKendoDescription());
+		if (el != null) {
+			WebElementUtils.clickElement(el);
 			bReturn = WebElementUtils.sendKeys(el, sText);
-		}else{
-			log.debug("Element was not available to send text to");
 		}
-
 		return bReturn;
 	}
-		public boolean setFinancialsTitleHolder(String sText) {
+
+	public boolean setFinancialsSoldTo(String sText) {
 		boolean bReturn = false;
-
-		List<WebElement> els = WebElementUtils.findElements(KendoUI.getKendoDescription());
-		WebElement el = WebElementUtils.getElementWithMatchingAttribute(els, "name", "TitleHolder");
-		
-		if (el != null && WebElementUtils.waitForElementIsDisplayed(el, WebElementUtils.MEDIUM_TIME_OUT)) {
+		WebElement el = getFormElement("Sold To", B2WMaintain.getKendoDescription());
+		if (el != null) {
+			WebElementUtils.clickElement(el);
 			bReturn = WebElementUtils.sendKeys(el, sText);
-		}else{
-			log.debug("Element was not available to send text to");
 		}
-
 		return bReturn;
 	}
-		public boolean setFinancialsSoldTo(String sText) {
-		boolean bReturn = false;
 
-		List<WebElement> els = WebElementUtils.findElements(KendoUI.getKendoDescription());
-		WebElement el = WebElementUtils.getElementWithMatchingAttribute(els, "name", "SoldTo");
-		
-		if (el != null && WebElementUtils.waitForElementIsDisplayed(el, WebElementUtils.MEDIUM_TIME_OUT)) {
-			bReturn = WebElementUtils.sendKeys(el, sText);
-		}else{
-			log.debug("Element was not available to send text to");
-		}
+	public boolean setFinancialsSalesPrice(String sText) {
+
+		boolean bReturn = false;
+		WebElement el = getFormElement("Sale Price", B2WMaintain.getKendoNumericTextBox());
+		List<WebElement> inputs = WebElementUtils.getChildElements(el, B2WMaintain.getKendoDropDown());
+		bReturn = WebElementUtils.clickElement(inputs.get(0));
+		bReturn &= WebElementUtils.sendKeys(inputs.get(1), sText);
 
 		return bReturn;
+
 	}
-		public boolean setFinancialsSalesPrice(String sText) {
+	
+	public boolean setFinancialsPurchaseDate(String sText) {
+
 		boolean bReturn = false;
-
-		List<WebElement> els = WebElementUtils.findElements(KendoUI.getKendoDescription());
-		WebElement el = WebElementUtils.getElementWithMatchingAttribute(els, "name", "SalesPrice");
-		
-		if (el != null && WebElementUtils.waitForElementIsDisplayed(el, WebElementUtils.MEDIUM_TIME_OUT)) {
+		WebElement el = getFormElement("Purchased Date", B2WMaintain.getKendoDropDown());
+		if (el != null){
+			WebElementUtils.clickElement(el);
 			bReturn = WebElementUtils.sendKeys(el, sText);
-		}else{
-			log.debug("Element was not available to send text to");
+			
 		}
-
 		return bReturn;
+
 	}
+	
+	public boolean setFinancialsDispositionDate(String sText) {
+
+		boolean bReturn = false;
+		WebElement el = getFormElement("Disposition Date", B2WMaintain.getKendoDropDown());
+		if (el != null){
+			WebElementUtils.clickElement(el);
+			bReturn = WebElementUtils.sendKeys(el, sText);
+			
+		}
+		return bReturn;
+
+	}
+	
+	public boolean selectFinancialsCCAClass(String sText) {
+
+		boolean bReturn = false;
+		WebElement el = getFormElement("CCA Class", B2WMaintain.getKendoDropDown());
+		if (el != null){
+			WebElementUtils.clickElement(el);
+			bReturn = selectItemFromDropDown(sText);
+		}
+		return bReturn;
+
+	}
+	
 		
 	//***********************THIS IS A TEST************************************
 	
@@ -759,6 +777,10 @@ public class B2WEquipmentTasks extends B2WKendoTasks {
 		return setTextByField(COMPSPECS, sField, sText);
 	}
 	
+	public boolean setDateComponentSpecs(String sField, String sText){
+		return setDateByField(COMPSPECS, sField, sText);
+	}
+	
 	public boolean setFieldAndItemFromDropDownComponentSpecs(String sField, String sValue, String sItem){
 		return selectItemValueFromDropDown(COMPSPECS, sField, sValue, sItem);
 	}
@@ -789,6 +811,24 @@ public class B2WEquipmentTasks extends B2WKendoTasks {
 		}
 		return bReturn;
 	}
+	
+	private boolean setDateByField(String sHeader, String sField, String sText){
+		boolean bReturn = false;
+		// get the header
+		WebElement parent = getHeader(sHeader);
+		// find all the name value pairs
+		List<WebElement> items = WebElementUtils.getChildElements(parent, B2WMaintain.getKendoNameValuePair());
+		// find the label of the element we wish to set text for
+		WebElement specs = WebElementUtils.getElementWithMatchingChildElementText(items, By.tagName("label"), sField);
+		if (specs != null){
+		// get the parent of the label
+			// find the input
+			WebElement input = WebElementUtils.getChildElement(specs, By.tagName("input"));
+			bReturn = WebElementUtils.sendKeys(input, sText);
+		}
+		return bReturn;
+	}
+	
 	
 	private boolean selectItemValueFromDropDown(String sHeader, String sField, String sValue, String sItem){
 		boolean bReturn = false;
