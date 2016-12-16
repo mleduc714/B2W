@@ -777,10 +777,6 @@ public class B2WEquipmentTasks extends B2WKendoTasks {
 		return setTextByField(COMPSPECS, sField, sText);
 	}
 	
-	public boolean setDateComponentSpecs(String sField, String sText){
-		return setDateByField(COMPSPECS, sField, sText);
-	}
-	
 	public boolean setFieldAndItemFromDropDownComponentSpecs(String sField, String sValue, String sItem){
 		return selectItemValueFromDropDown(COMPSPECS, sField, sValue, sItem);
 	}
@@ -812,24 +808,7 @@ public class B2WEquipmentTasks extends B2WKendoTasks {
 		return bReturn;
 	}
 	
-	private boolean setDateByField(String sHeader, String sField, String sText){
-		boolean bReturn = false;
-		// get the header
-		WebElement parent = getHeader(sHeader);
-		// find all the name value pairs
-		List<WebElement> items = WebElementUtils.getChildElements(parent, B2WMaintain.getKendoNameValuePair());
-		// find the label of the element we wish to set text for
-		WebElement specs = WebElementUtils.getElementWithMatchingChildElementText(items, By.tagName("label"), sField);
-		if (specs != null){
-		// get the parent of the label
-			// find the input
-			WebElement input = WebElementUtils.getChildElement(specs, By.tagName("input"));
-			bReturn = WebElementUtils.sendKeys(input, sText);
-		}
-		return bReturn;
-	}
-	
-	
+
 	private boolean selectItemValueFromDropDown(String sHeader, String sField, String sValue, String sItem){
 		boolean bReturn = false;
 		// get the header
