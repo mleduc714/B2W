@@ -455,4 +455,13 @@ public class B2WMaintain extends KendoUI {
     public static By getB2WDashboardNoData() {
     	return By.cssSelector(B2WUIMap.b2w_maintaindashboardnodata);
     }
+    public static By getB2WScheduleDatePickerButton() {
+    	return By.cssSelector(B2WUIMap.b2w_scheduledatepicker);
+    }
+    public static By getB2WScheduleDatePicker() {
+    	return By.cssSelector(B2WUIMap.b2w_scheduledatecalendar);
+    }
+    public static By getB2WScheduleDatePickerMonthDate() {
+    	return By.cssSelector(B2WUIMap.b2w_scheduledatemonth);
+    }
 }

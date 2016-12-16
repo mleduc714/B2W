@@ -1008,6 +1008,9 @@ public class B2WUIMap {
 	public static final String b2w_schedulemaintenancedialogequipment = "//label[@data-bind='text: scheduleCreateViewModel.equipment.displayValue']";
 	public static final String b2w_schedulesouthwestdivisionpaversgraders = "Southwest Division Pavers--Graders";
 
+	public static final String b2w_scheduledatepicker = ".k-i-calendar";
+	public static final String b2w_scheduledatecalendar = ".k-scheduler-calendar";
+	public static final String b2w_scheduledatemonth = ".k-nav-fast";
 	
 	
 	//Schedule Setup
