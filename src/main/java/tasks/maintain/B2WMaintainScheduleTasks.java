@@ -3,8 +3,10 @@ package tasks.maintain;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -20,6 +22,7 @@ import appobjects.scheduler.B2WScheduleAssignments;
 import tasks.BrowserUtils;
 import tasks.WebElementUtils;
 import tasks.resources.B2WKendoTasks;
+import tasks.util.TaskUtils;
 
 public class B2WMaintainScheduleTasks extends B2WKendoTasks {
 	
@@ -393,6 +396,7 @@ public class B2WMaintainScheduleTasks extends B2WKendoTasks {
 			String sDate = el.getText();
 			SimpleDateFormat sd = new SimpleDateFormat("EEE, M/d");
 			Date date = parseDate(sDate, sd);
+			System.out.println(date.getTime());
 			al.add(date);
 		}
 		}catch (StaleElementReferenceException e){
@@ -403,15 +407,58 @@ public class B2WMaintainScheduleTasks extends B2WKendoTasks {
 	
 	
 	
-	public void goToDate(String sDate){
-		clickToday();
-		Date date = parseDate(sDate, md);
-		ArrayList<Date> al = getDates();
-		if (!al.contains(date)){
-			clickForwardArrow();
-			al = getDates();
+	public void goToDate(String sDate) {
+
+		Calendar cal = Calendar.getInstance();
+		SimpleDateFormat sd = new SimpleDateFormat("EEEE, MMMM dd, yyyy");
+		SimpleDateFormat format = new SimpleDateFormat("MM/dd/yy");
+		SimpleDateFormat month = new SimpleDateFormat("MMM");
+		SimpleDateFormat year = new SimpleDateFormat("yyyy");
+		Date goToDate = null;
+		// Calendar month = Calendar.getInstance();
+		// Calendar day = Calendar.getInstance();
+		try {
+			goToDate = format.parse(sDate);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
+		Calendar cGoToDate = Calendar.getInstance();
+		cGoToDate.setTime(goToDate);
+
+		WebElementUtils.clickElement(B2WMaintain.getB2WScheduleDatePickerButton());
+		WebElementUtils.waitAndFindDisplayedElement(B2WMaintain.getB2WScheduleDatePicker());
+		WebElement dateYear = WebElementUtils.waitAndFindDisplayedElement(B2WMaintain.getB2WScheduleDatePickerMonthDate());
+		// if months and year don't match we have to click month/year at least
+		// once
+		if (cGoToDate.get(Calendar.MONTH) != cal.get(Calendar.MONTH)
+				|| cGoToDate.get(Calendar.YEAR) != cal.get(Calendar.YEAR)) {
+			dateYear.click();
+
+			// if the year doesn't match we click again to get years
+			if (cGoToDate.get(Calendar.YEAR) != cal.get(Calendar.YEAR)) {
+
+				dateYear.click();
+				TaskUtils.sleep(1000);
+				// go to the year
+				WebElement cYear = WebElementUtils
+						.findElement(By.xpath("//a[contains(.,'" + year.format(cGoToDate.getTime()) + "')]"));
+				cYear.click();
+
+			}
+			TaskUtils.sleep(1000);
+			// go to the month we want
+			WebElement cMonth = WebElementUtils.waitAndFindDisplayedElement(
+					By.xpath("//a[contains(.,'" + month.format(cGoToDate.getTime()) + "')]"));
+			cMonth.click();
+			TaskUtils.sleep(2000);
+		}
+		// go to the date we want
+		WebElement day = WebElementUtils
+				.waitAndFindDisplayedElement(By.xpath("//a[@title='" + sd.format(cGoToDate.getTime()) + "']"));
+		day.click();
 	}
+
 	
 	public ArrayList<String> getMechanicsFromSchedule() {
 		ArrayList<String> al = new ArrayList<String>();
@@ -483,4 +530,19 @@ public class B2WMaintainScheduleTasks extends B2WKendoTasks {
 
 	}
 	
+	
+	public LinkedList<String> getAllMechanicsWithoutScheduledWorkItems() {
+		LinkedList<String> al = new LinkedList<String>();
+		List<WebElement> mechanics = WebElementUtils.findElements(By.cssSelector("span.caption"));
+		for (WebElement el: mechanics){
+			String sMechanic = WebElementUtils.getParentElement(el).getAttribute("title");
+			String sHeight = WebElementUtils.getParentElement(WebElementUtils.getParentElement(WebElementUtils.getParentElement(el))).getAttribute("style");
+			if (sHeight.contains("40px")){
+				al.add(sMechanic);
+			}
+		}
+		return al;
+	}
+	
+
 }

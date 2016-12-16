@@ -124,7 +124,7 @@ public class MaintainDashboardSmokeTest_2 extends B2WTestCase {
 		logCompare(sd.format(Calendar.getInstance().getTime()), b2wDash.getDateFromDashboard(), "Compare Dates");
 
 		logCompare(true,b2wMaintain.openDashboard(),"Open Dashboard");
-		verifyFilters();
+		//verifyFilters();
 		verifyScheduledWorkOrders();
 		verifyWorkOrdersPriorityChart();
 		verifyWorkOrderItemHours();
@@ -192,14 +192,20 @@ public class MaintainDashboardSmokeTest_2 extends B2WTestCase {
 		default:
 		}
 		b2wOrder.saveEditWorkOrder();
-		
+		switch (priority){
+		case MEDIUM:
+			logCompare(true,h != b2wDash.getHighPriorityPercentage(), "The old high percentage was "+h + " the new one is "+b2wDash.getHighPriorityPercentage());
+			break;
+		case HIGH:
+			logCompare(true,l != b2wDash.getLowPriorityPercentage(), "The old low percentage was "+l + " the new one is "+b2wDash.getLowPriorityPercentage());
+			break;
+		case LOW:
+			logCompare(true,m != b2wDash.getMediumPriorityPercentage(), "The old medium percentage was "+m + " the new one is "+b2wDash.getMediumPriorityPercentage());
+			break;
+		default:
+		}
 		b2wMaintain.openDashboard();
-		logCompare(true,h != b2wDash.getHighPriorityPercentage(), "The old high percentage was "+h + " the new one is "+b2wDash.getHighPriorityPercentage());
-		logCompare(true,l != b2wDash.getLowPriorityPercentage(), "The old low percentage was "+l + " the new one is "+b2wDash.getLowPriorityPercentage());
-		logCompare(true,m != b2wDash.getMediumPriorityPercentage(), "The old medium percentage was "+m + " the new one is "+b2wDash.getMediumPriorityPercentage());
 
-		
-		
 	}
 	
 	public void verifyWorkOrderItemHours() {
@@ -215,11 +221,7 @@ public class MaintainDashboardSmokeTest_2 extends B2WTestCase {
 			b2wReportedHrs.setEmployeeWorkHoursDescription("Strange Brew");
 			String sEmployee = b2wReportedHrs.selectRandomEmployee();
 			TaskUtils.sleep(500);
-			String sLaborType = b2wReportedHrs.getEmployeeLaborType();
-			if (sLaborType.equals("")){
-				b2wReportedHrs.selectRandomEmployeeLaborType();
-				sLaborType = b2wReportedHrs.getEmployeeLaborType();
-			}
+			b2wReportedHrs.selectRandomEmployeeLaborType();
 			TaskUtils.sleep(500);
 			b2wReportedHrs.setDate(sToday);
 			b2wReportedHrs.setEmployeeRegularHours("8");
