@@ -25,10 +25,7 @@ import static com.b2w.test.BaseAssert.logCompare;
 
 public class B2WSchedulesTasksTest extends B2WKendoTasks {
     private final String SECURITY_ROLE = "Roles with access to this schedule";
-    private final String SECURITY_USERS = "Users with access to this schedule";
-
     private final B2WNavigationTasks b2wNav = new B2WNavigationTasks();
-
     private Logger log = Logger.getLogger(B2WSchedulesTasksTest.class);
 
     public boolean createScheduleView(B2WScheduleView scheduleView) {
@@ -81,7 +78,6 @@ public class B2WSchedulesTasksTest extends B2WKendoTasks {
         bReturn &= bTmp;
         return bReturn;
     }
-
     private boolean disableResource(WebElement parent, String sValue) {
         boolean bResult = false;
         WebElement el = WebElementUtils.getChildElement(parent, B2WSchedules.scheduleResourceBtn(sValue));
@@ -138,7 +134,6 @@ public class B2WSchedulesTasksTest extends B2WKendoTasks {
         }
         return bReturn;
     }
-
     private boolean setBU(String sValue) {
         boolean bReturn = false;
         WebElement eBU = WebElementUtils.getKendoFDDElementByLabel("Business Unit");
@@ -150,7 +145,6 @@ public class B2WSchedulesTasksTest extends B2WKendoTasks {
         }
         return bReturn;
     }
-
     private boolean setScheduleNotes(String sValue) {
         boolean bReturn = false;
         WebElement eNotes = WebElementUtils.findElement(B2WSchedules.notes());
@@ -161,7 +155,6 @@ public class B2WSchedulesTasksTest extends B2WKendoTasks {
         }
         return bReturn;
     }
-
     private boolean setScheduleItems(ArrayList<B2WScheduleItem> scheduleItemsList) {
         boolean bReturn = true;
         if (!scheduleItemsList.isEmpty()) {
@@ -173,7 +166,6 @@ public class B2WSchedulesTasksTest extends B2WKendoTasks {
         }
         return bReturn;
     }
-
     private boolean setScheduleFormat(String sValue) {
         boolean bReturn = false;
         List<WebElement> eList = WebElementUtils.findElements(B2WSchedules.scheduleFormat());
@@ -198,7 +190,6 @@ public class B2WSchedulesTasksTest extends B2WKendoTasks {
         }
         return bReturn;
     }
-
     private boolean setItem(B2WScheduleItem item) {
         boolean bResult = false;
         WebElement element = WebElementUtils.findElement(B2WSchedules.scheduleCheckBox(item.getResourceName()));
@@ -227,7 +218,6 @@ public class B2WSchedulesTasksTest extends B2WKendoTasks {
         }
         return bResult;
     }
-
     private boolean setGrouping(String sGroupingFieldName, String sValue) {
         boolean bReturn = true;
         if (sValue != null) {
@@ -252,7 +242,6 @@ public class B2WSchedulesTasksTest extends B2WKendoTasks {
         }
         return bReturn;
     }
-
     private boolean setFilters(ArrayList<String[]> filters) {
         boolean bReturn = true;
         for (String[] item : filters) {
@@ -261,7 +250,6 @@ public class B2WSchedulesTasksTest extends B2WKendoTasks {
         }
         return bReturn;
     }
-
     private boolean setFilter(String sType, String sValue) {
         boolean bReturn = false;
         WebElement eAddFilterDD = WebElementUtils.findElement(B2WSchedules.addFilterDropDown());
@@ -277,29 +265,44 @@ public class B2WSchedulesTasksTest extends B2WKendoTasks {
         }
         return bReturn;
     }
-
     private boolean setSecurityRoles(ArrayList<String> roles) {
         boolean bReturn = true;
         if (!roles.isEmpty()) {
             bReturn = setRestrictedAccess();
             for (String item : roles) {
-                bReturn &= setSecurityRole(SECURITY_ROLE, item);
+                bReturn &= setSecurityRole(item);
             }
         }
         return bReturn;
     }
-
     private boolean setSecurityUsers(ArrayList<String> users) {
         boolean bReturn = true;
         if (!users.isEmpty()) {
             bReturn = setRestrictedAccess();
             for (String item : users) {
-                bReturn &= setSecurityUser(SECURITY_USERS, item);;
+                bReturn &= setUser(item);
             }
         }
         return bReturn;
     }
-
+    private boolean setUser(String sValue) {
+        boolean bReturn = false;
+        WebElement eTmp = WebElementUtils.findElement(B2WScheduleAssignments.getUserItem());
+        if (eTmp != null) {
+            WebElement parent = WebElementUtils.getParentElement(eTmp);
+            WebElement elResult = WebElementUtils.getChildElement(parent, KendoUI.getKendoDropDown());
+            if (elResult != null) {
+                WebElementUtils.moveVirtualMouseOverElement(elResult);
+                WebElementUtils.clickElement(elResult);
+                bReturn = selectItemFromDropDown(sValue);
+            } else {
+                log.debug("User field could not be found on the page.");
+            }
+        } else {
+            log.debug("User field could not be found on the page.");
+        }
+        return bReturn;
+    }
     private boolean setRestrictedAccess() {
         boolean bReturn = false;
         WebElement ePreviewLocation = WebElementUtils.findElement(B2WSchedules.previewLocation());
@@ -311,10 +314,9 @@ public class B2WSchedulesTasksTest extends B2WKendoTasks {
         }
         return bReturn;
     }
-
-    private boolean setSecurityRole(String sFieldName, String sValue) {
+    private boolean setSecurityRole(String sValue) {
         boolean bReturn = false;
-        WebElement eSecurityRole = WebElementUtils.getKendoFDDElementByLabel(sFieldName);
+        WebElement eSecurityRole = WebElementUtils.getKendoFDDElementByLabel(SECURITY_ROLE);
         if (eSecurityRole != null) {
             WebElementUtils.moveVirtualMouseOverElement(eSecurityRole);
             WebElementUtils.waitForElementClickable(eSecurityRole);
@@ -323,11 +325,6 @@ public class B2WSchedulesTasksTest extends B2WKendoTasks {
         } else {
             log.debug("'Security Role' dropdown could not be found on the page.");
         }
-        return bReturn;
-    }
-
-    private boolean setSecurityUser(String sFieldName, String sValue) {
-        boolean bReturn = false;
         return bReturn;
     }
 

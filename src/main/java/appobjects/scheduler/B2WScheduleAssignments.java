@@ -59,4 +59,5 @@ public class B2WScheduleAssignments extends KendoUI {
     public static By getFirstResourceNameInList() { return By.xpath(B2WUIMap.b2w_schedule_firstitem); }
     public static By getCheckedBtn() { return By.cssSelector(B2WUIMap.b2w_schedule_checkedbtn); }
     public static By getCancelBtn() { return By.cssSelector(B2WUIMap.b2w_schedule_cancelbtn); }
+    public static By getUserItem() { return By.cssSelector(B2WUIMap.b2w_schedule_useritem); }
 }

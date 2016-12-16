@@ -793,6 +793,7 @@ public class B2WUIMap {
 	public static final String b2w_schedule_firstitem = ".//*[@class='k-grid-content']/table/tbody/tr[1]/td[1]/b2w-resource-description/div/div";
 	public static final String b2w_schedule_checkedbtn = ".Toolbar__toggle-button--checked";
 	public static final String b2w_schedule_cancelbtn = "button.Button.Button--large[ng-click='cancel()']";
+	public static final String b2w_schedule_useritem = "ul#user-select_taglist";
 
 	// Maintain
 	public static final String b2w_maintainpagemenu = "ul#SubNavMenu_MaintainPageMenu.MaintainPageMenu";

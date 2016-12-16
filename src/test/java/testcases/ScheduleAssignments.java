@@ -234,7 +234,7 @@ public class ScheduleAssignments extends B2WTestCase {
         int  n = getRandomNumber();
 
         //Schedule Setup
-        sScheduleName = getProperty("sScheduleName");
+        sScheduleName = getProperty("sGeneralScheduleName");
         sBU = getProperty("sBU");
         sSchedulesNotes = getProperty("sSchedulesNotes");
         sScheduleFormatResourceListing = getProperty("sScheduleFormatResourceListing");
