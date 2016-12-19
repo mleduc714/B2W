@@ -168,45 +168,49 @@ public class B2WMaintainScheduleTasks extends B2WKendoTasks {
 		WebElement workorderlist = null;
 		List<WebElement> events = null;
 		String sDescAndWorkNumber = null;
+		try {
+			switch (where) {
 
-		switch (where) {
-
-		case SCHEDULE:
-			workorderlist = WebElementUtils.findElement(B2WMaintain.getB2WMaintainSchedulerContent());
-			events = WebElementUtils.getChildElements(workorderlist, B2WMaintain.getB2WMaintainSchedulerEvents());
-			break;
-		case WORKTAB:
-			workorderlist = WebElementUtils.findElement(B2WMaintain.getB2WMaintainschedulerunscheduledworkorderslist());
-			events = WebElementUtils.getChildElements(workorderlist,
-					B2WMaintain.getB2WMaintainschedulerworkorderunscheduled());
-			break;
-		case PASTTAB:
-			workorderlist = WebElementUtils.findElement(B2WMaintain.getB2WMaintainschedulerpastdueworkorderlist());
-			events = WebElementUtils.getChildElements(workorderlist,
-					B2WMaintain.getB2WMaintainschedulerpastdueworkorder());
-			break;
-		}
-
-		Iterator<WebElement> iter = events.iterator();
-		while (iter.hasNext()) {
-			el = iter.next();
-			WebElement summary = WebElementUtils.getChildElement(el,
-					B2WMaintain.getB2WMaintainschedulerworkordersummary());
-			switch (desc) {
-			case DESCRIPTION:
-				sDescAndWorkNumber = summary.getText().substring(0, summary.getText().indexOf("\n"));
+			case SCHEDULE:
+				workorderlist = WebElementUtils.findElement(B2WMaintain.getB2WMaintainSchedulerContent());
+				events = WebElementUtils.getChildElements(workorderlist, B2WMaintain.getB2WMaintainSchedulerEvents());
 				break;
-			case EQUIPMENT:
-				int iStart = summary.getText().indexOf("\n");
-				int iEnd = summary.getText().indexOf(("\n"), iStart + 1);
-				sDescAndWorkNumber = summary.getText().substring(++iStart, iEnd);
-			}
-			if (sDescAndWorkNumber.contains(sText)) {
-				Coordinates coordinate = ((Locatable) el).getCoordinates();
-				coordinate.onPage();
-				coordinate.inViewPort();
+			case WORKTAB:
+				workorderlist = WebElementUtils
+						.findElement(B2WMaintain.getB2WMaintainschedulerunscheduledworkorderslist());
+				events = WebElementUtils.getChildElements(workorderlist,
+						B2WMaintain.getB2WMaintainschedulerworkorderunscheduled());
+				break;
+			case PASTTAB:
+				workorderlist = WebElementUtils.findElement(B2WMaintain.getB2WMaintainschedulerpastdueworkorderlist());
+				events = WebElementUtils.getChildElements(workorderlist,
+						B2WMaintain.getB2WMaintainschedulerpastdueworkorder());
 				break;
 			}
+
+			Iterator<WebElement> iter = events.iterator();
+			while (iter.hasNext()) {
+				el = iter.next();
+				WebElement summary = WebElementUtils.getChildElement(el,
+						B2WMaintain.getB2WMaintainschedulerworkordersummary());
+				switch (desc) {
+				case DESCRIPTION:
+					sDescAndWorkNumber = summary.getText().substring(0, summary.getText().indexOf("\n"));
+					break;
+				case EQUIPMENT:
+					int iStart = summary.getText().indexOf("\n");
+					int iEnd = summary.getText().indexOf(("\n"), iStart + 1);
+					sDescAndWorkNumber = summary.getText().substring(++iStart, iEnd);
+				}
+				if (sDescAndWorkNumber.contains(sText)) {
+					Coordinates coordinate = ((Locatable) el).getCoordinates();
+					coordinate.onPage();
+					coordinate.inViewPort();
+					break;
+				}
+			}
+		}catch (StaleElementReferenceException e){
+			return getWorkOrder(sText, desc, where);
 		}
 			return el;
 	}
@@ -238,6 +242,7 @@ public class B2WMaintainScheduleTasks extends B2WKendoTasks {
 			case SCHEDULE:
 				bReturn = WebElementUtils.waitAndFindDisplayedElement(
 						B2WMaintain.getB2WMaintainSchedulerEditSchedulePopupWindow()) != null;
+				bReturn &= WebElementUtils.waitAndFindDisplayedElement(B2WMaintain.getKendoCancelButton()) != null;
 				break;
 			case WORKTAB:
 
@@ -396,7 +401,6 @@ public class B2WMaintainScheduleTasks extends B2WKendoTasks {
 			String sDate = el.getText();
 			SimpleDateFormat sd = new SimpleDateFormat("EEE, M/d");
 			Date date = parseDate(sDate, sd);
-			System.out.println(date.getTime());
 			al.add(date);
 		}
 		}catch (StaleElementReferenceException e){
@@ -407,9 +411,11 @@ public class B2WMaintainScheduleTasks extends B2WKendoTasks {
 	
 	
 	
-	public void goToDate(String sDate) {
+	public boolean goToDate(String sDate) {
 
+		boolean bReturn = false;
 		Calendar cal = Calendar.getInstance();
+		cal.setTime(getCurrentDate());
 		SimpleDateFormat sd = new SimpleDateFormat("EEEE, MMMM dd, yyyy");
 		SimpleDateFormat format = new SimpleDateFormat("MM/dd/yy");
 		SimpleDateFormat month = new SimpleDateFormat("MMM");
@@ -419,44 +425,61 @@ public class B2WMaintainScheduleTasks extends B2WKendoTasks {
 		// Calendar day = Calendar.getInstance();
 		try {
 			goToDate = format.parse(sDate);
+
+			Calendar cGoToDate = Calendar.getInstance();
+			cGoToDate.setTime(goToDate);
+			
+			if (cGoToDate.get(Calendar.DAY_OF_YEAR) != cal.get(Calendar.DAY_OF_YEAR)){
+
+			WebElementUtils.clickElement(B2WMaintain.getB2WScheduleDatePickerButton());
+			WebElement dp = WebElementUtils.waitAndFindDisplayedElement(B2WMaintain.getB2WScheduleDatePicker());
+			if (dp != null) {
+				WebElement dateYear = WebElementUtils
+						.waitAndFindDisplayedElement(B2WMaintain.getB2WScheduleDatePickerMonthDate());
+				// if months and year don't match we have to click month/year at
+				// least
+				// once
+				if (cGoToDate.get(Calendar.MONTH) != cal.get(Calendar.MONTH)
+						|| cGoToDate.get(Calendar.YEAR) != cal.get(Calendar.YEAR)) {
+
+					WebElementUtils.clickElement(dateYear);
+
+					// if the year doesn't match we click again to get years
+					if (cGoToDate.get(Calendar.YEAR) != cal.get(Calendar.YEAR)) {
+
+						WebElementUtils.clickElement(dateYear);
+						TaskUtils.sleep(1000);
+						// go to the year
+						WebElement cYear = WebElementUtils
+								.findElement(By.xpath("//a[contains(.,'" + year.format(cGoToDate.getTime()) + "')]"));
+						if (cYear != null) {
+							WebElementUtils.clickElement(cYear);
+						}
+
+					}
+					TaskUtils.sleep(1000);
+					// go to the month we want
+					WebElement cMonth = WebElementUtils.waitAndFindDisplayedElement(
+							By.xpath("//a[contains(.,'" + month.format(cGoToDate.getTime()) + "')]"));
+					WebElementUtils.clickElement(cMonth);
+					TaskUtils.sleep(2000);
+				}
+				// go to the date we want
+				WebElement day = WebElementUtils
+						.waitAndFindDisplayedElement(By.xpath("//a[@title='" + sd.format(cGoToDate.getTime()) + "']"));
+				bReturn = WebElementUtils.clickElement(day);
+				waitForPageNotBusy(WebElementUtils.MEDIUM_TIME_OUT);
+			}
+			}else{
+				log.debug("Date does not need to be changed");
+				bReturn = true;
+			}
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			
 		}
-		Calendar cGoToDate = Calendar.getInstance();
-		cGoToDate.setTime(goToDate);
-
-		WebElementUtils.clickElement(B2WMaintain.getB2WScheduleDatePickerButton());
-		WebElementUtils.waitAndFindDisplayedElement(B2WMaintain.getB2WScheduleDatePicker());
-		WebElement dateYear = WebElementUtils.waitAndFindDisplayedElement(B2WMaintain.getB2WScheduleDatePickerMonthDate());
-		// if months and year don't match we have to click month/year at least
-		// once
-		if (cGoToDate.get(Calendar.MONTH) != cal.get(Calendar.MONTH)
-				|| cGoToDate.get(Calendar.YEAR) != cal.get(Calendar.YEAR)) {
-			dateYear.click();
-
-			// if the year doesn't match we click again to get years
-			if (cGoToDate.get(Calendar.YEAR) != cal.get(Calendar.YEAR)) {
-
-				dateYear.click();
-				TaskUtils.sleep(1000);
-				// go to the year
-				WebElement cYear = WebElementUtils
-						.findElement(By.xpath("//a[contains(.,'" + year.format(cGoToDate.getTime()) + "')]"));
-				cYear.click();
-
-			}
-			TaskUtils.sleep(1000);
-			// go to the month we want
-			WebElement cMonth = WebElementUtils.waitAndFindDisplayedElement(
-					By.xpath("//a[contains(.,'" + month.format(cGoToDate.getTime()) + "')]"));
-			cMonth.click();
-			TaskUtils.sleep(2000);
-		}
-		// go to the date we want
-		WebElement day = WebElementUtils
-				.waitAndFindDisplayedElement(By.xpath("//a[@title='" + sd.format(cGoToDate.getTime()) + "']"));
-		day.click();
+		return bReturn;
 	}
 
 	
@@ -505,44 +528,117 @@ public class B2WMaintainScheduleTasks extends B2WKendoTasks {
 		return date;
 	}
 	
-	public boolean dragDropWorkOrderToMechanic(String sMechanic, String sDate, String sWorkOrder){
+	public boolean dragDropWorkOrderToMechanic(String sMechanic, String sDate, String sWorkOrder) {
 		boolean bReturn = false;
-		
-		if (clickToday()) {
-			// go to the date in schedule view
-			goToDate(sDate);
-			// scroll down to get the mechanic in the view
-			goToMechanicInView(sMechanic);
-			Date date = parseDate(sDate, md);
-			// this will get the target to drag to
-			WebElement column = getMechanicDay(sMechanic, date);
+		// go to the date in schedule view
+		goToDate(sDate);
+		// scroll down to get the mechanic in the view
+		goToMechanicInView(sMechanic);
+		Date date = parseDate(sDate, md);
+		// this will get the target to drag to
+		WebElement column = getMechanicDay(sMechanic, date);
+		if (column != null) {
 			clickWorkOrdersTab();
 			// grab the work order
 			WebElement workorder = getWorkOrder(sWorkOrder, BY.DESCRIPTION, WHERE.WORKTAB);
-			Actions action = new Actions(BrowserUtils.getDriver());
-			action.dragAndDrop(workorder, column);
-			action.perform();
-			bReturn = WebElementUtils
-				.waitAndFindDisplayedElement(B2WMaintain.getB2WMaintainSchedulerScheduleMaintenancePopupWindow()) != null;
+			if (workorder != null) {
+				Actions action = new Actions(BrowserUtils.getDriver());
+				action.dragAndDrop(workorder, column);
+	
+				bReturn = WebElementUtils.waitAndFindDisplayedElement(
+						B2WMaintain.getB2WMaintainSchedulerScheduleMaintenancePopupWindow()) != null;
+			}
+
+		}
+
+		return bReturn;
+	}
+	
+	public boolean dragDropWorkOrderToAnotherMechanic(String sDate, String sToDate, String sWorkOrder,
+			String sMechanic) {
+		boolean bReturn = false;
+		// go to the date in schedule view
+		goToDate(sDate);
+		TaskUtils.sleep(1000);
+		// scroll down to get the mechanic in the view
+		goToMechanicInView(sMechanic);
+		Date date = parseDate(sToDate, md);
+		// this will get the target to drag to
+		// WebElement columnA = getMechanicDay(sMechanicA, date);
+
+		WebElement column = getMechanicDay(sMechanic, date);
+		if (column != null) {
+			// grab the work order
+			WebElement workorder = getWorkOrder(sWorkOrder, BY.DESCRIPTION, WHERE.SCHEDULE);
+			if (workorder != null) {
+				Actions action = new Actions(BrowserUtils.getDriver());
+				action.dragAndDrop(workorder, column);
+				action.perform();
+			}
 		}
 		return bReturn;
-		
+	}
+	
+	public boolean dragDropWorkOrderToDate(String sMechanic, String sWorkOrder, String sStartDate, String sDate) {
+		boolean bReturn = false;
+		goToDate(sStartDate);
+		TaskUtils.sleep(1000);
+		// go to the date in schedule view
+		// scroll down to get the mechanic in the view
+		Date date = parseDate(sDate, md);
+		// this will get the target to drag to
+		WebElement column = getMechanicDay(sMechanic, date);
+		if (column != null) {
+			// grab the work order
+			WebElement workorder = getWorkOrder(sWorkOrder, BY.DESCRIPTION, WHERE.SCHEDULE);
+			if (workorder != null) {
+				Actions action = new Actions(BrowserUtils.getDriver());
+				action.dragAndDrop(workorder, column);
+				action.perform();
+			}
+		}
+		return bReturn;
 
 	}
 	
-	
 	public LinkedList<String> getAllMechanicsWithoutScheduledWorkItems() {
 		LinkedList<String> al = new LinkedList<String>();
-		List<WebElement> mechanics = WebElementUtils.findElements(By.cssSelector("span.caption"));
-		for (WebElement el: mechanics){
-			String sMechanic = WebElementUtils.getParentElement(el).getAttribute("title");
-			String sHeight = WebElementUtils.getParentElement(WebElementUtils.getParentElement(WebElementUtils.getParentElement(el))).getAttribute("style");
-			if (sHeight.contains("40px")){
-				al.add(sMechanic);
+		try {
+
+			List<WebElement> mechanics = WebElementUtils.findElements(By.cssSelector("span.caption"));
+			for (WebElement el : mechanics) {
+				String sMechanic = WebElementUtils.getParentElement(el).getAttribute("title");
+				String sHeight = WebElementUtils
+						.getParentElement(WebElementUtils.getParentElement(WebElementUtils.getParentElement(el)))
+						.getAttribute("style");
+				if (sHeight.contains("40px")) {
+					al.add(sMechanic);
+				}
 			}
+		} catch (StaleElementReferenceException e) {
+			return getAllMechanicsWithoutScheduledWorkItems();
 		}
 		return al;
 	}
 	
+	public Date getCurrentDate() {
+		Date date = null;
+		String sDate = null;
+		try {
+			SimpleDateFormat calendardate = new SimpleDateFormat("EEE MM/dd/yyyy");
+			WebElement el = WebElementUtils.findElement(B2WMaintain.getB2WScheduleFormatDate());
+			sDate = el.getText();
+			int iIndex = sDate.indexOf("-");
+			if (iIndex != -1) {
+				sDate = sDate.substring(0, iIndex).trim();
+			}
+			date = calendardate.parse(sDate);
+		} catch (Exception e) {
+
+		}
+
+		return date;
+
+	}
 
 }

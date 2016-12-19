@@ -919,6 +919,8 @@ public class B2WUIMap {
 	public static final String b2w_maintainprogramsiconminus = ".k-icon.k-minus";
 	public static final String b2w_kendomasterrow = ".k-master-row";
 	public static final String b2w_maintainprogramgeneraterequestlink = "a.generateProgramRequestLink";
+	public static final String b2w_maintainscheduleformatteddate = "span.k-lg-date-format";
+	public static final String b2w_maintainscheduleformatsmalldate = "span.k-sm-date-format";
 	
 	
 	
