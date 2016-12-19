@@ -1,11 +1,22 @@
 package tasks.dialogs;
 
+import java.awt.Toolkit;
+import java.awt.datatransfer.Clipboard;
+import java.awt.datatransfer.DataFlavor;
+import java.awt.datatransfer.UnsupportedFlavorException;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
+import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 
 import appobjects.maintain.B2WMaintain;
+import tasks.BrowserUtils;
 import tasks.WebElementUtils;
+import tasks.maintain.B2WMaintainScheduleTasks;
 import tasks.util.TaskUtils;
 
 public class B2WEditScheduleMaintenance extends B2WKendoDialog {
@@ -23,7 +34,7 @@ public class B2WEditScheduleMaintenance extends B2WKendoDialog {
 		return bReturn;
 	}
 	
-	public String editScheduleMaintainancePopupSelectAnyMechanic() {
+	public String selectAnyMechanic() {
 		String sText = "";
 		WebElement el = getWebElementFromEditScheduleMaintenanceDialog(0);
 		if (el != null) {
@@ -33,7 +44,7 @@ public class B2WEditScheduleMaintenance extends B2WKendoDialog {
 		return sText;
 	}
 
-	public boolean editScheduleMaintainancePopupSelectStartDate(String startDate) {
+	public boolean selectStartDate(String startDate) {
 		boolean bReturn = false;
 		WebElement el = getWebElementFromEditScheduleMaintenanceDialog(1);
 		if (el != null){
@@ -43,7 +54,7 @@ public class B2WEditScheduleMaintenance extends B2WKendoDialog {
 		return bReturn;
 	}
 
-	public boolean editScheduleMaintainancePopupSelectStartTime(String startTime) {
+	public boolean selectStartTime(String startTime) {
 		boolean bReturn = false;
 		
 		WebElement el = getWebElementFromEditScheduleMaintenanceDialog(2);
@@ -53,7 +64,7 @@ public class B2WEditScheduleMaintenance extends B2WKendoDialog {
 		}
 		return bReturn;
 	}
-	public boolean editScheduleMaintainancePopupSelectEndDate(String endDate) {
+	public boolean selectEndDate(String endDate) {
 		boolean bReturn = false;
 		WebElement el = getWebElementFromEditScheduleMaintenanceDialog(3);
 		if (el != null){
@@ -63,7 +74,7 @@ public class B2WEditScheduleMaintenance extends B2WKendoDialog {
 		return bReturn;
 	}
 
-	public boolean editScheduleMaintainancePopupSelectEndTime(String endTime) {
+	public boolean selectEndTime(String endTime) {
 		boolean bReturn = false;
 		WebElement el = getWebElementFromEditScheduleMaintenanceDialog(4);
 		if (el != null){
@@ -74,7 +85,7 @@ public class B2WEditScheduleMaintenance extends B2WKendoDialog {
 
 	}
 
-	public boolean editScheduleMaintainancePopupSelectWorkLocation(String sText){
+	public boolean selectWorkLocation(String sText){
 		boolean bReturn = false;
 		WebElement el = getWebElementFromEditScheduleMaintenanceDialog(5);
 		if (el != null){
@@ -85,7 +96,7 @@ public class B2WEditScheduleMaintenance extends B2WKendoDialog {
 		}
 		return bReturn;
 	}
-	public String editScheduleMaintainancePopupSelectAnyWorkLocation(){
+	public String selectAnyWorkLocation(){
 		String sText = "";
 		WebElement el = getWebElementFromEditScheduleMaintenanceDialog(5);
 		if (el != null){
@@ -99,7 +110,7 @@ public class B2WEditScheduleMaintenance extends B2WKendoDialog {
 	}
 	
 	
-	public boolean editScheduleMaintainancePopupSelectEvent(String sText){
+	public boolean selectEvent(String sText){
 		boolean bReturn = false;
 		WebElement el = getWebElementFromEditScheduleMaintenanceDialog(6);
 		if (el != null){
@@ -109,7 +120,7 @@ public class B2WEditScheduleMaintenance extends B2WKendoDialog {
 		return bReturn;
 	}
 	
-	public String editScheduleMaintainancePopupSelectAnyEvent(){
+	public String selectAnyEvent(){
 		String sText = "";
 		WebElement el = getWebElementFromEditScheduleMaintenanceDialog(6);
 		if (el != null){
@@ -130,6 +141,12 @@ public class B2WEditScheduleMaintenance extends B2WKendoDialog {
 		}
 		return bReturn;
 	}
+	
+	public boolean cancelScheduledMaintenance() {
+		clickCancel();
+		return new B2WMaintainScheduleTasks().clickConfirmYes();
+	}
+	
 	private WebElement getWebElementFromEditScheduleMaintenanceDialog(int i) {
 		WebElement el = WebElementUtils
 				.waitAndFindDisplayedElement(B2WMaintain.getB2WMaintainSchedulerEditSchedulePopupWindow());
@@ -157,6 +174,17 @@ public class B2WEditScheduleMaintenance extends B2WKendoDialog {
 		return sText.substring(sText.indexOf("[")+1, sText.indexOf("]"));
 	}
 	
+	public ArrayList<String> getMechanicsScheduled() {
+		ArrayList<String> al = new ArrayList<String>();
+		WebElement form = WebElementUtils.getParentElement(getParentOfLabel("Mechanic"));
+		WebElementUtils.getAllInfo(form);
+		List<WebElement> list = WebElementUtils.getChildElements(form, By.cssSelector("li.k-button"));
+		for (WebElement button: list){
+			al.add(WebElementUtils.getChildElement(button, By.tagName("span")).getText());
+			
+		}
+		return al;
+	}
 	
 	public String getEquipment() {
 		String sEquipment = "";
@@ -174,5 +202,40 @@ public class B2WEditScheduleMaintenance extends B2WKendoDialog {
 	public String getEquipmentDescription() {
 		String sText = getEquipment();
 		return sText.substring(sText.indexOf("[")+1, sText.indexOf("]"));
+	}
+	public String getStartDate() {
+		String startDate = "";
+		WebElement el = getWebElementFromEditScheduleMaintenanceDialog(1);
+		WebElementUtils.clickElement(el);
+		Actions a = new Actions(BrowserUtils.getDriver());
+		a.keyDown(Keys.CONTROL).sendKeys("c").keyUp(Keys.CONTROL);
+		a.perform();
+		Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+		try {
+			startDate = (String) clipboard.getData(DataFlavor.stringFlavor);
+		} catch (UnsupportedFlavorException e) {
+
+		} catch (IOException e) {
+
+		}
+		return startDate;
+	}
+
+	public String getEndDate() {
+		String enddate = "";
+		WebElement el = getWebElementFromEditScheduleMaintenanceDialog(3);
+		WebElementUtils.clickElement(el);
+		Actions a = new Actions(BrowserUtils.getDriver());
+		a.keyDown(Keys.CONTROL).sendKeys("c").keyUp(Keys.CONTROL);
+		a.perform();
+		Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+		try {
+			enddate = (String) clipboard.getData(DataFlavor.stringFlavor);
+		} catch (UnsupportedFlavorException e) {
+
+		} catch (IOException e) {
+
+		}
+		return enddate;
 	}
 }

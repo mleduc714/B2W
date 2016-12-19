@@ -464,4 +464,10 @@ public class B2WMaintain extends KendoUI {
     public static By getB2WScheduleDatePickerMonthDate() {
     	return By.cssSelector(B2WUIMap.b2w_scheduledatemonth);
     }
+    public static By getB2WScheduleFormatDate() {
+    	return By.cssSelector(B2WUIMap.b2w_maintainscheduleformatteddate);
+    }
+    public static By getB2WScheduleSmallFormatDate() {
+    	return By.cssSelector(B2WUIMap.b2w_maintainscheduleformatsmalldate);
+    }
 }

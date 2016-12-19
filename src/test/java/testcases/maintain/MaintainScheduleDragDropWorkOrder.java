@@ -3,7 +3,6 @@ package testcases.maintain;
 import com.b2w.test.B2WTestCase;
 
 import tasks.B2WNavigationTasks;
-import tasks.BrowserUtils;
 import tasks.dialogs.B2WAddMaintenanceReqToWorkOrder;
 import tasks.dialogs.B2WCompleteWorkOrder;
 import tasks.maintain.B2WMaintainDashboardTasks;

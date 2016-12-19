@@ -142,6 +142,7 @@ public class B2WScheduleMaintenance extends B2WKendoDialog {
 			WebElement button = WebElementUtils.getChildElement(el, B2WMaintain.getKendoLargeSaveButton());
 			bReturn = WebElementUtils.clickElement(button);
 			bReturn &= WebElementUtils.waitForElementInvisible(button);
+			bReturn &= waitForPageNotBusy(WebElementUtils.MEDIUM_TIME_OUT);
 		}
 		return bReturn;
 	}
