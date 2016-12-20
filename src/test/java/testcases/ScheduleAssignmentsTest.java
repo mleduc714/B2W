@@ -347,7 +347,8 @@ public class ScheduleAssignmentsTest extends B2WTestCase {
 
     public void testMain() throws Throwable {
         createScheduleViews();
-        /*
+
+        // Create All Types of Assignments
         createEmployeeAssignments();
         createEmployeeNeeds();
         createEquipmentAssignments();
@@ -358,7 +359,6 @@ public class ScheduleAssignmentsTest extends B2WTestCase {
         createMoveOrder();
         createEmployeeEvent();
         createEquipmentEvent();
-        */
         createLocationEvent();
 
     }
@@ -583,14 +583,10 @@ public class ScheduleAssignmentsTest extends B2WTestCase {
 
     // Tests
     private void createScheduleViews() {
-        b2wSchedulesTasks.createScheduleView(locationScheduleView);
-
-        /*
         b2wSchedulesTasks.createScheduleView(employeeScheduleView);
         b2wSchedulesTasks.createScheduleView(equipmentScheduleView);
         b2wSchedulesTasks.createScheduleView(crewsScheduleView);
         b2wSchedulesTasks.createScheduleView(locationScheduleView);
-        */
     }
     private void createEmployeeAssignments() {
         logCompare(true, b2wNav.openSchedule(), "Open Schedule View");
