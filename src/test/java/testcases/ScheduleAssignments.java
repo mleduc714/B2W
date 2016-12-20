@@ -358,7 +358,7 @@ public class ScheduleAssignments extends B2WTestCase {
         //createMoveOrder(sEquipmentView, sEquipmentName, sDropoffJobSiteName, sPickupJobSiteName, sPickupDate, sPickupTime,sDropoffDate, sDropoffTime, sRequestedBy, sNotesText);
         //createEmployeeEvent(sEmployeeView, sEmployeeName, sEmployeeEventType, sCalendarStartDate, sCalendarStartDate, sEventStartTime, sEventDuration);
         //createEquipmentEvent(sEquipmentView, sEquipmentName, sEquipmentEventType, sCalendarStartDate, sCalendarStartDate, sEventStartTime, sEventDuration);
-        createLocationEvent(sLocationView, sJobSiteName, sLocationEventType, sCalendarStartDate, sCalendarStartDate, sEventStartTime, sEventDuration);
+        //createLocationEvent(sLocationView, sJobSiteName, sLocationEventType, sCalendarStartDate, sCalendarStartDate, sEventStartTime, sEventDuration);
 
         //=== Move Assignments
         moveEmployeeAssignment();

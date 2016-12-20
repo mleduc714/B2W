@@ -1,5 +1,6 @@
 package tasks.scheduler;
 
+import org.apache.commons.lang3.time.DateUtils;
 import tasks.util.B2WScheduleItem;
 import tasks.util.StringUtils;
 
@@ -20,6 +21,7 @@ public class B2WScheduleView implements Cloneable {
     private ArrayList<String> users;
 
     private Date startDate;
+    private Date endDate;
     private String sStartDate;
     private String duration;
     private String quickSearch;
@@ -31,9 +33,15 @@ public class B2WScheduleView implements Cloneable {
     public void setStartDate(Date startDate) {
         this.startDate = startDate;
         this.sStartDate = StringUtils.getStringFromDateByPattern(startDate, "M/d/yyyy");
+        if (this.duration != null) {
+            this.endDate = DateUtils.addDays(this.startDate, getDurationCount());
+        }
     }
     public void setDuration(String duration) {
         this.duration = duration;
+        if (this.startDate != null) {
+            this.endDate = DateUtils.addDays(this.startDate, getDurationCount());
+        }
     }
     public void setQuickSearch(String quickSearch) {
         this.quickSearch = quickSearch;
@@ -102,6 +110,17 @@ public class B2WScheduleView implements Cloneable {
         return scheduleItems;
     }
 
+    public Date getEndDate() {
+        return endDate;
+    }
+
+    private int getDurationCount() {
+        if (duration.toLowerCase().equals("1 day")) { return 0;}
+        else if (duration.toLowerCase().equals("3 days")) { return 2;}
+        else if (duration.toLowerCase().equals("1 week")) { return 6;}
+        else if (duration.toLowerCase().equals("2 weeks")) { return 13;}
+        else {return 0;}
+    }
     // === Constructors
     public B2WScheduleView(String name, String businessUnit, String notes, ArrayList<B2WScheduleItem> scheduleItems,
                            String resourceGrouping, String secondaryGrouping, ArrayList<String[]> filters,

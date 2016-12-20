@@ -346,9 +346,10 @@ public class ScheduleAssignmentsTest extends B2WTestCase {
     }
 
     public void testMain() throws Throwable {
-        createScheduleViews();
+        //createScheduleViews();
 
         // Create All Types of Assignments
+        /*
         createEmployeeAssignments();
         createEmployeeNeeds();
         createEquipmentAssignments();
@@ -360,7 +361,8 @@ public class ScheduleAssignmentsTest extends B2WTestCase {
         createEmployeeEvent();
         createEquipmentEvent();
         createLocationEvent();
-
+        */
+        moveEmployeeAssignment();
     }
 
     private B2WScheduleView setupEmployeeScheduleView(String sScheduleName) {
@@ -588,6 +590,7 @@ public class ScheduleAssignmentsTest extends B2WTestCase {
         b2wSchedulesTasks.createScheduleView(crewsScheduleView);
         b2wSchedulesTasks.createScheduleView(locationScheduleView);
     }
+
     private void createEmployeeAssignments() {
         logCompare(true, b2wNav.openSchedule(), "Open Schedule View");
         logCompare(true, b2wScheduler.navigateTo(employeeScheduleView), "Open " + employeeScheduleView.getName() + " Schedule View");
@@ -663,5 +666,25 @@ public class ScheduleAssignmentsTest extends B2WTestCase {
         logCompare(true, b2wScheduler.setCalendarStartDate(locationDefaultScheduleView), "Set Start Date to " + locationDefaultScheduleView.getStartDate());
         logCompare(true, b2wScheduler.setSearchValue(locationEvent.getResourceName()), "Set Filter by " + locationEvent.getResourceName());
         logCompare(true, b2wScheduler.createLocationEvent(locationEvent), "Create Location Event for: " + locationEvent.getResourceName());
+    }
+
+    private void moveEmployeeAssignment() {
+        Date backupStartDate = employeeDefaultScheduleView.getStartDate();
+        employeeDefaultScheduleView.setStartDate(employeeScheduleView.getStartDate());
+
+        logCompare(true, b2wScheduler.navigateTo(employeeDefaultScheduleView), "Open " + employeeDefaultScheduleView.getName() + " Schedule View");
+        logCompare(true, b2wScheduler.setCalendarDateRange(employeeDefaultScheduleView), "Set " + employeeDefaultScheduleView.getDuration() + " Date Range");
+        logCompare(true, b2wScheduler.setCalendarStartDate(employeeDefaultScheduleView), "Set Start Date to " + employeeDefaultScheduleView.getStartDate());
+        //logCompare(true, b2wScheduler.clearSearchValue(), "Clear Search box");
+        logCompare(true, b2wScheduler.moveAssignmentToDate(employeeAssignment, employeeDefaultScheduleView.getEndDate()), "Move Employee Assignment for: "
+                + employeeAssignment.getResourceName() + " to Date: " + employeeDefaultScheduleView.getEndDate());
+        String backupEmployee = employeeAssignment.getResourceName();
+        String sNewEmployee = getProperty("sEmployeeNameUpd");
+        logCompare(true, b2wScheduler.moveAssignmentToResourceAndDate(employeeAssignment, sNewEmployee, employeeDefaultScheduleView.getEndDate()), "Move Employee Assignment for: "
+                + employeeAssignment.getResourceName() + " to Date: " + employeeDefaultScheduleView.getEndDate());
+        employeeDefaultScheduleView.setStartDate(backupStartDate);
+        logCompare(true, b2wScheduler.moveAssignmentToResourceAndDate(employeeAssignment, backupEmployee, employeeDefaultScheduleView.getStartDate()), "Move Employee Assignment for: "
+                + employeeAssignment.getResourceName() + " to Date: " + employeeDefaultScheduleView.getStartDate());
+        employeeDefaultScheduleView.setStartDate(backupStartDate);
     }
 }

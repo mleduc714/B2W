@@ -3,9 +3,7 @@ package tasks.scheduler;
 import org.apache.commons.lang3.time.DateUtils;
 import tasks.util.StringUtils;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 public class B2WAssignment {
     private String assignmentType;
@@ -135,10 +133,23 @@ public class B2WAssignment {
     public String getPickupTime() {
         return pickupTime;
     }
+
+    // Public Methods
     public B2WAssignment getSubstitution() {
         return substitution;
     }
+    public void moveTo(Date moveDate) {
+        Date tmpDate = new Date();
+        tmpDate.setTime(this.dateList.get(0).getTime());
+        tmpDate.setMinutes(0);
+        tmpDate.setHours(0);
 
+        int delta = (int) (moveDate.getTime() - tmpDate.getTime());
+        this.dateList.set(0, DateUtils.addMilliseconds(this.dateList.get(0), delta));
+        this.dateList.set(dateList.size()-1, DateUtils.addMilliseconds(this.dateList.get(dateList.size()-1), delta));
+    }
+
+    // Constructors
     public B2WAssignment(String assignmentType, String resourceName, String locationName, String requestedBy, String notes,
                          List<Date> dateList, String startTime, String duration) {
 
