@@ -38,11 +38,17 @@ public class ScheduleAssignmentsTest extends B2WTestCase {
     B2WAssignment employeeNeed;
     B2WAssignment employeeNeed1;
 
+    // Employee Event
+    B2WAssignment employeeEvent;
+
     // Equipment Assignment
     B2WAssignment equipmentAssignment;
 
-    //Equipment Need
+    // Equipment Need
     B2WAssignment equipmentNeed;
+
+    // Equipment Event
+    B2WAssignment equipmentEvent;
 
     // Crews Assignments
     B2WAssignment crewAssignment;
@@ -55,6 +61,9 @@ public class ScheduleAssignmentsTest extends B2WTestCase {
 
     // Move Order
     B2WAssignment moveOrder;
+
+    // Location Event
+    B2WAssignment locationEvent;
 
     @Override
     public String getAuthor() {
@@ -83,69 +92,6 @@ public class ScheduleAssignmentsTest extends B2WTestCase {
     public void testSetUp() throws Throwable {
         super.testSetUp();
         int  n = getRandomNumber();
-
-/*
-        sJobSiteNameUpd = getProperty("sJobSiteNameUpd");
-        sRequestedByUpd = getProperty("sRequestedByUpd");
-        sEmployeeNameUpd = getProperty("sEmployeeNameUpd");
-        sEmployeeNeedNameUpd = getProperty("sEmployeeNeedNameUpd");
-        sEquipmentNameUpd = getProperty("sEquipmentNameUpd");
-        sEquipmentNeedNameUpd = getProperty("sEquipmentNeedNameUpd");
-
-        sCrewName = getProperty("sCrewName");
-        sCrewNameUpd = getProperty("sCrewNameUpd");
-
-        sCrewNeedName = getProperty("sCrewNeedName");
-        sCrewNeedNameUpd = getProperty("sCrewNeedNameUpd");
-
-        sPickupJobSiteName = getProperty("sPickupJobSiteName");
-        sPickupJobSiteNameUpd = getProperty("sPickupJobSiteNameUpd");
-
-        sDropoffJobSiteName = getProperty("sDropoffJobSiteName");
-        sDropoffJobSiteNameUpd = getProperty("sDropoffJobSiteNameUpd");
-
-        sPickupDate = getProperty("sPickupDate");
-        sPickupTime = getProperty("sPickupTime");
-        sDropoffDate = getProperty("sDropoffDate");
-        sDropoffTime = getProperty("sDropoffTime");
-
-        sTransportationCrewName = getProperty("sTransportationCrewName");
-        sTransportationCrewNameUpd = getProperty("sTransportationCrewNameUpd");
-
-        sEmployeeEventType = getProperty("sEmployeeEventType");
-        sEmployeeEventTypeUpd = getProperty("sEmployeeEventTypeUpd");
-
-        sEquipmentEventType = getProperty("sEquipmentEventType");
-        sEquipmentEventTypeUpd = getProperty("sEquipmentEventTypeUpd");
-
-        sLocationEventType = getProperty("sLocationEventType");
-        sLocationEventTypeUpd = getProperty("sLocationEventTypeUpd");
-
-        sNotesTextUpd = sNotesText + " UPD";
-
-        sAssignmentDurationUpd = getProperty("sAssignmentDurationUpd");
-        sEventDuration = "0 HR";
-
-        sAssignmentStartTimeUpd = getProperty("sAssignmentStartTimeUpd");
-        sEventStartTime = "00:00 AM";
-
-        sCalendarDateRange = getProperty("sCalendarDateRange");
-
-        sCalendarStartDate = getProperty("sCalendarStartDate");
-        //dCalendarStartDate = StringUtils.getDateFromStringWithPattern(sCalendarStartDate, "M/d/yyyy");
-
-        sMoveDate = getProperty("sMoveDate");
-        dMoveDate = StringUtils.getDateFromStringWithPattern(sMoveDate, "M/d/yyyy");
-
-        sConflictEmployeeName = getProperty("sConflictEmployeeName");
-        sConflictEquipmentName = getProperty("sConflictEquipmentName");
-        sConflictCrewName = getProperty("sConflictCrewName");
-        sConflictJobSite = getProperty("sConflictJobSite");
-        sConflictEmployeeEventType = getProperty("sConflictEmployeeEventType");
-        sConflictEquipmentEventType = getProperty("sConflictEquipmentEventType");
-
-        // === complete reading properties
-        */
 
         // === Setup Schedules View
         String sScheduleName = getProperty("sGeneralScheduleName");
@@ -315,6 +261,10 @@ public class ScheduleAssignmentsTest extends B2WTestCase {
         String sMoveAssignmentRequestedBy = getProperty("sMoveAssignmentRequestedBy");
         String sMoveAssignmentNotesText = getProperty("sMoveAssignmentNotesText");
         String sMoveAssignmentTransportationCrewName = getProperty("sMoveAssignmentTransportationCrewName");
+
+        dateList = new ArrayList<Date>();
+        dateList.add(equipmentScheduleView.getStartDate()); //Start Date
+        dateList.add(equipmentScheduleView.getStartDate()); //End Date
         // === Complete reading properties
 
         //createMoveAssignment(sEquipmentName, sDropoffJobSiteName, sPickupJobSiteName, sTransportationCrewName, sPickupDate, sPickupTime, sDropoffDate, sDropoffTime);
@@ -323,6 +273,76 @@ public class ScheduleAssignmentsTest extends B2WTestCase {
                 sMoveAssignmentDropoffLocationType, sMoveAssignmentDropoffLocationName, dMoveAssignmentDropoffDate, sMoveAssignmentDropoffTime,
                 sMoveAssignmentRequestedBy, sMoveAssignmentNotesText, sMoveAssignmentTransportationCrewName);
         // ==== Complete Move Assignments ==============================================================================
+
+        // ==== Setup Move Order =======================================================================================
+        // === Reading Properties
+        String sMoveOrderEquipmentName = getProperty("sMoveOrderEquipmentName");
+        String sMoveOrderPickupLocationType = getProperty("sMoveOrderPickupLocationType");
+        String sMoveOrderPickupLocationName = getProperty("sMoveOrderPickupLocationName");
+        String sMoveOrderPickupDate = getProperty("sMoveOrderPickupDate");
+        Date dMoveOrderPickupDate = StringUtils.getDateFromStringWithPattern(sMoveOrderPickupDate, "M/d/yyyy");
+        String sMoveOrderPickupTime = getProperty("sMoveOrderPickupTime");
+        String sMoveOrderDropoffLocationType = getProperty("sMoveOrderDropoffLocationType");
+        String sMoveOrderDropoffLocationName = getProperty("sMoveOrderDropoffLocationName");
+        String sMoveOrderDropoffDate = getProperty("sMoveOrderDropoffDate");
+        Date dMoveOrderDropoffDate = StringUtils.getDateFromStringWithPattern(sMoveOrderDropoffDate, "M/d/yyyy");
+        String sMoveOrderDropoffTime = getProperty("sMoveOrderDropoffTime");
+        String sMoveOrderRequestedBy = getProperty("sMoveOrderRequestedBy");
+        String sMoveOrderNotesText = getProperty("sMoveOrderNotesText");
+        String sMoveOrderTransportationCrewName = "";
+        // === Complete reading properties
+
+        //createMoveAssignment(sEquipmentName, sDropoffJobSiteName, sPickupJobSiteName, sTransportationCrewName, sPickupDate, sPickupTime, sDropoffDate, sDropoffTime);
+        moveOrder = new B2WAssignment(B2WAssignmentType.MOVE_ORDER_TYPE, sMoveOrderEquipmentName,
+                sMoveOrderPickupLocationType, sMoveOrderPickupLocationName, dMoveOrderPickupDate, sMoveOrderPickupTime,
+                sMoveOrderDropoffLocationType, sMoveOrderDropoffLocationName, dMoveOrderDropoffDate, sMoveOrderDropoffTime,
+                sMoveOrderRequestedBy, sMoveOrderNotesText, sMoveOrderTransportationCrewName);
+        // ==== Complete Move Order ====================================================================================
+
+        // ==== Setup Employee Event ===================================================================================
+        // === Reading Properties
+        String sEmployeeEventName = getProperty("sEmployeeEventName");
+        String sEmployeeEventType = getProperty("sEmployeeEventType");
+        String sEmployeeEventNotesText = getProperty("sEmployeeEventNotesText");
+        // === Complete reading properties
+
+        dateList = new ArrayList<Date>();
+        dateList.add(employeeDefaultScheduleView.getStartDate()); //Start Date
+        dateList.add(employeeDefaultScheduleView.getStartDate()); //End Date
+
+        employeeEvent = new B2WAssignment(B2WAssignmentType.EMPLOYEE_EVENT_TYPE, sEmployeeEventName,
+                sEmployeeEventType, sEmployeeEventNotesText, dateList);
+        // ==== Complete Employee Event ================================================================================
+
+        // ==== Setup Equipment Event ==================================================================================
+        // === Reading Properties
+        String sEquipmentEventName = getProperty("sEquipmentEventName");
+        String sEquipmentEventType = getProperty("sEquipmentEventType");
+        String sEquipmentEventNotesText = getProperty("sEquipmentEventNotesText");
+        // === Complete reading properties
+
+        dateList = new ArrayList<Date>();
+        dateList.add(equipmentDefaultScheduleView.getStartDate()); //Start Date
+        dateList.add(equipmentDefaultScheduleView.getStartDate()); //End Date
+
+        equipmentEvent = new B2WAssignment(B2WAssignmentType.EQUIPMENT_EVENT_TYPE, sEquipmentEventName,
+                sEquipmentEventType, sEquipmentEventNotesText, dateList);
+        // ==== Complete Equipment Event ===============================================================================
+
+        // ==== Setup Location Event ==================================================================================
+        // === Reading Properties
+        String sLocationEventName = getProperty("sLocationEventName");
+        String sLocationEventType = getProperty("sLocationEventType");
+        String sLocationEventNotesText = getProperty("sLocationEventNotesText");
+        // === Complete reading properties
+
+        dateList = new ArrayList<Date>();
+        dateList.add(locationDefaultScheduleView.getStartDate()); //Start Date
+        dateList.add(locationDefaultScheduleView.getStartDate()); //End Date
+
+        locationEvent = new B2WAssignment(B2WAssignmentType.LOCATION_EVENT_TYPE, sLocationEventName,
+                sLocationEventType, sLocationEventNotesText, dateList);
+        // ==== Complete Location Event ===============================================================================
     }
 
     public void testMain() throws Throwable {
@@ -334,9 +354,13 @@ public class ScheduleAssignmentsTest extends B2WTestCase {
         createEquipmentNeeds();
         createCrewsAssignments();
         createCrewsNeeds();
-        */
-        createEmployeeAssignments();
         createMoveAssignment();
+        createMoveOrder();
+        createEmployeeEvent();
+        createEquipmentEvent();
+        */
+        createLocationEvent();
+
     }
 
     private B2WScheduleView setupEmployeeScheduleView(String sScheduleName) {
@@ -559,9 +583,11 @@ public class ScheduleAssignmentsTest extends B2WTestCase {
 
     // Tests
     private void createScheduleViews() {
+        b2wSchedulesTasks.createScheduleView(locationScheduleView);
+
+        /*
         b2wSchedulesTasks.createScheduleView(employeeScheduleView);
         b2wSchedulesTasks.createScheduleView(equipmentScheduleView);
-        /*
         b2wSchedulesTasks.createScheduleView(crewsScheduleView);
         b2wSchedulesTasks.createScheduleView(locationScheduleView);
         */
@@ -609,11 +635,37 @@ public class ScheduleAssignmentsTest extends B2WTestCase {
         logCompare(true, b2wScheduler.createCrewNeed(crewNeed), "Create Need for: " + crewNeed.getResourceName());
     }
     private void createMoveAssignment() {
-        logCompare(true, b2wNav.openSchedule(), "Open Schedule View");
         logCompare(true, b2wScheduler.navigateTo(equipmentScheduleView), "Open " + equipmentScheduleView.getName() + " Schedule View");
         logCompare(true, b2wScheduler.setCalendarDateRange(equipmentScheduleView), "Set " + equipmentScheduleView.getDuration() + " Date Range");
         logCompare(true, b2wScheduler.setCalendarStartDate(equipmentScheduleView), "Set Start Date to " + equipmentScheduleView.getStartDate());
         logCompare(true, b2wScheduler.setSearchValue(moveAssignment.getResourceName()), "Set Filter by " + moveAssignment.getResourceName());
         logCompare(true, b2wScheduler.createMoveAssignment(moveAssignment), "Create Move Assignment for: " + moveAssignment.getResourceName());
+    }
+    private void createMoveOrder() {
+        logCompare(true, b2wScheduler.setSearchValue(moveOrder.getResourceName()), "Set Filter by " + moveOrder.getResourceName());
+        logCompare(true, b2wScheduler.createMoveOrder(moveOrder), "Create Move Assignment for: " + moveOrder.getResourceName());
+
+    }
+    private void createEmployeeEvent() {
+        logCompare(true, b2wScheduler.navigateTo(employeeDefaultScheduleView), "Open " + employeeDefaultScheduleView.getName() + " Schedule View");
+        logCompare(true, b2wScheduler.setCalendarDateRange(employeeDefaultScheduleView), "Set " + employeeDefaultScheduleView.getDuration() + " Date Range");
+        logCompare(true, b2wScheduler.setCalendarStartDate(employeeDefaultScheduleView), "Set Start Date to " + employeeDefaultScheduleView.getStartDate());
+        logCompare(true, b2wScheduler.setSearchValue(employeeEvent.getResourceName()), "Set Filter by " + employeeEvent.getResourceName());
+        logCompare(true, b2wScheduler.createEmployeeEvent(employeeEvent), "Create Employee Event for: " + employeeEvent.getResourceName());
+    }
+    private void createEquipmentEvent() {
+        logCompare(true, b2wScheduler.navigateTo(equipmentDefaultScheduleView), "Open " + equipmentDefaultScheduleView.getName() + " Schedule View");
+        logCompare(true, b2wScheduler.setCalendarDateRange(equipmentDefaultScheduleView), "Set " + equipmentDefaultScheduleView.getDuration() + " Date Range");
+        logCompare(true, b2wScheduler.setCalendarStartDate(equipmentDefaultScheduleView), "Set Start Date to " + equipmentDefaultScheduleView.getStartDate());
+        logCompare(true, b2wScheduler.setSearchValue(equipmentEvent.getResourceName()), "Set Filter by " + equipmentEvent.getResourceName());
+        logCompare(true, b2wScheduler.createEquipmentEvent(equipmentEvent), "Create Equipment Event for: " + equipmentEvent.getResourceName());
+    }
+    private void createLocationEvent() {
+        logCompare(true, b2wNav.openSchedule(), "Open Schedule View");
+        logCompare(true, b2wScheduler.navigateTo(locationDefaultScheduleView), "Open " + locationDefaultScheduleView.getName() + " Schedule View");
+        logCompare(true, b2wScheduler.setCalendarDateRange(locationDefaultScheduleView), "Set " + locationDefaultScheduleView.getDuration() + " Date Range");
+        logCompare(true, b2wScheduler.setCalendarStartDate(locationDefaultScheduleView), "Set Start Date to " + locationDefaultScheduleView.getStartDate());
+        logCompare(true, b2wScheduler.setSearchValue(locationEvent.getResourceName()), "Set Filter by " + locationEvent.getResourceName());
+        logCompare(true, b2wScheduler.createLocationEvent(locationEvent), "Create Location Event for: " + locationEvent.getResourceName());
     }
 }

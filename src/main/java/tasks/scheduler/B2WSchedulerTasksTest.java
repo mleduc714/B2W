@@ -2,7 +2,6 @@ package tasks.scheduler;
 
 import appobjects.resources.KendoUI;
 import appobjects.scheduler.B2WScheduleAssignments;
-import org.apache.commons.lang3.time.DateUtils;
 import org.apache.log4j.Logger;
 import org.jfree.data.time.DateRange;
 import org.openqa.selenium.By;
@@ -381,7 +380,7 @@ public class B2WSchedulerTasksTest extends B2WKendoTasks {
         logCompare(true, true, "====== Start Assignment Creation for " + assignment.getResourceName());
         int initialCount = getAssignmentsCount(assignment);
 
-        bReturn = logCompare(true, selectNewMoveAssignment(), "Open Create Move Assignment Dialog");
+        bReturn = logCompare(true, selectNewMoveAssignment(), "Select New ->  Move Assignment");
         bReturn &= logCompare(true, setEquipment(assignment.getResourceName()), "Set Equipment");
         bReturn &= logCompare(true, setPickupDate(assignment.getPickupDate()), "Set Pickup Date");
         bReturn &= logCompare(true, setPickupTime(assignment.getPickupTime()), "Set Pickup Time");
@@ -408,6 +407,162 @@ public class B2WSchedulerTasksTest extends B2WKendoTasks {
         logCompare(true, true, "====== Complete Assignment Creation for " + assignment.getResourceName());
         return bReturn;
     }
+    public boolean createMoveOrder(B2WAssignment assignment) {
+        /*
+         * 1. Open Schedule View with Equipment Schedule
+         * 2. Change Date Range on Schedule View
+         * 3. Change Start Date on Schedule View
+         * 4. Set Filter
+         * 5. Count number existing assignments for resource.
+         * 6. Open New Move Assignment Dialog
+         * 7. Fill all fields (Equipment, Pickup Location, Drop-off Location, Transportation Crew)
+         * 8. Save New Move Assignment
+         * 9. Count number existing assignments for resource
+         * 10. Check that the counts difference equal 1
+         * 11. Check that the particular assignment is created
+         */
+
+
+        boolean bReturn;
+        logCompare(true, true, "====== Start Order Creation for " + assignment.getResourceName());
+        int initialCount = getAssignmentsCount(assignment);
+
+        bReturn = logCompare(true, selectNewMoveOrder(), "Select New -> Move Order");
+        bReturn &= logCompare(true, setEquipment(assignment.getResourceName()), "Set Equipment");
+        bReturn &= logCompare(true, setPickupAfter(assignment.getPickupDate()), "Set Pickup After");
+        bReturn &= logCompare(true, setPickupTime(assignment.getPickupTime()), "Set Pickup Time");
+        bReturn &= logCompare(true, setDropoffBefore(assignment.getDropoffDate()), "Set Drop-off Before");
+        bReturn &= logCompare(true, setDropoffTime(assignment.getDropoffTime()), "Set Drop-off Time");
+        bReturn &= logCompare(true, setPickupLocation(assignment.getPickupLocationType(), assignment.getPickupLocation()), "Set Pickup Location");
+        bReturn &= logCompare(true, setDropoffLocation(assignment.getDropoffLocationType(), assignment.getDropoffLocation()), "Set Drop-off Location");
+        bReturn &= logCompare(true, setRequestedBy(assignment.getRequestedBy()), "Set Requested By");
+        bReturn &= logCompare(true, setAssignmentNotes(assignment.getNotes()), "Set Notes");
+
+        if (bReturn) {
+            bReturn &= logCompare(true, saveAssignment(), "Save New Move Order");
+
+            int actualCount = getAssignmentsCount(assignment);
+            bReturn &= logCompare(true, actualCount == initialCount + 1, "Verification that number of Assignment has been increased by 1.");
+            WebElement result = getAssignment(assignment);
+            bReturn &= logCompare(true,  result != null, "Verification that specific Assignment has been created.");
+        } else {
+            cancelAssignment();
+            selectButtonOption("Yes");
+        }
+        logCompare(true, true, "====== Complete Order Creation for " + assignment.getResourceName());
+        return bReturn;
+    }
+    public boolean createEmployeeEvent(B2WAssignment assignment) {
+        /*
+         * 1. Open Schedule View with Employee Schedule
+         * 2. Change Date Range on Schedule View
+         * 3. Change Start Date on Schedule View
+         * 4. Set Filter
+         * 5. Count number existing events for resource.
+         * 6. Open New Employee Event Dialog
+         * 7. Fill all fields (Employee, Event Type, Notes)
+         * 8. Save New Employee Event
+         * 9. Count number existing events for resource
+         * 10. Check that the counts difference equal 1
+         * 11. Check that the particular assignment is created
+         */
+
+        boolean bReturn;
+        logCompare(true, true, "====== Start Employee Event Creation for " + assignment.getResourceName());
+        int initialCount = getAssignmentsCount(assignment);
+
+        bReturn = logCompare(true, selectNewEmployeeEvent(), "Select New -> Create Event -> Employee");
+        bReturn &= logCompare(true, setEventEmployee(assignment.getResourceName()), "Set Employee");
+        bReturn &= logCompare(true, setEventType(assignment.getLocationName()), "Set Employee Event Type");
+        bReturn &= logCompare(true, setAssignmentNotes(assignment.getNotes()), "Set Notes");
+        if (bReturn) {
+            bReturn &= logCompare(true, saveAssignment(), "Save New Employee Event");
+
+            int actualCount = getAssignmentsCount(assignment);
+            bReturn &= logCompare(true, actualCount == initialCount + 1, "Verification that number of Events has been increased by 1.");
+            WebElement result = getAssignment(assignment);
+            bReturn &= logCompare(true,  result != null, "Verification that specific Event has been created.");
+        } else {
+            cancelAssignment();
+            selectButtonOption("Yes");
+        }
+        logCompare(true, true, "====== Complete Employee Event Creation for " + assignment.getResourceName());
+        return bReturn;
+    }
+    public boolean createEquipmentEvent(B2WAssignment assignment) {
+        /*
+         * 1. Open Schedule View with Employee Schedule
+         * 2. Change Date Range on Schedule View
+         * 3. Change Start Date on Schedule View
+         * 4. Set Filter
+         * 5. Count number existing events for resource.
+         * 6. Open New Employee Event Dialog
+         * 7. Fill all fields (Employee, Event Type, Notes)
+         * 8. Save New Employee Event
+         * 9. Count number existing events for resource
+         * 10. Check that the counts difference equal 1
+         * 11. Check that the particular assignment is created
+         */
+
+        boolean bReturn;
+        logCompare(true, true, "====== Start Equipment Event Creation for " + assignment.getResourceName());
+        int initialCount = getAssignmentsCount(assignment);
+
+        bReturn = logCompare(true, selectNewEquipmentEvent(), "Select New -> Create Event -> Equipment");
+        bReturn &= logCompare(true, setEventEquipment(assignment.getResourceName()), "Set Equipment");
+        bReturn &= logCompare(true, setEventType(assignment.getLocationName()), "Set Equipment Event Type");
+        bReturn &= logCompare(true, setAssignmentNotes(assignment.getNotes()), "Set Notes");
+        if (bReturn) {
+            bReturn &= logCompare(true, saveAssignment(), "Save New Equipment Event");
+
+            int actualCount = getAssignmentsCount(assignment);
+            bReturn &= logCompare(true, actualCount == initialCount + 1, "Verification that number of Events has been increased by 1.");
+            WebElement result = getAssignment(assignment);
+            bReturn &= logCompare(true,  result != null, "Verification that specific Event has been created.");
+        } else {
+            cancelAssignment();
+            selectButtonOption("Yes");
+        }
+        logCompare(true, true, "====== Complete Equipment Event Creation for " + assignment.getResourceName());
+        return bReturn;
+    }
+    public boolean createLocationEvent(B2WAssignment assignment) {
+        /*
+         * 1. Open Schedule View with Employee Schedule
+         * 2. Change Date Range on Schedule View
+         * 3. Change Start Date on Schedule View
+         * 4. Set Filter
+         * 5. Count number existing events for resource.
+         * 6. Open New Employee Event Dialog
+         * 7. Fill all fields (Employee, Event Type, Notes)
+         * 8. Save New Employee Event
+         * 9. Count number existing events for resource
+         * 10. Check that the counts difference equal 1
+         * 11. Check that the particular assignment is created
+         */
+
+        boolean bReturn;
+        logCompare(true, true, "====== Start Location Event Creation for " + assignment.getResourceName());
+        int initialCount = getAssignmentsCount(assignment);
+
+        bReturn = logCompare(true, selectNewLocationEvent(), "Select New -> Create Event -> Location");
+        bReturn &= logCompare(true, setEventLocation(assignment.getResourceName()), "Set Location");
+        bReturn &= logCompare(true, setEventType(assignment.getLocationName()), "Set Location Event Type");
+        bReturn &= logCompare(true, setAssignmentNotes(assignment.getNotes()), "Set Notes");
+        if (bReturn) {
+            bReturn &= logCompare(true, saveAssignment(), "Save New Location Event");
+
+            int actualCount = getAssignmentsCount(assignment);
+            bReturn &= logCompare(true, actualCount == initialCount + 1, "Verification that number of Events has been increased by 1.");
+            WebElement result = getAssignment(assignment);
+            bReturn &= logCompare(true,  result != null, "Verification that specific Event has been created.");
+        } else {
+            cancelAssignment();
+            selectButtonOption("Yes");
+        }
+        logCompare(true, true, "====== Complete Location Event Creation for " + assignment.getResourceName());
+        return bReturn;
+    }
 
     // ==== Private Methods ============================================================================================
     // === Menu for Creation
@@ -428,10 +583,56 @@ public class B2WSchedulerTasksTest extends B2WKendoTasks {
     private boolean selectNewCrewNeed() {
         return openCreateDialog(CREWNEED);
     }
-    public boolean selectNewMoveAssignment() {
+    private boolean selectNewMoveAssignment() {
         return openCreateDialog(MOVEASSIGNMENT);
     }
+    private boolean selectNewMoveOrder() {
+        return openCreateDialog(MOVEORDER);
+    }
+    private boolean selectNewEmployeeEvent() {
+        boolean bResult;
+        bResult = selectNewEvent("Employee");
+        return bResult;
+    }
+    private boolean selectNewEquipmentEvent() {
+        boolean bResult;
+        bResult = selectNewEvent("Equipment");
+        return bResult;
+    }
+    public boolean selectNewLocationEvent() {
+        boolean bResult;
+        bResult = selectNewEvent("Location");
+        return bResult;
+    }
+    private boolean selectNewEvent(String sItem) {
+        boolean bResult;
+        bResult = openCreateDialog(EVENT);
+        if (bResult) {
+            bResult = false;
+            TaskUtils.sleep(100);
+            List<WebElement> list = WebElementUtils.findElements(B2WScheduleAssignments.getLinksContainer());
+            if (list.size() > 0) {
+                Iterator<WebElement> iterator = list.iterator();
+                while (iterator.hasNext() && !bResult) {
+                    WebElement els = iterator.next();
 
+                    if (els.isDisplayed()) {
+                        List<WebElement> items = els.findElements(B2WScheduleAssignments.getLinks());
+                        WebElement item = WebElementUtils.getElementWithMatchingText(items, sItem, false);
+                        if (item != null) {
+                            bResult = WebElementUtils.clickElement(item);
+                        } else {
+                            log.debug("Item with could not be found matching 'Employee'");
+                        }
+                    }
+                }
+            }
+            if (!bResult) log.debug("Submenu '" + sItem + "' could not be found.");
+        } else {
+            log.debug("Menu 'New -> Event' could not be clicked.");
+        }
+        return bResult;
+    }
 
     // === Context Menu
     private boolean openContextMenu(WebElement eAssignment) {
@@ -650,6 +851,15 @@ public class B2WSchedulerTasksTest extends B2WKendoTasks {
         }
         return bReturn;
     }
+    private boolean setPickupAfter(String sValue) {
+        boolean bReturn = false;
+        WebElement element = WebElementUtils.getKendoFDDElementByLabel("Pickup After");
+        if (element != null ) {
+            element.clear();
+            bReturn = WebElementUtils.sendKeys(element, sValue);
+        }
+        return bReturn;
+    }
     private boolean setPickupTime(String sValue) {
         boolean bReturn = false;
         WebElement element = WebElementUtils.getKendoFDDElementByLabel("Pickup Time");
@@ -662,6 +872,15 @@ public class B2WSchedulerTasksTest extends B2WKendoTasks {
     private boolean setDropoffDate(String sValue) {
         boolean bReturn = false;
         WebElement element = WebElementUtils.getKendoFDDElementByLabel("Drop-off Date");
+        if (element != null ) {
+            element.clear();
+            bReturn = WebElementUtils.sendKeys(element, sValue);
+        }
+        return bReturn;
+    }
+    private boolean setDropoffBefore(String sValue) {
+        boolean bReturn = false;
+        WebElement element = WebElementUtils.getKendoFDDElementByLabel("Drop-off Before");
         if (element != null ) {
             element.clear();
             bReturn = WebElementUtils.sendKeys(element, sValue);
@@ -725,6 +944,29 @@ public class B2WSchedulerTasksTest extends B2WKendoTasks {
             log.debug("Select Crew button could not be found.");
         }
         return bResult;
+    }
+
+    // Set values on Event
+    private boolean setEventEmployee(String sValue) {
+        return setFields("Employee", sValue);
+    }
+    private boolean setEventType(String sTypeName) {
+        boolean bResult = false;
+        WebElement dropDown = WebElementUtils.findElement(B2WScheduleAssignments.getEventTypeDropDown());
+        if (dropDown != null) {
+            WebElement parent = WebElementUtils.getParentElement(dropDown);
+            bResult = WebElementUtils.clickElement(parent);
+            bResult &= selectItemFromDropDown(sTypeName);
+        } else {
+            log.debug("Could not find 'Select event type' dropdown.");
+        }
+        return bResult;
+    }
+    private boolean setEventEquipment(String sEquipmentName) {
+        return setFields("Equipment", sEquipmentName);
+    }
+    private boolean setEventLocation(String sJobSiteName) {
+        return setFields("Location", sJobSiteName);
     }
 
     //-- Save Methods
