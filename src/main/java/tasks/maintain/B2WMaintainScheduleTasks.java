@@ -218,59 +218,68 @@ public class B2WMaintainScheduleTasks extends B2WKendoTasks {
 	private boolean workOrder(String sText, CLICK click, BY desc, WHERE where, String sMenu) {
 		boolean bReturn = false;
 		WebElement contextMenu = null;
-		WebElement el = getWorkOrder(sText, desc, where);
-		Actions actions = new Actions(BrowserUtils.getDriver());
-		switch (click) {
-		case SINGLE:
-			actions.click(el);
-			break;
-		case DOUBLE:
-			actions.doubleClick(el);
-			break;
-		case CONTEXT:
-			actions.contextClick(el);
-			break;
-		}
-		actions.perform();
-		switch (click) {
-		case SINGLE:
-			bReturn = WebElementUtils.waitAndFindDisplayedElement(B2WMaintain.getB2WMaintainSchedulerToolTip()) != null;
-			break;
-		case DOUBLE:
-			switch (where) {
-			case PASTTAB:
-			case SCHEDULE:
-				bReturn = WebElementUtils.waitAndFindDisplayedElement(
-						B2WMaintain.getB2WMaintainSchedulerEditSchedulePopupWindow()) != null;
-				bReturn &= WebElementUtils.waitAndFindDisplayedElement(B2WMaintain.getKendoCancelButton()) != null;
-				break;
-			case WORKTAB:
+		try {
+			WebElement el = getWorkOrder(sText, desc, where);
+			if (el != null) {
+				Actions actions = new Actions(BrowserUtils.getDriver());
+				switch (click) {
+				case SINGLE:
+					actions.click(el);
+					break;
+				case DOUBLE:
+					actions.doubleClick(el);
+					break;
+				case CONTEXT:
+					actions.contextClick(el);
+					break;
+				}
+				actions.perform();
+				switch (click) {
+				case SINGLE:
+					bReturn = WebElementUtils
+							.waitAndFindDisplayedElement(B2WMaintain.getB2WMaintainSchedulerToolTip()) != null;
+					break;
+				case DOUBLE:
+					switch (where) {
+					case PASTTAB:
+					case SCHEDULE:
+						bReturn = WebElementUtils.waitAndFindDisplayedElement(
+								B2WMaintain.getB2WMaintainSchedulerEditSchedulePopupWindow()) != null;
+						bReturn &= WebElementUtils
+								.waitAndFindDisplayedElement(B2WMaintain.getKendoCancelButton()) != null;
+						break;
+					case WORKTAB:
 
-				bReturn = WebElementUtils.waitAndFindDisplayedElement(
-						B2WMaintain.getB2WMaintainSchedulerScheduleMaintenancePopupWindow()) != null;
-				break;
+						bReturn = WebElementUtils.waitAndFindDisplayedElement(
+								B2WMaintain.getB2WMaintainSchedulerScheduleMaintenancePopupWindow()) != null;
+						break;
+					}
+					break;
+				case CONTEXT:
+					switch (where) {
+					case PASTTAB:
+					case SCHEDULE:
+
+						contextMenu = WebElementUtils
+								.waitAndFindDisplayedElement(B2WMaintain.getB2WMaintainSchedulerScheduledContextMenu());
+
+						break;
+					case WORKTAB:
+
+						contextMenu = WebElementUtils.waitAndFindDisplayedElement(
+								B2WMaintain.getB2WMaintainSchedulerUnscheduledContextMenu());
+						break;
+					}
+					List<WebElement> items = contextMenu.findElements(B2WScheduleAssignments.getLinks());
+					WebElement item = WebElementUtils.getElementWithMatchingText(items, sMenu, false);
+
+					bReturn = WebElementUtils.clickElement(item);
+					break;
+				}
 			}
-			break;
-		case CONTEXT:
-			switch (where) {
-			case PASTTAB:
-			case SCHEDULE:
-
-				contextMenu = WebElementUtils
-						.waitAndFindDisplayedElement(B2WMaintain.getB2WMaintainSchedulerScheduledContextMenu());
-
-				break;
-			case WORKTAB:
-
-				contextMenu = WebElementUtils
-						.waitAndFindDisplayedElement(B2WMaintain.getB2WMaintainSchedulerUnscheduledContextMenu());
-				break;
-			}
-			List<WebElement> items = contextMenu.findElements(B2WScheduleAssignments.getLinks());
-			WebElement item = WebElementUtils.getElementWithMatchingText(items, sMenu, false);
-
-			bReturn = WebElementUtils.clickElement(item);
-			break;
+		} catch (StaleElementReferenceException e) {
+			log.debug("Caught stale element exception in open " + sText);
+			workOrder(sText, click, desc, where, sMenu);
 		}
 
 		return bReturn;
@@ -639,6 +648,35 @@ public class B2WMaintainScheduleTasks extends B2WKendoTasks {
 
 		return date;
 
+	}
+	
+	public boolean quickSchedule() {
+		boolean bReturn = false;
+		List<WebElement> tables = WebElementUtils.findElements(B2WMaintain.getB2WMaintainScheduleTable());
+		if (tables.size() > 3) {
+			List<WebElement> rows = WebElementUtils.getChildElements(tables.get(3), By.tagName("tr"));
+			if (rows.size() > 0) {
+				List<WebElement> unscheduledRows = WebElementUtils.getElementsWithMatchingAttribute(rows, "style",
+						"height: 40px;");
+				if (unscheduledRows.size() > 1) {
+
+					WebElement child = WebElementUtils.getChildElement(unscheduledRows.get(1),
+							B2WMaintain.getB2WMaintainScheduleNonWorkHour());
+					if (child != null) {
+						Actions actions = new Actions(BrowserUtils.getDriver());
+						actions.contextClick(child);
+						actions.perform();
+						WebElement contextMenu = WebElementUtils
+								.waitAndFindDisplayedElement(By.xpath("//span[contains(.,'New Work Order')]"));
+
+						bReturn = WebElementUtils.clickElement(contextMenu);
+
+					}
+				}
+			}
+		}
+
+		return bReturn;
 	}
 
 }

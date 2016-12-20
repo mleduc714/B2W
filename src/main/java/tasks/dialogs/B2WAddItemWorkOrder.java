@@ -32,8 +32,7 @@ public class B2WAddItemWorkOrder extends B2WKendoDialog {
 	
 	public boolean clickNewItemButton() {
 		boolean bReturn = false;
-		WebElement parent = WebElementUtils.findElement(B2WMaintain.getB2WMaintainNewWorkOrderView());
-		WebElement itembutton = WebElementUtils.getChildElement(parent, B2WMaintain.getB2WMaintainNewWorkItemAddItemButton());
+		WebElement itembutton = WebElementUtils.getElementWithMatchingText(B2WMaintain.getB2WMaintainNewWorkItemAddItemButton(), "Add Item");
 		if (itembutton != null){
 			Coordinates coordinate = ((Locatable)itembutton).getCoordinates(); 
 			coordinate.onPage(); 

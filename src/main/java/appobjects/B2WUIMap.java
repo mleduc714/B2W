@@ -912,6 +912,7 @@ public class B2WUIMap {
 	public static final String b2w_maintainworkordercompletedialog = "div.wizard-dialog.complete-workorder-popup-view.k-window-content.k-content";
 	public static final String b2w_maintainschedulecurrentview = "li.k-current-view";
 	public static final String b2w_maintainscheduletable = ".k-scheduler-table";
+	public static final String b2w_maintainschedulenonworkhour = ".k-nonwork-hour";
 	public static final String b2w_maintainscheduletimes = ".k-scheduler-times";
 	public static final String b2w_maintainscheduleheader = ".k-scheduler-header-wrap";
 	public static final String b2w_maintainscheduleworkorder = "div#workOrdersScheduler";
@@ -947,6 +948,7 @@ public class B2WUIMap {
 	
 	public static final String unscheduledworkorderscontextmenu = "ul#unscheduledWorkOrdersContextMenu";
 	public static final String scheduleworkorderscontentmenu = "ul#scheduledWorkOrdersContextMenu";
+	public static final String scheduleremptyslotcontextmenu = "li#scheduler-empty-slot-context-menu_mn_active";
 	
 	//B2W Schedule Tests
 	public static final String b2w_scheduleviewcrews = "Crews";

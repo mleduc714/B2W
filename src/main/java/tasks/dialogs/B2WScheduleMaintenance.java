@@ -258,11 +258,33 @@ public class B2WScheduleMaintenance extends B2WKendoDialog {
 			int iNextLine = label.indexOf("\n");
 			String sWorkItem = label.substring(0, iNextLine);
 			String sHours = label.substring(++iNextLine, label.length());
-			System.out.println(sHours);
 			al.put(sWorkItem, sHours);
 		}
 
 		return al;
+	}
+	
+	public boolean uncheckWorkOrderItem(String s) {
+		boolean bReturn = false;
+		WebElement el = WebElementUtils
+				.waitAndFindDisplayedElement(B2WMaintain.getB2WMaintainSchedulerScheduleMaintenancePopupWindow());
+		List<WebElement> list = WebElementUtils.getChildElements(el, By.tagName("input"));
+		List<WebElement> checkboxes = WebElementUtils.getElementsWithMatchingAttribute(list, "type", "checkbox");
+		for (WebElement items : checkboxes) {
+			String label = WebElementUtils.getParentElement(items).getText();
+			int iNextLine = label.indexOf("\n");
+			String sWorkItem = label.substring(0, iNextLine);
+			if (s.equals(sWorkItem)){
+				bReturn = WebElementUtils.clickElement(items);
+				break;
+			}
+			
+			return bReturn;
+
+		}
+		
+		
+		return false;
 	}
 	
 	public boolean uncheckWorkItem(String sWorkItem){

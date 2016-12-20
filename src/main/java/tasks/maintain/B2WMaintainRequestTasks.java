@@ -275,4 +275,13 @@ public class B2WMaintainRequestTasks extends B2WKendoTasks {
 	public boolean setRequestNotes(String sText){
 		return setNotes(sText);
 	}
+	public boolean deleteRequest(){
+		boolean bReturn = false;
+		WebElement delete = WebElementUtils.findElement(B2WMaintain.getKendoDeleteButton());
+		if (delete != null){
+			bReturn = WebElementUtils.clickElement(delete);
+			bReturn &= clickConfirmYes();
+		}
+		return bReturn;
+	}
 }
