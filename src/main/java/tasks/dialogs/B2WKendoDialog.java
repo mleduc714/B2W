@@ -113,6 +113,8 @@ public abstract class B2WKendoDialog {
 			try {
 				WebElement el = BrowserUtils.getDriver().findElement(B2WEquipment.getKendoPageLoading());
 				TaskUtils.sleep(100);
+				StackTraceElement[] stackTraceElements = Thread.currentThread().getStackTrace();
+				log.debug(stackTraceElements[3].getMethodName() + "->" + stackTraceElements[2].getMethodName() + "->" + stackTraceElements[1].getMethodName());
 				if (!el.isDisplayed()){
 					bReturn = true;
 					log.debug("Element is not displayed");
