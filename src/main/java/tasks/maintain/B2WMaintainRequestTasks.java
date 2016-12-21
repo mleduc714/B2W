@@ -1,5 +1,6 @@
 package tasks.maintain;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -283,5 +284,8 @@ public class B2WMaintainRequestTasks extends B2WKendoTasks {
 			bReturn &= clickConfirmYes();
 		}
 		return bReturn;
+	}
+	public ArrayList<String> getEquipmentFromRequestsView(){
+		return getItemsFromView(3);
 	}
 }
