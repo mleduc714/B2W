@@ -361,10 +361,10 @@ public class ScheduleAssignments extends B2WTestCase {
         //createLocationEvent(sLocationView, sJobSiteName, sLocationEventType, sCalendarStartDate, sCalendarStartDate, sEventStartTime, sEventDuration);
 
         //=== Move Assignments
-        moveEmployeeAssignment();
-        moveSubstitution();
-        moveEmployeeNeed();
-        moveEquipmentAssignment();
+        //moveEmployeeAssignment();
+        //moveSubstitution();
+        //moveEmployeeNeed();
+        //moveEquipmentAssignment();
         moveEquipmentNeed();
         moveCrewAssignment();
         moveCrewNeed();

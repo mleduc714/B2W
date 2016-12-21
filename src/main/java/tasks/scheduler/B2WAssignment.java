@@ -5,7 +5,7 @@ import tasks.util.StringUtils;
 
 import java.util.*;
 
-public class B2WAssignment {
+public class B2WAssignment implements Cloneable {
     private String assignmentType;
     private String resourceName;
     private String locationName;
@@ -78,7 +78,11 @@ public class B2WAssignment {
         this.dropoffTime = dropoffTime;
     }
     public void makeSubstitution(String substitutionName) {
-        this.substitution = new B2WAssignment(this);
+        try {
+            this.substitution = this.clone();
+        } catch (CloneNotSupportedException e) {
+            e.printStackTrace();
+        }
         this.substitution.setResourceName(substitutionName);
         this.substitution.setAssignmentType(B2WAssignmentType.SUBSTITUTION_TYPE);
         this.assignmentType = B2WAssignmentType.SUBSTITUTED_TYPE;
@@ -124,6 +128,9 @@ public class B2WAssignment {
         return duration;
     }
     public String getStartDate() { return StringUtils.getStringFromDateByPattern(dateList.get(0), "M/d/yyyy"); }
+    public Date getStartDateAsDate() {
+        return this.dateList.get(0);
+    }
     public String getEndDate() { return StringUtils.getStringFromDateByPattern(dateList.get(dateList.size()-1), "M/d/yyyy"); }
     public String getPickupDate() { return StringUtils.getStringFromDateByPattern(dateList.get(0), "M/d/yyyy"); }
     public String getDropoffDate() { return StringUtils.getStringFromDateByPattern(dateList.get(dateList.size()-1), "M/d/yyyy"); }
@@ -139,6 +146,28 @@ public class B2WAssignment {
         return substitution;
     }
     public void moveTo(Date moveDate) {
+        int delta = (int) (moveDate.getTime() - this.getStartDateAsDate().getTime());
+        delta = delta / 1000 / 60 / 60 / 24;
+        if (delta > 0) {
+            delta++;
+        }
+        this.dateList.set(0, DateUtils.addDays(this.dateList.get(0), delta));
+        this.dateList.set(dateList.size() - 1, DateUtils.addDays(this.dateList.get(dateList.size() - 1), delta));
+
+        /*
+        if (moveDate.after(this.dateList.get(0)) && mo) {
+            while (moveDate.after(this.dateList.get(0)) && !moveDate.equals(this.dateList.get(0))) {
+                this.dateList.set(0, DateUtils.addDays(this.dateList.get(0), 1));
+                this.dateList.set(dateList.size()-1, DateUtils.addDays(this.dateList.get(dateList.size()-1), 1));
+            }
+        } else if (moveDate.before(this.dateList.get(0))) {
+            while (moveDate.before(this.dateList.get(0)) && !moveDate.equals(this.dateList.get(0))) {
+                this.dateList.set(0, DateUtils.addDays(this.dateList.get(0), -1));
+                this.dateList.set(dateList.size()-1, DateUtils.addDays(this.dateList.get(dateList.size()-1), -1));
+            }
+        }
+        */
+        /*
         Date tmpDate = new Date();
         tmpDate.setTime(this.dateList.get(0).getTime());
         tmpDate.setMinutes(0);
@@ -147,6 +176,7 @@ public class B2WAssignment {
         int delta = (int) (moveDate.getTime() - tmpDate.getTime());
         this.dateList.set(0, DateUtils.addMilliseconds(this.dateList.get(0), delta));
         this.dateList.set(dateList.size()-1, DateUtils.addMilliseconds(this.dateList.get(dateList.size()-1), delta));
+        */
     }
 
     // Constructors
@@ -268,4 +298,7 @@ public class B2WAssignment {
         this.transportationCrew = assignment.transportationCrew;
     }
 
+    public B2WAssignment clone() throws CloneNotSupportedException {
+        return (B2WAssignment) super.clone();
+    }
 }

@@ -115,6 +115,11 @@ public class B2WNavigationTasks implements Navigation {
 		}
 		return bReturn;
 	}
+	public boolean isScheduleIsOpened() {
+		WebElement grid = WebElementUtils.findElement(B2WScheduleAssignments.getScheduleCenterPanel());
+		if (grid != null) { return true; }
+		else { return false; }
+	}
 
 	public boolean openSetup() {
 		boolean bReturn = false;
@@ -189,8 +194,7 @@ public class B2WNavigationTasks implements Navigation {
 
 		return bReturn;
 	}
-	
-	
+
 	public String getUserName() {
 		String sUserName = "";
 		WebElement el = WebElementUtils.findElement(B2WNavigationPanel.getB2WUserName());
