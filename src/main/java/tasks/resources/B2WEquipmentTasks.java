@@ -623,6 +623,11 @@ public class B2WEquipmentTasks extends B2WKendoTasks {
 	public boolean expandFinancials() {
 		return getHeaderandExpandOrCollapse(FINANCIALS, true);
 	}
+	
+	public boolean collapseFinancials(){
+		return getHeaderandExpandOrCollapse(FINANCIALS, false);
+	}
+	
 	public boolean expandMeters() {
 		return getHeaderandExpandOrCollapse(METERS, true);
 	}
