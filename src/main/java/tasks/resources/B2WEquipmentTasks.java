@@ -740,7 +740,6 @@ public class B2WEquipmentTasks extends B2WKendoTasks {
 		Coordinates coordinate = ((Locatable) button).getCoordinates();
 		coordinate.onPage();
 		coordinate.inViewPort();
-		TaskUtils.sleep(5000);
 		if (WebElementUtils.clickElement(button)) {
 			List<WebElement> windows = WebElementUtils.findElements(B2WMaintain.getKendoWindowTitle());
 			bReturn = WebElementUtils.waitForElementIsDisplayed(windows.get(windows.size() - 1),
@@ -758,7 +757,47 @@ public class B2WEquipmentTasks extends B2WKendoTasks {
 		coordinate.inViewPort();
 		TaskUtils.sleep(5000);
 		if (WebElementUtils.clickElement(button)) {
-			bReturn = WebElementUtils.waitAndFindDisplayedEletment(B2WMaintain.getB2WAddProgramDialog()) != null;
+			bReturn = true;
+		}
+
+		return bReturn;
+	}
+	
+	
+	
+	public boolean clickAddEventButton(){
+		boolean bReturn = false;
+		WebElement button = getButton(12);
+		Coordinates coordinate = ((Locatable) button).getCoordinates();
+		coordinate.onPage();
+		coordinate.inViewPort();
+		if (WebElementUtils.clickElement(button)) {
+			bReturn = true;
+		}
+
+		return bReturn;
+	}
+	public boolean clickAddWarrantyButton(){
+		boolean bReturn = false;
+		WebElement button = getButton(9);
+		Coordinates coordinate = ((Locatable) button).getCoordinates();
+		coordinate.onPage();
+		coordinate.inViewPort();
+		if (WebElementUtils.clickElement(button)) {
+			bReturn = true;
+		}
+
+		return bReturn;
+	}
+	
+	public boolean clickAddEquipmentTag(){
+		boolean bReturn = false;
+		WebElement button = getButton(11);
+		Coordinates coordinate = ((Locatable) button).getCoordinates();
+		coordinate.onPage();
+		coordinate.inViewPort();
+		if (WebElementUtils.clickElement(button)) {
+			bReturn = true;
 		}
 
 		return bReturn;
@@ -839,4 +878,6 @@ public class B2WEquipmentTasks extends B2WKendoTasks {
 	public String getValueOfItem(String sItem){
 		return getValueOfItem(sItem, B2WMaintain.getMaintainEquipmentDetailView());
 	}
+	
+	
 }
