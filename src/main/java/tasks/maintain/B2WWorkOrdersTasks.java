@@ -7,6 +7,8 @@ import java.util.List;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.internal.Coordinates;
+import org.openqa.selenium.internal.Locatable;
 
 import appobjects.maintain.B2WMaintain;
 import tasks.WebElementUtils;
@@ -392,5 +394,17 @@ public class B2WWorkOrdersTasks extends B2WKendoTasks {
 		}
 		return bReturn;
 	}
-	
+	public boolean clickNewItemButton() {
+		boolean bReturn = false;
+		WebElement itembutton = WebElementUtils.getElementWithMatchingText(B2WMaintain.getB2WMaintainNewWorkItemAddItemButton(), "Add Item");
+		if (itembutton != null){
+			Coordinates coordinate = ((Locatable)itembutton).getCoordinates(); 
+			coordinate.onPage(); 
+			coordinate.inViewPort();
+			WebElementUtils.clickElement(itembutton);
+			bReturn = waitForPageNotBusy(WebElementUtils.MEDIUM_TIME_OUT);
+			
+		}
+		return bReturn;
+	}
 }

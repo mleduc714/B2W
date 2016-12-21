@@ -670,6 +670,7 @@ public class B2WMaintainScheduleTasks extends B2WKendoTasks {
 								.waitAndFindDisplayedElement(By.xpath("//span[contains(.,'New Work Order')]"));
 
 						bReturn = WebElementUtils.clickElement(contextMenu);
+						bReturn &= WebElementUtils.waitAndFindDisplayedElement(B2WMaintain.getB2WMaintainNewWorkOrderView()) != null;
 
 					}
 				}

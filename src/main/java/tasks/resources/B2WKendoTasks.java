@@ -415,6 +415,17 @@ public abstract class B2WKendoTasks {
 		return sText;
 	}
 	
+	protected ArrayList<String> getItemsFromView(int iColumn) {
+		ArrayList<String> al = new ArrayList<String>();
+		WebElement grid = WebElementUtils.findElement(B2WEquipment.getKendoGridContent());
+		List<WebElement> items = WebElementUtils.getChildElements(grid,  By.tagName("tr"));
+		for (WebElement el: items){
+			List<WebElement> columns = WebElementUtils.getChildElements(el, By.tagName("td"));
+			al.add(columns.get(iColumn).getText());
+		}
+		return al;
+	}
+	
 	private void waitForAjax() {
 		while (true) {
 			Boolean ajaxIsComplete = (Boolean) ((JavascriptExecutor) BrowserUtils.getDriver()).executeScript("return jQuery.active == 0");
