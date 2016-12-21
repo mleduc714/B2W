@@ -367,13 +367,6 @@ public abstract class B2WKendoTasks {
 	
 	protected WebElement getButton(int iButton) {
 		List<WebElement> list = WebElementUtils.findElements(B2WMaintain.getKendoButtonAdd());
-		int i = 0;
-		for (WebElement el: list){
-			
-			System.out.println(i+":"+el.isDisplayed());
-			i++;
-		}
-		
 		WebElement button = list.get(iButton);
 		if (button != null && button.isDisplayed()){
 			return button;
@@ -426,10 +419,20 @@ public abstract class B2WKendoTasks {
 		ArrayList<String> al = new ArrayList<String>();
 		WebElement grid = WebElementUtils.findElement(B2WEquipment.getKendoGridContent());
 		List<WebElement> items = WebElementUtils.getChildElements(grid,  By.tagName("tr"));
+
+		TaskUtils.sleep(5000);
 		for (WebElement el: items){
+			
 			List<WebElement> columns = WebElementUtils.getChildElements(el, By.tagName("td"));
-			al.add(columns.get(iColumn).getText());
-		}
+			if (columns.get(iColumn).getText().equals("")){
+				((JavascriptExecutor) BrowserUtils.getDriver()).executeScript(
+		                "arguments[0].scrollIntoView();", el);
+			}
+				System.out.println(columns.get(iColumn).getText());
+				al.add(columns.get(iColumn).getText());
+			}
+		
+
 		return al;
 	}
 	
