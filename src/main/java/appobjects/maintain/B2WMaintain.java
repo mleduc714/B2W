@@ -476,4 +476,7 @@ public class B2WMaintain extends KendoUI {
     public static By getB2WScheduleSmallFormatDate() {
     	return By.cssSelector(B2WUIMap.b2w_maintainscheduleformatsmalldate);
     }
+	public static By getMaintainEquipmentDetailView() {
+		return By.cssSelector(B2WUIMap.b2w_maintainequipmentdetailview);
+	}
 }

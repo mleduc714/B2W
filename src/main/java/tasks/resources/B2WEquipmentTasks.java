@@ -835,4 +835,8 @@ public class B2WEquipmentTasks extends B2WKendoTasks {
 		}
 		return bReturn;
 	}
+	
+	public String getValueOfItem(String sItem){
+		return getValueOfItem(sItem, B2WMaintain.getMaintainEquipmentDetailView());
+	}
 }

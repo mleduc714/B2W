@@ -821,6 +821,7 @@ public class B2WUIMap {
 	public static final String b2w_maintainadditemsavebutton = "a.btn-form.large.save";
 	public static final String b2w_maintaincollapsebutton = "a.collapse-button";
 	public static final String b2w_maintainworkorderscharts = "div.workorder_charts_col_left";
+	public static final String b2w_maintainequipmentdetailview = "div#equipment_detail_view";
 
 	public static final String b2w_maintainnewintervalbutton = "a.btn-orig.new-interval-button";
 
