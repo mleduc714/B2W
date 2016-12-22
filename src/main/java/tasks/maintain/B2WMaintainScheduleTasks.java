@@ -30,7 +30,7 @@ public class B2WMaintainScheduleTasks extends B2WKendoTasks {
 	SimpleDateFormat sd = new SimpleDateFormat("EEE, M/d");
 	SimpleDateFormat md = new SimpleDateFormat("M/d");
 	public enum CLICK {
-		DOUBLE, SINGLE, CONTEXT
+		DOUBLE, SINGLE, CONTEXT, WRENCH
 	};
 
 	public enum BY {
@@ -111,18 +111,31 @@ public class B2WMaintainScheduleTasks extends B2WKendoTasks {
 		return workOrder(s,CLICK.DOUBLE,BY.EQUIPMENT,WHERE.SCHEDULE,null);
 	}
 	public boolean editScheduleWorkOrderByDescription(String s){
-		return workOrder(s,CLICK.CONTEXT,BY.EQUIPMENT,WHERE.SCHEDULE,"Edit Schedule");
+		return workOrder(s,CLICK.CONTEXT,BY.DESCRIPTION,WHERE.SCHEDULE,"Edit Schedule");
 	}
 	public boolean unscheduleWorkOrderByDescription(String s){
-		return workOrder(s,CLICK.CONTEXT,BY.EQUIPMENT,WHERE.SCHEDULE,"Unschedule");
+		return workOrder(s,CLICK.CONTEXT,BY.DESCRIPTION,WHERE.SCHEDULE,"Unschedule");
 	}
 	public boolean editWorkOrderByDescription(String s){
-		return workOrder(s,CLICK.CONTEXT,BY.EQUIPMENT,WHERE.SCHEDULE,"Edit Work Order");
+		return workOrder(s,CLICK.CONTEXT,BY.DESCRIPTION,WHERE.SCHEDULE,"Edit Work Order");
 	}
 	public boolean completeWorkOrderByDescription(String s){
-		return workOrder(s,CLICK.CONTEXT,BY.EQUIPMENT,WHERE.SCHEDULE,"Complete");
+		return workOrder(s,CLICK.CONTEXT,BY.DESCRIPTION,WHERE.SCHEDULE,"Complete");
 	}
 	
+	
+	public boolean editScheduleWorkOrderByDescriptionWithWrench(String s){
+		return workOrder(s,CLICK.WRENCH,BY.DESCRIPTION,WHERE.SCHEDULE,"Edit Schedule");
+	}
+	public boolean unscheduleWorkOrderByDescriptionWithWrench(String s){
+		return workOrder(s,CLICK.WRENCH,BY.DESCRIPTION,WHERE.SCHEDULE,"Unschedule");
+	}
+	public boolean editWorkOrderByDescriptionWithWrench(String s){
+		return workOrder(s,CLICK.WRENCH,BY.DESCRIPTION,WHERE.SCHEDULE,"Edit Work Order");
+	}
+	public boolean completeWorkOrderByDescriptionWithWrench(String s){
+		return workOrder(s,CLICK.WRENCH,BY.DESCRIPTION,WHERE.SCHEDULE,"Complete");
+	}
 	public boolean openWorkOrderFromWorkOrderTabByDescription(String s) {	
 		return workOrder(s,CLICK.DOUBLE,BY.DESCRIPTION,WHERE.WORKTAB,null);
 	}
@@ -140,7 +153,15 @@ public class B2WMaintainScheduleTasks extends B2WKendoTasks {
 	public boolean editWorkOrderFromWorkOrderTabByDescription(String s) {
 		return workOrder(s,CLICK.CONTEXT,BY.DESCRIPTION,WHERE.WORKTAB, "Edit Work Order");
 	}
-
+	public boolean scheduleWorkOrderFromWorkOrderTabByDescriptionWithWrench(String s) {
+		return workOrder(s,CLICK.WRENCH,BY.DESCRIPTION,WHERE.WORKTAB, "Schedule");
+	}
+	public boolean unapproveWorkOrderFromWorkOrderTabByDescriptionWithWrench(String s) {
+		return workOrder(s,CLICK.WRENCH,BY.DESCRIPTION,WHERE.WORKTAB, "Unapprove");
+	}
+	public boolean editWorkOrderFromWorkOrderTabByDescriptionWithWrench(String s) {
+		return workOrder(s,CLICK.WRENCH,BY.DESCRIPTION,WHERE.WORKTAB, "Edit Work Order");
+	}
 	public boolean completeWorkOrderFromWorkOrderTabByDescription(String s) {
 		return workOrder(s,CLICK.CONTEXT,BY.DESCRIPTION,WHERE.WORKTAB,  "Complete");
 	}
@@ -156,6 +177,23 @@ public class B2WMaintainScheduleTasks extends B2WKendoTasks {
 	public boolean completeWorkOrderFromPastDueTabByDescription(String s) {
 		return workOrder(s,CLICK.CONTEXT,BY.DESCRIPTION,WHERE.PASTTAB,  "Complete");
 	}
+	
+	public boolean completeWorkOrderFromWorkOrderTabByDescriptionWithWrench(String s) {
+		return workOrder(s,CLICK.WRENCH,BY.DESCRIPTION,WHERE.WORKTAB,  "Complete");
+	}
+	public boolean editscheduleWorkOrderFromPastDueTabByDescriptionWithWrench(String s) {
+		return workOrder(s,CLICK.WRENCH,BY.DESCRIPTION,WHERE.PASTTAB, "Edit Schedule");
+	}
+	public boolean unscheduleWorkOrderFromPastDueTabByDescriptionWithWrench(String s) {
+		return workOrder(s,CLICK.WRENCH,BY.DESCRIPTION,WHERE.PASTTAB, "Unschedule");
+	}
+	public boolean editWorkOrderFromPastDueTabByDescriptionWithWrench(String s) {
+		return workOrder(s,CLICK.WRENCH,BY.DESCRIPTION,WHERE.PASTTAB, "Edit Work Order");
+	}
+	public boolean completeWorkOrderFromPastDueTabByDescriptionWithWrench(String s) {
+		return workOrder(s,CLICK.WRENCH,BY.DESCRIPTION,WHERE.PASTTAB,  "Complete");
+	}
+	
 	public boolean clickWorkOrderFromWorkOrderTabByDescription(String s) {
 		return workOrder(s,CLICK.SINGLE,BY.DESCRIPTION,WHERE.WORKTAB,null);
 	}
@@ -208,6 +246,7 @@ public class B2WMaintainScheduleTasks extends B2WKendoTasks {
 					coordinate.inViewPort();
 					break;
 				}
+			  el = null;	
 			}
 		}catch (StaleElementReferenceException e){
 			return getWorkOrder(sText, desc, where);
@@ -232,6 +271,10 @@ public class B2WMaintainScheduleTasks extends B2WKendoTasks {
 				case CONTEXT:
 					actions.contextClick(el);
 					break;
+				case WRENCH:
+					WebElement parent = WebElementUtils.getParentElement(el);
+					WebElementUtils.clickElement(WebElementUtils.getChildElement(parent, B2WMaintain.getMaintainScheduleWrench()));
+					
 				}
 				actions.perform();
 				switch (click) {
@@ -256,18 +299,42 @@ public class B2WMaintainScheduleTasks extends B2WKendoTasks {
 					}
 					break;
 				case CONTEXT:
+				case WRENCH:
 					switch (where) {
 					case PASTTAB:
 					case SCHEDULE:
+						switch (click) {
+						case CONTEXT:
+							contextMenu = WebElementUtils.waitAndFindDisplayedElement(
+									B2WMaintain.getB2WMaintainSchedulerScheduledContextMenu());
+							break;
+						case WRENCH:
+							contextMenu = WebElementUtils.waitAndFindDisplayedElement(
+									B2WMaintain.getB2WMaintainSchedulerScheduledWrenchMenu());
 
-						contextMenu = WebElementUtils
-								.waitAndFindDisplayedElement(B2WMaintain.getB2WMaintainSchedulerScheduledContextMenu());
-
+							break;
+						case SINGLE:
+							break;
+						case DOUBLE:
+							break;
+						}
 						break;
 					case WORKTAB:
+						switch (click) {
+						case CONTEXT:
+							contextMenu = WebElementUtils.waitAndFindDisplayedElement(
+									B2WMaintain.getB2WMaintainSchedulerUnscheduledContextMenu());
+							break;
+						case WRENCH:
+							contextMenu = WebElementUtils.waitAndFindDisplayedElement(
+									B2WMaintain.getB2WMaintainSchedulerUnscheduledWrenchMenu());
 
-						contextMenu = WebElementUtils.waitAndFindDisplayedElement(
-								B2WMaintain.getB2WMaintainSchedulerUnscheduledContextMenu());
+							break;
+						case SINGLE:
+							break;
+						case DOUBLE:
+							break;
+						}
 						break;
 					}
 					List<WebElement> items = contextMenu.findElements(B2WScheduleAssignments.getLinks());
@@ -349,7 +416,40 @@ public class B2WMaintainScheduleTasks extends B2WKendoTasks {
 		return al;
 		
 	}
+	public ArrayList<String> getPastDueWorkOrdersFromTab() {
+		
+		ArrayList<String> al = new ArrayList<String>();
+		WebElement el = null;
+		WebElement workorderlist = WebElementUtils.findElement(B2WMaintain.getB2WMaintainschedulerpastdueworkorderlist());
+		List<WebElement> events = WebElementUtils.getChildElements(workorderlist,
+				B2WMaintain.getB2WMaintainschedulerpastdueworkorder());
+		Iterator<WebElement> iter = events.iterator();
+		while (iter.hasNext()) {
+			el = iter.next();
+			WebElement summary = WebElementUtils.getChildElement(el,
+					B2WMaintain.getB2WMaintainschedulerworkordersummary());
+			String sDescAndWorkNumber = summary.getText().substring(0, summary.getText().indexOf("\n"));
+			al.add(sDescAndWorkNumber);
+		}
+		return al;
+		
+	}
 	
+	public ArrayList<String> getAllScheduledWorkOrders() {	
+		
+		ArrayList<String> al = new ArrayList<String>();
+		WebElement workorderlist = WebElementUtils.findElement(B2WMaintain.getB2WMaintainSchedulerContent());
+		List<WebElement> events = WebElementUtils.getChildElements(workorderlist, B2WMaintain.getB2WMaintainSchedulerEvents());
+		Iterator<WebElement> iter = events.iterator();
+		while (iter.hasNext()) {
+			WebElement el = iter.next();
+			WebElement summary = WebElementUtils.getChildElement(el,
+					B2WMaintain.getB2WMaintainschedulerworkordersummary());
+			 al.add(summary.getText().substring(0, summary.getText().indexOf("\n")));
+		}
+		return al;
+	
+	}
 	
 	public boolean openWorkOrderFromPastDueTabByNumber(int i) {
 		boolean bReturn = false;

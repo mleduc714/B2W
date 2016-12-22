@@ -949,6 +949,9 @@ public class B2WUIMap {
 	
 	public static final String unscheduledworkorderscontextmenu = "ul#unscheduledWorkOrdersContextMenu";
 	public static final String scheduleworkorderscontentmenu = "ul#scheduledWorkOrdersContextMenu";
+	//public static final String scheduleworkorderscontentmenuwrench = "ul[id^='scheduledWorkOrdersContextMenu']";
+	public static final String scheduleworkorderscontentmenuwrench = "ul#scheduledWorkOrdersContextMenu-wrench";
+	public static final String unscheduledworkorderscontentmenuwrench = "ul#unscheduledWorkOrdersContextMenu-wrench";
 	public static final String scheduleremptyslotcontextmenu = "li#scheduler-empty-slot-context-menu_mn_active";
 	
 	//B2W Schedule Tests
@@ -1060,6 +1063,7 @@ public class B2WUIMap {
     public static final String b2w_maintainschedulepopupwarning = "span.warning";
     public static final String b2w_maintainschedulepopupsectiontitle = "span.section-title";
     public static final String b2w_maintainschedulepopupclose = "a.k-icon.k-i-close";
+    public static final String b2w_maintainschedulewrenchicon = "div.b2w-icon.i153-work-order";
     
     //popup filters
     public static final String b2w_maintainscheduleworkorderfilters = "div.popup--filters.k-window-content.k-content";

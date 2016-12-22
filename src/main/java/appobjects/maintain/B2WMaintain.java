@@ -233,6 +233,12 @@ public class B2WMaintain extends KendoUI {
 	public static By getB2WMaintainSchedulerScheduledContextMenu() {
 		return By.cssSelector(B2WUIMap.scheduleworkorderscontentmenu);
 	}
+	public static By getB2WMaintainSchedulerScheduledWrenchMenu() {
+		return By.cssSelector(B2WUIMap.scheduleworkorderscontentmenuwrench);
+	}
+	public static By getB2WMaintainSchedulerUnscheduledWrenchMenu() {
+		return By.cssSelector(B2WUIMap.unscheduledworkorderscontentmenuwrench);
+	}
 	public static By getB2WMaintainSchedulerWorkOrdersTab() {
 		return By.cssSelector(B2WUIMap.b2w_maintainschedulertabone);
 	}
@@ -478,5 +484,8 @@ public class B2WMaintain extends KendoUI {
     }
 	public static By getMaintainEquipmentDetailView() {
 		return By.cssSelector(B2WUIMap.b2w_maintainequipmentdetailview);
+	}
+	public static By getMaintainScheduleWrench() {
+		return By.cssSelector(B2WUIMap.b2w_maintainschedulewrenchicon);
 	}
 }

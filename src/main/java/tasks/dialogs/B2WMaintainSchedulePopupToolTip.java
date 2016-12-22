@@ -22,7 +22,10 @@ public class B2WMaintainSchedulePopupToolTip {
 	
 	
 	private WebElement getSchedulePopup() {
-		return WebElementUtils.findElement(B2WMaintain.getB2WMaintainSchedulePopup());
+		
+		List<WebElement> list = WebElementUtils.waitAndFindDisplayedElements(B2WMaintain.getB2WMaintainSchedulePopup());
+		// want the last one
+		return list.get(list.size()-1);
 	}
 	
 	public String getWorkOrderTitle(){
@@ -37,7 +40,9 @@ public class B2WMaintainSchedulePopupToolTip {
 		String sText = "";
 		List<WebElement> el = WebElementUtils.getChildElements(getSchedulePopup(), By.tagName("span"));
 		if (el != null){
+			
 			sText = el.get(1).getText();
+			sText = sText.substring(0, sText.indexOf("]")+1);
 		}
 		return sText;
 	}
@@ -68,42 +73,26 @@ public class B2WMaintainSchedulePopupToolTip {
 		return al;
 	}
 	public String getAssignedTo() {
-		String sText = ""; 
 		WebElement el = getSectionTitle(ASSIGNEDTO);
-	    if (el != null){
-			 sText = el.getText();
-		 }
-	    return sText;
+		return getTextFromSection(el);
 	}
 	public String getLocation() {
 
-		String sText = ""; 
 		WebElement el = getSectionTitle(LOCATION);
-	    if (el != null){
-			 sText = el.getText();
-		 }
-	    return sText;
+		return getTextFromSection(el);
 	
 	}
 	public String getPriority(){
 
-		String sText = ""; 
 		WebElement el = getSectionTitle(PRIORITY);
-	    if (el != null){
-			 sText = el.getText();
-		 }
-	    return sText;
+		return getTextFromSection(el);
 	
 	}
-	public String getNotes() {
 
-		String sText = ""; 
+	public String getNotes() {
 		WebElement el = getSectionTitle(NOTES);
-	    if (el != null){
-			 sText = el.getText();
-		 }
-	    return sText;
-	
+		return getTextFromSection(el);
+
 	}
 	public boolean clickEquipmentLink(){
 
@@ -137,15 +126,21 @@ public class B2WMaintainSchedulePopupToolTip {
 	public WebElement getSectionTitle(String sTitle){
 		WebElement item = null;
 		List<WebElement> el = WebElementUtils.getChildElements(getSchedulePopup(), B2WMaintain.getB2WMaintainSchedulePopupSectionTitle());
-		Iterator<WebElement> iter = el.iterator();
-		while (iter.hasNext()){
-			WebElement title = iter.next();
-			if (title.equals(sTitle)){
-				item = title;
-				break;
-			}
+		if (el.size() > 0){
+		
+			item = WebElementUtils.getElementWithMatchingText(el, sTitle, false);
 		}
 		return item;
+	}
+	
+	private String getTextFromSection(WebElement el) {
+		String sText = "";
+		WebElement parent = WebElementUtils.getParentElement(el);
+		List<WebElement> list = WebElementUtils.getChildElements(parent, By.tagName("span"));
+		if (el != null) {
+			sText = list.get(1).getText();
+		}
+		return sText;
 	}
 	
 	
