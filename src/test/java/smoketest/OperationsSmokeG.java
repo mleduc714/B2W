@@ -19,6 +19,7 @@ import tasks.maintain.B2WMaintainTasks;
 import tasks.maintain.B2WTimeCardTasks;
 import tasks.maintain.B2WWorkOrdersTasks;
 import tasks.resources.B2WEquipmentTasks;
+import tasks.util.TaskUtils;
 
 public class OperationsSmokeG extends B2WTestCase {
 
@@ -245,6 +246,7 @@ public class OperationsSmokeG extends B2WTestCase {
 		logCompare(true, b2wEquip.expandPrograms(), "Expand Programs");
 		logCompare(true, b2wEquip.clickAddProgramButton(), "Add Programs");
 		logCompare(true, b2wAddProgram.setAddProgramText(sMaintenanceProgramDesc), "Select Maintainence Program");
+		TaskUtils.sleep(1000);
 		logCompare(true, b2wAddProgram.clickAddProgramNextButton(), "Click Next");
 		logCompare(true, b2wAddProgram.clickSaveProgramButton(), "Save Program");
 		
