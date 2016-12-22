@@ -365,14 +365,14 @@ public class ScheduleAssignments extends B2WTestCase {
         //moveSubstitution();
         //moveEmployeeNeed();
         //moveEquipmentAssignment();
-        moveEquipmentNeed();
-        moveCrewAssignment();
-        moveCrewNeed();
-        moveMoveAssignment();
-        moveMoveOrder();
-        moveEmployeeEvent();
-        moveEquipmentEvent();
-        moveLocationEvent();
+        //moveEquipmentNeed();
+        //moveCrewAssignment();
+        //moveCrewNeed();
+        //moveMoveAssignment();
+        //moveMoveOrder();
+        //moveEmployeeEvent();
+        //moveEquipmentEvent();
+        //moveLocationEvent();
 
         //=== Edit Assignments
         updateEmployeeAssignment();

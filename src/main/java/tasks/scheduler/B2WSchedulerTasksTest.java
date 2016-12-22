@@ -185,8 +185,8 @@ public class B2WSchedulerTasksTest extends B2WKendoTasks {
             bReturn &= logCompare(true, setEmployee(sEmployeeSubstitution), "Set Employee Substitution");
             if (bReturn) {
                 bReturn &= logCompare(true, saveAssignment(), "Save Employee Substitution");
-
                 assignment.makeSubstitution(sEmployeeSubstitution);
+
                 WebElement result = getAssignment(assignment);
                 logCompare(true, result != null, "Verification that specific Assignment converted to Substituted.");
                 logCompare(true, setSearchValue(sEmployeeSubstitution), "Set Filter by Employee Name");
@@ -605,7 +605,47 @@ public class B2WSchedulerTasksTest extends B2WKendoTasks {
         return moveAssignmentToResourceAndDate(assignment, sResourceName, assignment.getStartDateAsDate());
     }
 
+    public boolean deleteAssignment(B2WAssignment assignment) {
+        boolean bReturn = false;
+        logCompare(true, true, "====== Start Assignment Deletion for " + assignment.getResourceName());
+        int initialCount = getAssignmentsCount(assignment);
+        WebElement eAssignment = getAssignment(assignment);
+        if (eAssignment != null) {
+            bReturn = logCompare(true, openContextMenu(eAssignment), "Open Assignment's Context Menu");
+            if (assignment.getAssignmentType().equals(B2WAssignmentType.EMPLOYEE_TYPE) ||
+                    assignment.getAssignmentType().equals(B2WAssignmentType.EQUIPMENT_TYPE) ||
+                    assignment.getAssignmentType().equals(B2WAssignmentType.CREW_TYPE))  {
+                bReturn &= selectOptionFromContextMenu("Delete Assignment");
+            } else if (assignment.getAssignmentType().equals(B2WAssignmentType.EMPLOYEE_NEED_TYPE) ||
+                    assignment.getAssignmentType().equals(B2WAssignmentType.EQUIPMENT_NEED_TYPE) ||
+                    assignment.getAssignmentType().equals(B2WAssignmentType.CREW_NEED_TYPE))  {
+                bReturn &= selectOptionFromContextMenu("Delete Need");
+            } else if (assignment.getAssignmentType().equals(B2WAssignmentType.EMPLOYEE_EVENT_TYPE) ||
+                    assignment.getAssignmentType().equals(B2WAssignmentType.EQUIPMENT_EVENT_TYPE) ||
+                    assignment.getAssignmentType().equals(B2WAssignmentType.LOCATION_EVENT_TYPE)) {
+                bReturn &= selectOptionFromContextMenu("Delete Event");
+            } else if (assignment.getAssignmentType().equals(B2WAssignmentType.MOVE_ASSIGNMENT_TYPE)) {
+                bReturn &= selectOptionFromContextMenu("Delete Move Assignment");
+            } else if (assignment.getAssignmentType().equals(B2WAssignmentType.MOVE_ORDER_TYPE)) {
+                bReturn &= selectOptionFromContextMenu("Delete Move Order");
+            } else if (assignment.getAssignmentType().equals(B2WAssignmentType.SUBSTITUTION_TYPE)) {
+                bReturn &= selectOptionFromContextMenu("Delete Substitution");
+            } else {
+                bReturn = false;
+            }
 
+            bReturn &= selectButtonOption("Yes");
+
+            int actualCount = getAssignmentsCount(assignment);
+            bReturn &= logCompare(true, actualCount == initialCount - 1, "Verification that number of Assignment has been decreased by 1.");
+            WebElement result = getAssignment(assignment);
+            bReturn &= logCompare(true,  result == null, "Verification that specific Assignment has been deleted.");
+        } else {
+            logCompare(true, false, "Assignment for " + assignment.getResourceName() + " on " + assignment.getResourceName() + " could not be found.");
+        }
+        logCompare(true, true, "====== Complete Assignment Deletion for " + assignment.getResourceName());
+        return bReturn;
+    }
     // ==== Private Methods ============================================================================================
     // === Menu for Creation
     private boolean openCreateDialog(String sItem) {
@@ -729,6 +769,12 @@ public class B2WSchedulerTasksTest extends B2WKendoTasks {
         } else {
             log.debug("ToolBar panel could not be found.");
         }
+        return bReturn;
+    }
+    private boolean deleteAssignment() {
+        boolean bReturn;
+        bReturn = selectOptionFromContextMenu("Delete Assignment");
+        bReturn &= selectButtonOption("Yes");
         return bReturn;
     }
 

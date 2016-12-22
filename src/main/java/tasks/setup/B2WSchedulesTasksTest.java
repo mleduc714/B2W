@@ -47,6 +47,20 @@ public class B2WSchedulesTasksTest extends B2WKendoTasks {
         bReturn &= logCompare(true, true, "====== End Schedule View Creation: " + scheduleView.getName());
         return bReturn;
     }
+    public boolean deleteScheduleView(B2WScheduleView scheduleView) {
+        /*
+         * 1. Navigate to Setup -> Schedules
+         * 2. Select Schedule View
+         * 3. Delete Schedule View
+         * 4. Check that Schedule View has been deleted.
+         */
+        boolean bReturn = logCompare(true, true, "====== Start Schedule View Creation: " + scheduleView.getName());
+        bReturn &= logCompare(true, b2wNav.openSchedules(), "Navigate to Setup -> Schedules");
+        bReturn &= logCompare(true, selectScheduleView(scheduleView.getName()), "Select specific Schedule View");
+        bReturn &= logCompare(true, deleteSchedule(), "Delete Schedule View");
+        bReturn &= logCompare(false, isScheduleExist(scheduleView.getName()), "Check that Schedule View has been deleted.");
+        return bReturn;
+    }
 
     // === Private Methods
     private boolean clickCreateScheduleView() {
@@ -89,6 +103,20 @@ public class B2WSchedulesTasksTest extends B2WKendoTasks {
             }
         }
         return bResult;
+    }
+    private boolean deleteSchedule() {
+        boolean bReturn = false;
+        WebElement eDeleteBtn = WebElementUtils.findElement(B2WSchedules.deleteBtn());
+        if (eDeleteBtn != null) {
+            bReturn = WebElementUtils.clickElement(eDeleteBtn);
+            WebElement eDeleteWindow = WebElementUtils.waitAndFindDisplayedElement(B2WSchedules.deletePopUpWindow());
+            WebElement eYesBtn = WebElementUtils.getChildElement(eDeleteWindow, B2WSchedules.yesBtnOnPopupWindow());
+            bReturn &= WebElementUtils.clickElement(eYesBtn);
+            waitForSchedulesPageNoBusy();
+        } else {
+            log.debug("Delete button could not be found on the page.");
+        }
+        return bReturn;
     }
 
     private WebElement findScheduleView(String sValue) {
@@ -324,6 +352,19 @@ public class B2WSchedulesTasksTest extends B2WKendoTasks {
             bReturn &= selectItemFromDropDown(sValue);
         } else {
             log.debug("'Security Role' dropdown could not be found on the page.");
+        }
+        return bReturn;
+    }
+
+    private boolean selectScheduleView(String sValue) {
+        boolean bReturn = false;
+        WebElement eItem = findScheduleView(sValue);
+        if (eItem != null) {
+            bReturn = WebElementUtils.clickElement(eItem);
+            waitForSchedulesPageNoBusy();
+            WebElement panel = WebElementUtils.waitAndFindDisplayedElement(B2WSchedules.rightPanel());
+            WebElement headline = WebElementUtils.getChildElement(panel, B2WSchedules.headline());
+            bReturn &= headline.getText().equals(sValue);
         }
         return bReturn;
     }

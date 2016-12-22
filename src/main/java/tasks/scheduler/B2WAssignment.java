@@ -77,16 +77,6 @@ public class B2WAssignment implements Cloneable {
     public void setDropoffTime(String dropoffTime) {
         this.dropoffTime = dropoffTime;
     }
-    public void makeSubstitution(String substitutionName) {
-        try {
-            this.substitution = this.clone();
-        } catch (CloneNotSupportedException e) {
-            e.printStackTrace();
-        }
-        this.substitution.setResourceName(substitutionName);
-        this.substitution.setAssignmentType(B2WAssignmentType.SUBSTITUTION_TYPE);
-        this.assignmentType = B2WAssignmentType.SUBSTITUTED_TYPE;
-    }
 
     public String getAssignmentType() {
         return assignmentType;
@@ -140,43 +130,43 @@ public class B2WAssignment implements Cloneable {
     public String getPickupTime() {
         return pickupTime;
     }
-
-    // Public Methods
     public B2WAssignment getSubstitution() {
         return substitution;
     }
+
+    // Public Methods
+    public void makeSubstitution(String substitutionName) {
+        this.substitution = this.clone();
+        this.substitution.setResourceName(substitutionName);
+        this.substitution.setAssignmentType(B2WAssignmentType.SUBSTITUTION_TYPE);
+        this.assignmentType = B2WAssignmentType.SUBSTITUTED_TYPE;
+    }
+    public void removeSubstitution()  {
+        this.assignmentType = B2WAssignmentType.EMPLOYEE_TYPE;
+        this.substitution = null;
+    }
+
     public void moveTo(Date moveDate) {
-        int delta = (int) (moveDate.getTime() - this.getStartDateAsDate().getTime());
-        delta = delta / 1000 / 60 / 60 / 24;
-        if (delta > 0) {
-            delta++;
-        }
-        this.dateList.set(0, DateUtils.addDays(this.dateList.get(0), delta));
-        this.dateList.set(dateList.size() - 1, DateUtils.addDays(this.dateList.get(dateList.size() - 1), delta));
+        Calendar currentCalendar = Calendar.getInstance();
+        currentCalendar.setTime(this.getStartDateAsDate());
+        currentCalendar.set(Calendar.HOUR, 0);
+        currentCalendar.set(Calendar.MINUTE, 0);
+        currentCalendar.set(Calendar.SECOND, 0);
+        currentCalendar.set(Calendar.MILLISECOND, 0);
 
-        /*
-        if (moveDate.after(this.dateList.get(0)) && mo) {
-            while (moveDate.after(this.dateList.get(0)) && !moveDate.equals(this.dateList.get(0))) {
-                this.dateList.set(0, DateUtils.addDays(this.dateList.get(0), 1));
-                this.dateList.set(dateList.size()-1, DateUtils.addDays(this.dateList.get(dateList.size()-1), 1));
-            }
-        } else if (moveDate.before(this.dateList.get(0))) {
-            while (moveDate.before(this.dateList.get(0)) && !moveDate.equals(this.dateList.get(0))) {
-                this.dateList.set(0, DateUtils.addDays(this.dateList.get(0), -1));
-                this.dateList.set(dateList.size()-1, DateUtils.addDays(this.dateList.get(dateList.size()-1), -1));
-            }
-        }
-        */
-        /*
-        Date tmpDate = new Date();
-        tmpDate.setTime(this.dateList.get(0).getTime());
-        tmpDate.setMinutes(0);
-        tmpDate.setHours(0);
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(moveDate);
+        calendar.set(Calendar.HOUR, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
 
-        int delta = (int) (moveDate.getTime() - tmpDate.getTime());
-        this.dateList.set(0, DateUtils.addMilliseconds(this.dateList.get(0), delta));
-        this.dateList.set(dateList.size()-1, DateUtils.addMilliseconds(this.dateList.get(dateList.size()-1), delta));
-        */
+        long diff = calendar.getTimeInMillis() - currentCalendar.getTimeInMillis();
+
+        long days = diff / 1000 / 60 / 60 / 24;
+
+        this.dateList.set(0, DateUtils.addDays(this.dateList.get(0), (int) days));
+        this.dateList.set(dateList.size() - 1, DateUtils.addDays(this.dateList.get(dateList.size() - 1), (int) days));
     }
 
     // Constructors
@@ -298,7 +288,11 @@ public class B2WAssignment implements Cloneable {
         this.transportationCrew = assignment.transportationCrew;
     }
 
-    public B2WAssignment clone() throws CloneNotSupportedException {
-        return (B2WAssignment) super.clone();
+    public B2WAssignment clone() {
+        try {
+            return (B2WAssignment) super.clone();
+        } catch (CloneNotSupportedException ex) {
+            return null;
+        }
     }
 }
