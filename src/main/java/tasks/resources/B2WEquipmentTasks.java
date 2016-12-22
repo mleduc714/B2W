@@ -12,6 +12,7 @@ import org.openqa.selenium.internal.Locatable;
 import appobjects.maintain.B2WMaintain;
 import appobjects.resources.B2WEquipment;
 import appobjects.resources.KendoUI;
+import appobjects.setup.B2WSchedules;
 import tasks.WebElementUtils;
 import tasks.util.TaskUtils;
 
@@ -711,7 +712,7 @@ public class B2WEquipmentTasks extends B2WKendoTasks {
 		WebElement el = WebElementUtils.getElementWithMatchingText(ls, PARTS, false);
 		if (el != null) {
 			List<WebElement> windows = WebElementUtils.findElements(B2WMaintain.getKendoWindowTitle());
-			WebElement button = getButton(2);
+			WebElement button = getButton("Add Parts");
 			Coordinates coordinate = ((Locatable) button).getCoordinates();
 			coordinate.onPage();
 			coordinate.inViewPort();
@@ -741,7 +742,7 @@ public class B2WEquipmentTasks extends B2WKendoTasks {
 	public boolean clickAddMeterButton() {
 		boolean bReturn = false;
 
-		WebElement button = getButton(1);
+		WebElement button = getButton("New Meter");
 		Coordinates coordinate = ((Locatable) button).getCoordinates();
 		coordinate.onPage();
 		coordinate.inViewPort();
@@ -756,15 +757,14 @@ public class B2WEquipmentTasks extends B2WKendoTasks {
 	
 	public boolean clickAddProgramButton() {
 		boolean bReturn = false;
-		WebElement button = getButton(4);
+		WebElement button = getButton("Add Program");
 		Coordinates coordinate = ((Locatable) button).getCoordinates();
 		coordinate.onPage();
 		coordinate.inViewPort();
-		TaskUtils.sleep(5000);
 		if (WebElementUtils.clickElement(button)) {
 			bReturn = true;
+			bReturn &= WebElementUtils.waitAndFindDisplayedElement(B2WMaintain.getB2WAddProgramDialog()) != null;
 		}
-
 		return bReturn;
 	}
 	
@@ -772,7 +772,7 @@ public class B2WEquipmentTasks extends B2WKendoTasks {
 	
 	public boolean clickAddEventButton(){
 		boolean bReturn = false;
-		WebElement button = getButton(12);
+		WebElement button = getButton("Add Event");
 		Coordinates coordinate = ((Locatable) button).getCoordinates();
 		coordinate.onPage();
 		coordinate.inViewPort();
@@ -784,7 +784,7 @@ public class B2WEquipmentTasks extends B2WKendoTasks {
 	}
 	public boolean clickAddWarrantyButton(){
 		boolean bReturn = false;
-		WebElement button = getButton(9);
+		WebElement button = getButton("Add Warranty");
 		Coordinates coordinate = ((Locatable) button).getCoordinates();
 		coordinate.onPage();
 		coordinate.inViewPort();
@@ -797,7 +797,7 @@ public class B2WEquipmentTasks extends B2WKendoTasks {
 	
 	public boolean clickAddEquipmentTag(){
 		boolean bReturn = false;
-		WebElement button = getButton(11);
+		WebElement button = getButton("Add Equipment Tags");
 		Coordinates coordinate = ((Locatable) button).getCoordinates();
 		coordinate.onPage();
 		coordinate.inViewPort();
@@ -883,6 +883,13 @@ public class B2WEquipmentTasks extends B2WKendoTasks {
 	public String getValueOfItem(String sItem){
 		return getValueOfItem(sItem, B2WMaintain.getMaintainEquipmentDetailView());
 	}
-	
+	public boolean clickEdit() {
+        boolean bReturn = false;
+		WebElement eEdit = WebElementUtils.findElement(B2WSchedules.editScheduleViewBtn());
+        if (eEdit != null){
+        	bReturn = WebElementUtils.clickElement(eEdit);
+        }
+        return bReturn;
+	}
 	
 }

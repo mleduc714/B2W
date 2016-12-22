@@ -13,9 +13,10 @@ public class B2WAddProgramToEquipment extends B2WKendoDialog {
 		WebElement el = getDisplayedWindow();
 		if (el != null){
 			WebElement program = WebElementUtils.getChildElement(el, B2WMaintain.getKendoDropDown());
-			WebElementUtils.clickElement(program);
-			bReturn = WebElementUtils.sendKeys(program, sText);
-			WebElementUtils.clickElement(el);
+			if (program != null){
+				WebElementUtils.clickElement(program);
+				bReturn = WebElementUtils.sendKeys(program, sText);
+			}
 		}
 		return bReturn;
 	}

@@ -375,6 +375,20 @@ public abstract class B2WKendoTasks {
 		}
 	}
 	
+	protected WebElement getButton(String sDesc){
+		WebElement el = null;
+		List<WebElement> list = WebElementUtils.findElements(B2WMaintain.getKendoButtonAdd());
+		for (WebElement e: list){
+			String sButtonName = WebElementUtils.getParentElement(e).getText();
+			if (sButtonName.contains(sDesc)){
+				el = e;
+				break;
+			}
+		}
+		return el;
+		
+	}
+	
 	protected String getValueOfItem(String sItem, By by) {
 
 		WebElement el = WebElementUtils.waitAndFindDisplayedElement(by);
