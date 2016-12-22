@@ -11,6 +11,7 @@ import org.openqa.selenium.interactions.internal.Coordinates;
 import org.openqa.selenium.internal.Locatable;
 
 import appobjects.maintain.B2WMaintain;
+import appobjects.resources.B2WEquipment;
 import tasks.WebElementUtils;
 import tasks.resources.B2WKendoTasks;
 import tasks.util.TaskUtils;
@@ -102,7 +103,10 @@ public class B2WWorkOrdersTasks extends B2WKendoTasks {
 	public boolean setWorkOrderDescription(String sText){
 		boolean bReturn = false;
 		WebElement equipment = getFormElement("Description",B2WMaintain.getKendoDescription());
-		if (equipment != null){
+		if (equipment != null) {
+
+			equipment.clear();
+
 			bReturn = WebElementUtils.sendKeys(equipment, sText);
 		}
 		return bReturn;
@@ -189,7 +193,7 @@ public class B2WWorkOrdersTasks extends B2WKendoTasks {
 			bReturn = WebElementUtils.clickElement(el);
 			bReturn &= WebElementUtils.waitForElementInvisible(WebElementUtils.findElement(B2WMaintain.getKendoFakeSaveButton()), WebElementUtils.LONG_TIME_OUT, true);
 			bReturn &= waitForPageNotBusy(WebElementUtils.MEDIUM_TIME_OUT);
-			bReturn &= WebElementUtils.waitAndFindDisplayedElement(B2WMaintain.getB2WMaintainItemActions(), WebElementUtils.MEDIUM_TIME_OUT) != null;
+			//bReturn &= WebElementUtils.waitAndFindDisplayedElement(B2WMaintain.getB2WMaintainItemActions(), WebElementUtils.MEDIUM_TIME_OUT) != null;
 		}
 		return bReturn;
 	}
@@ -201,7 +205,7 @@ public class B2WWorkOrdersTasks extends B2WKendoTasks {
 			bReturn = WebElementUtils.clickElement(el);
 			bReturn &= WebElementUtils.waitForElementInvisible(WebElementUtils.findElement(B2WMaintain.getKendoFakeSaveButton()));
 			bReturn &= waitForPageNotBusy(WebElementUtils.MEDIUM_TIME_OUT);
-			bReturn &= WebElementUtils.waitAndFindDisplayedElement(B2WMaintain.getB2WMaintainItemActions(), WebElementUtils.MEDIUM_TIME_OUT) != null;
+			//bReturn &= WebElementUtils.waitAndFindDisplayedElement(B2WMaintain.getB2WMaintainItemActions(), WebElementUtils.MEDIUM_TIME_OUT) != null;
 		}
 		return bReturn;
 	}
@@ -406,5 +410,8 @@ public class B2WWorkOrdersTasks extends B2WKendoTasks {
 			
 		}
 		return bReturn;
+	}
+	public String getWorkOrderHeadline() {
+		return WebElementUtils.waitAndFindDisplayedElement(B2WEquipment.getEquipmentHeadline()).getText();
 	}
 }
