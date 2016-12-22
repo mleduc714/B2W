@@ -10,7 +10,7 @@ public class B2WAddProgramToEquipment extends B2WKendoDialog {
 
 	public boolean setAddProgramText(String sText) {
 		boolean bReturn = false;
-		WebElement el = WebElementUtils.findElement(B2WMaintain.getB2WAddProgramDialog());
+		WebElement el = getDisplayedWindow();
 		if (el != null){
 			WebElement program = WebElementUtils.getChildElement(el, B2WMaintain.getKendoDropDown());
 			WebElementUtils.clickElement(program);
@@ -23,7 +23,7 @@ public class B2WAddProgramToEquipment extends B2WKendoDialog {
 	public boolean clickAddProgramNextButton(){
 		boolean bReturn = false;
 		TaskUtils.sleep(500);
-		WebElement el = WebElementUtils.findElement(B2WMaintain.getB2WAddProgramDialog());
+		WebElement el = getDisplayedWindow();
 		if (el != null){
 			WebElement program = WebElementUtils.getChildElement(el, B2WMaintain.getKendoButtonNext());
 			bReturn = WebElementUtils.clickElement(program);
@@ -34,7 +34,7 @@ public class B2WAddProgramToEquipment extends B2WKendoDialog {
 	public boolean clickSaveProgramButton() {
 		boolean bReturn = false;
 		TaskUtils.sleep(500);
-		WebElement el = WebElementUtils.findElement(B2WMaintain.getB2WAddProgramDialog());
+		WebElement el = getDisplayedWindow();
 		if (el != null){
 			WebElement program = WebElementUtils.getChildElement(el, B2WMaintain.getKendoAddSaveButton());
 			bReturn = WebElementUtils.clickElement(program);
