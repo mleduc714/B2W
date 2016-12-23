@@ -403,6 +403,9 @@ public class ScheduleAssignmentsTest extends B2WTestCase {
         moveEquipmentEvent();
         moveLocationEvent();
 
+        // Update Assignments
+        updateEmployeeAssignment();
+
         // Delete Assignments
         deleteEmployeeAssignmentSubstitution();
         deleteEmployeeAssignments();
@@ -919,6 +922,28 @@ public class ScheduleAssignmentsTest extends B2WTestCase {
                 + locationEvent.getResourceName() + " to Date: " + locationDefaultScheduleView.getEndDate());
         logCompare(true, b2wScheduler.moveAssignmentToResourceAndDate(locationEvent, backupResourceName, locationDefaultScheduleView.getStartDate()), "Move Location Event for: "
                 + locationEvent.getResourceName() + " to Date: " + locationDefaultScheduleView.getStartDate());
+    }
+
+    private void updateEmployeeAssignment() {
+        selectView(employeeScheduleView);
+
+        B2WAssignment updatedAssignment = employeeAssignment.clone();
+
+        String sEmployeeNameUpd = getProperty("sEmployeeNameUpd");
+        String sEmployeeJobSiteNameUpd = getProperty("sEmployeeJobSiteNameUpd");
+        String sEmployeeRequestedByUpd = getProperty("sEmployeeRequestedByUpd");
+        String sEmployeeAssignmentDurationUpd = getProperty("sEmployeeAssignmentDurationUpd");
+        String sEmployeeAssignmentStartTimeUpd = getProperty("sEmployeeAssignmentStartTimeUpd");
+        updatedAssignment.setResourceName(sEmployeeNameUpd);
+        updatedAssignment.setLocationName(sEmployeeJobSiteNameUpd);
+        updatedAssignment.setRequestedBy(sEmployeeRequestedByUpd);
+        updatedAssignment.setDuration(sEmployeeAssignmentDurationUpd);
+        updatedAssignment.setStartTime(sEmployeeAssignmentStartTimeUpd);
+
+        logCompare(true, b2wScheduler.setSearchValue(employeeAssignment.getResourceName()), "Set Quick Filter to " + employeeAssignment.getResourceName());
+        logCompare(true, b2wScheduler.updateAssignment(employeeAssignment, updatedAssignment), "Update Employee Assignment from: "
+                + employeeAssignment.getResourceName() + " to : " + updatedAssignment.getResourceName());
+        employeeAssignment = updatedAssignment;
     }
 
     private void deleteEmployeeAssignmentSubstitution(){

@@ -173,14 +173,14 @@ public class B2WAssignment implements Cloneable {
     public B2WAssignment(String assignmentType, String resourceName, String locationName, String requestedBy, String notes,
                          List<Date> dateList, String startTime, String duration) {
 
-        this.assignmentType = assignmentType;
-        this.resourceName = resourceName;
-        this.locationName = locationName;
-        this.requestedBy = requestedBy;
-        this.notes = notes;
-        this.dateList = new ArrayList<Date>(dateList);
-        this.startTime = startTime;
-        this.duration = duration;
+        setAssignmentType(assignmentType);
+        setResourceName(resourceName);
+        setLocationName(locationName);
+        setRequestedBy(requestedBy);
+        setNotes(notes);
+        setDateList(dateList);
+        setStartTime(startTime);
+        setDuration(duration);
 
         String tmpStartDate = this.getStartDate() + " " + getStartTime();
         Date startDate = StringUtils.getDateFromStringWithPattern(tmpStartDate, "M/d/yyyy h:mm a");
@@ -206,20 +206,20 @@ public class B2WAssignment implements Cloneable {
         dateList.add(pickupDate);
         dateList.add(dropoffDate);
 
-        this.assignmentType = assignmentType;
-        this.resourceName = resourceName;
-        this.pickupLocationType = pickupLocationType;
-        this.pickupLocation = pickupLocation;
-        this.dropoffLocationType = dropoffLocationType;
-        this.dropoffLocation = dropoffLocation;
-        this.locationName = dropoffLocation;
-        this.dateList = new ArrayList<Date>(dateList);
-        this.pickupTime = pickupTime;
-        this.startTime = pickupTime;
-        this.dropoffTime = dropoffTime;
-        this.requestedBy = requestedBy;
-        this.notes = notes;
-        this.transportationCrew = transportationCrew;
+        setAssignmentType(assignmentType);
+        setResourceName(resourceName);
+        setPickupLocationType(pickupLocationType);
+        setPickupLocation(pickupLocation);
+        setDropoffLocationType(dropoffLocationType);
+        setDropoffLocation(dropoffLocation);
+        setLocationName(dropoffLocation);
+        setDateList(dateList);
+        setPickupTime(pickupTime);
+        setStartTime(pickupTime);
+        setDropoffTime(dropoffTime);
+        setRequestedBy(requestedBy);
+        setNotes(notes);
+        setTransportationCrew(transportationCrew);
 
         //ToDo: Issue SCHED-3142 : Remove after fix
         String tmpStartDate = this.getStartDate() + " 0:00 AM";
@@ -255,37 +255,6 @@ public class B2WAssignment implements Cloneable {
         tmpStartDate = getEndDate() + " " + this.duration;
         Date endDate = StringUtils.getDateFromStringWithPattern(tmpStartDate, "M/d/yyyy h:mm a");
         this.dateList.set(dateList.size()-1, endDate);
-    }
-    /*
-    B2WAssignment(String assignmentType, String resourceName, String pickupLocation, String dropoffLocation,
-                  Date pickupDate, String pickupTime, String duration,
-                  String requestedBy, String notes, String transportationCrew) {
-
-        this.assignmentType = assignmentType;
-        this.resourceName = resourceName;
-        this.pickupLocation = pickupLocation;
-        this.dropoffLocation = dropoffLocation;
-        this.pickupDate = pickupDate;
-        this.pickupTime = pickupTime;
-        this.duration = duration;
-        this.requestedBy = requestedBy;
-        this.notes = notes;
-        this.transportationCrew = transportationCrew;
-    }
-    */
-    public B2WAssignment(B2WAssignment assignment) {
-        this.assignmentType = assignment.getAssignmentType();
-        this.resourceName = assignment.getResourceName();
-        this.locationName = assignment.getLocationName();
-        this.dropoffLocation = assignment.getDropoffLocation();
-        this.requestedBy = assignment.getRequestedBy();
-        this.notes = assignment.getNotes();
-        this.dateList = new ArrayList<Date>(assignment.getDateList());
-        this.startTime = assignment.getStartTime();
-        this.pickupTime = assignment.getPickupTime();
-        this.dropoffTime = assignment.getDropoffTime();
-        this.duration = assignment.getDuration();
-        this.transportationCrew = assignment.transportationCrew;
     }
 
     public B2WAssignment clone() {

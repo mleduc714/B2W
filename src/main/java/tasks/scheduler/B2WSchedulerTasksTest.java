@@ -27,6 +27,10 @@ public class B2WSchedulerTasksTest extends B2WKendoTasks {
     public final String MOVEASSIGNMENT = "Move Assignment";
     public final String EVENT = "Event";
 
+    private static final ArrayList<String> assignmentsTypes = new ArrayList<String>(Arrays.asList(B2WAssignmentType.EMPLOYEE_TYPE, B2WAssignmentType.EQUIPMENT_TYPE, B2WAssignmentType.CREW_TYPE));
+    private static final ArrayList<String> needsTypes = new ArrayList<String>(Arrays.asList(B2WAssignmentType.EMPLOYEE_NEED_TYPE, B2WAssignmentType.EQUIPMENT_NEED_TYPE, B2WAssignmentType.CREW_NEED_TYPE));
+    private static final ArrayList<String> eventsTypes = new ArrayList<String>(Arrays.asList(B2WAssignmentType.EMPLOYEE_EVENT_TYPE, B2WAssignmentType.EQUIPMENT_EVENT_TYPE, B2WAssignmentType.LOCATION_EVENT_TYPE));
+
     private Logger log = Logger.getLogger(B2WSchedulerTasksTest.class);
 
     public boolean navigateTo(B2WScheduleView scheduleView) {
@@ -605,6 +609,65 @@ public class B2WSchedulerTasksTest extends B2WKendoTasks {
         return moveAssignmentToResourceAndDate(assignment, sResourceName, assignment.getStartDateAsDate());
     }
 
+    public boolean updateAssignment(B2WAssignment existsAssignment, B2WAssignment updatedAssignment) {
+        /*
+         * 1. Open Schedule View
+         * 2. Change Date Range
+         * 3. Change Start Date
+         * 4. Set Filter
+         * 5. Select Assignment
+         * 6. Select Edit from context menu
+         * 7. Update Assignment's data
+         * 8. Save Assignment
+         * 9. Verify that Assignment was updated.
+         */
+
+        boolean bReturn = false;
+        logCompare(true, true, "====== Start Updating " + existsAssignment.getResourceName());
+        WebElement eAssignment = getAssignment(existsAssignment);
+
+        if (eAssignment != null) {
+            bReturn = logCompare(true, openContextMenu(eAssignment), "Open Assignment's Context Menu");
+
+            switch (existsAssignment.getAssignmentType()) {
+                case B2WAssignmentType.EMPLOYEE_TYPE :
+                    updateEmployeeAssignment(updatedAssignment);
+                    break;
+                case B2WAssignmentType.EQUIPMENT_TYPE : break;
+                case B2WAssignmentType.CREW_TYPE : break;
+                case B2WAssignmentType.EMPLOYEE_NEED_TYPE : break;
+                case B2WAssignmentType.EQUIPMENT_NEED_TYPE : break;
+                case B2WAssignmentType.CREW_NEED_TYPE : break;
+                case B2WAssignmentType.MOVE_ASSIGNMENT_TYPE : break;
+                case B2WAssignmentType.MOVE_ORDER_TYPE : break;
+                case B2WAssignmentType.EMPLOYEE_EVENT_TYPE : break;
+                case B2WAssignmentType.EQUIPMENT_EVENT_TYPE : break;
+                case B2WAssignmentType.LOCATION_EVENT_TYPE : break;
+                default : break;
+            }
+
+            bReturn &= logCompare(true, saveAssignment(), "Save the updated Assignment");
+            bReturn &= logCompare(true, setSearchValue(updatedAssignment.getResourceName()), "Set Quick Filter to :" + updatedAssignment.getResourceName());
+
+            WebElement result = getAssignment(updatedAssignment);
+            logCompare(true, result != null, "Verification that specific Employee Assignment has been updated.");
+        } else {
+            logCompare(true, false, "Assignment for " + existsAssignment.getResourceName() + " could not be found on the page.");
+        }
+        logCompare(true, true, "====== Complete Update Assignment " + existsAssignment.getResourceName());
+        return bReturn;
+    }
+    private boolean updateEmployeeAssignment(B2WAssignment assignment) {
+        boolean bReturn = logCompare(true, selectOptionFromContextMenu("Edit Assignment"), "Select 'Edit Assignment' from Context Menu.");
+        bReturn &= logCompare(true, setJobSite(assignment.getLocationName()), "Update JobSite/Place");
+        bReturn &= logCompare(true, updateEmployees(assignment.getResourceName()), "Update Employee");
+        bReturn &= logCompare(true, updateRequestedBy(assignment.getRequestedBy()), "Update Requested By");
+        bReturn &= logCompare(true, updateNotes(assignment.getNotes()), "Update Notes");
+        bReturn &= logCompare(true, setDuration(assignment.getDuration()), "Update Duration");
+        bReturn &= logCompare(true, setStartTime(assignment.getStartTime()), "Update Start Time");
+        return bReturn;
+    }
+
     public boolean deleteAssignment(B2WAssignment assignment) {
         boolean bReturn = false;
         logCompare(true, true, "====== Start Assignment Deletion for " + assignment.getResourceName());
@@ -612,6 +675,7 @@ public class B2WSchedulerTasksTest extends B2WKendoTasks {
         WebElement eAssignment = getAssignment(assignment);
         if (eAssignment != null) {
             bReturn = logCompare(true, openContextMenu(eAssignment), "Open Assignment's Context Menu");
+            /*
             if (assignment.getAssignmentType().equals(B2WAssignmentType.EMPLOYEE_TYPE) ||
                     assignment.getAssignmentType().equals(B2WAssignmentType.EQUIPMENT_TYPE) ||
                     assignment.getAssignmentType().equals(B2WAssignmentType.CREW_TYPE))  {
@@ -623,6 +687,23 @@ public class B2WSchedulerTasksTest extends B2WKendoTasks {
             } else if (assignment.getAssignmentType().equals(B2WAssignmentType.EMPLOYEE_EVENT_TYPE) ||
                     assignment.getAssignmentType().equals(B2WAssignmentType.EQUIPMENT_EVENT_TYPE) ||
                     assignment.getAssignmentType().equals(B2WAssignmentType.LOCATION_EVENT_TYPE)) {
+                bReturn &= selectOptionFromContextMenu("Delete Event");
+            } else if (assignment.getAssignmentType().equals(B2WAssignmentType.MOVE_ASSIGNMENT_TYPE)) {
+                bReturn &= selectOptionFromContextMenu("Delete Move Assignment");
+            } else if (assignment.getAssignmentType().equals(B2WAssignmentType.MOVE_ORDER_TYPE)) {
+                bReturn &= selectOptionFromContextMenu("Delete Move Order");
+            } else if (assignment.getAssignmentType().equals(B2WAssignmentType.SUBSTITUTION_TYPE)) {
+                bReturn &= selectOptionFromContextMenu("Delete Substitution");
+            } else {
+                bReturn = false;
+            }
+            */
+
+            if (assignmentsTypes.indexOf(assignment.getAssignmentType()) > -1)  {
+                bReturn &= selectOptionFromContextMenu("Delete Assignment");
+            } else if (needsTypes.indexOf(assignment.getAssignmentType()) > -1)  {
+                bReturn &= selectOptionFromContextMenu("Delete Need");
+            } else if (eventsTypes.indexOf(assignment.getAssignmentType()) > -1) {
                 bReturn &= selectOptionFromContextMenu("Delete Event");
             } else if (assignment.getAssignmentType().equals(B2WAssignmentType.MOVE_ASSIGNMENT_TYPE)) {
                 bReturn &= selectOptionFromContextMenu("Delete Move Assignment");
@@ -1058,6 +1139,42 @@ public class B2WSchedulerTasksTest extends B2WKendoTasks {
     }
     private boolean setEventLocation(String sJobSiteName) {
         return setFields("Location", sJobSiteName);
+    }
+
+    // == Update Values on Assignments\Needs Dialog
+    private boolean updateEmployees(String sValue) {
+        List<WebElement> list = WebElementUtils.findElements(B2WScheduleAssignments.getDeleteEmployeeBtn());
+        for (WebElement item : list) {
+            WebElementUtils.clickElement(item);
+        }
+        return setEmployees(sValue);
+    }
+    private boolean updateRequestedBy(String sValue) {
+        clearFields("Requested By");
+        return setRequestedBy(sValue);
+    }
+    private boolean updateNotes(String sValue) {
+        boolean bResult = false;
+        WebElement notesField = WebElementUtils.findElement(B2WScheduleAssignments.getNotesField());
+        if (notesField != null) {
+            notesField.clear();
+            bResult = WebElementUtils.sendKeys(notesField, sValue);
+        } else {
+            log.debug("Element 'Requested By' could not be found on the page." );
+        }
+        return bResult;
+    }
+    private void clearFields(String sFieldName) {
+        WebElement assignmentWindow = WebElementUtils.waitAndFindElement(B2WScheduleAssignments.getAssignmentWindow());
+        WebElementUtils.switchToFrame(B2WScheduleAssignments.getAssignmentWindow(), 1);
+
+        if (assignmentWindow != null) {
+            WebElement employeeAssignment = WebElementUtils.getKendoFDDElementByLabel(sFieldName);
+            employeeAssignment.clear();
+            waitForSchedulesPageNoBusy();
+        } else {
+            log.debug("Create Assignment Window could not be found");
+        }
     }
 
     // === Save Methods

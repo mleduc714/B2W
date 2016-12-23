@@ -337,10 +337,10 @@ public class ScheduleAssignments extends B2WTestCase {
 
     public void testMain() throws Throwable {
         //=== Setup Schedule View
-        createNewEmployeeScheduleView();
-        createNewEquipmentScheduleView();
-        createNewCrewScheduleView();
-        createNewJobSiteScheduleView();
+        //createNewEmployeeScheduleView();
+        //createNewEquipmentScheduleView();
+        //createNewCrewScheduleView();
+        //createNewJobSiteScheduleView();
 
         //=== Create Schedule Assignments
         //createEmployeeAssignment(sEmployeeView, sEmployeeName, sJobSiteName, sRequestedBy, sNotesText, sAssignmentStartTime, sAssignmentDuration);

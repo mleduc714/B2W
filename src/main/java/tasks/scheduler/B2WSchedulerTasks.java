@@ -587,13 +587,13 @@ public class B2WSchedulerTasks extends B2WKendoTasks {
     public boolean updateJobSite(String sValue) {
         return setJobSite(sValue);
     }
-    public boolean updateEmployees(String sValue) {
-        List<WebElement> list = WebElementUtils.findElements(B2WScheduleAssignments.getDeleteEmployeeBtn());
-        for (WebElement item : list) {
-            WebElementUtils.clickElement(item);
+        public boolean updateEmployees(String sValue) {
+            List<WebElement> list = WebElementUtils.findElements(B2WScheduleAssignments.getDeleteEmployeeBtn());
+            for (WebElement item : list) {
+                WebElementUtils.clickElement(item);
+            }
+            return setEmployees(sValue);
         }
-        return setEmployees(sValue);
-    }
     public boolean updateEmployee(String sValue) {
         clearFields("Employee");
         return setEmployee(sValue);
