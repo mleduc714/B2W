@@ -643,6 +643,9 @@ public class B2WSchedulerTasksTest extends B2WKendoTasks {
                 case B2WAssignmentType.EMPLOYEE_EVENT_TYPE : break;
                 case B2WAssignmentType.EQUIPMENT_EVENT_TYPE : break;
                 case B2WAssignmentType.LOCATION_EVENT_TYPE : break;
+                case B2WAssignmentType.SUBSTITUTION_TYPE :
+
+                    break;
                 default : break;
             }
 

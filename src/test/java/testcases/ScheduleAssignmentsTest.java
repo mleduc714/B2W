@@ -371,10 +371,10 @@ public class ScheduleAssignmentsTest extends B2WTestCase {
     }
 
     public void testMain() throws Throwable {
-        createScheduleViews();
+        //createScheduleViews();
 
         logCompare(true, b2wNav.openSchedule(), "Open Schedule View");
-
+        /*
         // Create All Types of Assignments
         createEmployeeAssignments();
         createEmployeeSubstitution();
@@ -402,10 +402,15 @@ public class ScheduleAssignmentsTest extends B2WTestCase {
         moveEmployeeEvent();
         moveEquipmentEvent();
         moveLocationEvent();
-
+        */
         // Update Assignments
+        /*
         updateEmployeeAssignment();
-
+        */
+        createEmployeeSubstitution();
+        moveSubstitution();
+        updateSubstitution();
+        /*
         // Delete Assignments
         deleteEmployeeAssignmentSubstitution();
         deleteEmployeeAssignments();
@@ -422,6 +427,7 @@ public class ScheduleAssignmentsTest extends B2WTestCase {
 
         // Delete Schedule Views
         deleteScheduleViews();
+        */
     }
 
     private B2WScheduleView setupEmployeeScheduleView(String sScheduleName) {
@@ -764,11 +770,6 @@ public class ScheduleAssignmentsTest extends B2WTestCase {
                 + employeeAssignment.getResourceName() + " to Date: " + employeeDefaultScheduleView.getStartDate());
     }
     private void moveSubstitution() {
-        //
-        String sEmployeeSubstitution = getProperty("sEmployeeSubstitution");
-        employeeAssignmentForSubstitution.makeSubstitution(sEmployeeSubstitution);
-        employeeSubstitution = employeeAssignmentForSubstitution.getSubstitution();
-        // ===
         selectView(employeeDefaultScheduleView);
 
         String sNewEmployee = getProperty("sEmployeeNameUpd");
@@ -927,23 +928,42 @@ public class ScheduleAssignmentsTest extends B2WTestCase {
     private void updateEmployeeAssignment() {
         selectView(employeeScheduleView);
 
-        B2WAssignment updatedAssignment = employeeAssignment.clone();
+        B2WAssignment updatedAssignment;
+        updatedAssignment = employeeAssignment.clone();
 
         String sEmployeeNameUpd = getProperty("sEmployeeNameUpd");
         String sEmployeeJobSiteNameUpd = getProperty("sEmployeeJobSiteNameUpd");
         String sEmployeeRequestedByUpd = getProperty("sEmployeeRequestedByUpd");
         String sEmployeeAssignmentDurationUpd = getProperty("sEmployeeAssignmentDurationUpd");
         String sEmployeeAssignmentStartTimeUpd = getProperty("sEmployeeAssignmentStartTimeUpd");
+        String sEmployeeAssignmentNotesUpd = getProperty("sEmployeeAssignmentNotesUpd");
         updatedAssignment.setResourceName(sEmployeeNameUpd);
         updatedAssignment.setLocationName(sEmployeeJobSiteNameUpd);
         updatedAssignment.setRequestedBy(sEmployeeRequestedByUpd);
         updatedAssignment.setDuration(sEmployeeAssignmentDurationUpd);
         updatedAssignment.setStartTime(sEmployeeAssignmentStartTimeUpd);
+        updatedAssignment.setNotes(sEmployeeAssignmentNotesUpd);
 
         logCompare(true, b2wScheduler.setSearchValue(employeeAssignment.getResourceName()), "Set Quick Filter to " + employeeAssignment.getResourceName());
         logCompare(true, b2wScheduler.updateAssignment(employeeAssignment, updatedAssignment), "Update Employee Assignment from: "
                 + employeeAssignment.getResourceName() + " to : " + updatedAssignment.getResourceName());
         employeeAssignment = updatedAssignment;
+    }
+    private void updateSubstitution() {
+        employeeScheduleView.setName("AUT Schedule - Employees - 6755");
+        //===============
+        selectView(employeeScheduleView);
+
+        B2WAssignment updatedAssignment;
+        updatedAssignment = employeeSubstitution.clone();
+
+        String sEmployeeSubstitutionUpd = getProperty("sEmployeeSubstitutionUpd");
+        updatedAssignment.setResourceName(sEmployeeSubstitutionUpd);
+
+        logCompare(true, b2wScheduler.setSearchValue(employeeSubstitution.getResourceName()), "Set Quick Filter to " + employeeSubstitution.getResourceName());
+        logCompare(true, b2wScheduler.updateAssignment(employeeSubstitution, updatedAssignment), "Update Employee Assignment from: "
+                + employeeSubstitution.getResourceName() + " to : " + updatedAssignment.getResourceName());
+        employeeSubstitution = updatedAssignment;
     }
 
     private void deleteEmployeeAssignmentSubstitution(){

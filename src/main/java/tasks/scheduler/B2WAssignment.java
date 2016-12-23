@@ -57,25 +57,33 @@ public class B2WAssignment implements Cloneable {
         this.notes = notes;
     }
     public void setDateList(List<Date> dateList) {
-        this.dateList = dateList;
+        this.dateList = new ArrayList<Date>(dateList);
     }
     public void setStartTime(String startTime) {
         this.startTime = startTime;
+        recalculateDatesByDuration();
+        recalculateDatesByEndDate();
     }
     public void setDuration(String duration) {
         this.duration = duration;
+        recalculateDatesByDuration();
     }
     public void setPickupDate(Date pickupDate) {
         this.pickupDate = pickupDate;
+        recalculateDatesByEndDate();
     }
     public void setPickupTime(String pickupTime) {
         this.pickupTime = pickupTime;
+        this.startTime = pickupTime;
+        recalculateDatesByEndDate();
     }
     public void setDropoffDate(Date dropoffDate) {
         this.dropoffDate = dropoffDate;
+        recalculateDatesByEndDate();
     }
     public void setDropoffTime(String dropoffTime) {
         this.dropoffTime = dropoffTime;
+        recalculateDatesByEndDate();
     }
 
     public String getAssignmentType() {
@@ -182,20 +190,7 @@ public class B2WAssignment implements Cloneable {
         setStartTime(startTime);
         setDuration(duration);
 
-        String tmpStartDate = this.getStartDate() + " " + getStartTime();
-        Date startDate = StringUtils.getDateFromStringWithPattern(tmpStartDate, "M/d/yyyy h:mm a");
-        this.dateList.set(0, startDate);
-        Date endDate;
-        if (duration.toLowerCase().contains(":") ) {
-            String sEndDate = getEndDate() + " " + duration;
-            endDate = StringUtils.getDateFromStringWithPattern(sEndDate, "M/d/yyyy h:mm a");
-        } else {
-            String sEndDate = getEndDate() + " " + getStartTime();
-            endDate = StringUtils.getDateFromStringWithPattern(sEndDate, "M/d/yyyy h:mm a");
-            endDate = DateUtils.addHours(endDate, StringUtils.getHoursFromDuration(duration));
-            endDate = DateUtils.addMinutes(endDate, StringUtils.getMinutesFromDuration(duration));
-        }
-        this.dateList.set(dateList.size()-1, endDate);
+        //recalculateDatesByDuration();
     }
 
     public B2WAssignment(String assignmentType, String resourceName, String pickupLocationType, String pickupLocation, Date pickupDate, String pickupTime,
@@ -213,27 +208,15 @@ public class B2WAssignment implements Cloneable {
         setDropoffLocationType(dropoffLocationType);
         setDropoffLocation(dropoffLocation);
         setLocationName(dropoffLocation);
-        setDateList(dateList);
+        this.dateList = dateList;
         setPickupTime(pickupTime);
-        setStartTime(pickupTime);
+        this.startTime = pickupTime;
         setDropoffTime(dropoffTime);
         setRequestedBy(requestedBy);
         setNotes(notes);
         setTransportationCrew(transportationCrew);
 
-        //ToDo: Issue SCHED-3142 : Remove after fix
-        String tmpStartDate = this.getStartDate() + " 0:00 AM";
-        //String tmpStartDate = this.getStartDate() + " " + getStartTime();
-        //===================================================================
-        Date startDate = StringUtils.getDateFromStringWithPattern(tmpStartDate, "M/d/yyyy h:mm a");
-        this.dateList.set(0, startDate);
-
-        //ToDo: Issue SCHED-3142 : Remove after fix
-        tmpStartDate = getEndDate() + " 0:00 AM";
-        //tmpStartDate = getEndDate() + " " + dropoffTime;
-        //===================================================================
-        Date endDate = StringUtils.getDateFromStringWithPattern(tmpStartDate, "M/d/yyyy h:mm a");
-        this.dateList.set(dateList.size()-1, endDate);
+        //recalculateDatesByEndDate();
     }
 
     public B2WAssignment(String assignmentType, String resourceName, String locationName, String notes,
@@ -245,9 +228,13 @@ public class B2WAssignment implements Cloneable {
         this.requestedBy = "";
         this.notes = notes;
         this.dateList = new ArrayList<Date>(dateList);
-        this.startTime = "0:00 AM";
-        this.duration = "0:00 AM";
+        setStartTime("0:00 AM");
+        setDuration("0:00 AM");
+        //this.startTime = "0:00 AM";
+        //this.duration = "0:00 AM";
 
+        recalculateDatesByDuration();
+        /*
         String tmpStartDate = this.getStartDate() + " " + getStartTime();
         Date startDate = StringUtils.getDateFromStringWithPattern(tmpStartDate, "M/d/yyyy h:mm a");
         this.dateList.set(0, startDate);
@@ -255,13 +242,54 @@ public class B2WAssignment implements Cloneable {
         tmpStartDate = getEndDate() + " " + this.duration;
         Date endDate = StringUtils.getDateFromStringWithPattern(tmpStartDate, "M/d/yyyy h:mm a");
         this.dateList.set(dateList.size()-1, endDate);
+        */
     }
 
     public B2WAssignment clone() {
         try {
-            return (B2WAssignment) super.clone();
+            //return (B2WAssignment) super.clone();
+
+            B2WAssignment oClone = (B2WAssignment) super.clone();
+            oClone.setDateList(new ArrayList<Date>(this.getDateList()));
+            return oClone;
         } catch (CloneNotSupportedException ex) {
             return null;
+        }
+    }
+
+    private void recalculateDatesByDuration() {
+        if ((getStartDate() != null) && (getStartTime() != null) && (getEndDate() != null) && (getDuration() != null)) {
+            String tmpStartDate = this.getStartDate() + " " + this.getStartTime();
+            Date startDate = StringUtils.getDateFromStringWithPattern(tmpStartDate, "M/d/yyyy h:mm a");
+            this.dateList.set(0, startDate);
+            Date endDate;
+            if (duration.toLowerCase().contains(":")) {
+                String sEndDate = this.getEndDate() + " " + this.getDuration();
+                endDate = StringUtils.getDateFromStringWithPattern(sEndDate, "M/d/yyyy h:mm a");
+            } else {
+                String sEndDate = this.getEndDate() + " " + this.getStartTime();
+                endDate = StringUtils.getDateFromStringWithPattern(sEndDate, "M/d/yyyy h:mm a");
+                endDate = DateUtils.addHours(endDate, StringUtils.getHoursFromDuration(this.getDuration()));
+                endDate = DateUtils.addMinutes(endDate, StringUtils.getMinutesFromDuration(this.getDuration()));
+            }
+            this.dateList.set(dateList.size() - 1, endDate);
+        }
+    }
+    private void recalculateDatesByEndDate() {
+        if ((this.getStartDate() != null) && (this.getStartTime() != null) && (this.getEndDate() != null) && (this.getDropoffTime() != null)) {
+            //ToDo: Issue SCHED-3142 : Remove after fix
+            String tmpStartDate = this.getStartDate() + " 0:00 AM";
+            //String tmpStartDate = this.getStartDate() + " " + getStartTime();
+            //===================================================================
+            Date startDate = StringUtils.getDateFromStringWithPattern(tmpStartDate, "M/d/yyyy h:mm a");
+            this.dateList.set(0, startDate);
+
+            //ToDo: Issue SCHED-3142 : Remove after fix
+            tmpStartDate = this.getEndDate() + " 0:00 AM";
+            //tmpStartDate = getEndDate() + " " + getDropoffTime();
+            //===================================================================
+            Date endDate = StringUtils.getDateFromStringWithPattern(tmpStartDate, "M/d/yyyy h:mm a");
+            this.dateList.set(dateList.size() - 1, endDate);
         }
     }
 }

@@ -375,7 +375,7 @@ public class ScheduleAssignments extends B2WTestCase {
         //moveLocationEvent();
 
         //=== Edit Assignments
-        updateEmployeeAssignment();
+        //updateEmployeeAssignment();
         updateSubstitution();
         updateEmployeeNeed();
         updateEquipmentAssignment();
