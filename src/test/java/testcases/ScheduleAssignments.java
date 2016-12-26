@@ -376,17 +376,17 @@ public class ScheduleAssignments extends B2WTestCase {
 
         //=== Edit Assignments
         //updateEmployeeAssignment();
-        updateSubstitution();
-        updateEmployeeNeed();
-        updateEquipmentAssignment();
-        updateEquipmentNeed();
-        updateCrewAssignment();
-        updateCrewNeed();
-        updateMoveAssignment();
-        updateMoveOrder();
-        updateEmployeeEvent();
-        updateEquipmentEvent();
-        updateLocationEvent();
+        //updateSubstitution();
+        //updateEmployeeNeed();
+        //updateEquipmentAssignment();
+        //updateEquipmentNeed();
+        //updateCrewAssignment();
+        //updateCrewNeed();
+        //updateMoveAssignment();
+        //updateMoveOrder();
+        //updateEmployeeEvent();
+        //updateEquipmentEvent();
+        //updateLocationEvent();
 
         //=== Resize Assignments
         resizeEmployeeAssignment();
@@ -413,6 +413,7 @@ public class ScheduleAssignments extends B2WTestCase {
         //=== Order Panel
         verifyEmployeeNeedOrder();
 
+        /*
         //=== Delete Assignments
         deleteEmployeeAssignment(sEmployeeView, sEmployeeNameUpd, sJobSiteNameUpd, sMoveDate, sMoveDate, sAssignmentStartTimeUpd, sAssignmentDurationUpd);
         deleteEmployeeAssignment(sDefaultEmployeeView, sEmployeeNameUpd, sJobSiteNameUpd, sMoveDate, sMoveDate, sAssignmentStartTimeUpd, sAssignmentDurationUpd);
@@ -439,6 +440,7 @@ public class ScheduleAssignments extends B2WTestCase {
         deleteScheduleView(sEquipmentView);
         deleteScheduleView(sCrewView);
         deleteScheduleView(sLocationView);
+        */
     }
 
     @Override

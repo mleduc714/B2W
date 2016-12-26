@@ -129,6 +129,9 @@ public class B2WAssignment implements Cloneable {
     public Date getStartDateAsDate() {
         return this.dateList.get(0);
     }
+    public Date getEndDateAsDate() {
+        return this.dateList.get(dateList.size() - 1);
+    }
     public String getEndDate() { return StringUtils.getStringFromDateByPattern(dateList.get(dateList.size()-1), "M/d/yyyy"); }
     public String getPickupDate() { return StringUtils.getStringFromDateByPattern(dateList.get(0), "M/d/yyyy"); }
     public String getDropoffDate() { return StringUtils.getStringFromDateByPattern(dateList.get(dateList.size()-1), "M/d/yyyy"); }
@@ -155,6 +158,7 @@ public class B2WAssignment implements Cloneable {
     }
 
     public void moveTo(Date moveDate) {
+        /*
         Calendar currentCalendar = Calendar.getInstance();
         currentCalendar.setTime(this.getStartDateAsDate());
         currentCalendar.set(Calendar.HOUR, 0);
@@ -172,9 +176,20 @@ public class B2WAssignment implements Cloneable {
         long diff = calendar.getTimeInMillis() - currentCalendar.getTimeInMillis();
 
         long days = diff / 1000 / 60 / 60 / 24;
+        */
+        int days = calcDiffInDays(this.getStartDateAsDate(), moveDate);
+        this.dateList.set(0, DateUtils.addDays(this.dateList.get(0), days));
+        this.dateList.set(dateList.size() - 1, DateUtils.addDays(this.dateList.get(dateList.size() - 1), days));
+    }
+    public void resizeTo(String edge, Date resizeDate) {
 
-        this.dateList.set(0, DateUtils.addDays(this.dateList.get(0), (int) days));
-        this.dateList.set(dateList.size() - 1, DateUtils.addDays(this.dateList.get(dateList.size() - 1), (int) days));
+        if (edge.toLowerCase().equals("right")) {
+            int days = calcDiffInDays(this.getEndDateAsDate(), resizeDate);
+            this.dateList.set(dateList.size() - 1, DateUtils.addDays(this.dateList.get(dateList.size() - 1), days));
+        } else if (edge.toLowerCase().equals("left")) {
+            int days = calcDiffInDays(this.getStartDateAsDate(), resizeDate);
+            this.dateList.set(0, DateUtils.addDays(this.dateList.get(0), days));
+        }
     }
 
     // Constructors
@@ -291,5 +306,29 @@ public class B2WAssignment implements Cloneable {
             Date endDate = StringUtils.getDateFromStringWithPattern(tmpStartDate, "M/d/yyyy h:mm a");
             this.dateList.set(dateList.size() - 1, endDate);
         }
+    }
+    private int calcDiffInDays(Date startDate, Date endDate) {
+        Calendar currentCalendar = Calendar.getInstance();
+        currentCalendar.setTime(startDate);
+        /*
+        currentCalendar.set(Calendar.HOUR, 0);
+        currentCalendar.set(Calendar.MINUTE, 0);
+        currentCalendar.set(Calendar.SECOND, 0);
+        currentCalendar.set(Calendar.MILLISECOND, 0);
+        */
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(endDate);
+        /*
+        calendar.set(Calendar.HOUR, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
+
+        long diff = calendar.getTimeInMillis() - currentCalendar.getTimeInMillis();
+
+        return (int) diff / 1000 / 60 / 60 / 24;
+        */
+        return calendar.get(Calendar.DAY_OF_YEAR) - currentCalendar.get(Calendar.DAY_OF_YEAR);
     }
 }
