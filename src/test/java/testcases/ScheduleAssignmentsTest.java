@@ -31,6 +31,7 @@ public class ScheduleAssignmentsTest extends B2WTestCase {
 
     // Employee Assignments
     B2WAssignment employeeAssignment;
+    B2WAssignment copyEmployeeAssignment;
     B2WAssignment employeeAssignmentForSubstitution;
 
     // Employee Substitution
@@ -38,36 +39,46 @@ public class ScheduleAssignmentsTest extends B2WTestCase {
 
     // Employee Need
     B2WAssignment employeeNeed;
+    B2WAssignment copyEmployeeNeed;
     B2WAssignment employeeNeed1;
 
     // Employee Event
     B2WAssignment employeeEvent;
+    B2WAssignment copyEmployeeEvent;
 
     // Equipment Assignment
     B2WAssignment equipmentAssignment;
+    B2WAssignment copyEquipmentAssignment;
 
     // Equipment Need
     B2WAssignment equipmentNeed;
+    B2WAssignment copyEquipmentNeed;
     B2WAssignment equipmentNeed1;
 
     // Equipment Event
     B2WAssignment equipmentEvent;
+    B2WAssignment copyEquipmentEvent;
 
     // Crews Assignments
     B2WAssignment crewAssignment;
+    B2WAssignment copyCrewAssignment;
 
     // Crews Needs
     B2WAssignment crewNeed;
+    B2WAssignment copyCrewNeed;
     B2WAssignment crewNeed1;
 
     // Move Assignment
     B2WAssignment moveAssignment;
+    B2WAssignment copyMoveAssignment;
 
     // Move Order
     B2WAssignment moveOrder;
+    B2WAssignment copyMoveOrder;
 
     // Location Event
     B2WAssignment locationEvent;
+    B2WAssignment copyLocationEvent;
 
     @Override
     public String getAuthor() {
@@ -372,10 +383,10 @@ public class ScheduleAssignmentsTest extends B2WTestCase {
     }
 
     public void testMain() throws Throwable {
-        //createScheduleViews();
+        createScheduleViews();
 
         logCompare(true, b2wNav.openSchedule(), "Open Schedule View");
-        /*
+
         // Create All Types of Assignments
         createEmployeeAssignments();
         createEmployeeSubstitution();
@@ -390,7 +401,6 @@ public class ScheduleAssignmentsTest extends B2WTestCase {
         createEquipmentEvent();
         createLocationEvent();
 
-
         // Resize Assignments
         resizeEmployeeAssignment();
         resizeEmployeeNeed();
@@ -403,9 +413,28 @@ public class ScheduleAssignmentsTest extends B2WTestCase {
         resizeEmployeeEvent();
         resizeEquipmentEvent();
         resizeLocationEvent();
-        */
 
-        /*
+        // Copy Assignments
+        copyEmployeeAssignment();
+        copyEmployeeNeed();
+        copyEquipmentAssignment();
+        copyEquipmentNeed();
+        copyCrewAssignment();
+        copyCrewNeed();
+        copyMoveAssignment();
+        copyMoveOrder();
+        copyEmployeeEvent();
+        copyEquipmentEvent();
+        copyLocationEvent();
+
+        // Conflict Panel
+        resolveEmployeeConflict();
+        resolveEquipmentConflict();
+        resolveCrewConflict();
+        resolveMoveAssignmentsConflict();
+        resolveEmployeeEventConflict();
+        resolveEquipmentEventConflict();
+
         // Move Assignments
         moveEmployeeAssignment();
         moveSubstitution();
@@ -419,10 +448,8 @@ public class ScheduleAssignmentsTest extends B2WTestCase {
         moveEmployeeEvent();
         moveEquipmentEvent();
         moveLocationEvent();
-        */
 
         // Update Assignments
-        /*
         updateEmployeeAssignment();
         updateSubstitution();
         updateEmployeeNeed();
@@ -435,9 +462,7 @@ public class ScheduleAssignmentsTest extends B2WTestCase {
         updateEmployeeEvent();
         updateEquipmentEvent();
         updateLocationEvent();
-        */
 
-        /*
         // Delete Assignments
         deleteEmployeeAssignmentSubstitution();
         deleteEmployeeAssignments();
@@ -454,7 +479,6 @@ public class ScheduleAssignmentsTest extends B2WTestCase {
 
         // Delete Schedule Views
         deleteScheduleViews();
-        */
     }
 
     private B2WScheduleView setupEmployeeScheduleView(String sScheduleName) {
@@ -1395,6 +1419,164 @@ public class ScheduleAssignmentsTest extends B2WTestCase {
         logCompare(true, b2wScheduler.updateAssignment(locationEvent, updatedAssignment), "Update Location Event from: "
                 + locationEvent.getResourceName() + " to : " + updatedAssignment.getResourceName());
         locationEvent = updatedAssignment;
+    }
+
+    private void copyEmployeeAssignment() {
+        selectView(employeeScheduleView);
+
+        logCompare(true, b2wScheduler.setSearchValue(employeeAssignment.getResourceName()), "Set Quick Filter to " + employeeAssignment.getResourceName());
+        if (logCompare(true, b2wScheduler.copyAssignment(employeeAssignment), "Copy Employee Assignment : " + employeeAssignment.getResourceName())) {
+            copyEmployeeAssignment = employeeAssignment.clone();
+        }
+    }
+    private void copyEmployeeNeed() {
+        selectView(employeeScheduleView);
+
+        logCompare(true, b2wScheduler.setSearchValue(employeeNeed.getResourceName()), "Set Quick Filter to " + employeeNeed.getResourceName());
+        if (logCompare(true, b2wScheduler.copyAssignment(employeeNeed), "Copy Employee Need : " + employeeNeed.getResourceName())) {
+            copyEmployeeNeed = employeeNeed.clone();
+        }
+    }
+    private void copyEquipmentAssignment() {
+        selectView(equipmentScheduleView);
+
+        logCompare(true, b2wScheduler.setSearchValue(equipmentAssignment.getResourceName()), "Set Quick Filter to " + equipmentAssignment.getResourceName());
+        if (logCompare(true, b2wScheduler.copyAssignment(equipmentAssignment), "Copy Equipment Assignment : " + equipmentAssignment.getResourceName())) {
+            copyEquipmentAssignment = equipmentAssignment.clone();
+        }
+    }
+    private void copyEquipmentNeed() {
+        selectView(equipmentScheduleView);
+
+        logCompare(true, b2wScheduler.setSearchValue(equipmentNeed.getResourceName()), "Set Quick Filter to " + equipmentNeed.getResourceName());
+        if (logCompare(true, b2wScheduler.copyAssignment(equipmentNeed), "Copy Equipment Need : " + equipmentNeed.getResourceName())) {
+            copyEquipmentNeed = equipmentNeed.clone();
+        }
+    }
+    private void copyCrewAssignment() {
+        selectView(crewsScheduleView);
+
+        logCompare(true, b2wScheduler.setSearchValue(crewAssignment.getResourceName()), "Set Quick Filter to " + crewAssignment.getResourceName());
+        if (logCompare(true, b2wScheduler.copyAssignment(crewAssignment), "Copy Crew Assignment : " + crewAssignment.getResourceName())) {
+            copyCrewAssignment = crewAssignment.clone();
+        }
+    }
+    private void copyCrewNeed() {
+        selectView(crewsScheduleView);
+
+        logCompare(true, b2wScheduler.setSearchValue(crewNeed.getResourceName()), "Set Quick Filter to " + crewNeed.getResourceName());
+        if (logCompare(true, b2wScheduler.copyAssignment(crewNeed), "Copy Equipment Need : " + crewNeed.getResourceName())) {
+            copyCrewNeed = crewNeed.clone();
+        }
+    }
+    private void copyMoveAssignment() {
+        selectView(equipmentScheduleView);
+
+        logCompare(true, b2wScheduler.setSearchValue(moveAssignment.getResourceName()), "Set Quick Filter to " + moveAssignment.getResourceName());
+        if (logCompare(true, b2wScheduler.copyAssignment(moveAssignment), "Copy Move Assignment : " + moveAssignment.getResourceName())) {
+            copyMoveAssignment = moveAssignment.clone();
+        }
+    }
+    private void copyMoveOrder() {
+        selectView(equipmentScheduleView);
+
+        logCompare(true, b2wScheduler.setSearchValue(moveOrder.getResourceName()), "Set Quick Filter to " + moveOrder.getResourceName());
+        if (logCompare(true, b2wScheduler.copyAssignment(moveOrder), "Copy Move Order : " + moveOrder.getResourceName())) {
+            copyMoveOrder = moveOrder.clone();
+        }
+    }
+    private void copyEmployeeEvent() {
+        selectView(employeeDefaultScheduleView);
+
+        logCompare(true, b2wScheduler.setSearchValue(employeeEvent.getResourceName()), "Set Quick Filter to " + employeeEvent.getResourceName());
+        if (logCompare(true, b2wScheduler.copyAssignment(employeeEvent), "Copy Employee Event : " + employeeEvent.getResourceName())) {
+            copyEmployeeEvent = employeeEvent.clone();
+        }
+    }
+    private void copyEquipmentEvent() {
+        selectView(equipmentDefaultScheduleView);
+
+        logCompare(true, b2wScheduler.setSearchValue(equipmentEvent.getResourceName()), "Set Quick Filter to " + equipmentEvent.getResourceName());
+        if (logCompare(true, b2wScheduler.copyAssignment(equipmentEvent), "Copy Equipment Event : " + equipmentEvent.getResourceName())) {
+            copyEquipmentEvent = equipmentEvent.clone();
+        }
+    }
+    private void copyLocationEvent() {
+        selectView(locationDefaultScheduleView);
+
+        logCompare(true, b2wScheduler.setSearchValue(locationEvent.getResourceName()), "Set Quick Filter to " + locationEvent.getResourceName());
+        if (logCompare(true, b2wScheduler.copyAssignment(locationEvent), "Copy Location Event : " + locationEvent.getResourceName())) {
+            copyLocationEvent = locationEvent.clone();
+        }
+    }
+
+    private void resolveEmployeeConflict() {
+        selectView(employeeScheduleView);
+
+        logCompare(true, b2wScheduler.setSearchValue(copyEmployeeAssignment.getResourceName()), "Set Quick Filter to " + copyEmployeeAssignment.getResourceName());
+        logCompare(true, true, "====== Start resolving Employee Conflicts for " + copyEmployeeAssignment.getResourceName());
+        logCompare(true, b2wScheduler.conflictIconIsDisplayed(copyEmployeeAssignment), "Check that Conflict Icon is displayed.");
+        logCompare(true, b2wScheduler.openConflictPanel(), "Open conflict panel.");
+        logCompare(true, b2wScheduler.resolveConflict(copyEmployeeAssignment), "Open conflict panel.");
+        logCompare(true, true, "====== Complete resolving Employee Conflicts for " + copyEmployeeAssignment.getResourceName());
+    }
+    private void resolveEquipmentConflict() {
+        selectView(equipmentScheduleView);
+
+        logCompare(true, b2wScheduler.setSearchValue(copyEquipmentAssignment.getResourceName()), "Set Quick Filter to " + copyEquipmentAssignment.getResourceName());
+        logCompare(true, true, "====== Start resolving Equipment Conflicts for " + copyEquipmentAssignment.getResourceName());
+        logCompare(true, b2wScheduler.conflictIconIsDisplayed(copyEquipmentAssignment), "Check that Conflict Icon is displayed.");
+        logCompare(true, b2wScheduler.openConflictPanel(), "Open conflict panel.");
+        logCompare(true, b2wScheduler.resolveConflict(copyEquipmentAssignment), "Open conflict panel.");
+        logCompare(true, true, "====== Complete resolving Equipment Conflicts for " + copyEquipmentAssignment.getResourceName());
+    }
+    private void resolveCrewConflict() {
+        //ToDo: Issue SCHED-2738
+        // selectView(crewsScheduleView);
+        selectView(crewsDefaultScheduleView);
+
+        //logCompare(true, b2wScheduler.setSearchValue(copyCrewAssignment.getResourceName()), "Set Quick Filter to " + copyCrewAssignment.getResourceName());
+        logCompare(true, b2wScheduler.clearSearchValue(), "Set Quick Filter to " + copyCrewAssignment.getResourceName());
+        // =================
+        logCompare(true, true, "====== Start resolving Crew Conflicts for " + copyCrewAssignment.getResourceName());
+        logCompare(true, b2wScheduler.conflictIconIsDisplayed(copyCrewAssignment), "Check that Conflict Icon is displayed.");
+        logCompare(true, b2wScheduler.openConflictPanel(), "Open conflict panel.");
+        logCompare(true, b2wScheduler.resolveConflict(copyCrewAssignment), "Open conflict panel.");
+        logCompare(true, true, "====== Complete resolving Crew Conflicts for " + copyCrewAssignment.getResourceName());
+    }
+    private void resolveMoveAssignmentsConflict() {
+        selectView(equipmentScheduleView);
+
+        logCompare(true, b2wScheduler.setSearchValue(copyMoveAssignment.getResourceName()), "Set Quick Filter to " + copyMoveAssignment.getResourceName());
+        logCompare(true, true, "====== Start resolving Move Assignment Conflicts for " + copyMoveAssignment.getResourceName());
+        logCompare(true, b2wScheduler.conflictIconIsDisplayed(copyMoveAssignment), "Check that Conflict Icon is displayed.");
+        //ToDo: Issue in the APP
+        //logCompare(true, b2wScheduler.openConflictPanel(), "Open conflict panel.");
+        //logCompare(true, b2wScheduler.resolveConflict(copyMoveAssignment), "Open conflict panel.");
+        // Remove Delete After fix
+        logCompare(true, b2wScheduler.deleteAssignment(copyMoveAssignment), "Open conflict panel.");
+        //=====================
+        logCompare(true, true, "====== Complete resolving Move Assignment Conflicts for " + copyMoveAssignment.getResourceName());
+    }
+    private void resolveEmployeeEventConflict() {
+        selectView(employeeDefaultScheduleView);
+
+        logCompare(true, b2wScheduler.setSearchValue(copyEmployeeEvent.getResourceName()), "Set Quick Filter to " + copyEmployeeEvent.getResourceName());
+        logCompare(true, true, "====== Start resolving Employee Event Conflicts for " + copyEmployeeEvent.getResourceName());
+        logCompare(true, b2wScheduler.conflictIconIsDisplayed(copyEmployeeEvent), "Check that Conflict Icon is displayed.");
+        logCompare(true, b2wScheduler.openConflictPanel(), "Open conflict panel.");
+        logCompare(true, b2wScheduler.resolveConflict(copyEmployeeEvent), "Open conflict panel.");
+        logCompare(true, true, "====== Complete resolving Employee Event Conflicts for " + copyEmployeeEvent.getResourceName());
+    }
+    private void resolveEquipmentEventConflict() {
+        selectView(equipmentDefaultScheduleView);
+
+        logCompare(true, b2wScheduler.setSearchValue(copyEquipmentEvent.getResourceName()), "Set Quick Filter to " + copyEquipmentEvent.getResourceName());
+        logCompare(true, true, "====== Start resolving Equipment Event Conflicts for " + copyEquipmentEvent.getResourceName());
+        logCompare(true, b2wScheduler.conflictIconIsDisplayed(copyEquipmentEvent), "Check that Conflict Icon is displayed.");
+        logCompare(true, b2wScheduler.openConflictPanel(), "Open conflict panel.");
+        logCompare(true, b2wScheduler.resolveConflict(copyEquipmentEvent), "Open conflict panel.");
+        logCompare(true, true, "====== Complete resolving Equipment Event Conflicts for " + copyEquipmentEvent.getResourceName());
     }
 
     private void deleteEmployeeAssignmentSubstitution(){

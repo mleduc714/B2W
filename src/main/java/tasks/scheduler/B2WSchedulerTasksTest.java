@@ -26,10 +26,11 @@ public class B2WSchedulerTasksTest extends B2WKendoTasks {
     public final String MOVEASSIGNMENT = "Move Assignment";
     public final String EVENT = "Event";
 
+    /*
     private static final ArrayList<String> assignmentsTypes = new ArrayList<String>(Arrays.asList(B2WAssignmentType.EMPLOYEE_TYPE, B2WAssignmentType.EQUIPMENT_TYPE, B2WAssignmentType.CREW_TYPE));
     private static final ArrayList<String> needsTypes = new ArrayList<String>(Arrays.asList(B2WAssignmentType.EMPLOYEE_NEED_TYPE, B2WAssignmentType.EQUIPMENT_NEED_TYPE, B2WAssignmentType.CREW_NEED_TYPE));
     private static final ArrayList<String> eventsTypes = new ArrayList<String>(Arrays.asList(B2WAssignmentType.EMPLOYEE_EVENT_TYPE, B2WAssignmentType.EQUIPMENT_EVENT_TYPE, B2WAssignmentType.LOCATION_EVENT_TYPE));
-
+    */
     private Logger log = Logger.getLogger(B2WSchedulerTasksTest.class);
 
     public boolean navigateTo(B2WScheduleView scheduleView) {
@@ -627,7 +628,6 @@ public class B2WSchedulerTasksTest extends B2WKendoTasks {
         }
         return bReturn;
     }
-
     public boolean updateAssignment(B2WAssignment existsAssignment, B2WAssignment updatedAssignment) {
         /*
          * 1. Open Schedule View
@@ -699,8 +699,73 @@ public class B2WSchedulerTasksTest extends B2WKendoTasks {
         logCompare(true, true, "====== Complete Update Assignment " + existsAssignment.getResourceName());
         return bReturn;
     }
+    public boolean copyAssignment(B2WAssignment assignment) {
+        /*
+         * 1. Open Schedule View
+         * 2. Change Date Range
+         * 3. Change Start Date
+         * 4. Set Filter
+         * 5. Select Assignment
+         * 6. Select Edit from context menu
+         * 7. Update Assignment's data
+         * 8. Save Assignment
+         * 9. Verify that Assignment was updated.
+         */
 
+        boolean bReturn = false;
+        logCompare(true, true, "====== Start Copy Assignment " + assignment.getResourceName());
+        WebElement eAssignment = getAssignment(assignment);
 
+        if (eAssignment != null) {
+            int initialCount = getAssignmentsCount(assignment);
+            bReturn = logCompare(true, openContextMenu(eAssignment), "Open Assignment's Context Menu");
+
+            switch (assignment.getAssignmentType()) {
+                case B2WAssignmentType.EMPLOYEE_TYPE :
+                    bReturn &= logCompare(true, selectOptionFromContextMenu("Copy Assignment"), "Select 'Copy Assignment' from Context Menu.");
+                    break;
+                case B2WAssignmentType.EQUIPMENT_TYPE :
+                    bReturn &= logCompare(true, selectOptionFromContextMenu("Copy Assignment"), "Select 'Copy Assignment' from Context Menu.");
+                    break;
+                case B2WAssignmentType.CREW_TYPE :
+                    bReturn &= logCompare(true, selectOptionFromContextMenu("Copy Assignment"), "Select 'Copy Assignment' from Context Menu.");
+                    break;
+                case B2WAssignmentType.EMPLOYEE_NEED_TYPE :
+                    bReturn &= logCompare(true, selectOptionFromContextMenu("Copy Need"), "Select 'Copy Need' from Context Menu.");
+                    break;
+                case B2WAssignmentType.EQUIPMENT_NEED_TYPE :
+                    bReturn &= logCompare(true, selectOptionFromContextMenu("Copy Need"), "Select 'Copy Need' from Context Menu.");
+                    break;
+                case B2WAssignmentType.CREW_NEED_TYPE :
+                    bReturn &= logCompare(true, selectOptionFromContextMenu("Copy Need"), "Select 'Copy Need' from Context Menu.");
+                    break;
+                case B2WAssignmentType.MOVE_ASSIGNMENT_TYPE :
+                    bReturn &= logCompare(true, selectOptionFromContextMenu("Copy Move Assignment"), "Select 'Copy Move Assignment' from Context Menu.");
+                    break;
+                case B2WAssignmentType.MOVE_ORDER_TYPE :
+                    bReturn &= logCompare(true, selectOptionFromContextMenu("Copy Move Order"), "Select 'Copy Move Assignment' from Context Menu.");
+                    break;
+                case B2WAssignmentType.EMPLOYEE_EVENT_TYPE :
+                    bReturn &= logCompare(true, selectOptionFromContextMenu("Copy Event"), "Select 'Copy Event' from Context Menu.");
+                    break;
+                case B2WAssignmentType.EQUIPMENT_EVENT_TYPE :
+                    bReturn &= logCompare(true, selectOptionFromContextMenu("Copy Event"), "Select 'Copy Event' from Context Menu.");
+                    break;
+                case B2WAssignmentType.LOCATION_EVENT_TYPE :
+                    bReturn &= logCompare(true, selectOptionFromContextMenu("Copy Event"), "Select 'Copy Event' from Context Menu.");
+                    break;
+                default : break;
+            }
+            waitForSchedulesPageNoBusy();
+            bReturn &= logCompare(true, saveAssignment(), "Save the updated Assignment");
+            int actualCount = getAssignmentsCount(assignment);
+            bReturn &= logCompare(true, actualCount == initialCount + 1, "Verification that number of Assignment has been increased by 1.");
+        } else {
+            logCompare(true, false, "Assignment for " + assignment.getResourceName() + " could not be found on the page.");
+        }
+        logCompare(true, true, "====== Complete Copy Assignment " + assignment.getResourceName());
+        return bReturn;
+    }
     public boolean deleteAssignment(B2WAssignment assignment) {
         boolean bReturn = false;
         logCompare(true, true, "====== Start Assignment Deletion for " + assignment.getResourceName());
@@ -708,30 +773,51 @@ public class B2WSchedulerTasksTest extends B2WKendoTasks {
         WebElement eAssignment = getAssignment(assignment);
         if (eAssignment != null) {
             bReturn = logCompare(true, openContextMenu(eAssignment), "Open Assignment's Context Menu");
-            /*
-            if (assignment.getAssignmentType().equals(B2WAssignmentType.EMPLOYEE_TYPE) ||
-                    assignment.getAssignmentType().equals(B2WAssignmentType.EQUIPMENT_TYPE) ||
-                    assignment.getAssignmentType().equals(B2WAssignmentType.CREW_TYPE))  {
-                bReturn &= selectOptionFromContextMenu("Delete Assignment");
-            } else if (assignment.getAssignmentType().equals(B2WAssignmentType.EMPLOYEE_NEED_TYPE) ||
-                    assignment.getAssignmentType().equals(B2WAssignmentType.EQUIPMENT_NEED_TYPE) ||
-                    assignment.getAssignmentType().equals(B2WAssignmentType.CREW_NEED_TYPE))  {
-                bReturn &= selectOptionFromContextMenu("Delete Need");
-            } else if (assignment.getAssignmentType().equals(B2WAssignmentType.EMPLOYEE_EVENT_TYPE) ||
-                    assignment.getAssignmentType().equals(B2WAssignmentType.EQUIPMENT_EVENT_TYPE) ||
-                    assignment.getAssignmentType().equals(B2WAssignmentType.LOCATION_EVENT_TYPE)) {
-                bReturn &= selectOptionFromContextMenu("Delete Event");
-            } else if (assignment.getAssignmentType().equals(B2WAssignmentType.MOVE_ASSIGNMENT_TYPE)) {
-                bReturn &= selectOptionFromContextMenu("Delete Move Assignment");
-            } else if (assignment.getAssignmentType().equals(B2WAssignmentType.MOVE_ORDER_TYPE)) {
-                bReturn &= selectOptionFromContextMenu("Delete Move Order");
-            } else if (assignment.getAssignmentType().equals(B2WAssignmentType.SUBSTITUTION_TYPE)) {
-                bReturn &= selectOptionFromContextMenu("Delete Substitution");
-            } else {
-                bReturn = false;
+            switch (assignment.getAssignmentType()) {
+                case B2WAssignmentType.EMPLOYEE_TYPE :
+                    bReturn &= selectOptionFromContextMenu("Delete Assignment");
+                    break;
+                case B2WAssignmentType.EQUIPMENT_TYPE :
+                    bReturn &= selectOptionFromContextMenu("Delete Assignment");
+                    break;
+                case B2WAssignmentType.CREW_TYPE :
+                    bReturn &= selectOptionFromContextMenu("Delete Assignment");
+                    break;
+                case B2WAssignmentType.EMPLOYEE_NEED_TYPE :
+                    bReturn &= selectOptionFromContextMenu("Delete Need");
+                    break;
+                case B2WAssignmentType.EQUIPMENT_NEED_TYPE :
+                    bReturn &= selectOptionFromContextMenu("Delete Need");
+                    break;
+                case B2WAssignmentType.CREW_NEED_TYPE :
+                    bReturn &= selectOptionFromContextMenu("Delete Need");
+                    break;
+                case B2WAssignmentType.MOVE_ASSIGNMENT_TYPE :
+                    bReturn &= selectOptionFromContextMenu("Delete Move Assignment");
+                    break;
+                case B2WAssignmentType.MOVE_ORDER_TYPE :
+                    bReturn &= selectOptionFromContextMenu("Delete Move Order");
+                    break;
+                case B2WAssignmentType.EMPLOYEE_EVENT_TYPE :
+                    bReturn &= selectOptionFromContextMenu("Delete Event");
+                    break;
+                case B2WAssignmentType.EQUIPMENT_EVENT_TYPE :
+                    bReturn &= selectOptionFromContextMenu("Delete Event");
+                    break;
+                case B2WAssignmentType.LOCATION_EVENT_TYPE :
+                    bReturn &= selectOptionFromContextMenu("Delete Event");
+                    break;
+                case B2WAssignmentType.SUBSTITUTED_TYPE :
+                    bReturn &= selectOptionFromContextMenu("Delete Substitution");
+                    break;
+                case B2WAssignmentType.SUBSTITUTION_TYPE :
+                    bReturn &= selectOptionFromContextMenu("Delete Substitution");
+                    break;
+                default : break;
             }
-            */
 
+            //ToDo: Remove after debug.
+            /*
             if (assignmentsTypes.indexOf(assignment.getAssignmentType()) > -1)  {
                 bReturn &= selectOptionFromContextMenu("Delete Assignment");
             } else if (needsTypes.indexOf(assignment.getAssignmentType()) > -1)  {
@@ -747,19 +833,95 @@ public class B2WSchedulerTasksTest extends B2WKendoTasks {
             } else {
                 bReturn = false;
             }
-
+            */
             bReturn &= selectButtonOption("Yes");
 
             int actualCount = getAssignmentsCount(assignment);
             bReturn &= logCompare(true, actualCount == initialCount - 1, "Verification that number of Assignment has been decreased by 1.");
-            WebElement result = getAssignment(assignment);
-            bReturn &= logCompare(true,  result == null, "Verification that specific Assignment has been deleted.");
         } else {
             logCompare(true, false, "Assignment for " + assignment.getResourceName() + " on " + assignment.getResourceName() + " could not be found.");
         }
         logCompare(true, true, "====== Complete Assignment Deletion for " + assignment.getResourceName());
         return bReturn;
     }
+
+    public boolean conflictIconIsDisplayed(B2WAssignment assignment) {
+        boolean bReturn = false;
+        WebElement eResourceLine = getResourceLine(assignment.getResourceName());
+        if (eResourceLine != null) {
+            WebElement parent = WebElementUtils.getParentElement(eResourceLine);
+            WebElement eResourceWarningIcon = null;
+            switch (assignment.getAssignmentType()) {
+                case B2WAssignmentType.EMPLOYEE_TYPE :
+                    eResourceWarningIcon = WebElementUtils.getChildElement(parent, B2WScheduleAssignments.getResourceWarningIcon_i152());
+                    break;
+                case B2WAssignmentType.EQUIPMENT_TYPE :
+                    eResourceWarningIcon = WebElementUtils.getChildElement(parent, B2WScheduleAssignments.getResourceWarningIcon_i152());
+                    break;
+                case B2WAssignmentType.CREW_TYPE :
+                    eResourceWarningIcon = WebElementUtils.getChildElement(parent, B2WScheduleAssignments.getResourceWarningIcon_i228());
+                    break;
+                case B2WAssignmentType.MOVE_ASSIGNMENT_TYPE :
+                    eResourceWarningIcon = WebElementUtils.getChildElement(parent, B2WScheduleAssignments.getResourceWarningIcon_i152());
+                    break;
+                case B2WAssignmentType.EMPLOYEE_EVENT_TYPE :
+                    eResourceWarningIcon = WebElementUtils.getChildElement(parent, B2WScheduleAssignments.getResourceWarningIcon_i152());
+                    break;
+                case B2WAssignmentType.EQUIPMENT_EVENT_TYPE :
+                    eResourceWarningIcon = WebElementUtils.getChildElement(parent, B2WScheduleAssignments.getResourceWarningIcon_i152());
+                    break;
+                case B2WAssignmentType.LOCATION_EVENT_TYPE :
+                    eResourceWarningIcon = WebElementUtils.getChildElement(parent, B2WScheduleAssignments.getResourceWarningIcon_i152());
+                    break;
+                default : break;
+            }
+            if (eResourceWarningIcon != null && WebElementUtils.getParentElement(eResourceWarningIcon).isDisplayed()) {
+                bReturn = WebElementUtils.clickElement(eResourceWarningIcon);
+                WebElement eTooltip = WebElementUtils.waitAndFindDisplayedElement(B2WScheduleAssignments.getTooltip());
+                if (eTooltip != null) {
+                    bReturn = WebElementUtils.getChildElementContainsText(eTooltip, By.cssSelector("a.Text--link"), "View in Conflicts Panel") != null;
+                } else {
+                    log.debug("Tooltip is not displayed.");
+                }
+            } else {
+                log.debug("Warning Icon could not be found for Resource: " + assignment.getResourceName());
+            }
+        } else {
+            log.debug("Could not find resource line for + " + assignment.getResourceName());
+        }
+        return bReturn;
+    }
+    public boolean openConflictPanel() {
+        boolean bReturn = false;
+            WebElement eConflictBtn = WebElementUtils.findElement(B2WScheduleAssignments.getConflictButton());
+            if (eConflictBtn != null) {
+                WebElement parent = WebElementUtils.getParentElement(eConflictBtn);
+                if (!parent.getAttribute("class").contains("Toolbar__toggle-button--checked")) {
+                    bReturn = WebElementUtils.clickElement(eConflictBtn);
+                    waitForSchedulesPageNoBusy();
+                    bReturn &= WebElementUtils.waitAndFindDisplayedElement(B2WScheduleAssignments.getConflictsPanel(), WebElementUtils.LONG_TIME_OUT) != null;
+                } else {
+                    bReturn = true;
+                }
+            } else {
+                log.debug("Conflict button could not be found on the page.");
+            }
+        return bReturn;
+    }
+    public boolean resolveConflict(B2WAssignment assignment) {
+        boolean bReturn;
+        WebElement conflict = getConflictForResource(assignment.getResourceName());
+        if (conflict != null) {
+            bReturn = logCompare(true, selectConflict(conflict), "Select Conflict on the panel..");
+            bReturn &= logCompare(true, deleteAssignment(assignment), "Delete Assignment");
+            bReturn &= logCompare(false, conflictIconIsDisplayed(assignment), "Check that Conflict Icon is not displayed anymore.");
+            bReturn &= logCompare(true, closeConflictPanel(), "Check that Conflict Panel is closed.");
+        } else {
+            bReturn = logCompare(true, false, "Conflict for " + assignment.getResourceName() + " could not be found on the page.");
+        }
+        return bReturn;
+    }
+
     // ==== Private Methods ============================================================================================
     // === Menu for Creation
     private boolean openCreateDialog(String sItem) {
@@ -1615,6 +1777,37 @@ public class B2WSchedulerTasksTest extends B2WKendoTasks {
                 log.debug("Could not get right edge of assignment.");
             }
 
+        }
+        return bReturn;
+    }
+
+    // Conflict Panel
+    private List<WebElement> getAllConflictsFromPanel() {
+        return WebElementUtils.findElements(B2WScheduleAssignments.getConflictFromPanel());
+    }
+    private WebElement getConflictForResource(String sResourceName) {
+        return WebElementUtils.getElementWithContainsChildElementText(getAllConflictsFromPanel(), By.cssSelector("div.ng-binding"), sResourceName);
+    }
+    private boolean selectConflict(WebElement eConflict) {
+        boolean bReturn = WebElementUtils.clickElement(eConflict);
+        waitForSchedulesPageNoBusy();
+        bReturn &= WebElementUtils.waitAndFindElement(B2WScheduleAssignments.getFillNeedToolbar()) != null;
+        WebElement firstItem = WebElementUtils.findElement(B2WScheduleAssignments.getFirstResourceNameInList());
+        String actualValue = firstItem.getAttribute("title");
+        String expectedValue = eConflict.getText();
+        bReturn &= expectedValue.contains(actualValue);
+        return bReturn;
+    }
+    private boolean closeConflictPanel() {
+        boolean bReturn = false;
+        WebElement eConflictPanel = WebElementUtils.findElement(B2WScheduleAssignments.getConflictsPanel());
+        WebElement eConflictBtn = WebElementUtils.findElement(B2WScheduleAssignments.getCheckedBtn());
+        if (eConflictBtn != null && eConflictPanel != null) {
+            bReturn = WebElementUtils.clickElement(eConflictBtn);
+            waitForSchedulesPageNoBusy();
+            bReturn &= WebElementUtils.waitForElementInvisible(eConflictPanel);
+        } else {
+            log.debug("Conflict button could not be found on the page.");
         }
         return bReturn;
     }

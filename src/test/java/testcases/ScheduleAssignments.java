@@ -389,6 +389,7 @@ public class ScheduleAssignments extends B2WTestCase {
         //updateLocationEvent();
 
         //=== Resize Assignments
+        /*
         resizeEmployeeAssignment();
         resizeEmployeeNeed();
         resizeEquipmentAssignment();
@@ -400,15 +401,15 @@ public class ScheduleAssignments extends B2WTestCase {
         resizeEmployeeEvent();
         resizeEquipmentEvent();
         resizeLocationEvent();
-
+        */
         //=== Conflict Panel
-        verifyEmployeeAssignmentConflict();
-        verifyEquipmentAssignmentConflict();
+        //verifyEmployeeAssignmentConflict();
+        //verifyEquipmentAssignmentConflict();
         //ToDo: SCHED-2738
         //verifyCrewAssignmentConflict();
-        verifyMoveAssignmentConflict();
-        verifyEmployeeEventConflict();
-        verifyEquipmentEventConflict();
+        //verifyMoveAssignmentConflict();
+        //verifyEmployeeEventConflict();
+        //verifyEquipmentEventConflict();
 
         //=== Order Panel
         verifyEmployeeNeedOrder();
