@@ -1601,13 +1601,9 @@ public class ScheduleAssignments extends B2WTestCase {
         logCompare(true, true, "====== Complete resolving Equipment Conflicts for " + copyEquipmentAssignment.getResourceName());
     }
     private void resolveCrewConflict() {
-        //ToDo: Issue SCHED-2738
-        // selectView(crewsScheduleView);
-        selectView(crewsDefaultScheduleView);
+        selectView(crewsScheduleView);
 
-        //logCompare(true, b2wScheduler.setSearchValue(copyCrewAssignment.getResourceName()), "Set Quick Filter to " + copyCrewAssignment.getResourceName());
-        logCompare(true, b2wScheduler.clearSearchValue(), "Set Quick Filter to " + copyCrewAssignment.getResourceName());
-        // =================
+        logCompare(true, b2wScheduler.setSearchValue(copyCrewAssignment.getResourceName()), "Set Quick Filter to " + copyCrewAssignment.getResourceName());
         logCompare(true, true, "====== Start resolving Crew Conflicts for " + copyCrewAssignment.getResourceName());
         logCompare(true, b2wScheduler.conflictIconIsDisplayed(copyCrewAssignment), "Check that Conflict Icon is displayed.");
         logCompare(true, b2wScheduler.openConflictPanel(), "Open conflict panel.");
@@ -1620,12 +1616,8 @@ public class ScheduleAssignments extends B2WTestCase {
         logCompare(true, b2wScheduler.setSearchValue(copyMoveAssignment.getResourceName()), "Set Quick Filter to " + copyMoveAssignment.getResourceName());
         logCompare(true, true, "====== Start resolving Move Assignment Conflicts for " + copyMoveAssignment.getResourceName());
         logCompare(true, b2wScheduler.conflictIconIsDisplayed(copyMoveAssignment), "Check that Conflict Icon is displayed.");
-        //ToDo: Issue in the APP
-        //logCompare(true, b2wScheduler.openConflictPanel(), "Open conflict panel.");
-        //logCompare(true, b2wScheduler.resolveConflict(copyMoveAssignment), "Open conflict panel.");
-        // Remove Delete After fix
-        logCompare(true, b2wScheduler.deleteAssignment(copyMoveAssignment), "Open conflict panel.");
-        //=====================
+        logCompare(true, b2wScheduler.openConflictPanel(), "Open conflict panel.");
+        logCompare(true, b2wScheduler.resolveConflict(copyMoveAssignment), "Open conflict panel.");
         logCompare(true, true, "====== Complete resolving Move Assignment Conflicts for " + copyMoveAssignment.getResourceName());
     }
     private void resolveEmployeeEventConflict() {
