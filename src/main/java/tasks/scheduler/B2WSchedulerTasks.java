@@ -1800,7 +1800,7 @@ public class B2WSchedulerTasks extends B2WKendoTasks {
     }
     private boolean selectOrder(WebElement eOrder) {
         boolean bReturn = WebElementUtils.clickElement(eOrder);
-        waitForSchedulePageNoBusy();
+        waitForSchedulesPageNoBusy();
         bReturn &= WebElementUtils.waitAndFindElement(B2WScheduleAssignments.getFillNeedToolbar()) != null;
         WebElement table = WebElementUtils.findElement(B2WScheduleAssignments.getFirstTableInOrderList());
         WebElement firstItem = WebElementUtils.getChildElement(table, B2WScheduleAssignments.getFirstItemInOrderList());

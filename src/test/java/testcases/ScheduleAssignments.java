@@ -1580,7 +1580,8 @@ public class ScheduleAssignments extends B2WTestCase {
     }
 
     //=== Order Panel
-    public void verifyEmployeeNeedOrder() {
+    private void verifyEmployeeNeedOrder() {
+        /*
         B2WAssignment needForOrder = new B2WAssignment(B2WAssignmentType.EMPLOYEE_NEED_TYPE, sOrderEmployeeNeedName, sOrderjobSite,
                 sRequestedBy, sNotesText, sCalendarStartDate, sCalendarStartDate, sAssignmentStartTime, sAssignmentDuration);
         createEmployeeNeed(sDefaultEmployeeView, needForOrder);
@@ -1624,7 +1625,7 @@ public class ScheduleAssignments extends B2WTestCase {
                 log.debug("Could not find assignment.");
             }
         }
-
+        */
     }
 
     private void deleteEmployeeAssignmentSubstitution(){
