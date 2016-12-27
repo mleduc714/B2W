@@ -1,201 +1,334 @@
 package tasks.scheduler;
 
+import org.apache.commons.lang3.time.DateUtils;
 import tasks.util.StringUtils;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
-public class B2WAssignment {
-    private static String assignmentType;
-    private static String resourceName;
-    private static String locationName;
-    private static String pickupLocation;
-    private static String dropoffLocation;
-    private static String transportationCrew;
-    private static String requestedBy;
-    private static String notes;
-    private static ArrayList<Date> dateList;
-    private static String startTime;
-    private static Date pickupDate;
-    private static Date dropoffDate;
-    private static String pickupTime;
-    private static String dropoffTime;
-    private static String duration;
+public class B2WAssignment implements Cloneable {
+    private String assignmentType;
+    private String resourceName;
+    private String locationName;
+    private String pickupLocationType;
+    private String pickupLocation;
+    private String dropoffLocationType;
+    private String dropoffLocation;
+    private String transportationCrew;
+    private String requestedBy;
+    private String notes;
+    private List<Date> dateList;
+    private String startTime;
+    private Date pickupDate;
+    private Date dropoffDate;
+    private String pickupTime;
+    private String dropoffTime;
+    private String duration;
+    private B2WAssignment substitution;
 
-    public static void setAssignmentType(String assignmentType) {
-        B2WAssignment.assignmentType = assignmentType;
+    public void setAssignmentType(String assignmentType) {
+        this.assignmentType = assignmentType;
     }
-    public static void setResourceName(String resourceName) {
-        B2WAssignment.resourceName = resourceName;
+    public void setResourceName(String resourceName) {
+        this.resourceName = resourceName;
     }
-    public static void setLocationName(String locationName) {
-        B2WAssignment.locationName = locationName;
+    public void setLocationName(String locationName) {
+        this.locationName = locationName;
     }
-    public static void setPickupLocation(String pickupLocation) {
-        B2WAssignment.pickupLocation = pickupLocation;
+    public void setPickupLocationType(String pickupLocationType) {
+        this.pickupLocationType = pickupLocationType;
     }
-    public static void setDropoffLocation(String dropoffLocation) {
-        B2WAssignment.dropoffLocation = dropoffLocation;
+    public void setDropoffLocationType(String dropoffLocationType) {
+        this.dropoffLocationType = dropoffLocationType;
     }
-    public static void setTransportationCrew(String transportationCrew) {
-        B2WAssignment.transportationCrew = transportationCrew;
+    public void setPickupLocation(String pickupLocation) {
+        this.pickupLocation = pickupLocation;
     }
-    public static void setRequestedBy(String requestedBy) {
-        B2WAssignment.requestedBy = requestedBy;
+    public void setDropoffLocation(String dropoffLocation) {
+        this.dropoffLocation = dropoffLocation;
+        this.locationName = dropoffLocation;
     }
-    public static void setNotes(String notes) {
-        B2WAssignment.notes = notes;
+    public void setTransportationCrew(String transportationCrew) {
+        this.transportationCrew = transportationCrew;
     }
-    public static void setDateList(ArrayList<Date> dateList) {
-        B2WAssignment.dateList = dateList;
+    public void setRequestedBy(String requestedBy) {
+        this.requestedBy = requestedBy;
     }
-    public static void setStartTime(String startTime) {
-        B2WAssignment.startTime = startTime;
+    public void setNotes(String notes) {
+        this.notes = notes;
     }
-    public static void setDuration(String duration) {
-        B2WAssignment.duration = duration;
+    public void setDateList(List<Date> dateList) {
+        this.dateList = new ArrayList<Date>(dateList);
     }
-    public static void setPickupDate(Date pickupDate) {
-        B2WAssignment.pickupDate = pickupDate;
+    public void setStartTime(String startTime) {
+        this.startTime = startTime;
+        recalculateDatesByDuration();
+        recalculateDatesByEndDate();
     }
-    public static void setPickupTime(String pickupTime) {
-        B2WAssignment.pickupTime = pickupTime;
+    public void setDuration(String duration) {
+        this.duration = duration;
+        recalculateDatesByDuration();
     }
-    public static void setDropoffDate(Date dropoffDate) {
-        B2WAssignment.dropoffDate = dropoffDate;
+    public void setPickupDate(Date pickupDate) {
+        this.pickupDate = pickupDate;
+        recalculateDatesByEndDate();
     }
-    public static void setDropoffTime(String dropoffTime) {
-        B2WAssignment.dropoffTime = dropoffTime;
+    public void setPickupTime(String pickupTime) {
+        this.pickupTime = pickupTime;
+        this.startTime = pickupTime;
+        recalculateDatesByEndDate();
+    }
+    public void setDropoffDate(Date dropoffDate) {
+        this.dropoffDate = dropoffDate;
+        recalculateDatesByEndDate();
+    }
+    public void setDropoffTime(String dropoffTime) {
+        this.dropoffTime = dropoffTime;
+        recalculateDatesByEndDate();
     }
 
-    public static String getAssignmentType() {
+    public String getAssignmentType() {
         return assignmentType;
     }
-    public static String getResourceName() {
+    public String getResourceName() {
         return resourceName;
     }
-    public static String getLocationName() {
+    public String getLocationName() {
         return locationName;
     }
-    public static String getPickupLocation() {
+    public String getPickupLocationType() {
+        return pickupLocationType;
+    }
+    public String getPickupLocation() {
         return pickupLocation;
     }
-    public static String getDropoffLocation() {
+    public String getDropoffLocationType() {
+        return dropoffLocationType;
+    }
+    public String getDropoffLocation() {
         return dropoffLocation;
     }
-    public static String getTransportationCrew() {
+    public String getTransportationCrew() {
         return transportationCrew;
     }
-    public static String getRequestedBy() {
+    public String getRequestedBy() {
         return requestedBy;
     }
-    public static String getNotes() {
+    public String getNotes() {
         return notes;
     }
-    public static ArrayList<Date> getDateList() {
+    public List<Date> getDateList() {
         return dateList;
     }
-    public static String getStartTime() {
+    public String getStartTime() {
         return startTime;
     }
-    public static String getDuration() {
+    public String getDuration() {
         return duration;
     }
-    public static String getStartDate() { return StringUtils.getStringFromDateByPattern(dateList.get(0), "M/d/yyyy"); }
-    public static String getEndDate() { return StringUtils.getStringFromDateByPattern(dateList.get(1), "M/d/yyyy"); }
-    public static Date getPickupDate() { return pickupDate; }
-    public static Date getDropoffDate() {
-        return dropoffDate;
+    public String getStartDate() { return StringUtils.getStringFromDateByPattern(dateList.get(0), "M/d/yyyy"); }
+    public Date getStartDateAsDate() {
+        return this.dateList.get(0);
     }
-    public static String getDropoffTime() {
+    public Date getEndDateAsDate() {
+        return this.dateList.get(dateList.size() - 1);
+    }
+    public String getEndDate() { return StringUtils.getStringFromDateByPattern(dateList.get(dateList.size()-1), "M/d/yyyy"); }
+    public String getPickupDate() { return StringUtils.getStringFromDateByPattern(dateList.get(0), "M/d/yyyy"); }
+    public String getDropoffDate() { return StringUtils.getStringFromDateByPattern(dateList.get(dateList.size()-1), "M/d/yyyy"); }
+    public String getDropoffTime() {
         return dropoffTime;
     }
-    public static String getPickupTime() {
+    public String getPickupTime() {
         return pickupTime;
     }
-
-
-    B2WAssignment(String assignmentType, String resourceName, String locationName, String requestedBy, String notes,
-                  ArrayList<Date> dateList, String startTime, String duration) {
-
-        this.assignmentType = assignmentType;
-        this.resourceName = resourceName;
-        this.locationName = locationName;
-        this.requestedBy = requestedBy;
-        this.notes = notes;
-        this.dateList = dateList;
-        this.startTime = startTime;
-        this.duration = duration;
+    public B2WAssignment getSubstitution() {
+        return substitution;
     }
 
+    // Public Methods
+    public void makeSubstitution(String substitutionName) {
+        this.substitution = this.clone();
+        this.substitution.setResourceName(substitutionName);
+        this.substitution.setAssignmentType(B2WAssignmentType.SUBSTITUTION_TYPE);
+        this.assignmentType = B2WAssignmentType.SUBSTITUTED_TYPE;
+    }
+    public void removeSubstitution()  {
+        this.assignmentType = B2WAssignmentType.EMPLOYEE_TYPE;
+        this.substitution = null;
+    }
+
+    public void moveTo(Date moveDate) {
+        /*
+        Calendar currentCalendar = Calendar.getInstance();
+        currentCalendar.setTime(this.getStartDateAsDate());
+        currentCalendar.set(Calendar.HOUR, 0);
+        currentCalendar.set(Calendar.MINUTE, 0);
+        currentCalendar.set(Calendar.SECOND, 0);
+        currentCalendar.set(Calendar.MILLISECOND, 0);
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(moveDate);
+        calendar.set(Calendar.HOUR, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
+
+        long diff = calendar.getTimeInMillis() - currentCalendar.getTimeInMillis();
+
+        long days = diff / 1000 / 60 / 60 / 24;
+        */
+        int days = calcDiffInDays(this.getStartDateAsDate(), moveDate);
+        this.dateList.set(0, DateUtils.addDays(this.dateList.get(0), days));
+        this.dateList.set(dateList.size() - 1, DateUtils.addDays(this.dateList.get(dateList.size() - 1), days));
+    }
+    public void resizeTo(String edge, Date resizeDate) {
+
+        if (edge.toLowerCase().equals("right")) {
+            int days = calcDiffInDays(this.getEndDateAsDate(), resizeDate);
+            this.dateList.set(dateList.size() - 1, DateUtils.addDays(this.dateList.get(dateList.size() - 1), days));
+        } else if (edge.toLowerCase().equals("left")) {
+            int days = calcDiffInDays(this.getStartDateAsDate(), resizeDate);
+            this.dateList.set(0, DateUtils.addDays(this.dateList.get(0), days));
+        }
+    }
+
+    // Constructors
     public B2WAssignment(String assignmentType, String resourceName, String locationName, String requestedBy, String notes,
-                         String startDate, String endDate, String startTime, String duration) {
+                         List<Date> dateList, String startTime, String duration) {
+
+        setAssignmentType(assignmentType);
+        setResourceName(resourceName);
+        setLocationName(locationName);
+        setRequestedBy(requestedBy);
+        setNotes(notes);
+        setDateList(dateList);
+        setStartTime(startTime);
+        setDuration(duration);
+
+        //recalculateDatesByDuration();
+    }
+
+    public B2WAssignment(String assignmentType, String resourceName, String pickupLocationType, String pickupLocation, Date pickupDate, String pickupTime,
+                         String dropoffLocationType, String dropoffLocation, Date dropoffDate, String dropoffTime,
+                         String requestedBy, String notes, String transportationCrew) {
+
+        ArrayList<Date> dateList = new ArrayList<Date>();
+        dateList.add(pickupDate);
+        dateList.add(dropoffDate);
+
+        setAssignmentType(assignmentType);
+        setResourceName(resourceName);
+        setPickupLocationType(pickupLocationType);
+        setPickupLocation(pickupLocation);
+        setDropoffLocationType(dropoffLocationType);
+        setDropoffLocation(dropoffLocation);
+        setLocationName(dropoffLocation);
+        this.dateList = dateList;
+        setPickupTime(pickupTime);
+        this.startTime = pickupTime;
+        setDropoffTime(dropoffTime);
+        setRequestedBy(requestedBy);
+        setNotes(notes);
+        setTransportationCrew(transportationCrew);
+
+        //recalculateDatesByEndDate();
+    }
+
+    public B2WAssignment(String assignmentType, String resourceName, String locationName, String notes,
+                         List<Date> dateList) {
 
         this.assignmentType = assignmentType;
         this.resourceName = resourceName;
         this.locationName = locationName;
-        this.requestedBy = requestedBy;
+        this.requestedBy = "";
         this.notes = notes;
+        this.dateList = new ArrayList<Date>(dateList);
+        setStartTime("0:00 AM");
+        setDuration("0:00 AM");
+        //this.startTime = "0:00 AM";
+        //this.duration = "0:00 AM";
 
-        Date dStartDate = StringUtils.getDateFromStringWithPattern(startDate, "M/d/yyyy");
-        Date dEndDate = StringUtils.getDateFromStringWithPattern(endDate, "M/d/yyyy");
-        dateList = new ArrayList<Date>();
-        dateList.add(dStartDate);
-        dateList.add(dEndDate);
-        this.startTime = startTime;
-        this.duration = duration;
+        recalculateDatesByDuration();
+        /*
+        String tmpStartDate = this.getStartDate() + " " + getStartTime();
+        Date startDate = StringUtils.getDateFromStringWithPattern(tmpStartDate, "M/d/yyyy h:mm a");
+        this.dateList.set(0, startDate);
+
+        tmpStartDate = getEndDate() + " " + this.duration;
+        Date endDate = StringUtils.getDateFromStringWithPattern(tmpStartDate, "M/d/yyyy h:mm a");
+        this.dateList.set(dateList.size()-1, endDate);
+        */
     }
 
-    B2WAssignment(String assignmentType, String resourceName, String pickupLocation, String dropoffLocation,
-                  Date pickupDate, String pickupTime, Date dropoffDate, String dropoffTime,
-                  String requestedBy, String notes, String transportationCrew) {
+    public B2WAssignment clone() {
+        try {
+            //return (B2WAssignment) super.clone();
 
-        this.assignmentType = assignmentType;
-        this.resourceName = resourceName;
-        this.pickupLocation = pickupLocation;
-        this.dropoffLocation = dropoffLocation;
-        this.pickupDate = pickupDate;
-        this.pickupTime = pickupTime;
-        this.dropoffDate = dropoffDate;
-        this.dropoffTime = dropoffTime;
-        this.requestedBy = requestedBy;
-        this.notes = notes;
-        this.transportationCrew = transportationCrew;
+            B2WAssignment oClone = (B2WAssignment) super.clone();
+            oClone.setDateList(new ArrayList<Date>(this.getDateList()));
+            return oClone;
+        } catch (CloneNotSupportedException ex) {
+            return null;
+        }
     }
 
-    B2WAssignment(String assignmentType, String resourceName, String pickupLocation, String dropoffLocation,
-                  Date pickupDate, String pickupTime, String duration,
-                  String requestedBy, String notes, String transportationCrew) {
-
-        this.assignmentType = assignmentType;
-        this.resourceName = resourceName;
-        this.pickupLocation = pickupLocation;
-        this.dropoffLocation = dropoffLocation;
-        this.pickupDate = pickupDate;
-        this.pickupTime = pickupTime;
-        this.duration = duration;
-        this.requestedBy = requestedBy;
-        this.notes = notes;
-        this.transportationCrew = transportationCrew;
+    private void recalculateDatesByDuration() {
+        if ((getStartDate() != null) && (getStartTime() != null) && (getEndDate() != null) && (getDuration() != null)) {
+            String tmpStartDate = this.getStartDate() + " " + this.getStartTime();
+            Date startDate = StringUtils.getDateFromStringWithPattern(tmpStartDate, "M/d/yyyy h:mm a");
+            this.dateList.set(0, startDate);
+            Date endDate;
+            if (duration.toLowerCase().contains(":")) {
+                String sEndDate = this.getEndDate() + " " + this.getDuration();
+                endDate = StringUtils.getDateFromStringWithPattern(sEndDate, "M/d/yyyy h:mm a");
+            } else {
+                String sEndDate = this.getEndDate() + " " + this.getStartTime();
+                endDate = StringUtils.getDateFromStringWithPattern(sEndDate, "M/d/yyyy h:mm a");
+                endDate = DateUtils.addHours(endDate, StringUtils.getHoursFromDuration(this.getDuration()));
+                endDate = DateUtils.addMinutes(endDate, StringUtils.getMinutesFromDuration(this.getDuration()));
+            }
+            this.dateList.set(dateList.size() - 1, endDate);
+        }
     }
+    private void recalculateDatesByEndDate() {
+        if ((this.getStartDate() != null) && (this.getStartTime() != null) && (this.getEndDate() != null) && (this.getDropoffTime() != null)) {
+            //ToDo: Issue SCHED-3142 : Remove after fix
+            String tmpStartDate = this.getStartDate() + " 0:00 AM";
+            //String tmpStartDate = this.getStartDate() + " " + getStartTime();
+            //===================================================================
+            Date startDate = StringUtils.getDateFromStringWithPattern(tmpStartDate, "M/d/yyyy h:mm a");
+            this.dateList.set(0, startDate);
 
-    public B2WAssignment(B2WAssignment assignment) {
-        this.assignmentType = assignment.getAssignmentType();
-        this.resourceName = assignment.getResourceName();
-        this.locationName = assignment.getLocationName();
-        this.dropoffLocation = assignment.getDropoffLocation();
-        this.requestedBy = assignment.getRequestedBy();
-        this.notes = assignment.getNotes();
-        this.dateList = new ArrayList<Date>(assignment.getDateList());
-        this.startTime = assignment.getStartTime();
-        this.pickupDate = assignment.getPickupDate();
-        this.dropoffDate = assignment.getDropoffDate();
-        this.pickupTime = assignment.getPickupTime();
-        this.dropoffTime = assignment.getDropoffTime();
-        this.duration = assignment.getDuration();
+            //ToDo: Issue SCHED-3142 : Remove after fix
+            tmpStartDate = this.getEndDate() + " 0:00 AM";
+            //tmpStartDate = getEndDate() + " " + getDropoffTime();
+            //===================================================================
+            Date endDate = StringUtils.getDateFromStringWithPattern(tmpStartDate, "M/d/yyyy h:mm a");
+            this.dateList.set(dateList.size() - 1, endDate);
+        }
+    }
+    private int calcDiffInDays(Date startDate, Date endDate) {
+        Calendar currentCalendar = Calendar.getInstance();
+        currentCalendar.setTime(startDate);
+        /*
+        currentCalendar.set(Calendar.HOUR, 0);
+        currentCalendar.set(Calendar.MINUTE, 0);
+        currentCalendar.set(Calendar.SECOND, 0);
+        currentCalendar.set(Calendar.MILLISECOND, 0);
+        */
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(endDate);
+        /*
+        calendar.set(Calendar.HOUR, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
+
+        long diff = calendar.getTimeInMillis() - currentCalendar.getTimeInMillis();
+
+        return (int) diff / 1000 / 60 / 60 / 24;
+        */
+        return calendar.get(Calendar.DAY_OF_YEAR) - currentCalendar.get(Calendar.DAY_OF_YEAR);
     }
 }
-
-
-

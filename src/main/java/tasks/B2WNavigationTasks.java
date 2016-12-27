@@ -108,12 +108,17 @@ public class B2WNavigationTasks implements Navigation {
 			if (WebElementUtils.clickElement(el)) {
 				WebElement grid = WebElementUtils.waitAndFindDisplayedElement(B2WScheduleAssignments.getScheduleCenterPanel());
 				if (grid != null) {
-					new B2WSchedulerTasks().waitForSchedulePageNoBusy();
+					new B2WSchedulerTasks().waitForSchedulesPageNoBusy();
 					bReturn = grid.isDisplayed();
 				}
 			}
 		}
 		return bReturn;
+	}
+	public boolean isScheduleIsOpened() {
+		WebElement grid = WebElementUtils.findElement(B2WScheduleAssignments.getScheduleCenterPanel());
+		if (grid != null) { return true; }
+		else { return false; }
 	}
 
 	public boolean openSetup() {
@@ -189,8 +194,7 @@ public class B2WNavigationTasks implements Navigation {
 
 		return bReturn;
 	}
-	
-	
+
 	public String getUserName() {
 		String sUserName = "";
 		WebElement el = WebElementUtils.findElement(B2WNavigationPanel.getB2WUserName());
@@ -247,7 +251,7 @@ public class B2WNavigationTasks implements Navigation {
 			WebElement item = WebElementUtils.getElementWithMatchingText(items, "Schedules", true);
 			if (item != null){
 				item.click();
-				bReturn = new B2WSchedulesTasks().waitForSchedulesPageNoBusy();
+				bReturn = new B2WSchedulerTasks().waitForSchedulesPageNoBusy();
 				bReturn &= new TaskUtils().waitForProductPanel("Schedules");
 			}
 		}
@@ -322,5 +326,4 @@ public class B2WNavigationTasks implements Navigation {
 	public boolean openLaborRateClasses() {
 		return openResources("Labor Rate Classes", "Labor Rate Classes");
 	}
-	
 }

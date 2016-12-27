@@ -757,7 +757,8 @@ public class B2WUIMap {
 	public static final String b2w_schedulecreationsection = "b2w-create-action";
 	public static final String b2w_scheduleassignmentwindow = ".k-widget.k-window.close-button";
 	public static final String b2w_schedulefieldslabel = "label";
-	public static final String b2w_scheduleaddtoschedulebtn = ".Button.Button--large.Button--margin-left";
+	//public static final String b2w_scheduleaddtoschedulebtn = ".Button.Button--large.Button--margin-left";
+	public static final String b2w_scheduleaddtoschedulebtn = "button.Button.Button--large[ng-click='save()']";
 	public static final String b2w_schedule_addresssection = "div[ng-show=\"isAddressVisible\"]";
 	public static final String b2w_scheduleselectcrewbtn = ".Button.Button--large[ng-click=\"next()\"]";
 	public static final String b2w_schedule_savebtn = ".Button.Button--large[ng-click=\"save()\"]";
@@ -799,6 +800,8 @@ public class B2WUIMap {
 	public static final String b2w_schedule_checkedbtn = ".Toolbar__toggle-button--checked";
 	public static final String b2w_schedule_employeecheckbox = "input.ng-pristine";
 	public static final String b2w_schedule_cancelbutton = ".Button.Button--large.Button--link";
+	public static final String b2w_schedule_cancelbtn = "button.Button.Button--large[ng-click='cancel()']";
+	public static final String b2w_schedule_useritem = "ul#user-select_taglist";
 
 	// Maintain
 	public static final String b2w_maintainpagemenu = "ul#SubNavMenu_MaintainPageMenu.MaintainPageMenu";
@@ -1045,7 +1048,7 @@ public class B2WUIMap {
     public static final String b2w_maintaindashboardpriority = ".data-priority";
     public static final String b2w_maintaindashboardnodata = "div.chart-placeholder.no_data.white";
     public static final String b2w_maintaindashboardmanhrscharts = "div.man-hours-chart.k-b2wdashboardchart.clickable";
-    
+
     // maintain schedule popup
     public static final String b2w_maintainschedulepopupworkordertitle = "span.workorder-title";
     public static final String b2w_maintainschedulepopupworkourdertime = "span.time";
