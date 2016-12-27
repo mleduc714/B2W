@@ -356,12 +356,12 @@ public class B2WMaintain extends KendoUI {
 	public static By getB2WMaintainDashboardWorkOrderData() {
 		return By.cssSelector(B2WUIMap.b2w_maintaindashboardworkorderdata);
 	}
-	public static By getB2WMaintainDashboardScheduleToolTip() {
-		return By.cssSelector(B2WUIMap.b2w_maintaindashboardscheduletooltip);
-	}
-     public static By getB2WMaintainSchedulePopup(){
+    public static By getB2WMaintainSchedulePopup(){
     	return By.cssSelector(B2WUIMap.b2w_maintaindashboardscheduletooltip);
-     }
+    }
+    public static By getB2WMaintainSchedulePopupContent() {
+    	return By.cssSelector(B2WUIMap.b2w_maintaindashboardscheduletooltip);
+    }
     public static By getB2WMaintainSchedulePopupWorkOrderTitle(){
     	return By.cssSelector(B2WUIMap.b2w_maintainschedulepopupworkordertitle);
     }

@@ -22,10 +22,18 @@ public class B2WMaintainSchedulePopupToolTip {
 	
 	
 	private WebElement getSchedulePopup() {
-		
-		List<WebElement> list = WebElementUtils.waitAndFindDisplayedElements(B2WMaintain.getB2WMaintainSchedulePopup());
-		// want the last one
-		return list.get(list.size()-1);
+		WebElement schedule = null;
+		List<WebElement> list = WebElementUtils.findElements(By.className("schedule-tooltip"));
+		for (WebElement el: list){
+			if (el.isDisplayed()){
+				if (!el.getAttribute("class").contains("priority-indicator")){
+					schedule = el;
+					break;
+				}
+			}
+		}
+		return schedule;
+			
 	}
 	
 	public String getWorkOrderTitle(){
@@ -107,7 +115,8 @@ public class B2WMaintainSchedulePopupToolTip {
 	public boolean clickWorkItemLink(){
 
 		boolean bReturn = false;
-		List<WebElement> el = WebElementUtils.getChildElements(getSchedulePopup(), By.tagName("a"));
+		WebElement e = getSchedulePopup();
+		List<WebElement> el = WebElementUtils.getChildElements(e, By.tagName("a"));
 		if (el.size() > 1){
 			BrowserUtils.getDriver().navigate().to(el.get(1).getAttribute("href"));
 			bReturn = new B2WMaintainTasks().waitForPageNotBusy(WebElementUtils.MEDIUM_TIME_OUT);
