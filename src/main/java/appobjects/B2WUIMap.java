@@ -824,6 +824,7 @@ public class B2WUIMap {
 	public static final String b2w_maintainadditemsavebutton = "a.btn-form.large.save";
 	public static final String b2w_maintaincollapsebutton = "a.collapse-button";
 	public static final String b2w_maintainworkorderscharts = "div.workorder_charts_col_left";
+	public static final String b2w_maintainequipmentdetailview = "div#equipment_detail_view";
 
 	public static final String b2w_maintainnewintervalbutton = "a.btn-orig.new-interval-button";
 
@@ -915,6 +916,7 @@ public class B2WUIMap {
 	public static final String b2w_maintainworkordercompletedialog = "div.wizard-dialog.complete-workorder-popup-view.k-window-content.k-content";
 	public static final String b2w_maintainschedulecurrentview = "li.k-current-view";
 	public static final String b2w_maintainscheduletable = ".k-scheduler-table";
+	public static final String b2w_maintainschedulenonworkhour = ".k-nonwork-hour";
 	public static final String b2w_maintainscheduletimes = ".k-scheduler-times";
 	public static final String b2w_maintainscheduleheader = ".k-scheduler-header-wrap";
 	public static final String b2w_maintainscheduleworkorder = "div#workOrdersScheduler";
@@ -922,6 +924,8 @@ public class B2WUIMap {
 	public static final String b2w_maintainprogramsiconminus = ".k-icon.k-minus";
 	public static final String b2w_kendomasterrow = ".k-master-row";
 	public static final String b2w_maintainprogramgeneraterequestlink = "a.generateProgramRequestLink";
+	public static final String b2w_maintainscheduleformatteddate = "span.k-lg-date-format";
+	public static final String b2w_maintainscheduleformatsmalldate = "span.k-sm-date-format";
 	
 	
 	
@@ -948,6 +952,10 @@ public class B2WUIMap {
 	
 	public static final String unscheduledworkorderscontextmenu = "ul#unscheduledWorkOrdersContextMenu";
 	public static final String scheduleworkorderscontentmenu = "ul#scheduledWorkOrdersContextMenu";
+	//public static final String scheduleworkorderscontentmenuwrench = "ul[id^='scheduledWorkOrdersContextMenu']";
+	public static final String scheduleworkorderscontentmenuwrench = "ul#scheduledWorkOrdersContextMenu-wrench";
+	public static final String unscheduledworkorderscontentmenuwrench = "ul#unscheduledWorkOrdersContextMenu-wrench";
+	public static final String scheduleremptyslotcontextmenu = "li#scheduler-empty-slot-context-menu_mn_active";
 	
 	//B2W Schedule Tests
 	public static final String b2w_scheduleviewcrews = "Crews";
@@ -1011,6 +1019,9 @@ public class B2WUIMap {
 	public static final String b2w_schedulemaintenancedialogequipment = "//label[@data-bind='text: scheduleCreateViewModel.equipment.displayValue']";
 	public static final String b2w_schedulesouthwestdivisionpaversgraders = "Southwest Division Pavers--Graders";
 
+	public static final String b2w_scheduledatepicker = ".k-i-calendar";
+	public static final String b2w_scheduledatecalendar = ".k-scheduler-calendar";
+	public static final String b2w_scheduledatemonth = ".k-nav-fast";
 	
 	
 	//Schedule Setup
@@ -1055,6 +1066,7 @@ public class B2WUIMap {
     public static final String b2w_maintainschedulepopupwarning = "span.warning";
     public static final String b2w_maintainschedulepopupsectiontitle = "span.section-title";
     public static final String b2w_maintainschedulepopupclose = "a.k-icon.k-i-close";
+    public static final String b2w_maintainschedulewrenchicon = "div.b2w-icon.i153-work-order";
     
     //popup filters
     public static final String b2w_maintainscheduleworkorderfilters = "div.popup--filters.k-window-content.k-content";

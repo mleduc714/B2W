@@ -108,6 +108,7 @@ public class B2WReportHours extends B2WKendoDialog {
 		WebElement window = getDisplayedWindow();
 		if (window != null){
 			openDropDownMenu(window, "Labor Type");
+			TaskUtils.sleep(500);
 			sText = selectRandomItemFromDropDown();
 		}
 		return sText;

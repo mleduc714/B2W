@@ -227,8 +227,17 @@ public class B2WMaintain extends KendoUI {
 	public static By getB2WMaintainSchedulerUnscheduledContextMenu() {
 		return By.cssSelector(B2WUIMap.unscheduledworkorderscontextmenu);
 	}
+	public static By getB2WMaintainSchedulerEmptySlotContextMenu() {
+		return By.cssSelector(B2WUIMap.scheduleremptyslotcontextmenu);
+	}
 	public static By getB2WMaintainSchedulerScheduledContextMenu() {
 		return By.cssSelector(B2WUIMap.scheduleworkorderscontentmenu);
+	}
+	public static By getB2WMaintainSchedulerScheduledWrenchMenu() {
+		return By.cssSelector(B2WUIMap.scheduleworkorderscontentmenuwrench);
+	}
+	public static By getB2WMaintainSchedulerUnscheduledWrenchMenu() {
+		return By.cssSelector(B2WUIMap.unscheduledworkorderscontentmenuwrench);
 	}
 	public static By getB2WMaintainSchedulerWorkOrdersTab() {
 		return By.cssSelector(B2WUIMap.b2w_maintainschedulertabone);
@@ -413,6 +422,9 @@ public class B2WMaintain extends KendoUI {
     public static By getB2WMaintainScheduleTable() {
     	return By.cssSelector(B2WUIMap.b2w_maintainscheduletable);
     }
+    public static By getB2WMaintainScheduleNonWorkHour() {
+    	return By.cssSelector(B2WUIMap.b2w_maintainschedulenonworkhour);
+    }
     public static By getB2WMaintainScheduleTimes() {
     	return By.cssSelector(B2WUIMap.b2w_maintainscheduletimes);
     }
@@ -455,4 +467,25 @@ public class B2WMaintain extends KendoUI {
     public static By getB2WDashboardNoData() {
     	return By.cssSelector(B2WUIMap.b2w_maintaindashboardnodata);
     }
+    public static By getB2WScheduleDatePickerButton() {
+    	return By.cssSelector(B2WUIMap.b2w_scheduledatepicker);
+    }
+    public static By getB2WScheduleDatePicker() {
+    	return By.cssSelector(B2WUIMap.b2w_scheduledatecalendar);
+    }
+    public static By getB2WScheduleDatePickerMonthDate() {
+    	return By.cssSelector(B2WUIMap.b2w_scheduledatemonth);
+    }
+    public static By getB2WScheduleFormatDate() {
+    	return By.cssSelector(B2WUIMap.b2w_maintainscheduleformatteddate);
+    }
+    public static By getB2WScheduleSmallFormatDate() {
+    	return By.cssSelector(B2WUIMap.b2w_maintainscheduleformatsmalldate);
+    }
+	public static By getMaintainEquipmentDetailView() {
+		return By.cssSelector(B2WUIMap.b2w_maintainequipmentdetailview);
+	}
+	public static By getMaintainScheduleWrench() {
+		return By.cssSelector(B2WUIMap.b2w_maintainschedulewrenchicon);
+	}
 }

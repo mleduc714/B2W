@@ -3,6 +3,8 @@ package testcases;
 import com.b2w.test.B2WTestCase;
 
 import tasks.B2WNavigationTasks;
+import tasks.dialogs.B2WAddEvent;
+import tasks.dialogs.B2WAddWarranty;
 import tasks.resources.B2WEquipmentTasks;
 import tasks.util.TaskUtils;
 
@@ -57,100 +59,153 @@ public class B2WEquipmentSmokeTest extends B2WTestCase {
 		
 		B2WNavigationTasks navigation = new B2WNavigationTasks();
 		
-		navigation.openEquipment();
+		B2WAddWarranty warranty = new B2WAddWarranty();
+		
+		B2WAddEvent events = new B2WAddEvent();
+		
+		logCompare(true, navigation.openEquipment(), "");
 		
 		// Navigate to Maintain>Equipment
 		
-		equipmentTasks.createNewEquipment();
+		logCompare(true, equipmentTasks.createNewEquipment(), "");
 		
-		equipmentTasks.setEquipmentDescription("This is a new Test Equipment");
+		logCompare(true, equipmentTasks.setEquipmentDescription("This is a new Test Equipment"), "");
 		
-		equipmentTasks.setEquipmentID("1234567890");
+		logCompare(true, equipmentTasks.setEquipmentID("1234567890"), "");
 		
-		equipmentTasks.selectNewEquipmentBusinessUnitFromDropDown("Northern Division\\Paving");
+		logCompare(true, equipmentTasks.selectNewEquipmentBusinessUnitFromDropDown("Northern Division\\Paving"), "");
 		
-		equipmentTasks.selectNewEquipmentTypeFromDropDown("30 Ton Trucks");
+		logCompare(true, equipmentTasks.selectNewEquipmentTypeFromDropDown("30 Ton Trucks"), "");
 		
-		equipmentTasks.selectMobilityTypeRequiresMoveFromDropDown();
+		logCompare(true, equipmentTasks.selectMobilityTypeRequiresMoveFromDropDown(), "");
 		
-		equipmentTasks.selectOwnershipTypeSubcontractedFromDropDown();
-		
-		TaskUtils.sleep(5000);
+		logCompare(true, equipmentTasks.selectOwnershipTypeOwnedFromDropDown(), "");
 		
 		//Enter Equipment Specs
-		equipmentTasks.expandEquipmentSpecs();
+		logCompare(true, equipmentTasks.expandEquipmentSpecs(), "");
 		
-		equipmentTasks.setEquipmentSpecsManufacturer("ABC Construction");
-		equipmentTasks.setEquipmentSpecsModel("New");
-		equipmentTasks.setEquipmentSpecsYear("1999");//Doenst work
-		equipmentTasks.setEquipmentSpecsColor("Blue");
-		equipmentTasks.setEquipmentSpecsLojack("12");
-		equipmentTasks.setEquipmentSpecsHutStickerNumber("67890");
-		equipmentTasks.setEquipmentSpecsEZPassNumber("12345");
+		
+		logCompare(true, equipmentTasks.setTextEquipmentSpecs("Manufacturer", "ABC Construction"), "");
+		logCompare(true, equipmentTasks.setTextEquipmentSpecs("Model", "5B"), "");
+		logCompare(true, equipmentTasks.setTextEquipmentSpecs("Year", "1999"), "");
+		logCompare(true, equipmentTasks.setTextEquipmentSpecs("Color", "Blue"), "");
+		logCompare(true, equipmentTasks.setTextEquipmentSpecs("Lojack", "12"), "");
+		logCompare(true, equipmentTasks.setTextEquipmentSpecs("Hut Sticker Number", "67890"), "");
+		logCompare(true, equipmentTasks.setTextEquipmentSpecs("EZ Pass Number", "12345"), "");
+		
+		logCompare(true, equipmentTasks.setFieldAndItemFromDropDownEquipmentSpecs("Length", "2354", "Foot [FOOT]"), "");
+		logCompare(true, equipmentTasks.setFieldAndItemFromDropDownEquipmentSpecs("Width", "43", "Mile [MILE]"), "");
+		logCompare(true, equipmentTasks.setFieldAndItemFromDropDownEquipmentSpecs("Height", "5433", "Millimeter [mm]"), "");
+		logCompare(true, equipmentTasks.setFieldAndItemFromDropDownEquipmentSpecs("Max Weight", "445", "Gram [g]"), "");
+		logCompare(true, equipmentTasks.setFieldAndItemFromDropDownEquipmentSpecs("Combined Weight", "56", "Ton [TON]"), "");
+		logCompare(true, equipmentTasks.setFieldAndItemFromDropDownEquipmentSpecs("Tare Weight", "45", "Kilogram [kg]"), "");
+		logCompare(true, equipmentTasks.setFieldAndItemFromDropDownEquipmentSpecs("Ground Pressure", "56", "Thousand Cubic Feet [MCF]"), "");
+		
+		logCompare(true, equipmentTasks.collapseEquipmentSpecs(), "");
 		
 		//Enter Component Specs
-		equipmentTasks.expandComponentSpecs();
+		logCompare(true, equipmentTasks.expandComponentSpecs(), "");
 		
-		equipmentTasks.setComponentSpecsEngine("Engine Name");
-		equipmentTasks.setComponentSpecsEngineArrangement("Arrangement");
-		equipmentTasks.setComponentSpecsEngineSerialNumber("54321");
-		equipmentTasks.setComponentSpecsHorsePower("124");
-		equipmentTasks.setComponentSpecsTransmissionModel("A3B2C1");
-		equipmentTasks.setComponentSpecsTransmissionSerialNumber("09876");//doesnt work
-		equipmentTasks.setComponentSpecsTireSize("13");
-		equipmentTasks.setComponentSpecsGET("123");
-		equipmentTasks.setComponentSpecsHydraulicFlowRate("23");//doesnt work
-		TaskUtils.sleep(5000);
+		logCompare(true, equipmentTasks.setTextComponentSpecs("Tire Size", "sText"), "Text Component Specs");
+		logCompare(true, equipmentTasks.setTextComponentSpecs("Engine", "Engine Name"), "Engine");
+		logCompare(true, equipmentTasks.setTextComponentSpecs("Engine Arrangement", "Arrangement"), "");
+		logCompare(true, equipmentTasks.setTextComponentSpecs("Engine Serial Number", "54321"), "");
+		logCompare(true, equipmentTasks.setTextComponentSpecs("Horse Power", "124"), "");
+		logCompare(true, equipmentTasks.setTextComponentSpecs("Transmission Model", "A3B2C1"), "");
+		logCompare(true, equipmentTasks.setTextComponentSpecs("Transmission Serial Number", "09876"), "");
+		logCompare(true, equipmentTasks.setTextComponentSpecs("G.E.T", "13"), "");
+		logCompare(true, equipmentTasks.setTextComponentSpecs("Hydraulic Flow Rate", "23"), "");
+		
+		logCompare(true, equipmentTasks.setFieldAndItemFromDropDownComponentSpecs("Fuel Type", null, "Gasoline [GAS]"), "");
+	    logCompare(true, equipmentTasks.setFieldAndItemFromDropDownComponentSpecs("Wheel Type", null, "Rubber Tire [RTR]"), "");
+		logCompare(true, equipmentTasks.setFieldAndItemFromDropDownComponentSpecs("Track Type", null, "In-Line Sprocket [ILSP]"), "");
+		logCompare(true, equipmentTasks.setFieldAndItemFromDropDownComponentSpecs("Brake Type", null, "Pneumatic Brakes [AIRB]"), "");
+		logCompare(true, equipmentTasks.setFieldAndItemFromDropDownComponentSpecs("Cutting Edge", null, "Grader Blades [GRADB]"), "");
+		logCompare(true, equipmentTasks.setFieldAndItemFromDropDownComponentSpecs("Hydraulic Pump Type", null, "Load Sensing Pump [LSP]"), "");
+		
+		logCompare(true, equipmentTasks.collapseComponentSpecs(), "");
 		
 		//Enter Financials
-		equipmentTasks.expandFinancials();
-		equipmentTasks.setFinancialsInsuranceValue("");
-		equipmentTasks.setFinancialsPurchasedFrom("");
-		equipmentTasks.setFinancialsPurchasePrice("");
-		equipmentTasks.setFinancialsSalesPrice("");
-		equipmentTasks.setFinancialsSoldTo("");
-		equipmentTasks.setFinancialsTitleHolder("");
+		logCompare(true, equipmentTasks.expandFinancials(), "");
+		
+		TaskUtils.sleep(3000);
+		logCompare(true, equipmentTasks.setFinancialsPurchasedFrom("ABC Construction"), "");
+		TaskUtils.sleep(3000);
+		logCompare(true, equipmentTasks.setFinancialsPurchasePrice("200"), ""); //Doesn't Work
+		TaskUtils.sleep(3000);
+		logCompare(true, equipmentTasks.setFinancialsInsuranceValue("100"), ""); //Doesn't Work
+		TaskUtils.sleep(3000);
+		logCompare(true, equipmentTasks.setFinancialsTitleHolder("TH Title Holder"), ""); 
+		TaskUtils.sleep(3000);
+		logCompare(true, equipmentTasks.setFinancialsSoldTo("XYZ Builders"), "");
+		TaskUtils.sleep(3000);
+		logCompare(true, equipmentTasks.setFinancialsSalesPrice("150"), ""); //Doesn't Work
+		TaskUtils.sleep(3000);
+		
+		logCompare(true, equipmentTasks.setFieldAndItemFromDropDownEquipmentSpecs("CCA Class", null, "CCA-3 [CCA-5%]"), "");
+		
+		equipmentTasks.collapseFinancials();
+		
+	//	equipmentTasks.collapse
 		
 		//Add Meter Types
-		equipmentTasks.expandMeters();
+		logCompare(true, equipmentTasks.expandMeters(), "");
 		
-		equipmentTasks.clickAddMeterButton();
+		logCompare(true, equipmentTasks.clickAddMeterButton(), "");
 		
 		//Add Parts
-		equipmentTasks.expandParts();
+		logCompare(true, equipmentTasks.expandParts(), "");
 		
-		equipmentTasks.clickAddPartsButton();
+		logCompare(true, equipmentTasks.clickAddPartsButton(), "");
 		
 		//Add a Warranty
-		equipmentTasks.expandWarrenties();
+		logCompare(true, equipmentTasks.expandWarrenties(), "");
+		
+		//No click 'Add Warranty' button
+		logCompare(true, warranty.setWarrantyDescription("This is a newly created warranty"), "");
+		logCompare(true, warranty.selectWarrantyType("Equipment"), "");
+		logCompare(true, warranty.selectTypeOfDurationCalendar(), "");
+		logCompare(true, warranty.setSpan("234"), "");
+		logCompare(true, warranty.setSpanDays(), "");
+		logCompare(true, warranty.setStarting("12/31/2016"), "");
+		//Click green checkmark on Duration
+		logCompare(true, warranty.setWarrantyNotes("These are the warranty notes."), "");
+		logCompare(true, warranty.clickSaveWarranty(), "");
 		
 		// Add a Maintenance Program
-		equipmentTasks.expandPrograms();
+		logCompare(true, equipmentTasks.expandPrograms(), "");
 		
-		equipmentTasks.clickAddProgramButton();
+		logCompare(true, equipmentTasks.clickAddProgramButton(), "");
 		
 		// Add Tags
-		equipmentTasks.expandTags();
+		logCompare(true, equipmentTasks.expandTags(), "");
 		
 		//Add Events
-		equipmentTasks.expandEvents();
+		logCompare(true, equipmentTasks.expandEvents(), "");
+		
+		//No click 'Add Event' button
+		logCompare(true, events.selectEventType("Memo"), "");
+		logCompare(true, events.setEventStartDate("12/31/2016"), "");
+		logCompare(true, events.setEventEndDate("12/31/2017"), "");
+		logCompare(true, events.setEventDescription("This is a description in the Description section for an event"), "");
+		logCompare(true, events.clickSaveEvent(), "");
 		
 		//Save the Equipment
-		equipmentTasks.saveNewEquipment();
+		logCompare(true, equipmentTasks.saveNewEquipment(), "");
 		
 		// History
-		equipmentTasks.expandHistory();
+		logCompare(true, equipmentTasks.expandHistory(), "");
 		
 		// Location
-		equipmentTasks.expandLocation();
+		logCompare(true, equipmentTasks.expandLocation(), "");
 		
-		equipmentTasks.selectAllEquipmentByTypeView();
+		logCompare(true, equipmentTasks.selectAllEquipmentByTypeView(), "");
 		
-		equipmentTasks.selectFilterByBusinessUnit("Northern Division\\Paving");
+		logCompare(true, equipmentTasks.selectFilterByBusinessUnit("Northern Division\\Paving"), "");
 		
-		equipmentTasks.selectEquipmentFromViewByID("1234567890");
+		logCompare(true, equipmentTasks.selectEquipmentFromViewByID("1234567890"), "");
 		
-		equipmentTasks.selectEquipmentFromViewByDescription("This is a new Test Equipment");
+		logCompare(true, equipmentTasks.selectEquipmentFromViewByDescription("This is a new Test Equipment"), "");
 	}
 	
 }

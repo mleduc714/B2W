@@ -88,6 +88,8 @@ public abstract class B2WKendoTasks {
 			try {
 				WebElement el = BrowserUtils.getDriver().findElement(B2WEquipment.getKendoPageLoading());
 				TaskUtils.sleep(100);
+				StackTraceElement[] stackTraceElements = Thread.currentThread().getStackTrace();
+				log.debug(stackTraceElements[3].getMethodName() + "->" + stackTraceElements[2].getMethodName() + "->" + stackTraceElements[1].getMethodName());
 				if (!el.isDisplayed()){
 					bReturn = true;
 					log.debug("Element is not displayed");
@@ -373,6 +375,20 @@ public abstract class B2WKendoTasks {
 		}
 	}
 	
+	protected WebElement getButton(String sDesc){
+		WebElement el = null;
+		List<WebElement> list = WebElementUtils.findElements(B2WMaintain.getKendoButtonAdd());
+		for (WebElement e: list){
+			String sButtonName = WebElementUtils.getParentElement(e).getText();
+			if (sButtonName.contains(sDesc)){
+				el = e;
+				break;
+			}
+		}
+		return el;
+		
+	}
+	
 	protected String getValueOfItem(String sItem, By by) {
 
 		WebElement el = WebElementUtils.waitAndFindDisplayedElement(by);
@@ -411,6 +427,27 @@ public abstract class B2WKendoTasks {
 		List<WebElement> gridcontent = WebElementUtils.getChildElements(selected, By.tagName("td"));
 		sText = gridcontent.get(iColumn).getText();
 		return sText;
+	}
+	
+	protected ArrayList<String> getItemsFromView(int iColumn) {
+		ArrayList<String> al = new ArrayList<String>();
+		WebElement grid = WebElementUtils.findElement(B2WEquipment.getKendoGridContent());
+		List<WebElement> items = WebElementUtils.getChildElements(grid,  By.tagName("tr"));
+
+		TaskUtils.sleep(5000);
+		for (WebElement el: items){
+			
+			List<WebElement> columns = WebElementUtils.getChildElements(el, By.tagName("td"));
+			if (columns.get(iColumn).getText().equals("")){
+				((JavascriptExecutor) BrowserUtils.getDriver()).executeScript(
+		                "arguments[0].scrollIntoView();", el);
+			}
+				System.out.println(columns.get(iColumn).getText());
+				al.add(columns.get(iColumn).getText());
+			}
+		
+
+		return al;
 	}
 	
 	private void waitForAjax() {

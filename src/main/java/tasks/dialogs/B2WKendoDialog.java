@@ -113,6 +113,8 @@ public abstract class B2WKendoDialog {
 			try {
 				WebElement el = BrowserUtils.getDriver().findElement(B2WEquipment.getKendoPageLoading());
 				TaskUtils.sleep(100);
+				StackTraceElement[] stackTraceElements = Thread.currentThread().getStackTrace();
+				log.debug(stackTraceElements[3].getMethodName() + "->" + stackTraceElements[2].getMethodName() + "->" + stackTraceElements[1].getMethodName());
 				if (!el.isDisplayed()){
 					bReturn = true;
 					log.debug("Element is not displayed");
@@ -453,7 +455,16 @@ public abstract class B2WKendoDialog {
 		}
 		return bReturn;
 	}
-	
+	public boolean clickConfirmYes() {
+		boolean bReturn = false;
+		WebElement el = WebElementUtils.waitAndFindDisplayedElement(B2WMaintain.getKendoConfirmYesButton());
+		if (el != null){
+			bReturn =WebElementUtils.clickElement(el);
+			bReturn &= WebElementUtils.waitForElementInvisible(el);
+			waitForPageNotBusy(WebElementUtils.MEDIUM_TIME_OUT);
+		}
+		return bReturn;
+	}
 	
 	
 	

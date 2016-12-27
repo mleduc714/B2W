@@ -1,5 +1,6 @@
 package tasks.maintain;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -12,6 +13,7 @@ import org.openqa.selenium.internal.Locatable;
 import appobjects.maintain.B2WMaintain;
 import tasks.WebElementUtils;
 import tasks.resources.B2WKendoTasks;
+import tasks.util.TaskUtils;
 
 
 
@@ -55,6 +57,7 @@ public class B2WMaintainRequestTasks extends B2WKendoTasks {
 		WebElement equipment = getFormElement("Equipment", B2WMaintain.getKendoDropDown());
 		if (equipment != null){
 			WebElementUtils.sendKeys(equipment, "a");
+			TaskUtils.sleep(500);
 			selectRandomItemFromDropDown();
 			sText = equipment.getText();
 			log.debug("The Piece of Equipment Selected is: "+sText);
@@ -272,5 +275,17 @@ public class B2WMaintainRequestTasks extends B2WKendoTasks {
 	}
 	public boolean setRequestNotes(String sText){
 		return setNotes(sText);
+	}
+	public boolean deleteRequest(){
+		boolean bReturn = false;
+		WebElement delete = WebElementUtils.findElement(B2WMaintain.getKendoDeleteButton());
+		if (delete != null){
+			bReturn = WebElementUtils.clickElement(delete);
+			bReturn &= clickConfirmYes();
+		}
+		return bReturn;
+	}
+	public ArrayList<String> getEquipmentFromRequestsView(){
+		return getItemsFromView(3);
 	}
 }

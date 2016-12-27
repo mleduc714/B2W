@@ -19,6 +19,7 @@ import tasks.maintain.B2WMaintainTasks;
 import tasks.maintain.B2WTimeCardTasks;
 import tasks.maintain.B2WWorkOrdersTasks;
 import tasks.resources.B2WEquipmentTasks;
+import tasks.util.TaskUtils;
 
 public class OperationsSmokeG extends B2WTestCase {
 
@@ -245,6 +246,7 @@ public class OperationsSmokeG extends B2WTestCase {
 		logCompare(true, b2wEquip.expandPrograms(), "Expand Programs");
 		logCompare(true, b2wEquip.clickAddProgramButton(), "Add Programs");
 		logCompare(true, b2wAddProgram.setAddProgramText(sMaintenanceProgramDesc), "Select Maintainence Program");
+		TaskUtils.sleep(1000);
 		logCompare(true, b2wAddProgram.clickAddProgramNextButton(), "Click Next");
 		logCompare(true, b2wAddProgram.clickSaveProgramButton(), "Save Program");
 		
@@ -273,7 +275,7 @@ public class OperationsSmokeG extends B2WTestCase {
 		logCompare(true, b2wOrder.selectPlannedWorkedLocation("Field"), "Planned in the Field");
 		logCompare(true, b2wOrder.selectPriorityFromDD("Medium"), "Medium Priority");
 		logCompare(true, b2wOrder.setWorkOrderNotes("Automation Created this work order"), "Set Notes");
-		logCompare(true, b2wAddItemWO.clickNewItemButton(), "Create New Item");
+		logCompare(true, b2wOrder.clickNewItemButton(), "Create New Item");
 		logCompare(true, b2wAddItemWO.addItem(sMaintenanceRequestDescription), "Add Item");
 		logCompare(true, b2wAddItemWO.generateItem(sMaintenanceProgramItemBDesc), "Generate Item");
 		logCompare(true, b2wOrder.clickConfirmYes(), "Click Yes");

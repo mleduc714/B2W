@@ -1,5 +1,6 @@
 package com.b2w.test;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 import org.apache.log4j.Logger;
@@ -85,5 +86,15 @@ public abstract class BaseTestCase extends BaseAssert implements BaseTestCaseInt
 		randnumber = rand.nextInt(iRange) + 1;
 
 		return randnumber;
+	}
+	
+	public static String getRandomStringFromArrayList(ArrayList<String> al) {
+
+		Random rand = new Random();
+
+		int randnumber = rand.nextInt(al.size() - 1);
+		String sText = al.get(randnumber);
+		System.out.println(sText);
+		return sText;
 	}
 }

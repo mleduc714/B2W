@@ -138,7 +138,6 @@ public class MaintainDashboardSmokeTest_1 extends B2WTestCase {
 		logCompare(true, b2wRequests.clickNewCommentButton(), "Create comments");
 		logCompare(true, b2wRequests.setNewCommentAndSave(sMaintenanceRequestComments), "Comments");
 		logCompare(true, b2wRequests.setRequestNotes(sMaintenanceRequestNotes), "Set Notes");
-		
 		assertTrue("Save request", b2wRequests.clickSaveButton());
 		assertTrue("Open Dashboard",b2wMaintain.openDashboard());
 		logCompare(iUnassignedRepairRequests + 1, b2wDash.getUnassignedRepairRequests(), "Unassigned Repair Requests");
@@ -229,10 +228,10 @@ public class MaintainDashboardSmokeTest_1 extends B2WTestCase {
 			Calendar cal = Calendar.getInstance();
 			cal.add(Calendar.DAY_OF_YEAR, 7);
 			logCompare(true,b2wSchd.openWorkOrderFromPastDueTabByNumber(0), "Open Work Order from Past Due");
-			logCompare(true, b2wEditSch.editScheduleMaintainancePopupSelectStartDate(format.format(cal.getTime())),
+			logCompare(true, b2wEditSch.selectStartDate(format.format(cal.getTime())),
 					"Set Start Date to 7 days to ");
 			cal.add(Calendar.DAY_OF_YEAR, 14);
-			logCompare(true, b2wEditSch.editScheduleMaintainancePopupSelectEndDate(format.format(cal.getTime())),
+			logCompare(true, b2wEditSch.selectEndDate(format.format(cal.getTime())),
 					"Add 7 to start date to ");
 			logCompare(true, b2wEditSch.saveScheduleMaintenance(), "Save scheduled maintenance");
 			assertTrue("Open Dashboard",b2wMaintain.openDashboard());
