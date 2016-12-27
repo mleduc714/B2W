@@ -922,6 +922,93 @@ public class B2WSchedulerTasks extends B2WKendoTasks {
         return bReturn;
     }
 
+    public boolean openOrderPanel() {
+        boolean bReturn = false;
+        WebElement eOrderPanelBtn = WebElementUtils.findElement(B2WScheduleAssignments.getOrderPanelButton());
+        if (eOrderPanelBtn != null) {
+            bReturn = WebElementUtils.clickElement(eOrderPanelBtn);
+            waitForSchedulesPageNoBusy();
+            bReturn &= WebElementUtils.waitAndFindDisplayedElement(B2WScheduleAssignments.getOrderPanel(), WebElementUtils.LONG_TIME_OUT) != null;
+        } else {
+            log.debug("Order button could not be found on the page.");
+        }
+        return bReturn;
+    }
+    public boolean warningIconIsDisplayed(String sResourceName) {
+        boolean bReturn = false;
+        WebElement eResourceLine = getResourceLine(sResourceName);
+        if (eResourceLine != null) {
+            WebElement parent = WebElementUtils.getParentElement(eResourceLine);
+            WebElement eResourceWarningIcon = WebElementUtils.getChildElement(parent, B2WScheduleAssignments.getResourceWarningIcon_Need_i228());
+            if (eResourceWarningIcon != null && WebElementUtils.getParentElement(eResourceWarningIcon).isDisplayed()) {
+                bReturn = WebElementUtils.clickElement(eResourceWarningIcon);
+                WebElement eTooltip = WebElementUtils.waitAndFindDisplayedElement(B2WScheduleAssignments.getTooltip());
+                if (eTooltip != null) {
+                    bReturn = WebElementUtils.getChildElementContainsText(eTooltip, By.cssSelector("a.Text--link"), "View in Orders/Needs Panel") != null;
+                } else {
+                    log.debug("Tooltip is not displayed.");
+                }
+            } else {
+                log.debug("Warning Icon could not be found for Resource: " + sResourceName);
+            }
+        } else {
+            log.debug("Could not find resource line for + " + sResourceName);
+        }
+        return bReturn;
+    }
+    public boolean resolveOrder(B2WAssignment assignment) {
+        boolean bReturn;
+        WebElement order = getOrderForResource(assignment.getResourceName());
+        if (order != null) {
+            bReturn = logCompare(true, selectOrder(order), "Select Conflict on the panel..");
+            bReturn &= logCompare(true, deleteAssignment(assignment), "Delete Assignment");
+            bReturn &= logCompare(false, conflictIconIsDisplayed(assignment), "Check that Conflict Icon is not displayed anymore.");
+            bReturn &= logCompare(true, closeConflictPanel(), "Check that Conflict Panel is closed.");
+        } else {
+            bReturn = logCompare(true, false, "Conflict for " + assignment.getResourceName() + " could not be found on the page.");
+        }
+        return bReturn;
+    }
+
+    /*
+        if (order != null) {
+            logCompare(true, b2wScheduler.selectOrder(order), "Select Conflict on the panel..");
+            WebElement assignment = b2wScheduler.getAssignment(needForOrder);
+            if (assignment != null) {
+                logCompare(true, b2wScheduler.openContextMenu(assignment), "Open Assignment's Context Menu");
+                logCompare(true, b2wScheduler.deleteNeed(), "Delete Need");
+                b2wScheduler.waitForSchedulePageNoBusy();
+            } else {
+                log.debug("Could not find assignment.");
+            }
+            order = b2wScheduler.getOrderForResource(copyOfNeedForOrder.getResourceName());
+            logCompare(true, b2wScheduler.selectOrder(order), "Select Conflict on the panel..");
+            assignment = b2wScheduler.getAssignment(copyOfNeedForOrder);
+            if (assignment != null) {
+                logCompare(true, b2wScheduler.openContextMenu(assignment), "Open Assignment's Context Menu");
+                logCompare(true, b2wScheduler.fillNeed(), "Select 'Fill Need' option");
+                boolean bTmp = logCompare(true, b2wScheduler.fillNeedDialog(copyOfNeedForOrder, sEmployeeNameUpd), "Fill Need by Employee");
+                if (bTmp) {
+                    copyOfNeedForOrder.setAssignmentType(B2WAssignmentType.EMPLOYEE_TYPE);
+                    copyOfNeedForOrder.setResourceName(sEmployeeNameUpd);
+                    logCompare(true, b2wScheduler.clearSearchValue(), "Clear search value.");
+                    b2wScheduler.waitForSchedulePageNoBusy();
+                    WebElement result = b2wScheduler.getEmployeeAssignment(copyOfNeedForOrder);
+                    logCompare(true, result != null, "Verification that specific Employee Need has been converted to Assignment.");
+
+                    logCompare(false, b2wScheduler.warningIconIsDisplayed(needForOrder.getResourceName()), "Verify that Warning Icon is displayed for Resource.");
+                    logCompare(true, b2wScheduler.closeConflictPanel(), "Check that Conflict Panel is closed.");
+                    deleteEmployeeAssignment(sDefaultEmployeeView, copyOfNeedForOrder);
+                } else {
+                    deleteEmployeeNeed(sDefaultEmployeeView, copyOfNeedForOrder);
+                }
+            } else {
+                log.debug("Could not find assignment.");
+            }
+        }
+        */
+
+
     // ==== Private Methods ============================================================================================
     // === Menu for Creation
     private boolean openCreateDialog(String sItem) {
@@ -1045,12 +1132,6 @@ public class B2WSchedulerTasks extends B2WKendoTasks {
         } else {
             log.debug("ToolBar panel could not be found.");
         }
-        return bReturn;
-    }
-    private boolean deleteAssignment() {
-        boolean bReturn;
-        bReturn = selectOptionFromContextMenu("Delete Assignment");
-        bReturn &= selectButtonOption("Yes");
         return bReturn;
     }
 
@@ -1741,7 +1822,6 @@ public class B2WSchedulerTasks extends B2WKendoTasks {
 
                 String b2wAssignmentStart = parent.getAttribute("b2w-assignment-start").replace('T', ' ');
                 Date assignmentStartDate = StringUtils.getDateFromStringWithPattern(b2wAssignmentStart, "yyyy-M-d HH:mm");
-                //return StringUtils.getDateFromStringWithPattern(parent.getAttribute("b2w-assignment-start"), "yyyy-M-d");
                 return assignmentStartDate;
             } catch (Exception ex) {
                 log.debug("Could not get Parent element for: " + item.toString());
@@ -1821,6 +1901,43 @@ public class B2WSchedulerTasks extends B2WKendoTasks {
             log.debug("Conflict button could not be found on the page.");
         }
         return bReturn;
+    }
+
+    // Order Panel
+    private boolean fillNeedDialog(B2WAssignment order, String employeeName) {
+        boolean bReturn = false;
+        WebElement dialog = WebElementUtils.findElement(B2WScheduleAssignments.getAssignmentWindow());
+        if (dialog != null) {
+            WebElement searchBox = WebElementUtils.getChildElement(dialog, B2WScheduleAssignments.getSearchBox());
+            if (searchBox != null) {
+                bReturn = WebElementUtils.sendKeys(searchBox, employeeName);
+                WebElement checkbox = WebElementUtils.getChildElement(dialog, B2WScheduleAssignments.getFirstEmployeeCheckbox());
+                if (checkbox != null) {
+                    bReturn &= WebElementUtils.clickElement(checkbox);
+                    bReturn &= saveAssignment();
+                } else {
+                    log.debug("Could not select Employee " + employeeName + " from the list.");
+                    bReturn = false;
+                }
+                if (!bReturn) {
+                    WebElement cancelBtn = WebElementUtils.findElement(B2WScheduleAssignments.getCancelBtn());
+                    WebElementUtils.clickElement(cancelBtn);
+                    selectButtonOption("Yes");
+                    waitForSchedulesPageNoBusy();
+                }
+            } else {
+                log.debug("The search box could not be found on the Fill Need dialog.");
+            }
+        } else {
+            log.debug("The Fill Need Dialog could not be found.");
+        }
+        return bReturn;
+    }
+    private List<WebElement> getAllOrdersFromPanel() {
+        return WebElementUtils.findElements(B2WScheduleAssignments.getOrderFromPanel());
+    }
+    private WebElement getOrderForResource(String sResourceName) {
+        return WebElementUtils.getElementWithContainsChildElementText(getAllOrdersFromPanel(), By.cssSelector("div.ng-binding"), sResourceName);
     }
 
     // === Support Methods

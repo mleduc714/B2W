@@ -1517,7 +1517,7 @@ public class ScheduleAssignments extends B2WTestCase {
         logCompare(true, true, "====== Start resolving Employee Conflicts for " + copyEmployeeAssignment.getResourceName());
         logCompare(true, b2wScheduler.conflictIconIsDisplayed(copyEmployeeAssignment), "Check that Conflict Icon is displayed.");
         logCompare(true, b2wScheduler.openConflictPanel(), "Open conflict panel.");
-        logCompare(true, b2wScheduler.resolveConflict(copyEmployeeAssignment), "Open conflict panel.");
+        logCompare(true, b2wScheduler.resolveConflict(copyEmployeeAssignment), "Resolve conflict.");
         logCompare(true, true, "====== Complete resolving Employee Conflicts for " + copyEmployeeAssignment.getResourceName());
     }
     private void resolveEquipmentConflict() {
@@ -1581,51 +1581,14 @@ public class ScheduleAssignments extends B2WTestCase {
 
     //=== Order Panel
     private void verifyEmployeeNeedOrder() {
-        /*
-        B2WAssignment needForOrder = new B2WAssignment(B2WAssignmentType.EMPLOYEE_NEED_TYPE, sOrderEmployeeNeedName, sOrderjobSite,
-                sRequestedBy, sNotesText, sCalendarStartDate, sCalendarStartDate, sAssignmentStartTime, sAssignmentDuration);
-        createEmployeeNeed(sDefaultEmployeeView, needForOrder);
-        copyEmployeeNeed(sDefaultEmployeeView, needForOrder);
-        B2WAssignment copyOfNeedForOrder = new B2WAssignment(needForOrder);
-        logCompare(true, b2wScheduler.warningIconIsDisplayed(needForOrder.getResourceName()), "Verify that Warning Icon is displayed for Resource.");
-        logCompare(true, b2wScheduler.openOrderPanel(), "Open Order panel.");
-        WebElement order = b2wScheduler.getOrderForResource(needForOrder.getResourceName());
-        if (order != null) {
-            logCompare(true, b2wScheduler.selectOrder(order), "Select Conflict on the panel..");
-            WebElement assignment = b2wScheduler.getAssignment(needForOrder);
-            if (assignment != null) {
-                logCompare(true, b2wScheduler.openContextMenu(assignment), "Open Assignment's Context Menu");
-                logCompare(true, b2wScheduler.deleteNeed(), "Delete Need");
-                b2wScheduler.waitForSchedulePageNoBusy();
-            } else {
-                log.debug("Could not find assignment.");
-            }
-            order = b2wScheduler.getOrderForResource(copyOfNeedForOrder.getResourceName());
-            logCompare(true, b2wScheduler.selectOrder(order), "Select Conflict on the panel..");
-            assignment = b2wScheduler.getAssignment(copyOfNeedForOrder);
-            if (assignment != null) {
-                logCompare(true, b2wScheduler.openContextMenu(assignment), "Open Assignment's Context Menu");
-                logCompare(true, b2wScheduler.fillNeed(), "Select 'Fill Need' option");
-                boolean bTmp = logCompare(true, b2wScheduler.fillNeedDialog(copyOfNeedForOrder, sEmployeeNameUpd), "Fill Need by Employee");
-                if (bTmp) {
-                    copyOfNeedForOrder.setAssignmentType(B2WAssignmentType.EMPLOYEE_TYPE);
-                    copyOfNeedForOrder.setResourceName(sEmployeeNameUpd);
-                    logCompare(true, b2wScheduler.clearSearchValue(), "Clear search value.");
-                    b2wScheduler.waitForSchedulePageNoBusy();
-                    WebElement result = b2wScheduler.getEmployeeAssignment(copyOfNeedForOrder);
-                    logCompare(true, result != null, "Verification that specific Employee Need has been converted to Assignment.");
+        selectView(employeeScheduleView);
 
-                    logCompare(false, b2wScheduler.warningIconIsDisplayed(needForOrder.getResourceName()), "Verify that Warning Icon is displayed for Resource.");
-                    logCompare(true, b2wScheduler.closeConflictPanel(), "Check that Conflict Panel is closed.");
-                    deleteEmployeeAssignment(sDefaultEmployeeView, copyOfNeedForOrder);
-                } else {
-                    deleteEmployeeNeed(sDefaultEmployeeView, copyOfNeedForOrder);
-                }
-            } else {
-                log.debug("Could not find assignment.");
-            }
-        }
-        */
+        logCompare(true, b2wScheduler.setSearchValue(copyEmployeeNeed.getResourceName()), "Set Quick Filter to " + copyEmployeeNeed.getResourceName());
+        logCompare(true, true, "====== Start fill Employee Need " + copyEmployeeNeed.getResourceName() + " from Order Panel");
+        logCompare(true, b2wScheduler.warningIconIsDisplayed(copyEmployeeNeed.getResourceName()), "Verify that Warning Icon is displayed for Resource.");
+        logCompare(true, b2wScheduler.openOrderPanel(), "Open Order panel.");
+        logCompare(true, b2wScheduler.resolveOrder(copyEmployeeNeed), "Resolve Need on Order Panel.");
+        logCompare(true, true, "====== Complete fill Employee Need for " + copyEmployeeNeed.getResourceName());
     }
 
     private void deleteEmployeeAssignmentSubstitution(){

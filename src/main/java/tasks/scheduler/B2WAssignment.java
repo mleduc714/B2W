@@ -158,26 +158,7 @@ public class B2WAssignment implements Cloneable {
     }
 
     public void moveTo(Date moveDate) {
-        /*
-        Calendar currentCalendar = Calendar.getInstance();
-        currentCalendar.setTime(this.getStartDateAsDate());
-        currentCalendar.set(Calendar.HOUR, 0);
-        currentCalendar.set(Calendar.MINUTE, 0);
-        currentCalendar.set(Calendar.SECOND, 0);
-        currentCalendar.set(Calendar.MILLISECOND, 0);
-
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(moveDate);
-        calendar.set(Calendar.HOUR, 0);
-        calendar.set(Calendar.MINUTE, 0);
-        calendar.set(Calendar.SECOND, 0);
-        calendar.set(Calendar.MILLISECOND, 0);
-
-        long diff = calendar.getTimeInMillis() - currentCalendar.getTimeInMillis();
-
-        long days = diff / 1000 / 60 / 60 / 24;
-        */
-        int days = calcDiffInDays(this.getStartDateAsDate(), moveDate);
+       int days = calcDiffInDays(this.getStartDateAsDate(), moveDate);
         this.dateList.set(0, DateUtils.addDays(this.dateList.get(0), days));
         this.dateList.set(dateList.size() - 1, DateUtils.addDays(this.dateList.get(dateList.size() - 1), days));
     }
@@ -310,25 +291,10 @@ public class B2WAssignment implements Cloneable {
     private int calcDiffInDays(Date startDate, Date endDate) {
         Calendar currentCalendar = Calendar.getInstance();
         currentCalendar.setTime(startDate);
-        /*
-        currentCalendar.set(Calendar.HOUR, 0);
-        currentCalendar.set(Calendar.MINUTE, 0);
-        currentCalendar.set(Calendar.SECOND, 0);
-        currentCalendar.set(Calendar.MILLISECOND, 0);
-        */
 
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(endDate);
-        /*
-        calendar.set(Calendar.HOUR, 0);
-        calendar.set(Calendar.MINUTE, 0);
-        calendar.set(Calendar.SECOND, 0);
-        calendar.set(Calendar.MILLISECOND, 0);
 
-        long diff = calendar.getTimeInMillis() - currentCalendar.getTimeInMillis();
-
-        return (int) diff / 1000 / 60 / 60 / 24;
-        */
         return calendar.get(Calendar.DAY_OF_YEAR) - currentCalendar.get(Calendar.DAY_OF_YEAR);
     }
 }
