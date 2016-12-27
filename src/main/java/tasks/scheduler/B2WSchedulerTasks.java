@@ -1,5 +1,6 @@
 package tasks.scheduler;
 
+import appobjects.resources.B2WEquipment;
 import appobjects.resources.KendoUI;
 import appobjects.scheduler.B2WScheduleAssignments;
 import org.apache.log4j.Logger;
@@ -111,8 +112,9 @@ public class B2WSchedulerTasks extends B2WKendoTasks {
         if (eSearchBox != null) {
             eSearchBox.clear();
             bReturn = WebElementUtils.sendKeys(eSearchBox, sValue);
+            WebElementUtils.waitAndFindDisplayedElement(B2WEquipment.getKendoPageLoading(), 2000);
             //ToDo replace sleep to correct waiting
-            TaskUtils.sleep(1000);
+            //TaskUtils.sleep(1000);
             waitForSchedulesPageNoBusy();
             bReturn &= WebElementUtils.waitAndFindDisplayedElement(B2WScheduleAssignments.getGrid(), WebElementUtils.LONG_TIME_OUT) != null;
         } else {
@@ -126,7 +128,8 @@ public class B2WSchedulerTasks extends B2WKendoTasks {
         if (eSearchBox != null) {
             eSearchBox.clear();
             //ToDo replace sleep to correct waiting
-            TaskUtils.sleep(1000);
+            //TaskUtils.sleep(1000);
+            WebElementUtils.waitAndFindDisplayedElement(B2WEquipment.getKendoPageLoading(), 2000);
             waitForSchedulesPageNoBusy();
             bReturn = WebElementUtils.waitAndFindDisplayedElement(B2WScheduleAssignments.getGrid(), WebElementUtils.LONG_TIME_OUT) != null;
         } else {
