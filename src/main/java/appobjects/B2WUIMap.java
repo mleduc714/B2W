@@ -1051,6 +1051,7 @@ public class B2WUIMap {
     public static final String b2w_maintaindasboardworkordercontentlabel = "div.content_labels";
     public static final String b2w_maintaindashboardworkorderdata = ".wo_data.ellipsis";
     public static final String b2w_maintaindashboardscheduletooltip = "div.schedule-tooltip";
+    public static final String b2w_maintaintooltipcontent = "div.k-tooltip-content";
     public static final String b2w_maintaindashboardscheduledworkOrdersfilterbutton = "span.b2w-icon.i127-filter";
     public static final String b2w_maintaindashboardworkorderchartright = ".workorder_charts_col_right";
     public static final String b2w_maintaindashboardworkordercharts = ".dashboard-workorder-chart";

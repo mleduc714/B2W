@@ -185,10 +185,6 @@ public class WebElementUtils {
 		return getElementWithContainsChildElementText(parents, childBy, text);
 	}
 
-	public static WebElement waitAndFindDisplayedEletment(By locator) {
-		return waitAndFindDisplayedElement(locator, SHORT_TIME_OUT);
-	}
-
 	public static List<WebElement> waitAndFindDisplayedElements(By locator, int timeOut) {
 		WebDriverWait wait = new WebDriverWait(BrowserUtils.getDriver(), timeOut);
 		try {

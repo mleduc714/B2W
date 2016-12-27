@@ -162,6 +162,7 @@ public class MaintainDashboardSmokeTest_2 extends B2WTestCase {
 		int iScheduledWorkOrders = b2wDash.getNumberOfScheduledWorkOrders();
 		for (int i = 0; i < iScheduledWorkOrders; i++){
 			logCompare(true,b2wDash.selectWorkOrderByNumber(i),"Select Work Order By Number");
+			TaskUtils.sleep(1000);
 			logCompare(true,b2wSchedPopup.clickWorkItemLink(),"Click Work Item");
 			logCompare("Scheduled",b2wOrder.getSelectedWorkOrderStatus(), "Work status is scheduled");
 			logCompare(true,b2wMaintain.openDashboard(),"Open Dashboard");
@@ -175,7 +176,6 @@ public class MaintainDashboardSmokeTest_2 extends B2WTestCase {
 		int m = b2wDash.getHighPriorityPercentage();
 		b2wDash.selectWorkOrderByNumber(0);
 		logCompare(true,b2wSchedPopup.clickWorkItemLink(),"Click Work Item");
-		TaskUtils.sleep(2000);
 		priority = b2wOrder.getPriorityOfItemEnum();
 		b2wOrder.editWorkOrder();
 		
