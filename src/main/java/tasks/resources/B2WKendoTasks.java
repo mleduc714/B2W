@@ -442,7 +442,6 @@ public abstract class B2WKendoTasks {
 				((JavascriptExecutor) BrowserUtils.getDriver()).executeScript(
 		                "arguments[0].scrollIntoView();", el);
 			}
-				System.out.println(columns.get(iColumn).getText());
 				al.add(columns.get(iColumn).getText());
 			}
 		

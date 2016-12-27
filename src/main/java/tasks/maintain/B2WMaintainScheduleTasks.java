@@ -559,10 +559,15 @@ public class B2WMaintainScheduleTasks extends B2WKendoTasks {
 						WebElementUtils.clickElement(dateYear);
 						TaskUtils.sleep(1000);
 						// go to the year
+						
+						////a[@data-value='2016/0/1']
+						//a[@data-value='2017/0/1']
 						WebElement cYear = WebElementUtils
-								.findElement(By.xpath("//a[contains(.,'" + year.format(cGoToDate.getTime()) + "')]"));
+								.findElement(By.xpath("//a[@data-value='" + year.format(cGoToDate.getTime()) + "/0/1']"));
 						if (cYear != null) {
 							WebElementUtils.clickElement(cYear);
+						}else{
+							log.debug("The Year has returned null");
 						}
 
 					}
@@ -571,8 +576,9 @@ public class B2WMaintainScheduleTasks extends B2WKendoTasks {
 					WebElement cMonth = WebElementUtils.waitAndFindDisplayedElement(
 							By.xpath("//a[contains(.,'" + month.format(cGoToDate.getTime()) + "')]"));
 					WebElementUtils.clickElement(cMonth);
-					TaskUtils.sleep(2000);
+					
 				}
+				TaskUtils.sleep(2000);
 				// go to the date we want
 				WebElement day = WebElementUtils
 						.waitAndFindDisplayedElement(By.xpath("//a[@title='" + sd.format(cGoToDate.getTime()) + "']"));

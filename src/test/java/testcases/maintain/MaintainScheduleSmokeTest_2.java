@@ -121,6 +121,7 @@ public class MaintainScheduleSmokeTest_2 extends B2WTestCase {
 		String sEquipment = getRandomStringFromArrayList(equipment);
 		logCompare(true,b2wOrder.selectEquipment(sEquipment), "Select Equipment");
 		logCompare(true,b2wOrder.setWorkOrderDescription(sWorkDescription), "Set Description");
+		b2wOrder.selectAnyPlannedWorkLocation();
 		b2wOrder.selectPriorityFromDD("Medium");
 		TaskUtils.sleep(1000);
 		b2wOrder.clickNewItemButton();
@@ -232,25 +233,31 @@ public class MaintainScheduleSmokeTest_2 extends B2WTestCase {
 		b2wSchd.clickPastDueWorkOrdersTab();
 		TaskUtils.sleep(1000);
 		ArrayList<String> al = b2wSchd.getPastDueWorkOrdersFromTab();
-		logCompare(true,b2wSchd.unscheduleWorkOrderFromPastDueTabByDescriptionWithWrench(al.get(0)), "Un Schedule Work Order");
-		logCompare(true,b2wSchd.clickConfirmYes(), "Confirm Yes");
-		logCompare(false,b2wSchd.openWorkOrderFromPastDueTabByDescription(al.get(0)), "Past Due Item has been removed");
-		TaskUtils.sleep(1000);
-		logCompare(true,b2wSchd.editscheduleWorkOrderFromPastDueTabByDescriptionWithWrench(al.get(1)), "Edit WO");
-		b2wEditSch.selectAnyMechanic();
-		logCompare(true,b2wEditSch.saveScheduleMaintenance(), "Save Maintenance");
-		TaskUtils.sleep(1000);
-		logCompare(true,b2wSchd.editWorkOrderFromPastDueTabByDescriptionWithWrench(al.get(1)), "Edit Work ");
-		
-		logCompare(true,b2wOrder.setWorkOrderDescription(sUpdatedWorkDescriptionB), "Update Desc");
-		TaskUtils.sleep(1000);
-		logCompare(true,b2wOrder.saveEditWorkOrder(), "Save Edit Work Order");
-		TaskUtils.sleep(2000);
+		if (al.size() > 2) {
+			logCompare(true, b2wSchd.unscheduleWorkOrderFromPastDueTabByDescriptionWithWrench(al.get(0)),
+					"Un Schedule Work Order");
+			logCompare(true, b2wSchd.clickConfirmYes(), "Confirm Yes");
+			logCompare(false, b2wSchd.openWorkOrderFromPastDueTabByDescription(al.get(0)),
+					"Past Due Item has been removed");
+			TaskUtils.sleep(1000);
+			logCompare(true, b2wSchd.editscheduleWorkOrderFromPastDueTabByDescriptionWithWrench(al.get(1)), "Edit WO");
+			b2wEditSch.selectAnyMechanic();
+			logCompare(true, b2wEditSch.saveScheduleMaintenance(), "Save Maintenance");
+			TaskUtils.sleep(1000);
+			logCompare(true, b2wSchd.editWorkOrderFromPastDueTabByDescriptionWithWrench(al.get(1)), "Edit Work ");
 
-		logCompare(true,b2wSchd.completeWorkOrderFromPastDueTabByDescriptionWithWrench(sUpdatedWorkDescriptionB), "Complete Work Order");
-		logCompare(true,b2wComp.clickNextPage(), "click next page");
-		logCompare(true,b2wComp.completeSave(), "Complete Save");
-		logCompare(false,b2wSchd.openWorkOrderFromPastDueTabByDescription(sUpdatedWorkDescriptionB), "Work Item is not on schedule");
+			logCompare(true, b2wOrder.setWorkOrderDescription(sUpdatedWorkDescriptionB), "Update Desc");
+			TaskUtils.sleep(1000);
+			logCompare(true, b2wOrder.saveEditWorkOrder(), "Save Edit Work Order");
+			TaskUtils.sleep(2000);
+
+			logCompare(true, b2wSchd.completeWorkOrderFromPastDueTabByDescriptionWithWrench(sUpdatedWorkDescriptionB),
+					"Complete Work Order");
+			logCompare(true, b2wComp.clickNextPage(), "click next page");
+			logCompare(true, b2wComp.completeSave(), "Complete Save");
+			logCompare(false, b2wSchd.openWorkOrderFromPastDueTabByDescription(sUpdatedWorkDescriptionB),
+					"Work Item is not on schedule");
+		}
 		
 		
 
