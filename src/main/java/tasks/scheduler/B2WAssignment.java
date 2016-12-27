@@ -273,17 +273,11 @@ public class B2WAssignment implements Cloneable {
     }
     private void recalculateDatesByEndDate() {
         if ((this.getStartDate() != null) && (this.getStartTime() != null) && (this.getEndDate() != null) && (this.getDropoffTime() != null)) {
-            //ToDo: Issue SCHED-3142 : Remove after fix
-            String tmpStartDate = this.getStartDate() + " 0:00 AM";
-            //String tmpStartDate = this.getStartDate() + " " + getStartTime();
-            //===================================================================
+            String tmpStartDate = this.getStartDate() + " " + getStartTime();
             Date startDate = StringUtils.getDateFromStringWithPattern(tmpStartDate, "M/d/yyyy h:mm a");
             this.dateList.set(0, startDate);
 
-            //ToDo: Issue SCHED-3142 : Remove after fix
-            tmpStartDate = this.getEndDate() + " 0:00 AM";
-            //tmpStartDate = getEndDate() + " " + getDropoffTime();
-            //===================================================================
+            tmpStartDate = getEndDate() + " " + getDropoffTime();
             Date endDate = StringUtils.getDateFromStringWithPattern(tmpStartDate, "M/d/yyyy h:mm a");
             this.dateList.set(dateList.size() - 1, endDate);
         }

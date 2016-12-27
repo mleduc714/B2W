@@ -816,24 +816,6 @@ public class B2WSchedulerTasks extends B2WKendoTasks {
                 default : break;
             }
 
-            //ToDo: Remove after debug.
-            /*
-            if (assignmentsTypes.indexOf(assignment.getAssignmentType()) > -1)  {
-                bReturn &= selectOptionFromContextMenu("Delete Assignment");
-            } else if (needsTypes.indexOf(assignment.getAssignmentType()) > -1)  {
-                bReturn &= selectOptionFromContextMenu("Delete Need");
-            } else if (eventsTypes.indexOf(assignment.getAssignmentType()) > -1) {
-                bReturn &= selectOptionFromContextMenu("Delete Event");
-            } else if (assignment.getAssignmentType().equals(B2WAssignmentType.MOVE_ASSIGNMENT_TYPE)) {
-                bReturn &= selectOptionFromContextMenu("Delete Move Assignment");
-            } else if (assignment.getAssignmentType().equals(B2WAssignmentType.MOVE_ORDER_TYPE)) {
-                bReturn &= selectOptionFromContextMenu("Delete Move Order");
-            } else if (assignment.getAssignmentType().equals(B2WAssignmentType.SUBSTITUTION_TYPE)) {
-                bReturn &= selectOptionFromContextMenu("Delete Substitution");
-            } else {
-                bReturn = false;
-            }
-            */
             bReturn &= selectButtonOption("Yes");
 
             int actualCount = getAssignmentsCount(assignment);
@@ -1017,6 +999,7 @@ public class B2WSchedulerTasks extends B2WKendoTasks {
         WebElement creationSection = WebElementUtils.findElement(B2WScheduleAssignments.getCreationSection());
         WebElement dropDownMenu = WebElementUtils.getChildElement(creationSection, B2WScheduleAssignments.getKendoDropDown());
         bReturn = clickAndSelectValueFromKendoFDD(dropDownMenu, sItem);
+        waitForSchedulesPageNoBusy();
         return bReturn;
     }
     private boolean selectNewAssignmentOrNeed() {
