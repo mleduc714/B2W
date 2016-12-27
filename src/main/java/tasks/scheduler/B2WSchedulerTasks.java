@@ -614,6 +614,7 @@ public class B2WSchedulerTasks extends B2WKendoTasks {
 
     public boolean resizeAssignment(B2WAssignment assignment, String sEdge, Date dMoveDate) {
         boolean bReturn = false;
+        logCompare(true, true, "====== Start Resize " + sEdge + " side of Assignments" + assignment.getResourceName() + " to " + dMoveDate);
         WebElement eAssignment = getAssignment(assignment);
         if (eAssignment != null) {
 
@@ -629,6 +630,7 @@ public class B2WSchedulerTasks extends B2WKendoTasks {
         } else {
             logCompare(true, false, "Assignment for " + assignment.getResourceName() + " could not be found on the page.");
         }
+        logCompare(true, true, "====== Complete Resize " + sEdge + " side of Assignments" + assignment.getResourceName() + " to " + dMoveDate);
         return bReturn;
     }
     public boolean updateAssignment(B2WAssignment existsAssignment, B2WAssignment updatedAssignment) {
