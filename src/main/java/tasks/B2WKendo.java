@@ -87,6 +87,12 @@ public abstract class B2WKendo {
 		}
 		return itr;
 	}
+	
+	protected List<WebElement> getRowsFromGrid(WebElement grid){
+		List<WebElement> items = WebElementUtils.getChildElements(grid, By.tagName("tr"));
+		return items;
+	}
+	
 	protected boolean goToDate(String sDate, WebElement dp) {
 		boolean bReturn = false;
 		SimpleDateFormat sd = new SimpleDateFormat("EEEE, MMMM dd, yyyy");
@@ -250,6 +256,16 @@ public abstract class B2WKendo {
 	public boolean clickFinish() {
 		boolean bReturn = false;
 		WebElement el = WebElementUtils.waitAndFindDisplayedElement(B2WMaintain.getKendoLargeFinishButton());
+		if (el != null){
+			bReturn =WebElementUtils.clickElement(el);
+			bReturn &= WebElementUtils.waitForElementInvisible(el);
+		}
+		return bReturn;
+	}
+	
+	public boolean clickDone() {
+		boolean bReturn = false;
+		WebElement el = WebElementUtils.waitAndFindDisplayedElement(B2WMaintain.getKendoLargeDoneButton());
 		if (el != null){
 			bReturn =WebElementUtils.clickElement(el);
 			bReturn &= WebElementUtils.waitForElementInvisible(el);

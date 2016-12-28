@@ -84,6 +84,9 @@ public abstract class KendoUI {
 	public static By getKendoLargeSaveButton() {
 		return By.cssSelector(B2WUIMap.b2w_kendolargesavebutton);
 	}
+	public static By getKendoLargeSAVEButton() {
+		return By.cssSelector(B2WUIMap.b2w_kendolargeSavebutton);
+	}
 	public static By getKendoCancelButton() {
 		return By.cssSelector(B2WUIMap.b2w_kendocancelbutton);
 	}
@@ -110,6 +113,9 @@ public abstract class KendoUI {
 	}
 	public static By getKendoLargeFinishButton() {
 		return By.cssSelector(B2WUIMap.b2w_kendolargefinishbutton);
+	}
+	public static By getKendoLargeDoneButton() {
+		return By.cssSelector(B2WUIMap.b2w_kendolargedonebutton);
 	}
 	public static By getKendoButtonNew() {
 		return By.cssSelector(B2WUIMap.b2w_kendobuttonnew);

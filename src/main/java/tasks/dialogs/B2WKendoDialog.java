@@ -61,6 +61,17 @@ public abstract class B2WKendoDialog extends B2WKendo {
 		return bReturn;
 
 	}
+
+	public boolean clickDone() {
+		boolean bReturn = false;
+		WebElement el = WebElementUtils.waitAndFindDisplayedElement(B2WMaintain.getKendoLargeDoneButton());
+		if (el != null){
+			bReturn =WebElementUtils.clickElement(el);
+			bReturn &= WebElementUtils.waitForElementInvisible(el);
+		}
+		return bReturn;
+	}
+	
 	public WebElement getDisplayedWindow() {
 		WebElement window = null;
 		List<WebElement> windows = WebElementUtils.findElements(B2WMaintain.getKendoWindow());
@@ -261,5 +272,32 @@ public abstract class B2WKendoDialog extends B2WKendo {
 		}
 		return child;
 	}
+
+	public String getItemsByRowColumnFromGrid(int iRow, int iColumn) {
+		String itemstext = "";
+		WebElement header = getDisplayedWindow();
+		WebElement grid = WebElementUtils.getChildElement(header, B2WMaintain.getKendoGridContent());
+		List<WebElement> list = getRowsFromGrid(grid);
+		try {
+			if (list.size() > 0) {
+				List<WebElement> gridcontent = WebElementUtils.getChildElements(list.get(iRow), By.tagName("td"));
+				if (gridcontent.size() > 0) {
+					String sText = gridcontent.get(iColumn).getText();
+					if (sText.equals("")) {
+						Coordinates coordinate = ((Locatable) list.get(iRow)).getCoordinates();
+						coordinate.onPage();
+						coordinate.inViewPort();
+					}
+					sText = gridcontent.get(iColumn).getText();
+					itemstext = sText;
+				}
+
+			}
+		} catch (ArrayIndexOutOfBoundsException e) {
+			log.debug("Column/Row does not exist");
+		}
+		return itemstext;
+	}
+	
 
 }

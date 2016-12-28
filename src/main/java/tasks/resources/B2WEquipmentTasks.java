@@ -1,5 +1,6 @@
 package tasks.resources;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -895,5 +896,370 @@ public class B2WEquipmentTasks extends B2WKendoTasks {
         }
         return bReturn;
 	}
+	
+	public ArrayList<String> getEquipmentHistoryWorkOrders() {
+		ArrayList<String> al = new ArrayList<String>();
+		Iterator<WebElement> iter = getHistoryRows().iterator();
+		while (iter.hasNext()){
+			List<WebElement> tds = WebElementUtils.getChildElements(iter.next(), By.tagName("td"));
+			String sWorkOrder = WebElementUtils.getChildElement(tds.get(0), By.tagName("a")).getText();
+			al.add(sWorkOrder);
+		}
+		return al;
+	}
+	
+	
+	
+	public ArrayList<String> getEquipmentHistoryRequests() {
+		ArrayList<String> al = new ArrayList<String>();
+		Iterator<WebElement> iter = getHistoryRows().iterator();
+		while (iter.hasNext()){
+			List<WebElement> tds = WebElementUtils.getChildElements(iter.next(), By.tagName("td"));
+			String sWorkOrder = WebElementUtils.getChildElement(tds.get(1), By.tagName("a")).getText();
+			al.add(sWorkOrder);
+		}
+		return al;
+	}
+	
+	public boolean clickOnWorkOrderFromHistory(String sWorkOrder){
+		boolean bReturn = false;
+		Iterator<WebElement> iter = getHistoryRows().iterator();
+		while (iter.hasNext()){
+			List<WebElement> tds = WebElementUtils.getChildElements(iter.next(), By.tagName("td"));
+			WebElement wo = WebElementUtils.getChildElement(tds.get(0), By.tagName("a"));
+			if (wo.getText().equals(sWorkOrder)){
+				bReturn = WebElementUtils.clickElement(wo);
+			}
+		}
+		return bReturn;
+	}
+	
+	public boolean clickOnCrew(String sCrew){
+		boolean bReturn = false;
+		Iterator<WebElement> iter = getEquipmentCrewsRows().iterator();
+		while (iter.hasNext()){
+			List<WebElement> tds = WebElementUtils.getChildElements(iter.next(), By.tagName("td"));
+			WebElement wo = WebElementUtils.getChildElement(tds.get(0), By.tagName("a"));
+			if (wo.getText().equals(sCrew)){
+				bReturn = WebElementUtils.clickElement(wo);
+			}
+		}
+		return bReturn;
+	}
+	
+	public boolean clickOnRequestFromHistory(String sRequest){
+		boolean bReturn = false;
+		Iterator<WebElement> iter = getHistoryRows().iterator();
+		while (iter.hasNext()){
+			List<WebElement> tds = WebElementUtils.getChildElements(iter.next(), By.tagName("td"));
+			WebElement wo = WebElementUtils.getChildElement(tds.get(1), By.tagName("a"));
+			if (wo.getText().equals(sRequest)){
+				bReturn = WebElementUtils.clickElement(wo);
+			}
+		}
+		return bReturn;
+	}
+	public String getRequestTypeByWorkOrderFromHistory(String sWorkOrder) {
+		String sText = "";
+		int iRow = getEquipmentHistoryWorkOrders().indexOf(sWorkOrder);
+		if (iRow != -1){
+			sText = getHistory(iRow,2);
+		}
+		return sText;
+	}
+	public String getDescriptionByWorkOrderFromHistory(String sWorkOrder) {
+		String sText = "";
+		int iRow = getEquipmentHistoryWorkOrders().indexOf(sWorkOrder);
+		if (iRow != -1){
+			sText = getHistory(iRow,3);
+		}
+		return sText;
+	}
+	public String getCompCodeByWorkOrderFromHistory(String sWorkOrder) {
+		String sText = "";
+		int iRow = getEquipmentHistoryWorkOrders().indexOf(sWorkOrder);
+		if (iRow != -1){
+			sText = getHistory(iRow,4);
+		}
+		return sText;
+	}
+	public String getStatusByWorkOrderFromHistory(String sWorkOrder) {
+		String sText = "";
+		int iRow = getEquipmentHistoryWorkOrders().indexOf(sWorkOrder);
+		if (iRow != -1){
+			sText = getHistory(iRow,5);
+		}
+		return sText;
+	}
+	private String getHistory(int iRow, int iColumn){
+		String sText = "";
+		List<WebElement> rows = getHistoryRows();
+		if (rows.size()>0){
+			sText = WebElementUtils.getChildElements(rows.get(iRow),By.tagName("td")).get(iColumn).getText();
+			
+		}
+		return sText;
+	}
+	
+	private String getMeters(int iRow, int iColumn){
+		String sText = "";
+		List<WebElement> rows = getMeterRows();
+		if (rows.size()>0){
+			sText = WebElementUtils.getChildElements(rows.get(iRow),By.tagName("td")).get(iColumn).getText();
+			
+		}
+		return sText;
+	}
+	
+	public ArrayList<String> getMeters() {
+		ArrayList<String> al = new ArrayList<String>();
+		Iterator<WebElement> iter = getMeterRows().iterator();
+		while (iter.hasNext()){
+			al.add(WebElementUtils.getChildElements(iter.next(),By.tagName("td")).get(0).getText());
+		}
+		return al;
+	}
+	public ArrayList<String> getParts() {
+		ArrayList<String> al = new ArrayList<String>();
+		Iterator<WebElement> iter = getPartsRows().iterator();
+		while (iter.hasNext()){
+			al.add(WebElementUtils.getChildElements(iter.next(),By.tagName("td")).get(0).getText());
+		}
+		return al;
+	}
+	
+	public ArrayList<String> getWarranties() {
+		ArrayList<String> al = new ArrayList<String>();
+		Iterator<WebElement> iter = getWarrantyRows().iterator();
+		while (iter.hasNext()){
+			al.add(WebElementUtils.getChildElements(iter.next(),By.tagName("td")).get(0).getText());
+		}
+		return al;
+	}
+	
+	public ArrayList<String> getEvents() {
+		ArrayList<String> al = new ArrayList<String>();
+		Iterator<WebElement> iter = getEquipmentEventsRows().iterator();
+		while (iter.hasNext()){
+			al.add(WebElementUtils.getChildElements(iter.next(),By.tagName("td")).get(0).getText());
+		}
+		return al;
+	}
+	public ArrayList<String> getCrews() {
+		ArrayList<String> al = new ArrayList<String>();
+		Iterator<WebElement> iter = getEquipmentCrewsRows().iterator();
+		while (iter.hasNext()){
+			List<WebElement> tds = WebElementUtils.getChildElements(iter.next(), By.tagName("td"));
+			String sWorkOrder = WebElementUtils.getChildElement(tds.get(0), By.tagName("a")).getText();
+			al.add(sWorkOrder);
+		}
+		return al;
+	}
+	public ArrayList<String> getTags() {
+		ArrayList<String> al = new ArrayList<String>();
+		Iterator<WebElement> iter = getEquipmentTagRows().iterator();
+		while (iter.hasNext()){
+			al.add(WebElementUtils.getChildElements(iter.next(),By.tagName("td")).get(0).getText());
+		}
+		return al;
+	}
+	public String getMeterTypeByMeter(String sMeter){
+		String sText = "";
+		int iRow = getMeters().indexOf(sMeter);
+		if (iRow != -1){
+			sText = getMeters(iRow,1);
+		}
+		return sText;
+	}
+	public String getMeterReadingDateByMeter(String sMeter){
+		String sText = "";
+		int iRow = getMeters().indexOf(sMeter);
+		if (iRow != -1){
+			sText = getMeters(iRow,2);
+		}
+		return sText;
+	}
+	public String getMeterCurrentReadingDateByMeter(String sMeter){
+		String sText = "";
+		int iRow = getMeters().indexOf(sMeter);
+		if (iRow != -1){
+			sText = getMeters(iRow,3);
+		}
+		return sText;
+	}
+	public String getMeterPreviousReadingDateByMeter(String sMeter){
+		String sText = "";
+		int iRow = getMeters().indexOf(sMeter);
+		if (iRow != -1){
+			sText = getMeters(iRow,4);
+		}
+		return sText;
+	}
+	
+	
+	public String getPartDescriptionByPartID(String sPart){
+		String sText = "";
+		int iRow = getParts().indexOf(sPart);
+		if (iRow != -1){
+			sText = getParts(iRow,1);
+		}
+		return sText;
+	}
+	public String getPartUnitOfMeasureByPartID(String sPart){
+		String sText = "";
+		int iRow = getParts().indexOf(sPart);
+		if (iRow != -1){
+			sText = getParts(iRow,2);
+		}
+		return sText;
+	}
+	public String getPartManufacturerByPartID(String sPart){
+		String sText = "";
+		int iRow = getParts().indexOf(sPart);
+		if (iRow != -1){
+			sText = getParts(iRow,3);
+		}
+		return sText;
+	}
+	
+	public String getWarrantyTypeByDescription(String sWarranty){
+		String sText = "";
+		int iRow = getWarranties().indexOf(sWarranty);
+		if (iRow != -1){
+			sText = getWarranty(iRow, 1);
+		}
+		return sText;
+	}
+	
+	public String getWarrantyDurationByDescription(String sWarranty){
+		String sText = "";
+		int iRow = getWarranties().indexOf(sWarranty);
+		if (iRow != -1){
+			sText = getWarranty(iRow, 2);
+		}
+		return sText;
+	}
+	
+	public String getWarrantyStatusByDescription(String sWarranty){
+		String sText = "";
+		int iRow = getWarranties().indexOf(sWarranty);
+		if (iRow != -1){
+			sText = getWarranty(iRow, 3);
+		}
+		return sText;
+	}
+	
+	public boolean deletePart(String sPart){
+		boolean bReturn = false;
+		int iRow = getParts().indexOf(sPart);
+		List<WebElement> rows = getPartsRows();
+		if (rows.size()>0){
+			WebElement delete = WebElementUtils.getChildElement(rows.get(iRow), B2WMaintain.getKendoDeleteButton());
+			bReturn = WebElementUtils.clickElement(delete);
+		}
+		return bReturn;
+	}
+	public boolean deleteWarranty(String sWarranty){
+		boolean bReturn = false;
+		int iRow = getWarranties().indexOf(sWarranty);
+		List<WebElement> rows = getWarrantyRows();
+		if (rows.size()>0){
+			WebElement delete = WebElementUtils.getChildElement(rows.get(iRow), B2WMaintain.getKendoDeleteButton());
+			bReturn = WebElementUtils.clickElement(delete);
+		}
+		return bReturn;
+	}
+	public boolean editWarranty(String sWarranty){
+		boolean bReturn = false;
+		int iRow = getWarranties().indexOf(sWarranty);
+		List<WebElement> rows = getWarrantyRows();
+		if (rows.size()>0){
+			WebElement delete = WebElementUtils.getChildElement(rows.get(iRow), B2WMaintain.getKendoEditButton());
+			bReturn = WebElementUtils.clickElement(delete);
+		}
+		return bReturn;
+	}
+	
+	public boolean editMeter(String sMeter){
+		boolean bReturn = false;
+		int iRow = getMeters().indexOf(sMeter);
+		List<WebElement> rows = getMeterRows();
+		if (rows.size()>0){
+			WebElement edit = WebElementUtils.getChildElement(rows.get(iRow), B2WMaintain.getKendoEditButton());
+			bReturn = WebElementUtils.clickElement(edit);
+		}
+		return bReturn;
+	}
+	
+	private String getParts(int iRow, int iColumn){
+		String sText = "";
+		List<WebElement> rows = getPartsRows();
+		if (rows.size()>0){
+			sText = WebElementUtils.getChildElements(rows.get(iRow),By.tagName("td")).get(iColumn).getText();
+		}
+		return sText;
+	}
+	private String getWarranty(int iRow, int iColumn){
+		String sText = "";
+		List<WebElement> rows = getWarrantyRows();
+		if (rows.size()>0){
+			sText = WebElementUtils.getChildElements(rows.get(iRow),By.tagName("td")).get(iColumn).getText();
+		}
+		return sText;
+	}
+	
+	
+	private List<WebElement> getHistoryRows() {
+		WebElement header = getHeader(HISTORY);
+		WebElement historyView = WebElementUtils.getChildElement(header, B2WMaintain.getMaintainEquipmentHistoryView());
+		WebElement tbody = WebElementUtils.getChildElement(historyView, By.tagName("tbody"));
+		List<WebElement> rows = WebElementUtils.getChildElements(tbody, By.tagName("tr"));
+		return rows;
+	}
+	
+	private List<WebElement> getPartsRows() {
+		WebElement header = getHeader(PARTS);
+		WebElement historyView = WebElementUtils.getChildElement(header, B2WMaintain.getMaintainEquipmentPartsView());
+		WebElement tbody = WebElementUtils.getChildElement(historyView, By.tagName("tbody"));
+		List<WebElement> rows = WebElementUtils.getChildElements(tbody, By.tagName("tr"));
+		return rows;
+	}
+	private List<WebElement> getMeterRows() {
+		WebElement header = getHeader(METERS);
+		WebElement historyView = WebElementUtils.getChildElement(header, B2WMaintain.getMaintainEquipmentMetersView());
+		WebElement tbody = WebElementUtils.getChildElement(historyView, By.tagName("tbody"));
+		List<WebElement> rows = WebElementUtils.getChildElements(tbody, By.tagName("tr"));
+		return rows;
+	}
+	
+	private List<WebElement> getWarrantyRows() {
+		WebElement header = getHeader(WARRANTIES);
+		WebElement historyView = WebElementUtils.getChildElement(header, B2WMaintain.getMaintainEquipmentWarrantiesView());
+		WebElement tbody = WebElementUtils.getChildElement(historyView, By.tagName("tbody"));
+		List<WebElement> rows = WebElementUtils.getChildElements(tbody, By.tagName("tr"));
+		return rows;
+	}
+	private List<WebElement> getEquipmentTagRows() {
+		WebElement header = getHeader(TAGS);
+		WebElement historyView = WebElementUtils.getChildElement(header, B2WMaintain.getMaintainEquipmenttagslistview());
+		WebElement tbody = WebElementUtils.getChildElement(historyView, By.tagName("tbody"));
+		List<WebElement> rows = WebElementUtils.getChildElements(tbody, By.tagName("tr"));
+		return rows;
+	}
+	private List<WebElement> getEquipmentEventsRows() {
+		WebElement header = getHeader(EVENTS);
+		WebElement historyView = WebElementUtils.getChildElement(header, B2WMaintain.getMaintainEquipmenteventslistivew());
+		WebElement tbody = WebElementUtils.getChildElement(historyView, By.tagName("tbody"));
+		List<WebElement> rows = WebElementUtils.getChildElements(tbody, By.tagName("tr"));
+		return rows;
+	}
+	private List<WebElement> getEquipmentCrewsRows() {
+		WebElement header = getHeader(CREWS);
+		WebElement historyView = WebElementUtils.getChildElement(header, B2WMaintain.getMaintainEquipmentcrewslistview());
+		WebElement tbody = WebElementUtils.getChildElement(historyView, By.tagName("tbody"));
+		List<WebElement> rows = WebElementUtils.getChildElements(tbody, By.tagName("tr"));
+		return rows;
+	}
+	
 	
 }
