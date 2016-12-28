@@ -130,7 +130,7 @@ public abstract class B2WKendoTasks {
 		boolean bReturn = false;
 		dropDownElement.clear();
 		if (WebElementUtils.sendKeys(dropDownElement, sItem)) {
-			TaskUtils.sleep(100);
+			TaskUtils.sleep(200);
 			bReturn = selectItemFromFDD(sItem);
 		}
 		return bReturn;

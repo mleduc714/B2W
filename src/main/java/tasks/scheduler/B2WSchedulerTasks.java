@@ -127,8 +127,6 @@ public class B2WSchedulerTasks extends B2WKendoTasks {
         WebElement eSearchBox = WebElementUtils.findElement(B2WScheduleAssignments.getSearchBox());
         if (eSearchBox != null) {
             eSearchBox.clear();
-            //ToDo replace sleep to correct waiting
-            //TaskUtils.sleep(1000);
             WebElementUtils.waitAndFindDisplayedElement(B2WEquipment.getKendoPageLoading(), WebElementUtils.SHORT_TIME_OUT);
             waitForSchedulesPageNoBusy();
             bReturn = WebElementUtils.waitAndFindDisplayedElement(B2WScheduleAssignments.getGrid(), WebElementUtils.LONG_TIME_OUT) != null;
@@ -600,7 +598,6 @@ public class B2WSchedulerTasks extends B2WKendoTasks {
             assignment.moveTo(moveDate);
 
             WebElement result = getAssignment(assignment);
-            //bReturn &= logCompare(true, getAssignmentStartDate(result).equals(assignment.getStartDateAsDate()), "Verify that Employee Assignment was moved to the specific date.");
             bReturn &= logCompare(true, result != null, "Verify that Employee Assignment was moved to the specific date.");
         } else {
             bReturn = logCompare(true, false, "Employee assignment for " + assignment.getResourceName() + " could not be found on the page.");
@@ -1150,20 +1147,6 @@ public class B2WSchedulerTasks extends B2WKendoTasks {
     private WebElement getAssignment(B2WAssignment assignment) {
         WebElement eReturn = null;
 
-        /*
-        String sStartDate = assignment.getStartDate() + " " + assignment.getStartTime();
-        Date startDate = StringUtils.getDateFromStringWithPattern(sStartDate, "M/d/yyyy h:mm a");
-        Date endDate;
-        if (assignment.getDuration().toLowerCase().contains(":") ) {
-            String sEndDate = assignment.getEndDate() + " " + assignment.getDuration();
-            endDate = StringUtils.getDateFromStringWithPattern(sEndDate, "M/d/yyyy h:mm a");
-        } else {
-            String sEndDate = assignment.getEndDate() + " " + assignment.getStartTime();
-            endDate = StringUtils.getDateFromStringWithPattern(sEndDate, "M/d/yyyy h:mm a");
-            endDate = DateUtils.addHours(endDate, StringUtils.getHoursFromDuration(assignment.getDuration()));
-            endDate = DateUtils.addMinutes(endDate, StringUtils.getMinutesFromDuration(assignment.getDuration()));
-        }
-        */
         Date startDate = assignment.getDateList().get(0);
         Date endDate = assignment.getDateList().get(assignment.getDateList().size()-1);
         List<WebElement> list = getAssignmentsByLocationAndResourceName(assignment);
@@ -1203,11 +1186,11 @@ public class B2WSchedulerTasks extends B2WKendoTasks {
     // == Method to set value to FDD fields
     private boolean setFields(String sFieldName, String sValue) {
         boolean bReturn = false;
-        WebElement assignmentWindow = WebElementUtils.waitAndFindElement(B2WScheduleAssignments.getAssignmentWindow());
-        WebElementUtils.switchToFrame(B2WScheduleAssignments.getAssignmentWindow(), 1);
-
-        if (assignmentWindow != null) {
-            WebElement employeeAssignment = WebElementUtils.getKendoFDDElementByLabel(sFieldName);
+        //WebElement assignmentWindow = WebElementUtils.waitAndFindElement(B2WScheduleAssignments.getAssignmentWindow());
+        //WebElementUtils.switchToFrame(B2WScheduleAssignments.getAssignmentWindow(), 1);
+        WebElement employeeAssignment = WebElementUtils.getKendoFDDElementByLabel(sFieldName);
+        //if (assignmentWindow != null) {
+        if (employeeAssignment != null) {
             bReturn = sendTextAndSelectValueFromKendoFDD(employeeAssignment, sValue);
             waitForSchedulesPageNoBusy();
         } else {
@@ -1644,7 +1627,8 @@ public class B2WSchedulerTasks extends B2WKendoTasks {
         WebElement assignmentWindow = WebElementUtils.waitAndFindElement(B2WScheduleAssignments.getAssignmentWindow());
         WebElementUtils.switchToFrame(B2WScheduleAssignments.getAssignmentWindow(), 1);
         WebElement saveBtn = WebElementUtils.getChildElement(assignmentWindow, B2WScheduleAssignments.getAddToScheduleBtn());
-        if (saveBtn != null) {
+
+        if (saveBtn != null && WebElementUtils.waitForElementClickable(saveBtn)) {
             bResult = WebElementUtils.clickElement(saveBtn);
             WebElementUtils.waitForElementInvisible(saveBtn);
             waitForSchedulesPageNoBusy();
