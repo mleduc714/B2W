@@ -107,20 +107,31 @@ public class B2WSchedulerTasks extends B2WKendoTasks {
         return bReturn;
     }
     public boolean setSearchValue(String sValue) {
-        boolean bReturn = false;
-        WebElement eSearchBox = WebElementUtils.findElement(B2WScheduleAssignments.getSearchBox());
-        if (eSearchBox != null) {
-            eSearchBox.clear();
-            bReturn = WebElementUtils.sendKeys(eSearchBox, sValue);
-            WebElementUtils.waitAndFindDisplayedElement(B2WEquipment.getKendoPageLoading(), WebElementUtils.SHORT_TIME_OUT);
-            //ToDo replace sleep to correct waiting
-            //TaskUtils.sleep(1000);
-            waitForSchedulesPageNoBusy();
-            bReturn &= WebElementUtils.waitAndFindDisplayedElement(B2WScheduleAssignments.getGrid(), WebElementUtils.LONG_TIME_OUT) != null;
-        } else {
-            log.debug("Search box could not be found on the page.");
+        try {
+            boolean bReturn = false;
+            WebElement eSearchBox = WebElementUtils.findElement(B2WScheduleAssignments.getSearchBox());
+            log.debug("eSearchBox: " + eSearchBox.toString());
+            if (eSearchBox != null) {
+                eSearchBox.clear();
+                log.debug("Perform eSearchBox.clear();");
+                bReturn = WebElementUtils.sendKeys(eSearchBox, sValue);
+                log.debug("Perform sendKeys. Result: " + bReturn);
+                WebElementUtils.waitAndFindDisplayedElement(B2WEquipment.getKendoPageLoading(), WebElementUtils.SHORT_TIME_OUT);
+                log.debug("Stop waiting... ");
+                //ToDo replace sleep to correct waiting
+                //TaskUtils.sleep(1000);
+                waitForSchedulesPageNoBusy();
+                log.debug("Stop waiting loading page... ");
+                bReturn &= WebElementUtils.waitAndFindDisplayedElement(B2WScheduleAssignments.getGrid(), WebElementUtils.LONG_TIME_OUT) != null;
+                log.debug("Return final result: " + bReturn);
+            } else {
+                log.debug("Search box could not be found on the page.");
+            }
+            return bReturn;
+        } catch (Exception e) {
+            log.debug(e.toString());
+            return false;
         }
-        return bReturn;
     }
     public boolean clearSearchValue() {
         boolean bReturn = false;
@@ -940,12 +951,48 @@ public class B2WSchedulerTasks extends B2WKendoTasks {
         }
         return bReturn;
     }
-    public boolean resolveOrder(B2WAssignment assignment) {
+    public boolean resolveOrderByDelete(B2WAssignment assignment) {
         boolean bReturn;
         WebElement order = getOrderForResource(assignment.getResourceName());
         if (order != null) {
+            int initialCount = getAllConflictsFromPanel().size();
             bReturn = logCompare(true, selectOrder(order), "Select Conflict on the panel..");
             bReturn &= logCompare(true, deleteAssignment(assignment), "Delete Assignment");
+            bReturn &= logCompare(true, initialCount == getAllConflictsFromPanel().size() - 1 , "Verify that Need was deleted from Order Panel.");
+            bReturn &= logCompare(true, closeConflictPanel(), "Check that Conflict Panel is closed.");
+        } else {
+            bReturn = logCompare(true, false, "Conflict for " + assignment.getResourceName() + " could not be found on the page.");
+        }
+        return bReturn;
+    }
+    public boolean resolveOrderByFill(B2WAssignment assignment, String sFillResourceName) {
+        boolean bReturn;
+        WebElement order = getOrderForResource(assignment.getResourceName());
+        if (order != null) {
+            int initialCount = getAllConflictsFromPanel().size();
+            bReturn = logCompare(true, selectOrder(order), "Select Conflict on the panel..");
+            bReturn &= logCompare(true, openContextMenu(order), "Open Assignment's Context Menu");
+            switch (assignment.getAssignmentType()) {
+                case B2WAssignmentType.EMPLOYEE_NEED_TYPE :
+                    bReturn &= selectOptionFromContextMenu("Fill Need");
+                    bReturn &= logCompare(true, fillNeedDialog(assignment, sFillResourceName), "Fill Need to " + sFillResourceName);
+                    break;
+                case B2WAssignmentType.EQUIPMENT_NEED_TYPE :
+                    bReturn &= selectOptionFromContextMenu("Fill Need");
+                    bReturn &= logCompare(true, fillNeedDialog(assignment, sFillResourceName), "Fill Need to " + sFillResourceName);
+                    break;
+                case B2WAssignmentType.CREW_NEED_TYPE :
+                    bReturn &= selectOptionFromContextMenu("Fill Need");
+                    bReturn &= logCompare(true, fillNeedDialog(assignment, sFillResourceName), "Fill Need to " + sFillResourceName);
+                    break;
+                case B2WAssignmentType.MOVE_ORDER_TYPE :
+                    bReturn &= selectOptionFromContextMenu("Assign Move Order");
+                    break;
+                default : break;
+            }
+
+            bReturn &= logCompare(true, initialCount == getAllConflictsFromPanel().size() - 1 , "Verify that Need was deleted from Order Panel.");
+
             bReturn &= logCompare(false, conflictIconIsDisplayed(assignment), "Check that Conflict Icon is not displayed anymore.");
             bReturn &= logCompare(true, closeConflictPanel(), "Check that Conflict Panel is closed.");
         } else {
@@ -1186,11 +1233,11 @@ public class B2WSchedulerTasks extends B2WKendoTasks {
     // == Method to set value to FDD fields
     private boolean setFields(String sFieldName, String sValue) {
         boolean bReturn = false;
-        //WebElement assignmentWindow = WebElementUtils.waitAndFindElement(B2WScheduleAssignments.getAssignmentWindow());
-        //WebElementUtils.switchToFrame(B2WScheduleAssignments.getAssignmentWindow(), 1);
+        WebElement assignmentWindow = WebElementUtils.waitAndFindElement(B2WScheduleAssignments.getAssignmentWindow());
+        WebElementUtils.switchToFrame(B2WScheduleAssignments.getAssignmentWindow(), 1);
         WebElement employeeAssignment = WebElementUtils.getKendoFDDElementByLabel(sFieldName);
         //if (assignmentWindow != null) {
-        if (employeeAssignment != null) {
+        if (employeeAssignment != null && assignmentWindow != null) {
             bReturn = sendTextAndSelectValueFromKendoFDD(employeeAssignment, sValue);
             waitForSchedulesPageNoBusy();
         } else {
@@ -1850,17 +1897,6 @@ public class B2WSchedulerTasks extends B2WKendoTasks {
         bReturn &= expectedValue.contains(actualValue);
         return bReturn;
     }
-    private boolean selectOrder(WebElement eOrder) {
-        boolean bReturn = WebElementUtils.clickElement(eOrder);
-        waitForSchedulesPageNoBusy();
-        bReturn &= WebElementUtils.waitAndFindElement(B2WScheduleAssignments.getFillNeedToolbar()) != null;
-        WebElement table = WebElementUtils.findElement(B2WScheduleAssignments.getFirstTableInOrderList());
-        WebElement firstItem = WebElementUtils.getChildElement(table, B2WScheduleAssignments.getFirstItemInOrderList());
-        String actualValue = firstItem.getAttribute("title");
-        String expectedValue = eOrder.getText();
-        bReturn &= expectedValue.contains(actualValue);
-        return bReturn;
-    }
     private boolean closeConflictPanel() {
         boolean bReturn = false;
         WebElement eConflictPanel = WebElementUtils.findElement(B2WScheduleAssignments.getConflictsPanel());
@@ -1910,6 +1946,17 @@ public class B2WSchedulerTasks extends B2WKendoTasks {
     }
     private WebElement getOrderForResource(String sResourceName) {
         return WebElementUtils.getElementWithContainsChildElementText(getAllOrdersFromPanel(), By.cssSelector("div.ng-binding"), sResourceName);
+    }
+    private boolean selectOrder(WebElement eOrder) {
+        boolean bReturn = WebElementUtils.clickElement(eOrder);
+        waitForSchedulesPageNoBusy();
+        bReturn &= WebElementUtils.waitAndFindElement(B2WScheduleAssignments.getFillNeedToolbar()) != null;
+        WebElement table = WebElementUtils.findElement(B2WScheduleAssignments.getFirstTableInOrderList());
+        WebElement firstItem = WebElementUtils.getChildElement(table, B2WScheduleAssignments.getFirstItemInOrderList());
+        String actualValue = firstItem.getAttribute("title");
+        String expectedValue = eOrder.getText();
+        bReturn &= expectedValue.contains(actualValue);
+        return bReturn;
     }
 
     // === Support Methods

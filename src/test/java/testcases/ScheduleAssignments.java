@@ -435,6 +435,12 @@ public class ScheduleAssignments extends B2WTestCase {
         resolveEmployeeEventConflict();
         resolveEquipmentEventConflict();
 
+        /*
+        employeeScheduleView.setName("AUT Schedule - Employees - 7425");
+        //=============
+        verifyEmployeeNeedOrder();
+        */
+
         // Move Assignments
         moveEmployeeAssignment();
         moveSubstitution();
@@ -710,7 +716,7 @@ public class ScheduleAssignments extends B2WTestCase {
         b2wSchedulesTasks.deleteScheduleView(locationScheduleView);
     }
     private void selectView(B2WScheduleView scheduleView) {
-        logCompare(true, b2wScheduler.navigateTo(scheduleView), "Open " + scheduleView.getName() + " Schedule View");
+        logCompare(true, b2wScheduler.navigateTo(scheduleView), "Open '" + scheduleView.getName() + "' Schedule View");
         logCompare(true, b2wScheduler.setCalendarDateRange(scheduleView), "Set " + scheduleView.getDuration() + " Date Range");
         logCompare(true, b2wScheduler.setCalendarStartDate(scheduleView), "Set Start Date to " + scheduleView.getStartDate());
     }
@@ -1645,11 +1651,14 @@ public class ScheduleAssignments extends B2WTestCase {
     private void verifyEmployeeNeedOrder() {
         selectView(employeeScheduleView);
 
+        String sEmployeeNeedNameUpd = getProperty("sEmployeeNeedNameUpd");
+
         logCompare(true, b2wScheduler.setSearchValue(copyEmployeeNeed.getResourceName()), "Set Quick Filter to " + copyEmployeeNeed.getResourceName());
         logCompare(true, true, "====== Start fill Employee Need " + copyEmployeeNeed.getResourceName() + " from Order Panel");
         logCompare(true, b2wScheduler.warningIconIsDisplayed(copyEmployeeNeed.getResourceName()), "Verify that Warning Icon is displayed for Resource.");
         logCompare(true, b2wScheduler.openOrderPanel(), "Open Order panel.");
-        logCompare(true, b2wScheduler.resolveOrder(copyEmployeeNeed), "Resolve Need on Order Panel.");
+        logCompare(true, b2wScheduler.resolveOrderByDelete(copyEmployeeNeed), "Resolve Need on Order Panel by deletion.");
+        logCompare(true, b2wScheduler.resolveOrderByFill(employeeNeed1, employeeNeed.getResourceName()), "Resolve Need on Order Panel by deletion.");
         logCompare(true, true, "====== Complete fill Employee Need for " + copyEmployeeNeed.getResourceName());
     }
 
