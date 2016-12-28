@@ -521,10 +521,15 @@ public class B2WMaintainScheduleTasks extends B2WKendoTasks {
 	
 	
 	public boolean goToDate(String sDate) {
-
+		
+		log.debug("Going to Date: "+sDate);
 		boolean bReturn = false;
 		Calendar cal = Calendar.getInstance();
-		cal.setTime(getCurrentDate());
+		if (getCurrentDate() != null){
+			cal.setTime(getCurrentDate());
+		}else{
+			log.warn("Get Current Date returned null");
+		}
 		SimpleDateFormat format = new SimpleDateFormat("MM/dd/yy");
 		Date goToDate = null;
 		// Calendar month = Calendar.getInstance();
@@ -695,15 +700,24 @@ public class B2WMaintainScheduleTasks extends B2WKendoTasks {
 		String sDate = null;
 		try {
 			SimpleDateFormat calendardate = new SimpleDateFormat("EEE MM/dd/yyyy");
+			SimpleDateFormat shortdate = new SimpleDateFormat("MM/dd/yyyy");
 			WebElement el = WebElementUtils.findElement(B2WMaintain.getB2WScheduleFormatDate());
-			sDate = el.getText();
-			int iIndex = sDate.indexOf("-");
-			if (iIndex != -1) {
-				sDate = sDate.substring(0, iIndex).trim();
+			if (el != null) {
+				sDate = el.getText();
+				if (sDate.length() > 0) {
+					int iIndex = sDate.indexOf("-");
+					if (iIndex != -1) {
+						sDate = sDate.substring(0, iIndex).trim();
+					}
+					date = calendardate.parse(sDate);
+				} else {
+					el = WebElementUtils.findElement(B2WMaintain.getB2WScheduleSmallFormatDate());
+					sDate = el.getText();
+					date = shortdate.parse(sDate);
+				}
 			}
-			date = calendardate.parse(sDate);
 		} catch (Exception e) {
-
+			e.printStackTrace();
 		}
 
 		return date;
