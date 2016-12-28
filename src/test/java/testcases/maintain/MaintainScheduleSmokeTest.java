@@ -133,15 +133,19 @@ public class MaintainScheduleSmokeTest extends B2WTestCase {
 		deleteRequests();
 	}
 
-	public void setMechanics() {
-
+	public boolean setMechanics() {
+		boolean bReturn = false;
 		LinkedList<String> ll = b2wSchd.getAllMechanicsWithoutScheduledWorkItems();
-		sMechanicA = ll.get(1);
-		sMechanicB = ll.get(5);
-		sMechanicC = ll.get(7);
-		sMechanicD = ll.get(10);
-		sMechanicE = ll.get(11);
-		sMechanicF = ll.get(12);
+		if (ll.size() > 15) {
+			sMechanicA = ll.get(1);
+			sMechanicB = ll.get(5);
+			sMechanicC = ll.get(7);
+			sMechanicD = ll.get(10);
+			sMechanicE = ll.get(11);
+			sMechanicF = ll.get(12);
+			bReturn = true;
+		}
+		return bReturn;
 	}
 
 	public void scheduleApprovedWorkOrder() {
@@ -274,18 +278,20 @@ public class MaintainScheduleSmokeTest extends B2WTestCase {
 		logCompare(true, b2wOrder.clickApproveButton(), "Approve the Work Order");
 		logCompare(true, b2wOrder.clickConfirmYes(), "Confirm Approve");
 		assertTrue("Open Schedule",b2wMaintain.openSchedule());
-		setMechanics();
-		b2wSchd.openWorkOrderFromWorkOrderTabByDescription(sEquipment + " ["+sWorkOrderId+"]");
+		assertTrue("Click on Mechanics",b2wSchd.clickMechanicsView());
+		assertTrue("Set Mechanics",setMechanics());
 		TaskUtils.sleep(1000);
-		logCompare(true, b2wSchMain.uncheckWorkItem(sItemDescA), "Uncheck Item");
-		logCompare(true, b2wSchMain.selectMechanic(sMechanicE), "Select E");
+		assertTrue("Open "+WODesc + " ["+sWorkOrderId+"]",b2wSchd.openWorkOrderFromWorkOrderTabByDescription(WODesc + " ["+sWorkOrderId+"]"));
+		TaskUtils.sleep(1000);
+		logCompare(true, b2wSchMain.uncheckWorkItem(sItemDescA), "Uncheck Item "+sItemDescA);
+		logCompare(true, b2wSchMain.selectMechanic(sMechanicE), "Select "+sMechanicE);
 		b2wSchMain.selectAnyWorkLocation();
 		b2wSchMain.selectAnyEvent();
 		logCompare(true, b2wSchMain.saveScheduledMaintenance(), "Save Scheduled Maintenance");
 		TaskUtils.sleep(1000);
-		b2wSchd.openWorkOrderFromWorkOrderTabByDescription(sEquipment + " ["+sWorkOrderId+"]");
+		assertTrue("Open "+WODesc,b2wSchd.openWorkOrderFromWorkOrderTabByDescription(WODesc + " ["+sWorkOrderId+"]"));
 		//logCompare(true, b2wSchMain.uncheckWorkItem(sItemDescA), "Uncheck Item");
-		logCompare(true, b2wSchMain.selectMechanic(sMechanicF), "Select E");
+		logCompare(true, b2wSchMain.selectMechanic(sMechanicF), "Select "+sMechanicF);
 		b2wSchMain.selectAnyWorkLocation();
 		b2wSchMain.selectAnyEvent();
 		b2wSchMain.selectStartDate(dialogDate.format(wOrder.getTime()));
@@ -300,21 +306,18 @@ public class MaintainScheduleSmokeTest extends B2WTestCase {
 		
 		
 		logCompare(true,b2wMaintain.openSchedule(),"Open Schedule");
-		logCompare(true,b2wSchd.unscheduleWorkOrderByDescription(WODesc), "Unschedule Work ORder");
-		logCompare(true,b2wSchd.clickConfirmYes(), "Confirm");
 		logCompare(true,b2wSchd.goToDate(sd.format(wOrder.getTime())), "Go to date");
-		logCompare(true,b2wSchd.unscheduleWorkOrderByDescription(WODesc), "Unschedule Work ORder");
+		logCompare(true,b2wSchd.unscheduleWorkOrderByDescription(WODesc), "Unschedule Work ORder "+WODesc);
 		logCompare(true,b2wSchd.clickConfirmYes(), "Confirm");
-		
-		logCompare(true,b2wSchd.unapproveWorkOrderFromWorkOrderTabByDescription(WODesc), "Unapprove WO");
-		logCompare(true,b2wSchd.clickConfirmYes(), "Confirm");
+		TaskUtils.sleep(1000);
+		logCompare(true,b2wSchd.unapproveWorkOrderFromWorkOrderTabByDescription(WODesc), "Unapprove "+WODesc);
 		b2wMaintain.openWorkOrders();
 		logCompare(true,b2wOrder.selectWorkOrderByDescription(WODesc),"Select Work Order");
 		logCompare(true,b2wOrder.deleteWorkOrder(), "Delete WO");
 		b2wMaintain.openRequests();
-		logCompare(true,b2wRequests.selectRequestByDescription(sItemDescA), "Select Request");
+		logCompare(true,b2wRequests.selectRequestByDescription(sItemDescA), "Select Request "+sItemDescA);
 		logCompare(true,b2wRequests.deleteRequest(),"Delete Request");
-		logCompare(true,b2wRequests.selectRequestByDescription(sItemDescB),"Select Request");
+		logCompare(true,b2wRequests.selectRequestByDescription(sItemDescB),"Select Request "+sItemDescB);
 		logCompare(true,b2wRequests.deleteRequest(), "Delete Request");
 	}
 	
