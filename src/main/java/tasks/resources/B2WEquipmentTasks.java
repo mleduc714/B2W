@@ -808,6 +808,10 @@ public class B2WEquipmentTasks extends B2WKendoTasks {
 		return bReturn;
 	}
 	
+	public boolean clickEquipmentLogs() {
+		return clickKendoButton("Equipment Logs");
+	}
+	
 	//Allows to populate fields and dropdowns
 	public boolean setTextEquipmentSpecs(String sField, String sText){
 		return setTextByField(EQUIPMENTSPECS, sField, sText);

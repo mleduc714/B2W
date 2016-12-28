@@ -926,6 +926,7 @@ public class B2WUIMap {
 	public static final String b2w_maintainprogramgeneraterequestlink = "a.generateProgramRequestLink";
 	public static final String b2w_maintainscheduleformatteddate = "span.k-lg-date-format";
 	public static final String b2w_maintainscheduleformatsmalldate = "span.k-sm-date-format";
+	public static final String b2w_maintainscheduleselecteddate = ".k-state-selected";
 	
 	
 	
@@ -1080,5 +1081,7 @@ public class B2WUIMap {
     public static final String b2w_joboverheadaccountdeletebutton = "a[id^='PageContent_OverheadAccountGridView_Delete']";
 
 	public static final String b2w_maintainworkordertable = "table.item-overview";
+	//equipment log dialog
+	public static final String b2w_equipmentlogequipmentdropdown = "input#equipmentDropdown.k-input";
 
 }

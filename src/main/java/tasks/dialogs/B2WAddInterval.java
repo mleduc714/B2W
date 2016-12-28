@@ -47,7 +47,7 @@ public class B2WAddInterval extends B2WKendoDialog {
 	
 	private boolean selectIntervalRadioButton(String sRadioButton, String sName) {
 		boolean bReturn = false;
-		WebElement dialog = getVisibleDialog();
+		WebElement dialog = getDisplayedWindow();
 		List<WebElement> inputs = WebElementUtils.getChildElements(dialog, By.tagName("input"));
 		Iterator<WebElement> iterB = inputs.iterator();
 		while (iterB.hasNext()) {
@@ -151,7 +151,7 @@ public boolean setYearlyIntervalOccursEveryonTheOf(String sYear, String sOn, Str
 	private WebElement getProgramIntervalType(String sDataInterval) {
 
 		WebElement item = null;
-		WebElement dialog = getVisibleDialog();
+		WebElement dialog = getDisplayedWindow();
 		List<WebElement> items = WebElementUtils.getChildElements(dialog, By.tagName("div"));
 		Iterator<WebElement> iterB = items.iterator();
 		while (iterB.hasNext()){
@@ -217,7 +217,7 @@ public boolean setYearlyIntervalOccursEveryonTheOf(String sYear, String sOn, Str
 	}
 	
 	public Iterator<WebElement> getElementsByTag(String sTag){
-		WebElement dialog = getVisibleDialog();
+		WebElement dialog = getDisplayedWindow();
 		List<WebElement> items = WebElementUtils.getChildElements(dialog, By.tagName(sTag));
 		Iterator<WebElement> iter = items.iterator();
 		return iter;
