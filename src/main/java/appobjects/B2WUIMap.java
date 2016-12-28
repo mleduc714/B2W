@@ -481,6 +481,7 @@ public class B2WUIMap {
 	public static final String b2w_kendolistofitems = ".k-reset";
 	public static final String b2w_kendofooter = ".edit-form-footer";
 	public static final String b2w_kendolargesavebutton = ".btn-form.large.save";
+	public static final String b2w_kendolargeSavebutton = ".btn-form.large.Save";
 	public static final String b2w_kendocancelbutton = ".btn-form.cancel";
 	public static final String b2w_kendolargeaddsavebutton = ".btn-form.large.add-save.save";
 	public static final String b2w_kendofilterbydd = "div.k-multiselect-wrap.k-floatwrap";
@@ -516,6 +517,7 @@ public class B2WUIMap {
 	public static final String b2w_kendoconfirmyesbutton = "div.btn-form.dialog-button.large.confirm";
 	public static final String b2w_kendoconfirmnobutton = "div.btn-form dialog-button reject";
 	public static final String b2w_kendolargefinishbutton = ".btn-form.large.finish";
+	public static final String b2w_kendolargedonebutton = ".btn-form.large.done";
 	public static final String b2w_kendobuttonnew = ".btn-new";
 	public static final String b2w_kendosubmit = ".btn-import";
 
@@ -926,6 +928,7 @@ public class B2WUIMap {
 	public static final String b2w_maintainprogramgeneraterequestlink = "a.generateProgramRequestLink";
 	public static final String b2w_maintainscheduleformatteddate = "span.k-lg-date-format";
 	public static final String b2w_maintainscheduleformatsmalldate = "span.k-sm-date-format";
+	public static final String b2w_maintainscheduleselecteddate = ".k-state-selected";
 	
 	
 	
@@ -1080,5 +1083,21 @@ public class B2WUIMap {
     public static final String b2w_joboverheadaccountdeletebutton = "a[id^='PageContent_OverheadAccountGridView_Delete']";
 
 	public static final String b2w_maintainworkordertable = "table.item-overview";
-
+	//equipment log dialog
+	public static final String b2w_equipmentlogequipmentdropdown = "input#equipmentDropdown.k-input";
+	public static final String b2w_equipmentlogdatepicker = "div#newReadingDate_dateview";
+	public static final String b2w_equipmentlogsaveicon = ".k-grid-saveIcon";
+	public static final String b2w_equipmentlogcancelicon = ".k-grid-cancelIcon";
+	public static final String b2w_equipmentlogdeleteicon = ".k-grid-deleteIcon";
+	
+	public static final String b2w_equipmenthistorylistview = "div#history_list_view";
+	public static final String b2w_equipmentpartslistview = "div#part_list_view";
+	public static final String b2w_equipmentmeterlistview = "div#meter_list_view";
+	public static final String b2w_equipmentwarratieslistview = "div#warranty_list_view";
+	public static final String b2w_equipmenttagslistview = "div#equipmentTags_list_view";
+	public static final String b2w_equipmentcrewslistview = "div#equipmentCrews_list_view";
+	public static final String b2w_equipmenteventslistivew = "div#equipmentEvents_list_view";
+	
+	
+	
 }
