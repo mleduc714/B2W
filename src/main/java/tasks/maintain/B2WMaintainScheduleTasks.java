@@ -715,7 +715,7 @@ public class B2WMaintainScheduleTasks extends B2WKendoTasks {
 				date = calendardate.parse(sDate);
 			}
 		} catch (Exception e) {
-
+			e.printStackTrace();
 		}
 
 		return date;
