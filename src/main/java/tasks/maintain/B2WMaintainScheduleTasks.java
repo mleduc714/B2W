@@ -700,19 +700,20 @@ public class B2WMaintainScheduleTasks extends B2WKendoTasks {
 		String sDate = null;
 		try {
 			SimpleDateFormat calendardate = new SimpleDateFormat("EEE MM/dd/yyyy");
-			WebElement el = WebElementUtils.findElement(B2WMaintain.getB2WScheduleFormatDate());
-			
+			WebElement el = WebElementUtils.findElement(B2WMaintain.getB2WScheduleSmallFormatDate());
 			if (el != null) {
 				sDate = el.getText();
-				int iIndex = sDate.indexOf("-");
-				if (iIndex != -1) {
-					sDate = sDate.substring(0, iIndex).trim();
+				if (sDate.length() > 0) {
+					int iIndex = sDate.indexOf("-");
+					if (iIndex != -1) {
+						sDate = sDate.substring(0, iIndex).trim();
+					}
+					date = calendardate.parse(sDate);
+				} else {
+					el = WebElementUtils.findElement(B2WMaintain.getB2WScheduleSmallFormatDate());
+					sDate = el.getText();
+					date = calendardate.parse(sDate);
 				}
-				date = calendardate.parse(sDate);
-			}else{
-				el = WebElementUtils.findElement(B2WMaintain.getB2WScheduleSmallFormatDate());
-				sDate = el.getText();
-				date = calendardate.parse(sDate);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
