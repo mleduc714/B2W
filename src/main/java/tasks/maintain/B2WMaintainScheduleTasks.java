@@ -700,7 +700,8 @@ public class B2WMaintainScheduleTasks extends B2WKendoTasks {
 		String sDate = null;
 		try {
 			SimpleDateFormat calendardate = new SimpleDateFormat("EEE MM/dd/yyyy");
-			WebElement el = WebElementUtils.findElement(B2WMaintain.getB2WScheduleSmallFormatDate());
+			SimpleDateFormat shortdate = new SimpleDateFormat("MM/dd/yyyy");
+			WebElement el = WebElementUtils.findElement(B2WMaintain.getB2WScheduleFormatDate());
 			if (el != null) {
 				sDate = el.getText();
 				if (sDate.length() > 0) {
@@ -712,7 +713,7 @@ public class B2WMaintainScheduleTasks extends B2WKendoTasks {
 				} else {
 					el = WebElementUtils.findElement(B2WMaintain.getB2WScheduleSmallFormatDate());
 					sDate = el.getText();
-					date = calendardate.parse(sDate);
+					date = shortdate.parse(sDate);
 				}
 			}
 		} catch (Exception e) {
