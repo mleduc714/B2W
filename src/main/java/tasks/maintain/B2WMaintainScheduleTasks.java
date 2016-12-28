@@ -521,11 +521,14 @@ public class B2WMaintainScheduleTasks extends B2WKendoTasks {
 	
 	
 	public boolean goToDate(String sDate) {
-
+		
+		log.debug("Going to Date: "+sDate);
 		boolean bReturn = false;
 		Calendar cal = Calendar.getInstance();
 		if (getCurrentDate() != null){
 			cal.setTime(getCurrentDate());
+		}else{
+			log.warn("Get Current Date returned null");
 		}
 		SimpleDateFormat format = new SimpleDateFormat("MM/dd/yy");
 		Date goToDate = null;
