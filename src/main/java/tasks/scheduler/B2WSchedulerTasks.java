@@ -112,7 +112,7 @@ public class B2WSchedulerTasks extends B2WKendoTasks {
         if (eSearchBox != null) {
             eSearchBox.clear();
             bReturn = WebElementUtils.sendKeys(eSearchBox, sValue);
-            WebElementUtils.waitAndFindDisplayedElement(B2WEquipment.getKendoPageLoading(), 2000);
+            WebElementUtils.waitAndFindDisplayedElement(B2WEquipment.getKendoPageLoading(), WebElementUtils.SHORT_TIME_OUT);
             //ToDo replace sleep to correct waiting
             //TaskUtils.sleep(1000);
             waitForSchedulesPageNoBusy();
@@ -129,7 +129,7 @@ public class B2WSchedulerTasks extends B2WKendoTasks {
             eSearchBox.clear();
             //ToDo replace sleep to correct waiting
             //TaskUtils.sleep(1000);
-            WebElementUtils.waitAndFindDisplayedElement(B2WEquipment.getKendoPageLoading(), 2000);
+            WebElementUtils.waitAndFindDisplayedElement(B2WEquipment.getKendoPageLoading(), WebElementUtils.SHORT_TIME_OUT);
             waitForSchedulesPageNoBusy();
             bReturn = WebElementUtils.waitAndFindDisplayedElement(B2WScheduleAssignments.getGrid(), WebElementUtils.LONG_TIME_OUT) != null;
         } else {
