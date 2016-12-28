@@ -26,18 +26,7 @@ public abstract class B2WKendo {
 	
 	Logger log = Logger.getLogger(B2WKendo.class);
 
-	public WebElement getDisplayedWindow() {
-		WebElement window = null;
-		List<WebElement> windows = WebElementUtils.findElements(B2WMaintain.getKendoWindow());
-		Iterator<WebElement> iter = windows.iterator();
-		while (iter.hasNext()){
-			WebElement temp = iter.next();
-			if (temp.isDisplayed()){
-				window = temp;
-			}
-		}
-		return window;
-	}
+
 	
 	
 	protected boolean selectItemFromDropDown(int i){
@@ -277,33 +266,6 @@ public abstract class B2WKendo {
 		return bReturn;
 	}
 	
-	protected boolean clickNext() {
-
-		boolean bReturn = false;
-		TaskUtils.sleep(500);
-		WebElement window = getDisplayedWindow();
-		if (window != null){
-			WebElement buttoncontainer = WebElementUtils.getChildElement(window, B2WEquipment.getKendoButtonContainer());
-			WebElement nextbutton = buttoncontainer.findElement(B2WEquipment.getKendoButtonNext());
-			bReturn = WebElementUtils.clickElement(nextbutton);
-			waitForPageNotBusy(WebElementUtils.MEDIUM_TIME_OUT);
-		}
-		return bReturn;
-	
-	}
-	
-	protected boolean clickCancel() {
-
-		boolean bReturn = false;
-		TaskUtils.sleep(500);
-		WebElement window = getDisplayedWindow();
-		if (window != null){
-			WebElement buttoncontainer = WebElementUtils.getChildElement(window, B2WEquipment.getKendoButtonContainer());
-			WebElement cancelbutton = buttoncontainer.findElement(B2WEquipment.getKendoCancelButton());
-			bReturn = WebElementUtils.clickElement(cancelbutton);
-		}
-		return bReturn;
-	}
 	
 	protected boolean setNotes(String sText){
 		boolean bReturn = false;
@@ -315,6 +277,7 @@ public abstract class B2WKendo {
 				WebElement body = driver.findElement(By.tagName("body"));
 				WebElementUtils.clickElement(body);
 				bReturn = WebElementUtils.sendKeys(body, sText);
+				BrowserUtils.getDriver().switchTo().defaultContent();
 				break;
 			}
 		}
@@ -339,15 +302,5 @@ public abstract class B2WKendo {
 		}
 		return al;
 	}
-	public WebElement getFormElement(String sLabel, By by){
-		WebElement child = null;
-		WebElement content = getDisplayedWindow();
-		if (content != null){
-			WebElement label = WebElementUtils.getChildElementContainsText(content, By.tagName("label"), sLabel);
-			if (label != null){
-				child = WebElementUtils.getChildElement(WebElementUtils.getParentElement(label), by);
-			}
-		}
-		return child;
-	}
+
 }
