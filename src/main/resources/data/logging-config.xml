@@ -32,7 +32,7 @@
 	<logger name="com.b2w.test">
 		<level value="debug"></level></logger>
 	<logger name="com.b2w.suite">
-		<level value="debug"></level></logger>
+		<level value="all"></level></logger>
 	<root>
 		<priority value = "warn" />
 		<appender-ref ref="console" />
