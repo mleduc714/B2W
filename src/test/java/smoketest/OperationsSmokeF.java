@@ -300,7 +300,7 @@ public class OperationsSmokeF extends B2WTestCase {
 		logCompare(true,b2wJobsAdd.clickSearchButton(), "Click Search Button");
 		logCompare(true,b2wJobsAdd.setIDText(sOrganizationCompanyIDB), "Set ID");
 		if (logCompare(true,b2wJobsAdd.clickSelectButton(), "Select button")){
-			if (logCompare(true,b2wJobsAdd.clickAddButton(), "Click Add Button")){
+			if (!logCompare(true,b2wJobsAdd.clickAddButton(), "Click Add Button")){
 				logCompare(true,b2wJobsAdd.clickCancelButton(), "Click Cancel as workaround for issue with add not working first time thru");
 			}
 			
