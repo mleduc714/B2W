@@ -137,7 +137,8 @@ public class B2WAddToJobs {
 			bReturn = WebElementUtils.clickElement(el);
 			bReturn &= WebElementUtils.waitForElementInvisible(el);
 			if (!bReturn){
-				clickCancelButton();
+				log.warn("Clicking the cancel button. Workaround");
+				bReturn = clickCancelButton();
 			}
 		}
 		return bReturn;
