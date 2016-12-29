@@ -1045,19 +1045,14 @@ public class ScheduleAssignments extends B2WTestCase {
         String backupEmployeeName = employeeSubstitution.getResourceName();
 
         logCompare(true, b2wScheduler.clearSearchValue(), "Clear Quick Filter");
-        logCompare(true, b2wScheduler.moveAssignmentToResource(employeeSubstitution, sNewEmployee), "Move Employee Assignment for: "
-                + employeeSubstitution.getResourceName() + " to Date: " + employeeSubstitution.getDateList().get(0));
-        logCompare(true, b2wScheduler.moveAssignmentToResource(employeeSubstitution, backupEmployeeName), "Move Employee Assignment for: "
-                + employeeSubstitution.getResourceName() + " to Date: " + employeeSubstitution.getDateList().get(0));
-
-        /*
-        String backupEmployeeName = employeeAssignmentForSubstitution.getSubstitution().getResourceName();
-
-        logCompare(true, b2wScheduler.moveAssignmentToResource(employeeAssignmentForSubstitution.getSubstitution(), sNewEmployee), "Move Employee Assignment for: "
-                + employeeAssignmentForSubstitution.getSubstitution().getResourceName() + " to Date: " + employeeAssignmentForSubstitution.getSubstitution().getDateList().get(0));
-        logCompare(true, b2wScheduler.moveAssignmentToResource(employeeAssignmentForSubstitution.getSubstitution(), backupEmployeeName), "Move Employee Assignment for: "
-                + employeeAssignmentForSubstitution.getSubstitution().getResourceName() + " to Date: " + employeeAssignmentForSubstitution.getSubstitution().getDateList().get(0));
-        */
+        if (employeeSubstitution != null) {
+            logCompare(true, b2wScheduler.moveAssignmentToResource(employeeSubstitution, sNewEmployee), "Move Employee Assignment for: "
+                    + employeeSubstitution.getResourceName() + " to Date: " + employeeSubstitution.getDateList().get(0));
+            logCompare(true, b2wScheduler.moveAssignmentToResource(employeeSubstitution, backupEmployeeName), "Move Employee Assignment for: "
+                    + employeeSubstitution.getResourceName() + " to Date: " + employeeSubstitution.getDateList().get(0));
+        } else {
+            logCompare(true, false, "Employee Substitution was not created.");
+        }
     }
     private void moveEmployeeNeed() {
         selectView(employeeDefaultScheduleView);

@@ -56,8 +56,12 @@ public abstract class B2WKendoTasks extends B2WKendo {
 		boolean bReturn = false;
 		dropDownElement.clear();
 		if (WebElementUtils.sendKeys(dropDownElement, sItem)) {
-			TaskUtils.sleep(200);
-			bReturn = selectItemFromFDD(sItem);
+			if (!selectItemFromFDD(sItem)) {
+				TaskUtils.sleep(500);
+				bReturn = selectItemFromFDD(sItem);
+			} else {
+				bReturn = true;
+			}
 		}
 		return bReturn;
 	}
