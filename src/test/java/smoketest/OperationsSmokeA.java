@@ -53,7 +53,6 @@ public class OperationsSmokeA extends B2WTestCase {
 	@Override
 	public void testSetUp() throws Throwable {
 		// TODO Auto-generated method stub
-		sLastName = getEnvProperty("lastname");
 		super.testSetUp();
 		//check do I need to remove access
 		//removeAllAccess();
@@ -177,6 +176,7 @@ public class OperationsSmokeA extends B2WTestCase {
 		assertTrue("Open Setup Users", b2wNav.openSetupUsers());
 		//logCompare("Michael LeDuc",b2wNav.getUserName(), "User Names");
 		//TaskUtils.logScreenCapture();
+		sLastName = b2wNav.getLastNameOfUser();
 		assertTrue("Search for Last Name",userTasks.enterTextAndClickSearch(sLastName));
 		TaskUtils.sleep(500);
 		assertTrue("Open the user",userTasks.openUserByLastName(sLastName));
