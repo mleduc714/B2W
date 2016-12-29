@@ -384,10 +384,10 @@ public class ScheduleAssignments extends B2WTestCase {
     }
 
     public void testMain() throws Throwable {
-        //createScheduleViews();
+        createScheduleViews();
 
         logCompare(true, b2wNav.openSchedule(), "Open Schedule View");
-/*
+
         // Create All Types of Assignments
         createEmployeeAssignments();
         createEmployeeSubstitution();
@@ -468,18 +468,8 @@ public class ScheduleAssignments extends B2WTestCase {
         verifyEmployeeNeedOrder();
         verifyEquipmentNeedOrder();
         verifyCrewNeedOrder();
-*/
-        //
-        //copyCrewNeed = crewNeed.clone();
-        equipmentScheduleView.setName("AUT Schedule - Equipment - 3323");
-        createMoveOrder();
-        copyMoveOrder();
-        moveMoveOrder();
-        updateMoveOrder();
-        //===============
         verifyMoveOrderOrder();
 
-/*
         // Delete Assignments
         deleteEmployeeAssignmentSubstitution();
         deleteEmployeeAssignments();
@@ -496,7 +486,6 @@ public class ScheduleAssignments extends B2WTestCase {
 
         // Delete Schedule Views
         deleteScheduleViews();
-*/
     }
 
     private B2WScheduleView setupEmployeeScheduleView(String sScheduleName) {
@@ -1033,14 +1022,14 @@ public class ScheduleAssignments extends B2WTestCase {
         String sNewEmployee = getProperty("sEmployeeNameUpd");
 
         logCompare(true, b2wScheduler.setSearchValue(employeeAssignment.getResourceName()), "Set Quick Filter to " + employeeAssignment.getResourceName());
-        logCompare(true, b2wScheduler.moveAssignmentToDate(employeeAssignment, employeeDefaultScheduleView.getEndDate()), "Move Employee Assignment for: "
-                + employeeAssignment.getResourceName() + " to Date: " + employeeDefaultScheduleView.getEndDate());
+        logCompare(true, b2wScheduler.moveAssignmentToDate(employeeAssignment, DateUtils.addDays(employeeAssignment.getStartDateAsDate(), 2)), "Move Employee Assignment for: "
+                + employeeAssignment.getResourceName() + " to Date: " + DateUtils.addDays(employeeAssignment.getStartDateAsDate(), 2));
 
         logCompare(true, b2wScheduler.clearSearchValue(), "Clear Search box");
-        logCompare(true, b2wScheduler.moveAssignmentToResourceAndDate(employeeAssignment, sNewEmployee, employeeDefaultScheduleView.getEndDate(), true), "Move Employee Assignment for: "
-                + employeeAssignment.getResourceName() + " to Date: " + employeeDefaultScheduleView.getEndDate());
-        logCompare(true, b2wScheduler.moveAssignmentToResourceAndDate(employeeAssignment, backupEmployee, employeeDefaultScheduleView.getStartDate(), true), "Move Employee Assignment for: "
-                + employeeAssignment.getResourceName() + " to Date: " + employeeDefaultScheduleView.getStartDate());
+        logCompare(true, b2wScheduler.moveAssignmentToResourceAndDate(employeeAssignment, sNewEmployee, employeeAssignment.getEndDateAsDate(), true), "Move Employee Assignment for: "
+                + employeeAssignment.getResourceName() + " to Date: " + employeeAssignment.getEndDateAsDate());
+        logCompare(true, b2wScheduler.moveAssignmentToResourceAndDate(employeeAssignment, backupEmployee, DateUtils.addDays(employeeAssignment.getStartDateAsDate(), -1), true), "Move Employee Assignment for: "
+                + employeeAssignment.getResourceName() + " to Date: " + DateUtils.addDays(employeeAssignment.getStartDateAsDate(), -1));
     }
     private void moveSubstitution() {
         selectView(employeeDefaultScheduleView);
@@ -1062,12 +1051,12 @@ public class ScheduleAssignments extends B2WTestCase {
         selectView(employeeDefaultScheduleView);
 
         logCompare(true, b2wScheduler.setSearchValue(employeeNeed.getResourceName()), "Set Quick Filter to " + employeeNeed.getResourceName());
-        logCompare(true, b2wScheduler.moveAssignmentToDate(employeeNeed, employeeDefaultScheduleView.getEndDate()), "Move Employee Need for: "
-                + employeeNeed.getResourceName() + " to Date: " + employeeDefaultScheduleView.getEndDate());
+        logCompare(true, b2wScheduler.moveAssignmentToDate(employeeNeed, DateUtils.addDays(employeeNeed.getStartDateAsDate(), 1)), "Move Employee Need for: "
+                + employeeNeed.getResourceName() + " to Date: " + DateUtils.addDays(employeeNeed.getStartDateAsDate(), 1));
 
         logCompare(true, b2wScheduler.clearSearchValue(), "Clear Quick Filter");
-        logCompare(true, b2wScheduler.moveAssignmentToResourceAndDate(employeeNeed1, employeeNeed.getResourceName(), employeeDefaultScheduleView.getStartDate(), true), "Move Employee Assignment for: "
-                + employeeNeed.getResourceName() + " to Date: " + employeeDefaultScheduleView.getStartDate());
+        logCompare(true, b2wScheduler.moveAssignmentToResourceAndDate(employeeNeed1, employeeNeed.getResourceName(), employeeNeed1.getStartDateAsDate(), true), "Move Employee Assignment for: "
+                + employeeNeed.getResourceName() + " to Date: " + employeeNeed1.getStartDateAsDate());
 
     }
     private void moveEquipmentAssignment() {
@@ -1077,23 +1066,23 @@ public class ScheduleAssignments extends B2WTestCase {
         String backupEmployee = equipmentAssignment.getResourceName();
 
         logCompare(true, b2wScheduler.setSearchValue(equipmentAssignment.getResourceName()), "Set Quick Filter to " + equipmentAssignment.getResourceName());
-        logCompare(true, b2wScheduler.moveAssignmentToDate(equipmentAssignment, equipmentDefaultScheduleView.getEndDate()), "Move Equipment Assignment for: "
-                + equipmentAssignment.getResourceName() + " to Date: " + equipmentDefaultScheduleView.getEndDate());
+        logCompare(true, b2wScheduler.moveAssignmentToDate(equipmentAssignment, DateUtils.addDays(equipmentAssignment.getStartDateAsDate(), 2)), "Move Equipment Assignment for: "
+                + equipmentAssignment.getResourceName() + " to Date: " + DateUtils.addDays(equipmentAssignment.getStartDateAsDate(), 2));
         logCompare(true, b2wScheduler.clearSearchValue(), "Clear Quick Filter");
-        logCompare(true, b2wScheduler.moveAssignmentToResourceAndDate(equipmentAssignment, sNewEquipmentName, equipmentDefaultScheduleView.getEndDate(), true), "Move Equipment Assignment for: "
-                + equipmentAssignment.getResourceName() + " to Date: " + equipmentDefaultScheduleView.getEndDate());
-        logCompare(true, b2wScheduler.moveAssignmentToResourceAndDate(equipmentAssignment, backupEmployee, equipmentDefaultScheduleView.getStartDate(), true), "Move Equipment Assignment for: "
-                + equipmentAssignment.getResourceName() + " to Date: " + equipmentDefaultScheduleView.getStartDate());
+        logCompare(true, b2wScheduler.moveAssignmentToResourceAndDate(equipmentAssignment, sNewEquipmentName, equipmentAssignment.getStartDateAsDate(), true), "Move Equipment Assignment for: "
+                + equipmentAssignment.getResourceName() + " to Date: " + equipmentAssignment.getStartDateAsDate());
+        logCompare(true, b2wScheduler.moveAssignmentToResourceAndDate(equipmentAssignment, backupEmployee, DateUtils.addDays(equipmentAssignment.getStartDateAsDate(), -1), true), "Move Equipment Assignment for: "
+                + equipmentAssignment.getResourceName() + " to Date: " + DateUtils.addDays(equipmentAssignment.getStartDateAsDate(), -1));
     }
     private void moveEquipmentNeed() {
         selectView(equipmentDefaultScheduleView);
 
         logCompare(true, b2wScheduler.setSearchValue(equipmentNeed.getResourceName()), "Set Quick Filter to " + equipmentNeed.getResourceName());
-        logCompare(true, b2wScheduler.moveAssignmentToDate(equipmentNeed, equipmentDefaultScheduleView.getEndDate()), "Move Equipment Need for: "
-                + equipmentNeed.getResourceName() + " to Date: " + equipmentDefaultScheduleView.getEndDate());
+        logCompare(true, b2wScheduler.moveAssignmentToDate(equipmentNeed, DateUtils.addDays(equipmentNeed.getStartDateAsDate(), 1)), "Move Equipment Need for: "
+                + equipmentNeed.getResourceName() + " to Date: " + DateUtils.addDays(equipmentNeed.getStartDateAsDate(), 1));
         logCompare(true, b2wScheduler.clearSearchValue(), "Clear Quick Filter");
-        logCompare(true, b2wScheduler.moveAssignmentToResourceAndDate(equipmentNeed1, equipmentNeed.getResourceName(), equipmentDefaultScheduleView.getStartDate(), true), "Move Equipment Need for: "
-                + equipmentNeed1.getResourceName() + " to Date: " + equipmentDefaultScheduleView.getStartDate());
+        logCompare(true, b2wScheduler.moveAssignmentToResourceAndDate(equipmentNeed1, equipmentNeed.getResourceName(), equipmentNeed1.getStartDateAsDate(), true), "Move Equipment Need for: "
+                + equipmentNeed1.getResourceName() + " to Date: " + equipmentNeed1.getStartDateAsDate());
     }
     private void moveCrewAssignment() {
         selectView(crewsDefaultScheduleView);
@@ -1102,25 +1091,25 @@ public class ScheduleAssignments extends B2WTestCase {
         String backupCrewName = crewAssignment.getResourceName();
 
         logCompare(true, b2wScheduler.setSearchValue(crewAssignment.getResourceName()), "Set Quick Filter to " + crewAssignment.getResourceName());
-        logCompare(true, b2wScheduler.moveAssignmentToDate(crewAssignment, crewsDefaultScheduleView.getEndDate()), "Move Crew Assignment for: "
-                + crewAssignment.getResourceName() + " to Date: " + crewsDefaultScheduleView.getEndDate());
+        logCompare(true, b2wScheduler.moveAssignmentToDate(crewAssignment, DateUtils.addDays(crewAssignment.getStartDateAsDate(), 2)), "Move Crew Assignment for: "
+                + crewAssignment.getResourceName() + " to Date: " + DateUtils.addDays(crewAssignment.getStartDateAsDate(), 2));
 
         logCompare(true, b2wScheduler.clearSearchValue(), "Clear Quick Filter");
-        logCompare(true, b2wScheduler.moveAssignmentToResourceAndDate(crewAssignment, sCrewNameUpd, crewsDefaultScheduleView.getEndDate(), true), "Move Crew Assignment for: "
-                + crewAssignment.getResourceName() + " to Date: " + crewsDefaultScheduleView.getEndDate());
-        logCompare(true, b2wScheduler.moveAssignmentToResourceAndDate(crewAssignment, backupCrewName, crewsDefaultScheduleView.getStartDate(), true), "Move Crew Assignment for: "
-                + crewAssignment.getResourceName() + " to Date: " + crewsDefaultScheduleView.getStartDate());
+        logCompare(true, b2wScheduler.moveAssignmentToResourceAndDate(crewAssignment, sCrewNameUpd, crewAssignment.getStartDateAsDate(), true), "Move Crew Assignment for: "
+                + crewAssignment.getResourceName() + " to Date: " + crewAssignment.getStartDateAsDate());
+        logCompare(true, b2wScheduler.moveAssignmentToResourceAndDate(crewAssignment, backupCrewName, DateUtils.addDays(crewAssignment.getStartDateAsDate(), -1), true), "Move Crew Assignment for: "
+                + crewAssignment.getResourceName() + " to Date: " + DateUtils.addDays(crewAssignment.getStartDateAsDate(), -1));
     }
     private void moveCrewNeed() {
         selectView(crewsDefaultScheduleView);
 
         logCompare(true, b2wScheduler.setSearchValue(crewNeed.getResourceName()), "Set Quick Filter to " + crewNeed.getResourceName());
-        logCompare(true, b2wScheduler.moveAssignmentToDate(crewNeed, crewsDefaultScheduleView.getEndDate()), "Move Crew Need for: "
-                + crewNeed.getResourceName() + " to Date: " + crewsDefaultScheduleView.getEndDate());
+        logCompare(true, b2wScheduler.moveAssignmentToDate(crewNeed, DateUtils.addDays(crewNeed.getStartDateAsDate(), 1)), "Move Crew Need for: "
+                + crewNeed.getResourceName() + " to Date: " + DateUtils.addDays(crewNeed.getStartDateAsDate(), 1));
 
         logCompare(true, b2wScheduler.clearSearchValue(), "Clear Quick Filter");
-        logCompare(true, b2wScheduler.moveAssignmentToResourceAndDate(crewNeed1, crewNeed.getResourceName(), crewsDefaultScheduleView.getStartDate(), true), "Move Crew Need for: "
-                + crewNeed1.getResourceName() + " to Date: " + crewsDefaultScheduleView.getStartDate());
+        logCompare(true, b2wScheduler.moveAssignmentToResourceAndDate(crewNeed1, crewNeed.getResourceName(), crewNeed1.getStartDateAsDate(), true), "Move Crew Need for: "
+                + crewNeed1.getResourceName() + " to Date: " + crewNeed1.getStartDateAsDate());
     }
     private void moveMoveAssignment() {
         selectView(equipmentDefaultScheduleView);
@@ -1131,7 +1120,7 @@ public class ScheduleAssignments extends B2WTestCase {
 
         logCompare(true, b2wScheduler.clearSearchValue(), "Clear Quick Filter");
         logCompare(true, b2wScheduler.moveAssignmentToDate(moveAssignment, DateUtils.addDays(moveAssignment.getStartDateAsDate(), -1)), "Move Move Assignment for: "
-                + moveAssignment.getResourceName() + " to Date: " + DateUtils.addDays(moveAssignment.getStartDateAsDate(), 2));
+                + moveAssignment.getResourceName() + " to Date: " + DateUtils.addDays(moveAssignment.getStartDateAsDate(), -1));
     }
     private void moveMoveOrder() {
         selectView(equipmentDefaultScheduleView);
@@ -1150,14 +1139,14 @@ public class ScheduleAssignments extends B2WTestCase {
         String sNewEmployee = getProperty("sEmployeeNameUpd");
 
         logCompare(true, b2wScheduler.setSearchValue(employeeEvent.getResourceName()), "Set Quick Filter to " + employeeEvent.getResourceName());
-        logCompare(true, b2wScheduler.moveAssignmentToDate(employeeEvent, employeeDefaultScheduleView.getEndDate()), "Move Employee Event for: "
-                + employeeEvent.getResourceName() + " to Date: " + employeeDefaultScheduleView.getEndDate());
+        logCompare(true, b2wScheduler.moveAssignmentToDate(employeeEvent, DateUtils.addDays(employeeEvent.getStartDateAsDate(), 2)), "Move Employee Event for: "
+                + employeeEvent.getResourceName() + " to Date: " + DateUtils.addDays(employeeEvent.getStartDateAsDate(), 2));
 
         logCompare(true, b2wScheduler.clearSearchValue(), "Clear Search box");
-        logCompare(true, b2wScheduler.moveAssignmentToResourceAndDate(employeeEvent, sNewEmployee, employeeDefaultScheduleView.getEndDate(), true), "Move Employee Event for: "
-                + employeeEvent.getResourceName() + " to Date: " + employeeDefaultScheduleView.getEndDate());
-        logCompare(true, b2wScheduler.moveAssignmentToResourceAndDate(employeeEvent, backupEmployee, employeeDefaultScheduleView.getStartDate(), true), "Move Employee Event for: "
-                + employeeEvent.getResourceName() + " to Date: " + employeeDefaultScheduleView.getStartDate());
+        logCompare(true, b2wScheduler.moveAssignmentToResourceAndDate(employeeEvent, sNewEmployee, employeeEvent.getStartDateAsDate(), true), "Move Employee Event for: "
+                + employeeEvent.getResourceName() + " to Date: " + employeeEvent.getStartDateAsDate());
+        logCompare(true, b2wScheduler.moveAssignmentToResourceAndDate(employeeEvent, backupEmployee, DateUtils.addDays(employeeEvent.getStartDateAsDate(), -1), true), "Move Employee Event for: "
+                + employeeEvent.getResourceName() + " to Date: " + DateUtils.addDays(employeeEvent.getStartDateAsDate(), -1));
     }
     private void moveEquipmentEvent() {
         selectView(equipmentDefaultScheduleView);
@@ -1166,14 +1155,14 @@ public class ScheduleAssignments extends B2WTestCase {
         String sEquipmentNameUpd = getProperty("sEquipmentNameUpd");
 
         logCompare(true, b2wScheduler.setSearchValue(equipmentEvent.getResourceName()), "Set Quick Filter to " + equipmentEvent.getResourceName());
-        logCompare(true, b2wScheduler.moveAssignmentToDate(equipmentEvent, equipmentDefaultScheduleView.getEndDate()), "Move Equipment Event for: "
-                + equipmentEvent.getResourceName() + " to Date: " + equipmentDefaultScheduleView.getEndDate());
+        logCompare(true, b2wScheduler.moveAssignmentToDate(equipmentEvent, DateUtils.addDays(equipmentEvent.getStartDateAsDate(), 2)), "Move Equipment Event for: "
+                + equipmentEvent.getResourceName() + " to Date: " + DateUtils.addDays(equipmentEvent.getStartDateAsDate(), 2));
 
         logCompare(true, b2wScheduler.clearSearchValue(), "Clear Search box");
-        logCompare(true, b2wScheduler.moveAssignmentToResourceAndDate(equipmentEvent, sEquipmentNameUpd, equipmentDefaultScheduleView.getEndDate(), true), "Move Equipment Event for: "
-                + equipmentEvent.getResourceName() + " to Date: " + equipmentDefaultScheduleView.getEndDate());
-        logCompare(true, b2wScheduler.moveAssignmentToResourceAndDate(equipmentEvent, backupResourceName, equipmentDefaultScheduleView.getStartDate(), true), "Move Equipment Event for: "
-                + equipmentEvent.getResourceName() + " to Date: " + equipmentDefaultScheduleView.getStartDate());
+        logCompare(true, b2wScheduler.moveAssignmentToResourceAndDate(equipmentEvent, sEquipmentNameUpd, equipmentEvent.getStartDateAsDate(), true), "Move Equipment Event for: "
+                + equipmentEvent.getResourceName() + " to Date: " + equipmentEvent.getStartDateAsDate());
+        logCompare(true, b2wScheduler.moveAssignmentToResourceAndDate(equipmentEvent, backupResourceName, DateUtils.addDays(equipmentEvent.getStartDateAsDate(), -1), true), "Move Equipment Event for: "
+                + equipmentEvent.getResourceName() + " to Date: " + DateUtils.addDays(equipmentEvent.getStartDateAsDate(), -1));
     }
     private void moveLocationEvent() {
         selectView(locationDefaultScheduleView);
@@ -1182,14 +1171,14 @@ public class ScheduleAssignments extends B2WTestCase {
         String sLocationEventNameUpd = getProperty("sLocationEventNameUpd");
 
         logCompare(true, b2wScheduler.setSearchValue(locationEvent.getResourceName()), "Set Quick Filter to " + locationEvent.getResourceName());
-        logCompare(true, b2wScheduler.moveAssignmentToDate(locationEvent, locationDefaultScheduleView.getEndDate()), "Move Location Event for: "
-                + locationEvent.getResourceName() + " to Date: " + locationDefaultScheduleView.getEndDate());
+        logCompare(true, b2wScheduler.moveAssignmentToDate(locationEvent, DateUtils.addDays(locationEvent.getStartDateAsDate(), 2)), "Move Location Event for: "
+                + locationEvent.getResourceName() + " to Date: " + DateUtils.addDays(locationEvent.getStartDateAsDate(), 2));
 
         logCompare(true, b2wScheduler.clearSearchValue(), "Clear Search box");
-        logCompare(true, b2wScheduler.moveAssignmentToResourceAndDate(locationEvent, sLocationEventNameUpd, locationDefaultScheduleView.getEndDate(), true), "Move Location Event for: "
-                + locationEvent.getResourceName() + " to Date: " + locationDefaultScheduleView.getEndDate());
-        logCompare(true, b2wScheduler.moveAssignmentToResourceAndDate(locationEvent, backupResourceName, locationDefaultScheduleView.getStartDate(), true), "Move Location Event for: "
-                + locationEvent.getResourceName() + " to Date: " + locationDefaultScheduleView.getStartDate());
+        logCompare(true, b2wScheduler.moveAssignmentToResourceAndDate(locationEvent, sLocationEventNameUpd, locationEvent.getStartDateAsDate(), true), "Move Location Event for: "
+                + locationEvent.getResourceName() + " to Date: " + locationEvent.getStartDateAsDate());
+        logCompare(true, b2wScheduler.moveAssignmentToResourceAndDate(locationEvent, backupResourceName, DateUtils.addDays(locationEvent.getStartDateAsDate(), -1), true), "Move Location Event for: "
+                + locationEvent.getResourceName() + " to Date: " + DateUtils.addDays(locationEvent.getStartDateAsDate(), -1));
     }
 
     private void updateEmployeeAssignment() {
@@ -1651,6 +1640,7 @@ public class ScheduleAssignments extends B2WTestCase {
         selectView(employeeDefaultScheduleView);
 
         String sEmployeeFillNeedName = getProperty("sEmployeeFillNeedName");
+        String sEmployeeDragNeedName = getProperty("sEmployeeDragNeedName");
 
         //logCompare(true, b2wScheduler.setSearchValue(copyEmployeeNeed.getResourceName()), "Set Quick Filter to " + copyEmployeeNeed.getResourceName());
         logCompare(true, b2wScheduler.clearSearchValue(), "Clear search box.");
@@ -1659,7 +1649,7 @@ public class ScheduleAssignments extends B2WTestCase {
         logCompare(true, b2wScheduler.openOrderPanel(), "Open Order panel.");
         logCompare(true, b2wScheduler.resolveOrderByDelete(copyEmployeeNeed), "Resolve Need on Order Panel by deletion.");
         logCompare(true, b2wScheduler.resolveOrderByFill(employeeNeed, sEmployeeFillNeedName), "Resolve Need on Order Panel by deletion.");
-        logCompare(true, b2wScheduler.resolveOrderByDrag(employeeNeed1, sEmployeeFillNeedName), "Resolve Need on Order Panel by deletion.");
+        logCompare(true, b2wScheduler.resolveOrderByDrag(employeeNeed1, sEmployeeDragNeedName), "Resolve Need on Order Panel by deletion.");
         logCompare(true, b2wScheduler.isOrderPanelEmpty(), "Check that there are no more orders in the panel.");
         logCompare(false, b2wScheduler.warningIconIsDisplayed(copyEmployeeNeed.getResourceName()), "Verify that Warning Icon is not displayed for Resource.");
         logCompare(true, b2wScheduler.closeConflictPanel(), "Close the Order Panel.");

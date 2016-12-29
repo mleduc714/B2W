@@ -870,7 +870,8 @@ public class B2WSchedulerTasks extends B2WKendoTasks {
                     eResourceWarningIcon = WebElementUtils.getChildElement(parent, B2WScheduleAssignments.getResourceWarningIcon_i152());
                     break;
                 case B2WAssignmentType.CREW_TYPE :
-                    eResourceWarningIcon = WebElementUtils.getChildElement(parent, B2WScheduleAssignments.getResourceWarningIcon_i228());
+                    //eResourceWarningIcon = WebElementUtils.getChildElement(parent, B2WScheduleAssignments.getResourceWarningIcon_i228());
+                    eResourceWarningIcon = WebElementUtils.getChildElement(parent, B2WScheduleAssignments.getResourceWarningIcon_i152());
                     break;
                 case B2WAssignmentType.MOVE_ASSIGNMENT_TYPE :
                     eResourceWarningIcon = WebElementUtils.getChildElement(parent, B2WScheduleAssignments.getResourceWarningIcon_i152());
