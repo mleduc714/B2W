@@ -140,10 +140,15 @@ public class B2WAddToJobs {
 		return bReturn;
 	}
 	
-	public void clickCancelButton() {
+	public boolean clickCancelButton() {
+		boolean bReturn = false;
 		WebElement parent = WebElementUtils.waitAndFindDisplayedElement(bydialog);
 		WebElement el = WebElementUtils.getChildElement(parent, cancelbutton);
-		WebElementUtils.clickElement(el);
+		if (el != null){
+			bReturn = WebElementUtils.clickElement(el);
+			bReturn &= WebElementUtils.waitForElementInvisible(el);
+		}
+		return bReturn;
 	}
 	
 
