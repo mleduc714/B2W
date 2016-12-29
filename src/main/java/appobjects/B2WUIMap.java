@@ -757,7 +757,6 @@ public class B2WUIMap {
 	public static final String b2w_schedulecreationsection = "b2w-create-action";
 	public static final String b2w_scheduleassignmentwindow = ".k-widget.k-window.close-button";
 	public static final String b2w_schedulefieldslabel = "label";
-	//public static final String b2w_scheduleaddtoschedulebtn = ".Button.Button--large.Button--margin-left";
 	public static final String b2w_scheduleaddtoschedulebtn = "button.Button.Button--large[ng-click='save()']";
 	public static final String b2w_schedule_addresssection = "div[ng-show=\"isAddressVisible\"]";
 	public static final String b2w_scheduleselectcrewbtn = ".Button.Button--large[ng-click=\"next()\"]";
@@ -770,6 +769,7 @@ public class B2WUIMap {
 	public static final String b2w_schedulecalendaractiverange = "a.k-state-selected";
 	public static final String b2w_schedulecalendastartdate = "input#startDate";
 	public static final String b2w_schedule_search = "input#searchText[class ~= 'SearchBox__input--tall']";
+	public static final String b2w_schedule_searchonpanel = "input#searchText";
 	public static final String b2w_schedule_grid = "div.k-grid-content";
 	public static final String b2w_schedule_assignment = ".Assignment__content";
 	public static final String b2w_schedule_resourcename = "div.ResourceDescription__resource-name";
@@ -779,8 +779,8 @@ public class B2WUIMap {
 	public static final String b2w_schedule_editlocationlink = ".//a[contains(text(), 'Edit Location')]";
 	public static final String b2w_schedule_placeholder = ".assignment-placeholder";
 	public static final String b2w_schedule_toolbarpanel = ".Toolbar__group--wide";
-	public static final String b2w_scheduled_expandicon = ".Icon.i116-double-angle-down";
-	public static final String b2w_scheduled_collapseicon = ".Icon.i119-double-angle-up";
+	public static final String b2w_schedule_expandicon = ".Icon.i116-double-angle-down";
+	public static final String b2w_schedule_collapseicon = ".Icon.i119-double-angle-up";
 	public static final String b2w_schedule_assignmentrightedge = ".Assignment__handle.Assignment__handle--right.active";
 	public static final String b2w_schedule_assignmentleftedge = ".Assignment__handle.Assignment__handle--left.active";
 	public static final String b2w_schedule_resourcewarningicon_i152 = ".Icon.clickable.ng-isolate-scope.i152-warning";
@@ -799,9 +799,10 @@ public class B2WUIMap {
 	public static final String b2w_schedule_orderlistfirstitem = ".ResourceDescription__resource-name.level0.notify-icon";
 	public static final String b2w_schedule_checkedbtn = ".Toolbar__toggle-button--checked";
 	public static final String b2w_schedule_employeecheckbox = "input.ng-pristine";
-	public static final String b2w_schedule_cancelbutton = ".Button.Button--large.Button--link";
 	public static final String b2w_schedule_cancelbtn = "button.Button.Button--large[ng-click='cancel()']";
+
 	public static final String b2w_schedule_useritem = "ul#user-select_taglist";
+	public static final String b2w_schedule_fillwith = "span.Toolbar__input--fill-need";
 
 	// Maintain
 	public static final String b2w_maintainpagemenu = "ul#SubNavMenu_MaintainPageMenu.MaintainPageMenu";

@@ -9,6 +9,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.Select;
 import tasks.BrowserUtils;
 import tasks.WebElementUtils;
 import tasks.resources.B2WKendoTasks;
@@ -17,6 +18,7 @@ import tasks.util.TaskUtils;
 
 import java.util.*;
 
+import static com.b2w.test.BaseAssert.assertFalse;
 import static com.b2w.test.BaseAssert.logCompare;
 
 public class B2WSchedulerTasks extends B2WKendoTasks {
@@ -597,7 +599,15 @@ public class B2WSchedulerTasks extends B2WKendoTasks {
         logCompare(true, true, "====== Complete Moving Employee Assignment (" + assignment.getResourceName() + ") to Date: " + dMoveDate.toString());
         return bReturn;
     }
-    public boolean moveAssignmentToResourceAndDate(B2WAssignment assignment, String sResourceName, Date moveDate) {
+
+    /**
+     * Method moving Assignment to the Resource and to the Date
+     * @param assignment    Assignment that will be moved
+     * @param sResourceName Assignment will be moved to this Resource
+     * @param moveDate      Assignment will be moved to this Date
+     * @return
+     */
+    public boolean moveAssignmentToResourceAndDate(B2WAssignment assignment, String sResourceName, Date moveDate, boolean check) {
         boolean bReturn;
         logCompare(true, true, "====== Start Moving Assignment (" + assignment.getResourceName() + ") to Resource: " + sResourceName + " and to the Date: " + moveDate.toString());
         WebElement eAssignment = getAssignment(assignment);
@@ -608,8 +618,10 @@ public class B2WSchedulerTasks extends B2WKendoTasks {
             assignment.setResourceName(sResourceName);
             assignment.moveTo(moveDate);
 
-            WebElement result = getAssignment(assignment);
-            bReturn &= logCompare(true, result != null, "Verify that Employee Assignment was moved to the specific date.");
+            if (check) {
+                WebElement result = getAssignment(assignment);
+                bReturn &= logCompare(true, result != null, "Verify that Employee Assignment was moved to the specific date.");
+            }
         } else {
             bReturn = logCompare(true, false, "Employee assignment for " + assignment.getResourceName() + " could not be found on the page.");
         }
@@ -617,7 +629,7 @@ public class B2WSchedulerTasks extends B2WKendoTasks {
         return bReturn;
     }
     public boolean moveAssignmentToResource(B2WAssignment assignment, String sResourceName) {
-        return moveAssignmentToResourceAndDate(assignment, sResourceName, assignment.getStartDateAsDate());
+        return moveAssignmentToResourceAndDate(assignment, sResourceName, assignment.getStartDateAsDate(), true);
     }
 
     public boolean resizeAssignment(B2WAssignment assignment, String sEdge, Date dMoveDate) {
@@ -903,6 +915,19 @@ public class B2WSchedulerTasks extends B2WKendoTasks {
         }
         return bReturn;
     }
+    public boolean closeConflictPanel() {
+        boolean bReturn = false;
+        WebElement eConflictPanel = WebElementUtils.findElement(B2WScheduleAssignments.getConflictsPanel());
+        WebElement eConflictBtn = WebElementUtils.findElement(B2WScheduleAssignments.getCheckedBtn());
+        if (eConflictBtn != null && eConflictPanel != null) {
+            bReturn = WebElementUtils.clickElement(eConflictBtn);
+            waitForSchedulesPageNoBusy();
+            bReturn &= WebElementUtils.waitForElementInvisible(eConflictPanel);
+        } else {
+            log.debug("Conflict button could not be found on the page.");
+        }
+        return bReturn;
+    }
     public boolean resolveConflict(B2WAssignment assignment) {
         boolean bReturn;
         WebElement conflict = getConflictForResource(assignment.getResourceName());
@@ -924,6 +949,21 @@ public class B2WSchedulerTasks extends B2WKendoTasks {
             bReturn = WebElementUtils.clickElement(eOrderPanelBtn);
             waitForSchedulesPageNoBusy();
             bReturn &= WebElementUtils.waitAndFindDisplayedElement(B2WScheduleAssignments.getOrderPanel(), WebElementUtils.LONG_TIME_OUT) != null;
+        } else {
+            log.debug("Order button could not be found on the page.");
+        }
+        return bReturn;
+    }
+    public boolean setOrdersFilter(String sValue) {
+        boolean bReturn = false;
+        WebElement eOrderPanel = WebElementUtils.waitAndFindDisplayedElement(B2WScheduleAssignments.getOrderPanel(), WebElementUtils.LONG_TIME_OUT);
+        if (eOrderPanel != null) {
+            WebElement searchBox = WebElementUtils.getChildElement(eOrderPanel, B2WScheduleAssignments.getSearchBoxOnPanel());
+            if (searchBox != null) {
+                searchBox.clear();
+                bReturn = WebElementUtils.sendKeys(searchBox, sValue);
+            }
+            waitForSchedulesPageNoBusy();
         } else {
             log.debug("Order button could not be found on the page.");
         }
@@ -955,11 +995,10 @@ public class B2WSchedulerTasks extends B2WKendoTasks {
         boolean bReturn;
         WebElement order = getOrderForResource(assignment.getResourceName());
         if (order != null) {
-            int initialCount = getAllConflictsFromPanel().size();
+            int initialCount = getAllOrdersFromPanel().size();
             bReturn = logCompare(true, selectOrder(order), "Select Conflict on the panel..");
             bReturn &= logCompare(true, deleteAssignment(assignment), "Delete Assignment");
-            bReturn &= logCompare(true, initialCount == getAllConflictsFromPanel().size() - 1 , "Verify that Need was deleted from Order Panel.");
-            bReturn &= logCompare(true, closeConflictPanel(), "Check that Conflict Panel is closed.");
+            bReturn &= logCompare(true, initialCount - 1 == getAllOrdersFromPanel().size() , "Verify that Need was deleted from Order Panel.");
         } else {
             bReturn = logCompare(true, false, "Conflict for " + assignment.getResourceName() + " could not be found on the page.");
         }
@@ -969,76 +1008,79 @@ public class B2WSchedulerTasks extends B2WKendoTasks {
         boolean bReturn;
         WebElement order = getOrderForResource(assignment.getResourceName());
         if (order != null) {
-            int initialCount = getAllConflictsFromPanel().size();
+            int initialCount = getAllOrdersFromPanel().size();
             bReturn = logCompare(true, selectOrder(order), "Select Conflict on the panel..");
-            bReturn &= logCompare(true, openContextMenu(order), "Open Assignment's Context Menu");
-            switch (assignment.getAssignmentType()) {
-                case B2WAssignmentType.EMPLOYEE_NEED_TYPE :
-                    bReturn &= selectOptionFromContextMenu("Fill Need");
-                    bReturn &= logCompare(true, fillNeedDialog(assignment, sFillResourceName), "Fill Need to " + sFillResourceName);
-                    break;
-                case B2WAssignmentType.EQUIPMENT_NEED_TYPE :
-                    bReturn &= selectOptionFromContextMenu("Fill Need");
-                    bReturn &= logCompare(true, fillNeedDialog(assignment, sFillResourceName), "Fill Need to " + sFillResourceName);
-                    break;
-                case B2WAssignmentType.CREW_NEED_TYPE :
-                    bReturn &= selectOptionFromContextMenu("Fill Need");
-                    bReturn &= logCompare(true, fillNeedDialog(assignment, sFillResourceName), "Fill Need to " + sFillResourceName);
-                    break;
-                case B2WAssignmentType.MOVE_ORDER_TYPE :
-                    bReturn &= selectOptionFromContextMenu("Assign Move Order");
-                    break;
-                default : break;
+            WebElement eAssignment = getAssignment(assignment);
+            if (eAssignment != null) {
+                bReturn &= logCompare(true, openContextMenu(eAssignment), "Open Assignment's Context Menu");
+                switch (assignment.getAssignmentType()) {
+                    case B2WAssignmentType.EMPLOYEE_NEED_TYPE:
+                        bReturn &= selectOptionFromContextMenu("Fill Need");
+                        bReturn &= logCompare(true, fillNeedDialog(assignment, sFillResourceName), "Fill Need to " + sFillResourceName);
+                        assignment.setAssignmentType(B2WAssignmentType.EMPLOYEE_TYPE);
+                        break;
+                    case B2WAssignmentType.EQUIPMENT_NEED_TYPE:
+                        bReturn &= selectOptionFromContextMenu("Fill Need");
+                        assignment.setAssignmentType(B2WAssignmentType.EQUIPMENT_TYPE);
+                        bReturn &= logCompare(true, fillNeedDialog(assignment, sFillResourceName), "Fill Need to " + sFillResourceName);
+                        break;
+                    case B2WAssignmentType.CREW_NEED_TYPE:
+                        bReturn &= selectOptionFromContextMenu("Fill Need");
+                        bReturn &= logCompare(true, fillNeedDialog(assignment, sFillResourceName), "Fill Need to " + sFillResourceName);
+                        assignment.setAssignmentType(B2WAssignmentType.CREW_TYPE);
+                        break;
+                    case B2WAssignmentType.MOVE_ORDER_TYPE:
+                        bReturn &= selectOptionFromContextMenu("Assign Move Order");
+                        assignment.setAssignmentType(B2WAssignmentType.MOVE_ASSIGNMENT_TYPE);
+                        break;
+                    default:
+                        break;
+                }
+                assignment.setResourceName(sFillResourceName);
+                bReturn &= logCompare(true, initialCount - 1 == getAllOrdersFromPanel().size(), "Verify that Need was deleted from Order Panel.");
+            } else {
+                bReturn = false;
             }
-
-            bReturn &= logCompare(true, initialCount == getAllConflictsFromPanel().size() - 1 , "Verify that Need was deleted from Order Panel.");
-
-            bReturn &= logCompare(false, conflictIconIsDisplayed(assignment), "Check that Conflict Icon is not displayed anymore.");
-            bReturn &= logCompare(true, closeConflictPanel(), "Check that Conflict Panel is closed.");
         } else {
             bReturn = logCompare(true, false, "Conflict for " + assignment.getResourceName() + " could not be found on the page.");
         }
         return bReturn;
     }
-
-    /*
+    public boolean resolveOrderByDrag(B2WAssignment assignment, String sFillResourceName) {
+        boolean bReturn = false;
+        int initialCount = getAllOrdersFromPanel().size();
+        WebElement order = getOrderForResource(assignment.getResourceName());
         if (order != null) {
-            logCompare(true, b2wScheduler.selectOrder(order), "Select Conflict on the panel..");
-            WebElement assignment = b2wScheduler.getAssignment(needForOrder);
-            if (assignment != null) {
-                logCompare(true, b2wScheduler.openContextMenu(assignment), "Open Assignment's Context Menu");
-                logCompare(true, b2wScheduler.deleteNeed(), "Delete Need");
-                b2wScheduler.waitForSchedulePageNoBusy();
-            } else {
-                log.debug("Could not find assignment.");
-            }
-            order = b2wScheduler.getOrderForResource(copyOfNeedForOrder.getResourceName());
-            logCompare(true, b2wScheduler.selectOrder(order), "Select Conflict on the panel..");
-            assignment = b2wScheduler.getAssignment(copyOfNeedForOrder);
-            if (assignment != null) {
-                logCompare(true, b2wScheduler.openContextMenu(assignment), "Open Assignment's Context Menu");
-                logCompare(true, b2wScheduler.fillNeed(), "Select 'Fill Need' option");
-                boolean bTmp = logCompare(true, b2wScheduler.fillNeedDialog(copyOfNeedForOrder, sEmployeeNameUpd), "Fill Need by Employee");
-                if (bTmp) {
-                    copyOfNeedForOrder.setAssignmentType(B2WAssignmentType.EMPLOYEE_TYPE);
-                    copyOfNeedForOrder.setResourceName(sEmployeeNameUpd);
-                    logCompare(true, b2wScheduler.clearSearchValue(), "Clear search value.");
-                    b2wScheduler.waitForSchedulePageNoBusy();
-                    WebElement result = b2wScheduler.getEmployeeAssignment(copyOfNeedForOrder);
-                    logCompare(true, result != null, "Verification that specific Employee Need has been converted to Assignment.");
+            bReturn = logCompare(true, selectOrder(order), "Select Conflict on the panel..");
 
-                    logCompare(false, b2wScheduler.warningIconIsDisplayed(needForOrder.getResourceName()), "Verify that Warning Icon is displayed for Resource.");
-                    logCompare(true, b2wScheduler.closeConflictPanel(), "Check that Conflict Panel is closed.");
-                    deleteEmployeeAssignment(sDefaultEmployeeView, copyOfNeedForOrder);
-                } else {
-                    deleteEmployeeNeed(sDefaultEmployeeView, copyOfNeedForOrder);
-                }
-            } else {
-                log.debug("Could not find assignment.");
+            switch (assignment.getAssignmentType()) {
+                case B2WAssignmentType.EMPLOYEE_NEED_TYPE:
+                    assignment.setAssignmentType(B2WAssignmentType.EMPLOYEE_TYPE);
+                    break;
+                case B2WAssignmentType.EQUIPMENT_NEED_TYPE:
+                    bReturn &= setFillWith("All Equipment");
+                    assignment.setAssignmentType(B2WAssignmentType.EQUIPMENT_TYPE);
+                    break;
+                case B2WAssignmentType.CREW_NEED_TYPE:
+                    assignment.setAssignmentType(B2WAssignmentType.CREW_TYPE);
+                    break;
+                case B2WAssignmentType.MOVE_ORDER_TYPE:
+                    assignment.setAssignmentType(B2WAssignmentType.MOVE_ASSIGNMENT_TYPE);
+                    break;
+                default:
+                    break;
             }
+            bReturn &= logCompare(true, moveAssignmentToResourceAndDate(assignment, sFillResourceName, assignment.getStartDateAsDate(), false),
+                    "Move Need ("+ assignment.getResourceName() +") to Resource (" + sFillResourceName + ")");
+            bReturn &= logCompare(true, selectButtonOption("Yes"), "Confirm Fill Need.");
+            logCompare(true, setOrdersFilter(sFillResourceName), "Set Filter: " + sFillResourceName + " on the Order panel.");
+            assignment.setResourceName(sFillResourceName);
+            bReturn &= logCompare(true, initialCount - 1 == getAllOrdersFromPanel().size() , "Verify that Need was deleted from Order Panel.");
+            bReturn &= logCompare(true, getAssignment(assignment) != null, "Verify that Need was transformed to Assignment.");
         }
-        */
-
+        return bReturn;
+    }
+    public boolean isOrderPanelEmpty() { return getAllOrdersFromPanel().size() == 0; }
 
     // ==== Private Methods ============================================================================================
     // === Menu for Creation
@@ -1233,19 +1275,18 @@ public class B2WSchedulerTasks extends B2WKendoTasks {
     // == Method to set value to FDD fields
     private boolean setFields(String sFieldName, String sValue) {
         boolean bReturn = false;
-        WebElement assignmentWindow = WebElementUtils.waitAndFindElement(B2WScheduleAssignments.getAssignmentWindow());
-        WebElementUtils.switchToFrame(B2WScheduleAssignments.getAssignmentWindow(), 1);
-        WebElement employeeAssignment = WebElementUtils.getKendoFDDElementByLabel(sFieldName);
-        //if (assignmentWindow != null) {
-        if (employeeAssignment != null && assignmentWindow != null) {
-            bReturn = sendTextAndSelectValueFromKendoFDD(employeeAssignment, sValue);
-            waitForSchedulesPageNoBusy();
-        } else {
-            log.debug("Create Assignment Window could not be found");
-        }
+            WebElement assignmentWindow = WebElementUtils.waitAndFindElement(B2WScheduleAssignments.getAssignmentWindow());
+            WebElementUtils.switchToFrame(B2WScheduleAssignments.getAssignmentWindow(), 1);
+            WebElement employeeAssignment = WebElementUtils.getKendoFDDElementByLabel(sFieldName);
+            if (employeeAssignment != null && assignmentWindow != null) {
+                bReturn = sendTextAndSelectValueFromKendoFDD(employeeAssignment, sValue);
+                waitForSchedulesPageNoBusy();
+            } else {
+                log.debug("Create Assignment Window or Field '" + sFieldName + "' could not be found.");
+            }
+
         return bReturn;
     }
-
     // == Set Values on Create Assignments\Needs Dialog
     private boolean setJobSite(String sValue) {
         return setFields("Job Site/Place", sValue);
@@ -1716,6 +1757,7 @@ public class B2WSchedulerTasks extends B2WKendoTasks {
         return bReturn;
     }
 
+
     // === Date methods
     private String correctDate(String sValue) {
         String sResult = "";
@@ -1897,19 +1939,7 @@ public class B2WSchedulerTasks extends B2WKendoTasks {
         bReturn &= expectedValue.contains(actualValue);
         return bReturn;
     }
-    private boolean closeConflictPanel() {
-        boolean bReturn = false;
-        WebElement eConflictPanel = WebElementUtils.findElement(B2WScheduleAssignments.getConflictsPanel());
-        WebElement eConflictBtn = WebElementUtils.findElement(B2WScheduleAssignments.getCheckedBtn());
-        if (eConflictBtn != null && eConflictPanel != null) {
-            bReturn = WebElementUtils.clickElement(eConflictBtn);
-            waitForSchedulesPageNoBusy();
-            bReturn &= WebElementUtils.waitForElementInvisible(eConflictPanel);
-        } else {
-            log.debug("Conflict button could not be found on the page.");
-        }
-        return bReturn;
-    }
+
 
     // Order Panel
     private boolean fillNeedDialog(B2WAssignment order, String employeeName) {
@@ -1948,14 +1978,35 @@ public class B2WSchedulerTasks extends B2WKendoTasks {
         return WebElementUtils.getElementWithContainsChildElementText(getAllOrdersFromPanel(), By.cssSelector("div.ng-binding"), sResourceName);
     }
     private boolean selectOrder(WebElement eOrder) {
-        boolean bReturn = WebElementUtils.clickElement(eOrder);
-        waitForSchedulesPageNoBusy();
+        boolean bReturn;
+
+        if (!eOrder.getAttribute("class").contains("AssignmentBlock--selected")) {
+            bReturn = WebElementUtils.clickElement(eOrder);
+            waitForSchedulesPageNoBusy();
+        } else {
+            return true;
+        }
+        /*
         bReturn &= WebElementUtils.waitAndFindElement(B2WScheduleAssignments.getFillNeedToolbar()) != null;
         WebElement table = WebElementUtils.findElement(B2WScheduleAssignments.getFirstTableInOrderList());
-        WebElement firstItem = WebElementUtils.getChildElement(table, B2WScheduleAssignments.getFirstItemInOrderList());
-        String actualValue = firstItem.getAttribute("title");
-        String expectedValue = eOrder.getText();
-        bReturn &= expectedValue.contains(actualValue);
+        if (table != null) {
+            WebElement firstItem = WebElementUtils.getChildElement(table, B2WScheduleAssignments.getFirstItemInOrderList());
+            String actualValue = firstItem.getAttribute("title");
+            String expectedValue = eOrder.getText();
+            bReturn &= expectedValue.contains(actualValue);
+        } */
+        return bReturn;
+    }
+    private boolean setFillWith(String sValue) {
+        boolean bReturn = false;
+        WebElement item = WebElementUtils.findElement(B2WScheduleAssignments.getFillWith());
+        if (item != null) {
+            bReturn = WebElementUtils.clickElement(item);
+            bReturn &= selectItemFromFDD(sValue);
+            waitForSchedulesPageNoBusy();
+        } else {
+            log.debug("Could not find 'Fill With' field on the page.");
+        }
         return bReturn;
     }
 

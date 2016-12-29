@@ -31,6 +31,7 @@ public class B2WScheduleAssignments extends KendoUI {
     public static By getCalendarActiveDateRange() { return By.cssSelector(B2WUIMap.b2w_schedulecalendaractiverange); }
     public static By getCalendarStartDate() { return By.cssSelector(B2WUIMap.b2w_schedulecalendastartdate); }
     public static By getSearchBox() { return By.cssSelector(B2WUIMap.b2w_schedule_search); }
+    public static By getSearchBoxOnPanel() { return By.cssSelector(B2WUIMap.b2w_schedule_searchonpanel); }
     public static By getGrid() { return By.cssSelector(B2WUIMap.b2w_schedule_grid); }
     public static By getAssignment() { return By.cssSelector(B2WUIMap.b2w_schedule_assignment); }
     public static By getResourceName() { return By.cssSelector(B2WUIMap.b2w_schedule_resourcename); }
@@ -45,8 +46,8 @@ public class B2WScheduleAssignments extends KendoUI {
     public static By getEditLocationLink() { return By.xpath(B2WUIMap.b2w_schedule_editlocationlink); }
     public static By getPlaceholders() { return By.cssSelector(B2WUIMap.b2w_schedule_placeholder); }
     public static By getToolBarPanel() { return By.cssSelector(B2WUIMap.b2w_schedule_toolbarpanel); }
-    public static By getExpandIcon() { return By.cssSelector(B2WUIMap.b2w_scheduled_expandicon); }
-    public static By getCollapseIcon() { return By.cssSelector(B2WUIMap.b2w_scheduled_collapseicon); }
+    public static By getExpandIcon() { return By.cssSelector(B2WUIMap.b2w_schedule_expandicon); }
+    public static By getCollapseIcon() { return By.cssSelector(B2WUIMap.b2w_schedule_collapseicon); }
     public static By getAssignmentRightEdge() { return By.cssSelector(B2WUIMap.b2w_schedule_assignmentrightedge); }
     public static By getAssignmentLeftEdge() { return By.cssSelector(B2WUIMap.b2w_schedule_assignmentleftedge); }
     public static By getResourceWarningIcon_i152() { return By.cssSelector(B2WUIMap.b2w_schedule_resourcewarningicon_i152); }
@@ -67,4 +68,6 @@ public class B2WScheduleAssignments extends KendoUI {
     public static By getCheckedBtn() { return By.cssSelector(B2WUIMap.b2w_schedule_checkedbtn); }
     public static By getCancelBtn() { return By.cssSelector(B2WUIMap.b2w_schedule_cancelbtn); }
     public static By getUserItem() { return By.cssSelector(B2WUIMap.b2w_schedule_useritem); }
+    public static By getFillWith() { return By.cssSelector(B2WUIMap.b2w_schedule_fillwith); }
+
 }
