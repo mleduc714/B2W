@@ -5,11 +5,13 @@ import java.util.Collection;
 import java.util.List;
 
 import org.apache.log4j.Logger;
+import org.junit.internal.AssumptionViolatedException;
 import org.junit.runners.model.InitializationError;
 
 import com.b2w.logging.B2WRunConfig;
 import com.b2w.test.B2WTestCase;
 import com.b2w.test.BaseTestCase;
+import com.b2w.test.LogLevel;
 
 import tasks.util.TaskUtils;
 
@@ -101,8 +103,13 @@ public class B2WTestSuiteRunner extends BaseSuiteRunner {
 	}
 
 	public void onTestFail(BaseTestCase test, Throwable t) {
-		TaskUtils.logScreenCapture("Screen Shot"+test.getClass().getName());
-		
+
+		if (!(t instanceof AssumptionViolatedException)){
+			log.log(LogLevel.WARN, "TESTFAILED: " + test.getClass().getName());
+			TaskUtils.logScreenCapture();
+		}else{
+			log.log(LogLevel.INFO, "Assumption failure. No screenshot");
+		}
 	}
 
 

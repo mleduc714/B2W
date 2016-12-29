@@ -346,11 +346,12 @@ public class B2WSetupTasks {
 		if (WebElementUtils.clickElement(B2WSetup.getTopSaveButton())) {
 			TaskUtils.sleep(500);
 			bReturn = waitForProcessingDialogToClear();
-			bReturn &= WebElementUtils.waitAndFindDisplayedElement(B2WSetup.getTopEditButton(), WebElementUtils.MEDIUM_TIME_OUT) != null;
+			bReturn &= WebElementUtils.waitAndFindDisplayedElement(B2WSetup.getTopEditButton()) != null;
 			if (!bReturn) {
+				log.warn("******Error saving item********");
+				BaseAssert.logScreenCapture();
 				if (WebElementUtils.waitAndFindDisplayedElement(B2WCommonObjects.getB2WPagePanelError(), 1) != null) {
-					log.debug("***Error saving item***");
-					BaseAssert.logScreenCapture();
+					log.warn("***Error displayed in panel***");
 					clickTopCancelButton();
 					Alert alert = WebElementUtils.waitForAndGetAlertDialog(WebElementUtils.MEDIUM_TIME_OUT);
 					if (alert != null) {
