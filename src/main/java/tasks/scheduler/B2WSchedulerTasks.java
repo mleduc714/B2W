@@ -615,8 +615,12 @@ public class B2WSchedulerTasks extends B2WKendoTasks {
         if (eAssignment != null) {
             bReturn = logCompare(true, moveAssignmentToResourceAndDate(eAssignment, sResourceName, moveDate), "Move Assignment to the specific date");
 
-            assignment.setResourceName(sResourceName);
-            assignment.moveTo(moveDate);
+            if (assignment.getAssignmentType().equals(B2WAssignmentType.MOVE_ORDER_TYPE)) {
+                assignment.setTransportationCrew(sResourceName);
+            } else {
+                assignment.setResourceName(sResourceName);
+                assignment.moveTo(moveDate);
+            }
 
             if (check) {
                 WebElement result = getAssignment(assignment);
@@ -1006,6 +1010,7 @@ public class B2WSchedulerTasks extends B2WKendoTasks {
     }
     public boolean resolveOrderByFill(B2WAssignment assignment, String sFillResourceName) {
         boolean bReturn;
+        String tmpName = assignment.getResourceName();
         WebElement order = getOrderForResource(assignment.getResourceName());
         if (order != null) {
             int initialCount = getAllOrdersFromPanel().size();
@@ -1018,25 +1023,31 @@ public class B2WSchedulerTasks extends B2WKendoTasks {
                         bReturn &= selectOptionFromContextMenu("Fill Need");
                         bReturn &= logCompare(true, fillNeedDialog(assignment, sFillResourceName), "Fill Need to " + sFillResourceName);
                         assignment.setAssignmentType(B2WAssignmentType.EMPLOYEE_TYPE);
+                        assignment.setResourceName(sFillResourceName);
                         break;
                     case B2WAssignmentType.EQUIPMENT_NEED_TYPE:
                         bReturn &= selectOptionFromContextMenu("Fill Need");
-                        assignment.setAssignmentType(B2WAssignmentType.EQUIPMENT_TYPE);
                         bReturn &= logCompare(true, fillNeedDialog(assignment, sFillResourceName), "Fill Need to " + sFillResourceName);
+                        assignment.setAssignmentType(B2WAssignmentType.EQUIPMENT_TYPE);
+                        assignment.setResourceName(sFillResourceName);
                         break;
                     case B2WAssignmentType.CREW_NEED_TYPE:
                         bReturn &= selectOptionFromContextMenu("Fill Need");
                         bReturn &= logCompare(true, fillNeedDialog(assignment, sFillResourceName), "Fill Need to " + sFillResourceName);
                         assignment.setAssignmentType(B2WAssignmentType.CREW_TYPE);
+                        assignment.setResourceName(sFillResourceName);
                         break;
                     case B2WAssignmentType.MOVE_ORDER_TYPE:
                         bReturn &= selectOptionFromContextMenu("Assign Move Order");
+                        bReturn &= logCompare(true, setCrew(sFillResourceName), "Set Crew");
+                        bReturn &= logCompare(true, saveAssignment(), "Save Assigned Move Order");
                         assignment.setAssignmentType(B2WAssignmentType.MOVE_ASSIGNMENT_TYPE);
+                        assignment.setTransportationCrew(sFillResourceName);
                         break;
                     default:
                         break;
                 }
-                assignment.setResourceName(sFillResourceName);
+                logCompare(true, setOrdersFilter(tmpName), "Set Filter: " + tmpName + " on the Order panel.");
                 bReturn &= logCompare(true, initialCount - 1 == getAllOrdersFromPanel().size(), "Verify that Need was deleted from Order Panel.");
             } else {
                 bReturn = false;
@@ -1050,31 +1061,46 @@ public class B2WSchedulerTasks extends B2WKendoTasks {
         boolean bReturn = false;
         int initialCount = getAllOrdersFromPanel().size();
         WebElement order = getOrderForResource(assignment.getResourceName());
+        String tmpName = assignment.getResourceName();
         if (order != null) {
             bReturn = logCompare(true, selectOrder(order), "Select Conflict on the panel..");
 
             switch (assignment.getAssignmentType()) {
                 case B2WAssignmentType.EMPLOYEE_NEED_TYPE:
+                    bReturn &= logCompare(true, moveAssignmentToResourceAndDate(assignment, sFillResourceName, assignment.getStartDateAsDate(), false),
+                            "Move Need ("+ assignment.getResourceName() +") to Resource (" + sFillResourceName + ")");
+                    bReturn &= logCompare(true, selectButtonOption("Yes"), "Confirm Fill Need.");
                     assignment.setAssignmentType(B2WAssignmentType.EMPLOYEE_TYPE);
+                    assignment.setResourceName(sFillResourceName);
                     break;
                 case B2WAssignmentType.EQUIPMENT_NEED_TYPE:
                     bReturn &= setFillWith("All Equipment");
+                    bReturn &= logCompare(true, moveAssignmentToResourceAndDate(assignment, sFillResourceName, assignment.getStartDateAsDate(), false),
+                            "Move Need ("+ assignment.getResourceName() +") to Resource (" + sFillResourceName + ")");
+                    bReturn &= logCompare(true, selectButtonOption("Yes"), "Confirm Fill Need.");
                     assignment.setAssignmentType(B2WAssignmentType.EQUIPMENT_TYPE);
+                    assignment.setResourceName(sFillResourceName);
                     break;
                 case B2WAssignmentType.CREW_NEED_TYPE:
+                    bReturn &= setFillWith("All Production Crews");
+                    bReturn &= logCompare(true, moveAssignmentToResourceAndDate(assignment, sFillResourceName, assignment.getStartDateAsDate(), false),
+                            "Move Need ("+ assignment.getResourceName() +") to Resource (" + sFillResourceName + ")");
+                    bReturn &= logCompare(true, selectButtonOption("Yes"), "Confirm Fill Need.");
                     assignment.setAssignmentType(B2WAssignmentType.CREW_TYPE);
+                    assignment.setResourceName(sFillResourceName);
                     break;
                 case B2WAssignmentType.MOVE_ORDER_TYPE:
+                    bReturn &= setFillWith("All Transport Crews");
+                    bReturn &= logCompare(true, moveAssignmentToResourceAndDate(assignment, sFillResourceName, assignment.getStartDateAsDate(), false),
+                            "Move Need ("+ assignment.getResourceName() +") to Resource (" + sFillResourceName + ")");
+                    bReturn &= logCompare(true, saveAssignment(), "Save Assigned Move Order");
                     assignment.setAssignmentType(B2WAssignmentType.MOVE_ASSIGNMENT_TYPE);
+                    assignment.setTransportationCrew(sFillResourceName);
                     break;
                 default:
                     break;
             }
-            bReturn &= logCompare(true, moveAssignmentToResourceAndDate(assignment, sFillResourceName, assignment.getStartDateAsDate(), false),
-                    "Move Need ("+ assignment.getResourceName() +") to Resource (" + sFillResourceName + ")");
-            bReturn &= logCompare(true, selectButtonOption("Yes"), "Confirm Fill Need.");
-            logCompare(true, setOrdersFilter(sFillResourceName), "Set Filter: " + sFillResourceName + " on the Order panel.");
-            assignment.setResourceName(sFillResourceName);
+            logCompare(true, setOrdersFilter(tmpName), "Set Filter: " + tmpName + " on the Order panel.");
             bReturn &= logCompare(true, initialCount - 1 == getAllOrdersFromPanel().size() , "Verify that Need was deleted from Order Panel.");
             bReturn &= logCompare(true, getAssignment(assignment) != null, "Verify that Need was transformed to Assignment.");
         }
