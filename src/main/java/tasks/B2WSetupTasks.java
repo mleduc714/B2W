@@ -344,10 +344,9 @@ public class B2WSetupTasks {
 	public boolean clickTopSaveButton() {
 		boolean bReturn = false;
 		if (WebElementUtils.clickElement(B2WSetup.getTopSaveButton())) {
-			WebElement save = WebElementUtils.findElement(B2WSetup.getTopSaveButton());
 			TaskUtils.sleep(500);
 			bReturn = waitForProcessingDialogToClear();
-			bReturn &= WebElementUtils.waitForElementInvisible(save);
+			bReturn &= WebElementUtils.waitAndFindDisplayedElement(B2WSetup.getTopEditButton()) != null;
 			if (!bReturn) {
 				log.warn("******Error saving item********");
 				BaseAssert.logScreenCapture();
