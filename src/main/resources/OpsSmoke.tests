@@ -5,5 +5,5 @@ smoketest.OperationsSmokeE
 smoketest.OperationsSmokeF
 smoketest.OperationsSmokeG
 smoketest.OperationsSmokeH
-#testcases.OperationsSmokeA
+smoketest.OperationsSmokeA
 #testcases.jobs.B2WJobTestCase
