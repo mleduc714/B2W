@@ -521,14 +521,16 @@ public class B2WMaintainScheduleTasks extends B2WKendoTasks {
 	
 	
 	public boolean goToDate(String sDate) {
-
+		
+		log.debug("Going to Date: "+sDate);
 		boolean bReturn = false;
 		Calendar cal = Calendar.getInstance();
-		cal.setTime(getCurrentDate());
-		SimpleDateFormat sd = new SimpleDateFormat("EEEE, MMMM dd, yyyy");
+		if (getCurrentDate() != null){
+			cal.setTime(getCurrentDate());
+		}else{
+			log.warn("Get Current Date returned null");
+		}
 		SimpleDateFormat format = new SimpleDateFormat("MM/dd/yy");
-		SimpleDateFormat month = new SimpleDateFormat("MMM");
-		SimpleDateFormat year = new SimpleDateFormat("yyyy");
 		Date goToDate = null;
 		// Calendar month = Calendar.getInstance();
 		// Calendar day = Calendar.getInstance();
@@ -537,64 +539,21 @@ public class B2WMaintainScheduleTasks extends B2WKendoTasks {
 
 			Calendar cGoToDate = Calendar.getInstance();
 			cGoToDate.setTime(goToDate);
-			
-			if (cGoToDate.get(Calendar.DAY_OF_YEAR) != cal.get(Calendar.DAY_OF_YEAR)){
 
-			WebElementUtils.clickElement(B2WMaintain.getB2WScheduleDatePickerButton());
-			WebElement dp = WebElementUtils.waitAndFindDisplayedElement(B2WMaintain.getB2WScheduleDatePicker());
-			if (dp != null) {
-				WebElement dateYear = WebElementUtils
-						.waitAndFindDisplayedElement(B2WMaintain.getB2WScheduleDatePickerMonthDate());
-				// if months and year don't match we have to click month/year at
-				// least
-				// once
-				if (cGoToDate.get(Calendar.MONTH) != cal.get(Calendar.MONTH)
-						|| cGoToDate.get(Calendar.YEAR) != cal.get(Calendar.YEAR)) {
+			if (cGoToDate.get(Calendar.DAY_OF_YEAR) != cal.get(Calendar.DAY_OF_YEAR)) {
 
-					WebElementUtils.clickElement(dateYear);
-
-					// if the year doesn't match we click again to get years
-					if (cGoToDate.get(Calendar.YEAR) != cal.get(Calendar.YEAR)) {
-
-						WebElementUtils.clickElement(dateYear);
-						TaskUtils.sleep(1000);
-						// go to the year
-						
-						////a[@data-value='2016/0/1']
-						//a[@data-value='2017/0/1']
-						WebElement cYear = WebElementUtils
-								.findElement(By.xpath("//a[@data-value='" + year.format(cGoToDate.getTime()) + "/0/1']"));
-						if (cYear != null) {
-							WebElementUtils.clickElement(cYear);
-						}else{
-							log.debug("The Year has returned null");
-						}
-
-					}
-					TaskUtils.sleep(1000);
-					// go to the month we want
-					WebElement cMonth = WebElementUtils.waitAndFindDisplayedElement(
-							By.xpath("//a[contains(.,'" + month.format(cGoToDate.getTime()) + "')]"));
-					WebElementUtils.clickElement(cMonth);
-					
-				}
-				TaskUtils.sleep(2000);
-				// go to the date we want
-				WebElement day = WebElementUtils
-						.waitAndFindDisplayedElement(By.xpath("//a[@title='" + sd.format(cGoToDate.getTime()) + "']"));
-				bReturn = WebElementUtils.clickElement(day);
-				waitForPageNotBusy(WebElementUtils.MEDIUM_TIME_OUT);
+				WebElementUtils.clickElement(B2WMaintain.getB2WScheduleDatePickerButton());
+				WebElement dp = WebElementUtils.waitAndFindDisplayedElement(B2WMaintain.getB2WScheduleDatePicker());
+				bReturn = goToDate(sDate, dp);
 			}
-			}else{
-				log.debug("Date does not need to be changed");
-				bReturn = true;
-			}
+
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			
+
 		}
 		return bReturn;
+
 	}
 
 	
@@ -741,15 +700,24 @@ public class B2WMaintainScheduleTasks extends B2WKendoTasks {
 		String sDate = null;
 		try {
 			SimpleDateFormat calendardate = new SimpleDateFormat("EEE MM/dd/yyyy");
+			SimpleDateFormat shortdate = new SimpleDateFormat("MM/dd/yyyy");
 			WebElement el = WebElementUtils.findElement(B2WMaintain.getB2WScheduleFormatDate());
-			sDate = el.getText();
-			int iIndex = sDate.indexOf("-");
-			if (iIndex != -1) {
-				sDate = sDate.substring(0, iIndex).trim();
+			if (el != null) {
+				sDate = el.getText();
+				if (sDate.length() > 0) {
+					int iIndex = sDate.indexOf("-");
+					if (iIndex != -1) {
+						sDate = sDate.substring(0, iIndex).trim();
+					}
+					date = calendardate.parse(sDate);
+				} else {
+					el = WebElementUtils.findElement(B2WMaintain.getB2WScheduleSmallFormatDate());
+					sDate = el.getText();
+					date = shortdate.parse(sDate);
+				}
 			}
-			date = calendardate.parse(sDate);
 		} catch (Exception e) {
-
+			e.printStackTrace();
 		}
 
 		return date;

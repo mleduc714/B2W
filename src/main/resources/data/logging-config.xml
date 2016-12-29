@@ -28,11 +28,11 @@
 		<level value="debug" /> 
 	</logger>
 	<logger name="appobjects">
-		<level value="info"></level></logger>
+		<level value="debug"></level></logger>
 	<logger name="com.b2w.test">
-		<level value="info"></level></logger>
+		<level value="debug"></level></logger>
 	<logger name="com.b2w.suite">
-		<level value="info"></level></logger>
+		<level value="debug"></level></logger>
 	<root>
 		<priority value = "warn" />
 		<appender-ref ref="console" />

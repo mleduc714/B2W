@@ -7,78 +7,71 @@ import java.util.Random;
 
 import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
-import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.StaleElementReferenceException;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.internal.Coordinates;
 import org.openqa.selenium.internal.Locatable;
 
 import appobjects.maintain.B2WMaintain;
 import appobjects.resources.B2WEquipment;
-import tasks.BrowserUtils;
+import tasks.B2WKendo;
 import tasks.WebElementUtils;
 import tasks.util.TaskUtils;
 
-public abstract class B2WKendoDialog {
-	
+public abstract class B2WKendoDialog extends B2WKendo {
+
 	Logger log = Logger.getLogger(B2WKendoDialog.class);
-	
+
 	private int getRandomNumber(int iSize) {
 		Random rand = new Random();
 		int randnumber = rand.nextInt(iSize);
 		return randnumber;
 	}
-	
-	protected boolean selectItemFromDropDown(String sItem){
-		boolean bReturn = false;
-		try {
 
-		// when we click we need to find the visble list
-		List<WebElement> list = WebElementUtils.findElements(B2WEquipment.getKendoLists());
-		Iterator<WebElement> iter = list.iterator();
-		log.debug("Looking for item "+sItem);
-		while (iter.hasNext()) {
-			WebElement els = iter.next();
-			String hidden = els.getAttribute("aria-hidden");
-			if (hidden != null && hidden.equals("false")) {
-				List<WebElement> items = els.findElements(B2WEquipment.getKendoDropDownItem());
-				WebElement item = WebElementUtils.getElementWithMatchingStartsWithText(items, sItem);
-				if (item != null) {
-					bReturn = WebElementUtils.clickElement(item);
-					bReturn &= WebElementUtils.waitForElementInvisible(item);
-				}else{
-					log.debug("Item with could not be found matching "+sItem);
-				}
+	public List<WebElement> getListofElementsFromGrid(WebElement grid) {
+		return WebElementUtils.getChildElements(grid, By.tagName("tr"));
+	}
+
+	public WebElement getItemFromAddItemDialog(String sText) {
+		WebElement item = null;
+		WebElement dialog = getDisplayedWindow();
+		List<WebElement> items = WebElementUtils.getChildElements(dialog, By.tagName("p"));
+		Iterator<WebElement> iterB = items.iterator();
+		while (iterB.hasNext()) {
+			WebElement temp = iterB.next();
+			if (temp.getText().startsWith(sText)) {
+				item = temp;
 			}
 		}
-		}catch (StaleElementReferenceException e){
-			return selectItemFromDropDown(sItem);
+		return item;
+	}
+
+	protected boolean clickSave() {
+
+		boolean bReturn = false;
+		TaskUtils.sleep(500);
+		WebElement window = getDisplayedWindow();
+		if (window != null) {
+			WebElement buttoncontainer = WebElementUtils.getChildElement(window,
+					B2WEquipment.getKendoButtonContainer());
+			WebElement savebutton = buttoncontainer.findElement(B2WEquipment.getKendoLargeSaveButton());
+			bReturn = WebElementUtils.clickElement(savebutton);
+			bReturn &= WebElementUtils.waitForElementInvisible(window);
+			waitForPageNotBusy(WebElementUtils.MEDIUM_TIME_OUT);
+		}
+		return bReturn;
+
+	}
+
+	public boolean clickDone() {
+		boolean bReturn = false;
+		WebElement el = WebElementUtils.waitAndFindDisplayedElement(B2WMaintain.getKendoLargeDoneButton());
+		if (el != null){
+			bReturn =WebElementUtils.clickElement(el);
+			bReturn &= WebElementUtils.waitForElementInvisible(el);
 		}
 		return bReturn;
 	}
 	
-
-	
-	public ArrayList<String> getItemsFromDropDown() {
-		 ArrayList<String> al = new ArrayList<String>();
-		// when we click we need to find the visble list
-		List<WebElement> list = WebElementUtils.findElements(B2WEquipment.getKendoLists());
-		Iterator<WebElement> iter = list.iterator();
-		while (iter.hasNext()) {
-			WebElement els = iter.next();
-			String hidden = els.getAttribute("aria-hidden");
-			if (hidden != null && hidden.equals("false")) {
-				List<WebElement> items = els.findElements(B2WEquipment.getKendoDropDownItem());
-				Iterator<WebElement> iterElements = items.iterator();
-				while (iterElements.hasNext()){
-					WebElement ddItem = iterElements.next(); 
-					al.add(ddItem.getText());
-				}
-			}
-		}
-		return al;
-	}
 	public WebElement getDisplayedWindow() {
 		WebElement window = null;
 		List<WebElement> windows = WebElementUtils.findElements(B2WMaintain.getKendoWindow());
@@ -91,139 +84,7 @@ public abstract class B2WKendoDialog {
 		}
 		return window;
 	}
-	
 
-	public Iterator<WebElement> getChildElementsFromGrid(WebElement grid){
-		Iterator<WebElement> itr = null;
-		List<WebElement> items = getListofElementsFromGrid(grid);
-		if (items.size()> 0){
-			itr = items.iterator();
-		}
-		return itr;
-	}
-	
-	public List<WebElement> getListofElementsFromGrid(WebElement grid){
-		return WebElementUtils.getChildElements(grid, By.tagName("tr"));
-	}
-	public boolean waitForPageNotBusy(int iSecs) {
-		boolean bReturn = false;
-		int iTrys = 0;
-		iSecs = iSecs * 10;
-		while (!bReturn && iTrys < iSecs) {
-			try {
-				WebElement el = BrowserUtils.getDriver().findElement(B2WEquipment.getKendoPageLoading());
-				TaskUtils.sleep(100);
-				StackTraceElement[] stackTraceElements = Thread.currentThread().getStackTrace();
-				log.debug(stackTraceElements[3].getMethodName() + "->" + stackTraceElements[2].getMethodName() + "->" + stackTraceElements[1].getMethodName());
-				if (!el.isDisplayed()){
-					bReturn = true;
-					log.debug("Element is not displayed");
-					break;
-				}
-				iTrys++;
-
-			} catch (NoSuchElementException e) {
-				log.warn("Page not Busy no such element exception");
-				bReturn = true;
-			}catch (StaleElementReferenceException e){
-				log.debug("Caught a stale element exception");
-				TaskUtils.sleep(250);
-				bReturn =true;
-			}
-		}
-		double iSec = (iTrys * 100);
-		double iSeconds = iSec / 1000;
-		if (!bReturn){
-			log.info("Page waited as long as: "+iSeconds + " Seconds");
-		}else{
-			log.info("Page is done loading. waited: "+iSeconds + " Seconds");
-		}
-		return bReturn;
-		
-	}
-	public WebElement getItemFromAddItemDialog(String sText) {
-		WebElement item = null;
-		WebElement dialog = getVisibleDialog();
-		List<WebElement> items = WebElementUtils.getChildElements(dialog, By.tagName("p"));
-		Iterator<WebElement> iterB = items.iterator();
-		while (iterB.hasNext()) {
-			WebElement temp = iterB.next();
-			if (temp.getText().startsWith(sText)) {
-				item = temp;
-			}
-		}
-		return item;
-	}
-	
-	public WebElement getVisibleDialog() {
-
-		WebElement dialog = null;
-		List<WebElement> dialogs = WebElementUtils.findElements(B2WMaintain.getB2WMaintainAddItemDialogContent());
-		Iterator<WebElement> iterA = dialogs.iterator();
-		while (iterA.hasNext()) {
-			WebElement temp = iterA.next();
-			if (temp.isDisplayed()) {
-				dialog = temp;
-				break;
-			}
-		}
-		return dialog;
-	}
-	
-	protected boolean clickSave() {
-
-		boolean bReturn = false;
-		TaskUtils.sleep(500);
-		WebElement window = getDisplayedWindow();
-		if (window != null){
-			WebElement buttoncontainer = WebElementUtils.getChildElement(window, B2WEquipment.getKendoButtonContainer());
-			WebElement savebutton = buttoncontainer.findElement(B2WEquipment.getKendoLargeSaveButton());
-			bReturn = WebElementUtils.clickElement(savebutton);
-			bReturn &= WebElementUtils.waitForElementInvisible(window);
-			waitForPageNotBusy(WebElementUtils.MEDIUM_TIME_OUT);
-		}
-		return bReturn;
-	
-	}
-	
-	public List<WebElement> getFormElements(By by) {
-		List<WebElement> elements = new ArrayList<WebElement>();
-		WebElement parent = WebElementUtils.waitAndFindDisplayedElement(by);
-		List<WebElement> list = WebElementUtils.getChildElements(parent, By.tagName("p"));
-		Iterator<WebElement> iter = list.iterator();
-		while (iter.hasNext()) {
-			WebElement el = iter.next();
-			String sClass = el.getAttribute("class");
-			if (sClass.startsWith("form")) {
-				elements.add(el);
-			}
-		}
-
-		return elements;
-	}
-	
-	public WebElement getFormElement(String sLabel, By by){
-		WebElement child = null;
-		WebElement content = getDisplayedWindow();
-		if (content != null){
-			WebElement label = WebElementUtils.getChildElementContainsText(content, By.tagName("label"), sLabel);
-			if (label != null){
-				child = WebElementUtils.getChildElement(WebElementUtils.getParentElement(label), by);
-			}
-		}
-		return child;
-	}
-	
-	public WebElement getParentOfLabel(String sLabel){
-		WebElement label = null;
-		WebElement content = getDisplayedWindow();
-		if (content != null){
-			label = WebElementUtils.getParentElement(WebElementUtils.getChildElementContainsText(content, By.tagName("label"), sLabel));
-			
-		}
-		return label;
-	}
-	
 	protected boolean clickNext() {
 
 		boolean bReturn = false;
@@ -252,49 +113,64 @@ public abstract class B2WKendoDialog {
 		return bReturn;
 	}
 	
-	protected boolean clickFinish() {
+	public List<WebElement> getFormElements(By by) {
+		List<WebElement> elements = new ArrayList<WebElement>();
+		WebElement parent = WebElementUtils.waitAndFindDisplayedElement(by);
+		List<WebElement> list = WebElementUtils.getChildElements(parent, By.tagName("p"));
+		Iterator<WebElement> iter = list.iterator();
+		while (iter.hasNext()) {
+			WebElement el = iter.next();
+			String sClass = el.getAttribute("class");
+			if (sClass.startsWith("form")) {
+				elements.add(el);
+			}
+		}
+
+		return elements;
+	}
+
+	public WebElement getParentOfLabel(String sLabel) {
+		WebElement label = null;
+		WebElement content = getDisplayedWindow();
+		if (content != null) {
+			label = WebElementUtils.getParentElement(
+					WebElementUtils.getChildElementContainsText(content, By.tagName("label"), sLabel));
+
+		}
+		return label;
+	}
+
+	protected boolean selectFromDialog(String sPart, int col) {
 
 		boolean bReturn = false;
-		TaskUtils.sleep(500);
 		WebElement window = getDisplayedWindow();
-		if (window != null){
-			WebElement buttoncontainer = WebElementUtils.getChildElement(window, B2WEquipment.getKendoButtonContainer());
-			WebElement finishbutton = buttoncontainer.findElement(B2WEquipment.getKendoLargeFinishButton());
-			bReturn = WebElementUtils.clickElement(finishbutton);
-		}
-		return bReturn;
-	}
-	
-	protected boolean selectFromDialog(String sPart, int col){
-		
-		boolean bReturn = false;
-		WebElement window = getDisplayedWindow();
-		log.debug("Looking for Part "+sPart);
-		if (window != null){
+		log.debug("Looking for Part " + sPart);
+		if (window != null) {
 			WebElement grid = WebElementUtils.getChildElement(window, B2WMaintain.getKendoGridContent());
-			if (WebElementUtils.waitForElementStale(grid, 1)){
+			if (WebElementUtils.waitForElementStale(grid, 1)) {
 				grid = WebElementUtils.getChildElement(window, B2WMaintain.getKendoGridContent());
 			}
 			Iterator<WebElement> itr = getChildElementsFromGrid(grid);
-			while (itr.hasNext()){
+			while (itr.hasNext()) {
 				WebElement item = itr.next();
 				List<WebElement> gridcontent = WebElementUtils.getChildElements(item, By.tagName("td"));
 				String sText = gridcontent.get(col).getText();
-				if (sText.equals("")){
-					Coordinates coordinate = ((Locatable)item).getCoordinates(); 
-					coordinate.onPage(); 
+				if (sText.equals("")) {
+					Coordinates coordinate = ((Locatable) item).getCoordinates();
+					coordinate.onPage();
 					coordinate.inViewPort();
 				}
 				sText = gridcontent.get(col).getText();
-				if (sText.startsWith(sPart)){
-					bReturn = WebElementUtils.clickElement(WebElementUtils.getChildElement(gridcontent.get(0),By.tagName("input")));
+				if (sText.startsWith(sPart)) {
+					bReturn = WebElementUtils
+							.clickElement(WebElementUtils.getChildElement(gridcontent.get(0), By.tagName("input")));
 					break;
 				}
 			}
 		}
 		return bReturn;
 	}
-	
+
 	protected String selectAnyItemFromDialog() {
 		String sText = "";
 
@@ -324,82 +200,45 @@ public abstract class B2WKendoDialog {
 		}
 		return sText;
 	}
-	
-	protected boolean selectItemFromDropDown(int i){
-		boolean bReturn = false;
-		// when we click we need to find the visible list
-		List<WebElement> list = WebElementUtils.findElements(B2WEquipment.getKendoLists());
-		Iterator<WebElement> iter = list.iterator();
-		log.debug("There are "+list.size() + " to find the correct drop down");
-		while (iter.hasNext()) {
-			WebElement els = iter.next();
-			String hidden = els.getAttribute("aria-hidden");
-			if (hidden != null && hidden.equals("false")) {
-				List<WebElement> items = els.findElements(B2WEquipment.getKendoDropDownItem());
-				WebElement item = items.get(i);
-				if (item != null) {
-					bReturn = WebElementUtils.clickElement(item);
-				}else{
-					log.debug("Could not select item #"+i);
-				}
-			}
-		}
-		return bReturn;
-	}
-	
-	protected String selectRandomItemFromDropDown(){
+
+	protected String selectRandomItemFromDropDown() {
 		WebElement item = null;
 		String sText = "";
 		List<WebElement> list = WebElementUtils.findElements(B2WEquipment.getKendoLists());
 		Iterator<WebElement> iter = list.iterator();
-		log.debug("There are "+list.size() + " to find the correct drop down");
+		log.debug("There are " + list.size() + " to find the correct drop down");
 		while (iter.hasNext()) {
 			WebElement els = iter.next();
 			String hidden = els.getAttribute("aria-hidden");
 			if (hidden != null && hidden.equals("false")) {
 				List<WebElement> items = els.findElements(B2WEquipment.getKendoDropDownItem());
-				while (sText.length() < 2){
+				while (sText.length() < 2) {
 					item = items.get(getRandomNumber(items.size()));
 					sText = item.getText();
 				}
 				if (item != null) {
 					sText = item.getText();
 					WebElementUtils.clickElement(item);
-				}else{
+				} else {
 					log.debug("Could not select item");
 				}
 			}
 		}
 		return sText;
 	}
-	protected boolean setNotes(String sText){
-		boolean bReturn = false;
-		List<WebElement> iframes = BrowserUtils.getDriver().findElements(By.tagName("iframe"));
-		for (WebElement iframe : iframes) {
-			if (iframe.isDisplayed()==true){
-				// we want this one.
-				WebDriver driver = BrowserUtils.getDriver().switchTo().frame(iframe);
-				WebElement body = driver.findElement(By.tagName("body"));
-				WebElementUtils.clickElement(body);
-				bReturn = WebElementUtils.sendKeys(body, sText);
-				break;
-			}
-		}
-		return bReturn;
-	}
-	
-	protected boolean clickButton(String sButton){
+
+	protected boolean clickButton(String sButton) {
 		WebElement window = getDisplayedWindow();
-		List<WebElement> list = WebElementUtils.getChildElements(window,B2WMaintain.getKendoButton());
-		for (WebElement el: list){
-			if (el.getText().equals(sButton)){
+		List<WebElement> list = WebElementUtils.getChildElements(window, B2WMaintain.getKendoButton());
+		for (WebElement el : list) {
+			if (el.getText().equals(sButton)) {
 				el.click();
 			}
 		}
 		return false;
-		
+
 	}
-	
+
 	protected boolean openDropDownMenu(WebElement el, String sLabel) {
 		boolean bReturn = false;
 		WebElement label = WebElementUtils.getChildElementContainsText(el, By.tagName("label"), sLabel);
@@ -409,65 +248,56 @@ public abstract class B2WKendoDialog {
 		}
 		return bReturn;
 	}
-	
-	protected boolean enterDropDownMenu(WebElement el, String sLabel, String sText){
+
+	protected boolean enterDropDownMenu(WebElement el, String sLabel, String sText) {
 		boolean bReturn = false;
 		WebElement label = WebElementUtils.getChildElementContainsText(el, By.tagName("label"), sLabel);
 		if (el != null) {
-			WebElement dd = WebElementUtils.getChildElement(WebElementUtils.getParentElement(label), B2WMaintain.getKendoDropDown());
+			WebElement dd = WebElementUtils.getChildElement(WebElementUtils.getParentElement(label),
+					B2WMaintain.getKendoDropDown());
 			bReturn = WebElementUtils.clickElement(dd);
 			bReturn &= WebElementUtils.sendKeys(dd, sText);
 		}
 		return bReturn;
 	}
-	
-	protected boolean setNumericField(WebElement el, String sLabel, String sText){
-		boolean bReturn = false;
-		WebElement label = WebElementUtils.getChildElementContainsText(el, By.tagName("label"), sLabel);
-		WebElement dd = WebElementUtils.getChildElement(WebElementUtils.getParentElement(label), B2WMaintain.getKendoNumericTextBox());
-		if (dd != null){
-			List<WebElement> inputs = WebElementUtils.getChildElements(dd, B2WMaintain.getKendoDropDown());
-			bReturn = WebElementUtils.clickElement(inputs.get(0));
-			bReturn &= WebElementUtils.sendKeys(inputs.get(1), sText);
-		}
-		return bReturn;
 
-	}
-	
-	protected boolean setTextArea(WebElement el, String sLabel, String sText){
-		boolean bReturn = false;
-		WebElement label = WebElementUtils.getChildElementContainsText(el, By.tagName("label"), sLabel);
-		WebElement dd = WebElementUtils.getChildElement(WebElementUtils.getParentElement(label), By.tagName("textarea"));
-		if (dd != null){
-			bReturn = WebElementUtils.sendKeys(dd, sText);
+	public WebElement getFormElement(String sLabel, By by) {
+		WebElement child = null;
+		WebElement content = getDisplayedWindow();
+		if (content != null) {
+			WebElement label = WebElementUtils.getChildElementContainsText(content, By.tagName("label"), sLabel);
+			if (label != null) {
+				child = WebElementUtils.getChildElement(WebElementUtils.getParentElement(label), by);
+			}
 		}
-		return bReturn;
+		return child;
+	}
 
-	}
-	
-	protected boolean setText(WebElement el, String sLabel, String sText){
-		boolean bReturn = false;
-		WebElement label = WebElementUtils.getChildElementContainsText(el, By.tagName("label"), sLabel);
-		if (label != null) {
-			WebElement dd = WebElementUtils.getChildElement(WebElementUtils.getParentElement(label), B2WMaintain.getKendoInputTextBox());
-			WebElementUtils.clickElement(dd);
-			bReturn = WebElementUtils.sendKeys(dd, sText);
+	public String getItemsByRowColumnFromGrid(int iRow, int iColumn) {
+		String itemstext = "";
+		WebElement header = getDisplayedWindow();
+		WebElement grid = WebElementUtils.getChildElement(header, B2WMaintain.getKendoGridContent());
+		List<WebElement> list = getRowsFromGrid(grid);
+		try {
+			if (list.size() > 0) {
+				List<WebElement> gridcontent = WebElementUtils.getChildElements(list.get(iRow), By.tagName("td"));
+				if (gridcontent.size() > 0) {
+					String sText = gridcontent.get(iColumn).getText();
+					if (sText.equals("")) {
+						Coordinates coordinate = ((Locatable) list.get(iRow)).getCoordinates();
+						coordinate.onPage();
+						coordinate.inViewPort();
+					}
+					sText = gridcontent.get(iColumn).getText();
+					itemstext = sText;
+				}
+
+			}
+		} catch (ArrayIndexOutOfBoundsException e) {
+			log.debug("Column/Row does not exist");
 		}
-		return bReturn;
-	}
-	public boolean clickConfirmYes() {
-		boolean bReturn = false;
-		WebElement el = WebElementUtils.waitAndFindDisplayedElement(B2WMaintain.getKendoConfirmYesButton());
-		if (el != null){
-			bReturn =WebElementUtils.clickElement(el);
-			bReturn &= WebElementUtils.waitForElementInvisible(el);
-			waitForPageNotBusy(WebElementUtils.MEDIUM_TIME_OUT);
-		}
-		return bReturn;
+		return itemstext;
 	}
 	
-	
-	
-	
-	
+
 }
