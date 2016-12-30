@@ -634,7 +634,11 @@ public class B2WMaintain extends KendoUI {
 	public static By getMaintainEquipmentLogSaveIcon() {
 		return By.cssSelector(B2WUIMap.b2w_equipmentlogsaveicon);
 	}
-
-	
+	public static By getMaintainInventoryDetails() {
+		return By.cssSelector(B2WUIMap.b2w_inventorycollapsedetail);
+	}
+	public static By getMaintainInventoryAlocatedInventory() {
+		return By.cssSelector(B2WUIMap.b2w_inventoryallocatedtooltip);
+	}
 
 }
