@@ -870,8 +870,10 @@ public class B2WSchedulerTasks extends B2WKendoTasks {
                     eResourceWarningIcon = WebElementUtils.getChildElement(parent, B2WScheduleAssignments.getResourceWarningIcon_i152());
                     break;
                 case B2WAssignmentType.CREW_TYPE :
-                    //eResourceWarningIcon = WebElementUtils.getChildElement(parent, B2WScheduleAssignments.getResourceWarningIcon_i228());
                     eResourceWarningIcon = WebElementUtils.getChildElement(parent, B2WScheduleAssignments.getResourceWarningIcon_i152());
+                    if (eResourceWarningIcon == null) {
+                        eResourceWarningIcon = WebElementUtils.getChildElement(parent, B2WScheduleAssignments.getResourceWarningIcon_i228());
+                    }
                     break;
                 case B2WAssignmentType.MOVE_ASSIGNMENT_TYPE :
                     eResourceWarningIcon = WebElementUtils.getChildElement(parent, B2WScheduleAssignments.getResourceWarningIcon_i152());
@@ -926,6 +928,11 @@ public class B2WSchedulerTasks extends B2WKendoTasks {
         WebElement eConflictBtn = WebElementUtils.findElement(B2WScheduleAssignments.getCheckedBtn());
         if (eConflictBtn != null && eConflictPanel != null) {
             bReturn = WebElementUtils.clickElement(eConflictBtn);
+            if (!bReturn) {
+                TaskUtils.sleep(500);
+                waitForSchedulesPageNoBusy();
+                bReturn = WebElementUtils.clickElement(eConflictBtn);
+            }
             waitForSchedulesPageNoBusy();
             bReturn &= WebElementUtils.waitForElementInvisible(eConflictPanel);
         } else {

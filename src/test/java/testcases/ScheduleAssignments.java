@@ -1826,6 +1826,9 @@ public class ScheduleAssignments extends B2WTestCase {
         logCompare(true, b2wScheduler.setSearchValue(moveOrder.getResourceName()), "Set Filter by " + moveOrder.getResourceName());
         logCompare(true, b2wScheduler.deleteAssignment(moveOrder), "Delete Move Order for: " + moveOrder.getResourceName());
         moveOrder = null;
+        logCompare(true, b2wScheduler.setSearchValue(copyMoveOrder1.getResourceName()), "Set Filter by " + moveOrder.getResourceName());
+        logCompare(true, b2wScheduler.deleteAssignment(copyMoveOrder1), "Delete Move Order for: " + moveOrder.getResourceName());
+        moveOrder = null;
     }
     private void deleteEmployeeEvents() {
         selectView(employeeDefaultScheduleView);
