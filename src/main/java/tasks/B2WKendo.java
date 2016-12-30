@@ -22,12 +22,7 @@ import tasks.util.TaskUtils;
 
 public abstract class B2WKendo {
 	
-	
-	
 	Logger log = Logger.getLogger(B2WKendo.class);
-
-
-	
 	
 	protected boolean selectItemFromDropDown(int i){
 		boolean bReturn = false;
@@ -211,17 +206,7 @@ public abstract class B2WKendo {
 			TaskUtils.sleep(500);
 		}
 	}
-	protected boolean setNumericField(WebElement el, String sLabel, String sText){
-		boolean bReturn = false;
-		WebElement dd = WebElementUtils.getChildElement(el, B2WMaintain.getKendoNumericTextBox());
-		if (dd != null){
-			List<WebElement> inputs = WebElementUtils.getChildElements(dd, B2WMaintain.getKendoDropDown());
-			bReturn = WebElementUtils.clickElement(inputs.get(0));
-			bReturn &= WebElementUtils.sendKeys(inputs.get(1), sText);
-		}
-		return bReturn;
-
-	}
+	
 	protected boolean setTextArea(WebElement el, String sLabel, String sText){
 		boolean bReturn = false;
 		WebElement label = WebElementUtils.getChildElementContainsText(el, By.tagName("label"), sLabel);

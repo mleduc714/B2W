@@ -63,7 +63,7 @@ public class B2WAddToInventory extends B2WKendoDialog {
 		return bReturn;
 	}
 	public boolean setQuantity(String sQuantity){
-		return setNumericField(getDisplayedWindow(), "Quantity", sQuantity);
+		return setNumericField("Quantity", sQuantity);
 	
 	}
 	

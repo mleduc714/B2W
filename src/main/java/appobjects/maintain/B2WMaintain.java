@@ -586,7 +586,12 @@ public class B2WMaintain extends KendoUI {
 	public static By getMaintainEquipmentDetailView() {
 		return By.cssSelector(B2WUIMap.b2w_maintainequipmentdetailview);
 	}
-
+	public static By getMaintainPartDetailView() {
+		return By.cssSelector(B2WUIMap.b2w_maintainpartdetailview);
+	}
+	public static By getMaintainProgramDetailView() {
+		return By.cssSelector(B2WUIMap.b2w_maintainprogramdetailview);
+	}
 	public static By getMaintainEquipmentHistoryView() {
 		return By.cssSelector(B2WUIMap.b2w_equipmenthistorylistview);
 	}
@@ -639,6 +644,15 @@ public class B2WMaintain extends KendoUI {
 	}
 	public static By getMaintainInventoryAlocatedInventory() {
 		return By.cssSelector(B2WUIMap.b2w_inventoryallocatedtooltip);
+	}
+	public static By getMaintainPartsListView() {
+		return By.cssSelector(B2WUIMap.b2w_maintainpartslistview);
+	}
+	public static By getMaintainPartsAddWarranty() {
+		return By.cssSelector(B2WUIMap.b2w_maintainpartaddwarranty);
+	}
+	public static By getMaintainPartWarrantyList() {
+		return By.cssSelector(B2WUIMap.b2w_maintainpartwarrantydurationlist);
 	}
 
 }

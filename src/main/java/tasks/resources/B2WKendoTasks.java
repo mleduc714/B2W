@@ -283,7 +283,8 @@ public abstract class B2WKendoTasks extends B2WKendo {
 	}
 	
 	protected String getValueOfItem(String sItem, By by) {
-
+		
+		String sValueOfItem = "";
 		WebElement el = WebElementUtils.waitAndFindDisplayedElement(by);
 		List<WebElement> nvps = WebElementUtils.getChildElements(el, B2WEquipment.getKendoNameValuePair());
 		Iterator<WebElement> iter = nvps.iterator();
@@ -292,13 +293,15 @@ public abstract class B2WKendoTasks extends B2WKendo {
 				WebElement nvp = iter.next();
 				WebElement label = nvp.findElement(By.cssSelector(".label"));
 				if (label.getText().equals(sItem)) {
-					sItem = nvp.findElement(By.cssSelector(".data")).getText();
+					// getting notes is going to be different
+					sValueOfItem = nvp.findElement(By.cssSelector(".data")).getText();
 					break;
 				}
+			
 			} catch (NoSuchElementException e) {
 			}
 		}
-		return sItem;
+		return sValueOfItem;
 
 	}
 	
@@ -412,5 +415,33 @@ public abstract class B2WKendoTasks extends B2WKendo {
 		}
 		return al;
 	}
+	
+	public boolean setNumericField(String sLabel, String sText) {
 
+		boolean bReturn = false;
+		WebElement el = getFormElement(sLabel, B2WMaintain.getKendoNumericTextBox());
+		if (el != null) {
+			List<WebElement> inputs = WebElementUtils.getChildElements(el, B2WMaintain.getKendoDropDown());
+			bReturn = WebElementUtils.clickElement(inputs.get(0));
+			bReturn &= WebElementUtils.sendKeys(inputs.get(1), sText);
+		}
+
+		return bReturn;
+	}
+	protected boolean selectItem(String s) {
+		boolean bReturn = false;
+		WebElement el = WebElementUtils.findElement(B2WMaintain.getB2WWorkOrderItems());
+		if (el != null){
+			List<WebElement> list = WebElementUtils.getElementsWithMatchingAttribute(WebElementUtils.getChildElements(el, By.tagName("td")), "role", "gridcell");
+			Iterator<WebElement> iter = list.iterator();
+			while (iter.hasNext()){
+				WebElement e = iter.next();
+				String sText = e.getText();
+				if (sText.contains(s)){
+					bReturn = WebElementUtils.clickElement(e);
+				}
+			}
+		}
+		return bReturn;
+	}
 }

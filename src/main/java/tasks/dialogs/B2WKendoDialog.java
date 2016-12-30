@@ -300,6 +300,16 @@ public abstract class B2WKendoDialog extends B2WKendo {
 		}
 		return itemstext;
 	}
-	
+	protected boolean setNumericField(String sLabel, String sText){
+		boolean bReturn = false;
+		WebElement dd = getFormElement(sLabel,B2WMaintain.getKendoNumericTextBox());
+		if (dd != null){
+			List<WebElement> inputs = WebElementUtils.getChildElements(dd, B2WMaintain.getKendoDropDown());
+			bReturn = WebElementUtils.clickElement(inputs.get(0));
+			bReturn &= WebElementUtils.sendKeys(inputs.get(1), sText);
+		}
+		return bReturn;
+
+	}
 
 }
