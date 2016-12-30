@@ -26,6 +26,7 @@ public class B2WCompleteWorkOrder extends B2WKendoDialog {
 		WebElement page1 = WebElementUtils.getChildElement(window, (By.cssSelector(".page1")));
 		WebElement compDate = WebElementUtils.getChildElement(page1, B2WMaintain.getKendoDropDown());
 		if (compDate != null) {
+			WebElementUtils.clickElement(compDate);
 			bReturn = WebElementUtils.sendKeys(compDate, sCompleteDate);
 		}
 		return bReturn;
@@ -169,7 +170,7 @@ public class B2WCompleteWorkOrder extends B2WKendoDialog {
 		boolean bReturn = false;
 		WebElement plannedHours = WebElementUtils.findElement(By.className(PLANNEDHRS));
 		if (plannedHours != null) {
-			bReturn = setNumericField(plannedHours, "Hours", sHours);
+			bReturn = setNumericField("Hours", sHours);
 		}
 		return bReturn;
 	}
@@ -248,7 +249,11 @@ public class B2WCompleteWorkOrder extends B2WKendoDialog {
 		boolean bReturn = false;
 		WebElement reportedHours = WebElementUtils.findElement(By.className(REPORTHRS));
 		if (reportedHours != null){
-			bReturn = setNumericField(reportedHours, "Date", s);
+			WebElement date = getFormElement("Date", B2WMaintain.getKendoDropDown());
+			if (date != null){
+				WebElementUtils.clickElement(date);
+				bReturn = WebElementUtils.sendKeys(date, s);
+			}
 		}
 		return bReturn;
 	}
@@ -256,7 +261,7 @@ public class B2WCompleteWorkOrder extends B2WKendoDialog {
 		boolean bReturn = false;
 		WebElement reportedHours = WebElementUtils.findElement(By.className(REPORTHRS));
 		if (reportedHours != null){
-			bReturn = setNumericField(reportedHours, "Regular", sText);
+			bReturn = setNumericField("Regular", sText);
 		}
 		return bReturn;
 	}
@@ -275,7 +280,7 @@ public class B2WCompleteWorkOrder extends B2WKendoDialog {
 		boolean bReturn = false;
 		WebElement reportedHours = WebElementUtils.findElement(By.className(REPORTHRS));
 		if (reportedHours != null){
-			bReturn = setNumericField(reportedHours, "Overtime", sText);
+			bReturn = setNumericField("Overtime", sText);
 		}
 		return bReturn;
 	}

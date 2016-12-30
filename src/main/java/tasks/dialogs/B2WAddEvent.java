@@ -21,17 +21,21 @@ public class B2WAddEvent extends B2WKendoDialog {
 	
 	public boolean setEventStartDate(String s){
 		boolean bReturn = false;
-		WebElement window = getDisplayedWindow();
-		if (window != null){
-			bReturn = setNumericField(window, "Start Date", s);
+		WebElement el = getFormElement("Start Date", B2WMaintain.getKendoDropDown());
+		if (el != null){
+			WebElementUtils.clickElement(el);
+			bReturn = WebElementUtils.sendKeys(el, s);
+			
 		}
 		return bReturn;
 	}
 	public boolean setEventEndDate(String s){
 		boolean bReturn = false;
-		WebElement window = getDisplayedWindow();
-		if (window != null){
-			bReturn = setNumericField(window, "End Date", s);
+		WebElement el = getFormElement("End Date", B2WMaintain.getKendoDropDown());
+		if (el != null){
+			WebElementUtils.clickElement(el);
+			bReturn = WebElementUtils.sendKeys(el, s);
+			
 		}
 		return bReturn;
 	}

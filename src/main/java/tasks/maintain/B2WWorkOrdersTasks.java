@@ -267,8 +267,10 @@ public class B2WWorkOrdersTasks extends B2WKendoTasks {
 	public boolean clickAddParts() {
 		boolean bReturn = false;
 		WebElement el = getButton(8);
-		bReturn = WebElementUtils.clickElement(el);
-		bReturn &= waitForPageNotBusy(WebElementUtils.MEDIUM_TIME_OUT);
+		if (el != null){
+			bReturn = WebElementUtils.clickElement(el);
+			bReturn &= waitForPageNotBusy(WebElementUtils.MEDIUM_TIME_OUT);
+		}
 		return bReturn;
 	}
 	public boolean selectAllWorkOrders() {
@@ -363,20 +365,7 @@ public class B2WWorkOrdersTasks extends B2WKendoTasks {
 	}
 	
 	public boolean selectItemOnWorkOrder(String s) {
-		boolean bReturn = false;
-		WebElement el = WebElementUtils.findElement(B2WMaintain.getB2WWorkOrderItems());
-		if (el != null){
-			List<WebElement> list = WebElementUtils.getElementsWithMatchingAttribute(WebElementUtils.getChildElements(el, By.tagName("td")), "role", "gridcell");
-			Iterator<WebElement> iter = list.iterator();
-			while (iter.hasNext()){
-				WebElement e = iter.next();
-				String sText = e.getText();
-				if (sText.contains(s)){
-					bReturn = WebElementUtils.clickElement(e);
-				}
-			}
-		}
-		return bReturn;
+		return selectItem(s);
 	}
 	
 	protected boolean clickOnRequestLink(){

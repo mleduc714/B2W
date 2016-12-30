@@ -831,6 +831,8 @@ public class B2WUIMap {
 	public static final String b2w_maintaincollapsebutton = "a.collapse-button";
 	public static final String b2w_maintainworkorderscharts = "div.workorder_charts_col_left";
 	public static final String b2w_maintainequipmentdetailview = "div#equipment_detail_view";
+	public static final String b2w_maintainpartdetailview = "div#part_detail_view";
+	public static final String b2w_maintainprogramdetailview = "div#program_detail_view";
 
 	public static final String b2w_maintainnewintervalbutton = "a.btn-orig.new-interval-button";
 
@@ -861,6 +863,7 @@ public class B2WUIMap {
 	
 	// maintain requests
 	public static final String b2w_maintainrequestlistview = "div#request_list_view.k-pane";
+	
 	public static final String b2w_maintainitemactions = "div.item-actions";
 	public static final String b2w_maintainrequestcreateview = "div#request_create_view";
 	public static final String b2w_maintainrequesteditformcontent = "div.edit-form-content";
@@ -1104,6 +1107,9 @@ public class B2WUIMap {
 	
 	public static final String b2w_inventorycollapsedetail= "div.inventoryCollapsibleDetail";
 	public static final String b2w_inventoryallocatedtooltip = ".allocatedTooltip";
-	
+	//parts
+	public static final String b2w_maintainpartslistview = "div#part_list_view.k-content.k-pane";
+	public static final String b2w_maintainpartaddwarranty = "input#AddWarranty";
+	public static final String b2w_maintainpartwarrantydurationlist = "div#DurationList";
 	
 }
