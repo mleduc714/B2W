@@ -1099,6 +1099,8 @@ public class B2WUIMap {
 	public static final String b2w_equipmentcrewslistview = "div#equipmentCrews_list_view";
 	public static final String b2w_equipmenteventslistivew = "div#equipmentEvents_list_view";
 	
+	public static final String b2w_inventorycollapsedetail= "div.inventoryCollapsibleDetail";
+	public static final String b2w_inventoryallocatedtooltip = ".allocatedTooltip";
 	
 	
 }
