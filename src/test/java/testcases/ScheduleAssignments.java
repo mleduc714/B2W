@@ -384,7 +384,7 @@ public class ScheduleAssignments extends B2WTestCase {
     }
 
     public void testMain() throws Throwable {
-        //createScheduleViews();
+        createScheduleViews();
 
         logCompare(true, b2wNav.openSchedule(), "Open Schedule View");
 
