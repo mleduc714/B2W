@@ -69,5 +69,9 @@ public class B2WScheduleAssignments extends KendoUI {
     public static By getCancelBtn() { return By.cssSelector(B2WUIMap.b2w_schedule_cancelbtn); }
     public static By getUserItem() { return By.cssSelector(B2WUIMap.b2w_schedule_useritem); }
     public static By getFillWith() { return By.cssSelector(B2WUIMap.b2w_schedule_fillwith); }
+    public static By getCollapseCalendarIcon() { return By.cssSelector(B2WUIMap.b2w_schedule_collapsecalendaricon); }
+    public static By getExpandCalendarIcon() { return By.cssSelector(B2WUIMap.b2w_schedule_expandcalendaricon); }
+
+
 
 }

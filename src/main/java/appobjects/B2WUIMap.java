@@ -802,6 +802,9 @@ public class B2WUIMap {
 	public static final String b2w_schedule_checkedbtn = ".Toolbar__toggle-button--checked";
 	public static final String b2w_schedule_employeecheckbox = "input.ng-pristine";
 	public static final String b2w_schedule_cancelbtn = "button.Button.Button--large[ng-click='cancel()']";
+	public static final String b2w_schedule_collapsecalendaricon = ".Icon.Icon--xl.Panel--left-sched-button.i102-angle-left";
+	public static final String b2w_schedule_expandcalendaricon = ".Icon.Icon--xl.Panel--left-sched-button.i103-angle-right";
+
 
 	public static final String b2w_schedule_useritem = "ul#user-select_taglist";
 	public static final String b2w_schedule_fillwith = "span.Toolbar__input--fill-need";

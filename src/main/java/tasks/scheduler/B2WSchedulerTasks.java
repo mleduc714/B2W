@@ -946,6 +946,25 @@ public class B2WSchedulerTasks extends B2WKendoTasks {
         }
         return bReturn;
     }
+    public boolean collapseCalendarPanel() {
+        boolean bReturn = true;
+        WebElement item = WebElementUtils.findElement(B2WScheduleAssignments.getCollapseCalendarIcon());
+        WebElement tmp = WebElementUtils.findElement(B2WScheduleAssignments.getCalendarActiveDateRange());
+        if (item != null) {
+            bReturn = WebElementUtils.clickElement(item);
+            WebElementUtils.waitForElementInvisible(tmp);
+        }
+        return bReturn;
+    }
+    public boolean expandCalendarPanel() {
+        boolean bReturn = true;
+        WebElement item = WebElementUtils.findElement(B2WScheduleAssignments.getExpandCalendarIcon());
+        if (item != null) {
+            bReturn = WebElementUtils.clickElement(item);
+            WebElementUtils.waitAndFindDisplayedElement(B2WScheduleAssignments.getCalendarActiveDateRange());
+        }
+        return bReturn;
+    }
 
     public boolean openOrderPanel() {
         boolean bReturn = false;
@@ -1205,6 +1224,7 @@ public class B2WSchedulerTasks extends B2WKendoTasks {
                 String sTmp = item.getText();
                 if (sTmp.contains(sMenuOption)) {
                     bReturn = WebElementUtils.clickElement(item);
+                    TaskUtils.sleep(500);
                     waitForSchedulesPageNoBusy();
                 }
             }
@@ -1966,6 +1986,7 @@ public class B2WSchedulerTasks extends B2WKendoTasks {
         bReturn &= expectedValue.contains(actualValue);
         return bReturn;
     }
+
 
 
     // Order Panel
