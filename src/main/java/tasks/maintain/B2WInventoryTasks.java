@@ -9,8 +9,12 @@ import org.openqa.selenium.WebElement;
 import appobjects.maintain.B2WMaintain;
 import tasks.WebElementUtils;
 import tasks.resources.B2WKendoTasks;
+import tasks.util.TaskUtils;
 
 public class B2WInventoryTasks extends B2WKendoTasks {
+	
+	String sInventoryToolTip = "div#Inventory-tooltip-body";
+	String sWorkOrder = "span.work-Order";
 	
 	public boolean expandPart(String sPart){
 		boolean bReturn = false;
@@ -142,14 +146,28 @@ public class B2WInventoryTasks extends B2WKendoTasks {
 		}
 		return bReturn;
 	}
-	public void getWorkOrderFromAllocatedInventory(String sPart){
-		
+	public String getWorkOrderFromAllocatedInventory(){
+		String sText = "";
+		WebElement tooltip = WebElementUtils.waitAndFindDisplayedElement(By.cssSelector(this.sInventoryToolTip));
+		TaskUtils.sleep(500);
+		WebElement workorder = WebElementUtils.getChildElement(tooltip, By.cssSelector(this.sWorkOrder));
+		if (workorder != null){
+			 sText = WebElementUtils.getChildElement(workorder, By.tagName("a")).getText();
+		}
+		return sText;
 	}
-	public void clickOnWorkOrderAllocatedInventory(String sPart){
-		
+	public boolean clickOnWorkOrderAllocatedInventory(){
+		boolean bReturn = false;
+		WebElement tooltip = WebElementUtils.waitAndFindDisplayedElement(By.cssSelector(this.sInventoryToolTip));
+		TaskUtils.sleep(500);
+		WebElement workorder = WebElementUtils.getChildElement(tooltip, By.cssSelector(this.sWorkOrder));
+		if (workorder != null){
+			bReturn = WebElementUtils.clickElement(WebElementUtils.getChildElement(workorder, By.tagName("a")));
+		}
+		return bReturn;
 	}
 	
-	public WebElement getRow(String sPart) {
+	private WebElement getRow(String sPart) {
 		WebElement row = null;
 		List<WebElement> rows = WebElementUtils.findElements(By.cssSelector(".k-master-row"));
 		Iterator<WebElement> iter = rows.iterator();
@@ -167,7 +185,7 @@ public class B2WInventoryTasks extends B2WKendoTasks {
 		
 	}
 
-	public WebElement getRowColumn(String sPart, int iCol) {
+	private WebElement getRowColumn(String sPart, int iCol) {
 		WebElement column = null;
 		WebElement el = getRow(sPart);
 		if (el != null) {
@@ -176,4 +194,17 @@ public class B2WInventoryTasks extends B2WKendoTasks {
 		}
 		return column;
 	}
+	
+	public boolean clickAddToInventory() {
+		boolean bReturn = false;
+		
+		WebElement button = getButton("Add to Inventory");
+		if (button != null){
+			bReturn = WebElementUtils.clickElement(button);
+		}
+		return bReturn;
+	}
+	
+	
+	
 }
