@@ -48,15 +48,18 @@ public abstract class B2WKendoDialog extends B2WKendo {
 	protected boolean clickSave() {
 
 		boolean bReturn = false;
+		WebElement savebutton = null;
 		TaskUtils.sleep(500);
 		WebElement window = getDisplayedWindow();
 		if (window != null) {
-			WebElement buttoncontainer = WebElementUtils.getChildElement(window,
-					B2WEquipment.getKendoButtonContainer());
-			WebElement savebutton = buttoncontainer.findElement(B2WEquipment.getKendoLargeSaveButton());
-			bReturn = WebElementUtils.clickElement(savebutton);
-			bReturn &= WebElementUtils.waitForElementInvisible(window);
-			waitForPageNotBusy(WebElementUtils.MEDIUM_TIME_OUT);
+			savebutton = WebElementUtils.getChildElement(window, B2WEquipment.getKendoLargeSaveButton());
+			if (savebutton != null){
+				bReturn = WebElementUtils.clickElement(savebutton);
+				bReturn &= WebElementUtils.waitForElementInvisible(window);
+				waitForPageNotBusy(WebElementUtils.MEDIUM_TIME_OUT);
+			}else{
+				log.debug("Could not find save button");
+			}
 		}
 		return bReturn;
 
@@ -106,8 +109,7 @@ public abstract class B2WKendoDialog extends B2WKendo {
 		TaskUtils.sleep(500);
 		WebElement window = getDisplayedWindow();
 		if (window != null){
-			WebElement buttoncontainer = WebElementUtils.getChildElement(window, B2WEquipment.getKendoButtonContainer());
-			WebElement cancelbutton = buttoncontainer.findElement(B2WEquipment.getKendoCancelButton());
+			WebElement cancelbutton = WebElementUtils.getChildElement(window, B2WEquipment.getKendoCancelButton());
 			bReturn = WebElementUtils.clickElement(cancelbutton);
 		}
 		return bReturn;
