@@ -95,7 +95,7 @@ public abstract class B2WKendoTasks extends B2WKendo {
 				}
 			}
 		}
-		if (!bReturn) log.debug("Element with value" + sItem + " could not be found.");
+		if (!bReturn) log.debug("Element with value '" + sItem + "' could not be found.");
 		return bReturn;
 	}
 	
