@@ -245,6 +245,8 @@ public class B2WUIMap {
 	// ====== Resources -> Crew Templates
 	public static final String b2w_crewtemplates_addbtn = ".btn-add";
 	public static final String b2w_crewtemplates_crewtypeslist = "span.k-link";
+	public static final String getB2w_crewtemplates_headline = ".headline>span";
+	public static final String getB2w_crewtemplates_name = ".k-textbox[name='Name']";
 
 	// places
 	public static final String b2w_createnewplacebutton = "a#PageContent_CreateNewPlaceButton";
