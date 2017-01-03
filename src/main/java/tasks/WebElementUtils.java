@@ -864,11 +864,16 @@ public class WebElementUtils {
 	}
 
 	public static WebElement getParentUntilTagName(WebElement el, String sTagName) {
-		WebElement elResult = getParentElement(el);
-		while (!elResult.getTagName().toLowerCase().equals(sTagName)) {
-			elResult = getParentElement(elResult);
+		try {
+			WebElement elResult = getParentElement(el);
+			while (!elResult.getTagName().toLowerCase().equals(sTagName)) {
+				elResult = getParentElement(elResult);
+			}
+			return elResult;
+		} catch (Exception e) {
+			log.warn("Catch an exception: " + e.toString());
+			return null;
 		}
-		return elResult;
 	}
 	public static boolean waitForElementInvisible(WebElement element, int timeout, boolean expectedClickable) {
 		boolean bReturn = false;

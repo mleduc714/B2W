@@ -237,10 +237,14 @@ public class B2WUIMap {
 	public static final String b2w_accountunitcostlabel = "span#PageContent_generalInformationPanel_UnitCostLabel";
 	public static final String b2w_accountinfodefaultvalue = "span#PageContent_generalInformationPanel_DefaultValueLabel";
 
-	// resources
+	// ====== Resources
 	public static final String b2w_resourcesequipmentpage = "table.item-overview";
 	public static final String b2w_accountmaterialsid = "input#PageContent_generalInformationPanel_MaterialIDTextBox";
 	public static final String b2w_accountmaterialaltid = "input#PageContent_generalInformationPanel_AlternateMaterialIDTextBox";
+
+	// ====== Resources -> Crew Templates
+	public static final String b2w_crewtemplates_addbtn = ".btn-add";
+	public static final String b2w_crewtemplates_crewtypeslist = "span.k-link";
 
 	// places
 	public static final String b2w_createnewplacebutton = "a#PageContent_CreateNewPlaceButton";
@@ -521,8 +525,6 @@ public class B2WUIMap {
 	public static final String b2w_kendobuttonnew = ".btn-new";
 	public static final String b2w_kendosubmit = ".btn-import";
 
-	
-	
 	public static final String b2w_tmpricesheeteditbutton = "a#editPriceSheet.btn-orig";
 	public static final String b2w_tmpricesheetmodifyratesourcebutton = "a#modifyPriceSheetRates.btn-orig";
 	public static final String b2w_tmpricesheetcopypricesheet = "a#copyPriceSheet.btn-orig";
@@ -531,7 +533,7 @@ public class B2WUIMap {
 	public static final String b2w_tmpricesheetratessourcedropdown = "span.k-widget.k-dropdown.k-header.k-state-border-down";
 	public static final String b2w_addpartstoworkorderquanitiesgrid = "div.grid.partQuantitiesGrid.k-grid.k-widget";
 
-	// jobs
+	// ====== Jobs
 	public static final String b2w_createnewjobbutton = "a#PageContent_CreateNewJobButton";
 	public static final String b2w_jobnumber = "input#PageContent_generalInformationPanel_JobNumberTextBox";
 	public static final String b2w_jobtitle = "input#PageContent_generalInformationPanel_JobTitleTextBox";
@@ -752,7 +754,7 @@ public class B2WUIMap {
 	public static final String b2w_jobstmworkitempricelimitcheckbox = "input#HasPriceLimit";
 	public static final String b2w_jobstmworkitemsavebutton = "div#SaveButton.btn-form.large";
 
-	// Schedule Assignments
+	// ====== Schedule Assignments
 	public static final String b2w_schedulecenterpanel = "b2w-panel-center";
 	public static final String b2w_scheduleproductpageicon = "a#ProductPageIcon";
 	public static final String b2w_scheduleviewnavigatemenu = ".nav-popup-menu.scrollable.k-popup.k-group.k-reset.k-state-border-up";
@@ -809,7 +811,7 @@ public class B2WUIMap {
 	public static final String b2w_schedule_useritem = "ul#user-select_taglist";
 	public static final String b2w_schedule_fillwith = "span.Toolbar__input--fill-need";
 
-	// Maintain
+	// ====== Maintain
 	public static final String b2w_maintainpagemenu = "ul#SubNavMenu_MaintainPageMenu.MaintainPageMenu";
 	public static final String b2w_maintainexpandbutton = "a#ExpandSubNavButton.expand-button";
 	public static final String b2w_maintainsubnavmenu = "div.SubNavMenu.slider.closed";
@@ -964,7 +966,7 @@ public class B2WUIMap {
 	public static final String unscheduledworkorderscontentmenuwrench = "ul#unscheduledWorkOrdersContextMenu-wrench";
 	public static final String scheduleremptyslotcontextmenu = "li#scheduler-empty-slot-context-menu_mn_active";
 	
-	//B2W Schedule Tests
+	// ====== B2W Schedule Tests: Performance
 	public static final String b2w_scheduleviewcrews = "Crews";
 	public static final String b2w_schedulecrewsbyassignmentlocation = "Crews by Assignment Location";
 	public static final String b2w_schedulecrewsbyworksubtype = "Crews by Work Subtype";
@@ -1013,25 +1015,20 @@ public class B2WUIMap {
 	public static final String b2w_schedulenorthwestdivisionpaversgraders = "Northwest Division Pavers-Graders";
 	public static final String b2w_scheduleplaces = "Places";
 	public static final String b2w_schedulesoutherndivisionsiteworkspecial = "Southern Division Sitework \"Special\"";
-
 	public static final String b2w_schedulesoutherndivisionpaversgraders = "Southwest Division Pavers--Graders";
 	public static final String b2w_schedulerandomcharacters = "exact:Z!\"#$%&'()*+-./:;<=>?@[\\\\]^_`{|}~����!\"#$%&'()*+-./:;<=>?@[\\\\]^_`{|}~����";
-
 	public static final String b2w_kendoworkorderitemstitle = "div.complete-workorder-items-title";
-
 	public static final String b2w_maintaincompleteworkordercomplete = "//a[@data-bind='visible: workOrderCompletionViewModel.isSaveVisible']";
 	public static final String b2w_maintaincompletworkordernext ="//a[@data-bind='visible: workOrderCompletionViewModel.isNextVisible,dataEnabled: workOrderCompletionViewModel.isNextEnabled']";
-
 	public static final String b2w_schedulemaintenancedialogworkorder = "//label[@data-bind='text: scheduleCreateViewModel.displayDescription']";
 	public static final String b2w_schedulemaintenancedialogequipment = "//label[@data-bind='text: scheduleCreateViewModel.equipment.displayValue']";
 	public static final String b2w_schedulesouthwestdivisionpaversgraders = "Southwest Division Pavers--Graders";
-
 	public static final String b2w_scheduledatepicker = ".k-i-calendar";
 	public static final String b2w_scheduledatecalendar = ".k-scheduler-calendar";
 	public static final String b2w_scheduledatemonth = ".k-nav-fast";
 	
 	
-	//Schedule Setup
+	// ====== Setup -> Schedule
 	public static final String b2w_schedulesetupnewschedulebutton = " ";
 
 	//maintain dashboard
@@ -1101,7 +1098,8 @@ public class B2WUIMap {
 	public static final String b2w_equipmenttagslistview = "div#equipmentTags_list_view";
 	public static final String b2w_equipmentcrewslistview = "div#equipmentCrews_list_view";
 	public static final String b2w_equipmenteventslistivew = "div#equipmentEvents_list_view";
-	
+
+	// ====== Resource -> Crew Templates
 	
 	
 }

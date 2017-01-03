@@ -387,7 +387,6 @@ public class ScheduleAssignments extends B2WTestCase {
         createScheduleViews();
 
         logCompare(true, b2wNav.openSchedule(), "Open Schedule View");
-
         // Create All Types of Assignments
         createEmployeeAssignments();
         createEmployeeSubstitution();
@@ -1594,7 +1593,7 @@ public class ScheduleAssignments extends B2WTestCase {
         logCompare(true, true, "====== Start resolving Equipment Conflicts for " + copyEquipmentAssignment.getResourceName());
         logCompare(true, b2wScheduler.conflictIconIsDisplayed(copyEquipmentAssignment), "Check that Conflict Icon is displayed.");
         logCompare(true, b2wScheduler.openConflictPanel(), "Open conflict panel.");
-        logCompare(true, b2wScheduler.resolveConflict(copyEquipmentAssignment), "Open conflict panel.");
+        logCompare(true, b2wScheduler.resolveConflict(copyEquipmentAssignment), "Resolve Equipment conflicts.");
         logCompare(true, b2wScheduler.expandCalendarPanel(), "Expand Calendar Panel.");
         logCompare(true, true, "====== Complete resolving Equipment Conflicts for " + copyEquipmentAssignment.getResourceName());
     }
