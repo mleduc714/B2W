@@ -128,19 +128,12 @@ public class B2WEquipmentSmokeTest extends B2WTestCase {
 		//Enter Financials
 		logCompare(true, equipmentTasks.expandFinancials(), "");
 		
-		TaskUtils.sleep(3000);
 		logCompare(true, equipmentTasks.setFinancialsPurchasedFrom("ABC Construction"), "");
-		TaskUtils.sleep(3000);
-		logCompare(true, equipmentTasks.setFinancialsPurchasePrice("200"), ""); //Doesn't Work
-		TaskUtils.sleep(3000);
-		logCompare(true, equipmentTasks.setFinancialsInsuranceValue("100"), ""); //Doesn't Work
-		TaskUtils.sleep(3000);
-		logCompare(true, equipmentTasks.setFinancialsTitleHolder("TH Title Holder"), ""); 
-		TaskUtils.sleep(3000);
+		logCompare(true, equipmentTasks.setFinancialsPurchasePrice("20000"), "");
+		logCompare(true, equipmentTasks.setFinancialsInsuranceValue("10000"), "");
+		logCompare(true, equipmentTasks.setFinancialsTitleHolder("TH Title Holder"), "");
 		logCompare(true, equipmentTasks.setFinancialsSoldTo("XYZ Builders"), "");
-		TaskUtils.sleep(3000);
-		logCompare(true, equipmentTasks.setFinancialsSalesPrice("150"), ""); //Doesn't Work
-		TaskUtils.sleep(3000);
+		logCompare(true, equipmentTasks.setFinancialsSalesPrice("15000"), "");
 		
 		logCompare(true, equipmentTasks.setFieldAndItemFromDropDownEquipmentSpecs("CCA Class", null, "CCA-3 [CCA-5%]"), "");
 		
@@ -151,50 +144,61 @@ public class B2WEquipmentSmokeTest extends B2WTestCase {
 		//Add Meter Types
 		logCompare(true, equipmentTasks.expandMeters(), "");
 		
-		logCompare(true, equipmentTasks.clickAddMeterButton(), "");
+		equipmentTasks.collapseMeters();
 		
 		//Add Parts
 		logCompare(true, equipmentTasks.expandParts(), "");
 		
-		logCompare(true, equipmentTasks.clickAddPartsButton(), "");
+		equipmentTasks.collapseParts();
 		
 		//Add a Warranty
 		logCompare(true, equipmentTasks.expandWarrenties(), "");
 		
 		//No click 'Add Warranty' button
+		equipmentTasks.clickAddWarrantyButton();
 		logCompare(true, warranty.setWarrantyDescription("This is a newly created warranty"), "");
 		logCompare(true, warranty.selectWarrantyType("Equipment"), "");
 		logCompare(true, warranty.selectTypeOfDurationCalendar(), "");
 		logCompare(true, warranty.setSpan("234"), "");
 		logCompare(true, warranty.setSpanDays(), "");
 		logCompare(true, warranty.setStarting("12/31/2016"), "");
-		//Click green checkmark on Duration
+		warranty.clickCompleteButton();
+
 		logCompare(true, warranty.setWarrantyNotes("These are the warranty notes."), "");
 		logCompare(true, warranty.clickSaveWarranty(), "");
-		
+
+		equipmentTasks.collapseWarrenties();
 		// Add a Maintenance Program
 		logCompare(true, equipmentTasks.expandPrograms(), "");
 		
-		logCompare(true, equipmentTasks.clickAddProgramButton(), "");
+		
+		equipmentTasks.collapsePrograms();
 		
 		// Add Tags
 		logCompare(true, equipmentTasks.expandTags(), "");
+		
+		equipmentTasks.collapseTags();
 		
 		//Add Events
 		logCompare(true, equipmentTasks.expandEvents(), "");
 		
 		//No click 'Add Event' button
+		equipmentTasks.clickAddEventButton();
 		logCompare(true, events.selectEventType("Memo"), "");
 		logCompare(true, events.setEventStartDate("12/31/2016"), "");
 		logCompare(true, events.setEventEndDate("12/31/2017"), "");
 		logCompare(true, events.setEventDescription("This is a description in the Description section for an event"), "");
 		logCompare(true, events.clickSaveEvent(), "");
 		
+		equipmentTasks.collapseEvents();
+		
 		//Save the Equipment
 		logCompare(true, equipmentTasks.saveNewEquipment(), "");
 		
 		// History
 		logCompare(true, equipmentTasks.expandHistory(), "");
+		
+		equipmentTasks.collapseHistory();
 		
 		// Location
 		logCompare(true, equipmentTasks.expandLocation(), "");
