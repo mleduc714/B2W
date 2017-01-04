@@ -835,6 +835,8 @@ public class B2WUIMap {
 	public static final String b2w_maintaincollapsebutton = "a.collapse-button";
 	public static final String b2w_maintainworkorderscharts = "div.workorder_charts_col_left";
 	public static final String b2w_maintainequipmentdetailview = "div#equipment_detail_view";
+	public static final String b2w_maintainpartdetailview = "div#part_detail_view";
+	public static final String b2w_maintainprogramdetailview = "div#program_detail_view";
 
 	public static final String b2w_maintainnewintervalbutton = "a.btn-orig.new-interval-button";
 
@@ -865,6 +867,7 @@ public class B2WUIMap {
 	
 	// maintain requests
 	public static final String b2w_maintainrequestlistview = "div#request_list_view.k-pane";
+
 	public static final String b2w_maintainitemactions = "div.item-actions";
 	public static final String b2w_maintainrequestcreateview = "div#request_create_view";
 	public static final String b2w_maintainrequesteditformcontent = "div.edit-form-content";
@@ -1017,14 +1020,19 @@ public class B2WUIMap {
 	public static final String b2w_schedulenorthwestdivisionpaversgraders = "Northwest Division Pavers-Graders";
 	public static final String b2w_scheduleplaces = "Places";
 	public static final String b2w_schedulesoutherndivisionsiteworkspecial = "Southern Division Sitework \"Special\"";
+
 	public static final String b2w_schedulesoutherndivisionpaversgraders = "Southwest Division Pavers--Graders";
 	public static final String b2w_schedulerandomcharacters = "exact:Z!\"#$%&'()*+-./:;<=>?@[\\\\]^_`{|}~����!\"#$%&'()*+-./:;<=>?@[\\\\]^_`{|}~����";
+
 	public static final String b2w_kendoworkorderitemstitle = "div.complete-workorder-items-title";
+
 	public static final String b2w_maintaincompleteworkordercomplete = "//a[@data-bind='visible: workOrderCompletionViewModel.isSaveVisible']";
 	public static final String b2w_maintaincompletworkordernext ="//a[@data-bind='visible: workOrderCompletionViewModel.isNextVisible,dataEnabled: workOrderCompletionViewModel.isNextEnabled']";
+
 	public static final String b2w_schedulemaintenancedialogworkorder = "//label[@data-bind='text: scheduleCreateViewModel.displayDescription']";
 	public static final String b2w_schedulemaintenancedialogequipment = "//label[@data-bind='text: scheduleCreateViewModel.equipment.displayValue']";
 	public static final String b2w_schedulesouthwestdivisionpaversgraders = "Southwest Division Pavers--Graders";
+
 	public static final String b2w_scheduledatepicker = ".k-i-calendar";
 	public static final String b2w_scheduledatecalendar = ".k-scheduler-calendar";
 	public static final String b2w_scheduledatemonth = ".k-nav-fast";
@@ -1101,7 +1109,12 @@ public class B2WUIMap {
 	public static final String b2w_equipmentcrewslistview = "div#equipmentCrews_list_view";
 	public static final String b2w_equipmenteventslistivew = "div#equipmentEvents_list_view";
 
-	// ====== Resource -> Crew Templates
-	
-	
+	public static final String b2w_inventorycollapsedetail= "div.inventoryCollapsibleDetail";
+	public static final String b2w_inventoryallocatedtooltip = ".allocatedTooltip";
+	//parts
+	public static final String b2w_maintainpartslistview = "div#part_list_view.k-content.k-pane";
+	public static final String b2w_maintainpartaddwarranty = "input#AddWarranty";
+	public static final String b2w_maintainpartwarrantydurationlist = "div#DurationList";
+	//
+	public static final String b2w_requestdetailview = "div#request_detail_view";
 }

@@ -25,10 +25,11 @@ import tasks.resources.B2WKendoTasks;
 import tasks.util.TaskUtils;
 
 public class B2WMaintainScheduleTasks extends B2WKendoTasks {
-	
+
 	Logger log = Logger.getLogger(B2WMaintainScheduleTasks.class);
 	SimpleDateFormat sd = new SimpleDateFormat("EEE, M/d");
 	SimpleDateFormat md = new SimpleDateFormat("M/d");
+
 	public enum CLICK {
 		DOUBLE, SINGLE, CONTEXT, WRENCH
 	};
@@ -65,7 +66,7 @@ public class B2WMaintainScheduleTasks extends B2WKendoTasks {
 
 	public boolean clickToday() {
 		boolean bReturn = false;
-		if (WebElementUtils.clickElement(B2WMaintain.getB2WMaintainScheduleTodayButton())){
+		if (WebElementUtils.clickElement(B2WMaintain.getB2WMaintainScheduleTodayButton())) {
 			bReturn = waitForPageNotBusy(WebElementUtils.MEDIUM_TIME_OUT);
 		}
 		return bReturn;
@@ -77,7 +78,7 @@ public class B2WMaintainScheduleTasks extends B2WKendoTasks {
 
 	public boolean clickForwardArrow() {
 		boolean bReturn = false;
-		if (WebElementUtils.clickElement(B2WMaintain.getB2WMaintainSchedulerArrowEast())){
+		if (WebElementUtils.clickElement(B2WMaintain.getB2WMaintainSchedulerArrowEast())) {
 			bReturn = waitForPageNotBusy(WebElementUtils.MEDIUM_TIME_OUT);
 		}
 		return bReturn;
@@ -86,7 +87,7 @@ public class B2WMaintainScheduleTasks extends B2WKendoTasks {
 	public String getCurrentScheduleView() {
 		String sView = "";
 		WebElement el = WebElementUtils.findElement(B2WMaintain.getB2WMaintainScheduleCurrentView());
-		if (el != null){
+		if (el != null) {
 			sView = el.getAttribute("data-name");
 		}
 		return sView;
@@ -99,109 +100,134 @@ public class B2WMaintainScheduleTasks extends B2WKendoTasks {
 	}
 
 	public boolean clickWorkOrderByDescription(String s) {
-		return workOrder(s,CLICK.SINGLE,BY.DESCRIPTION,WHERE.SCHEDULE,null);
+		return workOrder(s, CLICK.SINGLE, BY.DESCRIPTION, WHERE.SCHEDULE, null);
 	}
+
 	public boolean clickWorkOrderByEquipment(String s) {
-		return workOrder(s,CLICK.SINGLE,BY.EQUIPMENT,WHERE.SCHEDULE,null);
+		return workOrder(s, CLICK.SINGLE, BY.EQUIPMENT, WHERE.SCHEDULE, null);
 	}
+
 	public boolean openWorkOrderByDescription(String s) {
-		return workOrder(s,CLICK.DOUBLE,BY.DESCRIPTION,WHERE.SCHEDULE,null);
+		return workOrder(s, CLICK.DOUBLE, BY.DESCRIPTION, WHERE.SCHEDULE, null);
 	}
+
 	public boolean openWorkOrderByEquipment(String s) {
-		return workOrder(s,CLICK.DOUBLE,BY.EQUIPMENT,WHERE.SCHEDULE,null);
+		return workOrder(s, CLICK.DOUBLE, BY.EQUIPMENT, WHERE.SCHEDULE, null);
 	}
-	public boolean editScheduleWorkOrderByDescription(String s){
-		return workOrder(s,CLICK.CONTEXT,BY.DESCRIPTION,WHERE.SCHEDULE,"Edit Schedule");
+
+	public boolean editScheduleWorkOrderByDescription(String s) {
+		return workOrder(s, CLICK.CONTEXT, BY.DESCRIPTION, WHERE.SCHEDULE, "Edit Schedule");
 	}
-	public boolean unscheduleWorkOrderByDescription(String s){
-		return workOrder(s,CLICK.CONTEXT,BY.DESCRIPTION,WHERE.SCHEDULE,"Unschedule");
+
+	public boolean unscheduleWorkOrderByDescription(String s) {
+		return workOrder(s, CLICK.CONTEXT, BY.DESCRIPTION, WHERE.SCHEDULE, "Unschedule");
 	}
-	public boolean editWorkOrderByDescription(String s){
-		return workOrder(s,CLICK.CONTEXT,BY.DESCRIPTION,WHERE.SCHEDULE,"Edit Work Order");
+
+	public boolean editWorkOrderByDescription(String s) {
+		return workOrder(s, CLICK.CONTEXT, BY.DESCRIPTION, WHERE.SCHEDULE, "Edit Work Order");
 	}
-	public boolean completeWorkOrderByDescription(String s){
-		return workOrder(s,CLICK.CONTEXT,BY.DESCRIPTION,WHERE.SCHEDULE,"Complete");
+
+	public boolean completeWorkOrderByDescription(String s) {
+		return workOrder(s, CLICK.CONTEXT, BY.DESCRIPTION, WHERE.SCHEDULE, "Complete");
 	}
-	
-	
-	public boolean editScheduleWorkOrderByDescriptionWithWrench(String s){
-		return workOrder(s,CLICK.WRENCH,BY.DESCRIPTION,WHERE.SCHEDULE,"Edit Schedule");
+
+	public boolean editScheduleWorkOrderByDescriptionWithWrench(String s) {
+		return workOrder(s, CLICK.WRENCH, BY.DESCRIPTION, WHERE.SCHEDULE, "Edit Schedule");
 	}
-	public boolean unscheduleWorkOrderByDescriptionWithWrench(String s){
-		return workOrder(s,CLICK.WRENCH,BY.DESCRIPTION,WHERE.SCHEDULE,"Unschedule");
+
+	public boolean unscheduleWorkOrderByDescriptionWithWrench(String s) {
+		return workOrder(s, CLICK.WRENCH, BY.DESCRIPTION, WHERE.SCHEDULE, "Unschedule");
 	}
-	public boolean editWorkOrderByDescriptionWithWrench(String s){
-		return workOrder(s,CLICK.WRENCH,BY.DESCRIPTION,WHERE.SCHEDULE,"Edit Work Order");
+
+	public boolean editWorkOrderByDescriptionWithWrench(String s) {
+		return workOrder(s, CLICK.WRENCH, BY.DESCRIPTION, WHERE.SCHEDULE, "Edit Work Order");
 	}
-	public boolean completeWorkOrderByDescriptionWithWrench(String s){
-		return workOrder(s,CLICK.WRENCH,BY.DESCRIPTION,WHERE.SCHEDULE,"Complete");
+
+	public boolean completeWorkOrderByDescriptionWithWrench(String s) {
+		return workOrder(s, CLICK.WRENCH, BY.DESCRIPTION, WHERE.SCHEDULE, "Complete");
 	}
-	public boolean openWorkOrderFromWorkOrderTabByDescription(String s) {	
-		return workOrder(s,CLICK.DOUBLE,BY.DESCRIPTION,WHERE.WORKTAB,null);
+
+	public boolean openWorkOrderFromWorkOrderTabByDescription(String s) {
+		return workOrder(s, CLICK.DOUBLE, BY.DESCRIPTION, WHERE.WORKTAB, null);
 	}
 
 	public boolean openWorkOrderFromPastDueTabByDescription(String s) {
-		return workOrder(s,CLICK.DOUBLE,BY.DESCRIPTION,WHERE.PASTTAB,null);
+		return workOrder(s, CLICK.DOUBLE, BY.DESCRIPTION, WHERE.PASTTAB, null);
 	}
 
 	public boolean scheduleWorkOrderFromWorkOrderTabByDescription(String s) {
-		return workOrder(s,CLICK.CONTEXT,BY.DESCRIPTION,WHERE.WORKTAB, "Schedule");
-	}
-	public boolean unapproveWorkOrderFromWorkOrderTabByDescription(String s) {
-		return workOrder(s,CLICK.CONTEXT,BY.DESCRIPTION,WHERE.WORKTAB, "Unapprove");
-	}
-	public boolean editWorkOrderFromWorkOrderTabByDescription(String s) {
-		return workOrder(s,CLICK.CONTEXT,BY.DESCRIPTION,WHERE.WORKTAB, "Edit Work Order");
-	}
-	public boolean scheduleWorkOrderFromWorkOrderTabByDescriptionWithWrench(String s) {
-		return workOrder(s,CLICK.WRENCH,BY.DESCRIPTION,WHERE.WORKTAB, "Schedule");
-	}
-	public boolean unapproveWorkOrderFromWorkOrderTabByDescriptionWithWrench(String s) {
-		return workOrder(s,CLICK.WRENCH,BY.DESCRIPTION,WHERE.WORKTAB, "Unapprove");
-	}
-	public boolean editWorkOrderFromWorkOrderTabByDescriptionWithWrench(String s) {
-		return workOrder(s,CLICK.WRENCH,BY.DESCRIPTION,WHERE.WORKTAB, "Edit Work Order");
-	}
-	public boolean completeWorkOrderFromWorkOrderTabByDescription(String s) {
-		return workOrder(s,CLICK.CONTEXT,BY.DESCRIPTION,WHERE.WORKTAB,  "Complete");
-	}
-	public boolean editscheduleWorkOrderFromPastDueTabByDescription(String s) {
-		return workOrder(s,CLICK.CONTEXT,BY.DESCRIPTION,WHERE.PASTTAB, "Edit Schedule");
-	}
-	public boolean unscheduleWorkOrderFromPastDueTabByDescription(String s) {
-		return workOrder(s,CLICK.CONTEXT,BY.DESCRIPTION,WHERE.PASTTAB, "Unschedule");
-	}
-	public boolean editWorkOrderFromPastDueTabByDescription(String s) {
-		return workOrder(s,CLICK.CONTEXT,BY.DESCRIPTION,WHERE.PASTTAB, "Edit Work Order");
-	}
-	public boolean completeWorkOrderFromPastDueTabByDescription(String s) {
-		return workOrder(s,CLICK.CONTEXT,BY.DESCRIPTION,WHERE.PASTTAB,  "Complete");
-	}
-	
-	public boolean completeWorkOrderFromWorkOrderTabByDescriptionWithWrench(String s) {
-		return workOrder(s,CLICK.WRENCH,BY.DESCRIPTION,WHERE.WORKTAB,  "Complete");
-	}
-	public boolean editscheduleWorkOrderFromPastDueTabByDescriptionWithWrench(String s) {
-		return workOrder(s,CLICK.WRENCH,BY.DESCRIPTION,WHERE.PASTTAB, "Edit Schedule");
-	}
-	public boolean unscheduleWorkOrderFromPastDueTabByDescriptionWithWrench(String s) {
-		return workOrder(s,CLICK.WRENCH,BY.DESCRIPTION,WHERE.PASTTAB, "Unschedule");
-	}
-	public boolean editWorkOrderFromPastDueTabByDescriptionWithWrench(String s) {
-		return workOrder(s,CLICK.WRENCH,BY.DESCRIPTION,WHERE.PASTTAB, "Edit Work Order");
-	}
-	public boolean completeWorkOrderFromPastDueTabByDescriptionWithWrench(String s) {
-		return workOrder(s,CLICK.WRENCH,BY.DESCRIPTION,WHERE.PASTTAB,  "Complete");
-	}
-	
-	public boolean clickWorkOrderFromWorkOrderTabByDescription(String s) {
-		return workOrder(s,CLICK.SINGLE,BY.DESCRIPTION,WHERE.WORKTAB,null);
-	}
-	public boolean clickWorkOrderFromPastDueTabByDescription(String s) {
-		return workOrder(s,CLICK.SINGLE,BY.DESCRIPTION,WHERE.PASTTAB,null);
+		return workOrder(s, CLICK.CONTEXT, BY.DESCRIPTION, WHERE.WORKTAB, "Schedule");
 	}
 
-	private WebElement getWorkOrder(String sText, BY desc, WHERE where){
+	public boolean unapproveWorkOrderFromWorkOrderTabByDescription(String s) {
+		return workOrder(s, CLICK.CONTEXT, BY.DESCRIPTION, WHERE.WORKTAB, "Unapprove");
+	}
+
+	public boolean editWorkOrderFromWorkOrderTabByDescription(String s) {
+		return workOrder(s, CLICK.CONTEXT, BY.DESCRIPTION, WHERE.WORKTAB, "Edit Work Order");
+	}
+
+	public boolean scheduleWorkOrderFromWorkOrderTabByDescriptionWithWrench(String s) {
+		return workOrder(s, CLICK.WRENCH, BY.DESCRIPTION, WHERE.WORKTAB, "Schedule");
+	}
+
+	public boolean unapproveWorkOrderFromWorkOrderTabByDescriptionWithWrench(String s) {
+		return workOrder(s, CLICK.WRENCH, BY.DESCRIPTION, WHERE.WORKTAB, "Unapprove");
+	}
+
+	public boolean editWorkOrderFromWorkOrderTabByDescriptionWithWrench(String s) {
+		return workOrder(s, CLICK.WRENCH, BY.DESCRIPTION, WHERE.WORKTAB, "Edit Work Order");
+	}
+
+	public boolean completeWorkOrderFromWorkOrderTabByDescription(String s) {
+		return workOrder(s, CLICK.CONTEXT, BY.DESCRIPTION, WHERE.WORKTAB, "Complete");
+	}
+
+	public boolean editscheduleWorkOrderFromPastDueTabByDescription(String s) {
+		return workOrder(s, CLICK.CONTEXT, BY.DESCRIPTION, WHERE.PASTTAB, "Edit Schedule");
+	}
+
+	public boolean unscheduleWorkOrderFromPastDueTabByDescription(String s) {
+		return workOrder(s, CLICK.CONTEXT, BY.DESCRIPTION, WHERE.PASTTAB, "Unschedule");
+	}
+
+	public boolean editWorkOrderFromPastDueTabByDescription(String s) {
+		return workOrder(s, CLICK.CONTEXT, BY.DESCRIPTION, WHERE.PASTTAB, "Edit Work Order");
+	}
+
+	public boolean completeWorkOrderFromPastDueTabByDescription(String s) {
+		return workOrder(s, CLICK.CONTEXT, BY.DESCRIPTION, WHERE.PASTTAB, "Complete");
+	}
+
+	public boolean completeWorkOrderFromWorkOrderTabByDescriptionWithWrench(String s) {
+		return workOrder(s, CLICK.WRENCH, BY.DESCRIPTION, WHERE.WORKTAB, "Complete");
+	}
+
+	public boolean editscheduleWorkOrderFromPastDueTabByDescriptionWithWrench(String s) {
+		return workOrder(s, CLICK.WRENCH, BY.DESCRIPTION, WHERE.PASTTAB, "Edit Schedule");
+	}
+
+	public boolean unscheduleWorkOrderFromPastDueTabByDescriptionWithWrench(String s) {
+		return workOrder(s, CLICK.WRENCH, BY.DESCRIPTION, WHERE.PASTTAB, "Unschedule");
+	}
+
+	public boolean editWorkOrderFromPastDueTabByDescriptionWithWrench(String s) {
+		return workOrder(s, CLICK.WRENCH, BY.DESCRIPTION, WHERE.PASTTAB, "Edit Work Order");
+	}
+
+	public boolean completeWorkOrderFromPastDueTabByDescriptionWithWrench(String s) {
+		return workOrder(s, CLICK.WRENCH, BY.DESCRIPTION, WHERE.PASTTAB, "Complete");
+	}
+
+	public boolean clickWorkOrderFromWorkOrderTabByDescription(String s) {
+		return workOrder(s, CLICK.SINGLE, BY.DESCRIPTION, WHERE.WORKTAB, null);
+	}
+
+	public boolean clickWorkOrderFromPastDueTabByDescription(String s) {
+		return workOrder(s, CLICK.SINGLE, BY.DESCRIPTION, WHERE.PASTTAB, null);
+	}
+
+	private WebElement getWorkOrder(String sText, BY desc, WHERE where) {
 		WebElement el = null;
 		WebElement workorderlist = null;
 		List<WebElement> events = null;
@@ -246,14 +272,14 @@ public class B2WMaintainScheduleTasks extends B2WKendoTasks {
 					coordinate.inViewPort();
 					break;
 				}
-			  el = null;	
+				el = null;
 			}
-		}catch (StaleElementReferenceException e){
+		} catch (StaleElementReferenceException e) {
 			return getWorkOrder(sText, desc, where);
 		}
-			return el;
+		return el;
 	}
-	
+
 	private boolean workOrder(String sText, CLICK click, BY desc, WHERE where, String sMenu) {
 		boolean bReturn = false;
 		WebElement contextMenu = null;
@@ -273,8 +299,9 @@ public class B2WMaintainScheduleTasks extends B2WKendoTasks {
 					break;
 				case WRENCH:
 					WebElement parent = WebElementUtils.getParentElement(el);
-					WebElementUtils.clickElement(WebElementUtils.getChildElement(parent, B2WMaintain.getMaintainScheduleWrench()));
-					
+					WebElementUtils.clickElement(
+							WebElementUtils.getChildElement(parent, B2WMaintain.getMaintainScheduleWrench()));
+
 				}
 				actions.perform();
 				switch (click) {
@@ -341,9 +368,12 @@ public class B2WMaintainScheduleTasks extends B2WKendoTasks {
 					WebElement item = WebElementUtils.getElementWithMatchingText(items, sMenu, false);
 
 					bReturn = WebElementUtils.clickElement(item);
+
 					break;
 				}
+
 			}
+			waitForPageNotBusy(WebElementUtils.MEDIUM_TIME_OUT);
 		} catch (StaleElementReferenceException e) {
 			log.debug("Caught stale element exception in open " + sText);
 			workOrder(sText, click, desc, where, sMenu);
@@ -352,7 +382,6 @@ public class B2WMaintainScheduleTasks extends B2WKendoTasks {
 		return bReturn;
 
 	}
-
 
 	public boolean clickWorkOrdersTab() {
 		boolean bReturn = false;
@@ -375,6 +404,7 @@ public class B2WMaintainScheduleTasks extends B2WKendoTasks {
 		}
 		return bReturn;
 	}
+
 	public boolean openWorkOrderFromWorkOrderTabByNumber(int i) {
 		boolean bReturn = false;
 		WebElement workorderlist = WebElementUtils
@@ -398,7 +428,7 @@ public class B2WMaintainScheduleTasks extends B2WKendoTasks {
 	}
 
 	public ArrayList<String> getWorkOrdersFromTab() {
-		
+
 		ArrayList<String> al = new ArrayList<String>();
 		WebElement el = null;
 		WebElement workorderlist = WebElementUtils
@@ -414,13 +444,15 @@ public class B2WMaintainScheduleTasks extends B2WKendoTasks {
 			al.add(sDescAndWorkNumber);
 		}
 		return al;
-		
+
 	}
+
 	public ArrayList<String> getPastDueWorkOrdersFromTab() {
-		
+
 		ArrayList<String> al = new ArrayList<String>();
 		WebElement el = null;
-		WebElement workorderlist = WebElementUtils.findElement(B2WMaintain.getB2WMaintainschedulerpastdueworkorderlist());
+		WebElement workorderlist = WebElementUtils
+				.findElement(B2WMaintain.getB2WMaintainschedulerpastdueworkorderlist());
 		List<WebElement> events = WebElementUtils.getChildElements(workorderlist,
 				B2WMaintain.getB2WMaintainschedulerpastdueworkorder());
 		Iterator<WebElement> iter = events.iterator();
@@ -432,25 +464,26 @@ public class B2WMaintainScheduleTasks extends B2WKendoTasks {
 			al.add(sDescAndWorkNumber);
 		}
 		return al;
-		
+
 	}
-	
-	public ArrayList<String> getAllScheduledWorkOrders() {	
-		
+
+	public ArrayList<String> getAllScheduledWorkOrders() {
+
 		ArrayList<String> al = new ArrayList<String>();
 		WebElement workorderlist = WebElementUtils.findElement(B2WMaintain.getB2WMaintainSchedulerContent());
-		List<WebElement> events = WebElementUtils.getChildElements(workorderlist, B2WMaintain.getB2WMaintainSchedulerEvents());
+		List<WebElement> events = WebElementUtils.getChildElements(workorderlist,
+				B2WMaintain.getB2WMaintainSchedulerEvents());
 		Iterator<WebElement> iter = events.iterator();
 		while (iter.hasNext()) {
 			WebElement el = iter.next();
 			WebElement summary = WebElementUtils.getChildElement(el,
 					B2WMaintain.getB2WMaintainschedulerworkordersummary());
-			 al.add(summary.getText().substring(0, summary.getText().indexOf("\n")));
+			al.add(summary.getText().substring(0, summary.getText().indexOf("\n")));
 		}
 		return al;
-	
+
 	}
-	
+
 	public boolean openWorkOrderFromPastDueTabByNumber(int i) {
 		boolean bReturn = false;
 		WebElement workorderlist = WebElementUtils
@@ -474,14 +507,14 @@ public class B2WMaintainScheduleTasks extends B2WKendoTasks {
 		}
 		return bReturn;
 	}
-	
+
 	public int getPastDueWorkOrders() {
 		int iNumber = 0;
 		WebElement workorderlist = WebElementUtils
 				.findElement(B2WMaintain.getB2WMaintainschedulerpastdueworkorderlist());
-		if (workorderlist != null){
-		List<WebElement> events = WebElementUtils.getChildElements(workorderlist,
-				B2WMaintain.getB2WMaintainschedulerpastdueworkorder());
+		if (workorderlist != null) {
+			List<WebElement> events = WebElementUtils.getChildElements(workorderlist,
+					B2WMaintain.getB2WMaintainschedulerpastdueworkorder());
 			iNumber = events.size();
 		}
 		return iNumber;
@@ -491,43 +524,41 @@ public class B2WMaintainScheduleTasks extends B2WKendoTasks {
 		int iNumber = 0;
 		WebElement workorderlist = WebElementUtils
 				.findElement(B2WMaintain.getB2WMaintainschedulerunscheduledworkorderslist());
-		if (workorderlist != null){
-		List<WebElement> events = WebElementUtils.getChildElements(workorderlist,
-				B2WMaintain.getB2WMaintainschedulerworkorderunscheduled());
+		if (workorderlist != null) {
+			List<WebElement> events = WebElementUtils.getChildElements(workorderlist,
+					B2WMaintain.getB2WMaintainschedulerworkorderunscheduled());
 			iNumber = events.size();
 		}
 		return iNumber;
-		
+
 	}
-	
+
 	public ArrayList<Date> getDates() {
-		
+
 		ArrayList<Date> al = new ArrayList<Date>();
 		try {
-		WebElement header = WebElementUtils.findElement(B2WMaintain.getB2WMaintainScheduleHeader());
-		List<WebElement> strongs = WebElementUtils.getChildElements(header, By.tagName("strong"));
-		for (WebElement el: strongs){
-			String sDate = el.getText();
-			SimpleDateFormat sd = new SimpleDateFormat("EEE, M/d");
-			Date date = parseDate(sDate, sd);
-			al.add(date);
-		}
-		}catch (StaleElementReferenceException e){
+			WebElement header = WebElementUtils.findElement(B2WMaintain.getB2WMaintainScheduleHeader());
+			List<WebElement> strongs = WebElementUtils.getChildElements(header, By.tagName("strong"));
+			for (WebElement el : strongs) {
+				String sDate = el.getText();
+				SimpleDateFormat sd = new SimpleDateFormat("EEE, M/d");
+				Date date = parseDate(sDate, sd);
+				al.add(date);
+			}
+		} catch (StaleElementReferenceException e) {
 			return getDates();
 		}
 		return al;
 	}
-	
-	
-	
+
 	public boolean goToDate(String sDate) {
-		
-		log.debug("Going to Date: "+sDate);
+
+		log.debug("Going to Date: " + sDate);
 		boolean bReturn = false;
 		Calendar cal = Calendar.getInstance();
-		if (getCurrentDate() != null){
+		if (getCurrentDate() != null) {
 			cal.setTime(getCurrentDate());
-		}else{
+		} else {
 			log.warn("Get Current Date returned null");
 		}
 		SimpleDateFormat format = new SimpleDateFormat("MM/dd/yy");
@@ -556,30 +587,28 @@ public class B2WMaintainScheduleTasks extends B2WKendoTasks {
 
 	}
 
-	
 	public ArrayList<String> getMechanicsFromSchedule() {
 		ArrayList<String> al = new ArrayList<String>();
 		List<WebElement> mechanics = WebElementUtils.findElements(By.cssSelector("span.caption"));
-		for (WebElement el: mechanics){
+		for (WebElement el : mechanics) {
 			al.add(WebElementUtils.getParentElement(el).getAttribute("title"));
 		}
 		return al;
 	}
-	
-	
+
 	public void goToMechanicInView(String s) {
 		List<WebElement> mechanics = WebElementUtils.findElements(By.cssSelector("span.caption"));
 		ArrayList<String> al = getMechanicsFromSchedule();
 		int i = al.indexOf(s);
-		if (i + 1 != al.size()){
+		if (i + 1 != al.size()) {
 			i++;
 		}
 		Coordinates coordinate = ((Locatable) mechanics.get(i)).getCoordinates();
 		coordinate.onPage();
 		coordinate.inViewPort();
-		
+
 	}
-	
+
 	private WebElement getMechanicDay(String sMechanic, Date date) {
 		List<WebElement> list = WebElementUtils.findElements(B2WMaintain.getB2WMaintainSchedulerContent());
 		WebElement el = WebElementUtils.getElementWithMatchingAttribute(list, "data-role", "droptargetarea");
@@ -591,17 +620,17 @@ public class B2WMaintainScheduleTasks extends B2WKendoTasks {
 		int iRow = dates.indexOf(date);
 		return datecolumns.get(iRow);
 	}
-	
-	private Date parseDate(String s, SimpleDateFormat sd){
+
+	private Date parseDate(String s, SimpleDateFormat sd) {
 		Date date = null;
 		try {
 			date = sd.parse(s);
 		} catch (ParseException e) {
-			log.warn("Issue parsing the date "+s);
+			log.warn("Issue parsing the date " + s);
 		}
 		return date;
 	}
-	
+
 	public boolean dragDropWorkOrderToMechanic(String sMechanic, String sDate, String sWorkOrder) {
 		boolean bReturn = false;
 		// go to the date in schedule view
@@ -618,7 +647,7 @@ public class B2WMaintainScheduleTasks extends B2WKendoTasks {
 			if (workorder != null) {
 				Actions action = new Actions(BrowserUtils.getDriver());
 				action.dragAndDrop(workorder, column);
-	
+
 				bReturn = WebElementUtils.waitAndFindDisplayedElement(
 						B2WMaintain.getB2WMaintainSchedulerScheduleMaintenancePopupWindow()) != null;
 			}
@@ -627,7 +656,7 @@ public class B2WMaintainScheduleTasks extends B2WKendoTasks {
 
 		return bReturn;
 	}
-	
+
 	public boolean dragDropWorkOrderToAnotherMechanic(String sDate, String sToDate, String sWorkOrder,
 			String sMechanic) {
 		boolean bReturn = false;
@@ -652,7 +681,7 @@ public class B2WMaintainScheduleTasks extends B2WKendoTasks {
 		}
 		return bReturn;
 	}
-	
+
 	public boolean dragDropWorkOrderToDate(String sMechanic, String sWorkOrder, String sStartDate, String sDate) {
 		boolean bReturn = false;
 		goToDate(sStartDate);
@@ -674,7 +703,7 @@ public class B2WMaintainScheduleTasks extends B2WKendoTasks {
 		return bReturn;
 
 	}
-	
+
 	public LinkedList<String> getAllMechanicsWithoutScheduledWorkItems() {
 		LinkedList<String> al = new LinkedList<String>();
 		try {
@@ -694,7 +723,7 @@ public class B2WMaintainScheduleTasks extends B2WKendoTasks {
 		}
 		return al;
 	}
-	
+
 	public Date getCurrentDate() {
 		Date date = null;
 		String sDate = null;
@@ -723,7 +752,7 @@ public class B2WMaintainScheduleTasks extends B2WKendoTasks {
 		return date;
 
 	}
-	
+
 	public boolean quickSchedule() {
 		boolean bReturn = false;
 		List<WebElement> tables = WebElementUtils.findElements(B2WMaintain.getB2WMaintainScheduleTable());
@@ -744,7 +773,8 @@ public class B2WMaintainScheduleTasks extends B2WKendoTasks {
 								.waitAndFindDisplayedElement(By.xpath("//span[contains(.,'New Work Order')]"));
 
 						bReturn = WebElementUtils.clickElement(contextMenu);
-						bReturn &= WebElementUtils.waitAndFindDisplayedElement(B2WMaintain.getB2WMaintainNewWorkOrderView()) != null;
+						bReturn &= WebElementUtils
+								.waitAndFindDisplayedElement(B2WMaintain.getB2WMaintainNewWorkOrderView()) != null;
 
 					}
 				}

@@ -156,5 +156,111 @@ public class B2WMaintainProgramsTasks extends B2WMaintainTasks {
 		return bReturn;
 	}
 	
+	public boolean clickAddParts() {
+		boolean bReturn = false;
+		WebElement el = getButton("Add Parts");
+		if (el != null){
+			bReturn = WebElementUtils.clickElement(el);
+		}
+		return bReturn;
+	}
+	public boolean clickAddHours() {
+		boolean bReturn = false;
+		WebElement el = getButton("Add Hours");
+		if (el != null){
+			bReturn = WebElementUtils.clickElement(el);
+		}
+		return bReturn;
+	}
+	public boolean expandExclusions(){
+		return getHeaderandExpandOrCollapse("Exclusions", true);
+	}
+	public boolean collapseExclusions(){
+		return getHeaderandExpandOrCollapse("Exclusions", false);
+	}
+	public boolean expandParts() {
+		return getHeaderandExpandOrCollapse("Parts", true);
+	}
+	public boolean collapseParts() {
+		return getHeaderandExpandOrCollapse("Parts", false);
+	}
+	public boolean expandHours() {
+		return getHeaderandExpandOrCollapse("Hours", true);
+	}
+	public boolean collapseHours() {
+		return getHeaderandExpandOrCollapse("Hours", false);
+	}
+	
+	public boolean excludeJanuary() {
+		return excludeMonth("January");
+		
+	}
+	public boolean excludeFebruary() {
+		return excludeMonth("February");
+		
+	}
+	public boolean excludeMarch() {
+		return excludeMonth("March");
+		
+	}
+	public boolean excludeApril() {
+		return excludeMonth("April");
+		
+	}
+	public boolean excludeMay() {
+		return excludeMonth("May");
+		
+	}
+	public boolean excludeJune() {
+		return excludeMonth("June");
+		
+	}
+	public boolean excludeJuly() {
+		return excludeMonth("July");
+		
+	}
+	public boolean excludeAugust() {
+		return excludeMonth("August");
+		
+	}
+	public boolean excludeSeptember() {
+		return excludeMonth("September");
+		
+	}
+	public boolean excludeOctober() {
+		return excludeMonth("October");
+		
+	}
+	public boolean excludeNovemeber() {
+		return excludeMonth("November");
+		
+	}
+	public boolean excludeDecemeber() {
+		return excludeMonth("December");
+		
+	}
+	private boolean excludeMonth(String sMonth){
+		boolean bReturn = false;
+		List<WebElement> list = WebElementUtils.findElements(By.tagName("input"));
+		WebElement el = WebElementUtils.getElementWithMatchingAttribute(list, "name", sMonth);
+		if (el != null){
+			bReturn = WebElementUtils.clickElement(el);
+			bReturn &= el.isSelected();
+		}
+		return bReturn;
+		
+	}
+	
+	public boolean setMaintainanceProgramNotes(String sText) {
+		return super.setNotes(sText);
+	}
+	
+	public boolean selectItemOnMaintenanceProgram(String s) {
+		return selectItem(s);
+	}
+	
+	public String getValueOfItem(String sItem) {
+		return getValueOfItem(sItem, B2WMaintain.getMaintainProgramDetailView());
+	}
 	
 }

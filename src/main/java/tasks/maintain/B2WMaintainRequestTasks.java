@@ -46,7 +46,9 @@ public class B2WMaintainRequestTasks extends B2WKendoTasks {
 		boolean bReturn = false;
 		WebElement equipment =getFormElement("Equipment", B2WMaintain.getKendoDropDown());
 		if (equipment != null){
-			bReturn = sendTextAndSelectValueFromKendoFDD(equipment, sText);
+			WebElementUtils.clickElement(equipment);
+			bReturn = WebElementUtils.sendKeys(equipment, sText);
+			bReturn &= selectItemFromDropDown(0);
 		}
 		return bReturn;
 		
@@ -118,6 +120,17 @@ public class B2WMaintainRequestTasks extends B2WKendoTasks {
 		return bReturn;
 	}
 	
+	public String selectAnyProblemCodeFromDD() {
+		String s = "";
+		WebElement equipment = getFormElement("Problem Code", B2WMaintain.getKendoDropDown());
+		if (equipment != null){
+			//WebElement desc = WebElementUtils.findElement(By.cssSelector("#request_create_view > div.edit-form-content > div.box-content.form > p.form-required > input[name='RequestDescription']"));
+			WebElementUtils.clickElement(equipment);
+			s = selectRandomItemFromDropDown();
+		}
+		return s;
+	}
+	
 	public boolean selectRequestedByFromDD(String sText){
 		boolean bReturn = false;
 		WebElement equipment = getFormElement("Requested By", B2WMaintain.getKendoDropDown());
@@ -126,6 +139,16 @@ public class B2WMaintainRequestTasks extends B2WKendoTasks {
 			bReturn = selectItemFromDropDown(sText);
 		}
 		return bReturn;
+	}
+	
+	public String selectRequestedByFromDD() {
+		String s = "";
+		WebElement equipment = getFormElement("Requested By", B2WMaintain.getKendoDropDown());
+		if (equipment != null){
+			WebElementUtils.clickElement(equipment);
+			s = selectRandomItemFromDropDown();
+		}
+		return s;
 	}
 	
 	public boolean selectPriorityFromDD(String sText){
@@ -288,4 +311,57 @@ public class B2WMaintainRequestTasks extends B2WKendoTasks {
 	public ArrayList<String> getEquipmentFromRequestsView(){
 		return getItemsFromView(3);
 	}
+	public String getValueOfItem(String sItem){
+		return getValueOfItem(sItem, B2WMaintain.getMaintainRequestDetailView());
+	}
+	public String getNotes() {
+		return getNotes(B2WMaintain.getMaintainRequestDetailView());
+	}
+	public boolean expandComments() {
+		return getHeaderandExpandOrCollapse("Comments", true);
+	}
+	private List<WebElement> getCommentsRows() {
+		WebElement historyView = WebElementUtils.findElement(By.cssSelector(".comments-view"));
+		WebElement tbody = WebElementUtils.getChildElement(historyView, By.tagName("tbody"));
+		List<WebElement> rows = WebElementUtils.getChildElements(tbody, By.tagName("tr"));
+		return rows;
+	}
+	private String getComments(int iRow, int iColumn){
+		String sText = "";
+		List<WebElement> rows = getCommentsRows();
+		if (rows.size()>0){
+			sText = WebElementUtils.getChildElements(rows.get(iRow),By.tagName("td")).get(iColumn).getText();
+		}
+		return sText;
+	}
+	
+	private WebElement getRowByCommentDescription(String sDesc){
+		WebElement row = null;
+		List<WebElement> rows = getCommentsRows();
+		if (rows.size()>0){
+			for (WebElement el: rows){
+				String sText = WebElementUtils.getChildElements(el,By.tagName("td")).get(0).getText();
+				if (sText.equals(sDesc)){
+					row = el;
+				}
+			}
+			
+		}
+		return row;
+	}
+	
+	public String getComment() {
+		return getComments(0,0);
+	}
+	public boolean deleteComment(String sComment){
+		boolean bReturn = false;
+		WebElement el = getRowByCommentDescription(sComment);
+		if (el != null){
+			WebElement delete = WebElementUtils.getChildElement(el, B2WMaintain.getKendoDeleteButton());
+			bReturn = WebElementUtils.clickElement(delete);
+		}
+		return bReturn;
+	}
+	
+	
 }

@@ -523,7 +523,7 @@ public class B2WEquipmentTasks extends B2WKendoTasks {
 		boolean bReturn = false;
 		String sItem = "All Equipment By Type";
 		if (WebElementUtils.clickElement(B2WEquipment.getKendoDropDownItem())) {
-			// when we click we need to find the visble list
+			// when we click we need to find the visible list
 			bReturn = findAndSelectItemFromDD(sItem);
 		}
 		return bReturn;
