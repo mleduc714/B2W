@@ -387,6 +387,7 @@ public class ScheduleAssignments extends B2WTestCase {
         createScheduleViews();
 
         logCompare(true, b2wNav.openSchedule(), "Open Schedule View");
+
         // Create All Types of Assignments
         createEmployeeAssignments();
         createEmployeeSubstitution();
@@ -1829,8 +1830,8 @@ public class ScheduleAssignments extends B2WTestCase {
         logCompare(true, b2wScheduler.setSearchValue(moveOrder.getResourceName()), "Set Filter by " + moveOrder.getResourceName());
         logCompare(true, b2wScheduler.deleteAssignment(moveOrder), "Delete Move Order for: " + moveOrder.getResourceName());
         moveOrder = null;
-        logCompare(true, b2wScheduler.setSearchValue(copyMoveOrder1.getResourceName()), "Set Filter by " + moveOrder.getResourceName());
-        logCompare(true, b2wScheduler.deleteAssignment(copyMoveOrder1), "Delete Move Order for: " + moveOrder.getResourceName());
+        logCompare(true, b2wScheduler.setSearchValue(copyMoveOrder1.getResourceName()), "Set Filter by " + copyMoveOrder1.getResourceName());
+        logCompare(true, b2wScheduler.deleteAssignment(copyMoveOrder1), "Delete Move Order for: " + copyMoveOrder1.getResourceName());
         moveOrder = null;
     }
     private void deleteEmployeeEvents() {
@@ -1853,5 +1854,9 @@ public class ScheduleAssignments extends B2WTestCase {
         logCompare(true, b2wScheduler.setSearchValue(locationEvent.getResourceName()), "Set Filter by " + locationEvent.getResourceName());
         logCompare(true, b2wScheduler.deleteAssignment(locationEvent), "Delete Location Event for: " + locationEvent.getResourceName());
         locationEvent = null;
+
+        logCompare(true, b2wScheduler.setSearchValue(copyLocationEvent.getResourceName()), "Set Filter by " + copyLocationEvent.getResourceName());
+        logCompare(true, b2wScheduler.deleteAssignment(copyLocationEvent), "Delete Location Event for: " + copyLocationEvent.getResourceName());
+        copyLocationEvent = null;
     }
 }

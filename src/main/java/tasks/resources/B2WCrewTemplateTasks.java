@@ -32,11 +32,18 @@ public class B2WCrewTemplateTasks extends B2WKendoTasks {
         }
         return bReturn;
     }
-    public boolean createCrewTemplate(B2WCrewTemplate crewTemplate) {
-        boolean bReturn = false;
+    public boolean createProductionCrewTemplate(B2WCrewTemplate crewTemplate) {
+        boolean bReturn;
         logCompare(true, true, "====== Start Crew Template Creation");
         bReturn = setName(crewTemplate.getName());
+        bReturn &= setID(crewTemplate.getID());
         logCompare(true, true, "====== Complete Crew Template Creation");
+        return bReturn;
+    }
+
+    private boolean setID(String id) {
+        boolean bReturn = false;
+        //ToDo: Create body
         return bReturn;
     }
 
@@ -44,6 +51,9 @@ public class B2WCrewTemplateTasks extends B2WKendoTasks {
     private boolean setName(String sValue) {
         boolean bReturn = false;
         WebElement field = WebElementUtils.findElement(B2WCrewTemplates.getNameField());
+        if (field != null) {
+
+        }
         return bReturn;
     }
 }

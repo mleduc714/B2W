@@ -84,6 +84,12 @@ public class B2WCrewTemplate implements Cloneable {
         this.workType = workType;
     }
 
+    public void addCrewMembers(ArrayList<String> crew) {
+        this.crew.addAll(crew);
+    }
+    public void removeCrewMembers(ArrayList<String> crew) {
+        this.crew.removeAll(crew);
+    }
     @Override
     protected Object clone() throws CloneNotSupportedException {
         B2WCrewTemplate oReturn = (B2WCrewTemplate) super.clone();
