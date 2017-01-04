@@ -846,13 +846,14 @@ public class B2WSchedulerTasks extends B2WKendoTasks {
             }
 
             bReturn &= selectButtonOption("Yes");
-
+            TaskUtils.sleep(1000);
+            waitForSchedulesPageNoBusy();
             int actualCount = getAssignmentsCount(assignment);
             bReturn &= logCompare(true, actualCount == initialCount - 1, "Verification that number of Assignment has been decreased by 1.");
         } else {
             logCompare(true, false, "Assignment for " + assignment.getResourceName() + " on " + assignment.getResourceName() + " could not be found.");
         }
-        logCompare(true, true, "====== Complete Assignment Deletion for " + assignment.getResourceName());
+        logCompare(true, bReturn, "====== Complete Assignment Deletion for " + assignment.getResourceName());
         return bReturn;
     }
 
@@ -1099,7 +1100,7 @@ public class B2WSchedulerTasks extends B2WKendoTasks {
                 case B2WAssignmentType.EMPLOYEE_NEED_TYPE:
                     bReturn &= logCompare(true, moveAssignmentToResourceAndDate(assignment, sFillResourceName, assignment.getStartDateAsDate(), false),
                             "Move Need ("+ assignment.getResourceName() +") to Resource (" + sFillResourceName + ")");
-                    bReturn &= logCompare(true, selectButtonOption("Yes"), "Confirm Fill Need.");
+                    //bReturn &= logCompare(true, selectButtonOption("Yes"), "Confirm Fill Need.");
                     assignment.setAssignmentType(B2WAssignmentType.EMPLOYEE_TYPE);
                     assignment.setResourceName(sFillResourceName);
                     break;
@@ -1137,6 +1138,7 @@ public class B2WSchedulerTasks extends B2WKendoTasks {
         return bReturn;
     }
     public boolean isOrderPanelEmpty() { return getAllOrdersFromPanel().size() == 0; }
+    public int getOrdersCount() { return getAllOrdersFromPanel().size(); }
 
     // ==== Private Methods ============================================================================================
     // === Menu for Creation
@@ -1282,8 +1284,10 @@ public class B2WSchedulerTasks extends B2WKendoTasks {
             if (parent != null) {
                 WebElement eResourceName = WebElementUtils.getChildElement(parent, B2WScheduleAssignments.getResourceName());
                 String type = WebElementUtils.getParentElement(eTmp).getAttribute("class");
-                if (eResourceName.getAttribute("title").equals(assignment.getResourceName()) && type.contains(assignment.getAssignmentType())) {
-                    lReturn.add(eTmp);
+                if (type != null) {
+                    if (eResourceName.getAttribute("title").equals(assignment.getResourceName()) && type.contains(assignment.getAssignmentType())) {
+                        lReturn.add(eTmp);
+                    }
                 }
             } else {
                 log.debug("Parent doesn't have tag 'td'");

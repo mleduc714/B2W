@@ -290,13 +290,17 @@ public class WebElementUtils {
 																 String sAttributeValue) {
 		List<WebElement> listResult = new ArrayList<WebElement>();
 		Iterator<WebElement> iter = list.iterator();
-		log.debug("Number of Elements to search thru " + list.size());
-		while (iter.hasNext()) {
-			WebElement el = iter.next();
-			String sName = el.getAttribute(sAttribute);
-			if (sName.equals(sAttributeValue)) {
-				listResult.add(el);
+		log.debug("Number of Elements to search through " + list.size());
+		try {
+			while (iter.hasNext()) {
+				WebElement el = iter.next();
+				String sName = el.getAttribute(sAttribute);
+				if (sName.equals(sAttributeValue)) {
+					listResult.add(el);
+				}
 			}
+		} catch (Exception e) {
+			log.debug("Exception was caught: " + e.toString());
 		}
 		return listResult;
 	}
@@ -858,9 +862,14 @@ public class WebElementUtils {
 	}
 
 	public static WebElement getParentElement(WebElement el) {
-		JavascriptExecutor executor = (JavascriptExecutor) BrowserUtils.getDriver();
-		WebElement parentElement = (WebElement) executor.executeScript("return arguments[0].parentNode;", el);
-		return parentElement;
+		try {
+			JavascriptExecutor executor = (JavascriptExecutor) BrowserUtils.getDriver();
+			WebElement parentElement = (WebElement) executor.executeScript("return arguments[0].parentNode;", el);
+			return parentElement;
+		} catch (Exception e) {
+			log.debug("Exception was caught: " + e.toString());
+			return null;
+		}
 	}
 
 	public static WebElement getParentUntilTagName(WebElement el, String sTagName) {
