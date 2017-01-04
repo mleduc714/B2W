@@ -305,6 +305,27 @@ public abstract class B2WKendoTasks extends B2WKendo {
 
 	}
 	
+	protected String getNotes(By by) {
+		
+		String sValueOfItem = "";
+		WebElement el = WebElementUtils.waitAndFindDisplayedElement(by);
+		List<WebElement> nvps = WebElementUtils.getChildElements(el, B2WEquipment.getKendoNameValuePair());
+		Iterator<WebElement> iter = nvps.iterator();
+		while (iter.hasNext()) {
+			try {
+				WebElement nvp = iter.next();
+				WebElement label = nvp.findElement(By.cssSelector(".label"));
+				if (label.getText().equals("Notes")) {
+					// getting notes is going to be different
+					sValueOfItem = nvp.findElement(By.cssSelector(".data-notes")).getText();
+				}
+			
+			} catch (NoSuchElementException e) {
+			}
+		}
+		return sValueOfItem;
+
+	}
 
 	protected String getPriorityOfItem(By by) {
 		String sText = "";

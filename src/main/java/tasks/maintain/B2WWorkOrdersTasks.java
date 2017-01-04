@@ -403,4 +403,7 @@ public class B2WWorkOrdersTasks extends B2WKendoTasks {
 	public String getWorkOrderHeadline() {
 		return WebElementUtils.waitAndFindDisplayedElement(B2WEquipment.getEquipmentHeadline()).getText();
 	}
+	public boolean clickFinish() {
+		return super.clickFinish();
+	}
 }
