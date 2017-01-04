@@ -1,6 +1,8 @@
 package testcases.maintain;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import com.b2w.test.B2WTestCase;
 
@@ -47,6 +49,7 @@ public class MaintainScheduleSmokeTest_2 extends B2WTestCase {
 	B2WCompleteWorkOrder b2wComp = new B2WCompleteWorkOrder();
 	
 	String sWorkDescription, sUpdatedWorkDescription, sUpdatedWorkDescriptionA, sUpdatedWorkDescriptionB;
+	SimpleDateFormat format = new SimpleDateFormat("MM/dd/yy");
 	
 	@Override
 	public void testSetUp() throws Throwable {
@@ -166,26 +169,32 @@ public class MaintainScheduleSmokeTest_2 extends B2WTestCase {
 		•Edit Work Order - make an edit, save (confirm brought back to Schedule page)
 		•Complete the Work Order - confirm removed from Schedule*/
 		logCompare(true,b2wMaintain.openSchedule(),"Open Schedule");
+		b2wSchd.goToDate(format.format(Calendar.getInstance().getTime()));
 		ArrayList<String> al = b2wSchd.getAllScheduledWorkOrders();
-		String sWorkItem = al.get(0);
-		//String sWorkItemID = sWorkItem.substring(sWorkItem.indexOf("["), sWorkItem.length());
-		logCompare(true,b2wSchd.unscheduleWorkOrderByDescriptionWithWrench(sWorkItem), "Unschedule Work Order");
-		logCompare(true,b2wSchd.clickConfirmYes(), "Confirm Yes");
-		logCompare(false,b2wSchd.openWorkOrderByDescription(sWorkItem), "Work Item is not on schedule");
-		logCompare(true, b2wSchd.openWorkOrderFromWorkOrderTabByDescription(sWorkItem), "Open Work Item");
-		b2wSchMain.selectAnyMechanic();
-		b2wSchMain.selectAnyWorkLocation();
-		logCompare(true,b2wSchMain.saveScheduledMaintenance(), "Save Scheduled Maintenance");
-		TaskUtils.sleep(2000);
-		logCompare(true,b2wSchd.editWorkOrderByDescriptionWithWrench(sWorkItem), "Edit Work Order");
-		logCompare(true,b2wOrder.setWorkOrderDescription(sUpdatedWorkDescription), "Update Desc");
-		TaskUtils.sleep(1000);
-		logCompare(true,b2wOrder.saveEditWorkOrder(), "Save Edit Work Order");
-		TaskUtils.sleep(2000);
-		logCompare(true,b2wSchd.completeWorkOrderByDescriptionWithWrench(sUpdatedWorkDescription), "Complete Work Order");
-		logCompare(true,b2wComp.clickNextPage(), "click next page");
-		logCompare(true,b2wComp.completeSave(), "Complete Save");
-		logCompare(false,b2wSchd.openWorkOrderByDescription(sUpdatedWorkDescription), "Work Item is not on schedule");
+		if (al.size() > 0) {
+			String sWorkItem = al.get(0);
+			// String sWorkItemID = sWorkItem.substring(sWorkItem.indexOf("["),
+			// sWorkItem.length());
+			logCompare(true, b2wSchd.unscheduleWorkOrderByDescriptionWithWrench(sWorkItem), "Unschedule Work Order");
+			logCompare(true, b2wSchd.clickConfirmYes(), "Confirm Yes");
+			logCompare(false, b2wSchd.openWorkOrderByDescription(sWorkItem), "Work Item is not on schedule");
+			logCompare(true, b2wSchd.openWorkOrderFromWorkOrderTabByDescription(sWorkItem), "Open Work Item");
+			b2wSchMain.selectAnyMechanic();
+			b2wSchMain.selectAnyWorkLocation();
+			logCompare(true, b2wSchMain.saveScheduledMaintenance(), "Save Scheduled Maintenance");
+			TaskUtils.sleep(2000);
+			logCompare(true, b2wSchd.editWorkOrderByDescriptionWithWrench(sWorkItem), "Edit Work Order");
+			logCompare(true, b2wOrder.setWorkOrderDescription(sUpdatedWorkDescription), "Update Desc");
+			TaskUtils.sleep(1000);
+			logCompare(true, b2wOrder.saveEditWorkOrder(), "Save Edit Work Order");
+			TaskUtils.sleep(2000);
+			logCompare(true, b2wSchd.completeWorkOrderByDescriptionWithWrench(sUpdatedWorkDescription),
+					"Complete Work Order");
+			logCompare(true, b2wComp.clickNextPage(), "click next page");
+			logCompare(true, b2wComp.completeSave(), "Complete Save");
+			logCompare(false, b2wSchd.openWorkOrderByDescription(sUpdatedWorkDescription),
+					"Work Item is not on schedule");
+		}
 	}
 
 	public void wrenchOptionsUnscheduled() {

@@ -654,5 +654,8 @@ public class B2WMaintain extends KendoUI {
 	public static By getMaintainPartWarrantyList() {
 		return By.cssSelector(B2WUIMap.b2w_maintainpartwarrantydurationlist);
 	}
+	public static By getMaintainRequestDetailView() {
+		return By.cssSelector(B2WUIMap.b2w_requestdetailview);
+	}
 
 }

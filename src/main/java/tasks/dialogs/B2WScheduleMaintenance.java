@@ -185,7 +185,10 @@ public class B2WScheduleMaintenance extends B2WKendoDialog {
 
 	public String getWorkOrderDescription() {
 		String sText = getWorkOrder();
-		return sText.substring(0, sText.indexOf("[")).trim();
+		if (sText.length() > 0){
+			sText = sText.substring(0, sText.indexOf("[")).trim();
+		}
+		return sText;
 	}
 
 	public String getWorkOrderID() {

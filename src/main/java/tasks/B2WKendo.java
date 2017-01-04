@@ -238,7 +238,7 @@ public abstract class B2WKendo {
 		}
 		return bReturn;
 	}
-	public boolean clickFinish() {
+	protected boolean clickFinish() {
 		boolean bReturn = false;
 		WebElement el = WebElementUtils.waitAndFindDisplayedElement(B2WMaintain.getKendoLargeFinishButton());
 		if (el != null){
