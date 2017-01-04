@@ -13,7 +13,7 @@ public class B2WCrewTemplateTest extends B2WTestCase{
     B2WNavigationTasks b2wNav = new B2WNavigationTasks();
     B2WCrewTemplateTasks crewTemplateTasks = new B2WCrewTemplateTasks();
 
-	private B2WCrewTemplate productionCrewTemplate;
+	private B2WCrewTemplate productionCrewTemplate = new B2WCrewTemplate();
 
     @Override
     public void testTearDown() throws Throwable {
@@ -54,7 +54,7 @@ public class B2WCrewTemplateTest extends B2WTestCase{
 		productionCrewTemplate.setNotes(getProperty("sProdCrewTemplateNotes"));				        //AUT Production Crew Notes!!!
 		productionCrewTemplate.setInactive(getProperty("sProdCrewTemplateInactive").toLowerCase().equals("true"));		//false
 		productionCrewTemplate.setForeman(getProperty("sProdCrewTemplateForeman"));			        //Addison Miller
-        productionCrewTemplate.setCrew(parseString(getProperty("employeesList")));                    //Aaliyah Parker, Caroline Chan
+        productionCrewTemplate.setEmployees(parseString(getProperty("employeesList")));                    //Aaliyah Parker, Caroline Chan
         productionCrewTemplate.addCrewMembers(parseString(getProperty("equipmentList")));             //AUGTRK, BH002
         productionCrewTemplate.addCrewMembers(parseString(getProperty("laborTypeList")));				//Auger Operator, Carpenter
         productionCrewTemplate.addCrewMembers(parseString(getProperty("equipmentTypeList")));			//953 Loaders, 953 Loaders

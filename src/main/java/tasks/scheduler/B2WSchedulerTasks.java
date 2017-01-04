@@ -29,11 +29,6 @@ public class B2WSchedulerTasks extends B2WKendoTasks {
     public final String MOVEASSIGNMENT = "Move Assignment";
     public final String EVENT = "Event";
 
-    /*
-    private static final ArrayList<String> assignmentsTypes = new ArrayList<String>(Arrays.asList(B2WAssignmentType.EMPLOYEE_TYPE, B2WAssignmentType.EQUIPMENT_TYPE, B2WAssignmentType.CREW_TYPE));
-    private static final ArrayList<String> needsTypes = new ArrayList<String>(Arrays.asList(B2WAssignmentType.EMPLOYEE_NEED_TYPE, B2WAssignmentType.EQUIPMENT_NEED_TYPE, B2WAssignmentType.CREW_NEED_TYPE));
-    private static final ArrayList<String> eventsTypes = new ArrayList<String>(Arrays.asList(B2WAssignmentType.EMPLOYEE_EVENT_TYPE, B2WAssignmentType.EQUIPMENT_EVENT_TYPE, B2WAssignmentType.LOCATION_EVENT_TYPE));
-    */
     private Logger log = Logger.getLogger(B2WSchedulerTasks.class);
 
     public boolean navigateTo(B2WScheduleView scheduleView) {

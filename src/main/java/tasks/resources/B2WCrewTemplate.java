@@ -20,13 +20,25 @@ public class B2WCrewTemplate implements Cloneable {
     private boolean inactive;
     private String notes;
     private String foreman;
-    private ArrayList<String> crew;
+    private ArrayList<String> employees;
+    private ArrayList<String> equipments;
+    private ArrayList<String> laborTypes;
+    private ArrayList<String> equipmentTypes;
 
     public boolean isInactive() {
         return inactive;
     }
-    public ArrayList<String> getCrew() {
-        return crew;
+    public ArrayList<String> getEmployees() {
+        return employees;
+    }
+    public ArrayList<String> getEquipments() {
+        return equipments;
+    }
+    public ArrayList<String> getEquipmentTypes() {
+        return equipmentTypes;
+    }
+    public ArrayList<String> getLaborTypes() {
+        return laborTypes;
     }
     public String getBusinessUnit() {
         return businessUnit;
@@ -56,8 +68,17 @@ public class B2WCrewTemplate implements Cloneable {
     public void setBusinessUnit(String businessUnit) {
         this.businessUnit = businessUnit;
     }
-    public void setCrew(ArrayList<String> crew) {
-        this.crew = new ArrayList<>(crew);
+    public void setEmployees(ArrayList<String> employees) {
+        this.employees = new ArrayList<>(employees);
+    }
+    public void setEquipments(ArrayList<String> equipments) {
+        this.equipments = new ArrayList<>(equipments);
+    }
+    public void setEquipmentTypes(ArrayList<String> equipmentTypes) {
+        this.equipmentTypes = new ArrayList<>(equipmentTypes);
+    }
+    public void setLaborTypes(ArrayList<String> laborTypes) {
+        this.laborTypes = new ArrayList<>(laborTypes);
     }
     public void setForeman(String foreman) {
         this.foreman = foreman;
@@ -84,16 +105,41 @@ public class B2WCrewTemplate implements Cloneable {
         this.workType = workType;
     }
 
-    public void addCrewMembers(ArrayList<String> crew) {
-        this.crew.addAll(crew);
+    public void addEmployeesMembers(ArrayList<String> crew) {
+        this.employees.addAll(crew);
     }
-    public void removeCrewMembers(ArrayList<String> crew) {
-        this.crew.removeAll(crew);
+    public void removeEmployeesMembers(ArrayList<String> crew) {
+        this.employees.removeAll(crew);
     }
+
+    public void addEquipmentsMembers(ArrayList<String> crew) {
+        this.equipments.addAll(crew);
+    }
+    public void removeEquipmentsMembers(ArrayList<String> crew) {
+        this.equipments.removeAll(crew);
+    }
+
+    public void addLaborTypesMembers(ArrayList<String> crew) {
+        this.laborTypes.addAll(crew);
+    }
+    public void removeLaborTypesMembers(ArrayList<String> crew) {
+        this.laborTypes.removeAll(crew);
+    }
+
+    public void addEquipmentTypesMembers(ArrayList<String> crew) {
+        this.equipmentTypes.addAll(crew);
+    }
+    public void removeEquipmentTypesMembers(ArrayList<String> crew) {
+        this.equipmentTypes.removeAll(crew);
+    }
+
     @Override
     protected Object clone() throws CloneNotSupportedException {
         B2WCrewTemplate oReturn = (B2WCrewTemplate) super.clone();
-        oReturn.setCrew(this.getCrew());
+        oReturn.setEmployees(this.getEmployees());
+        oReturn.setEquipments(this.getEquipments());
+        oReturn.setLaborTypes(this.getLaborTypes());
+        oReturn.setEquipmentTypes(this.getEquipmentTypes());
         return oReturn;
     }
 }
