@@ -3,15 +3,7 @@ package tasks.resources;
 import java.util.ArrayList;
 
 public class B2WCrewTemplate implements Cloneable {
-    public enum CrewType {ProductionCrew("Production Crew"), TransportCrew("Transport Crew");
-        private String type;
-
-        CrewType(String s) {
-            this.type = s;
-        }
-    }
-
-    private CrewType type;
+    private String type;
     private String name;
     private String ID;
     private String workType;
@@ -55,7 +47,7 @@ public class B2WCrewTemplate implements Cloneable {
     public String getNotes() {
         return notes;
     }
-    public CrewType getType() {
+    public String getType() {
         return type;
     }
     public String getWorkSubType() {
@@ -95,7 +87,7 @@ public class B2WCrewTemplate implements Cloneable {
     public void setNotes(String notes) {
         this.notes = notes;
     }
-    public void setType(CrewType type) {
+    public void setType(String type) {
         this.type = type;
     }
     public void setWorkSubType(String workSubType) {

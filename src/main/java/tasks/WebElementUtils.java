@@ -156,6 +156,7 @@ public class WebElementUtils {
 		return ret;
 	}
 
+	/*
 	public static WebElement getElementWithContainsChildElementText(List<WebElement> list, By childBy, String text) {
 		if (list.isEmpty()) {
 			log.debug("List of elements to search is empty");
@@ -176,6 +177,33 @@ public class WebElementUtils {
 				log.debug("Parent Element Class: " + el.getAttribute("class"));
 			}
 
+		}
+		return ret;
+	}
+	*/
+	public static WebElement getElementWithContainsChildElementText(List<WebElement> list, By childBy, String text) {
+		if (list.isEmpty()) {
+			log.debug("List of elements to search is empty");
+		}
+		Iterator<WebElement> iter = list.iterator();
+		log.info("List size: " + list.size());
+		WebElement ret = null;
+		while (iter.hasNext()) {
+			WebElement el = iter.next();
+			try {
+				List<WebElement> childList = el.findElements(childBy);
+				for (WebElement item: childList) {
+					if (text.equals(item.getText())) {
+						//ret = el;
+						//break;
+						return el;
+					}
+				}
+
+			} catch (NoSuchElementException nse) {
+				log.warn("Parent did not contain Child element: " + childBy.toString());
+				log.debug("Parent Element Class: " + el.getAttribute("class"));
+			}
 		}
 		return ret;
 	}

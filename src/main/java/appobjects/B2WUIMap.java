@@ -247,6 +247,14 @@ public class B2WUIMap {
 	public static final String b2w_crewtemplates_crewtypeslist = "span.k-link";
 	public static final String getB2w_crewtemplates_headline = ".headline>span";
 	public static final String getB2w_crewtemplates_name = ".k-textbox[name='Name']";
+	public static final String getB2w_crewtemplates_id = ".k-textbox[name='ID']";
+	public static final String getB2w_crewtemplates_inactive = "input[name='Inactive']";
+	public static final String getB2w_crewtemplates_notes = ".short-notes";
+	public static final String getB2w_crewtemplates_foreman = ".k-in";
+	public static final String getB2w_crewtemplates_searchtypes = ".//span[text()='Employees with Foreman Role']";
+	public static final String getB2w_crewtemplates_searchvalue = ".list-filter.k-textbox[placeholder='Search']";
+	public static final String getB2w_crewtemplates_searchresults = "tr[data-role='draggable']";
+	public static final String getB2w_crewtemplates_resourcetree = "#resourcesTreeview";
 
 	// places
 	public static final String b2w_createnewplacebutton = "a#PageContent_CreateNewPlaceButton";

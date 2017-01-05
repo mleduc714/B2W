@@ -45,7 +45,7 @@ public class B2WCrewTemplateTest extends B2WTestCase{
 		super.testSetUp();
 
 		// === Setup Production Crew Template
-        productionCrewTemplate.setType(B2WCrewTemplate.CrewType.ProductionCrew);
+        productionCrewTemplate.setType("Production Crew");
         productionCrewTemplate.setName(getProperty("sProdCrewTemplateName")); 				        //AUT Prod Crew
         productionCrewTemplate.setID(getProperty("sProdCrewTemplateID"));					            //AUT Prod Crew ID
         productionCrewTemplate.setWorkType(getProperty("sProdCrewTemplateWorkType")); 		        //Bridge
@@ -55,9 +55,9 @@ public class B2WCrewTemplateTest extends B2WTestCase{
 		productionCrewTemplate.setInactive(getProperty("sProdCrewTemplateInactive").toLowerCase().equals("true"));		//false
 		productionCrewTemplate.setForeman(getProperty("sProdCrewTemplateForeman"));			        //Addison Miller
         productionCrewTemplate.setEmployees(parseString(getProperty("employeesList")));                    //Aaliyah Parker, Caroline Chan
-        productionCrewTemplate.addCrewMembers(parseString(getProperty("equipmentList")));             //AUGTRK, BH002
-        productionCrewTemplate.addCrewMembers(parseString(getProperty("laborTypeList")));				//Auger Operator, Carpenter
-        productionCrewTemplate.addCrewMembers(parseString(getProperty("equipmentTypeList")));			//953 Loaders, 953 Loaders
+        productionCrewTemplate.setEquipments(parseString(getProperty("equipmentList")));             //AUGTRK, BH002
+        productionCrewTemplate.setLaborTypes(parseString(getProperty("laborTypeList")));				//Auger Operator, Carpenter
+        productionCrewTemplate.setEquipmentTypes(parseString(getProperty("equipmentTypeList")));			//953 Loaders, 953 Loaders
 
 		// === Setup Transport Crew Template
 	}
