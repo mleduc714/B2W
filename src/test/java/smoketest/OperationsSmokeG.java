@@ -200,13 +200,14 @@ public class OperationsSmokeG extends B2WTestCase {
 		logCompare(true,addInterval.selectDailyBasedInterval(),"Select Daily based Interval");
 		logCompare(true,addInterval.setIntervalOccursEvery("1"), "Ocucrs Every day");
 		logCompare(true,addInterval.saveInterval(), "Save Interval");
+		logCompare(true,b2wMainPrograms.collapseIntervals(), "Collapse");
 		logCompare(true,b2wMainPrograms.clickAddItem(), "Add Item");
 		logCompare(true,b2wAddItem.setAddItemDescription(sMaintenanceProgramItemBDesc),"Set Maintenance item description");
 		logCompare(true,b2wAddItem.selectAddItemTypeFromDD(sCategoryC), "Select Add Item Type");
 		logCompare(true,b2wAddItem.selectAddItemPriority(sMaintenanceProgramItemBPriority),"Select Item priority");
 		logCompare(true,b2wAddItem.setAddItemLevel(sMaintenanceProgramItemBLevel),"Select Maintenance Program Level");
 		logCompare(true,b2wAddItem.saveItem(),"Save Item");
-		logCompare(true,b2wMainPrograms.collapseIntervals(),"Collapse Interval");
+		logCompare(true,b2wMainPrograms.expandIntervals(),"Expand Interval");
 		logCompare(true,b2wMainPrograms.clickAddInterval(),"Click Add Interval");
 		logCompare(true,addInterval.setIntervalDescription(sMaintenanceProgramItemAIntervalDesc),"Set Interval Description");
 		logCompare(true,addInterval.selectMeterBasedInterval(),"Select Meter based Interval");

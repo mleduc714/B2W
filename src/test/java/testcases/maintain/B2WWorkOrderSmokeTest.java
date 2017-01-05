@@ -159,9 +159,9 @@ public class B2WWorkOrderSmokeTest extends B2WTestCase {
 		b2wWork.selectAnyPlannedWorkLocation();
 		logCompare(true,b2wWork.clickAddItemButton(), "New Item");
 		TaskUtils.sleep(1000);
-		b2wAddToWorkOrder.addItem(sRequestEquipmentDesc);
-		b2wAddToWorkOrder.clickFinishButton();
-		b2wWork.clickSaveButton();
+		logCompare(true,b2wAddToWorkOrder.addItem(sRequestEquipmentDesc), "Desc");
+		logCompare(true,b2wAddToWorkOrder.clickFinishButton(),"Click Finish");
+		logCompare(true,b2wWork.clickSaveButton(), "Save Work");
 		TaskUtils.sleep(1000);
 	}
 	
@@ -183,8 +183,8 @@ public class B2WWorkOrderSmokeTest extends B2WTestCase {
 		TaskUtils.sleep(1000);
 		sAddItemRequestBy = b2wAddToWorkOrder.selectAnyAddItemRequestedByFromDD();
 		TaskUtils.sleep(1000);
-		b2wAddToWorkOrder.clickCreateAddItemButton();
-		b2wWork.saveEditWorkOrder();
+		logCompare(true,b2wAddToWorkOrder.clickCreateAddItemButton(),"Add Item");
+		logCompare(true,b2wWork.saveEditWorkOrder(), "Save Edit Work");
 		TaskUtils.sleep(1000);
 	}
 	
@@ -195,26 +195,25 @@ public class B2WWorkOrderSmokeTest extends B2WTestCase {
 		sProgramItem = progItems.get(progItems.size()-1);
 		
 		program.clickAddEquipment();
-		addEquipmentToProgram.selectEquipmentByDescription(sEquipmentName);
-		addEquipmentToProgram.clickFinishAddEquipment();
+		logCompare(true,addEquipmentToProgram.selectEquipmentByDescription(sEquipmentName),"Select Equipment");
+		logCompare(true,addEquipmentToProgram.clickFinishAddEquipment(), "Finish");
 		TaskUtils.sleep(1000);
-		program.expandEquipmentByID(Integer.toString(iRandom));
-		program.generateItems();
+		logCompare(true,program.expandEquipmentByID(Integer.toString(iRandom)), "Expand");
+		logCompare(true,program.generateItems(), "Generate Items");
 	}
 	
 	public void editItemsOnWorkOrder() {
 		b2wNav.openMaintain();
 		logCompare(true,b2wmain.openWorkOrders(),"Open Work Orders");
-		b2wWork.selectWorkOrderByDescription(sWorkOrderItemDescription);
+		logCompare(true,b2wWork.selectWorkOrderByDescription(sWorkOrderItemDescription), "Set Description");
 		TaskUtils.sleep(1000);
 		logCompare(true,b2wWork.clickEditWorkOrder(),"Edit Work Order");
 		TaskUtils.sleep(1000);
 		//b2wWork.chargeToJob(true);
-		b2wWork.clickAddItemButton();
+		logCompare(true,	b2wWork.clickAddItemButton(), "Click Add Item");
 		TaskUtils.sleep(1000);
-		b2wAddToWorkOrder.addAllRequests();
-		b2wAddToWorkOrder.clickFinishButton();
-		TaskUtils.sleep(5000);
+		logCompare(true,b2wAddToWorkOrder.addAllRequests(), "add requests");
+		logCompare(true,b2wAddToWorkOrder.clickFinishButton(),"Click Finish");
 		
 	}
 }
