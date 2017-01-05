@@ -29,7 +29,8 @@ public class B2WNavigationTasks implements Navigation {
 	public B2WNavigationTasks() {
 		
 	}
-	
+
+	//======
 	public boolean clickHome() {
 		boolean bReturn = false;
 		if (WebElementUtils.clickElement(B2WNavigationPanel.getB2WHome())){
@@ -41,7 +42,6 @@ public class B2WNavigationTasks implements Navigation {
 		}
 		return bReturn;
 	}
-	
 	public boolean openJobs() {
 		boolean bReturn = false;
 		WebElement el = null;
@@ -57,7 +57,6 @@ public class B2WNavigationTasks implements Navigation {
 		}
 		return bReturn;
 	}
-
 	public boolean openTrack() {
 		boolean bReturn = false;
 		WebElement el = null;
@@ -69,7 +68,6 @@ public class B2WNavigationTasks implements Navigation {
 		}
 		return bReturn;
 	}
-
 	public boolean openDispatch() {
 		boolean bReturn = false;
 		WebElement el = null;
@@ -216,6 +214,7 @@ public class B2WNavigationTasks implements Navigation {
 		return sLastName;
 	}
 
+	// ====== Setup =======
 	public boolean openSetupUsers() {
 		return openSetup("Users","User Listing");
 	}
@@ -260,28 +259,17 @@ public class B2WNavigationTasks implements Navigation {
 	public boolean openSecurityRoles() {
 		return openSetup("Security Roles","Hierarchical Security Roles");
 	}
+
+	// ====== Resources =======
 	public boolean openAccounts() {
 		return openResources("Accounts","Production Accounts");
+	}
+	public boolean openCrewTemplates() {
+		return openResources("Crew Templates","Crew Templates");
 	}
 	public boolean openEmployees() {
 		return openResources("Employees","Employees");
 	}
-	public boolean openMaterials() {
-		return openResources("Materials","Materials");
-	}
-	public boolean openPlaces() {
-		return openResources("Places","Places");
-	}
-	public boolean openOrganizations() {
-		return openResources("Organizations","Organizations");
-	}
-	public boolean openParts() {
-		return openResources("Parts","Parts");
-	}
-	public boolean openEquipmentTypes() {
-		return openResources("Equipment Types", "Equipment Types");
-	}
-
 	public boolean openEquipment() {
 		boolean bReturn = false;
 		if (openResources()) {
@@ -299,7 +287,30 @@ public class B2WNavigationTasks implements Navigation {
 		}
 		return bReturn;
 	}
-	
+	public boolean openEquipmentRateClasses() {
+		return openResources("Equipment Rate Classes","Equipment Rate Classes");
+	}
+	public boolean openEquipmentTypes() {
+		return openResources("Equipment Types", "Equipment Types");
+	}
+	public boolean openLaborRateClasses() {
+		return openResources("Labor Rate Classes", "Labor Rate Classes");
+	}
+	public boolean openLaborTypes() {
+		return openResources("Labor Types", "Labor Types");
+	}
+	public boolean openMaterials() {
+		return openResources("Materials","Materials");
+	}
+	public boolean openOrganizations() {
+		return openResources("Organizations","Organizations");
+	}
+	public boolean openParts() {
+		return openResources("Parts","Parts");
+	}
+	public boolean openPlaces() {
+		return openResources("Places","Places");
+	}
 	public boolean openTimeSheets() {
 		boolean bReturn = false;
 		if (openResources()) {
@@ -317,13 +328,7 @@ public class B2WNavigationTasks implements Navigation {
 		}
 		return bReturn;
 	}
-	public boolean openLaborTypes() {
-		return openResources("Labor Types", "Labor Types");
-	}
-	public boolean openEquipmentRateClasses() {
-		return openResources("Equipment Rate Classes","Equipment Rate Classes");
-	}
-	public boolean openLaborRateClasses() {
-		return openResources("Labor Rate Classes", "Labor Rate Classes");
-	}
+
+
+
 }

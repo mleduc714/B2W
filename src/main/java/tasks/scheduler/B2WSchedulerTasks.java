@@ -29,11 +29,6 @@ public class B2WSchedulerTasks extends B2WKendoTasks {
     public final String MOVEASSIGNMENT = "Move Assignment";
     public final String EVENT = "Event";
 
-    /*
-    private static final ArrayList<String> assignmentsTypes = new ArrayList<String>(Arrays.asList(B2WAssignmentType.EMPLOYEE_TYPE, B2WAssignmentType.EQUIPMENT_TYPE, B2WAssignmentType.CREW_TYPE));
-    private static final ArrayList<String> needsTypes = new ArrayList<String>(Arrays.asList(B2WAssignmentType.EMPLOYEE_NEED_TYPE, B2WAssignmentType.EQUIPMENT_NEED_TYPE, B2WAssignmentType.CREW_NEED_TYPE));
-    private static final ArrayList<String> eventsTypes = new ArrayList<String>(Arrays.asList(B2WAssignmentType.EMPLOYEE_EVENT_TYPE, B2WAssignmentType.EQUIPMENT_EVENT_TYPE, B2WAssignmentType.LOCATION_EVENT_TYPE));
-    */
     private Logger log = Logger.getLogger(B2WSchedulerTasks.class);
 
     public boolean navigateTo(B2WScheduleView scheduleView) {
@@ -112,20 +107,20 @@ public class B2WSchedulerTasks extends B2WKendoTasks {
         try {
             boolean bReturn = false;
             WebElement eSearchBox = WebElementUtils.findElement(B2WScheduleAssignments.getSearchBox());
-            log.debug("eSearchBox: " + eSearchBox.toString());
+            //log.debug("eSearchBox: " + eSearchBox.toString());
             if (eSearchBox != null) {
                 eSearchBox.clear();
-                log.debug("Perform eSearchBox.clear();");
+                //log.debug("Perform eSearchBox.clear();");
                 bReturn = WebElementUtils.sendKeys(eSearchBox, sValue);
-                log.debug("Perform sendKeys. Result: " + bReturn);
+                //log.debug("Perform sendKeys. Result: " + bReturn);
                 WebElementUtils.waitAndFindDisplayedElement(B2WEquipment.getKendoPageLoading(), WebElementUtils.SHORT_TIME_OUT);
-                log.debug("Stop waiting... ");
+                //log.debug("Stop waiting... ");
                 //ToDo replace sleep to correct waiting
                 //TaskUtils.sleep(1000);
                 waitForSchedulesPageNoBusy();
-                log.debug("Stop waiting loading page... ");
+                //log.debug("Stop waiting loading page... ");
                 bReturn &= WebElementUtils.waitAndFindDisplayedElement(B2WScheduleAssignments.getGrid(), WebElementUtils.LONG_TIME_OUT) != null;
-                log.debug("Return final result: " + bReturn);
+                //log.debug("Return final result: " + bReturn);
             } else {
                 log.debug("Search box could not be found on the page.");
             }
@@ -846,13 +841,14 @@ public class B2WSchedulerTasks extends B2WKendoTasks {
             }
 
             bReturn &= selectButtonOption("Yes");
-
+            TaskUtils.sleep(1000);
+            waitForSchedulesPageNoBusy();
             int actualCount = getAssignmentsCount(assignment);
             bReturn &= logCompare(true, actualCount == initialCount - 1, "Verification that number of Assignment has been decreased by 1.");
         } else {
             logCompare(true, false, "Assignment for " + assignment.getResourceName() + " on " + assignment.getResourceName() + " could not be found.");
         }
-        logCompare(true, true, "====== Complete Assignment Deletion for " + assignment.getResourceName());
+        logCompare(true, bReturn, "====== Complete Assignment Deletion for " + assignment.getResourceName());
         return bReturn;
     }
 
@@ -929,9 +925,12 @@ public class B2WSchedulerTasks extends B2WKendoTasks {
         if (eConflictBtn != null && eConflictPanel != null) {
             bReturn = WebElementUtils.clickElement(eConflictBtn);
             if (!bReturn) {
-                TaskUtils.sleep(500);
-                waitForSchedulesPageNoBusy();
-                bReturn = WebElementUtils.clickElement(eConflictBtn);
+                eConflictBtn = WebElementUtils.findElement(B2WScheduleAssignments.getCheckedBtn());
+                if (eConflictBtn != null) {
+                    TaskUtils.sleep(500);
+                    waitForSchedulesPageNoBusy();
+                    bReturn = WebElementUtils.clickElement(eConflictBtn);
+                }
             }
             waitForSchedulesPageNoBusy();
             bReturn &= WebElementUtils.waitForElementInvisible(eConflictPanel);
@@ -1096,7 +1095,7 @@ public class B2WSchedulerTasks extends B2WKendoTasks {
                 case B2WAssignmentType.EMPLOYEE_NEED_TYPE:
                     bReturn &= logCompare(true, moveAssignmentToResourceAndDate(assignment, sFillResourceName, assignment.getStartDateAsDate(), false),
                             "Move Need ("+ assignment.getResourceName() +") to Resource (" + sFillResourceName + ")");
-                    bReturn &= logCompare(true, selectButtonOption("Yes"), "Confirm Fill Need.");
+                    //bReturn &= logCompare(true, selectButtonOption("Yes"), "Confirm Fill Need.");
                     assignment.setAssignmentType(B2WAssignmentType.EMPLOYEE_TYPE);
                     assignment.setResourceName(sFillResourceName);
                     break;
@@ -1134,6 +1133,7 @@ public class B2WSchedulerTasks extends B2WKendoTasks {
         return bReturn;
     }
     public boolean isOrderPanelEmpty() { return getAllOrdersFromPanel().size() == 0; }
+    public int getOrdersCount() { return getAllOrdersFromPanel().size(); }
 
     // ==== Private Methods ============================================================================================
     // === Menu for Creation
@@ -1276,10 +1276,17 @@ public class B2WSchedulerTasks extends B2WKendoTasks {
         List<WebElement> list = getAssignmentsByLocation(assignment.getLocationName());
         for (WebElement eTmp : list) {
             WebElement parent = WebElementUtils.getParentUntilTagName(eTmp, "td");
-            WebElement eResourceName = WebElementUtils.getChildElement(parent, B2WScheduleAssignments.getResourceName());
-            String type = WebElementUtils.getParentElement(eTmp).getAttribute("class");
-            if (eResourceName.getAttribute("title").equals(assignment.getResourceName()) && type.contains(assignment.getAssignmentType())) {
-                lReturn.add(eTmp);
+            if (parent != null) {
+                WebElement eResourceName = WebElementUtils.getChildElement(parent, B2WScheduleAssignments.getResourceName());
+                String type = WebElementUtils.getParentElement(eTmp).getAttribute("class");
+                if (type != null) {
+                    if (eResourceName.getAttribute("title").equals(assignment.getResourceName()) && type.contains(assignment.getAssignmentType())) {
+                        lReturn.add(eTmp);
+                    }
+                }
+            } else {
+                log.debug("Parent doesn't have tag 'td'");
+                return null;
             }
         }
         return lReturn;
