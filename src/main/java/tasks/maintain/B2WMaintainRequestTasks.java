@@ -1,14 +1,10 @@
 package tasks.maintain;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import org.apache.log4j.Logger;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.internal.Coordinates;
-import org.openqa.selenium.internal.Locatable;
 
 import appobjects.maintain.B2WMaintain;
 import tasks.WebElementUtils;
@@ -36,9 +32,7 @@ public class B2WMaintainRequestTasks extends B2WKendoTasks {
 		if (button != null){
 			bReturn = WebElementUtils.clickElement(button);
 			bReturn &= WebElementUtils.waitAndFindDisplayedElement(B2WMaintain.getB2WMaintainRequestCreateView()) != null;
-		
 		}
-		
 		return bReturn;
 	}
 	
@@ -48,10 +42,9 @@ public class B2WMaintainRequestTasks extends B2WKendoTasks {
 		if (equipment != null){
 			WebElementUtils.clickElement(equipment);
 			bReturn = WebElementUtils.sendKeys(equipment, sText);
-			bReturn &= selectItemFromDropDown(0);
+			selectItemFromDropDown(0);
 		}
 		return bReturn;
-		
 	}
 	
 	public String selectAnyPieceOfEquipment() {
@@ -161,37 +154,9 @@ public class B2WMaintainRequestTasks extends B2WKendoTasks {
 		return bReturn;
 	}
 	
-	
-	public boolean clickNewCommentButton() {
-		boolean bReturn = false;
-		WebElement parent = WebElementUtils.findElement(B2WMaintain.getB2WMaintainRequestCreateView());
-		WebElement comment = WebElementUtils.getChildElement(parent, B2WMaintain.getB2WNewMaintanceRequestNewCommentButton());
-		if (comment != null){
-			Coordinates coordinate = ((Locatable)comment).getCoordinates(); 
-			coordinate.onPage(); 
-			coordinate.inViewPort();
-			bReturn = WebElementUtils.clickElement(comment);
-			//WebElementUtils.waitAndFindDisplayedElement(By.cssSelector("textarea.comments")) != null;
-		}
-		return bReturn;
-	}
-	
 	public boolean setNewCommentAndSave(String sText){
-		boolean bReturn = false;
-		List<WebElement> list = WebElementUtils.findElements(By.cssSelector("textarea.comments"));
-		Iterator<WebElement> iter = list.iterator();
-		while (iter.hasNext()){
-			WebElement el = iter.next();
-			if (el.isDisplayed()){
-				bReturn = WebElementUtils.sendKeys(el, sText);
-				WebElement parent = WebElementUtils.getParentElement(el);
-				WebElement save = WebElementUtils.getChildElement(parent, B2WMaintain.getKendoLargeSaveButton());
-				bReturn = WebElementUtils.clickElement(save);
-				bReturn &= WebElementUtils.waitForElementInvisible(el);
-				break;
-			}
-		}
-		return bReturn;
+		
+		return super.setNewCommentAndSave(sText);
 	}
 	
 	public boolean clickSaveButton() {
@@ -206,8 +171,11 @@ public class B2WMaintainRequestTasks extends B2WKendoTasks {
 		return bReturn;
 	}
 	
-	public boolean selectRequestByDescription(String sDesc){
+	public boolean selectWorkOrderRequestByDescription(String sDesc){
 		return selectItemFromView(sDesc, 1);
+	}
+	public boolean selectWorkOrderRequestByID(String sID){
+		return selectItemFromView(sID, 0);
 	}
 	public boolean selectRequest(int i){
 		return selectItemFromView(i);
@@ -220,6 +188,16 @@ public class B2WMaintainRequestTasks extends B2WKendoTasks {
 		}
 		return bReturn;
 	}
+	
+	public boolean clickEditRequest() {
+		boolean bReturn = false;
+		WebElement el = WebElementUtils.findElement(B2WMaintain.getKendoEditButton());
+		if (el != null){
+			bReturn = WebElementUtils.clickElement(el);
+		}
+		return bReturn;
+	}
+	
 	public String getSelectedItemDescription() {
 		return getSelectedItemFromView(1);
 	}
@@ -317,39 +295,7 @@ public class B2WMaintainRequestTasks extends B2WKendoTasks {
 	public String getNotes() {
 		return getNotes(B2WMaintain.getMaintainRequestDetailView());
 	}
-	public boolean expandComments() {
-		return getHeaderandExpandOrCollapse("Comments", true);
-	}
-	private List<WebElement> getCommentsRows() {
-		WebElement historyView = WebElementUtils.findElement(By.cssSelector(".comments-view"));
-		WebElement tbody = WebElementUtils.getChildElement(historyView, By.tagName("tbody"));
-		List<WebElement> rows = WebElementUtils.getChildElements(tbody, By.tagName("tr"));
-		return rows;
-	}
-	private String getComments(int iRow, int iColumn){
-		String sText = "";
-		List<WebElement> rows = getCommentsRows();
-		if (rows.size()>0){
-			sText = WebElementUtils.getChildElements(rows.get(iRow),By.tagName("td")).get(iColumn).getText();
-		}
-		return sText;
-	}
-	
-	private WebElement getRowByCommentDescription(String sDesc){
-		WebElement row = null;
-		List<WebElement> rows = getCommentsRows();
-		if (rows.size()>0){
-			for (WebElement el: rows){
-				String sText = WebElementUtils.getChildElements(el,By.tagName("td")).get(0).getText();
-				if (sText.equals(sDesc)){
-					row = el;
-				}
-			}
-			
-		}
-		return row;
-	}
-	
+
 	public String getComment() {
 		return getComments(0,0);
 	}
@@ -362,6 +308,7 @@ public class B2WMaintainRequestTasks extends B2WKendoTasks {
 		}
 		return bReturn;
 	}
+
 	
 	
 }

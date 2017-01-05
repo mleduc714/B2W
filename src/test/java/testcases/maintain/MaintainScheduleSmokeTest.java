@@ -262,15 +262,15 @@ public class MaintainScheduleSmokeTest extends B2WTestCase {
 		logCompare(true, b2wOrder.selectPlannedWorkedLocation("Field"), "Planned in the Field");
 		logCompare(true, b2wOrder.selectPriorityFromDD("Medium"), "Medium Priority");
 		logCompare(true, b2wOrder.setWorkOrderNotes("Automation Created this work order"), "Set Notes");
-		logCompare(true, b2wOrder.clickNewItemButton(), "Add new item for work order");
+		logCompare(true, b2wOrder.clickAddItemButton(), "Add new item for work order");
 		logCompare(true, b2wAddItemWO.setAddItemDescription(sItemDescA), "Add Item Description");
 		logCompare(true, b2wAddItemWO.setAddItemTypeFromDD(sItemTypeA), "Type");
-		logCompare(true, b2wAddItemWO.setAddItemPriorityFromDD(sItemPriorityA), "Medium Priority");
+		logCompare(true, b2wAddItemWO.selectAddItemPriorityFromDD(sItemPriorityA), "Medium Priority");
 		logCompare(true, b2wAddItemWO.clickCreateAddItemButton(),"Create add Item");
-		logCompare(true, b2wOrder.clickNewItemButton(), "Add new item for work order");
+		logCompare(true, b2wOrder.clickAddItemButton(), "Add new item for work order");
 		logCompare(true, b2wAddItemWO.setAddItemDescription(sItemDescB), "Add Item Description");
 		logCompare(true, b2wAddItemWO.setAddItemTypeFromDD(sItemTypeB), "Type");
-		logCompare(true, b2wAddItemWO.setAddItemPriorityFromDD(sItemPriorityB), "Medium Priority");
+		logCompare(true, b2wAddItemWO.selectAddItemPriorityFromDD(sItemPriorityB), "Medium Priority");
 		logCompare(true, b2wAddItemWO.clickCreateAddItemButton(),"Create add Item");
 		logCompare(true, b2wOrder.clickSaveButton(), "Click Save Button");
 		logCompare(true, b2wOrder.selectWorkOrderByDescription(WODesc), "Select Work Order");
@@ -315,9 +315,9 @@ public class MaintainScheduleSmokeTest extends B2WTestCase {
 		logCompare(true,b2wOrder.selectWorkOrderByDescription(WODesc),"Select Work Order");
 		logCompare(true,b2wOrder.deleteWorkOrder(), "Delete WO");
 		b2wMaintain.openRequests();
-		logCompare(true,b2wRequests.selectRequestByDescription(sItemDescA), "Select Request "+sItemDescA);
+		logCompare(true,b2wRequests.selectWorkOrderRequestByDescription(sItemDescA), "Select Request "+sItemDescA);
 		logCompare(true,b2wRequests.deleteRequest(),"Delete Request");
-		logCompare(true,b2wRequests.selectRequestByDescription(sItemDescB),"Select Request "+sItemDescB);
+		logCompare(true,b2wRequests.selectWorkOrderRequestByDescription(sItemDescB),"Select Request "+sItemDescB);
 		logCompare(true,b2wRequests.deleteRequest(), "Delete Request");
 	}
 	

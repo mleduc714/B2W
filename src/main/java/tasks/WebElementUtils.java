@@ -277,7 +277,6 @@ public class WebElementUtils {
 		while (iter.hasNext()) {
 			WebElement el = iter.next();
 			String sName = el.getAttribute(sAttribute);
-			
 			if (sName != null && sName.equals(sAttributeValue)) {
 				ret = el;
 				break;

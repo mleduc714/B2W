@@ -181,7 +181,7 @@ public class OperationsSmokeH extends B2WTestCase {
 		assertTrue("Open Work Orders", b2wMain.openWorkOrders());
 		TaskUtils.sleep(1000);
 		logCompare(true,b2wOrder.selectWorkOrderByDescription(sMaintenanceWorkOrderDescription), "Select Work Order");
-		logCompare(true,b2wOrder.editWorkOrder(), "Edit Work Order");
+		logCompare(true,b2wOrder.clickEditWorkOrder(), "Edit Work Order");
 		TaskUtils.sleep(1000);
 		logCompare(true,b2wOrder.collapseDetails(), "Collapse Details");
 		logCompare(true,b2wOrder.expandParts(), "Expand Parts");

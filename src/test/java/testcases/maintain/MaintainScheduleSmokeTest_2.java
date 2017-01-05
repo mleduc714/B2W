@@ -127,7 +127,7 @@ public class MaintainScheduleSmokeTest_2 extends B2WTestCase {
 		b2wOrder.selectAnyPlannedWorkLocation();
 		b2wOrder.selectPriorityFromDD("Medium");
 		TaskUtils.sleep(1000);
-		b2wOrder.clickNewItemButton();
+		b2wOrder.clickAddItemButton();
 		if (b2wAddItemWO.selectItemsToWorkOrderExists()) {
 			if (b2wAddItemWO.addAllRequests()) {
 

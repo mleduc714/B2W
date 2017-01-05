@@ -144,7 +144,7 @@ public class MaintainDashboardSmokeTest_1 extends B2WTestCase {
 		iUnassignedRepairRequests = b2wDash.getUnassignedRepairRequests();
 		logCompare(true, b2wDash.openUnassignedRepairRequests(), "Open Unassigned Requests");
 		
-		if (b2wRequests.selectRequestByDescription(sMaintenanceRequestDescription)) {
+		if (b2wRequests.selectWorkOrderRequestByDescription(sMaintenanceRequestDescription)) {
 			b2wRequests.clickAddToWorkOrderButton();
 			if (addToWO.doesDialogExist()) {
 				logCompare(true, addToWO.selectCreateNewWorkOrderRadioButton(), "Create new Work Order");
