@@ -193,7 +193,7 @@ public class OperationsSmokeG extends B2WTestCase {
 		logCompare(true,b2wAddItem.selectAddItemTypeFromDD(sCategoryC), "Select Add Item Type");
 		logCompare(true,b2wAddItem.setAddItemLevel(sMaintenanceProgramItemALevel),"Select Maintenance Program Level");
 		logCompare(true,b2wAddItem.saveItem(),"Save Item");
-		logCompare(true,b2wMainPrograms.getHeaderandExpandOrCollapse("Intervals", true)," Expand Interval");
+		logCompare(true,b2wMainPrograms.expandIntervals()," Expand Interval");
 		logCompare(true,b2wMainPrograms.clickAddInterval(),"Click Add Interval");
 		logCompare(true,addInterval.setIntervalDescription(sMaintenanceProgramItemAIntervalDesc),"Set Interval Description");
 		logCompare(true,addInterval.selectCalendarBasedInterval(),"Select Calendar based Interval");
@@ -206,7 +206,7 @@ public class OperationsSmokeG extends B2WTestCase {
 		logCompare(true,b2wAddItem.selectAddItemPriority(sMaintenanceProgramItemBPriority),"Select Item priority");
 		logCompare(true,b2wAddItem.setAddItemLevel(sMaintenanceProgramItemBLevel),"Select Maintenance Program Level");
 		logCompare(true,b2wAddItem.saveItem(),"Save Item");
-		logCompare(true,b2wMainPrograms.getHeaderandExpandOrCollapse("Intervals", true)," Expand Interval");
+		logCompare(true,b2wMainPrograms.collapseIntervals(),"Collapse Interval");
 		logCompare(true,b2wMainPrograms.clickAddInterval(),"Click Add Interval");
 		logCompare(true,addInterval.setIntervalDescription(sMaintenanceProgramItemAIntervalDesc),"Set Interval Description");
 		logCompare(true,addInterval.selectMeterBasedInterval(),"Select Meter based Interval");
@@ -275,14 +275,14 @@ public class OperationsSmokeG extends B2WTestCase {
 		logCompare(true, b2wOrder.selectPlannedWorkedLocation("Field"), "Planned in the Field");
 		logCompare(true, b2wOrder.selectPriorityFromDD("Medium"), "Medium Priority");
 		logCompare(true, b2wOrder.setWorkOrderNotes("Automation Created this work order"), "Set Notes");
-		logCompare(true, b2wOrder.clickNewItemButton(), "Create New Item");
+		logCompare(true, b2wOrder.clickAddItemButton(), "Create New Item");
 		logCompare(true, b2wAddItemWO.addItem(sMaintenanceRequestDescription), "Add Item");
 		logCompare(true, b2wAddItemWO.generateItem(sMaintenanceProgramItemBDesc), "Generate Item");
 		logCompare(true, b2wOrder.clickConfirmYes(), "Click Yes");
 		logCompare(true, b2wAddItemWO.clickAddNewItemFromWorkOrder(), "Add new item for work order");
 		logCompare(true, b2wAddItemWO.setAddItemDescription(sMaintenanceWorkOrderItemDescriptionA), "Add Item Description");
 		logCompare(true, b2wAddItemWO.setAddItemTypeFromDD(sCategoryC), "Type");
-		logCompare(true, b2wAddItemWO.setAddItemPriorityFromDD("Medium"), "Medium Priority");
+		logCompare(true, b2wAddItemWO.selectAddItemPriorityFromDD("Medium"), "Medium Priority");
 		logCompare(true, b2wAddItemWO.clickCreateAddItemButton(),"Create add Item");
 		logCompare(true, b2wOrder.clickFinish(),"Click Finish");
 		logCompare(true, b2wOrder.clickSaveButton(), "Click Save Button");

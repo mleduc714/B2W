@@ -177,7 +177,7 @@ public class MaintainDashboardSmokeTest_2 extends B2WTestCase {
 		b2wDash.selectWorkOrderByNumber(0);
 		logCompare(true,b2wSchedPopup.clickWorkItemLink(),"Click Work Item");
 		priority = b2wOrder.getPriorityOfItemEnum();
-		b2wOrder.editWorkOrder();
+		b2wOrder.clickEditWorkOrder();
 		
 		switch (priority){
 		case MEDIUM:
@@ -214,7 +214,7 @@ public class MaintainDashboardSmokeTest_2 extends B2WTestCase {
 			
 			b2wDash.selectWorkOrderByNumber(0);
 			logCompare(true,b2wSchedPopup.clickWorkItemLink(),"Click Work Item");
-			b2wOrder.editWorkOrder();
+			b2wOrder.clickEditWorkOrder();
 			b2wOrder.expandHours();
 			b2wOrder.clickAddReportedHours();
 			TaskUtils.sleep(1000);

@@ -70,7 +70,7 @@ public class B2WWorkOrdersTasks extends B2WKendoTasks {
 
 	}
 	
-	public boolean editWorkOrder() {
+	public boolean clickEditWorkOrder() {
 		boolean bReturn = false;
 		WebElement el = WebElementUtils.findElement(B2WMaintain.getKendoEditButton());
 		if (el != null){
@@ -237,39 +237,28 @@ public class B2WWorkOrdersTasks extends B2WKendoTasks {
 		return getSelectedItemFromView(0);
 	}
 
-	public boolean collapseDetails() {
-		return getHeaderandExpandOrCollapse("Details", false);
-	}
-	public boolean expandParts() {
-		return getHeaderandExpandOrCollapse("Parts", true);
-	}
-	public boolean collapseParts() {
-		return getHeaderandExpandOrCollapse("Parts", false);
-	}
-	public boolean expandHours() {
-		return getHeaderandExpandOrCollapse("Hours", true);
-	}
 	public boolean clickAddPlannedHours() {
 		boolean bReturn = false;
-		WebElement el = getButton(6);
-		if (el != null){
+		WebElement el = getButton("Add Planned Hours");
+		if (el != null) {
 			bReturn = WebElementUtils.clickElement(el);
-			bReturn &= WebElementUtils.waitAndFindDisplayedElement(B2WMaintain.getB2WPlannedHours()) != null;
 		}
 		return bReturn;
-		
 	}
 	public boolean clickAddReportedHours() {
-		WebElement el = getButton(7);
-		return WebElementUtils.clickElement(el);
-	
+		boolean bReturn = false;
+		WebElement el = getButton("Report Hours");
+		if (el != null) {
+			bReturn = WebElementUtils.clickElement(el);
+		}
+		return bReturn;
 	}
+
 	public boolean clickAddParts() {
 		boolean bReturn = false;
-		WebElement el = getButton(8);
-		if (el != null){
+		WebElement el = getButton("Add Parts");
+		if (el != null) {
 			bReturn = WebElementUtils.clickElement(el);
-			bReturn &= waitForPageNotBusy(WebElementUtils.MEDIUM_TIME_OUT);
 		}
 		return bReturn;
 	}
@@ -350,10 +339,19 @@ public class B2WWorkOrdersTasks extends B2WKendoTasks {
 	}
 
 	public ArrayList<String> getItemsOnWorkOrder() {
+		
+		return getItems();
+	}
+	
+	public ArrayList<String> getItemsOnEditWorkOrder() {
 		ArrayList<String> al = new ArrayList<String>();
-		WebElement el = WebElementUtils.findElement(B2WMaintain.getB2WWorkOrderItems());
+		List<WebElement> grids = WebElementUtils.findElements(By.cssSelector("div.grid.k-grid.k-widget"));
+		WebElement el  = WebElementUtils.getElementWithMatchingAttribute(grids, "data-bind", "source: editViewModel.workOrderItems.listDataSource");
+		Coordinates coordinate = ((Locatable)el).getCoordinates(); 
+		coordinate.onPage(); 
+		coordinate.inViewPort();
 		if (el != null){
-			List<WebElement> list = WebElementUtils.getElementsWithMatchingAttribute(WebElementUtils.getChildElements(el, By.tagName("td")), "role", "gridcell");
+			List<WebElement> list = WebElementUtils.getChildElements(el, By.tagName("td"));
 			Iterator<WebElement> iter = list.iterator();
 			while (iter.hasNext()){
 				WebElement e = iter.next();
@@ -362,6 +360,29 @@ public class B2WWorkOrdersTasks extends B2WKendoTasks {
 			}
 		}
 		return al;
+	}
+	
+	public boolean selectItemOnEditWorkOrder(String s) {
+		boolean bReturn = false;
+		List<WebElement> grids = WebElementUtils.findElements(By.cssSelector("div.grid.k-grid.k-widget"));
+		WebElement el  = WebElementUtils.getElementWithMatchingAttribute(grids, "data-bind", "source: editViewModel.workOrderItems.listDataSource");
+		Coordinates coordinate = ((Locatable)el).getCoordinates(); 
+		coordinate.onPage(); 
+		coordinate.inViewPort();
+		if (el != null){
+			List<WebElement> list = WebElementUtils.getChildElements(el, By.tagName("td"));
+			Iterator<WebElement> iter = list.iterator();
+			while (iter.hasNext()){
+				WebElement e = iter.next();
+				String sText = e.getText();
+				if (sText.contains(s)){
+					bReturn = WebElementUtils.clickElement(e);
+					break;
+				}
+			}
+		}
+		return bReturn;
+		
 	}
 	
 	public boolean selectItemOnWorkOrder(String s) {
@@ -387,23 +408,189 @@ public class B2WWorkOrdersTasks extends B2WKendoTasks {
 		}
 		return bReturn;
 	}
-	public boolean clickNewItemButton() {
+	public boolean clickAddItemButton() {
 		boolean bReturn = false;
-		WebElement itembutton = WebElementUtils.getElementWithMatchingText(B2WMaintain.getB2WMaintainNewWorkItemAddItemButton(), "Add Item");
-		if (itembutton != null){
-			Coordinates coordinate = ((Locatable)itembutton).getCoordinates(); 
-			coordinate.onPage(); 
-			coordinate.inViewPort();
-			WebElementUtils.clickElement(itembutton);
-			bReturn = waitForPageNotBusy(WebElementUtils.MEDIUM_TIME_OUT);
-			
+		WebElement el = getButton("Add Item");
+		if (el != null){
+			bReturn = WebElementUtils.clickElement(el);
 		}
 		return bReturn;
 	}
+
 	public String getWorkOrderHeadline() {
 		return WebElementUtils.waitAndFindDisplayedElement(B2WEquipment.getEquipmentHeadline()).getText();
 	}
+	
 	public boolean clickFinish() {
 		return super.clickFinish();
 	}
+	
+	public boolean editItemDescription(String s){
+		boolean bReturn = false;
+		WebElement el = getFormElement("Item Description", B2WMaintain.getKendoInputTextBox());
+		if (el != null){
+			bReturn = WebElementUtils.clickElement(el);
+			el.clear();
+			bReturn &= WebElementUtils.sendKeys(el, s);
+		}
+		return bReturn;
+	}
+	public String getOriginatingRequestID(){
+		String sText = "";
+		List<WebElement> grids = WebElementUtils.findElements(By.className("data"));
+		WebElement el = WebElementUtils.getElementWithMatchingAttribute(grids, "data-bind", "text: editViewModel.workOrderItems.selectedItem.maintenanceRequestID");
+		if (el != null){
+			sText = el.getText();
+		}
+		return sText;
+	}
+	
+	public boolean editItemNumber(String s) {
+		boolean bReturn = false;
+		WebElement el = getFormElement("Item Number", B2WMaintain.getKendoInputTextBox());
+		if (el != null){
+			bReturn = WebElementUtils.clickElement(el);
+			el.clear();
+			bReturn &= WebElementUtils.sendKeys(el, s);
+		}
+		return bReturn;
+	}
+	
+	public boolean editProblemCode(String s){
+		boolean bReturn = false;
+		WebElement el = getFormElement("Problem Code", B2WMaintain.getKendoDropDown());
+		if (el != null){
+			bReturn = WebElementUtils.clickElement(el);
+			bReturn &= selectItemFromDropDown(s);
+		}
+		return bReturn;
+	}
+	
+	public boolean editType(String s){
+		boolean bReturn = false;
+		WebElement el = getFormElement("Type", B2WMaintain.getKendoDropDown());
+		if (el != null){
+			bReturn = WebElementUtils.clickElement(el);
+			bReturn &= selectItemFromDropDown(s);
+		}
+		return bReturn;
+	}
+	public boolean editCompCode(String s){
+		boolean bReturn = false;
+		WebElement el = getFormElement("Component Code", B2WMaintain.getKendoDropDown());
+		if (el != null){
+			bReturn = WebElementUtils.clickElement(el);
+			bReturn &= selectItemFromDropDown(s);
+		}
+		return bReturn;
+	}
+	public boolean editSubcomponentCode(String s){
+		boolean bReturn = false;
+		WebElement el = getFormElement("Subcomponent Code", B2WMaintain.getKendoDropDown());
+		if (el != null){
+			bReturn = WebElementUtils.clickElement(el);
+			bReturn &= selectItemFromDropDown(s);
+		}
+		return bReturn;
+	}
+	public boolean editFailureCode(String s){
+		boolean bReturn = false;
+		WebElement el = getFormElement("Failure Code", B2WMaintain.getKendoDropDown());
+		if (el != null){
+			bReturn = WebElementUtils.clickElement(el);
+			bReturn &= selectItemFromDropDown(s);
+		}
+		return bReturn;
+	}
+	public boolean editActionCode(String s){
+		boolean bReturn = false;
+		WebElement el = getFormElement("Action Code", B2WMaintain.getKendoDropDown());
+		if (el != null){
+			bReturn = WebElementUtils.clickElement(el);
+			bReturn &= selectItemFromDropDown(s);
+		}
+		return bReturn;
+	}
+	public boolean editWarranty(String s){
+		boolean bReturn = false;
+		WebElement el = getFormElement("Warranty", B2WMaintain.getKendoDropDown());
+		if (el != null){
+			bReturn = WebElementUtils.clickElement(el);
+			bReturn &= selectItemFromDropDown(s);
+		}
+		return bReturn;
+	}
+	public boolean chargeToJob(boolean check){
+
+		List<WebElement> el = WebElementUtils.getElementsWithMatchingAttribute(WebElementUtils.findElements(By.tagName("input")), "name","ChargeToJob");
+		WebElement box = WebElementUtils.getVisibleElementFromListofElements(el);
+		
+		
+		Coordinates coordinate = ((Locatable)box).getCoordinates(); 
+		coordinate.onPage(); 
+		coordinate.inViewPort();
+		
+		return checkBox(box, check);
+	}
+	public boolean editAltID(String sID){
+		boolean bReturn = false;
+		WebElement el = getFormElement("Alternate ID", B2WMaintain.getKendoInputTextBox());
+		if (el != null){
+			bReturn = WebElementUtils.clickElement(el);
+			el.clear();
+			bReturn &= WebElementUtils.sendKeys(el, sID);
+		}
+		return bReturn;
+	}
+	public boolean editNotesForItem(String sText){
+		return setNotesForItem(sText);
+	}
+	
+	private List<WebElement> getPartsRows() {
+		WebElement header = getHeader("Parts");
+		WebElement historyView = WebElementUtils.getChildElement(header, By.cssSelector("div.grid.parts-grid.k-grid.k-widget"));
+		WebElement tbody = WebElementUtils.getChildElement(historyView, By.tagName("tbody"));
+		List<WebElement> rows = WebElementUtils.getChildElements(tbody, By.tagName("tr"));
+		return rows;
+	}
+	public ArrayList<String> getParts() {
+		ArrayList<String> al = new ArrayList<String>();
+		Iterator<WebElement> iter = getPartsRows().iterator();
+		while (iter.hasNext()){
+			al.add(WebElementUtils.getChildElements(iter.next(),By.tagName("td")).get(0).getText());
+		}
+		return al;
+	}
+	public boolean deletePart(String sPart){
+		boolean bReturn = false;
+		int iRow = getParts().indexOf(sPart);
+		List<WebElement> rows = getPartsRows();
+		if (rows.size()>0){
+			WebElement delete = WebElementUtils.getChildElement(rows.get(iRow), B2WMaintain.getKendoDeleteButton());
+			bReturn = WebElementUtils.clickElement(delete);
+		}
+		return bReturn;
+	}
+	public boolean clickAddPartsToItem() {
+		return WebElementUtils.clickElement(getButton("Add Parts"));
+	}
+	public boolean clickEditQuantities() {
+		return WebElementUtils.clickElement(getEditButton("Edit Quantities"));
+	}
+	public boolean setCommentAndSave(String sText){
+		return super.setNewCommentAndSave(sText);
+	}
+	public String getComment() {
+		return getComments(0,0);
+	}
+	public boolean deleteComment(String sComment){
+		boolean bReturn = false;
+		WebElement el = getRowByCommentDescription(sComment);
+		if (el != null){
+			WebElement delete = WebElementUtils.getChildElement(el, B2WMaintain.getKendoDeleteButton());
+			bReturn = WebElementUtils.clickElement(delete);
+		}
+		return bReturn;
+	}
+
 }

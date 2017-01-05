@@ -83,6 +83,7 @@ public abstract class B2WKendoDialog extends B2WKendo {
 			WebElement temp = iter.next();
 			if (temp.isDisplayed()){
 				window = temp;
+				break;
 			}
 		}
 		return window;

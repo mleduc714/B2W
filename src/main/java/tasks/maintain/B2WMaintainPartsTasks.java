@@ -166,36 +166,7 @@ public class B2WMaintainPartsTasks extends B2WKendoTasks {
 	public boolean selectPartByDescription(String sText){
 		return selectItemFromView(sText, 1);
 	}
-	public boolean expandAttachments() {
-		return getHeaderandExpandOrCollapse("Attachments", true);
-	}
-	public boolean expandVendors() {
-		return getHeaderandExpandOrCollapse("Vendors", true);
-	}
-	public boolean expandInventoryHistory() {
-		return getHeaderandExpandOrCollapse("Inventory History", true);
-	}
-	public boolean expandPurchaseOrderHistory() {
-		return getHeaderandExpandOrCollapse("Purchase Order History", true);
-	}
-	public boolean expandWarranty() {
-		return getHeaderandExpandOrCollapse("Warranty", true);
-	}
-	public boolean collapseAttachments() {
-		return getHeaderandExpandOrCollapse("Attachments", false);
-	}
-	public boolean collapseVendors() {
-		return getHeaderandExpandOrCollapse("Vendors", false);
-	}
-	public boolean collapseInventoryHistory() {
-		return getHeaderandExpandOrCollapse("Inventory History", false);
-	}
-	public boolean collapsePurchaseOrderHistory() {
-		return getHeaderandExpandOrCollapse("Purchase Order History", false);
-	}
-	public boolean collapseWarranty() {
-		return getHeaderandExpandOrCollapse("Warranty", false);
-	}
+
 	private boolean selectViewFromDropDown(String sText){
 		boolean bReturn = false;
 		WebElement listView = WebElementUtils.waitAndFindDisplayedElement(B2WMaintain.getMaintainPartsListView());

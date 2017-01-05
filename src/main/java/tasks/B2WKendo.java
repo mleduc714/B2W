@@ -277,11 +277,32 @@ public abstract class B2WKendo {
 				WebDriver driver = BrowserUtils.getDriver().switchTo().frame(iframe);
 				WebElement body = driver.findElement(By.tagName("body"));
 				WebElementUtils.clickElement(body);
+				body.clear();
 				bReturn = WebElementUtils.sendKeys(body, sText);
 				BrowserUtils.getDriver().switchTo().defaultContent();
 				break;
 			}
 		}
+		return bReturn;
+	}
+	
+	protected boolean setNotesForItem(String sText) {
+		boolean bReturn = false;
+		List<WebElement> displayedFrames = new ArrayList<WebElement>();
+		List<WebElement> iframes = BrowserUtils.getDriver().findElements(By.tagName("iframe"));
+		for (WebElement iframe : iframes) {
+			if (iframe.isDisplayed() == true) {
+				// we want this one.
+				displayedFrames.add(iframe);
+			}
+		}
+		WebDriver driver = BrowserUtils.getDriver().switchTo().frame(displayedFrames.get(displayedFrames.size() - 1));
+		WebElement body = driver.findElement(By.tagName("body"));
+		WebElementUtils.clickElement(body);
+		body.clear();
+		bReturn = WebElementUtils.sendKeys(body, sText);
+		BrowserUtils.getDriver().switchTo().defaultContent();
+
 		return bReturn;
 	}
 	public ArrayList<String> getItemsFromDropDown() {
