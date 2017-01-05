@@ -413,6 +413,7 @@ public class B2WWorkOrdersTasks extends B2WKendoTasks {
 		WebElement el = getButton("Add Item");
 		if (el != null){
 			bReturn = WebElementUtils.clickElement(el);
+			TaskUtils.sleep(500);
 		}
 		return bReturn;
 	}
