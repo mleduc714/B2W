@@ -413,7 +413,7 @@ public class B2WWorkOrdersTasks extends B2WKendoTasks {
 		WebElement el = getButton("Add Item");
 		if (el != null){
 			bReturn = WebElementUtils.clickElement(el);
-			TaskUtils.sleep(500);
+			waitForPageNotBusy(WebElementUtils.MEDIUM_TIME_OUT);
 		}
 		return bReturn;
 	}
@@ -549,11 +549,118 @@ public class B2WWorkOrdersTasks extends B2WKendoTasks {
 	
 	private List<WebElement> getPartsRows() {
 		WebElement header = getHeader("Parts");
-		WebElement historyView = WebElementUtils.getChildElement(header, By.cssSelector("div.grid.parts-grid.k-grid.k-widget"));
-		WebElement tbody = WebElementUtils.getChildElement(historyView, By.tagName("tbody"));
+		WebElement tbody = WebElementUtils.getChildElement(header, By.tagName("tbody"));
 		List<WebElement> rows = WebElementUtils.getChildElements(tbody, By.tagName("tr"));
 		return rows;
 	}
+	
+	private List<WebElement> getPlannedHourRows() {
+		List<WebElement> rows = null;
+		List<WebElement> hourslist = WebElementUtils.findElements(By.className("hours-list"));
+		for (WebElement el : hourslist) {
+			if (el.getAttribute("id").equals("hours_list_view")) {
+				if (el.isDisplayed()) {
+					WebElement tbody = WebElementUtils.getChildElement(el, By.tagName("tbody"));
+					rows = WebElementUtils.getChildElements(tbody, By.tagName("tr"));
+					break;
+				}
+			}
+		}
+		return rows;
+	}
+	private List<WebElement> getEditPlannedHourRows() {
+		List<WebElement> rows = null;
+		List<WebElement> hourslist = WebElementUtils.findElements(By.className("hours-list"));
+		for (WebElement el : hourslist) {
+			if (el.getAttribute("id").equals("hours_edit")) {
+				if (el.isDisplayed()) {
+					WebElement tbody = WebElementUtils.getChildElement(el, By.tagName("tbody"));
+					rows = WebElementUtils.getChildElements(tbody, By.tagName("tr"));
+					break;
+				}
+			}
+		}
+		return rows;
+	}
+
+	private List<WebElement> getReportedHourRows() {
+		List<WebElement> rows = null;
+		List<WebElement> hourslist = WebElementUtils.findElements(By.className("hours-list"));
+		for (WebElement el : hourslist) {
+			if (el.getAttribute("id").equals("reported_list_view")) {
+				if (el.isDisplayed()) {
+					WebElement tbody = WebElementUtils.getChildElement(el, By.tagName("tbody"));
+					rows = WebElementUtils.getChildElements(tbody, By.tagName("tr"));
+					break;
+				}
+			}
+		}
+		return rows;
+	}
+	
+	private List<WebElement> getEditReportedHourRows() {
+		List<WebElement> rows = null;
+		List<WebElement> hourslist = WebElementUtils.findElements(By.className("reported-list"));
+		for (WebElement el : hourslist) {
+			if (el.getAttribute("id").equals("reported_hours_edit")) {
+				if (el.isDisplayed()) {
+					WebElement tbody = WebElementUtils.getChildElement(el, By.tagName("tbody"));
+					rows = WebElementUtils.getChildElements(tbody, By.tagName("tr"));
+					break;
+				}
+			}
+		}
+		return rows;
+	}
+	
+	
+	public ArrayList<String> getPlannedHoursFromView() {
+		ArrayList<String> al = new ArrayList<String>();
+		List<WebElement> HourRows = getPlannedHourRows();
+		if (HourRows != null) {
+			Iterator<WebElement> iter = HourRows.iterator();
+			while (iter.hasNext()) {
+				al.add(WebElementUtils.getChildElements(iter.next(), By.tagName("td")).get(0).getText());
+			}
+		}
+		return al;
+	}
+	public ArrayList<String> getPlannedHoursFromEditView() {
+		ArrayList<String> al = new ArrayList<String>();
+		List<WebElement> HourRows = getEditPlannedHourRows();
+		if (HourRows != null) {
+			Iterator<WebElement> iter = HourRows.iterator();
+			while (iter.hasNext()) {
+				al.add(WebElementUtils.getChildElements(iter.next(), By.tagName("td")).get(0).getText());
+			}
+		}
+		return al;
+	}
+	public ArrayList<String> getReportedHoursFromView() {
+		ArrayList<String> al = new ArrayList<String>();
+		List<WebElement> HourRows = getReportedHourRows();
+		if (HourRows != null) {
+			Iterator<WebElement> iter = HourRows.iterator();
+			while (iter.hasNext()) {
+				al.add(WebElementUtils.getChildElements(iter.next(), By.tagName("td")).get(0).getText());
+			}
+		}
+		return al;
+	}
+	
+	public ArrayList<String> getReportedHoursFromEditView() {
+		ArrayList<String> al = new ArrayList<String>();
+		List<WebElement> HourRows = getEditReportedHourRows();
+		if (HourRows != null) {
+			Iterator<WebElement> iter = HourRows.iterator();
+			while (iter.hasNext()) {
+				al.add(WebElementUtils.getChildElements(iter.next(), By.tagName("td")).get(0).getText());
+			}
+		}
+		return al;
+	}
+	
+	
 	public ArrayList<String> getParts() {
 		ArrayList<String> al = new ArrayList<String>();
 		Iterator<WebElement> iter = getPartsRows().iterator();
