@@ -127,7 +127,7 @@ public class MaintainScheduleSmokeTest_2 extends B2WTestCase {
 		b2wOrder.selectAnyPlannedWorkLocation();
 		b2wOrder.selectPriorityFromDD("Medium");
 		TaskUtils.sleep(1000);
-		b2wOrder.clickAddItemButton();
+		assertTrue("Click Add Button",b2wOrder.clickAddItemButton());
 		if (b2wAddItemWO.selectItemsToWorkOrderExists()) {
 			if (b2wAddItemWO.addAllRequests()) {
 
@@ -144,8 +144,8 @@ public class MaintainScheduleSmokeTest_2 extends B2WTestCase {
 			b2wAddItemWO.setAddItemTypeFromDD("Repair");
 			logCompare(true,b2wAddItemWO.clickCreateAddItemButton(), "Add Item");
 		}
-		logCompare(true,b2wOrder.clickSaveButton(),"Click Save");
 		
+		logCompare(true,b2wOrder.clickSaveButton(),"Click Save");
 		TaskUtils.sleep(1000);
 		logCompare(true,b2wSchd.clickWorkOrderFromWorkOrderTabByDescription(sWorkDescription), "Click On Work Order to see if available");
 		logCompare("Medium",tooltip.getPriority(), "Priority Match");
@@ -267,11 +267,6 @@ public class MaintainScheduleSmokeTest_2 extends B2WTestCase {
 			logCompare(false, b2wSchd.openWorkOrderFromPastDueTabByDescription(sUpdatedWorkDescriptionB),
 					"Work Item is not on schedule");
 		}
-		
-		
-
-	
-		
 	}
 	
 }

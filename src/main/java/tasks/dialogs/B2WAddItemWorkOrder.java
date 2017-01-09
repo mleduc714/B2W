@@ -331,10 +331,13 @@ public class B2WAddItemWorkOrder extends B2WKendoDialog {
 	public boolean clickCreateAddItemButton() {
 		boolean bReturn = false;
 		WebElement parent = getDisplayedWindow();
-		WebElement button = WebElementUtils.getChildElement(parent,B2WMaintain.getB2WMaintainAddItemCreateButton());
-		if (button != null){
-			bReturn = WebElementUtils.clickElement(button);
-			bReturn &= WebElementUtils.waitForElementInvisible(button);
+		if (parent != null) {
+			WebElement button = WebElementUtils.getChildElement(parent,
+					B2WMaintain.getB2WMaintainAddItemCreateButton());
+			if (button != null) {
+				bReturn = WebElementUtils.clickElement(button);
+				bReturn &= WebElementUtils.waitForElementInvisible(button);
+			}
 		}
 		return bReturn;
 	}

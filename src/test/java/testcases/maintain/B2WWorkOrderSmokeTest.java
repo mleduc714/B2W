@@ -111,6 +111,9 @@ public class B2WWorkOrderSmokeTest extends B2WTestCase {
 //		•Create a New Work Order
 //		•Add a New Item to a Work Order
 //		•Generate/Add an active maintenance program service to a Work Order//
+//		•Edit Work Order•Details
+//		•Hours (Planned/Reported)
+//		•Parts (Database & Custom Part)
 		createEquipment();
 		createRequest();
 		createWorkOrder();
@@ -118,9 +121,7 @@ public class B2WWorkOrderSmokeTest extends B2WTestCase {
 		addProgramToWorkOrder();
 		editItemsOnWorkOrder();
 		verifyWorkOrder();
-//		•Edit Work Order•Details
-//		•Hours (Planned/Reported)
-//		•Parts (Database & Custom Part)
+
 //		•Add/Edit/Delete Comments on a Request
 //		•Add/Edit/Delete Attachments on a Request
 //		•Search for information on Requests including Expanded Search
@@ -272,8 +273,6 @@ public class B2WWorkOrderSmokeTest extends B2WTestCase {
 	}
 	
 	public void verifyWorkOrder() {
-
-		
 		TaskUtils.sleep(1000);
 	}
 }
