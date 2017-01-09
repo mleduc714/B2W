@@ -1117,5 +1117,5 @@ public class B2WUIMap {
 	public static final String b2w_maintainpartwarrantydurationlist = "div#DurationList";
 	//
 	public static final String b2w_requestdetailview = "div#request_detail_view";
-
+	public static final String b2w_searchfilterlist = "input.search-filter.list-filter.k-textbox";
 }

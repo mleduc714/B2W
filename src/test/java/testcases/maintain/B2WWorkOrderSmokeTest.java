@@ -1,5 +1,6 @@
 package testcases.maintain;
 
+import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -10,6 +11,7 @@ import tasks.B2WNavigationTasks;
 import tasks.dialogs.B2WAddEquipmentToMainProgram;
 import tasks.dialogs.B2WAddItemWorkOrder;
 import tasks.dialogs.B2WAddPartsToWorkItem;
+import tasks.dialogs.B2WCompleteWorkOrder;
 import tasks.dialogs.B2WPlannedHours;
 import tasks.dialogs.B2WReportHours;
 import tasks.maintain.B2WMaintainProgramsTasks;
@@ -32,6 +34,7 @@ public class B2WWorkOrderSmokeTest extends B2WTestCase {
 	B2WPlannedHours b2wPlannedHours = new B2WPlannedHours();
 	B2WReportHours b2wReportHours = new B2WReportHours();
 	B2WAddPartsToWorkItem addParts = new B2WAddPartsToWorkItem();
+	B2WCompleteWorkOrder b2wCmp = new B2WCompleteWorkOrder();
 	
 	String sEquipment, sRequestEquipmentDesc, sRequestType, sProblemCode, sRequestBy, sRequestNotes, sRequestComments, sRequestID;
 	String sEquipmentName, sEquipmentID_Name, sWorkOrderDescription, sWorkOrderItemDescription;
@@ -43,14 +46,16 @@ public class B2WWorkOrderSmokeTest extends B2WTestCase {
 	String sPart1,sPart2;
 	int iRandom;
 	
+	Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+	
 	@Override
 	public void testSetUp() throws Throwable {
 		// code here for setting up the test
 		super.testSetUp();
 		iRandom = getRandomNumber();
 		sRequestEquipmentDesc = getProperty("sRequestEquipmentDesc")+iRandom;
-		sRequestNotes = getProperty("sRequestNotes");
-		sRequestComments = getProperty("sRequestComments");
+		sRequestNotes = getProperty("sRequestNotes")+timestamp.getTime();
+		sRequestComments = getProperty("sRequestComments")+timestamp.getTime();
 		sEquipment = getProperty("sEquipmentName");
 		sEquipmentName = getProperty("sEquipmentName")+iRandom;
 		sEquipmentID_Name = iRandom + " ["+sEquipmentName+"]";
@@ -67,6 +72,8 @@ public class B2WWorkOrderSmokeTest extends B2WTestCase {
 		sCustomEstQty = getProperty("sCustomPartCost");
 		sCustomRptQty = getProperty("sCustomRptQty");
 		sCustomRptUnitOfMeasure = getProperty("sCustomRptUnitOfMeasure");
+
+
 	}
 
 	@Override
@@ -84,7 +91,7 @@ public class B2WWorkOrderSmokeTest extends B2WTestCase {
 
 	@Override
 	public String getAuthor() {
-		return "author";
+		return "mleduc";
 	}
 
 	@Override
@@ -114,6 +121,7 @@ public class B2WWorkOrderSmokeTest extends B2WTestCase {
 //		•Edit Work Order•Details
 //		•Hours (Planned/Reported)
 //		•Parts (Database & Custom Part)
+//		•Add/Edit/Delete Comments on a Request
 		createEquipment();
 		createRequest();
 		createWorkOrder();
@@ -122,21 +130,15 @@ public class B2WWorkOrderSmokeTest extends B2WTestCase {
 		editItemsOnWorkOrder();
 		verifyWorkOrder();
 
-//		•Add/Edit/Delete Comments on a Request
-//		•Add/Edit/Delete Attachments on a Request
 //		•Search for information on Requests including Expanded Search
 //		•Explore Advanced Search & Filters
 //		•Sorting of Work Order List
-//		•View Report on a Work Order
 //		•Approve a Work Order
 //		•Complete a Work Order
 //		•Unapprove a Work Order
-//		•Links on the Work Order •'Nearby Maintenance Around this Equipment' launches to Map
 //		•Equipment Link
 //		•Request Link
 //		•Active Warranty Link
-//
-//		•Security Settings for Work Order*/
 		
 		
 	}
@@ -214,7 +216,7 @@ public class B2WWorkOrderSmokeTest extends B2WTestCase {
 	
 	public void addProgramToWorkOrder() {
 		logCompare(true,b2wmain.openPrograms(),"Open Programs");
-		logCompare(true,program.selectMaintenanceProgram(0),"Select first program");
+		logCompare(true,program.selectMaintenanceProgram(1),"Select first program");
 		ArrayList<String> progItems = program.getItemsFromProgram();
 		sProgramItem = progItems.get(progItems.size()-1);
 		
@@ -235,19 +237,20 @@ public class B2WWorkOrderSmokeTest extends B2WTestCase {
 		logCompare(true,b2wWork.selectWorkOrderByDescription(sWorkOrderDescription), "Select Description for "+sWorkOrderDescription);
 		logCompare(true,b2wWork.clickEditWorkOrder(), "");
 
-		logCompare(true,b2wWork.expandHours(), "");
-		logCompare(true,b2wWork.clickAddPlannedHours(), "");
+		logCompare(true,b2wWork.expandHours(), "Expanded Hours");
+		logCompare(true,b2wWork.clickAddPlannedHours(), "Add Planned Hours");
 		logCompare(true,b2wPlannedHours.setDescription(this.sWorkOrderPlannedHoursDesc), "");
 		logCompare(true,b2wPlannedHours.setPlannedHours(this.sWorkOrderPlannedHours), "");
 		logCompare(true,b2wPlannedHours.selectLaborType(this.sWorkOrderPlannedLaborType), "");
-		logCompare(true,b2wPlannedHours.savePlannedHours(), "");
-		logCompare(true,b2wWork.clickAddReportedHours(), "");
+		logCompare(true,b2wPlannedHours.savePlannedHours(), "Save Planned Hours");
+		logCompare(true,b2wWork.clickAddReportedHours(), "Add Reported Hours");
 		logCompare(true,b2wReportHours.setEmployeeWorkHoursDescription(this.sWorkOrderReportHoursDesc), "");
+		TaskUtils.sleep(500);
 		logCompare(true,b2wReportHours.selectEmployeeLaborType(this.sWorkOrderReportLaborType), "");
-		logCompare(true,b2wReportHours.setDate(format.format(cal.getTime())), "");
+		logCompare(true,b2wReportHours.setDate(format.format(cal.getTime())), "Set the Date");
 		b2wReportHours.selectRandomEmployee();
 		logCompare(true,b2wReportHours.setEmployeeRegularHours(this.sWorkOrderReportRegularHours), "");
-		logCompare(true,b2wReportHours.saveReportedHours(), "");
+		logCompare(true,b2wReportHours.saveReportedHours(), "Save Reported Hours");
 		TaskUtils.sleep(1000);
 		logCompare(true,b2wWork.clickAddItemButton(), "Click Add Item");
 		TaskUtils.sleep(1000);
@@ -273,6 +276,49 @@ public class B2WWorkOrderSmokeTest extends B2WTestCase {
 	}
 	
 	public void verifyWorkOrder() {
+		
+		String sNewComment = "Edited:"+ timestamp.getTime();
+		logCompare(true, b2wWork.selectWorkOrderByDescription(sWorkOrderDescription), "Select Work Order");
+
+		logCompare(true, b2wWork.selectItemOnWorkOrder(sWorkOrderItemDescription),"Work Order Item");
+		logCompare(true,b2wWork.expandParts(),"Expand Parts");
+		logCompare(true,b2wWork.getParts().contains(sPart1), "Contains part "+sPart1);
+		logCompare(true,b2wWork.getParts().contains(sPart2), "Contains part "+sPart2);
+		logCompare(true,b2wWork.getParts().contains(sCustomPart), "Contains part "+sCustomPart);
+		logCompare(true, b2wWork.selectItemOnWorkOrder(sRequestEquipmentDesc),"Select Request");
+		logCompare(true,b2wWork.expandComments(), "Expand Comments");
+		logCompare(sRequestComments,b2wWork.getComment(), "Verify Comments");
 		TaskUtils.sleep(1000);
+		logCompare(true,b2wWork.editComment(sRequestComments),"Edit Comment");
+		logCompare(true,b2wWork.setCommentAndSave(sNewComment),"Save New Comment");
+		logCompare(sNewComment,b2wWork.getComment(), "Verify New Comments");
+		logCompare(true,b2wWork.selectWorkOrdersContainingProgramItems(),"Work Order Containing Program items");
+		TaskUtils.sleep(1000);
+		logCompare(true, b2wWork.selectWorkOrderByDescription(sWorkOrderDescription), "Select Work Order");
+		logCompare(true,b2wWork.selectOpenWorkOrders(),"Select Open Work Orders");
+		TaskUtils.sleep(1000);
+		logCompare(true, b2wWork.selectWorkOrderByDescription(sWorkOrderDescription), "Select Work Order");
+		logCompare(true,b2wWork.selectCompletedWorkOrders(),"Completed Work Order Items");
+		TaskUtils.sleep(1000);
+		logCompare(false, b2wWork.selectWorkOrderByDescription(sWorkOrderDescription), "Select Work Order");
+		logCompare(true,b2wWork.selectOpenWorkOrders(),"Select Open Work Orders");
+		TaskUtils.sleep(1000);
+		logCompare(true, b2wWork.selectWorkOrderByDescription(sWorkOrderDescription), "Select Work Order");
+		logCompare(true, b2wWork.clickApproveButton(), "Approve Work Order");
+		logCompare(false, b2wWork.selectWorkOrderByDescription(sWorkOrderDescription), "Select Work Order");
+		logCompare(true,b2wWork.selectAllWorkOrders(), "Select All Work Orders");
+		TaskUtils.sleep(1000);
+		logCompare(true, b2wWork.selectWorkOrderByDescription(sWorkOrderDescription), "Select Work Order");
+		logCompare(true, b2wWork.clickComplete(), "Complete Work Order");
+		logCompare(true, b2wCmp.clickNextPage(),"Click Next Page");
+		logCompare(true,b2wCmp.selectCompletedWorkItem(sWorkOrderItemDescription), "Select Work Item");
+		logCompare(true,b2wCmp.selectCompletedWorkItem(sRequestEquipmentDesc), "Select Work Item");
+		logCompare(true,b2wCmp.completeSave(), "Complete Save");
+		TaskUtils.sleep(1000);
+		logCompare(true,b2wWork.selectCompletedWorkOrders(),"Completed Work Order Items");
+		TaskUtils.sleep(1000);
+		logCompare(true, b2wWork.selectWorkOrderByDescription(sWorkOrderDescription), "Select Work Order");
+		
+		
 	}
 }

@@ -657,5 +657,8 @@ public class B2WMaintain extends KendoUI {
 	public static By getMaintainRequestDetailView() {
 		return By.cssSelector(B2WUIMap.b2w_requestdetailview);
 	}
+	public static By getMaintainSearchFilterList(){
+		return By.cssSelector(B2WUIMap.b2w_searchfilterlist);
+	}
 
 }
