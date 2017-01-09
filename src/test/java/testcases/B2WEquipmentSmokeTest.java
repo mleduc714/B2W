@@ -41,7 +41,7 @@ public class B2WEquipmentSmokeTest extends B2WTestCase {
 	@Override
 	public String getDataPath() {
 		// for properties files of test data
-		return "data/test";
+		return "data/equipment";
 	}
 
 	@Override
@@ -115,7 +115,7 @@ public class B2WEquipmentSmokeTest extends B2WTestCase {
 		//Enter Component Specs
 		
 		logCompare(true, equipmentTasks.expandComponentSpecs(), "");
-		
+		logCompare(true, equipmentTasks.setComponentSpecsProductionDate("10/11/2016"), "Production Date");
 		logCompare(true, equipmentTasks.setTextComponentSpecs("Tire Size", "sText"), "Text Component Specs");
 		logCompare(true, equipmentTasks.setTextComponentSpecs("Engine", "Engine Name"), "Engine");
 		logCompare(true, equipmentTasks.setTextComponentSpecs("Engine Arrangement", "Arrangement"), "");
@@ -160,7 +160,17 @@ public class B2WEquipmentSmokeTest extends B2WTestCase {
 		
 		//MISSING:
 		//
-		//Add Meter Description add on to meter
+		//		logCompare(true, b2wEquip.clickAddMeterButton(), "Click Add Meter");
+		//B2WAddMeterToEquipment b2waddmeter = new B2WAddMeterToEquipment();
+//		logCompare(true, b2waddmeter.selectAddMeterTypeFromDD(sCategoryB), "Select Add "+sCategoryB+" Meter");
+//		logCompare(true, b2waddmeter.selectAddMeterRequiredOnWorkOrderCompletionNotRequired(), "Add Meter not required");
+//		logCompare(true, b2waddmeter.selectAddMeterExcludeFromWorkOrdersNever(), "Exclude never");
+//		logCompare(true, b2waddmeter.setAddMeterTypeDescription("Hours Meter"), "Meter Description");
+//		logCompare(true, b2waddmeter.setAddMeterIntialReading("20"),"Intial Reading");
+//		logCompare(true, b2waddmeter.setAddMeterEnterNewReadingCheckBox(), "Enter new reading checkbox");
+//		logCompare(true, b2waddmeter.setAddMeterEnterNewReading("120"),"Enter new reading");
+//		logCompare(true, b2waddmeter.setAddMeterEnterNewReadingDate(sDateTwoDaysAgo), "Set two days ago");
+		//b2waddmeter.clickSaveAddMeter()
 		//
 		//Save Meter
 		
@@ -274,6 +284,8 @@ public class B2WEquipmentSmokeTest extends B2WTestCase {
 
 		
 		equipmentTasks.saveNewEquipment();
+		
+		//verification
 		
 	}
 	

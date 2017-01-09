@@ -196,6 +196,23 @@ public class B2WEquipmentTasks extends B2WKendoTasks {
 	
 	
 	//COMPONENT SPECS
+	
+	public boolean setComponentSpecsProductionDate(String sText){
+		boolean bReturn = false;
+
+		List<WebElement> els = WebElementUtils.findElements(KendoUI.getKendoDropDown());
+		WebElement el = WebElementUtils.getElementWithMatchingAttribute(els, "name", "ProductionDate");
+		
+		if (el != null && WebElementUtils.waitForElementIsDisplayed(el, WebElementUtils.MEDIUM_TIME_OUT)) {
+			WebElementUtils.clickElement(el);
+			bReturn = WebElementUtils.sendKeys(el, sText);
+		}else{
+			log.debug("Element was not available to send text to");
+		}
+
+		return bReturn;
+	}
+	
 	public boolean setComponentSpecsEngine(String sText) {
 		boolean bReturn = false;
 
