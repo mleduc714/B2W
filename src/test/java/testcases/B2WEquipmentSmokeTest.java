@@ -6,6 +6,7 @@ import com.b2w.test.B2WTestCase;
 
 import tasks.B2WNavigationTasks;
 import tasks.dialogs.B2WAddEvent;
+import tasks.dialogs.B2WAddPartsToEquipment;
 import tasks.dialogs.B2WAddWarranty;
 import tasks.resources.B2WEquipmentTasks;
 import tasks.util.TaskUtils;
@@ -67,6 +68,8 @@ public class B2WEquipmentSmokeTest extends B2WTestCase {
 		B2WAddEvent events = new B2WAddEvent();
 		
 		Random random = new Random();
+		
+		B2WAddPartsToEquipment equipmentParts = new B2WAddPartsToEquipment();
 		
 		logCompare(true, navigation.openEquipment(), "");
 		
@@ -174,6 +177,8 @@ public class B2WEquipmentSmokeTest extends B2WTestCase {
 		//MISSING:
 		//
 		//select a part
+		
+		equipmentParts.selectPartToAddToEquipmentByDescription("Bucket teeth");
 		
 		equipmentTasks.collapseParts();
 		
