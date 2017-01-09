@@ -8,12 +8,13 @@ import tasks.resources.B2WCrewTemplateTasks;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class B2WCrewTemplateTest extends B2WTestCase{
+public class B2WCrewTemplateTest extends B2WTestCase {
 
     B2WNavigationTasks b2wNav = new B2WNavigationTasks();
     B2WCrewTemplateTasks crewTemplateTasks = new B2WCrewTemplateTasks();
 
-	private B2WCrewTemplate productionCrewTemplate = new B2WCrewTemplate();
+    private B2WCrewTemplate productionCrewTemplate = new B2WCrewTemplate();
+    private B2WCrewTemplate productionCrewTemplateUpdate = new B2WCrewTemplate();
 
     @Override
     public void testTearDown() throws Throwable {
@@ -40,45 +41,73 @@ public class B2WCrewTemplateTest extends B2WTestCase{
         return null;
     }
 
-	@Override
-	public void testSetUp() throws Throwable {
-		super.testSetUp();
+    @Override
+    public void testSetUp() throws Throwable {
+        super.testSetUp();
 
-		// === Setup Production Crew Template
+        // === Setup Production Crew Template
         productionCrewTemplate.setType("Production Crew");
-        productionCrewTemplate.setName(getProperty("sProdCrewTemplateName")); 				        //AUT Prod Crew
-        productionCrewTemplate.setID(getProperty("sProdCrewTemplateID"));					            //AUT Prod Crew ID
-        productionCrewTemplate.setWorkType(getProperty("sProdCrewTemplateWorkType")); 		        //Bridge
-        productionCrewTemplate.setWorkSubType(getProperty("sProdCrewTemplateWorkSubtype"));	        //Support
-		productionCrewTemplate.setBusinessUnit(getProperty("sProdCrewTemplateBU"));					//Organization
-		productionCrewTemplate.setNotes(getProperty("sProdCrewTemplateNotes"));				        //AUT Production Crew Notes!!!
-		productionCrewTemplate.setInactive(getProperty("sProdCrewTemplateInactive").toLowerCase().equals("true"));		//false
-		productionCrewTemplate.setForeman(getProperty("sProdCrewTemplateForeman"));			        //Addison Miller
+        productionCrewTemplate.setName(getProperty("sProdCrewTemplateName"));                        //AUT Prod Crew
+        productionCrewTemplate.setID(getProperty("sProdCrewTemplateID"));                                //AUT Prod Crew ID
+        productionCrewTemplate.setWorkType(getProperty("sProdCrewTemplateWorkType"));                //Bridge
+        productionCrewTemplate.setWorkSubType(getProperty("sProdCrewTemplateWorkSubtype"));            //Support
+        productionCrewTemplate.setBusinessUnit(getProperty("sProdCrewTemplateBU"));                    //Organization
+        productionCrewTemplate.setNotes(getProperty("sProdCrewTemplateNotes"));                        //AUT Production Crew Notes!!!
+        productionCrewTemplate.setInactive(getProperty("sProdCrewTemplateInactive").toLowerCase().equals("true"));        //false
+        productionCrewTemplate.setForeman(getProperty("sProdCrewTemplateForeman"));                    //Addison Miller
         productionCrewTemplate.setEmployees(parseString(getProperty("employeesList")));                    //Aaliyah Parker, Caroline Chan
         productionCrewTemplate.setEquipments(parseString(getProperty("equipmentList")));             //AUGTRK, BH002
-        productionCrewTemplate.setLaborTypes(parseString(getProperty("laborTypeList")));				//Auger Operator, Carpenter
-        productionCrewTemplate.setEquipmentTypes(parseString(getProperty("equipmentTypeList")));			//953 Loaders, 953 Loaders
+        productionCrewTemplate.setLaborTypes(parseString(getProperty("laborTypeList")));                //Auger Operator, Carpenter
+        productionCrewTemplate.setEquipmentTypes(parseString(getProperty("equipmentTypeList")));            //953 Loaders, 953 Loaders
 
-		// === Setup Transport Crew Template
-	}
+        productionCrewTemplateUpdate = productionCrewTemplate.clone();
+        productionCrewTemplateUpdate.setType("Production Crew");
+        productionCrewTemplateUpdate.setName(getProperty("sProdCrewTemplateNameUPD"));                        //AUT Prod Crew
+        productionCrewTemplateUpdate.setID(getProperty("sProdCrewTemplateIDUPD"));                                //AUT Prod Crew ID
+        productionCrewTemplateUpdate.setWorkType(getProperty("sProdCrewTemplateWorkTypeUPD"));                //Bridge
+        productionCrewTemplateUpdate.setWorkSubType(getProperty("sProdCrewTemplateWorkSubtypeUPD"));            //Support
+        productionCrewTemplateUpdate.setBusinessUnit(getProperty("sProdCrewTemplateBUUPD"));                    //Organization
+        productionCrewTemplateUpdate.setNotes(getProperty("sProdCrewTemplateNotesUPD"));                        //AUT Production Crew Notes!!!
+        productionCrewTemplateUpdate.setInactive(getProperty("sProdCrewTemplateInactiveUPD").toLowerCase().equals("true"));        //false
+        productionCrewTemplateUpdate.setForeman(getProperty("sProdCrewTemplateForemanUPD"));                    //Addison Miller
+        productionCrewTemplateUpdate.setEmployees(parseString(getProperty("employeesListUPD")));                    //Aaliyah Parker, Caroline Chan
+        productionCrewTemplateUpdate.setEquipments(parseString(getProperty("equipmentListUPD")));             //AUGTRK, BH002
+        productionCrewTemplateUpdate.setLaborTypes(parseString(getProperty("laborTypeListUPD")));                //Auger Operator, Carpenter
+        productionCrewTemplateUpdate.setEquipmentTypes(parseString(getProperty("equipmentTypeListUPD")));            //953 Loaders, 953 Loaders
+        // === Setup Transport Crew Template
+    }
 
-	@Override
-	public void testMain() throws Throwable {
-		super.testMain();
+    @Override
+    public void testMain() throws Throwable {
+        super.testMain();
 
         logCompare(true, b2wNav.openCrewTemplates(), "Navigate to Resources -> Crew Templates");
         createCrew(productionCrewTemplate);
-	}
-
-    private void createCrew(B2WCrewTemplate crewTemplate) {
-        logCompare(true, true, "====== Start Production Crew Template creation test: " + crewTemplate.getName());
-        logCompare(true, crewTemplateTasks.selectAddCrewTemplate(crewTemplate.getType()), "Open Add Crew Template dialog.");
-        logCompare(true, crewTemplateTasks.createProductionCrewTemplate(crewTemplate), "Create Production Crew Template dialog.");
-
-        logCompare(true, true, "====== Stop Production Crew Template creation test: " + crewTemplate.getName());
+        updateCrew(productionCrewTemplate, productionCrewTemplateUpdate);
+        productionCrewTemplate = productionCrewTemplateUpdate;
+        deleteCrew(productionCrewTemplate);
     }
 
-	private ArrayList<String> parseString(String sValue) {
+    private void createCrew(B2WCrewTemplate crewTemplate) {
+        logCompare(true, true, "====== Start Production Crew Template create test: " + crewTemplate.getName());
+        logCompare(true, crewTemplateTasks.selectAddCrewTemplate(crewTemplate.getType()), "Open Add Crew Template dialog.");
+        logCompare(true, crewTemplateTasks.createProductionCrewTemplate(crewTemplate), "Create Production Crew Template dialog.");
+        logCompare(true, true, "====== Stop Production Crew Template create test: " + crewTemplate.getName());
+    }
+
+    private void updateCrew(B2WCrewTemplate crewTemplate, B2WCrewTemplate crewTemplateUPD) {
+        logCompare(true, true, "====== Start Production Crew Template update test: " + crewTemplate.getName());
+        logCompare(true, crewTemplateTasks.updateProductionCrewTemplate(crewTemplate, crewTemplateUPD), "Update Production Crew Template dialog.");
+        logCompare(true, true, "====== Stop Production Crew Template update test: " + crewTemplate.getName());
+    }
+
+    private void deleteCrew(B2WCrewTemplate crewTemplate) {
+        logCompare(true, true, "====== Start Production Crew Template delete test: " + crewTemplate.getName());
+        logCompare(true, crewTemplateTasks.deleteCrew(crewTemplate), "Delete Crew Template.");
+        logCompare(true, true, "====== Stop Production Crew Template delete test: " + crewTemplate.getName());
+    }
+
+    private ArrayList<String> parseString(String sValue) {
         return new ArrayList<>(Arrays.asList(sValue.split(", ")));
-	}
+    }
 }

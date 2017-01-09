@@ -126,12 +126,16 @@ public class B2WCrewTemplate implements Cloneable {
     }
 
     @Override
-    protected Object clone() throws CloneNotSupportedException {
-        B2WCrewTemplate oReturn = (B2WCrewTemplate) super.clone();
-        oReturn.setEmployees(this.getEmployees());
-        oReturn.setEquipments(this.getEquipments());
-        oReturn.setLaborTypes(this.getLaborTypes());
-        oReturn.setEquipmentTypes(this.getEquipmentTypes());
-        return oReturn;
+    public B2WCrewTemplate clone() {
+        try {
+            B2WCrewTemplate oReturn = (B2WCrewTemplate) super.clone();
+            oReturn.setEmployees(this.getEmployees());
+            oReturn.setEquipments(this.getEquipments());
+            oReturn.setLaborTypes(this.getLaborTypes());
+            oReturn.setEquipmentTypes(this.getEquipmentTypes());
+            return oReturn;
+        } catch (CloneNotSupportedException e) {
+            return null;
+        }
     }
 }

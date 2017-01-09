@@ -245,16 +245,23 @@ public class B2WUIMap {
 	// ====== Resources -> Crew Templates
 	public static final String b2w_crewtemplates_addbtn = ".btn-add";
 	public static final String b2w_crewtemplates_crewtypeslist = "span.k-link";
-	public static final String getB2w_crewtemplates_headline = ".headline>span";
-	public static final String getB2w_crewtemplates_name = ".k-textbox[name='Name']";
-	public static final String getB2w_crewtemplates_id = ".k-textbox[name='ID']";
-	public static final String getB2w_crewtemplates_inactive = "input[name='Inactive']";
-	public static final String getB2w_crewtemplates_notes = ".short-notes";
-	public static final String getB2w_crewtemplates_foreman = ".k-in";
-	public static final String getB2w_crewtemplates_searchtypes = ".//span[text()='Employees with Foreman Role']";
-	public static final String getB2w_crewtemplates_searchvalue = ".list-filter.k-textbox[placeholder='Search']";
-	public static final String getB2w_crewtemplates_searchresults = "tr[data-role='draggable']";
-	public static final String getB2w_crewtemplates_resourcetree = "#resourcesTreeview";
+	public static final String b2w_crewtemplates_headline = ".headline>span";
+	public static final String b2w_crewtemplates_name = ".k-textbox[name='Name']";
+	public static final String b2w_crewtemplates_id = ".k-textbox[name='ID']";
+	public static final String b2w_crewtemplates_inactive = "input[name='Inactive']";
+	public static final String b2w_crewtemplates_notes = ".short-notes";
+	public static final String b2w_crewtemplates_searchvalue = ".list-filter.k-textbox[placeholder='Search']";
+	public static final String b2w_crewtemplates_searchresults = "tr[data-role='draggable']";
+	public static final String b2w_crewtemplates_resourcetree = "#resourcesTreeview";
+	public static final String b2w_crewtemplates_resourcetreeitems = "div[class='tree-text']";
+	public static final String b2w_crewtemplates_resourcedeleteicons = ".btn-remove";
+
+	public static final String b2w_crewtemplates_savebtn = ".btn-form.save";
+	public static final String b2w_crewtemplates_deletebtn = ".btn-delete";
+	public static final String b2w_crewtemplates_updatebtn = ".btn-edit";
+	public static final String b2w_crewtemplates_listpanel = ".crew-template-list";
+	public static final String b2w_crewtemplates_listtable = "tbody[role=\"rowgroup\"]";
+	public static final String b2w_crewtemplates_button = ".//div";
 
 	// places
 	public static final String b2w_createnewplacebutton = "a#PageContent_CreateNewPlaceButton";

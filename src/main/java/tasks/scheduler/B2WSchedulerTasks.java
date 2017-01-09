@@ -1818,7 +1818,6 @@ public class B2WSchedulerTasks extends B2WKendoTasks {
         return bReturn;
     }
 
-
     // === Date methods
     private String correctDate(String sValue) {
         String sResult = "";
@@ -2000,8 +1999,6 @@ public class B2WSchedulerTasks extends B2WKendoTasks {
         bReturn &= expectedValue.contains(actualValue);
         return bReturn;
     }
-
-
 
     // Order Panel
     private boolean fillNeedDialog(B2WAssignment order, String employeeName) {

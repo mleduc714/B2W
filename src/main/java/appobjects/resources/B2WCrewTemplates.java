@@ -6,15 +6,20 @@ import org.openqa.selenium.By;
 public class B2WCrewTemplates {
     public static By getAddCrewTemplateButton() { return By.cssSelector(B2WUIMap.b2w_crewtemplates_addbtn); }
     public static By getCrewTypesList() { return By.cssSelector(B2WUIMap.b2w_crewtemplates_crewtypeslist); }
-    public static By getCrewHeadline() { return By.cssSelector(B2WUIMap.getB2w_crewtemplates_headline); }
-    public static By getNameField() { return By.cssSelector(B2WUIMap.getB2w_crewtemplates_name); }
-    public static By getIDField() { return By.cssSelector(B2WUIMap.getB2w_crewtemplates_id); }
-    public static By getInactiveCheckbox() { return By.cssSelector(B2WUIMap.getB2w_crewtemplates_inactive); }
-    public static By getNotesField() { return By.cssSelector(B2WUIMap.getB2w_crewtemplates_notes); }
-    public static By getForemanField() { return By.cssSelector(B2WUIMap.getB2w_crewtemplates_foreman); }
-    public static By getSearchTypesFDD() { return By.xpath(B2WUIMap.getB2w_crewtemplates_searchtypes); }
-    public static By getSearchValueField() { return By.cssSelector(B2WUIMap.getB2w_crewtemplates_searchvalue); }
-    public static By getSearchResults() { return By.cssSelector(B2WUIMap.getB2w_crewtemplates_searchresults); }
-    public static By getResourceTree() { return By.cssSelector(B2WUIMap.getB2w_crewtemplates_resourcetree); }
-
+    public static By getCrewHeadline() { return By.cssSelector(B2WUIMap.b2w_crewtemplates_headline); }
+    public static By getNameField() { return By.cssSelector(B2WUIMap.b2w_crewtemplates_name); }
+    public static By getIDField() { return By.cssSelector(B2WUIMap.b2w_crewtemplates_id); }
+    public static By getInactiveCheckbox() { return By.cssSelector(B2WUIMap.b2w_crewtemplates_inactive); }
+    public static By getNotesField() { return By.cssSelector(B2WUIMap.b2w_crewtemplates_notes); }
+    public static By getSearchValueField() { return By.cssSelector(B2WUIMap.b2w_crewtemplates_searchvalue); }
+    public static By getSearchResults() { return By.cssSelector(B2WUIMap.b2w_crewtemplates_searchresults); }
+    public static By getResourceTree() { return By.cssSelector(B2WUIMap.b2w_crewtemplates_resourcetree); }
+    public static By getResourceTreeItems() { return By.cssSelector(B2WUIMap.b2w_crewtemplates_resourcetreeitems); }
+    public static By getSaveBtn() { return By.cssSelector(B2WUIMap.b2w_crewtemplates_savebtn); }
+    public static By getDeleteBtn() { return By.cssSelector(B2WUIMap.b2w_crewtemplates_deletebtn); }
+    public static By getUpdateBtn() { return By.cssSelector(B2WUIMap.b2w_crewtemplates_updatebtn); }
+    public static By getCrewTemplatesListPanel() { return By.cssSelector(B2WUIMap.b2w_crewtemplates_listpanel); }
+    public static By getCrewTemplatesListTable() { return By.cssSelector(B2WUIMap.b2w_crewtemplates_listtable); }
+    public static By getCrewTemplatesListDeleteIcons() { return By.cssSelector(B2WUIMap.b2w_crewtemplates_resourcedeleteicons); }
+    public static By getButtonByName(String sValue) { return By.xpath(B2WUIMap.b2w_crewtemplates_button + "[contains(text(), '" + sValue + "')]"); }
 }

@@ -1,30 +1,20 @@
 package tasks;
 
-import java.awt.AWTException;
-import java.awt.Robot;
+import appobjects.resources.KendoUI;
+import org.apache.log4j.Logger;
+import org.openqa.selenium.*;
+import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import tasks.util.TaskUtils;
+
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 import java.util.regex.Pattern;
-
-import appobjects.resources.KendoUI;
-import tasks.util.TaskUtils;
-
-import org.apache.log4j.Logger;
-import org.openqa.selenium.Alert;
-import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.StaleElementReferenceException;
-import org.openqa.selenium.TimeoutException;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebDriverException;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.support.ui.ExpectedCondition;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class WebElementUtils {
 
@@ -156,31 +146,6 @@ public class WebElementUtils {
 		return ret;
 	}
 
-	/*
-	public static WebElement getElementWithContainsChildElementText(List<WebElement> list, By childBy, String text) {
-		if (list.isEmpty()) {
-			log.debug("List of elements to search is empty");
-		}
-		Iterator<WebElement> iter = list.iterator();
-		log.info("List size: " + list.size());
-		WebElement ret = null;
-		while (iter.hasNext()) {
-			WebElement el = iter.next();
-			try {
-				WebElement child = waitForChildElement(el, childBy, SHORT_TIME_OUT);
-				if (text.equals(child.getText())) {
-					ret = el;
-					break;
-				}
-			} catch (NoSuchElementException nse) {
-				log.warn("Parent did not contain Child element: " + childBy.toString());
-				log.debug("Parent Element Class: " + el.getAttribute("class"));
-			}
-
-		}
-		return ret;
-	}
-	*/
 	public static WebElement getElementWithContainsChildElementText(List<WebElement> list, By childBy, String text) {
 		if (list.isEmpty()) {
 			log.debug("List of elements to search is empty");
@@ -951,6 +916,9 @@ public class WebElementUtils {
 	}
 
 	public static WebElement getKendoFDDElementByLabel(String sText) {
+		List<WebElement> inputList = WebElementUtils.findElements(By.cssSelector("label"));
+		return getKendoFddFromList(inputList, sText);
+		/*
 		try {
 			List<WebElement> inputList = WebElementUtils.findElements(By.cssSelector("label"));
 			WebElement el = getElementWithMatchingText(inputList, sText, false);
@@ -966,9 +934,28 @@ public class WebElementUtils {
 			log.warn("Could not find element with text " + sText);
 			return null;
 		}
-
+		*/
 	}
-	
+	public static WebElement getKendoFDDElementByTag(String sText, String tagName) {
+		List<WebElement> inputList = WebElementUtils.findElements(By.cssSelector(tagName));
+		return 	getKendoFddFromList(inputList, sText);
+	}
+	private static WebElement getKendoFddFromList(List<WebElement> inputList, String sText) {
+		try {
+			WebElement el = getElementWithMatchingText(inputList, sText, false);
+			if (el != null) {
+				WebElement parent = getParentElement(el);
+				WebElement elResult = getChildElement(parent, KendoUI.getKendoDropDown());
+				return elResult;
+			} else {
+				log.debug(sText + " could not be found on the Page.");
+				return null;
+			}
+		} catch (TimeoutException e) {
+			log.warn("Could not find element with text " + sText);
+			return null;
+		}
+	}
 	public static WebElement getVisibleElementFromListofElements(List<WebElement> list){
 		WebElement element = null;
 		for (WebElement el: list){
