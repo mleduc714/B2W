@@ -776,7 +776,6 @@ public class B2WEquipmentTasks extends B2WKendoTasks {
 		}
 		return bReturn;
 	}
-	
 
 	private boolean selectItemValueFromDropDown(String sHeader, String sField, String sValue, String sItem){
 		boolean bReturn = false;
@@ -1015,7 +1014,6 @@ public class B2WEquipmentTasks extends B2WKendoTasks {
 		}
 		return sText;
 	}
-	
 	
 	public String getPartDescriptionByPartID(String sPart){
 		String sText = "";

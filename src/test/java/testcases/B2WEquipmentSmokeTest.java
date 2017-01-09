@@ -1,5 +1,7 @@
 package testcases;
 
+import java.util.Random;
+
 import com.b2w.test.B2WTestCase;
 
 import tasks.B2WNavigationTasks;
@@ -7,6 +9,7 @@ import tasks.dialogs.B2WAddEvent;
 import tasks.dialogs.B2WAddWarranty;
 import tasks.resources.B2WEquipmentTasks;
 import tasks.util.TaskUtils;
+
 
 public class B2WEquipmentSmokeTest extends B2WTestCase {
 	
@@ -63,15 +66,21 @@ public class B2WEquipmentSmokeTest extends B2WTestCase {
 		
 		B2WAddEvent events = new B2WAddEvent();
 		
+		Random random = new Random();
+		
 		logCompare(true, navigation.openEquipment(), "");
 		
 		// Navigate to Maintain>Equipment
 		
 		logCompare(true, equipmentTasks.createNewEquipment(), "");
 		
-		logCompare(true, equipmentTasks.setEquipmentDescription("This is a new Test Equipment"), "");
+		String description = "This is a new Test Equipment # " + random.nextInt(5000) + 1;
 		
-		logCompare(true, equipmentTasks.setEquipmentID("1234567890"), "");
+		String id = "" + random.nextInt(50000) + 1;
+		
+		logCompare(true, equipmentTasks.setEquipmentDescription(description), "");
+		
+		logCompare(true, equipmentTasks.setEquipmentID(id), "");
 		
 		logCompare(true, equipmentTasks.selectNewEquipmentBusinessUnitFromDropDown("Northern Division\\Paving"), "");
 		
@@ -104,6 +113,7 @@ public class B2WEquipmentSmokeTest extends B2WTestCase {
 		logCompare(true, equipmentTasks.collapseEquipmentSpecs(), "");
 		
 		//Enter Component Specs
+		
 		logCompare(true, equipmentTasks.expandComponentSpecs(), "");
 		
 		logCompare(true, equipmentTasks.setTextComponentSpecs("Tire Size", "sText"), "Text Component Specs");
@@ -139,24 +149,44 @@ public class B2WEquipmentSmokeTest extends B2WTestCase {
 		
 		equipmentTasks.collapseFinancials();
 		
-	//	equipmentTasks.collapse
-		
 		//Add Meter Types
 		logCompare(true, equipmentTasks.expandMeters(), "");
+		
+		TaskUtils.sleep(5000);
+		
+		//equipmentTasks.clickAddMeterButton();
+		
+		//equipmentTasks.getMeterTypeByMeter("Hour Meter");
+		
+		//MISSING:
+		//
+		//Add Meter Description add on to meter
+		//
+		//Save Meter
 		
 		equipmentTasks.collapseMeters();
 		
 		//Add Parts
 		logCompare(true, equipmentTasks.expandParts(), "");
 		
+		//equipmentTasks.clickAddPartsButton();
+		
+		//MISSING:
+		//
+		//select a part
+		
 		equipmentTasks.collapseParts();
 		
 		//Add a Warranty
 		logCompare(true, equipmentTasks.expandWarrenties(), "");
 		
+		
 		//No click 'Add Warranty' button
 		equipmentTasks.clickAddWarrantyButton();
-		logCompare(true, warranty.setWarrantyDescription("This is a newly created warranty"), "");
+		
+		String warrantyDescription = "This is a newly created warranty";
+		
+		logCompare(true, warranty.setWarrantyDescription(warrantyDescription), "");
 		logCompare(true, warranty.selectWarrantyType("Equipment"), "");
 		logCompare(true, warranty.selectTypeOfDurationCalendar(), "");
 		logCompare(true, warranty.setSpan("234"), "");
@@ -168,9 +198,9 @@ public class B2WEquipmentSmokeTest extends B2WTestCase {
 		logCompare(true, warranty.clickSaveWarranty(), "");
 
 		equipmentTasks.collapseWarrenties();
-		// Add a Maintenance Program
-		logCompare(true, equipmentTasks.expandPrograms(), "");
 		
+		
+		logCompare(true, equipmentTasks.expandPrograms(), "");
 		
 		equipmentTasks.collapsePrograms();
 		
@@ -182,7 +212,6 @@ public class B2WEquipmentSmokeTest extends B2WTestCase {
 		//Add Events
 		logCompare(true, equipmentTasks.expandEvents(), "");
 		
-		//No click 'Add Event' button
 		equipmentTasks.clickAddEventButton();
 		logCompare(true, events.selectEventType("Memo"), "");
 		logCompare(true, events.setEventStartDate("12/31/2016"), "");
@@ -203,13 +232,49 @@ public class B2WEquipmentSmokeTest extends B2WTestCase {
 		// Location
 		logCompare(true, equipmentTasks.expandLocation(), "");
 		
-		logCompare(true, equipmentTasks.selectAllEquipmentByTypeView(), "");
+		equipmentTasks.collapseLocation();
+		
+		// DOES NOT WORK:
+		//
+		//logCompare(true, equipmentTasks.selectAllEquipmentByTypeView(), "");
 		
 		logCompare(true, equipmentTasks.selectFilterByBusinessUnit("Northern Division\\Paving"), "");
 		
-		logCompare(true, equipmentTasks.selectEquipmentFromViewByID("1234567890"), "");
+		logCompare(true, equipmentTasks.selectEquipmentFromViewByID(id), "");
 		
-		logCompare(true, equipmentTasks.selectEquipmentFromViewByDescription("This is a new Test Equipment"), "");
+		logCompare(true, equipmentTasks.selectEquipmentFromViewByDescription(description), "");
+		
+		equipmentTasks.clickEdit();
+		
+		
+		//Edit and Delete Warranty
+		
+		equipmentTasks.expandWarrenties();
+		
+		equipmentTasks.editWarranty(warrantyDescription);
+		
+		String alteredDesc = "The Description was just altered";
+		
+		warranty.setWarrantyDescription(alteredDesc);
+		
+		warranty.clickSaveWarranty();
+		
+		equipmentTasks.deleteWarranty(warrantyDescription + alteredDesc);
+		
+		equipmentTasks.clickConfirmYes();
+
+		equipmentTasks.collapseWarrenties();
+		
+		//Edit and Delete Meter
+
+		equipmentTasks.expandMeters();
+		
+		//equipmentTasks.editMeter("meter");
+		TaskUtils.sleep(5000);
+
+		
+		equipmentTasks.saveNewEquipment();
+		
 	}
 	
 }
