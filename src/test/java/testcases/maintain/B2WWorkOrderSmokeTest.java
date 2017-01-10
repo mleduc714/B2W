@@ -114,14 +114,8 @@ public class B2WWorkOrderSmokeTest extends B2WTestCase {
 	@Override
 	public void testMain() throws Throwable {
 
-//      Add Requests to a Work Order
-//		•Create a New Work Order
-//		•Add a New Item to a Work Order
-//		•Generate/Add an active maintenance program service to a Work Order//
-//		•Edit Work Order•Details
-//		•Hours (Planned/Reported)
-//		•Parts (Database & Custom Part)
-//		•Add/Edit/Delete Comments on a Request
+/*		https://bid2win.atlassian.net/wiki/display/RP/Work+Order+Smoke+Test
+*/		
 		createEquipment();
 		createRequest();
 		createWorkOrder();
@@ -130,15 +124,6 @@ public class B2WWorkOrderSmokeTest extends B2WTestCase {
 		editItemsOnWorkOrder();
 		verifyWorkOrder();
 
-//		•Search for information on Requests including Expanded Search
-//		•Explore Advanced Search & Filters
-//		•Sorting of Work Order List
-//		•Approve a Work Order
-//		•Complete a Work Order
-//		•Unapprove a Work Order
-//		•Equipment Link
-//		•Request Link
-//		•Active Warranty Link
 		
 		
 	}
@@ -245,8 +230,7 @@ public class B2WWorkOrderSmokeTest extends B2WTestCase {
 		logCompare(true,b2wPlannedHours.savePlannedHours(), "Save Planned Hours");
 		logCompare(true,b2wWork.clickAddReportedHours(), "Add Reported Hours");
 		logCompare(true,b2wReportHours.setEmployeeWorkHoursDescription(this.sWorkOrderReportHoursDesc), "");
-		TaskUtils.sleep(500);
-		logCompare(true,b2wReportHours.selectEmployeeLaborType(this.sWorkOrderReportLaborType), "");
+		logCompare(true,b2wReportHours.selectEmployeeLaborType(this.sWorkOrderReportLaborType), "Select Labor Type");
 		logCompare(true,b2wReportHours.setDate(format.format(cal.getTime())), "Set the Date");
 		b2wReportHours.selectRandomEmployee();
 		logCompare(true,b2wReportHours.setEmployeeRegularHours(this.sWorkOrderReportRegularHours), "");
@@ -305,6 +289,7 @@ public class B2WWorkOrderSmokeTest extends B2WTestCase {
 		TaskUtils.sleep(1000);
 		logCompare(true, b2wWork.selectWorkOrderByDescription(sWorkOrderDescription), "Select Work Order");
 		logCompare(true, b2wWork.clickApproveButton(), "Approve Work Order");
+		b2wWork.clickConfirmYes();
 		logCompare(false, b2wWork.selectWorkOrderByDescription(sWorkOrderDescription), "Select Work Order");
 		logCompare(true,b2wWork.selectAllWorkOrders(), "Select All Work Orders");
 		TaskUtils.sleep(1000);
