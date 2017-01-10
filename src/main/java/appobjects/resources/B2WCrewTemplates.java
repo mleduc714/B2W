@@ -18,9 +18,11 @@ public class B2WCrewTemplates {
     public static By getSaveBtn() { return By.cssSelector(B2WUIMap.b2w_crewtemplates_savebtn); }
     public static By getDeleteBtn() { return By.cssSelector(B2WUIMap.b2w_crewtemplates_deletebtn); }
     public static By getUpdateBtn() { return By.cssSelector(B2WUIMap.b2w_crewtemplates_updatebtn); }
+    public static By getCopyBtn() { return By.cssSelector(B2WUIMap.b2w_crewtemplates_copybtn); }
     public static By getCrewTemplatesListPanel() { return By.cssSelector(B2WUIMap.b2w_crewtemplates_listpanel); }
     public static By getCrewTemplatesListTable() { return By.cssSelector(B2WUIMap.b2w_crewtemplates_listtable); }
     public static By getCrewTemplatesListDeleteIcons() { return By.cssSelector(B2WUIMap.b2w_crewtemplates_resourcedeleteicons); }
     public static By getButtonByName(String sValue) { return By.xpath(B2WUIMap.b2w_crewtemplates_button + "[contains(text(), '" + sValue + "')]"); }
     public static By getPopupWindow() { return By.cssSelector(B2WUIMap.b2w_crewtemplates_popupwindow); }
+    public static By getTransportFunction(String sValue) { return By.cssSelector(B2WUIMap.b2w_crewtemplates_transportfunction + "[value='" + sValue + "']"); }
 }

@@ -3,6 +3,7 @@ package tasks.resources;
 import java.util.ArrayList;
 
 public class B2WCrewTemplate implements Cloneable {
+    // General Fields
     private String type;
     private String name;
     private String ID;
@@ -16,6 +17,10 @@ public class B2WCrewTemplate implements Cloneable {
     private ArrayList<String> equipments;
     private ArrayList<String> laborTypes;
     private ArrayList<String> equipmentTypes;
+    private ArrayList<String> equipmentThatMoves;
+
+    // Transport Crew Fields
+    private String transportType;
 
     public boolean isInactive() {
         return inactive;
@@ -56,6 +61,12 @@ public class B2WCrewTemplate implements Cloneable {
     public String getWorkType() {
         return workType;
     }
+    public String getTransportType() {
+        return transportType;
+    }
+    public ArrayList<String> getEquipmentThatMoves() {
+        return equipmentThatMoves;
+    }
 
     public void setBusinessUnit(String businessUnit) {
         this.businessUnit = businessUnit;
@@ -71,6 +82,9 @@ public class B2WCrewTemplate implements Cloneable {
     }
     public void setLaborTypes(ArrayList<String> laborTypes) {
         this.laborTypes = new ArrayList<>(laborTypes);
+    }
+    public void setEquipmentThatMoves(ArrayList<String> equipmentThatMoves) {
+        this.equipmentThatMoves = new ArrayList<>(equipmentThatMoves);
     }
     public void setForeman(String foreman) {
         this.foreman = foreman;
@@ -95,6 +109,9 @@ public class B2WCrewTemplate implements Cloneable {
     }
     public void setWorkType(String workType) {
         this.workType = workType;
+    }
+    public void setTransportType(String transportType) {
+        this.transportType = transportType;
     }
 
     public void addEmployeesMembers(ArrayList<String> crew) {

@@ -259,10 +259,13 @@ public class B2WUIMap {
 	public static final String b2w_crewtemplates_savebtn = ".btn-form.save";
 	public static final String b2w_crewtemplates_deletebtn = ".btn-delete";
 	public static final String b2w_crewtemplates_updatebtn = ".btn-edit";
+	public static final String b2w_crewtemplates_copybtn = ".btn-copy";
 	public static final String b2w_crewtemplates_listpanel = ".crew-template-list";
 	public static final String b2w_crewtemplates_listtable = "tbody[role=\"rowgroup\"]";
 	public static final String b2w_crewtemplates_button = ".//div";
 	public static final String b2w_crewtemplates_popupwindow = ".k-widget.k-window";
+	public static final String b2w_crewtemplates_transportfunction = "input[name='transportFunctionType']";
+
 
 	// places
 	public static final String b2w_createnewplacebutton = "a#PageContent_CreateNewPlaceButton";

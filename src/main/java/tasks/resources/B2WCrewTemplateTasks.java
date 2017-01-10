@@ -1,12 +1,10 @@
 package tasks.resources;
 
 import appobjects.resources.B2WCrewTemplates;
-import appobjects.resources.B2WEquipment;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.*;
 import tasks.BrowserUtils;
 import tasks.WebElementUtils;
-import tasks.util.TaskUtils;
 
 import java.awt.*;
 import java.awt.Point;
@@ -40,51 +38,30 @@ public class B2WCrewTemplateTasks extends B2WKendoTasks {
         }
         return bReturn;
     }
-    public boolean createProductionCrewTemplate(B2WCrewTemplate crewTemplate) {
-        boolean bReturn;
-        logCompare(true, true, "====== Start Crew Template Creation");
-        bReturn = setName(crewTemplate.getName());
-        bReturn &= setID(crewTemplate.getID());
-        bReturn &= setWorkType(crewTemplate.getWorkType());
-        bReturn &= setWorkSubtype(crewTemplate.getWorkSubType());
-        bReturn &= setBU(crewTemplate.getBusinessUnit());
-        bReturn &= setInactive(crewTemplate.isInactive());
-        bReturn &= setCrewNotes(crewTemplate.getNotes());
-        setYOffset();
-        bReturn &= setProductionForeman(crewTemplate.getForeman());
-        bReturn &= addEmployeeToCrew(crewTemplate.getEmployees());
-        bReturn &= addEquipmentToCrew(crewTemplate.getEquipments());
-        bReturn &= addLaborTypeToCrew(crewTemplate.getLaborTypes());
-        bReturn &= addEquipmentTypeToCrew(crewTemplate.getEquipmentTypes());
-        bReturn &= clickSave();
-        bReturn &= getCrewTemplateFromList(crewTemplate.getName()) != null;
-        logCompare(true, true, "====== Complete Crew Template Creation");
-        return bReturn;
-    }
-    public boolean updateProductionCrewTemplate(B2WCrewTemplate crewTemplate, B2WCrewTemplate crewTemplateUpd) {
-        boolean bReturn = false;
-        logCompare(true, true, "====== Start Crew Template Update");
-        if (selectCrewTemplate(crewTemplate)) {
-            if (clickUpdate()) {
-                bReturn = setName(crewTemplateUpd.getName());
-                bReturn &= setID(crewTemplateUpd.getID());
-                bReturn &= setWorkType(crewTemplateUpd.getWorkType());
-                bReturn &= setWorkSubtype(crewTemplateUpd.getWorkSubType());
-                bReturn &= setBU(crewTemplateUpd.getBusinessUnit());
-                bReturn &= setInactive(crewTemplateUpd.isInactive());
-                bReturn &= setCrewNotes(crewTemplateUpd.getNotes());
-                setYOffset();
-                bReturn &= deleteAllCrewMembers();
-                bReturn &= setProductionForeman(crewTemplateUpd.getForeman());
-                bReturn &= addEmployeeToCrew(crewTemplateUpd.getEmployees());
-                bReturn &= addEquipmentToCrew(crewTemplateUpd.getEquipments());
-                bReturn &= addLaborTypeToCrew(crewTemplateUpd.getLaborTypes());
-                bReturn &= addEquipmentTypeToCrew(crewTemplateUpd.getEquipmentTypes());
-                bReturn &= clickSave();
-                bReturn &= getCrewTemplateFromList(crewTemplateUpd.getName()) != null;
-            }
+    public boolean createCrewTemplate(B2WCrewTemplate crewTemplate) {
+        if (crewTemplate.getType().equals("Production Crew")) {
+            return createProductionCrewTemplate(crewTemplate);
+        } else if (crewTemplate.getType().equals("Transport Crew")) {
+            return createTransportCrewTemplate(crewTemplate);
+        } else {
+            return false;
         }
-        logCompare(true, true, "====== Complete Crew Template Update");
+    }
+    public boolean updateCrewTemplate(B2WCrewTemplate crewTemplate, B2WCrewTemplate crewTemplateUpd) {
+        if (crewTemplate.getType().equals("Production Crew")) {
+            return updateProductionCrewTemplate(crewTemplate, crewTemplateUpd);
+        } else if (crewTemplate.getType().equals("Transport Crew")) {
+            return updateTransportCrewTemplate(crewTemplate, crewTemplateUpd);
+        } else {
+            return false;
+        }
+    }
+    public boolean copyCrewTemplate(B2WCrewTemplate crewTemplate) {
+        boolean bReturn;
+        bReturn = logCompare(true, selectCrewTemplate(crewTemplate), "Select Crew Template: " + crewTemplate.getName() + " from list.");
+        bReturn &= logCompare(true, clickCopyButton(), "Click Copy Crew Template button.");
+        bReturn &= logCompare(true, clickSaveButton(), "Click Save Crew Template button.");
+        bReturn &= logCompare(true, getCrewTemplateFromList("Copy of " + crewTemplate.getName()) != null, "Check that Crew Template copy was saved.");
         return bReturn;
     }
     public boolean deleteCrew(B2WCrewTemplate crewTemplate) {
@@ -123,7 +100,99 @@ public class B2WCrewTemplateTasks extends B2WKendoTasks {
         this.yOffset = evaluateYOffset();
     }
 
-    // Private Methods
+    // ==== Private Methods
+    private boolean createProductionCrewTemplate(B2WCrewTemplate crewTemplate) {
+        boolean bReturn;
+        bReturn = logCompare(true, setName(crewTemplate.getName()), "Set Crew Template Name: " + crewTemplate.getName());
+        bReturn &= logCompare(true, setID(crewTemplate.getID()), "Set Crew Template ID: " + crewTemplate.getID());
+        bReturn &= logCompare(true, setWorkType(crewTemplate.getWorkType()), "Set Crew Template Work: " + crewTemplate.getWorkType());
+        bReturn &= logCompare(true, setWorkSubtype(crewTemplate.getWorkSubType()), "Set Crew Template Work Subtype: " + crewTemplate.getWorkSubType());
+        bReturn &= logCompare(true, setBU(crewTemplate.getBusinessUnit()), "Set Crew Template Business Unit: " + crewTemplate.getBusinessUnit());
+        bReturn &= logCompare(true, setInactive(crewTemplate.isInactive()), "Set Crew Template Inactive Flag: " + crewTemplate.isInactive());
+        bReturn &= logCompare(true, setCrewNotes(crewTemplate.getNotes()), "Set Crew Template Notes: " + crewTemplate.getNotes());
+        setYOffset();
+        bReturn &= logCompare(true, setProductionForeman(crewTemplate.getForeman()), "Add Crew Foreman: " + crewTemplate.getForeman());
+        bReturn &= logCompare(true, addEmployeeToCrew(crewTemplate.getEmployees()), "Add Crew Employees: " + crewTemplate.getEmployees());
+        bReturn &= logCompare(true, addEquipmentToCrew(crewTemplate.getEquipments()), "Add Crew Equipment: " + crewTemplate.getEquipments());
+        bReturn &= logCompare(true, addLaborTypeToCrew(crewTemplate.getLaborTypes()), "Add Crew Labor Type: " + crewTemplate.getLaborTypes());
+        bReturn &= logCompare(true, addEquipmentTypeToCrew(crewTemplate.getEquipmentTypes()), "Add Crew Equipment Type: " + crewTemplate.getEquipmentTypes());
+        bReturn &= logCompare(true, clickSaveButton(), "Click Crew Template Save button.");
+        bReturn &= logCompare(true, getCrewTemplateFromList(crewTemplate.getName()) != null, "Check that Crew Template was created.");
+        return bReturn;
+    }
+    private boolean createTransportCrewTemplate(B2WCrewTemplate crewTemplate) {
+        boolean bReturn;
+        bReturn = logCompare(true, setName(crewTemplate.getName()), "Set Crew Template Name: " + crewTemplate.getName());
+        bReturn &= logCompare(true, setID(crewTemplate.getID()), "Set Crew Template ID: " + crewTemplate.getID());
+        bReturn &= logCompare(true, selectTransportType(crewTemplate.getTransportType()), "Select Transport function: " + crewTemplate.getTransportType());
+        bReturn &= logCompare(true, setWorkType(crewTemplate.getWorkType()), "Set Crew Template Work: " + crewTemplate.getWorkType());
+        bReturn &= logCompare(true, setWorkSubtype(crewTemplate.getWorkSubType()), "Set Crew Template Work Subtype: " + crewTemplate.getWorkSubType());
+        bReturn &= logCompare(true, setBU(crewTemplate.getBusinessUnit()), "Set Crew Template Business Unit: " + crewTemplate.getBusinessUnit());
+        bReturn &= logCompare(true, setInactive(crewTemplate.isInactive()), "Set Crew Template Inactive Flag: " + crewTemplate.isInactive());
+        bReturn &= logCompare(true, setCrewNotes(crewTemplate.getNotes()), "Set Crew Template Notes: " + crewTemplate.getNotes());
+        setYOffset();
+        bReturn &= logCompare(true, setTransportDriver(crewTemplate.getForeman()), "Add Crew Driver: " + crewTemplate.getForeman());
+        bReturn &= logCompare(true, addEmployeeToCrew(crewTemplate.getEmployees()), "Add Crew Employees: " + crewTemplate.getEmployees());
+        bReturn &= logCompare(true, addEquipmentThatMovesToCrew(crewTemplate.getEquipmentThatMoves()), "Add Crew Equipments that moves: " + crewTemplate.getEquipmentThatMoves());
+        bReturn &= logCompare(true, addEquipmentToCrew(crewTemplate.getEquipments()), "Add Crew Equipment: " + crewTemplate.getEquipments());
+        bReturn &= logCompare(true, addLaborTypeToCrew(crewTemplate.getLaborTypes()), "Add Crew Labor Type: " + crewTemplate.getLaborTypes());
+        bReturn &= logCompare(true, addEquipmentTypeToCrew(crewTemplate.getEquipmentTypes()), "Add Crew Equipment Type: " + crewTemplate.getEquipmentTypes());
+        bReturn &= logCompare(true, clickSaveButton(), "Click Crew Template Save button.");
+        bReturn &= logCompare(true, getCrewTemplateFromList(crewTemplate.getName()) != null, "Check that Crew Template was created.");
+        return bReturn;
+    }
+    private boolean updateProductionCrewTemplate(B2WCrewTemplate crewTemplate, B2WCrewTemplate crewTemplateUpd) {
+        boolean bReturn = false;
+        if (selectCrewTemplate(crewTemplate)) {
+            if (clickUpdateButton()) {
+                bReturn = logCompare(true, setName(crewTemplateUpd.getName()), "Update Crew Template Name: " + crewTemplateUpd.getName());
+                bReturn &= logCompare(true, setID(crewTemplateUpd.getID()), "Update Crew Template ID: " + crewTemplateUpd.getID());
+                bReturn &= logCompare(true, setWorkType(crewTemplateUpd.getWorkType()), "Update Crew Template Work: " + crewTemplateUpd.getWorkType());
+                bReturn &= logCompare(true, setWorkSubtype(crewTemplateUpd.getWorkSubType()), "Update Crew Template Work Subtype: " + crewTemplateUpd.getWorkSubType());
+                bReturn &= logCompare(true, setBU(crewTemplateUpd.getBusinessUnit()), "Update Crew Template Business Unit: " + crewTemplateUpd.getBusinessUnit());
+                bReturn &= logCompare(true, setInactive(crewTemplateUpd.isInactive()), "Update Crew Template Inactive Flag: " + crewTemplateUpd.isInactive());
+                bReturn &= logCompare(true, setCrewNotes(crewTemplateUpd.getNotes()), "Update Crew Template Notes: " + crewTemplateUpd.getNotes());
+                setYOffset();
+                bReturn &= logCompare(true, deleteAllCrewMembers(), "Delete Crew Members.");
+                bReturn &= logCompare(true, setProductionForeman(crewTemplateUpd.getForeman()), "Add Crew Foreman: " + crewTemplateUpd.getForeman());
+                bReturn &= logCompare(true, addEmployeeToCrew(crewTemplateUpd.getEmployees()), "Add Crew Employees: " + crewTemplateUpd.getEmployees());
+                bReturn &= logCompare(true, addEquipmentToCrew(crewTemplateUpd.getEquipments()), "Add Crew Equipment: " + crewTemplateUpd.getEquipments());
+                bReturn &= logCompare(true, addLaborTypeToCrew(crewTemplateUpd.getLaborTypes()), "Add Crew Labor Type: " + crewTemplateUpd.getLaborTypes());
+                bReturn &= logCompare(true, addEquipmentTypeToCrew(crewTemplateUpd.getEquipmentTypes()), "Add Crew Equipment Type: " + crewTemplateUpd.getEquipmentTypes());
+                bReturn &= logCompare(true, clickSaveButton(), "Click Crew Template Save button.");
+                bReturn &= logCompare(true, getCrewTemplateFromList(crewTemplateUpd.getName()) != null, "Check that Crew Template was updated.");
+            }
+        }
+        return bReturn;
+    }
+    private boolean updateTransportCrewTemplate(B2WCrewTemplate crewTemplate, B2WCrewTemplate crewTemplateUpd) {
+        boolean bReturn = false;
+        if (selectCrewTemplate(crewTemplate)) {
+            if (clickUpdateButton()) {
+                bReturn = logCompare(true, setName(crewTemplateUpd.getName()), "Update Crew Template Name: " + crewTemplateUpd.getName());
+                bReturn &= logCompare(true, setID(crewTemplateUpd.getID()), "Update Crew Template ID: " + crewTemplateUpd.getID());
+                bReturn &= logCompare(true, selectTransportType(crewTemplateUpd.getTransportType()), "Update Transport function: " + crewTemplateUpd.getTransportType());
+                bReturn &= logCompare(true, setWorkType(crewTemplateUpd.getWorkType()), "Update Crew Template Work: " + crewTemplateUpd.getWorkType());
+                bReturn &= logCompare(true, setWorkSubtype(crewTemplateUpd.getWorkSubType()), "Update Crew Template Work Subtype: " + crewTemplateUpd.getWorkSubType());
+                bReturn &= logCompare(true, setBU(crewTemplateUpd.getBusinessUnit()), "Update Crew Template Business Unit: " + crewTemplateUpd.getBusinessUnit());
+                bReturn &= logCompare(true, setInactive(crewTemplateUpd.isInactive()), "Update Crew Template Inactive Flag: " + crewTemplateUpd.isInactive());
+                bReturn &= logCompare(true, setCrewNotes(crewTemplateUpd.getNotes()), "Update Crew Template Notes: " + crewTemplateUpd.getNotes());
+                setYOffset();
+                bReturn &= logCompare(true, deleteAllCrewMembers(), "Delete Crew Members.");
+                bReturn &= logCompare(true, setTransportDriver(crewTemplateUpd.getForeman()), "Add Crew Driver: " + crewTemplateUpd.getForeman());
+                bReturn &= logCompare(true, addEmployeeToCrew(crewTemplateUpd.getEmployees()), "Add Crew Employees: " + crewTemplateUpd.getEmployees());
+                bReturn &= logCompare(true, addEquipmentThatMovesToCrew(crewTemplateUpd.getEquipmentThatMoves()), "Add Crew Equipments that moves: " + crewTemplateUpd.getEquipmentThatMoves());
+                bReturn &= logCompare(true, addEquipmentToCrew(crewTemplateUpd.getEquipments()), "Add Crew Equipment: " + crewTemplateUpd.getEquipments());
+                bReturn &= logCompare(true, addLaborTypeToCrew(crewTemplateUpd.getLaborTypes()), "Add Crew Labor Type: " + crewTemplateUpd.getLaborTypes());
+                bReturn &= logCompare(true, addEquipmentTypeToCrew(crewTemplateUpd.getEquipmentTypes()), "Add Crew Equipment Type: " + crewTemplateUpd.getEquipmentTypes());
+                bReturn &= logCompare(true, clickSaveButton(), "Click Crew Template Save button.");
+                bReturn &= logCompare(true, getCrewTemplateFromList(crewTemplateUpd.getName()) != null, "Check that Crew Template was updated.");
+            }
+        }
+        return bReturn;
+    }
+
+    // Select Methods
     private boolean selectValueFromFDD(String fieldName, String sValue) {
         boolean bReturn = false;
         WebElement fdd = WebElementUtils.getKendoFDDElementByLabel(fieldName);
@@ -135,7 +204,6 @@ public class B2WCrewTemplateTasks extends B2WKendoTasks {
         }
         return bReturn;
     }
-
     private boolean selectValueFromFDD(WebElement element, String sValue) {
         boolean bReturn = false;
         if (element != null) {
@@ -146,7 +214,51 @@ public class B2WCrewTemplateTasks extends B2WKendoTasks {
         }
         return bReturn;
     }
+    private boolean selectSearchType(String searchValue) {
+        //WebElement searchFDD = WebElementUtils.findElement(B2WCrewTemplates.getSearchTypesFDD(searchType));
+        WebElement searchFDD = WebElementUtils.getKendoFDDElementByTag("Crew Details", "h4");
+        return selectValueFromFDD(searchFDD, searchValue);
+    }
+    private boolean selectCrewTemplate(B2WCrewTemplate crewTemplate) {
+        boolean bReturn = false;
+        WebElement eCrewTemplate = getCrewTemplateFromList(crewTemplate.getName());
+        if (eCrewTemplate != null) {
+            WebElementUtils.moveVirtualMouseOverElement(eCrewTemplate);
+            bReturn = WebElementUtils.clickElement(eCrewTemplate);
+            bReturn &= WebElementUtils.waitAndFindElement(B2WCrewTemplates.getDeleteBtn()) != null;
+        } else {
+            log.warn("Crew Template could not be found on the page.");
+        }
+        return bReturn;
+    }
+    private boolean selectButtonOption(String sButtonName) {
+        boolean bReturn = false;
+        WebElement button = WebElementUtils.waitAndFindDisplayedElement(B2WCrewTemplates.getButtonByName(sButtonName));
+        if (button != null) {
+            bReturn = WebElementUtils.clickElement(button);
+            waitForSchedulesPageNoBusy();
+        } else {
+            log.debug("Button with text " + sButtonName + " could not be found on the page.");
+        }
+        return bReturn;
+    }
+    private boolean selectTransportType(String sTransportFunction) {
+        boolean bReturn = false;
+        WebElement eTransportFunction = null;
+        if (sTransportFunction.equals("Moves Equipment")) {
+            eTransportFunction = WebElementUtils.findElement(B2WCrewTemplates.getTransportFunction("1"));
+        } else if (sTransportFunction.equals("Moves Materials")) {
+            eTransportFunction = WebElementUtils.findElement(B2WCrewTemplates.getTransportFunction("2"));
+        } else {
+            log.warn("Incorrect Transport Function value");
+        }
+        if (eTransportFunction != null) {
+            bReturn = WebElementUtils.clickElement(eTransportFunction);
+        }
+        return bReturn;
+    }
 
+    // Set Methods
     private boolean setName(String sValue) {
         boolean bReturn = false;
         WebElement field = WebElementUtils.findElement(B2WCrewTemplates.getNameField());
@@ -156,7 +268,6 @@ public class B2WCrewTemplateTasks extends B2WKendoTasks {
         }
         return bReturn;
     }
-
     private boolean setID(String sValue) {
         boolean bReturn = false;
         WebElement field = WebElementUtils.findElement(B2WCrewTemplates.getIDField());
@@ -166,19 +277,15 @@ public class B2WCrewTemplateTasks extends B2WKendoTasks {
         }
         return bReturn;
     }
-
     private boolean setWorkType(String sValue) {
         return selectValueFromFDD("Work Type", sValue);
     }
-
     private boolean setWorkSubtype(String sValue) {
         return selectValueFromFDD("Work Subtype", sValue);
     }
-
     private boolean setBU(String sValue) {
         return selectValueFromFDD("Business Unit", sValue);
     }
-
     private boolean setInactive(boolean bValue) {
         boolean bReturn = false;
         if (bValue) {
@@ -191,7 +298,6 @@ public class B2WCrewTemplateTasks extends B2WKendoTasks {
             return true;
         }
     }
-
     private boolean setCrewNotes(String sValue) {
         boolean bReturn = false;
         WebElement field = WebElementUtils.findElement(B2WCrewTemplates.getNotesField());
@@ -201,7 +307,6 @@ public class B2WCrewTemplateTasks extends B2WKendoTasks {
         }
         return bReturn;
     }
-
     private boolean setProductionForeman(String sValue) {
         boolean bReturn;
 
@@ -217,35 +322,62 @@ public class B2WCrewTemplateTasks extends B2WKendoTasks {
         }
         return bReturn;
     }
+    private boolean setTransportDriver(String sValue) {
+        boolean bReturn;
 
+        bReturn = selectSearchType("Employees with Driver Role");
+        bReturn &= setSearchValue(sValue);
+
+        List<WebElement> list = WebElementUtils.findElements(B2WCrewTemplates.getSearchResults());
+        WebElement result = WebElementUtils.getElementWithContainsChildElementText(list, By.cssSelector("td"), sValue);
+        WebElement parent = WebElementUtils.findElement(B2WCrewTemplates.getResourceTree());
+        if (parent != null && result != null) {
+            WebElement child = WebElementUtils.getChildElement(parent, By.cssSelector("em"));
+            bReturn &= dragAndDropWithMouse(result, child, getyOffset());
+        }
+        return bReturn;
+    }
+    private boolean setSearchValue(String sValue) {
+        boolean bReturn = false;
+        WebElement searchField = WebElementUtils.findElement(B2WCrewTemplates.getSearchValueField());
+        if (searchField != null) {
+            searchField.clear();
+            bReturn = WebElementUtils.sendKeys(searchField, sValue);
+        }
+        return bReturn;
+    }
+
+    // Add Methods
     private boolean addEmployeeToCrew(ArrayList<String> employees) {
         boolean bReturn;
         bReturn = selectSearchType("Employees by Type");
         bReturn &= addItemsToCrew(employees);
         return bReturn;
     }
-
     private boolean addEquipmentToCrew(ArrayList<String> equipment) {
         boolean bReturn;
         bReturn = selectSearchType("Equipment by Type");
         bReturn &= addItemsToCrew(equipment);
         return bReturn;
     }
-
     private boolean addLaborTypeToCrew(ArrayList<String> laborType) {
         boolean bReturn;
         bReturn = selectSearchType("Labor Type Need");
         bReturn &= addItemsToCrew(laborType);
         return bReturn;
     }
-
     private boolean addEquipmentTypeToCrew(ArrayList<String> equipmentType) {
         boolean bReturn;
         bReturn = selectSearchType("Equipment Type Need");
         bReturn &= addItemsToCrew(equipmentType);
         return bReturn;
     }
-
+    private boolean addEquipmentThatMovesToCrew(ArrayList<String> equipmentType) {
+        boolean bReturn;
+        bReturn = selectSearchType("Equipment that Moves other Equipment");
+        bReturn &= addItemsToCrew(equipmentType);
+        return bReturn;
+    }
     private boolean addItemsToCrew(ArrayList<String> aList) {
         boolean bReturn = true;
         if (aList.size() > 0) {
@@ -263,6 +395,7 @@ public class B2WCrewTemplateTasks extends B2WKendoTasks {
         return bReturn;
     }
 
+    // Verification Methods
     private boolean isItemInCrew(String sName) {
         boolean bReturn = false;
         WebElement parent = WebElementUtils.findElement(B2WCrewTemplates.getResourceTree());
@@ -275,19 +408,18 @@ public class B2WCrewTemplateTasks extends B2WKendoTasks {
         return bReturn;
     }
 
-    private boolean clickSave() {
+    // Click Methods
+    private boolean clickSaveButton() {
         boolean bReturn = false;
         WebElement saveBtn = WebElementUtils.findElement(B2WCrewTemplates.getSaveBtn());
         if (saveBtn != null) {
             bReturn = WebElementUtils.clickElement(saveBtn);
-            //TaskUtils.sleep();
             WebElementUtils.waitForElementInvisible(saveBtn);
             waitForSchedulesPageNoBusy();
         }
         return bReturn;
     }
-
-    private boolean clickUpdate() {
+    private boolean clickUpdateButton() {
         boolean bReturn = false;
         WebElement updateBtn = WebElementUtils.waitAndFindElement(B2WCrewTemplates.getUpdateBtn());
         if (updateBtn != null) {
@@ -296,23 +428,17 @@ public class B2WCrewTemplateTasks extends B2WKendoTasks {
         }
         return bReturn;
     }
-
-    private boolean selectSearchType(String searchValue) {
-        //WebElement searchFDD = WebElementUtils.findElement(B2WCrewTemplates.getSearchTypesFDD(searchType));
-        WebElement searchFDD = WebElementUtils.getKendoFDDElementByTag("Crew Details", "h4");
-        return selectValueFromFDD(searchFDD, searchValue);
-    }
-
-    private boolean setSearchValue(String sValue) {
+    private boolean clickCopyButton() {
         boolean bReturn = false;
-        WebElement searchField = WebElementUtils.findElement(B2WCrewTemplates.getSearchValueField());
-        if (searchField != null) {
-            searchField.clear();
-            bReturn = WebElementUtils.sendKeys(searchField, sValue);
+        WebElement copyBtn = WebElementUtils.waitAndFindElement(B2WCrewTemplates.getCopyBtn());
+        if (copyBtn != null) {
+            bReturn = WebElementUtils.clickElement(copyBtn);
+            bReturn &= WebElementUtils.waitAndFindElement(B2WCrewTemplates.getSaveBtn()) != null;
         }
         return bReturn;
     }
 
+    // Move Methods
     private boolean dragAndDropWithMouse(WebElement dragFrom, WebElement dragTo, int yOffset) {
         boolean bReturn = false;
         Robot robot;
@@ -399,18 +525,7 @@ public class B2WCrewTemplateTasks extends B2WKendoTasks {
         return bReturn;
     }
 
-    private int evaluateYOffset() {
-        int iResult;
-        // Evaluate yOffset
-        WebElement main = WebElementUtils.findElement(By.cssSelector("html"));
-        int pageHeight = BrowserUtils.getDriver().manage().window().getSize().getHeight();
-        int positionYOffset = BrowserUtils.getDriver().manage().window().getPosition().getY();
-        iResult = (pageHeight + positionYOffset) - main.getSize().getHeight();
-        log.debug("yOffset = " + iResult);
-        //------------
-        return iResult;
-    }
-
+    // Get Methods
     private WebElement getCrewTemplateFromList(String sName) {
         WebElement eResult = null;
         WebElement listPanel = WebElementUtils.findElement(B2WCrewTemplates.getCrewTemplatesListPanel());
@@ -431,30 +546,7 @@ public class B2WCrewTemplateTasks extends B2WKendoTasks {
         return eResult;
     }
 
-    private boolean selectCrewTemplate(B2WCrewTemplate crewTemplate) {
-        boolean bReturn = false;
-        WebElement eCrewTemplate = getCrewTemplateFromList(crewTemplate.getName());
-        if (eCrewTemplate != null) {
-            bReturn = WebElementUtils.clickElement(eCrewTemplate);
-            bReturn &= WebElementUtils.waitAndFindElement(B2WCrewTemplates.getDeleteBtn()) != null;
-        } else {
-            log.warn("Crew Template could not be found on the page.");
-        }
-        return bReturn;
-    }
-
-    private boolean selectButtonOption(String sButtonName) {
-        boolean bReturn = false;
-        WebElement button = WebElementUtils.waitAndFindDisplayedElement(B2WCrewTemplates.getButtonByName(sButtonName));
-        if (button != null) {
-            bReturn = WebElementUtils.clickElement(button);
-            waitForSchedulesPageNoBusy();
-        } else {
-            log.debug("Button with text " + sButtonName + " could not be found on the page.");
-        }
-        return bReturn;
-    }
-
+    // Delete Methods
     private boolean deleteAllCrewMembers() {
         boolean bReturn = false;
         WebElement listPanel = WebElementUtils.findElement(B2WCrewTemplates.getResourceTree());
@@ -476,8 +568,20 @@ public class B2WCrewTemplateTasks extends B2WKendoTasks {
         }
         return bReturn;
     }
+
     // === Support Methods
     public boolean waitForSchedulesPageNoBusy() {
         return waitForPageNotBusy(WebElementUtils.LONG_TIME_OUT);
+    }
+    private int evaluateYOffset() {
+        int iResult;
+        // Evaluate yOffset
+        WebElement main = WebElementUtils.findElement(By.cssSelector("html"));
+        int pageHeight = BrowserUtils.getDriver().manage().window().getSize().getHeight();
+        int positionYOffset = BrowserUtils.getDriver().manage().window().getPosition().getY();
+        iResult = (pageHeight + positionYOffset) - main.getSize().getHeight();
+        log.debug("yOffset = " + iResult);
+        //------------
+        return iResult;
     }
 }
