@@ -544,6 +544,7 @@ public abstract class B2WKendoTasks extends B2WKendo {
 		while (iter.hasNext()){
 			WebElement el = iter.next();
 			if (el.isDisplayed()){
+				el.clear();
 				bReturn = WebElementUtils.sendKeys(el, sText);
 				WebElement parent = WebElementUtils.getParentElement(el);
 				TaskUtils.sleep(1000);
@@ -733,6 +734,16 @@ public abstract class B2WKendoTasks extends B2WKendo {
 			if (comment != null){
 				bReturn = WebElementUtils.clickElement(comment);
 			}
+		}
+		return bReturn;
+	}
+	
+	public boolean searchText(String sText){
+		boolean bReturn = false;
+		WebElement el = WebElementUtils.findElement(B2WMaintain.getMaintainSearchFilterList());
+		if (el != null){
+			bReturn = WebElementUtils.sendKeys(el, sText);
+			waitForPageNotBusy(WebElementUtils.MEDIUM_TIME_OUT);
 		}
 		return bReturn;
 	}

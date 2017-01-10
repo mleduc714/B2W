@@ -665,7 +665,9 @@ public class B2WWorkOrdersTasks extends B2WKendoTasks {
 		ArrayList<String> al = new ArrayList<String>();
 		Iterator<WebElement> iter = getPartsRows().iterator();
 		while (iter.hasNext()){
-			al.add(WebElementUtils.getChildElements(iter.next(),By.tagName("td")).get(0).getText());
+			String sText = WebElementUtils.getChildElements(iter.next(),By.tagName("td")).get(0).getText();
+			sText = sText.substring(0, sText.indexOf("["));
+			al.add(sText.trim());
 		}
 		return al;
 	}
@@ -700,5 +702,16 @@ public class B2WWorkOrdersTasks extends B2WKendoTasks {
 		}
 		return bReturn;
 	}
+	
+	public boolean editComment(String sComment){
+		boolean bReturn = false;
+		WebElement el = getRowByCommentDescription(sComment);
+		if (el != null){
+			WebElement delete = WebElementUtils.getChildElement(el, B2WMaintain.getKendoEditButton());
+			bReturn = WebElementUtils.clickElement(delete);
+		}
+		return bReturn;
+	}
+
 
 }

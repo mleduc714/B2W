@@ -885,6 +885,7 @@ public class WebElementUtils {
 	}
 	public static boolean waitForElementInvisible(WebElement element, int timeout, boolean expectedClickable) {
 		boolean bReturn = false;
+
 		if (element == null) {
 			log.warn("The provided WebElement was null");
 		}

@@ -200,6 +200,7 @@ public class MaintainScheduleSmokeTest_2 extends B2WTestCase {
 	public void wrenchOptionsUnscheduled() {
 		logCompare(true,b2wMaintain.openSchedule(),"Open Schedule");
 		ArrayList<String> al = b2wSchd.getWorkOrdersFromTab();
+		assertTrue("Need to be greater than 2", al.size() > 2);
 //		Schedule a Work Order
 		logCompare(true,b2wSchd.scheduleWorkOrderFromWorkOrderTabByDescriptionWithWrench(al.get(0)), "Schedule Work Order");
 		b2wSchMain.selectAnyMechanic();
