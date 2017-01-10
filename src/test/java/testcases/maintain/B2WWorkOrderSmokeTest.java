@@ -290,6 +290,7 @@ public class B2WWorkOrderSmokeTest extends B2WTestCase {
 		TaskUtils.sleep(1000);
 		logCompare(true, b2wWork.selectWorkOrderByDescription(sWorkOrderDescription), "Select Work Order");
 		logCompare(true, b2wWork.clickApproveButton(), "Approve Work Order");
+		b2wWork.clickConfirmYes();
 		logCompare(false, b2wWork.selectWorkOrderByDescription(sWorkOrderDescription), "Select Work Order");
 		logCompare(true,b2wWork.selectAllWorkOrders(), "Select All Work Orders");
 		TaskUtils.sleep(1000);
