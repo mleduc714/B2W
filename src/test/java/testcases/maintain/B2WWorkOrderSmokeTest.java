@@ -114,14 +114,7 @@ public class B2WWorkOrderSmokeTest extends B2WTestCase {
 	@Override
 	public void testMain() throws Throwable {
 
-//      Add Requests to a Work Order
-//		•Create a New Work Order
-//		•Add a New Item to a Work Order
-//		•Generate/Add an active maintenance program service to a Work Order//
-//		•Edit Work Order•Details
-//		•Hours (Planned/Reported)
-//		•Parts (Database & Custom Part)
-//		•Add/Edit/Delete Comments on a Request
+
 		createEquipment();
 		createRequest();
 		createWorkOrder();
@@ -130,15 +123,6 @@ public class B2WWorkOrderSmokeTest extends B2WTestCase {
 		editItemsOnWorkOrder();
 		verifyWorkOrder();
 
-//		•Search for information on Requests including Expanded Search
-//		•Explore Advanced Search & Filters
-//		•Sorting of Work Order List
-//		•Approve a Work Order
-//		•Complete a Work Order
-//		•Unapprove a Work Order
-//		•Equipment Link
-//		•Request Link
-//		•Active Warranty Link
 		
 		
 	}
