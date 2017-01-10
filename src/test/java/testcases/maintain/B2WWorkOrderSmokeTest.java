@@ -230,9 +230,7 @@ public class B2WWorkOrderSmokeTest extends B2WTestCase {
 		logCompare(true,b2wPlannedHours.savePlannedHours(), "Save Planned Hours");
 		logCompare(true,b2wWork.clickAddReportedHours(), "Add Reported Hours");
 		logCompare(true,b2wReportHours.setEmployeeWorkHoursDescription(this.sWorkOrderReportHoursDesc), "");
-		TaskUtils.sleep(500);
 		logCompare(true,b2wReportHours.selectEmployeeLaborType(this.sWorkOrderReportLaborType), "Select Labor Type");
-		TaskUtils.sleep(500);
 		logCompare(true,b2wReportHours.setDate(format.format(cal.getTime())), "Set the Date");
 		b2wReportHours.selectRandomEmployee();
 		logCompare(true,b2wReportHours.setEmployeeRegularHours(this.sWorkOrderReportRegularHours), "");
