@@ -6,6 +6,7 @@ import org.apache.log4j.Logger;
 import org.openqa.selenium.*;
 import tasks.BrowserUtils;
 import tasks.WebElementUtils;
+import tasks.util.TaskUtils;
 
 import java.awt.*;
 import java.awt.Point;
@@ -91,10 +92,20 @@ public class B2WCrewTemplateTasks extends B2WKendoTasks {
         if (selectCrewTemplate(crewTemplate)) {
             WebElement deleteBtn = WebElementUtils.waitAndFindElement(B2WCrewTemplates.getDeleteBtn());
             if (deleteBtn != null) {
-                bReturn &= WebElementUtils.clickElement(deleteBtn);
-                bReturn &= selectButtonOption("Yes");
-                waitForSchedulesPageNoBusy();
-                bReturn &= getCrewTemplateFromList(crewTemplate.getName()) == null;
+                bReturn = WebElementUtils.clickElement(deleteBtn);
+                WebElement popupWindow = WebElementUtils.waitAndFindDisplayedElement(B2WCrewTemplates.getPopupWindow());
+                if ( popupWindow != null) {
+                    logCompare(true, WebElementUtils.findElement(B2WCrewTemplates.getButtonByName("Yes")) != null, "Check that the Button Yes is displayed.");
+                    if (selectButtonOption("Yes")) {
+                        WebElementUtils.waitForElementInvisible(popupWindow);
+                        waitForSchedulesPageNoBusy();
+                        bReturn &= getCrewTemplateFromList(crewTemplate.getName()) == null;
+                    } else {
+                        log.warn("Button 'Yes' could not be found on the page.");
+                    }
+                } else {
+                    log.warn("Popup window is not displayed.");
+                }
             }
         }
         return bReturn;
@@ -269,7 +280,8 @@ public class B2WCrewTemplateTasks extends B2WKendoTasks {
         WebElement saveBtn = WebElementUtils.findElement(B2WCrewTemplates.getSaveBtn());
         if (saveBtn != null) {
             bReturn = WebElementUtils.clickElement(saveBtn);
-
+            //TaskUtils.sleep();
+            WebElementUtils.waitForElementInvisible(saveBtn);
             waitForSchedulesPageNoBusy();
         }
         return bReturn;
@@ -466,11 +478,6 @@ public class B2WCrewTemplateTasks extends B2WKendoTasks {
     }
     // === Support Methods
     public boolean waitForSchedulesPageNoBusy() {
-        if (WebElementUtils.waitAndFindDisplayedElement(B2WEquipment.getKendoPageLoading())!= null) {
-            return waitForPageNotBusy(WebElementUtils.LONG_TIME_OUT);
-        } else {
-            return true;
-        }
-
+        return waitForPageNotBusy(WebElementUtils.LONG_TIME_OUT);
     }
 }

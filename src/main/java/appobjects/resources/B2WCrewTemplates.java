@@ -22,4 +22,5 @@ public class B2WCrewTemplates {
     public static By getCrewTemplatesListTable() { return By.cssSelector(B2WUIMap.b2w_crewtemplates_listtable); }
     public static By getCrewTemplatesListDeleteIcons() { return By.cssSelector(B2WUIMap.b2w_crewtemplates_resourcedeleteicons); }
     public static By getButtonByName(String sValue) { return By.xpath(B2WUIMap.b2w_crewtemplates_button + "[contains(text(), '" + sValue + "')]"); }
+    public static By getPopupWindow() { return By.cssSelector(B2WUIMap.b2w_crewtemplates_popupwindow); }
 }

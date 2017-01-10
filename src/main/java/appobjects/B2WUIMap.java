@@ -262,6 +262,7 @@ public class B2WUIMap {
 	public static final String b2w_crewtemplates_listpanel = ".crew-template-list";
 	public static final String b2w_crewtemplates_listtable = "tbody[role=\"rowgroup\"]";
 	public static final String b2w_crewtemplates_button = ".//div";
+	public static final String b2w_crewtemplates_popupwindow = ".k-widget.k-window";
 
 	// places
 	public static final String b2w_createnewplacebutton = "a#PageContent_CreateNewPlaceButton";
