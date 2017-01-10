@@ -114,7 +114,8 @@ public class B2WWorkOrderSmokeTest extends B2WTestCase {
 	@Override
 	public void testMain() throws Throwable {
 
-
+/*		https://bid2win.atlassian.net/wiki/display/RP/Work+Order+Smoke+Test
+*/		
 		createEquipment();
 		createRequest();
 		createWorkOrder();
