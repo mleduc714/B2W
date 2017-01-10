@@ -889,7 +889,6 @@ public class WebElementUtils {
 		if (element == null) {
 			log.warn("The provided WebElement was null");
 		}
-		log.debug("Waiting for "+element.getAttribute("class") +" to be invisible ");
 		try {
 			WebDriverWait wait = new WebDriverWait(BrowserUtils.getDriver(), timeout);
 			List<WebElement> list = new ArrayList<WebElement>();
