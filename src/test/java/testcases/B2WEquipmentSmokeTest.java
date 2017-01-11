@@ -6,6 +6,7 @@ import com.b2w.test.B2WTestCase;
 
 import tasks.B2WNavigationTasks;
 import tasks.dialogs.B2WAddEvent;
+import tasks.dialogs.B2WAddMeterToEquipment;
 import tasks.dialogs.B2WAddPartsToEquipment;
 import tasks.dialogs.B2WAddWarranty;
 import tasks.resources.B2WEquipmentTasks;
@@ -150,34 +151,26 @@ public class B2WEquipmentSmokeTest extends B2WTestCase {
 		
 		logCompare(true, equipmentTasks.setFieldAndItemFromDropDownEquipmentSpecs("CCA Class", null, "CCA-3 [CCA-5%]"), "");
 		
-		equipmentTasks.collapseFinancials();
+		logCompare(true, equipmentTasks.collapseFinancials(), "");
 		
 		//Add Meter Types
 		logCompare(true, equipmentTasks.expandMeters(), "");
 		
-		TaskUtils.sleep(5000);
+		String meterDescription = "Hour Meter";
 		
-		//equipmentTasks.clickAddMeterButton();
+		logCompare(true, equipmentTasks.clickAddMeterButton(), "Click Add Meter");
+		B2WAddMeterToEquipment b2waddmeter = new B2WAddMeterToEquipment();
+		logCompare(true, b2waddmeter.selectAddMeterTypeFromDD("Hour Meter"), "Select Add "+"Hour Meter"+" Meter");
+		logCompare(true, b2waddmeter.selectAddMeterRequiredOnWorkOrderCompletionNotRequired(), "Add Meter not required");
+		logCompare(true, b2waddmeter.selectAddMeterExcludeFromWorkOrdersNever(), "Exclude never");
+		//logCompare(true, b2waddmeter.setAddMeterTypeDescription(meterDescription), "Meter Description");
+		logCompare(true, b2waddmeter.setAddMeterIntialReading("20"),"Intial Reading");
+		logCompare(true, b2waddmeter.setAddMeterEnterNewReadingCheckBox(), "Enter new reading checkbox");
+		logCompare(true, b2waddmeter.setAddMeterEnterNewReading("120"),"Enter new reading");
+		logCompare(true, b2waddmeter.setAddMeterEnterNewReadingDate("1/1/2017"), "Set two days ago");
+		b2waddmeter.clickSaveAddMeter();
 		
-		//equipmentTasks.getMeterTypeByMeter("Hour Meter");
-		
-		//MISSING:
-		//
-		//		logCompare(true, b2wEquip.clickAddMeterButton(), "Click Add Meter");
-		//B2WAddMeterToEquipment b2waddmeter = new B2WAddMeterToEquipment();
-//		logCompare(true, b2waddmeter.selectAddMeterTypeFromDD(sCategoryB), "Select Add "+sCategoryB+" Meter");
-//		logCompare(true, b2waddmeter.selectAddMeterRequiredOnWorkOrderCompletionNotRequired(), "Add Meter not required");
-//		logCompare(true, b2waddmeter.selectAddMeterExcludeFromWorkOrdersNever(), "Exclude never");
-//		logCompare(true, b2waddmeter.setAddMeterTypeDescription("Hours Meter"), "Meter Description");
-//		logCompare(true, b2waddmeter.setAddMeterIntialReading("20"),"Intial Reading");
-//		logCompare(true, b2waddmeter.setAddMeterEnterNewReadingCheckBox(), "Enter new reading checkbox");
-//		logCompare(true, b2waddmeter.setAddMeterEnterNewReading("120"),"Enter new reading");
-//		logCompare(true, b2waddmeter.setAddMeterEnterNewReadingDate(sDateTwoDaysAgo), "Set two days ago");
-		//b2waddmeter.clickSaveAddMeter()
-		//
-		//Save Meter
-		
-		equipmentTasks.collapseMeters();
+		logCompare(true, equipmentTasks.collapseMeters(), "");
 		
 		//Add Parts
 		logCompare(true, equipmentTasks.expandParts(), "");
@@ -188,7 +181,9 @@ public class B2WEquipmentSmokeTest extends B2WTestCase {
 		//
 		//select a part
 		
-		equipmentParts.selectPartToAddToEquipmentByDescription("Bucket teeth");
+		logCompare(true, equipmentParts.selectPartToAddToEquipmentByDescription("Bucket teeth"), "");
+
+		logCompare(true, equipmentParts.clickConfirmYes(), "");
 		
 		equipmentTasks.collapseParts();
 		
@@ -197,7 +192,7 @@ public class B2WEquipmentSmokeTest extends B2WTestCase {
 		
 		
 		//No click 'Add Warranty' button
-		equipmentTasks.clickAddWarrantyButton();
+		logCompare(true, equipmentTasks.clickAddWarrantyButton(), "");
 		
 		String warrantyDescription = "This is a newly created warranty";
 		
@@ -266,32 +261,49 @@ public class B2WEquipmentSmokeTest extends B2WTestCase {
 		
 		equipmentTasks.expandWarrenties();
 		
+		TaskUtils.sleep(5000);
+
 		equipmentTasks.editWarranty(warrantyDescription);
+		
+		TaskUtils.sleep(5000);
 		
 		String alteredDesc = "The Description was just altered";
 		
 		warranty.setWarrantyDescription(alteredDesc);
 		
-		warranty.clickSaveWarranty();
+	    warranty.clickSaveWarranty();
 		
-		equipmentTasks.deleteWarranty(warrantyDescription + alteredDesc);
+	    String newWarrantyName = warrantyDescription + alteredDesc;
+		
+	    equipmentTasks.deleteWarranty(newWarrantyName);
 		
 		equipmentTasks.clickConfirmYes();
 
 		equipmentTasks.collapseWarrenties();
-		
-		//Edit and Delete Meter
 
 		equipmentTasks.expandMeters();
 		
-		//equipmentTasks.editMeter("meter");
+		
+		//****************************
+		//DOESN'T WORK:
+		//Editing Meters does not work
+		//****************************
+		
+	    //equipmentTasks.editMeter(meterDescription);
+	    //TaskUtils.sleep(5000);
+		
+
+		//logCompare(true, b2waddmeter.setAddMeterEnterNewReadingCheckBox(), "Enter new reading checkbox");
+		//logCompare(true, b2waddmeter.setAddMeterEnterNewReading("400"),"Enter new reading");
+		//logCompare(true, b2waddmeter.setAddMeterEnterNewReadingDate("1/7/2017"), "Set two days ago");
+		
+		//b2waddmeter.clickSaveAddMeter();
+		
 		TaskUtils.sleep(5000);
 
-		
 		equipmentTasks.saveNewEquipment();
 		
-		//verification
-		
+		TaskUtils.sleep(5000);
 	}
 	
 }
