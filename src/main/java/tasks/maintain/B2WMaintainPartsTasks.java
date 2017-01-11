@@ -1,5 +1,7 @@
 package tasks.maintain;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import org.openqa.selenium.By;
@@ -14,6 +16,13 @@ import tasks.resources.B2WKendoTasks;
 
 public class B2WMaintainPartsTasks extends B2WKendoTasks {
 
+	int sourcecolumn = 0;
+	int datecolumn = 1;
+	int location = 2;
+	int bin = 3;
+	int inventorychange = 4;
+	int ponumber = 5;
+	
 	public boolean clickAddPart() {
 		boolean bReturn = false;
 		WebElement el = getButton("Add Part");
@@ -142,8 +151,12 @@ public class B2WMaintainPartsTasks extends B2WKendoTasks {
 	}
 
 	public boolean setNotes(String sText) {
-		return super.setNotes(sText);
-
+		boolean bReturn = false;
+		WebElement el = getFormElement("Notes", By.cssSelector("textarea.notes-edit"));
+		if (el != null){
+			bReturn = WebElementUtils.sendKeys(el, sText);
+		}
+		return bReturn;
 	}
 	
 	public boolean clickSavePart() {
@@ -325,4 +338,197 @@ public class B2WMaintainPartsTasks extends B2WKendoTasks {
 		return bReturn;
 	}
 	
+	public boolean clickAddVendor() {
+		boolean bReturn = false;
+		WebElement el = getButton("Add Vendor");
+		if (el != null){
+			bReturn = WebElementUtils.clickElement(el);
+			
+		}
+		return bReturn;
+	}
+	public boolean selectVendorName(String sText) {
+		boolean bReturn = false;
+		WebElement vendor = getVendorElement("Organization");
+		if (vendor != null) {
+			WebElementUtils.getChildElement(vendor, B2WMaintain.getKendoDropDown()).click();
+			bReturn = selectItemFromDropDown(sText);
+		}
+
+		return bReturn;
+	}
+	
+	public String selectAnyVendor() {
+		String sText = "";
+		WebElement vendor = getVendorElement("Organization");
+		if (vendor != null) {
+			WebElementUtils.getChildElement(vendor, B2WMaintain.getKendoDropDown()).click();
+			sText = selectRandomItemFromDropDown();
+		}
+		return sText;
+	}
+	
+	public boolean selectPrimarySecondary(String sText) {
+		boolean bReturn = false;
+		WebElement vendor = getVendorElement("VendorType");
+		if (vendor != null) {
+			WebElementUtils.getChildElement(vendor, B2WMaintain.getKendoDropDown()).click();
+			bReturn = selectItemFromDropDown(sText);
+		}
+
+		return bReturn;
+
+	}
+	
+	public boolean setVendorPartNumber(String sText){
+		boolean bReturn = false;
+		WebElement vendor = getVendorElement("VendorPartNumber");
+		if (vendor != null) {
+			WebElement text = WebElementUtils.getChildElement(vendor, By.cssSelector("input.k-input.k-textbox"));
+			WebElementUtils.clickElement(text);
+			bReturn = WebElementUtils.sendKeys(text, sText);
+		}
+
+		return bReturn;
+
+	}
+	
+	public boolean setPartLeadTime(String sText){
+		boolean bReturn = false;
+		WebElement vendor = getVendorElement("PartLeadTimeSpan");
+		if (vendor != null) {
+			WebElement textbox = WebElementUtils.getChildElement(vendor, B2WMaintain.getKendoNumericTextBox());
+			List<WebElement> dd = WebElementUtils.getChildElements(textbox, B2WMaintain.getKendoDropDown());
+			WebElementUtils.clickElement(dd.get(0));
+			bReturn = WebElementUtils.sendKeys(dd.get(1),sText);
+		}
+
+		return bReturn;
+
+	}
+	
+	public boolean saveVendor(){
+		boolean bReturn = false;
+		WebElement listView = WebElementUtils.findElement(B2WMaintain.getMaintainPartsVendorsList());
+		if (listView != null){
+			bReturn = WebElementUtils.clickElement(WebElementUtils.getChildElement(listView, By.cssSelector(".k-grid-update")));
+		}
+		return bReturn;
+	}
+	
+	public boolean deleteVendor(){
+		boolean bReturn = false;
+		WebElement listView = WebElementUtils.findElement(B2WMaintain.getMaintainPartsVendorsList());
+		if (listView != null){
+			bReturn = WebElementUtils.clickElement(WebElementUtils.getChildElement(listView, By.cssSelector(".k-grid-delete")));
+		}
+		return bReturn;
+	}
+	
+	private WebElement getVendorElement(String sContainer){
+		WebElement vendor = null;
+		WebElement listView = WebElementUtils.findElement(B2WMaintain.getMaintainPartsVendorsList());
+		if (listView != null){
+			WebElement elementRow = WebElementUtils.getChildElement(listView, B2WMaintain.getMaintainEditRow());
+			List<WebElement> gridcells = WebElementUtils.getChildElements(elementRow, By.tagName("td"));
+			WebElement el = WebElementUtils.getElementWithMatchingAttribute(gridcells, "data-container-for", sContainer);
+			if (el != null){
+				vendor = el;
+			}
+		}
+		return vendor;
+	}
+	
+	public ArrayList<String> getInventorySource() {
+		
+		return getInventoryByColumn(0);
+	}
+	public ArrayList<String> getInventoryDate() {
+		
+		return getInventoryByColumn(1);
+	}
+	public ArrayList<String> getInventoryLocations() {
+		
+		return getInventoryByColumn(2);
+	}
+	public ArrayList<String> getInventoryBins() {
+		
+		return getInventoryByColumn(3);
+	}
+	public ArrayList<String> getInventoryChange() {
+		
+		return getInventoryByColumn(4);
+	}
+	public ArrayList<String> getInventoryPO() {
+		
+		return getInventoryByColumn(5);
+		
+	}
+	private ArrayList<String> getInventoryByColumn(int iColumn){
+		ArrayList<String> al = new ArrayList<String>();
+		WebElement listView = WebElementUtils.findElement(B2WMaintain.getMaintainPartsInventoryHistoryListView());
+		if (listView != null){
+			WebElement rowgroup = WebElementUtils.getElementWithMatchingAttribute(WebElementUtils.getChildElements(listView, By.tagName("tbody")),"role","rowgroup");
+			if (rowgroup != null){
+				List<WebElement> rows = WebElementUtils.getChildElements(rowgroup, By.tagName("tr"));
+				Iterator<WebElement> iter = rows.iterator();
+				while (iter.hasNext()) {
+					WebElement row = iter.next();
+					List<WebElement> ls = row.findElements(By.tagName("td"));
+					al.add(ls.get(iColumn).getText());
+				}
+			}
+		
+		}
+		return al;
+	}
+	
+	public String getInventoryText(int iRow, int iColumn) {
+		String al = "";
+		WebElement listView = WebElementUtils.findElement(B2WMaintain.getMaintainPartsInventoryHistoryListView());
+		if (listView != null) {
+			WebElement rowgroup = WebElementUtils.getElementWithMatchingAttribute(
+					WebElementUtils.getChildElements(listView, By.tagName("tbody")), "role", "rowgroup");
+			if (rowgroup != null) {
+				List<WebElement> rows = WebElementUtils.getChildElements(rowgroup, By.tagName("tr"));
+				al = rows.get(iRow).findElements(By.tagName("td")).get(iColumn).getText();
+
+			}
+
+		}
+		return al;
+	}
+	
+	public int getInventoryHistoryRows() {
+		int i = 0;
+		WebElement listView = WebElementUtils.findElement(B2WMaintain.getMaintainPartsInventoryHistoryListView());
+		if (listView != null) {
+			WebElement rowgroup = WebElementUtils.getElementWithMatchingAttribute(
+					WebElementUtils.getChildElements(listView, By.tagName("tbody")), "role", "rowgroup");
+			if (rowgroup != null) {
+				List<WebElement> rows = WebElementUtils.getChildElements(rowgroup, By.tagName("tr"));
+				i = rows.size();
+
+			}
+
+		}
+		return i;
+	}
+	
+	public boolean clickOnLink(int iRow){
+		boolean bReturn = false;
+		WebElement listView = WebElementUtils.findElement(B2WMaintain.getMaintainPartsInventoryHistoryListView());
+		if (listView != null){
+			WebElement rowgroup = WebElementUtils.getElementWithMatchingAttribute(WebElementUtils.getChildElements(listView, By.tagName("tbody")),"role","rowgroup");
+			if (rowgroup != null){
+				List<WebElement> rows = WebElementUtils.getChildElements(rowgroup, By.tagName("tr"));
+				if (rows.size() > iRow){
+					WebElement row = rows.get(iRow);
+					WebElement column = row.findElements(By.tagName("td")).get(0);
+					bReturn = WebElementUtils.clickElement(WebElementUtils.getChildElement(column, By.tagName("a")));
+				}
+			}
+		}
+		return bReturn;
+	}
 }
