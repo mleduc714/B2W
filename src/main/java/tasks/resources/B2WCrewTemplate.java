@@ -13,11 +13,11 @@ public class B2WCrewTemplate implements Cloneable {
     private boolean inactive;
     private String notes;
     private String foreman;
-    private ArrayList<String> employees;
-    private ArrayList<String> equipments;
-    private ArrayList<String> laborTypes;
-    private ArrayList<String> equipmentTypes;
-    private ArrayList<String> equipmentThatMoves;
+    private ArrayList<String> employees = new ArrayList<>();
+    private ArrayList<String> equipments = new ArrayList<>();
+    private ArrayList<String> laborTypes = new ArrayList<>();
+    private ArrayList<String> equipmentTypes = new ArrayList<>();
+    private ArrayList<String> equipmentThatMoves = new ArrayList<>();
 
     // Transport Crew Fields
     private String transportType;

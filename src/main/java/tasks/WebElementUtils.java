@@ -158,9 +158,8 @@ public class WebElementUtils {
 			try {
 				List<WebElement> childList = el.findElements(childBy);
 				for (WebElement item: childList) {
-					if (text.equals(item.getText())) {
-						//ret = el;
-						//break;
+					//if (text.equals(item.getText())) {
+					if (item.getText().contains(text)) {
 						return el;
 					}
 				}

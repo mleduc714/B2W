@@ -125,6 +125,10 @@ public class B2WCrewTemplateTest extends B2WTestCase {
         createCrew(productionCrewTemplate);
         createCrew(transportCrewTemplate);
 
+        // Check that Crew Details are displayed correctly.
+        verifyDetails(productionCrewTemplate);
+        verifyDetails(transportCrewTemplate);
+
         // Update Crew Templates
         updateCrew(productionCrewTemplate, productionCrewTemplateUpdate);
         productionCrewTemplate = productionCrewTemplateUpdate;
@@ -153,6 +157,12 @@ public class B2WCrewTemplateTest extends B2WTestCase {
         logCompare(true, crewTemplateTasks.createCrewTemplate(crewTemplate), "Create " + crewTemplate.getType() + " Crew Template.");
         logCompare(true, true, "====== Stop Creation Crew Template test: " + crewTemplate.getName());
 
+    }
+
+    private void verifyDetails(B2WCrewTemplate crewTemplate) {
+        logCompare(true, true, "====== Start Details verification of Crew Template: " + crewTemplate.getName());
+        logCompare(true, crewTemplateTasks.verifyCrewTemplateDetails(crewTemplate), "Verify details of " + crewTemplate.getName() + " Crew Template.");
+        logCompare(true, true, "====== Stop Details verification of Crew Template: " + crewTemplate.getName());
     }
 
     private void updateCrew(B2WCrewTemplate crewTemplate, B2WCrewTemplate crewTemplateUPD) {

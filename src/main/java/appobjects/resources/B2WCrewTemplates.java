@@ -27,4 +27,6 @@ public class B2WCrewTemplates {
     public static By getTransportFunction(String sValue) { return By.cssSelector(B2WUIMap.b2w_crewtemplates_transportfunction + "[value='" + sValue + "']"); }
     public static By getCrewTemplateSearchField() { return By.cssSelector(B2WUIMap.b2w_crewtemplates_searchfield); }
     public static By getDeleteCrewTemplateSearch() { return By.cssSelector(B2WUIMap.b2w_crewtemplates_deletesearchfield); }
+    public static By getItemsFromGeneralInformation() { return By.cssSelector(B2WUIMap.b2w_crewtemplates_generalInformationItems); }
+    public static By getItemsFromCrewDetails() { return By.cssSelector(B2WUIMap.b2w_crewtemplates_crewDetailsItems); }
 }

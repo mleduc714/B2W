@@ -267,7 +267,8 @@ public class B2WUIMap {
 	public static final String b2w_crewtemplates_transportfunction = "input[name='transportFunctionType']";
 	public static final String b2w_crewtemplates_searchfield = "input[type='text']";
 	public static final String b2w_crewtemplates_deletesearchfield = ".b2wicon.i140-rejected";
-
+	public static final String b2w_crewtemplates_generalInformationItems = ".namevalue-pair";
+	public static final String b2w_crewtemplates_crewDetailsItems = "div[class='tree-text']";
 
 	// places
 	public static final String b2w_createnewplacebutton = "a#PageContent_CreateNewPlaceButton";

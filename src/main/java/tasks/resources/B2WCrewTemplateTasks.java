@@ -108,6 +108,22 @@ public class B2WCrewTemplateTasks extends B2WKendoTasks {
 
         return bReturn;
     }
+    public boolean verifyCrewTemplateDetails(B2WCrewTemplate crewTemplate) {
+        boolean bReturn;
+        bReturn = logCompare(true, selectCrewTemplate(crewTemplate), "Select '" + crewTemplate.getName() + "' from the list.");
+        bReturn &= logCompare(true, checkID(crewTemplate.getID()), "Check that ID equals to " + crewTemplate.getID());
+        bReturn &= logCompare(true, checkWorkType(crewTemplate.getWorkType()), "Check that Worktype equals to " + crewTemplate.getWorkType());
+        bReturn &= logCompare(true, checkWorkSubType(crewTemplate.getWorkSubType()), "Check that Work Subtype equals to " + crewTemplate.getWorkSubType());
+        bReturn &= logCompare(true, checkBusinessUnit(crewTemplate.getBusinessUnit()), "Check that Business Unit equals to " + crewTemplate.getBusinessUnit());
+        bReturn &= logCompare(true, checkNotes(crewTemplate.getNotes()), "Check that Notes equals to " + crewTemplate.getNotes());
+        bReturn &= logCompare(true, checkForeman(crewTemplate.getForeman()), "Check that Foreman " + crewTemplate.getForeman() + " in the Crew Details.");
+        bReturn &= logCompare(true, checkCrew(crewTemplate.getEmployees()), "Check that Employees in the Crew Details.");
+        bReturn &= logCompare(true, checkCrew(crewTemplate.getEquipments()), "Check that Equipment in the Crew Details.");
+        bReturn &= logCompare(true, checkCrew(crewTemplate.getEquipmentThatMoves()), "Check that Equipment that Moves in the Crew Details.");
+        bReturn &= logCompare(true, checkCrew(crewTemplate.getLaborTypes()), "Check that Labor Types in the Crew Details.");
+        bReturn &= logCompare(true, checkCrew(crewTemplate.getEquipmentTypes()), "Check that Equipment Types in the Crew Details.");
+        return bReturn;
+    }
 
     // Getter and Setter
     public int getyOffset() {
@@ -450,6 +466,41 @@ public class B2WCrewTemplateTasks extends B2WKendoTasks {
         }
         return bReturn;
     }
+    private boolean isMemberInCrewDetails(String sValue) {
+        boolean bReturn = false;
+        List<WebElement> list = WebElementUtils.findElements(B2WCrewTemplates.getItemsFromCrewDetails());
+        if (list != null) {
+            bReturn = WebElementUtils.getElementWithMatchingStartsWithText(list, sValue) != null;
+        } else {
+            log.debug("List is Empty.");
+        }
+        return bReturn;
+    }
+    private boolean checkID(String sValue) {
+        return getGeneralInformationValue("Crew ID").equals(sValue);
+    }
+    private boolean checkWorkType(String sValue) {
+        return getGeneralInformationValue("Work Type").equals(sValue);
+    }
+    private boolean checkWorkSubType(String sValue) {
+        return getGeneralInformationValue("Work Subtype").equals(sValue);
+    }
+    private boolean checkBusinessUnit(String sValue) {
+        return getGeneralInformationValue("Business Unit").equals(sValue);
+    }
+    private boolean checkNotes(String sValue) {
+        return getGeneralInformationValue("Notes").equals(sValue);
+    }
+    private boolean checkForeman(String sValue) {
+        return  isMemberInCrewDetails(sValue);
+    }
+    private boolean checkCrew(ArrayList<String> listValues) {
+        boolean bResult = true;
+        for (String Item: listValues) {
+            bResult &= isMemberInCrewDetails(Item);
+        }
+        return bResult;
+    }
 
     // Click Methods
     private boolean clickSaveButton() {
@@ -601,6 +652,22 @@ public class B2WCrewTemplateTasks extends B2WKendoTasks {
             log.warn("Resource Tree could not be found on the page.");
         }
         return iResult;
+    }
+    private String getGeneralInformationValue(String sFieldName) {
+        String sReturn = "";
+        List<WebElement> list = WebElementUtils.findElements(B2WCrewTemplates.getItemsFromGeneralInformation());
+        WebElement item = WebElementUtils.getElementWithContainsChildElementText(list, By.cssSelector(".label"), sFieldName);
+        if (item != null) {
+            WebElement data = WebElementUtils.getChildElement(item, By.cssSelector(".data"));
+            if (data != null) {
+                return data.getText();
+            } else {
+                log.warn("Could not find DATA in the Element.");
+            }
+        } else {
+            log.warn("Could not find '" + sFieldName + "' in the list.");
+        }
+        return sReturn;
     }
 
     // Delete Methods
