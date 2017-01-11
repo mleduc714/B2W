@@ -5,6 +5,7 @@ import org.apache.log4j.Logger;
 import org.openqa.selenium.*;
 import tasks.BrowserUtils;
 import tasks.WebElementUtils;
+import tasks.util.TaskUtils;
 
 import java.awt.*;
 import java.awt.Point;
@@ -66,7 +67,7 @@ public class B2WCrewTemplateTasks extends B2WKendoTasks {
     }
     public boolean deleteCrew(B2WCrewTemplate crewTemplate) {
         boolean bReturn = false;
-        if (selectCrewTemplate(crewTemplate)) {
+        if (logCompare(true, selectCrewTemplate(crewTemplate), "Select Crew Template '" + crewTemplate.getName() + "' in the list.")) {
             WebElement deleteBtn = WebElementUtils.waitAndFindElement(B2WCrewTemplates.getDeleteBtn());
             if (deleteBtn != null) {
                 bReturn = WebElementUtils.clickElement(deleteBtn);
@@ -85,6 +86,26 @@ public class B2WCrewTemplateTasks extends B2WKendoTasks {
                 }
             }
         }
+        return bReturn;
+    }
+    public boolean searchCrewTemplate(String sName) {
+        boolean bReturn;
+        bReturn = logCompare(true, setSearchCrewTemplateName(sName), "Set Crew Template Name: " + sName + " to the search field.");
+        bReturn &= logCompare(true, getCrewTemplateFromList(sName) != null, "Check that Crew Template Name: " + sName + " in the list.");
+        bReturn &= logCompare(true, getCrewTemplateCountFromList() == 1, "Check that Crew Template List contains one record.");
+        return bReturn;
+    }
+    public boolean clearSearchCrewTemplate() {
+        boolean bReturn = false;
+        WebElement listPanel = WebElementUtils.findElement(B2WCrewTemplates.getCrewTemplatesListPanel());
+        if (listPanel != null) {
+            WebElement parent = WebElementUtils.getParentElement(listPanel);
+            WebElement deleteIcon = WebElementUtils.getChildElement(parent, B2WCrewTemplates.getDeleteCrewTemplateSearch());
+            if (deleteIcon != null) {
+                bReturn = WebElementUtils.clickElement(deleteIcon);
+            }
+        }
+
         return bReturn;
     }
 
@@ -215,9 +236,20 @@ public class B2WCrewTemplateTasks extends B2WKendoTasks {
         return bReturn;
     }
     private boolean selectSearchType(String searchValue) {
-        //WebElement searchFDD = WebElementUtils.findElement(B2WCrewTemplates.getSearchTypesFDD(searchType));
+        boolean bReturn = false;
         WebElement searchFDD = WebElementUtils.getKendoFDDElementByTag("Crew Details", "h4");
-        return selectValueFromFDD(searchFDD, searchValue);
+        if (searchFDD != null) {
+            bReturn = selectValueFromFDD(searchFDD, searchValue);
+            if (!bReturn) {
+                log.debug("Could not select the value at first time. Trying to select one more time.");
+                TaskUtils.sleep(100);
+                searchFDD = WebElementUtils.getKendoFDDElementByTag("Crew Details", "h4");
+                bReturn = selectValueFromFDD(searchFDD, searchValue);
+            }
+        } else {
+            log.error("Could not find searchFDD.");
+        }
+        return bReturn;
     }
     private boolean selectCrewTemplate(B2WCrewTemplate crewTemplate) {
         boolean bReturn = false;
@@ -325,21 +357,32 @@ public class B2WCrewTemplateTasks extends B2WKendoTasks {
     private boolean setTransportDriver(String sValue) {
         boolean bReturn;
 
-        bReturn = selectSearchType("Employees with Driver Role");
-        bReturn &= setSearchValue(sValue);
+        bReturn = logCompare(true, selectSearchType("Employees with Driver Role"), "Select search Type 'Employees with Driver Role'");
+        bReturn &= logCompare(true, setSearchValue(sValue), "Set search value:" + sValue);
 
         List<WebElement> list = WebElementUtils.findElements(B2WCrewTemplates.getSearchResults());
         WebElement result = WebElementUtils.getElementWithContainsChildElementText(list, By.cssSelector("td"), sValue);
         WebElement parent = WebElementUtils.findElement(B2WCrewTemplates.getResourceTree());
         if (parent != null && result != null) {
             WebElement child = WebElementUtils.getChildElement(parent, By.cssSelector("em"));
-            bReturn &= dragAndDropWithMouse(result, child, getyOffset());
+            bReturn &= logCompare(true, dragAndDropWithMouse(result, child, getyOffset()), "Move element to position");
+        } else {
+            log.warn("Some elements were not found on the page.");
         }
         return bReturn;
     }
     private boolean setSearchValue(String sValue) {
         boolean bReturn = false;
         WebElement searchField = WebElementUtils.findElement(B2WCrewTemplates.getSearchValueField());
+        if (searchField != null) {
+            searchField.clear();
+            bReturn = WebElementUtils.sendKeys(searchField, sValue);
+        }
+        return bReturn;
+    }
+    private boolean setSearchCrewTemplateName(String sValue) {
+        boolean bReturn = false;
+        WebElement searchField = WebElementUtils.waitAndFindDisplayedElement(B2WCrewTemplates.getCrewTemplateSearchField());
         if (searchField != null) {
             searchField.clear();
             bReturn = WebElementUtils.sendKeys(searchField, sValue);
@@ -545,6 +588,20 @@ public class B2WCrewTemplateTasks extends B2WKendoTasks {
         }
         return eResult;
     }
+    private int getCrewTemplateCountFromList() {
+        int iResult = 0;
+        WebElement listPanel = WebElementUtils.findElement(B2WCrewTemplates.getCrewTemplatesListPanel());
+        if (listPanel != null) {
+            WebElement listTable = WebElementUtils.getChildElement(listPanel, B2WCrewTemplates.getCrewTemplatesListTable());
+            if (listTable != null) {
+                List<WebElement> crewTemplatesList = WebElementUtils.getChildElements(listTable, By.cssSelector("tr"));
+                return crewTemplatesList.size();
+            }
+        } else {
+            log.warn("Resource Tree could not be found on the page.");
+        }
+        return iResult;
+    }
 
     // Delete Methods
     private boolean deleteAllCrewMembers() {
@@ -568,6 +625,7 @@ public class B2WCrewTemplateTasks extends B2WKendoTasks {
         }
         return bReturn;
     }
+
 
     // === Support Methods
     public boolean waitForSchedulesPageNoBusy() {

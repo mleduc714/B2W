@@ -25,4 +25,6 @@ public class B2WCrewTemplates {
     public static By getButtonByName(String sValue) { return By.xpath(B2WUIMap.b2w_crewtemplates_button + "[contains(text(), '" + sValue + "')]"); }
     public static By getPopupWindow() { return By.cssSelector(B2WUIMap.b2w_crewtemplates_popupwindow); }
     public static By getTransportFunction(String sValue) { return By.cssSelector(B2WUIMap.b2w_crewtemplates_transportfunction + "[value='" + sValue + "']"); }
+    public static By getCrewTemplateSearchField() { return By.cssSelector(B2WUIMap.b2w_crewtemplates_searchfield); }
+    public static By getDeleteCrewTemplateSearch() { return By.cssSelector(B2WUIMap.b2w_crewtemplates_deletesearchfield); }
 }

@@ -121,19 +121,29 @@ public class B2WCrewTemplateTest extends B2WTestCase {
 
         logCompare(true, b2wNav.openCrewTemplates(), "Navigate to Resources -> Crew Templates");
 
+        // Create Crew Templates
         createCrew(productionCrewTemplate);
         createCrew(transportCrewTemplate);
 
+        // Update Crew Templates
         updateCrew(productionCrewTemplate, productionCrewTemplateUpdate);
         productionCrewTemplate = productionCrewTemplateUpdate;
         updateCrew(transportCrewTemplate, transportCrewTemplateUpdate);
         transportCrewTemplate = transportCrewTemplateUpdate;
 
-        copyCrew(productionCrewTemplate);
+        // Copy Crew Templates
+        searchCrewTemplate(productionCrewTemplate);
+        copyProductionCrewTemplate = copyCrew(productionCrewTemplate);
+        searchCrewTemplate(transportCrewTemplate);
+        copyTransportCrewTemplate = copyCrew(transportCrewTemplate);
+        clearSearch();
+
+        // Delete Crew Templates
         deleteCrew(productionCrewTemplate);
-        if (productionCrewTemplate != null) {
-            deleteCrew(copyProductionCrewTemplate);
-        }
+        if (copyProductionCrewTemplate != null) { deleteCrew(copyProductionCrewTemplate); }
+
+        deleteCrew(transportCrewTemplate);
+        if (copyTransportCrewTemplate != null) { deleteCrew(copyTransportCrewTemplate); }
     }
 
     // Private Test Methods
@@ -151,13 +161,25 @@ public class B2WCrewTemplateTest extends B2WTestCase {
         logCompare(true, true, "====== Stop Update Crew Template test: " + crewTemplate.getName());
     }
 
-    private void copyCrew(B2WCrewTemplate crewTemplate) {
-        logCompare(true, true, "====== Start Copy Production Crew Template test: " + crewTemplate.getName());
-        if (logCompare(true, crewTemplateTasks.copyCrewTemplate(crewTemplate), "Update Production Crew Template dialog.")) {
-            copyProductionCrewTemplate = crewTemplate.clone();
-            copyProductionCrewTemplate.setName("Copy of " + crewTemplate.getName());
+    private B2WCrewTemplate copyCrew(B2WCrewTemplate crewTemplate) {
+        B2WCrewTemplate oReturn = null;
+        logCompare(true, true, "====== Start Copy Crew Template test: " + crewTemplate.getName());
+        if (logCompare(true, crewTemplateTasks.copyCrewTemplate(crewTemplate), "Update Crew Template: " + crewTemplate.getName())) {
+            oReturn = crewTemplate.clone();
+            oReturn.setName("Copy of " + crewTemplate.getName());
         }
-        logCompare(true, true, "====== Stop Copy Production Crew Template test: " + crewTemplate.getName());
+        logCompare(true, true, "====== Stop Copy Crew Template test: " + crewTemplate.getName());
+        return oReturn;
+    }
+
+    private void searchCrewTemplate(B2WCrewTemplate crewTemplate) {
+        logCompare(true, true, "====== Start Copy Crew Template test: " + crewTemplate.getName());
+        logCompare(true, crewTemplateTasks.searchCrewTemplate(crewTemplate.getName()), "Search Crew Template '" + crewTemplate.getName() + "' in the list.");
+        logCompare(true, true, "====== Stop Copy Crew Template test: " + crewTemplate.getName());
+    }
+
+    private void clearSearch() {
+        logCompare(true, crewTemplateTasks.clearSearchCrewTemplate(), "Clear Search Field.");
     }
 
     private void deleteCrew(B2WCrewTemplate crewTemplate) {

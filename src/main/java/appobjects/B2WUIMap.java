@@ -265,6 +265,8 @@ public class B2WUIMap {
 	public static final String b2w_crewtemplates_button = ".//div";
 	public static final String b2w_crewtemplates_popupwindow = ".k-widget.k-window";
 	public static final String b2w_crewtemplates_transportfunction = "input[name='transportFunctionType']";
+	public static final String b2w_crewtemplates_searchfield = "input[type='text']";
+	public static final String b2w_crewtemplates_deletesearchfield = ".b2wicon.i140-rejected";
 
 
 	// places
