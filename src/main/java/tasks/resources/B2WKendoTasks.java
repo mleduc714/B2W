@@ -94,7 +94,7 @@ public abstract class B2WKendoTasks extends B2WKendo {
 		String sRandom = "";
 		dropDownElement.clear();
 		if (WebElementUtils.sendKeys(dropDownElement, "a")) {
-			TaskUtils.sleep(500);
+			TaskUtils.sleep(1000);
 			sRandom =  selectRandomItemFromDropDown();
 		}
 		return sRandom;

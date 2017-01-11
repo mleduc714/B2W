@@ -669,5 +669,8 @@ public class B2WMaintain extends KendoUI {
 	public static By getMaintainPartsInventoryHistoryListView() {
 		return By.cssSelector(B2WUIMap.b2w_partsinventoryhistoryview);
 	}
-
+	public static By getMaintainPurchaseOrderDetails() {
+		return By.cssSelector(B2WUIMap.b2w_partspurchaseorderdetails);
+	}
+	
 }
