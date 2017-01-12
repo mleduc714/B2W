@@ -570,6 +570,7 @@ public class B2WEquipmentTasks extends B2WKendoTasks {
 				WebElement item = WebElementUtils.getElementWithMatchingText(items, sText, false);
 				if (item != null) {
 					bReturn = WebElementUtils.clickElement(item);
+					waitForPageNotBusy(WebElementUtils.MEDIUM_TIME_OUT);
 				}else{
 					log.debug("Item with could not be found matching "+sText);
 				}
@@ -649,14 +650,11 @@ public class B2WEquipmentTasks extends B2WKendoTasks {
 		List<WebElement> ls = WebElementUtils.findElements(B2WEquipment.getKendoHeadersFromView());
 		WebElement el = WebElementUtils.getElementWithMatchingText(ls, PARTS, false);
 		if (el != null) {
-			List<WebElement> windows = WebElementUtils.findElements(B2WMaintain.getKendoWindowTitle());
 			WebElement button = getButton("Add Parts");
 			Coordinates coordinate = ((Locatable) button).getCoordinates();
 			coordinate.onPage();
 			coordinate.inViewPort();
-			TaskUtils.sleep(5000);
 			if (WebElementUtils.clickElement(button)) {
-				bReturn = WebElementUtils.waitForElementIsDisplayed(windows.get(1), WebElementUtils.SHORT_TIME_OUT);
 				bReturn &= waitForPageNotBusy(WebElementUtils.MEDIUM_TIME_OUT);
 			}
 		}
@@ -729,7 +727,7 @@ public class B2WEquipmentTasks extends B2WKendoTasks {
 		if (WebElementUtils.clickElement(button)) {
 			bReturn = true;
 		}
-
+		TaskUtils.sleep(500);
 		return bReturn;
 	}
 	
@@ -788,8 +786,15 @@ public class B2WEquipmentTasks extends B2WKendoTasks {
 		if (specs != null){
 		// get the parent of the label
 			// find the input
-			WebElement input = WebElementUtils.getChildElement(specs, By.tagName("input"));
-			bReturn = WebElementUtils.sendKeys(input, sText);
+			if (sField.equals("Year")){
+				List<WebElement> input = WebElementUtils.getChildElements(specs, By.tagName("input"));
+				WebElementUtils.clickElement(input.get(0));
+				bReturn = WebElementUtils.sendKeys(input.get(1), sText);
+			}else{
+				WebElement input = WebElementUtils.getChildElement(specs, By.tagName("input"));
+				WebElementUtils.clickElement(input);
+				bReturn = WebElementUtils.sendKeys(input, sText);
+			}
 		}
 		return bReturn;
 	}
@@ -815,7 +820,7 @@ public class B2WEquipmentTasks extends B2WKendoTasks {
 			}
 			if (sItem != null){
 				WebElementUtils.clickElement(input.get(input.size()-1));
-				bReturn &= selectItemFromDropDown(sItem);
+				bReturn = selectItemFromDropDown(sItem);
 			}
 		}
 		return bReturn;

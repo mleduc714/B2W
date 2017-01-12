@@ -1,5 +1,8 @@
 package testcases.maintain;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+
 import com.b2w.test.B2WTestCase;
 
 import tasks.B2WNavigationTasks;
@@ -10,6 +13,7 @@ import tasks.dialogs.B2WAddItemWorkOrder;
 import tasks.dialogs.B2WAddMaintenanceReqToWorkOrder;
 import tasks.dialogs.B2WAddPartsToWorkItem;
 import tasks.dialogs.B2WAddToInventory;
+import tasks.dialogs.B2WApprovePurchaseOrder;
 import tasks.dialogs.B2WCompleteWorkOrder;
 import tasks.dialogs.B2WEditScheduleMaintenance;
 import tasks.dialogs.B2WReportHours;
@@ -22,8 +26,10 @@ import tasks.maintain.B2WMaintainProgramsTasks;
 import tasks.maintain.B2WMaintainRequestTasks;
 import tasks.maintain.B2WMaintainScheduleTasks;
 import tasks.maintain.B2WMaintainTasks;
+import tasks.maintain.B2WPurchasingTasks;
 import tasks.maintain.B2WTimeCardTasks;
 import tasks.maintain.B2WWorkOrdersTasks;
+import tasks.resources.B2WEmployeeTasks;
 import tasks.resources.B2WEquipmentTasks;
 import tasks.util.TaskUtils;
 
@@ -53,12 +59,17 @@ public class B2WPartsSmokeTest extends B2WTestCase {
 	B2WEquipmentTasks b2wE = new B2WEquipmentTasks();
 	B2WAddItemWorkOrder b2wAddToWorkOrder = new B2WAddItemWorkOrder();
 	B2WAddPartsToWorkItem addParts = new B2WAddPartsToWorkItem();
+	B2WEmployeeTasks b2wEmp = new B2WEmployeeTasks();
+	B2WApprovePurchaseOrder approve = new B2WApprovePurchaseOrder();	
+	B2WPurchasingTasks purch = new B2WPurchasingTasks();
 
 	String sPartID, sPartUnitOfMeasure, sPartDesc, sPartStandardUnitCost,
 	sPartMinInventory, sPartReorderQTY, sPartBusinessUnit, sPartManufacturer, sPartNotes, sPartInventory,
 	sPartCategory, sPartLocation, sPartBin, sWorkOrderDescription, sWorkOrderItemDescription,
-	sEstQty, sReportedQty;
+	sEstQty, sReportedQty, sPartsVendor, sEmployeeFirstNameB,sEmployeeLastNameB,sEmployeeIDB;
 	
+	static SimpleDateFormat format = new SimpleDateFormat("M/d/yyyy");
+	Calendar cal = Calendar.getInstance();
 	
 	@Override
 	public void testSetUp() throws Throwable {
@@ -82,7 +93,11 @@ public class B2WPartsSmokeTest extends B2WTestCase {
 		sPartLocation = getProperty("sPartLocation");
 		sWorkOrderDescription = getProperty("sWorkOrderDescription")+iRandom;
 		sWorkOrderItemDescription = getProperty("sWorkOrderItemDescription")+iRandom;
-		
+		sEmployeeFirstNameB = getProperty("sEmployeeFirstNameB");
+		sEmployeeLastNameB = getProperty("sEmployeeLastNameB");
+		sEmployeeIDB = getProperty("sEmployeeIDB")+iRandom;
+
+		cal.add(Calendar.DAY_OF_YEAR,14);
 		
 	}
 
@@ -123,18 +138,14 @@ public class B2WPartsSmokeTest extends B2WTestCase {
 	
 	@Override
 	public void testMain() throws Throwable {
+		createEmployee();
 		
 		b2wNav.openMaintain();
+
 		addPart();
 		addToInventory();
 		createWorkOrder();
-		
-//		b2wMaintain.openParts();
-//		parts.selectPartByDescription("AutoPart6367");
-//		parts.expandInventoryHistory();
-//		parts.clickOnLink(1);
-		
-
+		createPurchaseOrder();
 		TaskUtils.sleep(5000);
 		/*	
 		•Add a Primary Vendor
@@ -153,7 +164,18 @@ public class B2WPartsSmokeTest extends B2WTestCase {
 		
 		
 	}
-	
+	public void createEmployee() {
+		assertTrue("Open Employees", b2wNav.openEmployees());
+		assertTrue("Create New Employee",b2wEmp.createNewEmployeeButton());
+		logCompare(true, b2wEmp.setEmployeeFirstName(sEmployeeFirstNameB), "Set First Name");
+		logCompare(true, b2wEmp.setEmployeeLastName(sEmployeeLastNameB), "Set Last Name");
+		logCompare(true, b2wEmp.setEmployeeID(sEmployeeIDB), "Set Employee ID");
+		logCompare(true, b2wEmp.setDriverCheckBox(true), "Set Driver Checkbox");
+		logCompare(true, b2wEmp.setPurchaseOrderApproverCheckBox(true), "Approver");
+		logCompare(true, b2wEmp.clickTopSaveButton(), "Click Top Save Button");
+
+
+	}
 	public void addPart() {
 		b2wMaintain.openParts();
 		logCompare(true,parts.clickAddPart(),"");
@@ -177,7 +199,7 @@ public class B2WPartsSmokeTest extends B2WTestCase {
 		logCompare(true,parts.selectPartByDescription(sPartDesc),"Select Part");
 		logCompare(true,parts.expandVendors(),"Expand Vendors");
 		logCompare(true,parts.clickAddVendor(),"Add Vendors");
-		parts.selectAnyVendor();
+		sPartsVendor = parts.selectAnyVendor();
 		logCompare(true,parts.setVendorPartNumber("1922"),"Set Vendor Part");
 		logCompare(true,parts.setPartLeadTime("5"),"Set Lead Time");
 		logCompare(true,parts.saveVendor(),"Save Vendor");
@@ -191,6 +213,7 @@ public class B2WPartsSmokeTest extends B2WTestCase {
 		TaskUtils.sleep(1000);
 		logCompare(true,addInventory.selectLocation(sPartLocation), "Select Location");
 		sPartBin = addInventory.selectAnyBin();
+		TaskUtils.sleep(500);
 		logCompare(true,addInventory.setQuantity(sPartInventory),"Set Quantity");
 		logCompare(true,addInventory.saveAddToInventory(),"Save Inventory");
 		logCompare(sPartInventory,inventory.getPartCurrentInventory(sPartDesc), "Verify Inventory");
@@ -215,7 +238,7 @@ public class B2WPartsSmokeTest extends B2WTestCase {
 		logCompare(true,b2wWork.clickAddItemButton(), "New Item");
 		TaskUtils.sleep(1000);
 		logCompare(true,b2wWork.clickAddItemButton(),"Add Item");
-		b2wAddToWorkOrder.setAddItemDescription(sWorkOrderItemDescription);
+		logCompare(true,b2wAddToWorkOrder.setAddItemDescription(sWorkOrderItemDescription), "Set Desc");
 		b2wAddToWorkOrder.setAnyAddItemTypeFromDD();
 		b2wAddToWorkOrder.selectAddItemPriorityFromDD("Medium");
 		b2wAddToWorkOrder.selectAnyAddItemProblemCodeFromDD();
@@ -230,20 +253,47 @@ public class B2WPartsSmokeTest extends B2WTestCase {
 		TaskUtils.sleep(1000);
 		logCompare(true,b2wWork.expandParts(), "Expand Parts");
 		logCompare(true,b2wWork.clickAddParts(), "Add Parts");
-		addParts.selectPartToAddToWorkItemByDescription(sPartDesc);
-		addParts.partsNext();
-
-		addParts.setEstimatedQty(sPartDesc,sEstQty);
-		addParts.setReportedQty(sPartDesc, sReportedQty);
+		logCompare(true,addParts.selectPartToAddToWorkItemByDescription(sPartDesc),"");
+		logCompare(true,addParts.partsNext(),"");
+		logCompare(true,addParts.setEstimatedQty(sPartDesc,sEstQty),"");
+		logCompare(true,addParts.setReportedQty(sPartDesc, sReportedQty),"");
 		String sInventoryChange = "("+sReportedQty+" EACH)";
-		addParts.saveParts();
-		b2wWork.clickSaveButton();
-		b2wMaintain.openParts();
+		logCompare(true,addParts.saveParts(), "Save Parts");
+		logCompare(true,b2wWork.clickSaveButton(),"Click Save");
+		logCompare(true,b2wMaintain.openParts(),"Open Parts");
 		logCompare(true,parts.selectPartByDescription(sPartDesc), "Select Desc");
 		logCompare(true,parts.expandInventoryHistory(),"Expand History");
 		logCompare(2,parts.getInventoryHistoryRows(), "Inventory History rows should be 2");
 		logCompare(sInventoryChange,parts.getInventoryText(1, 4),"Inventory Changed");
 
 	}
+	
+	public void createPurchaseOrder() {
+		
+		logCompare(true,b2wMaintain.openPurchasing(),"Open Purchases Orders");
+		logCompare(true,purch.createBlankPurchaseOrder(), "Blank Purchase Order");
+		logCompare(true,purch.selectChooseVendorfromDD(sPartsVendor), "Choose Vendor");
+		logCompare(true,purch.setAltID("1234"), "Set Alt ID");
+		logCompare(true,purch.setPODueDate(format.format(cal.getTime())), "Due Date");
+		logCompare(true,purch.setCompanyName("BOW STREET"), "Company Name");
+		logCompare(true,purch.setStreetAddress("99 Bow Street"),"Address");
+		logCompare(true,purch.setCity("Portsmouth"),"City");
+		logCompare(true,purch.setState("NH"),"State");
+		logCompare(true,purch.setPostalCode("03801"),"Zip");
+		logCompare(true,purch.setCountry("USA"), "Country");
+		logCompare(true,purch.setTaxRate("5"),"Percent");
+		logCompare(true,purch.setFreight("34.00"), "Freight");
+		logCompare(true,purch.savePurchaseOrder(), "Save Purchase Order");
+		TaskUtils.sleep(1000);
+		logCompare(true,purch.clickAddPart(), "Add Part");
+		logCompare(true,purch.setPart(sPartDesc), "Set Part");
+		logCompare(true,purch.savePartOrder(), "Save Part Order");
+		logCompare(true,purch.clickApproveButton(), "Approve");
+		TaskUtils.sleep(500);
+		logCompare(true,approve.selectApprover("D"), "First Name");
+		logCompare(true,approve.clickApproveButton(), "Click Approve");
+		
+	}
+	
 
 }
