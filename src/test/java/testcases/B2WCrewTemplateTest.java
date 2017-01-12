@@ -120,6 +120,7 @@ public class B2WCrewTemplateTest extends B2WTestCase {
         super.testMain();
 
         logCompare(true, b2wNav.openCrewTemplates(), "Navigate to Resources -> Crew Templates");
+        crewTemplateTasks.waitForSchedulesPageNoBusy();
 
         // Create Crew Templates
         createCrew(productionCrewTemplate);
@@ -142,18 +143,25 @@ public class B2WCrewTemplateTest extends B2WTestCase {
         copyTransportCrewTemplate = copyCrew(transportCrewTemplate);
         clearSearch();
 
+        // Verify Inactive checkbox in the Crew Templates list.
+        verifyInactiveCheckbox(productionCrewTemplate);
+        verifyInactiveCheckbox(transportCrewTemplate);
+
         // Delete Crew Templates
         deleteCrew(productionCrewTemplate);
         if (copyProductionCrewTemplate != null) { deleteCrew(copyProductionCrewTemplate); }
 
         deleteCrew(transportCrewTemplate);
         if (copyTransportCrewTemplate != null) { deleteCrew(copyTransportCrewTemplate); }
+
     }
 
     // Private Test Methods
     private void createCrew(B2WCrewTemplate crewTemplate) {
         logCompare(true, true, "====== Start Creation Crew Template test: " + crewTemplate.getName());
         logCompare(true, crewTemplateTasks.selectAddCrewTemplate(crewTemplate.getType()), "Open Add Crew Template dialog.");
+        logCompare(true, crewTemplateTasks.verifyCrewTemplateGrouping(), "Verify grouping on Crew Template creation page.");
+        logCompare(true, crewTemplateTasks.verifyCrewTemplateDetailsSorting(), "Verify Sorting on Crew Template creation page.");
         logCompare(true, crewTemplateTasks.createCrewTemplate(crewTemplate), "Create " + crewTemplate.getType() + " Crew Template.");
         logCompare(true, true, "====== Stop Creation Crew Template test: " + crewTemplate.getName());
 
@@ -163,6 +171,12 @@ public class B2WCrewTemplateTest extends B2WTestCase {
         logCompare(true, true, "====== Start Details verification of Crew Template: " + crewTemplate.getName());
         logCompare(true, crewTemplateTasks.verifyCrewTemplateDetails(crewTemplate), "Verify details of " + crewTemplate.getName() + " Crew Template.");
         logCompare(true, true, "====== Stop Details verification of Crew Template: " + crewTemplate.getName());
+    }
+
+    private void verifyInactiveCheckbox(B2WCrewTemplate crewTemplate) {
+        logCompare(true, true, "====== Start Verify Crew Template inactive checkbox: " + crewTemplate.getName());
+        logCompare(true, crewTemplateTasks.verifyInactiveCheckbox(crewTemplate.getName()), "Verify Crew Templates inactive checkbox for '" + crewTemplate.getName());
+        logCompare(true, true, "====== Stop Verify Crew Template inactive checkbox: " + crewTemplate.getName());
     }
 
     private void updateCrew(B2WCrewTemplate crewTemplate, B2WCrewTemplate crewTemplateUPD) {

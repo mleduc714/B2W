@@ -105,7 +105,18 @@ public class B2WCrewTemplateTasks extends B2WKendoTasks {
                 bReturn = WebElementUtils.clickElement(deleteIcon);
             }
         }
-
+        return bReturn;
+    }
+    public boolean clearSearchCrewTemplateDetails() {
+        boolean bReturn = false;
+        WebElement resourceListContainer = WebElementUtils.waitAndFindElement(B2WCrewTemplates.getResourceListContainer());
+        if (resourceListContainer != null) {
+            WebElement parent = WebElementUtils.getParentElement(resourceListContainer);
+            WebElement deleteIcon = WebElementUtils.getChildElement(parent, B2WCrewTemplates.getDeleteCrewTemplateSearch());
+            if (deleteIcon != null) {
+                bReturn = WebElementUtils.clickElement(deleteIcon);
+            }
+        }
         return bReturn;
     }
     public boolean verifyCrewTemplateDetails(B2WCrewTemplate crewTemplate) {
@@ -122,6 +133,44 @@ public class B2WCrewTemplateTasks extends B2WKendoTasks {
         bReturn &= logCompare(true, checkCrew(crewTemplate.getEquipmentThatMoves()), "Check that Equipment that Moves in the Crew Details.");
         bReturn &= logCompare(true, checkCrew(crewTemplate.getLaborTypes()), "Check that Labor Types in the Crew Details.");
         bReturn &= logCompare(true, checkCrew(crewTemplate.getEquipmentTypes()), "Check that Equipment Types in the Crew Details.");
+        return bReturn;
+    }
+    public boolean verifyCrewTemplateGrouping() {
+        boolean bReturn;
+        clearSearchCrewTemplateDetails();
+        bReturn = collapseAllGroups();
+        bReturn &= logCompare(true, getCountOfVisibleCrewMembers() == 0, "Check that All Members are hidden.");
+        bReturn &= expandAllGroups();
+        bReturn &= logCompare(true, getCountOfInvisibleCrewMembers() == 0, "Check that All Members are displayed.");
+        String firstGroupName = getFirstGroupName();
+        bReturn &= collapseGroup(firstGroupName);
+        bReturn &= logCompare(true, getCountOfVisibleGroupMembers(firstGroupName) == 0, "Check that All Group Members are hiden.");
+        bReturn &= expandGroup(firstGroupName);
+        bReturn &= logCompare(true, getCountOfInvisibleGroupMembers(firstGroupName) == 0, "Check that All Group Members are displayed.");
+        return bReturn;
+    }
+    public boolean verifyCrewTemplateDetailsSorting() {
+        boolean bReturn;
+        clearSearchCrewTemplateDetails();
+        bReturn = logCompare(true, sortDetailsAsc("Description"), "Sort Description by ASC.");
+        String firstGroupName = getFirstGroupName();
+        String firstName = getFirstMemberFromGroup(firstGroupName);
+        bReturn &= logCompare(true, sortDetailsDesc("Description"), "Sort Description by DESC.");
+        String secondName = getFirstMemberFromGroup(firstGroupName);
+        bReturn &= logCompare(true, firstName.compareTo(secondName) < 0, "Check that Resource List was sorted correctly.");
+        bReturn &= logCompare(true, sortDetailsAsc("ID"), "Sort Description by ASC.");
+        String firstID = getFirstMemberIDFromGroup(firstGroupName);
+        bReturn &= logCompare(true, sortDetailsDesc("ID"), "Sort Description by DESC.");
+        String secondID = getFirstMemberIDFromGroup(firstGroupName);
+        bReturn &= logCompare(true, firstID.compareTo(secondID) < 0, "Check that Resource List was sorted correctly.");
+        return bReturn;
+    }
+    public boolean verifyInactiveCheckbox(String sName) {
+        boolean bReturn;
+        bReturn = logCompare(true, setInactiveCheckbox(false), "Set 'Show inactive crews' checkbox to False");
+        bReturn &= logCompare(true, getCrewTemplateFromList(sName) == null, "Check that Crew Template is not in the list.");
+        bReturn &= logCompare(true, setInactiveCheckbox(true), "Set 'Show inactive crews' checkbox to True");
+        bReturn &= logCompare(true, getCrewTemplateFromList(sName) != null, "Check that Crew Template is in the list.");
         return bReturn;
     }
 
@@ -405,6 +454,20 @@ public class B2WCrewTemplateTasks extends B2WKendoTasks {
         }
         return bReturn;
     }
+    private boolean setInactiveCheckbox(boolean bValue) {
+        boolean bReturn = false;
+        WebElement checkbox = WebElementUtils.waitAndFindDisplayedElement(B2WCrewTemplates.getCrewTemplateListInactiveCheckbox());
+        if (checkbox != null) {
+            if (WebElementUtils.isCheckboxChecked(checkbox) != bValue) {
+                bReturn = WebElementUtils.clickElement(checkbox);
+            } else {
+                bReturn = true;
+            }
+        } else {
+            log.warn("'Show inactive crews' checkbox could not be found on the page.");
+        }
+        return bReturn;
+    }
 
     // Add Methods
     private boolean addEmployeeToCrew(ArrayList<String> employees) {
@@ -669,6 +732,155 @@ public class B2WCrewTemplateTasks extends B2WKendoTasks {
         }
         return sReturn;
     }
+    private int getCountOfVisibleCrewMembers() {
+        int iReturn = 0;
+        WebElement resourceList = WebElementUtils.waitAndFindElement(B2WCrewTemplates.getResourceList());
+        if (resourceList != null) {
+            WebElement resourceTable = WebElementUtils.getChildElement(resourceList, B2WCrewTemplates.getResourceTable());
+            if (resourceTable != null) {
+                List<WebElement> membersList = WebElementUtils.getChildElements(resourceTable, B2WCrewTemplates.getResourceTableVisibleMembers());
+                return membersList.size();
+            }
+        }
+        return iReturn;
+    }
+    private int getCountOfInvisibleCrewMembers() {
+        int iReturn = 0;
+        WebElement resourceList = WebElementUtils.waitAndFindElement(B2WCrewTemplates.getResourceList());
+        if (resourceList != null) {
+            WebElement resourceTable = WebElementUtils.getChildElement(resourceList, B2WCrewTemplates.getResourceTable());
+            if (resourceTable != null) {
+                List<WebElement> membersList = WebElementUtils.getChildElements(resourceTable, B2WCrewTemplates.getResourceTableInvisibleMembers());
+                return membersList.size();
+            }
+        }
+        return iReturn;
+    }
+    private int getCountOfVisibleGroupMembers(String sName) {
+        int iReturn = 0;
+        List<WebElement> list = getGroupMembers(sName);
+        for (WebElement item: list) {
+            if (item.getAttribute("style").contains("display: table-row;")) {
+                iReturn++;
+            }
+        }
+        return iReturn;
+    }
+    private int getCountOfInvisibleGroupMembers(String sName) {
+        int iReturn = 0;
+        List<WebElement> list = getGroupMembers(sName);
+        for (WebElement item: list) {
+            if (item.getAttribute("style").contains("display: none;")) {
+                iReturn++;
+            }
+        }
+        return iReturn;
+    }
+    private String getFirstGroupName() {
+        String sReturn = "";
+        WebElement resourceList = WebElementUtils.waitAndFindElement(B2WCrewTemplates.getResourceList());
+        if (resourceList != null) {
+            WebElement resourceTable = WebElementUtils.getChildElement(resourceList, B2WCrewTemplates.getResourceTable());
+            if (resourceTable != null) {
+                List<WebElement> groupsList = WebElementUtils.getChildElements(resourceTable, B2WCrewTemplates.getResourceTableGroups());
+                if (groupsList.size() > 0) {
+                    WebElement firstItemName = WebElementUtils.getChildElement(groupsList.get(0), By.cssSelector("span"));
+                    if (firstItemName != null) {
+                        return firstItemName.getText();
+                    }
+                }
+            }
+        }
+        return sReturn;
+    }
+    private WebElement getGroupByName(String sName) {
+        WebElement eReturn = null;
+        WebElement resourceList = WebElementUtils.waitAndFindElement(B2WCrewTemplates.getResourceList());
+        if (resourceList != null) {
+            WebElement resourceTable = WebElementUtils.getChildElement(resourceList, B2WCrewTemplates.getResourceTable());
+            if (resourceTable != null) {
+                List<WebElement> groupsList = WebElementUtils.getChildElements(resourceTable, B2WCrewTemplates.getResourceTableGroups());
+                for (WebElement item: groupsList) {
+                    WebElement itemName = WebElementUtils.getChildElement(groupsList.get(0), By.cssSelector("span"));
+                    if (itemName != null) {
+                        if (itemName.getText().equals(sName)) {
+                            return item;
+                        }
+                    }
+                }
+            }
+        }
+        return eReturn;
+    }
+    private List<WebElement> getGroupMembers(String sName) {
+        List<WebElement> lReturn = new ArrayList<>();
+        WebElement resourceList = WebElementUtils.waitAndFindElement(B2WCrewTemplates.getResourceList());
+        if (resourceList != null) {
+            WebElement resourceTable = WebElementUtils.getChildElement(resourceList, B2WCrewTemplates.getResourceTable());
+            if (resourceTable != null) {
+                List<WebElement> list = WebElementUtils.getChildElements(resourceTable, By.cssSelector("tr"));
+                boolean flag = false;
+                for (WebElement item: list) {
+                    if (item.getAttribute("class").equals("k-grouping-row")) {
+                        if (WebElementUtils.getChildElement(item, By.cssSelector("span")).getAttribute("id").equals(sName)) {
+                            flag = true;
+                        } else if (flag) {
+                            break;
+                        }
+                    } else if (flag) {
+                        lReturn.add(item);
+                    }
+                }
+            }
+        }
+        return lReturn;
+    }
+    private String getFirstMemberFromGroup(String sName) {
+        List<WebElement> membersList = getGroupMembers(sName);
+        WebElement memberSurname = WebElementUtils.getChildElements(membersList.get(0), By.cssSelector("td")).get(1);
+        return memberSurname.getText();
+    }
+    private String getFirstMemberIDFromGroup(String sName) {
+        List<WebElement> membersList = getGroupMembers(sName);
+        WebElement memberSurname = WebElementUtils.getChildElements(membersList.get(0), By.cssSelector("td")).get(2);
+        return memberSurname.getText();
+    }
+
+    // Sorting Methods
+    private boolean sortAsc(WebElement eFieldName) {
+        boolean bReturn = false;
+        if (eFieldName != null) {
+            WebElementUtils.clickElement(eFieldName);
+            if (!eFieldName.getAttribute("data-dir").equals("asc")) {
+                bReturn = WebElementUtils.clickElement(eFieldName);
+            } else {
+                bReturn = true;
+            }
+        }
+        return bReturn;
+    }
+    private boolean sortDesc(WebElement eFieldName) {
+        boolean bReturn = false;
+        if (eFieldName != null) {
+            WebElementUtils.clickElement(eFieldName);
+            if (!eFieldName.getAttribute("data-dir").equals("desc")) {
+                bReturn = WebElementUtils.clickElement(eFieldName);
+            } else {
+                bReturn = true;
+            }
+        }
+        return bReturn;
+    }
+    private boolean sortDetailsAsc(String sFieldName) {
+        WebElement resourceListContainer = WebElementUtils.waitAndFindElement(B2WCrewTemplates.getResourceListContainer());
+        WebElement sortLink = WebElementUtils.getChildElement(resourceListContainer, B2WCrewTemplates.getSortingColumnName(sFieldName));
+        return sortAsc(sortLink);
+    }
+    private boolean sortDetailsDesc(String sFieldName) {
+        WebElement resourceListContainer = WebElementUtils.waitAndFindElement(B2WCrewTemplates.getResourceListContainer());
+        WebElement sortLink = WebElementUtils.getChildElement(resourceListContainer, B2WCrewTemplates.getSortingColumnName(sFieldName));
+        return sortDesc(sortLink);
+    }
 
     // Delete Methods
     private boolean deleteAllCrewMembers() {
@@ -693,6 +905,51 @@ public class B2WCrewTemplateTasks extends B2WKendoTasks {
         return bReturn;
     }
 
+    // Grouping Methods
+    private boolean collapseAllGroups() {
+        boolean bReturn = false;
+        WebElement resourceListContainer = WebElementUtils.waitAndFindElement(B2WCrewTemplates.getResourceListContainer());
+        if (resourceListContainer != null) {
+            WebElement collapseAllGroupsBtn = WebElementUtils.getChildElement(resourceListContainer, B2WCrewTemplates.getCollapseAllGroupsBtn());
+            if (collapseAllGroupsBtn != null) {
+                bReturn = logCompare(true, WebElementUtils.clickElement(collapseAllGroupsBtn), "Click Collapse All Groups button.");
+            } else {
+                log.warn("Collapse All Groups button could not be found on the page.");
+            }
+        }
+        return bReturn;
+    }
+    private boolean expandAllGroups() {
+        boolean bReturn = false;
+        WebElement resourceListContainer = WebElementUtils.waitAndFindElement(B2WCrewTemplates.getResourceListContainer());
+        if (resourceListContainer != null) {
+            WebElement expandAllGroupsBtn = WebElementUtils.getChildElement(resourceListContainer, B2WCrewTemplates.getExpandAllGroupsBtn());
+            if (expandAllGroupsBtn != null) {
+                bReturn = logCompare(true, WebElementUtils.clickElement(expandAllGroupsBtn), "Click Expand All Groups button.");
+            } else {
+                log.warn("Collapse All Groups button could not be found on the page.");
+            }
+        }
+        return bReturn;
+    }
+    private boolean collapseGroup(String sName) {
+        boolean bReturn = false;
+        WebElement group = getGroupByName(sName);
+        if (group != null) {
+            WebElement collapseGroupIcon = WebElementUtils.getChildElement(group, B2WCrewTemplates.getGroupCollapseIcon());
+            bReturn = logCompare(true, WebElementUtils.clickElement(collapseGroupIcon), "Click on Group '" + sName + "' Collapse icon.");
+        }
+        return bReturn;
+    }
+    private boolean expandGroup(String sName) {
+        boolean bReturn = false;
+        WebElement group = getGroupByName(sName);
+        if (group != null) {
+            WebElement expandGroupIcon = WebElementUtils.getChildElement(group, B2WCrewTemplates.getGroupExpandIcon());
+            bReturn = logCompare(true, WebElementUtils.clickElement(expandGroupIcon), "Click on Group Expand icon.");
+        }
+        return bReturn;
+    }
 
     // === Support Methods
     public boolean waitForSchedulesPageNoBusy() {

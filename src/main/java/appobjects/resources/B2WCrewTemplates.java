@@ -29,4 +29,16 @@ public class B2WCrewTemplates {
     public static By getDeleteCrewTemplateSearch() { return By.cssSelector(B2WUIMap.b2w_crewtemplates_deletesearchfield); }
     public static By getItemsFromGeneralInformation() { return By.cssSelector(B2WUIMap.b2w_crewtemplates_generalInformationItems); }
     public static By getItemsFromCrewDetails() { return By.cssSelector(B2WUIMap.b2w_crewtemplates_crewDetailsItems); }
+    public static By getResourceList() { return By.cssSelector(B2WUIMap.b2w_crewtemplates_resourceList); }
+    public static By getResourceListContainer() { return By.cssSelector(B2WUIMap.b2w_crewtemplates_resourceListContainer); }
+    public static By getResourceTable() { return By.cssSelector(B2WUIMap.b2w_crewtemplates_resourceTable); }
+    public static By getResourceTableVisibleMembers() { return By.cssSelector(B2WUIMap.b2w_crewtemplates_resourceTableVisibleMembers); }
+    public static By getResourceTableInvisibleMembers() { return By.cssSelector(B2WUIMap.b2w_crewtemplates_resourceTableInvisibleMembers); }
+    public static By getResourceTableGroups() { return By.cssSelector(B2WUIMap.b2w_crewtemplates_resourceTableGroups); }
+    public static By getGroupCollapseIcon() { return By.cssSelector(B2WUIMap.b2w_crewtemplates_groupCollapseIcon); }
+    public static By getGroupExpandIcon() { return By.cssSelector(B2WUIMap.b2w_crewtemplates_groupExpandIcon); }
+    public static By getCollapseAllGroupsBtn() { return By.cssSelector(B2WUIMap.b2w_crewtemplates_collapseAllGroupsBtn); }
+    public static By getExpandAllGroupsBtn() { return By.cssSelector(B2WUIMap.b2w_crewtemplates_expandAllGroupsBtn); }
+    public static By getCrewTemplateListInactiveCheckbox() { return By.cssSelector(B2WUIMap.b2w_crewtemplates_inactiveCheckbox); }
+    public static By getSortingColumnName(String sName) { return By.cssSelector(B2WUIMap.b2w_crewtemplates_sortingIcon.replace("replace", sName)); }
 }

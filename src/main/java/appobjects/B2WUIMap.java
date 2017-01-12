@@ -269,6 +269,19 @@ public class B2WUIMap {
 	public static final String b2w_crewtemplates_deletesearchfield = ".b2wicon.i140-rejected";
 	public static final String b2w_crewtemplates_generalInformationItems = ".namevalue-pair";
 	public static final String b2w_crewtemplates_crewDetailsItems = "div[class='tree-text']";
+	public static final String b2w_crewtemplates_resourceList = ".resource-list";
+	public static final String b2w_crewtemplates_resourceListContainer = ".resource-list-container";
+	public static final String b2w_crewtemplates_resourceTable = "tbody[role='rowgroup']";
+	public static final String b2w_crewtemplates_resourceTableVisibleMembers = "tr[role='row'][data-role='draggable'][style='display: table-row;']";
+	public static final String b2w_crewtemplates_resourceTableInvisibleMembers = "tr[role='row'][data-role='draggable'][style='display: none;']";
+	public static final String b2w_crewtemplates_resourceTableGroups = "tr.k-grouping-row";
+	public static final String b2w_crewtemplates_groupCollapseIcon = "a.k-icon.k-i-collapse";
+	public static final String b2w_crewtemplates_groupExpandIcon = "a.k-icon.k-i-expand";
+	public static final String b2w_crewtemplates_collapseAllGroupsBtn = "span.btn-collapse[title='Collapse All']";
+	public static final String b2w_crewtemplates_expandAllGroupsBtn = "span.btn-expand[title='Expand All']";
+	public static final String b2w_crewtemplates_sortingIcon = "th[data-title='replace']";
+	public static final String b2w_crewtemplates_inactiveCheckbox = ".middle-align";
+
 
 	// places
 	public static final String b2w_createnewplacebutton = "a#PageContent_CreateNewPlaceButton";
