@@ -260,18 +260,18 @@ public class B2WEquipmentSmokeTest extends B2WTestCase {
 		
 		logCompare(true, equipmentTasks.collapseLocation(), "Collapse Location");
 		
-		// DOES NOT WORK:
-		//
-		//logCompare(true, equipmentTasks.selectAllEquipmentByTypeView(), "");
+		
+		//Select your equipment
+		
+		logCompare(true, equipmentTasks.selectAllEquipmentByTypeView(), "");
 		
 		logCompare(true, equipmentTasks.selectFilterByBusinessUnit("Northern Division\\Paving"), "Select Business Unit in Filter");
-		
+
 		logCompare(true, equipmentTasks.selectEquipmentFromViewByID(id), "Select Equipment "+id);
-		
+
 		logCompare(true, equipmentTasks.selectEquipmentFromViewByDescription(description), "Select Equipment by Description");
-		
+
 		logCompare(true, equipmentTasks.clickEdit(), "Click Edit");
-		
 		
 		//Edit and Delete Warranty
 		
@@ -283,14 +283,18 @@ public class B2WEquipmentSmokeTest extends B2WTestCase {
 		
 		logCompare(true, warranty.setWarrantyDescription(alteredDesc), "Set Warranty Description");
 		
-		
 	    String newWarrantyName = warrantyDescription + alteredDesc;
+	    
+	    logCompare(true, warranty.clickSaveWarranty(), "Save Warranty");	
 		
 	    logCompare(true, equipmentTasks.deleteWarranty(newWarrantyName), "Delete Warranty");
-		
+	    
 	    logCompare(true, equipmentTasks.clickConfirmYes(), "Click Yes");
 
 	    logCompare(true, equipmentTasks.collapseWarrenties(), "Collapse Warranties");
+	    
+	    
+	    // Edit and Delete Meters
 
 	    logCompare(true, equipmentTasks.expandMeters(), "Expand Meters");
 		
@@ -309,6 +313,8 @@ public class B2WEquipmentSmokeTest extends B2WTestCase {
 		logCompare(true, b2waddmeter.setAddMeterEnterNewReadingDate("1/7/2017"), "Set two days ago");
 		*/
 		//b2waddmeter.clickSaveAddMeter();
+	    
+	    //
 		
 		//TaskUtils.sleep(5000);
 
