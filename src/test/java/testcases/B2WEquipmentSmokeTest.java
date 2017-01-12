@@ -185,7 +185,7 @@ public class B2WEquipmentSmokeTest extends B2WTestCase {
 
 		logCompare(true, equipmentParts.clickConfirmYes(), "");
 		
-		equipmentTasks.collapseParts();
+		logCompare(true, equipmentTasks.collapseParts(), "");
 		
 		//Add a Warranty
 		logCompare(true, equipmentTasks.expandWarrenties(), "");
@@ -207,29 +207,29 @@ public class B2WEquipmentSmokeTest extends B2WTestCase {
 		logCompare(true, warranty.setWarrantyNotes("These are the warranty notes."), "");
 		logCompare(true, warranty.clickSaveWarranty(), "");
 
-		equipmentTasks.collapseWarrenties();
+		logCompare(true, equipmentTasks.collapseWarrenties(), "");
 		
 		
 		logCompare(true, equipmentTasks.expandPrograms(), "");
 		
-		equipmentTasks.collapsePrograms();
+		logCompare(true, equipmentTasks.collapsePrograms(), "");
 		
 		// Add Tags
 		logCompare(true, equipmentTasks.expandTags(), "");
 		
-		equipmentTasks.collapseTags();
+		logCompare(true, equipmentTasks.collapseTags(), "");
 		
 		//Add Events
 		logCompare(true, equipmentTasks.expandEvents(), "");
 		
-		equipmentTasks.clickAddEventButton();
+		logCompare(true, equipmentTasks.clickAddEventButton(), "");
 		logCompare(true, events.selectEventType("Memo"), "");
 		logCompare(true, events.setEventStartDate("12/31/2016"), "");
 		logCompare(true, events.setEventEndDate("12/31/2017"), "");
 		logCompare(true, events.setEventDescription("This is a description in the Description section for an event"), "");
 		logCompare(true, events.clickSaveEvent(), "");
 		
-		equipmentTasks.collapseEvents();
+		logCompare(true, equipmentTasks.collapseEvents(), "");
 		
 		//Save the Equipment
 		logCompare(true, equipmentTasks.saveNewEquipment(), "");
@@ -237,12 +237,12 @@ public class B2WEquipmentSmokeTest extends B2WTestCase {
 		// History
 		logCompare(true, equipmentTasks.expandHistory(), "");
 		
-		equipmentTasks.collapseHistory();
+		logCompare(true, equipmentTasks.collapseHistory(), "");
 		
 		// Location
 		logCompare(true, equipmentTasks.expandLocation(), "");
 		
-		equipmentTasks.collapseLocation();
+		logCompare(true, equipmentTasks.collapseLocation(), "");
 		
 		// DOES NOT WORK:
 		//
@@ -254,16 +254,16 @@ public class B2WEquipmentSmokeTest extends B2WTestCase {
 		
 		logCompare(true, equipmentTasks.selectEquipmentFromViewByDescription(description), "");
 		
-		equipmentTasks.clickEdit();
+		logCompare(true, equipmentTasks.clickEdit(), "");
 		
 		
 		//Edit and Delete Warranty
 		
-		equipmentTasks.expandWarrenties();
+		logCompare(true, equipmentTasks.expandWarrenties(), "");
 		
 		TaskUtils.sleep(5000);
 
-		equipmentTasks.editWarranty(warrantyDescription);
+		logCompare(true, equipmentTasks.editWarranty(warrantyDescription), "");
 		
 		TaskUtils.sleep(5000);
 		
@@ -275,13 +275,13 @@ public class B2WEquipmentSmokeTest extends B2WTestCase {
 		
 	    String newWarrantyName = warrantyDescription + alteredDesc;
 		
-	    equipmentTasks.deleteWarranty(newWarrantyName);
+	    logCompare(true, equipmentTasks.deleteWarranty(newWarrantyName), "");
 		
-		equipmentTasks.clickConfirmYes();
+	    logCompare(true, equipmentTasks.clickConfirmYes(), "");
 
-		equipmentTasks.collapseWarrenties();
+	    logCompare(true, equipmentTasks.collapseWarrenties(), "");
 
-		equipmentTasks.expandMeters();
+	    logCompare(true, equipmentTasks.expandMeters(), "");
 		
 		
 		//****************************
@@ -301,7 +301,7 @@ public class B2WEquipmentSmokeTest extends B2WTestCase {
 		
 		TaskUtils.sleep(5000);
 
-		equipmentTasks.saveNewEquipment();
+		logCompare(true, equipmentTasks.saveNewEquipment(), "");
 		
 		TaskUtils.sleep(5000);
 	}
