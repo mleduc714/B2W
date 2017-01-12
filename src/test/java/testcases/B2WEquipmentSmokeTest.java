@@ -16,7 +16,8 @@ import tasks.util.TaskUtils;
 public class B2WEquipmentSmokeTest extends B2WTestCase {
 	
 	// TODO strings
-	String sManufacturer, sModel, sYear, sColor, sLojack, sHutStickerNumber, sEZPassNumber;
+	String sManufacturer, sModel, sYear, sColor, sLojack, sHutStickerNumber, sEZPassNumber, sTireSize, sEngine, EngineArrangement, 
+	sEngineSerialNumber, sHorsePower, sTransmissionModel, sTransmissionSerialNumber, sGET, sHydraulicFlowRate;
 	@Override
 	public void testSetUp() throws Throwable {
 		// TODO out source strings to equipmentsmoke.properties in data/equipment
@@ -27,6 +28,17 @@ public class B2WEquipmentSmokeTest extends B2WTestCase {
 		sLojack  = getProperty("sLojack");
 		sHutStickerNumber  = getProperty("sHutStickerNumber");
 		sEZPassNumber  = getProperty("sEZPassNumber");
+		
+		sTireSize = getProperty("sTireSize");
+		sEngine = getProperty("sEngine");
+		EngineArrangement = getProperty("EngineArrangement");
+		sEngineSerialNumber = getProperty("sEngineSerialNumber");
+		sHorsePower = getProperty("sHorsePower");
+		sTransmissionModel = getProperty("sTransmissionMode");
+		sTransmissionSerialNumber = getProperty("sTransmissionSerialNumber");
+		sGET = getProperty("sGET");
+		sHydraulicFlowRate = getProperty("sHydraulicFlowRate");
+		
 		super.testSetUp();
 	}
 
@@ -81,31 +93,33 @@ public class B2WEquipmentSmokeTest extends B2WTestCase {
 		
 		B2WAddPartsToEquipment equipmentParts = new B2WAddPartsToEquipment();
 		
-		logCompare(true, navigation.openEquipment(), "");
+		B2WAddMeterToEquipment b2waddmeter = new B2WAddMeterToEquipment();
+		
+		logCompare(true, navigation.openEquipment(), "Open Equipment Page");
 		
 	
 		// Navigate to Maintain>Equipment
 		
-		logCompare(true, equipmentTasks.createNewEquipment(), "");
+		logCompare(true, equipmentTasks.createNewEquipment(), "Create New Equipment");
 		
 		String description = "This is a new Test Equipment # " + random.nextInt(5000) + 1;
 		
 		String id = "" + random.nextInt(50000) + 1;
 		
-		logCompare(true, equipmentTasks.setEquipmentDescription(description), "");
+		logCompare(true, equipmentTasks.setEquipmentDescription(description), "Set Equipment  Description");
 		
-		logCompare(true, equipmentTasks.setEquipmentID(id), "");
+		logCompare(true, equipmentTasks.setEquipmentID(id), "Set Equipment ID");
 		
-		logCompare(true, equipmentTasks.selectNewEquipmentBusinessUnitFromDropDown("Northern Division\\Paving"), "");
+		logCompare(true, equipmentTasks.selectNewEquipmentBusinessUnitFromDropDown("Northern Division\\Paving"), "Set Business Unit");
 		
-		logCompare(true, equipmentTasks.selectNewEquipmentTypeFromDropDown("30 Ton Trucks"), "");
+		logCompare(true, equipmentTasks.selectNewEquipmentTypeFromDropDown("30 Ton Trucks"), "Set Equipment Type");
 		
-		logCompare(true, equipmentTasks.selectMobilityTypeRequiresMoveFromDropDown(), "");
+		logCompare(true, equipmentTasks.selectMobilityTypeRequiresMoveFromDropDown(), "Set Mobility Type to Resuires Move");
 		
-		logCompare(true, equipmentTasks.selectOwnershipTypeOwnedFromDropDown(), "");
+		logCompare(true, equipmentTasks.selectOwnershipTypeOwnedFromDropDown(), "Set Ownership Type to Owned");
 		
 		//Enter Equipment Specs
-		logCompare(true, equipmentTasks.expandEquipmentSpecs(), "");
+		logCompare(true, equipmentTasks.expandEquipmentSpecs(), "Expand Equipment Specs");
 		
 		//TODO Update compares with Strings and update compare text as demonstrated below
 		logCompare(true, equipmentTasks.setTextEquipmentSpecs("Manufacturer", sManufacturer), "Set Manufacturer");
@@ -116,182 +130,169 @@ public class B2WEquipmentSmokeTest extends B2WTestCase {
 		logCompare(true, equipmentTasks.setTextEquipmentSpecs("Hut Sticker Number", sHutStickerNumber), "Hut Sticker Number");
 		logCompare(true, equipmentTasks.setTextEquipmentSpecs("EZ Pass Number", sEZPassNumber), "EZ Pass Number");
 		
-		logCompare(true, equipmentTasks.setFieldAndItemFromDropDownEquipmentSpecs("Length", "2354", "Foot [FOOT]"), "");
-		logCompare(true, equipmentTasks.setFieldAndItemFromDropDownEquipmentSpecs("Width", "43", "Mile [MILE]"), "");
-		logCompare(true, equipmentTasks.setFieldAndItemFromDropDownEquipmentSpecs("Height", "5433", "Millimeter [mm]"), "");
-		logCompare(true, equipmentTasks.setFieldAndItemFromDropDownEquipmentSpecs("Max Weight", "445", "Gram [g]"), "");
-		logCompare(true, equipmentTasks.setFieldAndItemFromDropDownEquipmentSpecs("Combined Weight", "56", "Ton [TON]"), "");
-		logCompare(true, equipmentTasks.setFieldAndItemFromDropDownEquipmentSpecs("Tare Weight", "45", "Kilogram [kg]"), "");
-		logCompare(true, equipmentTasks.setFieldAndItemFromDropDownEquipmentSpecs("Ground Pressure", "56", "Thousand Cubic Feet [MCF]"), "");
+		logCompare(true, equipmentTasks.setFieldAndItemFromDropDownEquipmentSpecs("Length", "2354", "Foot [FOOT]"), "Length");
+		logCompare(true, equipmentTasks.setFieldAndItemFromDropDownEquipmentSpecs("Width", "43", "Mile [MILE]"), "Width");
+		logCompare(true, equipmentTasks.setFieldAndItemFromDropDownEquipmentSpecs("Height", "5433", "Millimeter [mm]"), "Height");
+		logCompare(true, equipmentTasks.setFieldAndItemFromDropDownEquipmentSpecs("Max Weight", "445", "Gram [g]"), "Max Weight");
+		logCompare(true, equipmentTasks.setFieldAndItemFromDropDownEquipmentSpecs("Combined Weight", "56", "Ton [TON]"), "Combined Weight");
+		logCompare(true, equipmentTasks.setFieldAndItemFromDropDownEquipmentSpecs("Tare Weight", "45", "Kilogram [kg]"), "Tare Weight");
+		logCompare(true, equipmentTasks.setFieldAndItemFromDropDownEquipmentSpecs("Ground Pressure", "56", "Thousand Cubic Feet [MCF]"), "Ground Pressure");
 		
-		logCompare(true, equipmentTasks.collapseEquipmentSpecs(), "");
+		logCompare(true, equipmentTasks.collapseEquipmentSpecs(), "Collapse Equipment Specs");
 		
 		//Enter Component Specs
 		
-		logCompare(true, equipmentTasks.expandComponentSpecs(), "");
+		logCompare(true, equipmentTasks.expandComponentSpecs(), "Expand Component Specs");
 		logCompare(true, equipmentTasks.setComponentSpecsProductionDate("10/11/2016"), "Production Date");
-		logCompare(true, equipmentTasks.setTextComponentSpecs("Tire Size", "199"), "Text Component Specs");
-		logCompare(true, equipmentTasks.setTextComponentSpecs("Engine", "Engine Name"), "Engine");
-		logCompare(true, equipmentTasks.setTextComponentSpecs("Engine Arrangement", "Arrangement"), "");
-		logCompare(true, equipmentTasks.setTextComponentSpecs("Engine Serial Number", "54321"), "");
-		logCompare(true, equipmentTasks.setTextComponentSpecs("Horse Power", "124"), "");
-		logCompare(true, equipmentTasks.setTextComponentSpecs("Transmission Model", "A3B2C1"), "");
-		logCompare(true, equipmentTasks.setTextComponentSpecs("Transmission Serial Number", "09876"), "");
-		logCompare(true, equipmentTasks.setTextComponentSpecs("G.E.T", "13"), "");
-		logCompare(true, equipmentTasks.setTextComponentSpecs("Hydraulic Flow Rate", "23"), "");
+		logCompare(true, equipmentTasks.setTextComponentSpecs("Tire Size", sTireSize), "Text Component Specs");
+		logCompare(true, equipmentTasks.setTextComponentSpecs("Engine", sEngine), "Engine");
+		logCompare(true, equipmentTasks.setTextComponentSpecs("Engine Arrangement", EngineArrangement), "Engine Arrangement");
+		logCompare(true, equipmentTasks.setTextComponentSpecs("Engine Serial Number", sEngineSerialNumber), "Engine Serial Number");
+		logCompare(true, equipmentTasks.setTextComponentSpecs("Horse Power", sHorsePower), "Horse Power");
+		logCompare(true, equipmentTasks.setTextComponentSpecs("Transmission Model", sTransmissionModel), "Transmission Model");
+		logCompare(true, equipmentTasks.setTextComponentSpecs("Transmission Serial Number", sTransmissionSerialNumber), "Transmission Serial Number");
+		logCompare(true, equipmentTasks.setTextComponentSpecs("G.E.T", sGET), "G.E.T");
+		logCompare(true, equipmentTasks.setTextComponentSpecs("Hydraulic Flow Rate", sHydraulicFlowRate), "Hydraulic Flow Rate");
 		
-		logCompare(true, equipmentTasks.setFieldAndItemFromDropDownComponentSpecs("Fuel Type", null, "Gasoline [GAS]"), "");
-	    logCompare(true, equipmentTasks.setFieldAndItemFromDropDownComponentSpecs("Wheel Type", null, "Rubber Tire [RTR]"), "");
-		logCompare(true, equipmentTasks.setFieldAndItemFromDropDownComponentSpecs("Track Type", null, "In-Line Sprocket [ILSP]"), "");
-		logCompare(true, equipmentTasks.setFieldAndItemFromDropDownComponentSpecs("Brake Type", null, "Pneumatic Brakes [AIRB]"), "");
-		logCompare(true, equipmentTasks.setFieldAndItemFromDropDownComponentSpecs("Cutting Edge", null, "Grader Blades [GRADB]"), "");
-		logCompare(true, equipmentTasks.setFieldAndItemFromDropDownComponentSpecs("Hydraulic Pump Type", null, "Load Sensing Pump [LSP]"), "");
+		logCompare(true, equipmentTasks.setFieldAndItemFromDropDownComponentSpecs("Fuel Type", null, "Gasoline [GAS]"), "Select Fuel Type");
+	    logCompare(true, equipmentTasks.setFieldAndItemFromDropDownComponentSpecs("Wheel Type", null, "Rubber Tire [RTR]"), "Select Wheel Type");
+		logCompare(true, equipmentTasks.setFieldAndItemFromDropDownComponentSpecs("Track Type", null, "In-Line Sprocket [ILSP]"), "Select Track Type");
+		logCompare(true, equipmentTasks.setFieldAndItemFromDropDownComponentSpecs("Brake Type", null, "Pneumatic Brakes [AIRB]"), "Select Brake Type");
+		logCompare(true, equipmentTasks.setFieldAndItemFromDropDownComponentSpecs("Cutting Edge", null, "Grader Blades [GRADB]"), "Select Cutting Edge");
+		logCompare(true, equipmentTasks.setFieldAndItemFromDropDownComponentSpecs("Hydraulic Pump Type", null, "Load Sensing Pump [LSP]"), "Select Hydraulic Pump Type");
 		
-		logCompare(true, equipmentTasks.collapseComponentSpecs(), "");
+		logCompare(true, equipmentTasks.collapseComponentSpecs(), "Collapse Component Specs");
 		
 		//Enter Financials
-		logCompare(true, equipmentTasks.expandFinancials(), "");
+		logCompare(true, equipmentTasks.expandFinancials(), "Expand Financials");
 		
-		logCompare(true, equipmentTasks.setFinancialsPurchasedFrom("ABC Construction"), "");
-		logCompare(true, equipmentTasks.setFinancialsPurchasePrice("20000"), "");
-		logCompare(true, equipmentTasks.setFinancialsInsuranceValue("10000"), "");
-		logCompare(true, equipmentTasks.setFinancialsTitleHolder("TH Title Holder"), "");
-		logCompare(true, equipmentTasks.setFinancialsSoldTo("XYZ Builders"), "");
-		logCompare(true, equipmentTasks.setFinancialsSalesPrice("15000"), "");
+		logCompare(true, equipmentTasks.setFinancialsPurchasedFrom("ABC Construction"), "Financials Purchased From");
+		logCompare(true, equipmentTasks.setFinancialsPurchasePrice("20000"), "Financials Purchase Price");
+		logCompare(true, equipmentTasks.setFinancialsInsuranceValue("10000"), "Financials Insurance Values");
+		logCompare(true, equipmentTasks.setFinancialsTitleHolder("TH Title Holder"), "Financials Title Holder");
+		logCompare(true, equipmentTasks.setFinancialsSoldTo("XYZ Builders"), "Financials Sold To");
+		logCompare(true, equipmentTasks.setFinancialsSalesPrice("15000"), "Financials Sales Price");
 		
-		logCompare(true, equipmentTasks.setFieldAndItemFromDropDownEquipmentSpecs("CCA Class", null, "CCA-3 [CCA-5%]"), "");
+		logCompare(true, equipmentTasks.setFieldAndItemFromDropDownEquipmentSpecs("CCA Class", null, "CCA-3 [CCA-5%]"), "Set Field and Item");
 		
-		logCompare(true, equipmentTasks.collapseFinancials(), "");
+		logCompare(true, equipmentTasks.collapseFinancials(), "Collapse Financials");
 		
 		//Add Meter Types
-		logCompare(true, equipmentTasks.expandMeters(), "");
-		
-		String meterDescription = "Hour Meter";
+		logCompare(true, equipmentTasks.expandMeters(), "Expand Meters");
 		
 		logCompare(true, equipmentTasks.clickAddMeterButton(), "Click Add Meter");
-		B2WAddMeterToEquipment b2waddmeter = new B2WAddMeterToEquipment();
 		logCompare(true, b2waddmeter.selectAddMeterTypeFromDD("Hour Meter"), "Select Add "+"Hour Meter"+" Meter");
 		logCompare(true, b2waddmeter.selectAddMeterRequiredOnWorkOrderCompletionNotRequired(), "Add Meter not required");
 		logCompare(true, b2waddmeter.selectAddMeterExcludeFromWorkOrdersNever(), "Exclude never");
-		//logCompare(true, b2waddmeter.setAddMeterTypeDescription(meterDescription), "Meter Description");
 		logCompare(true, b2waddmeter.setAddMeterIntialReading("20"),"Intial Reading");
 		logCompare(true, b2waddmeter.setAddMeterEnterNewReadingCheckBox(), "Enter new reading checkbox");
 		logCompare(true, b2waddmeter.setAddMeterEnterNewReading("120"),"Enter new reading");
 		logCompare(true, b2waddmeter.setAddMeterEnterNewReadingDate("1/1/2017"), "Set two days ago");
-		b2waddmeter.clickSaveAddMeter();
+		logCompare(true, b2waddmeter.clickSaveAddMeter(), "Add Meter");
 		
-		logCompare(true, equipmentTasks.collapseMeters(), "");
+		logCompare(true, equipmentTasks.collapseMeters(), "Collapse Meter");
 		
 		//Add Parts
-		logCompare(true, equipmentTasks.expandParts(), "");
+		logCompare(true, equipmentTasks.expandParts(), "Expand Parts");
 		
-		equipmentTasks.clickAddPartsButton();
+		logCompare(true, equipmentTasks.clickAddPartsButton(), "Add Parts");
 		
-		//MISSING:
-		//
-		//select a part
-		
-		logCompare(true, equipmentParts.selectPartToAddToEquipmentByDescription("Bucket teeth"), "");
+		logCompare(true, equipmentParts.selectPartToAddToEquipmentByDescription("Bucket teeth"), "Select Part");
 
-		logCompare(true, equipmentParts.clickSaveAddPart(), "");
+		logCompare(true, equipmentParts.clickSaveAddPart(), "Add Part");
 		
-		logCompare(true, equipmentTasks.collapseParts(), "");
+		logCompare(true, equipmentTasks.collapseParts(), "Collapse Parts");
 		
 		//Add a Warranty
-		logCompare(true, equipmentTasks.expandWarrenties(), "");
+		logCompare(true, equipmentTasks.expandWarrenties(), "Expand Warranties");
 		
 		
 		//No click 'Add Warranty' button
-		logCompare(true, equipmentTasks.clickAddWarrantyButton(), "");
+		logCompare(true, equipmentTasks.clickAddWarrantyButton(), "Click Add Warranty");
 		
 		String warrantyDescription = "This is a newly created warranty";
 		
-		logCompare(true, warranty.setWarrantyDescription(warrantyDescription), "");
-		logCompare(true, warranty.selectWarrantyType("Equipment"), "");
-		logCompare(true, warranty.selectTypeOfDurationCalendar(), "");
-		logCompare(true, warranty.setSpan("234"), "");
-		logCompare(true, warranty.setSpanDays(), "");
-		logCompare(true, warranty.setStarting("12/31/2016"), "");
-		warranty.clickCompleteButton();
+		logCompare(true, warranty.setWarrantyDescription(warrantyDescription), "Set Warranty Description");
+		logCompare(true, warranty.selectWarrantyType("Equipment"), "Warranty Type");
+		logCompare(true, warranty.selectTypeOfDurationCalendar(), "Duration Calendar");
+		logCompare(true, warranty.setSpan("234"), "Span");
+		logCompare(true, warranty.setSpanDays(), "Span Days");
+		logCompare(true, warranty.setStarting("12/31/2016"), "Starting");
+		logCompare(true, warranty.clickCompleteButton(), "Complete");
 
-		logCompare(true, warranty.setWarrantyNotes("These are the warranty notes."), "");
-		logCompare(true, warranty.clickSaveWarranty(), "");
+		logCompare(true, warranty.setWarrantyNotes("These are the warranty notes."), "Set Warranty Notes");
+		logCompare(true, warranty.clickSaveWarranty(), "Save Warranty");
 
-		logCompare(true, equipmentTasks.collapseWarrenties(), "");
+		logCompare(true, equipmentTasks.collapseWarrenties(), "Collapse Warranties");
 		
 		
-		logCompare(true, equipmentTasks.expandPrograms(), "");
+		logCompare(true, equipmentTasks.expandPrograms(), "Expand Programs");
 		
-		logCompare(true, equipmentTasks.collapsePrograms(), "");
+		logCompare(true, equipmentTasks.collapsePrograms(), "Collapse Programs");
 		
 		// Add Tags
-		logCompare(true, equipmentTasks.expandTags(), "");
+		logCompare(true, equipmentTasks.expandTags(), "Expand Tags");
 		
-		logCompare(true, equipmentTasks.collapseTags(), "");
+		logCompare(true, equipmentTasks.collapseTags(), "Collapse Tags");
 		
 		//Add Events
-		logCompare(true, equipmentTasks.expandEvents(), "");
+		logCompare(true, equipmentTasks.expandEvents(), "Expand Events");
 		
-		logCompare(true, equipmentTasks.clickAddEventButton(), "");
-		logCompare(true, events.selectEventType("Memo"), "");
-		logCompare(true, events.setEventStartDate("12/31/2016"), "");
-		logCompare(true, events.setEventEndDate("12/31/2017"), "");
-		logCompare(true, events.setEventDescription("This is a description in the Description section for an event"), "");
-		logCompare(true, events.clickSaveEvent(), "");
+		logCompare(true, equipmentTasks.clickAddEventButton(), "Click Add Event");
+		logCompare(true, events.selectEventType("Memo"), "Event Type");
+		logCompare(true, events.setEventStartDate("12/31/2016"), "Event Start Date");
+		logCompare(true, events.setEventEndDate("12/31/2017"), "Event End Date");
+		logCompare(true, events.setEventDescription("This is a description in the Description section for an event"), "Event Description");
+		logCompare(true, events.clickSaveEvent(), "Save Event");
 		
-		logCompare(true, equipmentTasks.collapseEvents(), "");
+		logCompare(true, equipmentTasks.collapseEvents(), "Collapse Event");
 		
 		//Save the Equipment
-		logCompare(true, equipmentTasks.saveNewEquipment(), "");
+		logCompare(true, equipmentTasks.saveNewEquipment(), "Save New Equipment");
 		
 		// History
-		logCompare(true, equipmentTasks.expandHistory(), "");
+		logCompare(true, equipmentTasks.expandHistory(), "Expand History");
 		
-		logCompare(true, equipmentTasks.collapseHistory(), "");
+		logCompare(true, equipmentTasks.collapseHistory(), "Collapse History");
 		
 		// Location
-		logCompare(true, equipmentTasks.expandLocation(), "");
+		logCompare(true, equipmentTasks.expandLocation(), "Expand Location");
 		
-		logCompare(true, equipmentTasks.collapseLocation(), "");
+		logCompare(true, equipmentTasks.collapseLocation(), "Collapse Location");
 		
 		// DOES NOT WORK:
 		//
 		//logCompare(true, equipmentTasks.selectAllEquipmentByTypeView(), "");
 		
-		logCompare(true, equipmentTasks.selectFilterByBusinessUnit("Northern Division\\Paving"), "");
+		logCompare(true, equipmentTasks.selectFilterByBusinessUnit("Northern Division\\Paving"), "Select Business Unit in Filter");
 		
 		logCompare(true, equipmentTasks.selectEquipmentFromViewByID(id), "Select Equipment "+id);
 		
-		logCompare(true, equipmentTasks.selectEquipmentFromViewByDescription(description), "");
+		logCompare(true, equipmentTasks.selectEquipmentFromViewByDescription(description), "Select Equipment by Description");
 		
-		logCompare(true, equipmentTasks.clickEdit(), "");
+		logCompare(true, equipmentTasks.clickEdit(), "Click Edit");
 		
 		
 		//Edit and Delete Warranty
 		
-		logCompare(true, equipmentTasks.expandWarrenties(), "");
-		
-		TaskUtils.sleep(5000);
+		logCompare(true, equipmentTasks.expandWarrenties(), "Expand Waranties");
 
-		logCompare(true, equipmentTasks.editWarranty(warrantyDescription), "");
-		
-		TaskUtils.sleep(5000);
+		logCompare(true, equipmentTasks.editWarranty(warrantyDescription), "Select and Edit Warranty");
 		
 		String alteredDesc = "The Description was just altered";
 		
-		warranty.setWarrantyDescription(alteredDesc);
+		logCompare(true, warranty.setWarrantyDescription(alteredDesc), "Set Warranty Description");
 		
-	    warranty.clickSaveWarranty();
 		
 	    String newWarrantyName = warrantyDescription + alteredDesc;
 		
-	    logCompare(true, equipmentTasks.deleteWarranty(newWarrantyName), "");
+	    logCompare(true, equipmentTasks.deleteWarranty(newWarrantyName), "Delete Warranty");
 		
-	    logCompare(true, equipmentTasks.clickConfirmYes(), "");
+	    logCompare(true, equipmentTasks.clickConfirmYes(), "Click Yes");
 
-	    logCompare(true, equipmentTasks.collapseWarrenties(), "");
+	    logCompare(true, equipmentTasks.collapseWarrenties(), "Collapse Warranties");
 
-	    logCompare(true, equipmentTasks.expandMeters(), "");
+	    logCompare(true, equipmentTasks.expandMeters(), "Expand Meters");
 		
 		
 		//****************************
@@ -311,7 +312,7 @@ public class B2WEquipmentSmokeTest extends B2WTestCase {
 		
 		//TaskUtils.sleep(5000);
 
-		logCompare(true, equipmentTasks.saveNewEquipment(), "");
+		logCompare(true, equipmentTasks.saveNewEquipment(), "Save Equipment");
 		
 		TaskUtils.sleep(5000);
 	}
