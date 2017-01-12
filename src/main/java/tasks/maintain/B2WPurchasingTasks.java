@@ -1,5 +1,7 @@
 package tasks.maintain;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import org.openqa.selenium.By;
@@ -12,67 +14,88 @@ import tasks.util.TaskUtils;
 
 public class B2WPurchasingTasks extends B2WKendoTasks {
 	
-	public void getParts(){
+	public ArrayList<String> getParts(){
 		
+		ArrayList<String> al = new ArrayList<String>();
+		WebElement details = WebElementUtils.findElement(B2WMaintain.getMaintainPurchaseOrderDetails());
+		WebElement purchase = WebElementUtils.getChildElement(details, B2WMaintain.getMaintainPurchaseItemsContainer());
+		List<WebElement> rows = WebElementUtils.getChildElements(WebElementUtils.getChildElement(purchase, By.tagName("tbody")),By.tagName("tr"));
+		Iterator<WebElement> iter = rows.iterator();
+		while (iter.hasNext()){
+			WebElement el = iter.next();
+			al.add(WebElementUtils.getChildElements(el, By.tagName("td")).get(0).getText());
+		}
+		return al;
 	}
-	public void getPartVendor(String sPart){
-		
+	public String getPartVendor(String sPart){
+		return getText(sPart,1);
 	}
-	public void getPartCategory(String sPart){
-		
+	public String getPartCategory(String sPart){
+		return getText(sPart,2);
 	}
-	public void getPartOrderQty(String sPart){
-		
+	public String getPartOrderQty(String sPart){
+		return getText(sPart,3);
 	}
-	public void getPartRecdQty(String sPart){
-		
+	public String getPartRecdQty(String sPart){
+		return getText(sPart,4);
 	}
-	public void getPartRemainingQty(String sPart){
-		
+	public String getPartRemainingQty(String sPart){
+		return getText(sPart,5);
 	}
-	public void getPartItemStatus(String sPart){
-		
+	public String getPartItemStatus(String sPart){
+		return getText(sPart,6);
 	}
-	public void getPartTaxable(String sPart){
-		
+	public String getPartTaxable(String sPart){
+		return getText(sPart,7);
 	}
-	public void getPartPrice(String sPart){
-		
+	public String getPartPrice(String sPart){
+		return getText(sPart,8);
 	}
-	public void getPartExtendedPrice(String sPart){
-		
+	public String getPartExtendedPrice(String sPart){
+		return getText(sPart,9);
 	}
 	public void deletePart(String sPart){
 		
 	}
-	public void editPart(String sPart){
-		
-	}
-	
+
 	public boolean clickAddPart() {
 		boolean bReturn = false;
 		WebElement el = getButton("Add Part");
 		if (el != null){
-			WebElementUtils.clickElement(el);
+			bReturn = WebElementUtils.clickElement(el);
 		}
 		return bReturn;
 	}
-	public void clickAddCustomPart() {
-		
+	public boolean clickAddCustomPart() {
+		boolean bReturn = false;
+		WebElement el = getButton("Add Part");
+		if (el != null){
+			bReturn = WebElementUtils.clickElement(el);
+		}
+		return bReturn;
 	}
 	
-	public void getSubtotal(){
-		
+	public String getSubtotal(){
+		String sText = "";
+		WebElement purchase = WebElementUtils.findElement(By.cssSelector("div.purchase-order-details-totals"));
+		if (purchase != null){
+			List<WebElement> data = WebElementUtils.getChildElements(purchase, By.className("data"));
+			for (WebElement e: data){
+				System.out.println(e.getText());
+			}
+		}
+		return null;
 	}
 	
-	public void getFreight() {
+	public String getFreight() {
+		return getTotals(0);
 		
 	}
-	public void getTax() {
-		
+	public String getTax() {
+		return getTotals(3);
 	}
-	public void getTotal() {
-		
+	public String getTotal() {
+		return getTotals(4);
 	}
 	public void getPODueDate() {
 		
@@ -332,4 +355,50 @@ public class B2WPurchasingTasks extends B2WKendoTasks {
 		return bReturn;
 	}
 
+	public String getText(String sPart, int iColumn){
+		String sText = "";
+		WebElement details = WebElementUtils.findElement(B2WMaintain.getMaintainPurchaseOrderDetails());
+		WebElement purchase = WebElementUtils.getChildElement(details, B2WMaintain.getMaintainPurchaseItemsContainer());
+		List<WebElement> rows = WebElementUtils.getChildElements(WebElementUtils.getChildElement(purchase, By.tagName("tbody")),By.tagName("tr"));
+		Iterator<WebElement> iter = rows.iterator();
+		while (iter.hasNext()){
+			WebElement el = iter.next();
+			List<WebElement> list = WebElementUtils.getChildElements(el, By.tagName("td"));
+			String s = list.get(0).getText();
+			if (s.contains(sPart)){
+				sText = list.get(iColumn).getText();
+				break;
+			}
+		}
+		return sText;
+	}
+	
+	public boolean editPart(String sPart){
+		boolean bReturn = false;
+		WebElement details = WebElementUtils.findElement(B2WMaintain.getMaintainPurchaseOrderDetails());
+		WebElement purchase = WebElementUtils.getChildElement(details, B2WMaintain.getMaintainPurchaseItemsContainer());
+		List<WebElement> rows = WebElementUtils.getChildElements(WebElementUtils.getChildElement(purchase, By.tagName("tbody")),By.tagName("tr"));
+		Iterator<WebElement> iter = rows.iterator();
+		while (iter.hasNext()){
+			WebElement el = iter.next();
+			List<WebElement> list = WebElementUtils.getChildElements(el, By.tagName("td"));
+			String s = list.get(0).getText();
+			if (s.contains(sPart)){
+				WebElement button = WebElementUtils.getChildElement(el, By.cssSelector(".k-edit"));
+				bReturn = WebElementUtils.clickElement(button);
+				break;
+			}
+		}
+		return bReturn;
+	}
+	public String getTotals(int iColumn){
+		String sText = "";
+		WebElement purchase = WebElementUtils.findElement(By.cssSelector("div.purchase-order-details-totals"));
+		if (purchase != null){
+			List<WebElement> data = WebElementUtils.getChildElements(purchase, By.className("data"));
+			sText = data.get(iColumn).getText();
+		}
+		return sText;
+	}
+	
 }

@@ -244,6 +244,7 @@ public abstract class B2WKendoTasks extends B2WKendo {
 			}
 			sText = gridcontent.get(iColumn).getText();
 			sText = sText.trim();
+			System.out.println(sText);
 			if (sText.equals(sItem)) {
 				bReturn = WebElementUtils.clickElement(item);
 				bReturn &= waitForPageNotBusy(WebElementUtils.MEDIUM_TIME_OUT);

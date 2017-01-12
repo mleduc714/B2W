@@ -23,6 +23,7 @@ import tasks.maintain.B2WMaintainProgramsTasks;
 import tasks.maintain.B2WMaintainRequestTasks;
 import tasks.maintain.B2WMaintainScheduleTasks;
 import tasks.maintain.B2WMaintainTasks;
+import tasks.maintain.B2WPurchasingTasks;
 import tasks.maintain.B2WTimeCardTasks;
 import tasks.maintain.B2WWorkOrdersTasks;
 import tasks.resources.B2WEquipmentTasks;
@@ -94,11 +95,15 @@ public class TestSetup extends B2WTestCase {
 	public void testMain() throws Throwable {
 
 		assertTrue("open Maintain", b2wNav.openMaintain());
-		b2wMaintain.openEquipment();
-		b2wE.createNewEquipment();
-		b2wE.expandComponentSpecs();
-		b2wE.setComponentSpecsProductionDate("10/11/2016");
-		TaskUtils.sleep(5000);
+		b2wMaintain.openPurchasing();
+		TaskUtils.sleep(1000);
+		new B2WPurchasingTasks().selectPurchaseOrderByVendor("Environmental Containment Management [ENV89]");
+		TaskUtils.sleep(1000);
+		new B2WPurchasingTasks().getSubtotal();
+//		b2wE.createNewEquipment();
+//		b2wE.expandComponentSpecs();
+//		b2wE.setComponentSpecsProductionDate("10/11/2016");
+//		TaskUtils.sleep(5000);
 		
 //		b2wMaintain.openPrograms();
 //		b2wMainPrograms.selectItemOnMaintenanceProgram("Excavator 500 Hour Service");

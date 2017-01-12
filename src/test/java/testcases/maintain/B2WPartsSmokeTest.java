@@ -289,7 +289,8 @@ public class B2WPartsSmokeTest extends B2WTestCase {
 		logCompare(true,purch.setPart(sPartDesc), "Set Part");
 		logCompare(true,purch.savePartOrder(), "Save Part Order");
 		logCompare(true,purch.clickApproveButton(), "Approve");
-		logCompare(true,approve.selectApprover(sEmployeeFirstNameB), "First Name");
+		TaskUtils.sleep(500);
+		logCompare(true,approve.selectApprover("D"), "First Name");
 		logCompare(true,approve.clickApproveButton(), "Click Approve");
 		
 	}
