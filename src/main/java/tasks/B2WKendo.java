@@ -53,7 +53,7 @@ public abstract class B2WKendo {
 		// when we click we need to find the visble list
 		List<WebElement> list = WebElementUtils.findElements(B2WEquipment.getKendoLists());
 		Iterator<WebElement> iter = list.iterator();
-		log.debug("Looking for item "+sItem);
+		log.debug("Looking for item '" + sItem + "'");
 		while (iter.hasNext()) {
 			WebElement els = iter.next();
 			String hidden = els.getAttribute("aria-hidden");
@@ -63,8 +63,8 @@ public abstract class B2WKendo {
 				if (item != null) {
 					bReturn = WebElementUtils.clickElement(item);
 					bReturn &= WebElementUtils.waitForElementInvisible(item);
-				}else{
-					log.debug("Item with could not be found matching "+sItem);
+				} else {
+					log.debug("Item with could not be found matching " + sItem);
 				}
 			}
 		}
@@ -178,7 +178,7 @@ public abstract class B2WKendo {
 				iTrys++;
 
 			} catch (NoSuchElementException e) {
-				log.warn("Page not Busy no such element exception");
+				log.debug("Page not Busy no such element exception");
 				bReturn = true;
 			}catch (StaleElementReferenceException e){
 				log.debug("Caught a stale element exception");
