@@ -3,6 +3,7 @@ package tasks.resources;
 import appobjects.resources.B2WCrewTemplates;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.*;
+import org.openqa.selenium.interactions.Actions;
 import tasks.BrowserUtils;
 import tasks.WebElementUtils;
 import tasks.util.TaskUtils;
@@ -456,7 +457,11 @@ public class B2WCrewTemplateTasks extends B2WKendoTasks {
         WebElement parent = WebElementUtils.findElement(B2WCrewTemplates.getResourceTree());
         if (parent != null && result != null) {
             WebElement child = WebElementUtils.getChildElement(parent, By.cssSelector("em"));
-            bReturn &= dragAndDropWithMouse(result, child, getYOffset());
+            bReturn &= logCompare(true, dragAndDropWithMouse(result, child, getYOffset()), "Drag&Drop by Robot");
+            new Actions(BrowserUtils.getDriver()).dragAndDrop(result, child).perform();
+            logCompare(true, false, "Drag&Drop by one method");
+            new Actions(BrowserUtils.getDriver()).clickAndHold(result).moveToElement(child).release().perform();
+            logCompare(true, false, "Drag&Drop by sequence of methods");
         }
         return bReturn;
     }
