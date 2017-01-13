@@ -13,12 +13,12 @@ public class B2WAddToInventory extends B2WKendoDialog {
 	
 
 	
-	public boolean enterPart(String sPart){
+	public boolean selectPart(String sPart){
 		boolean bReturn = false;
 		WebElement part = getFormElement("Part", B2WMaintain.getKendoDropDown());
 		if (part != null){
 			WebElementUtils.sendKeys(part, sPart);
-			TaskUtils.sleep(1000);
+			TaskUtils.sleep(2000);
 			bReturn = selectItemFromDropDown(0);
 		}
 		return bReturn;
@@ -30,8 +30,8 @@ public class B2WAddToInventory extends B2WKendoDialog {
 		WebElement part = getFormElement("Location", B2WMaintain.getKendoDropDown());
 		if (part != null){
 			bReturn = WebElementUtils.clickElement(part);
-			selectItemFromDropDown(sLocation);
-			bReturn = selectItemFromDropDown(sLocation);
+			
+			bReturn &= selectItemFromDropDown(sLocation);
 		}
 		return bReturn;
 		
@@ -51,16 +51,16 @@ public class B2WAddToInventory extends B2WKendoDialog {
 		return bReturn;
 	}
 	
-	public boolean selectAnyBin() {
+	public String selectAnyBin() {
 
-		boolean bReturn = false;
+		String sRandomItem = "";
 		WebElement part = getFormElement("Bin", B2WMaintain.getKendoDropDown());
 		if (part != null){
-			bReturn = WebElementUtils.clickElement(part);
-			String sRandomItem = selectRandomItemFromDropDown();
+			WebElementUtils.clickElement(part);
+			sRandomItem = selectRandomItemFromDropDown();
 			log.debug("Item Selected is "+sRandomItem);
 		}
-		return bReturn;
+		return sRandomItem;
 	}
 	public boolean setQuantity(String sQuantity){
 		return setNumericField("Quantity", sQuantity);

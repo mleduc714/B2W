@@ -27,6 +27,18 @@ public class B2WInventoryTasks extends B2WKendoTasks {
 				
 		return bReturn;
 	}
+	
+	public boolean collapsePart(String sPart){
+		boolean bReturn = false;
+		WebElement row = getRow(sPart);
+		WebElement plus = WebElementUtils.getChildElement(row,(B2WMaintain.getKendoIconMinus()));
+		if (plus != null){
+			bReturn = WebElementUtils.clickElement(plus);
+			waitForPageNotBusy(WebElementUtils.MEDIUM_TIME_OUT);
+		}
+				
+		return bReturn;
+	}
 	public String getPartBuyer(String sPart){
 		String sText = "";
 		WebElement el = getRowColumn(sPart, 2);

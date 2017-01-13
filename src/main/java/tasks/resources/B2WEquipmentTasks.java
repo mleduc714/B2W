@@ -196,6 +196,23 @@ public class B2WEquipmentTasks extends B2WKendoTasks {
 	
 	
 	//COMPONENT SPECS
+	
+	public boolean setComponentSpecsProductionDate(String sText){
+		boolean bReturn = false;
+
+		List<WebElement> els = WebElementUtils.findElements(KendoUI.getKendoDropDown());
+		WebElement el = WebElementUtils.getElementWithMatchingAttribute(els, "name", "ProductionDate");
+		
+		if (el != null && WebElementUtils.waitForElementIsDisplayed(el, WebElementUtils.MEDIUM_TIME_OUT)) {
+			WebElementUtils.clickElement(el);
+			bReturn = WebElementUtils.sendKeys(el, sText);
+		}else{
+			log.debug("Element was not available to send text to");
+		}
+
+		return bReturn;
+	}
+	
 	public boolean setComponentSpecsEngine(String sText) {
 		boolean bReturn = false;
 
@@ -553,6 +570,7 @@ public class B2WEquipmentTasks extends B2WKendoTasks {
 				WebElement item = WebElementUtils.getElementWithMatchingText(items, sText, false);
 				if (item != null) {
 					bReturn = WebElementUtils.clickElement(item);
+					waitForPageNotBusy(WebElementUtils.MEDIUM_TIME_OUT);
 				}else{
 					log.debug("Item with could not be found matching "+sText);
 				}
@@ -621,87 +639,7 @@ public class B2WEquipmentTasks extends B2WKendoTasks {
 		return sItem;
 		
 	}
-	
-	public boolean expandEquipmentSpecs() {
-		return getHeaderandExpandOrCollapse(EQUIPMENTSPECS, true);
-	}
-	public boolean collapseEquipmentSpecs(){
-		return getHeaderandExpandOrCollapse(EQUIPMENTSPECS, false);
-	}
-	public boolean expandComponentSpecs() {
-		return getHeaderandExpandOrCollapse(COMPSPECS, true);
-	}
-	public boolean collapseComponentSpecs(){
-		return getHeaderandExpandOrCollapse(COMPSPECS, false);
-	}
-	public boolean expandFileAttachments() {
-		return getHeaderandExpandOrCollapse(FILEATTACH, true);
-	}
-	public boolean collapseFileAttachments(){
-		return getHeaderandExpandOrCollapse(FILEATTACH, false);
-	}
-	public boolean expandFinancials() {
-		return getHeaderandExpandOrCollapse(FINANCIALS, true);
-	}
-	
-	public boolean collapseFinancials(){
-		return getHeaderandExpandOrCollapse(FINANCIALS, false);
-	}
-	
-	public boolean expandMeters() {
-		return getHeaderandExpandOrCollapse(METERS, true);
-	}
-	public boolean collapseMeters(){
-		return getHeaderandExpandOrCollapse(METERS, false);
-	}
-	public boolean expandParts() {
-		return getHeaderandExpandOrCollapse(PARTS, true);
-	}
-	public boolean collapseParts(){
-		return getHeaderandExpandOrCollapse(PARTS, false);
-	}
-	public boolean expandWarrenties() {
-		return getHeaderandExpandOrCollapse(WARRANTIES, true);
-	}
-	public boolean collapseWarrenties(){
-		return getHeaderandExpandOrCollapse(WARRANTIES, false);
-	}
-	public boolean expandPrograms() {
-		return getHeaderandExpandOrCollapse(PROGRAMS, true);
-	}
-	public boolean collapsePrograms(){
-		return getHeaderandExpandOrCollapse(PROGRAMS, false);
-	}
-	public boolean expandTags() {
-		return getHeaderandExpandOrCollapse(TAGS, true);
-	}
-	public boolean collapseTags(){
-		return getHeaderandExpandOrCollapse(TAGS, false);
-	}
-	public boolean expandCrews() {
-		return getHeaderandExpandOrCollapse(CREWS, true);
-	}
-	public boolean collapseCrews(){
-		return getHeaderandExpandOrCollapse(CREWS, false);
-	}
-	public boolean expandEvents() {
-		return getHeaderandExpandOrCollapse(EVENTS, true);
-	}
-	public boolean collapseEvents(){
-		return getHeaderandExpandOrCollapse(EVENTS, false);
-	}
-	public boolean expandHistory() {
-		return getHeaderandExpandOrCollapse(HISTORY, true);
-	}
-	public boolean collapseHistory(){
-		return getHeaderandExpandOrCollapse(HISTORY, false);
-	}
-	public boolean expandLocation() {
-		return getHeaderandExpandOrCollapse(LOCATION, true);
-	}
-	public boolean collapseLocation(){
-		return getHeaderandExpandOrCollapse(LOCATION, false);
-	}
+
 	
 	public boolean waitForEquipmentPageNoBusy() {
 		return waitForPageNotBusy(WebElementUtils.MEDIUM_TIME_OUT);
@@ -712,14 +650,11 @@ public class B2WEquipmentTasks extends B2WKendoTasks {
 		List<WebElement> ls = WebElementUtils.findElements(B2WEquipment.getKendoHeadersFromView());
 		WebElement el = WebElementUtils.getElementWithMatchingText(ls, PARTS, false);
 		if (el != null) {
-			List<WebElement> windows = WebElementUtils.findElements(B2WMaintain.getKendoWindowTitle());
 			WebElement button = getButton("Add Parts");
 			Coordinates coordinate = ((Locatable) button).getCoordinates();
 			coordinate.onPage();
 			coordinate.inViewPort();
-			TaskUtils.sleep(5000);
 			if (WebElementUtils.clickElement(button)) {
-				bReturn = WebElementUtils.waitForElementIsDisplayed(windows.get(1), WebElementUtils.SHORT_TIME_OUT);
 				bReturn &= waitForPageNotBusy(WebElementUtils.MEDIUM_TIME_OUT);
 			}
 		}
@@ -792,7 +727,7 @@ public class B2WEquipmentTasks extends B2WKendoTasks {
 		if (WebElementUtils.clickElement(button)) {
 			bReturn = true;
 		}
-
+		TaskUtils.sleep(500);
 		return bReturn;
 	}
 	
@@ -851,12 +786,18 @@ public class B2WEquipmentTasks extends B2WKendoTasks {
 		if (specs != null){
 		// get the parent of the label
 			// find the input
-			WebElement input = WebElementUtils.getChildElement(specs, By.tagName("input"));
-			bReturn = WebElementUtils.sendKeys(input, sText);
+			if (sField.equals("Year")){
+				List<WebElement> input = WebElementUtils.getChildElements(specs, By.tagName("input"));
+				WebElementUtils.clickElement(input.get(0));
+				bReturn = WebElementUtils.sendKeys(input.get(1), sText);
+			}else{
+				WebElement input = WebElementUtils.getChildElement(specs, By.tagName("input"));
+				WebElementUtils.clickElement(input);
+				bReturn = WebElementUtils.sendKeys(input, sText);
+			}
 		}
 		return bReturn;
 	}
-	
 
 	private boolean selectItemValueFromDropDown(String sHeader, String sField, String sValue, String sItem){
 		boolean bReturn = false;
@@ -879,7 +820,7 @@ public class B2WEquipmentTasks extends B2WKendoTasks {
 			}
 			if (sItem != null){
 				WebElementUtils.clickElement(input.get(input.size()-1));
-				bReturn &= selectItemFromDropDown(sItem);
+				bReturn = selectItemFromDropDown(sItem);
 			}
 		}
 		return bReturn;
@@ -995,7 +936,7 @@ public class B2WEquipmentTasks extends B2WKendoTasks {
 		String sText = "";
 		List<WebElement> rows = getHistoryRows();
 		if (rows.size()>0){
-			sText = WebElementUtils.getChildElements(rows.get(iRow),By.tagName("td")).get(iColumn).getText();
+			sText = WebElementUtils.getChildElements(rows.get(iRow),By.tagName("td")).get(iColumn).getText().trim();
 			
 		}
 		return sText;
@@ -1005,7 +946,7 @@ public class B2WEquipmentTasks extends B2WKendoTasks {
 		String sText = "";
 		List<WebElement> rows = getMeterRows();
 		if (rows.size()>0){
-			sText = WebElementUtils.getChildElements(rows.get(iRow),By.tagName("td")).get(iColumn).getText();
+			sText = WebElementUtils.getChildElements(rows.get(iRow),By.tagName("td")).get(iColumn).getText().trim();
 			
 		}
 		return sText;
@@ -1015,7 +956,9 @@ public class B2WEquipmentTasks extends B2WKendoTasks {
 		ArrayList<String> al = new ArrayList<String>();
 		Iterator<WebElement> iter = getMeterRows().iterator();
 		while (iter.hasNext()){
-			al.add(WebElementUtils.getChildElements(iter.next(),By.tagName("td")).get(0).getText());
+			WebElement el = iter.next();
+			List<WebElement> list = WebElementUtils.getChildElements(el, By.tagName("td"));
+			al.add(list.get(0).getText().trim());
 		}
 		return al;
 	}
@@ -1023,7 +966,7 @@ public class B2WEquipmentTasks extends B2WKendoTasks {
 		ArrayList<String> al = new ArrayList<String>();
 		Iterator<WebElement> iter = getPartsRows().iterator();
 		while (iter.hasNext()){
-			al.add(WebElementUtils.getChildElements(iter.next(),By.tagName("td")).get(0).getText());
+			al.add(WebElementUtils.getChildElements(iter.next(),By.tagName("td")).get(0).getText().trim());
 		}
 		return al;
 	}
@@ -1032,7 +975,7 @@ public class B2WEquipmentTasks extends B2WKendoTasks {
 		ArrayList<String> al = new ArrayList<String>();
 		Iterator<WebElement> iter = getWarrantyRows().iterator();
 		while (iter.hasNext()){
-			al.add(WebElementUtils.getChildElements(iter.next(),By.tagName("td")).get(0).getText());
+			al.add(WebElementUtils.getChildElements(iter.next(),By.tagName("td")).get(0).getText().trim());
 		}
 		return al;
 	}
@@ -1041,7 +984,7 @@ public class B2WEquipmentTasks extends B2WKendoTasks {
 		ArrayList<String> al = new ArrayList<String>();
 		Iterator<WebElement> iter = getEquipmentEventsRows().iterator();
 		while (iter.hasNext()){
-			al.add(WebElementUtils.getChildElements(iter.next(),By.tagName("td")).get(0).getText());
+			al.add(WebElementUtils.getChildElements(iter.next(),By.tagName("td")).get(0).getText().trim());
 		}
 		return al;
 	}
@@ -1095,7 +1038,6 @@ public class B2WEquipmentTasks extends B2WKendoTasks {
 		}
 		return sText;
 	}
-	
 	
 	public String getPartDescriptionByPartID(String sPart){
 		String sText = "";
@@ -1185,6 +1127,7 @@ public class B2WEquipmentTasks extends B2WKendoTasks {
 		int iRow = getMeters().indexOf(sMeter);
 		List<WebElement> rows = getMeterRows();
 		if (rows.size()>0){
+			
 			WebElement edit = WebElementUtils.getChildElement(rows.get(iRow), B2WMaintain.getKendoEditButton());
 			bReturn = WebElementUtils.clickElement(edit);
 		}
@@ -1226,7 +1169,7 @@ public class B2WEquipmentTasks extends B2WKendoTasks {
 	}
 	private List<WebElement> getMeterRows() {
 		WebElement header = getHeader(METERS);
-		WebElement historyView = WebElementUtils.getChildElement(header, B2WMaintain.getMaintainEquipmentMetersView());
+		WebElement historyView = WebElementUtils.getChildElement(header, By.className("meter-list"));
 		WebElement tbody = WebElementUtils.getChildElement(historyView, By.tagName("tbody"));
 		List<WebElement> rows = WebElementUtils.getChildElements(tbody, By.tagName("tr"));
 		return rows;

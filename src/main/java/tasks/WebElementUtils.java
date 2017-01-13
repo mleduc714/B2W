@@ -269,7 +269,6 @@ public class WebElementUtils {
 		while (iter.hasNext()) {
 			WebElement el = iter.next();
 			String sName = el.getAttribute(sAttribute);
-			
 			if (sName != null && sName.equals(sAttributeValue)) {
 				ret = el;
 				break;
@@ -878,6 +877,7 @@ public class WebElementUtils {
 	}
 	public static boolean waitForElementInvisible(WebElement element, int timeout, boolean expectedClickable) {
 		boolean bReturn = false;
+
 		if (element == null) {
 			log.warn("The provided WebElement was null");
 		}

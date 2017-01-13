@@ -9,8 +9,11 @@ import org.openqa.selenium.WebElement;
 
 import appobjects.maintain.B2WMaintain;
 import tasks.WebElementUtils;
+import tasks.util.TaskUtils;
 
 public class B2WAddPartsToWorkItem extends B2WKendoDialog {
+	
+	int iCurrentRows = 0;
 
 	public boolean selectPartToAddToWorkItemByDescription(String sPart){
 		return selectFromDialog(sPart, 1);
@@ -19,6 +22,10 @@ public class B2WAddPartsToWorkItem extends B2WKendoDialog {
 	
 	public boolean selectPartToAddToWorkItemByID(String sPart){
 		return selectFromDialog(sPart, 0);
+	}
+	
+	public String selectRandomPartToAdd() {
+		return selectAnyItemFromDialog();
 	}
 	
 	public boolean partsNext() {
@@ -78,4 +85,91 @@ public class B2WAddPartsToWorkItem extends B2WKendoDialog {
 		
 	}
 	
+	
+	public boolean setCustomDescription(String sText){
+		boolean bReturn = false;
+		WebElement window = getRowsOfParts().get(iCurrentRows-1);
+		WebElement textBox = WebElementUtils.getChildElement(window, B2WMaintain.getKendoInputTextBox());
+		if (textBox != null){
+			bReturn = WebElementUtils.sendKeys(textBox, sText);
+		}
+		return bReturn;
+	}
+	public boolean setCustomUnitCost(String sText){
+		boolean bReturn = false;
+		WebElement window = getRowsOfParts().get(iCurrentRows-1);
+		List<WebElement> numbers = WebElementUtils.getChildElements(window, B2WMaintain.getKendoNumericTextBox());
+		if (numbers.size()>0){
+			List<WebElement> inputs = WebElementUtils.getChildElements(numbers.get(0),B2WMaintain.getKendoDropDown());
+			bReturn = WebElementUtils.clickElement(inputs.get(0));
+			bReturn &= WebElementUtils.sendKeys(inputs.get(1), sText);
+			
+		}
+		return bReturn;
+	}
+	public boolean setCustomEstQty(String sText){
+		boolean bReturn = false;
+		WebElement window = getRowsOfParts().get(iCurrentRows-1);
+		List<WebElement> numbers = WebElementUtils.getChildElements(window, B2WMaintain.getKendoNumericTextBox());
+		if (numbers.size()>0){
+			List<WebElement> inputs = WebElementUtils.getChildElements(numbers.get(1),B2WMaintain.getKendoDropDown());
+			bReturn = WebElementUtils.clickElement(inputs.get(0));
+			bReturn &= WebElementUtils.sendKeys(inputs.get(1), sText);
+			
+		}
+		return bReturn;
+	}
+	public boolean setCustomRptQty(String sText){
+		boolean bReturn = false;
+		WebElement window = getRowsOfParts().get(iCurrentRows-1);
+		List<WebElement> numbers = WebElementUtils.getChildElements(window, B2WMaintain.getKendoNumericTextBox());
+		if (numbers.size()>0){
+			List<WebElement> inputs = WebElementUtils.getChildElements(numbers.get(2),B2WMaintain.getKendoDropDown());
+			bReturn = WebElementUtils.clickElement(inputs.get(0));
+			bReturn &= WebElementUtils.sendKeys(inputs.get(1), sText);
+			
+		}
+		return bReturn;
+	}
+	
+	public boolean selectUnitOfMeasure(String sText){
+		boolean bReturn = false;
+		WebElement window = getRowsOfParts().get(iCurrentRows-1);
+		List<WebElement> numbers = WebElementUtils.getChildElements(window, B2WMaintain.getKendoDropDownForTMTab());
+		if (numbers.size()>0){
+			List<WebElement> inputs = WebElementUtils.getChildElements(numbers.get(0),B2WMaintain.getKendoDropDown());
+			bReturn = WebElementUtils.clickElement(inputs.get(0));
+			bReturn &= selectItemFromDropDown("ID");
+			
+		}
+		return bReturn;
+	}
+	public boolean setUnitCost(String sItem, String sCost){
+		boolean bReturn = false;
+		WebElement window = getDisplayedWindow();
+		List<WebElement> textBoxs = WebElementUtils.getChildElements(window, B2WMaintain.getKendoInputTextBox());
+		WebElement textBox = WebElementUtils.getVisibleElementFromListofElements(textBoxs);
+		System.out.println(textBox.getText());
+		System.out.println(textBoxs.size());
+		return bReturn;
+	}
+	public List<WebElement> getRowsOfParts() {
+		WebElement window = getDisplayedWindow();
+		List<WebElement> rows = new ArrayList<WebElement>();
+		List<WebElement> animal = WebElementUtils.getChildElements(window,By.tagName("tr"));
+		for (WebElement el: animal){
+			if (el.getAttribute("data-uid") != null){
+				rows.add(el);
+			}
+		}
+		return rows;
+	}
+	public boolean clickAddCustomPart() {
+		boolean bReturn = false;
+		iCurrentRows = getRowsOfParts().size();
+		bReturn = clickButton("Add Custom Part");
+		TaskUtils.sleep(500);
+		iCurrentRows = getRowsOfParts().size();
+		return bReturn;
+	}
 }

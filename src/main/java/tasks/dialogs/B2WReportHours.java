@@ -367,7 +367,7 @@ public class B2WReportHours extends B2WKendoDialog {
 	}
 	public boolean selectEmployeeLaborType(String sText) {
 		boolean bReturn = false;
-		WebElement el = getWebElementFromIsChargedTypeSelected(7);
+		WebElement el = getFormElement("Labor Type", B2WMaintain.getKendoDropDown());
 		if (el != null){
 			WebElementUtils.clickElement(el);
 			bReturn = selectItemFromDropDown(sText);

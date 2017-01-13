@@ -657,5 +657,23 @@ public class B2WMaintain extends KendoUI {
 	public static By getMaintainRequestDetailView() {
 		return By.cssSelector(B2WUIMap.b2w_requestdetailview);
 	}
-
+	public static By getMaintainSearchFilterList(){
+		return By.cssSelector(B2WUIMap.b2w_searchfilterlist);
+	}
+	public static By getMaintainPartsVendorsList() {
+		return By.cssSelector(B2WUIMap.b2w_vendorlistview);
+	}
+	public static By getMaintainEditRow() {
+		return By.cssSelector(B2WUIMap.b2w_vendoreditrow);
+	}
+	public static By getMaintainPartsInventoryHistoryListView() {
+		return By.cssSelector(B2WUIMap.b2w_partsinventoryhistoryview);
+	}
+	public static By getMaintainPurchaseOrderDetails() {
+		return By.cssSelector(B2WUIMap.b2w_partspurchaseorderdetails);
+	}
+	public static By getMaintainPurchaseItemsContainer() {
+		return By.cssSelector(B2WUIMap.b2w_partspurchaselineitemcontainer);
+	}
+	
 }

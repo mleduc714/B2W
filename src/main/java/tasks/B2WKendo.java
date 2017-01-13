@@ -168,8 +168,6 @@ public abstract class B2WKendo {
 			try {
 				WebElement el = BrowserUtils.getDriver().findElement(B2WEquipment.getKendoPageLoading());
 				TaskUtils.sleep(100);
-				StackTraceElement[] stackTraceElements = Thread.currentThread().getStackTrace();
-				log.debug(stackTraceElements[3].getMethodName() + "->" + stackTraceElements[2].getMethodName() + "->" + stackTraceElements[1].getMethodName());
 				if (!el.isDisplayed()){
 					bReturn = true;
 					log.debug("Element is not displayed");
@@ -189,6 +187,7 @@ public abstract class B2WKendo {
 		double iSec = (iTrys * 100);
 		double iSeconds = iSec / 1000;
 		if (!bReturn){
+			TaskUtils.logScreenCapture();
 			log.info("Page waited as long as: "+iSeconds + " Seconds");
 		}else{
 			log.info("Page is done loading. waited: "+iSeconds + " Seconds");
@@ -198,11 +197,15 @@ public abstract class B2WKendo {
 		
 	}
 	private void waitForAjax() {
+		int iTimeout = 0;
 		while (true) {
 			Boolean ajaxIsComplete = (Boolean) ((JavascriptExecutor) BrowserUtils.getDriver()).executeScript("return jQuery.active == 0");
-			if (ajaxIsComplete) {
+			if (ajaxIsComplete && iTimeout < 20) {
+				log.debug("Wait for Ajax done");
 				break;
 			}
+			log.debug("Wait for Ajax");
+			iTimeout++;
 			TaskUtils.sleep(500);
 		}
 	}
@@ -277,11 +280,32 @@ public abstract class B2WKendo {
 				WebDriver driver = BrowserUtils.getDriver().switchTo().frame(iframe);
 				WebElement body = driver.findElement(By.tagName("body"));
 				WebElementUtils.clickElement(body);
+				body.clear();
 				bReturn = WebElementUtils.sendKeys(body, sText);
 				BrowserUtils.getDriver().switchTo().defaultContent();
 				break;
 			}
 		}
+		return bReturn;
+	}
+	
+	protected boolean setNotesForItem(String sText) {
+		boolean bReturn = false;
+		List<WebElement> displayedFrames = new ArrayList<WebElement>();
+		List<WebElement> iframes = BrowserUtils.getDriver().findElements(By.tagName("iframe"));
+		for (WebElement iframe : iframes) {
+			if (iframe.isDisplayed() == true) {
+				// we want this one.
+				displayedFrames.add(iframe);
+			}
+		}
+		WebDriver driver = BrowserUtils.getDriver().switchTo().frame(displayedFrames.get(displayedFrames.size() - 1));
+		WebElement body = driver.findElement(By.tagName("body"));
+		WebElementUtils.clickElement(body);
+		body.clear();
+		bReturn = WebElementUtils.sendKeys(body, sText);
+		BrowserUtils.getDriver().switchTo().defaultContent();
+
 		return bReturn;
 	}
 	public ArrayList<String> getItemsFromDropDown() {

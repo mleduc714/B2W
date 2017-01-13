@@ -83,6 +83,7 @@ public abstract class B2WKendoDialog extends B2WKendo {
 			WebElement temp = iter.next();
 			if (temp.isDisplayed()){
 				window = temp;
+				break;
 			}
 		}
 		return window;
@@ -230,14 +231,15 @@ public abstract class B2WKendoDialog extends B2WKendo {
 	}
 
 	protected boolean clickButton(String sButton) {
+		boolean bReturn = false;
 		WebElement window = getDisplayedWindow();
 		List<WebElement> list = WebElementUtils.getChildElements(window, B2WMaintain.getKendoButton());
 		for (WebElement el : list) {
 			if (el.getText().equals(sButton)) {
-				el.click();
+				bReturn = WebElementUtils.clickElement(el);
 			}
 		}
-		return false;
+		return bReturn;
 
 	}
 

@@ -23,7 +23,31 @@ import tasks.WebElementUtils;
 import tasks.util.TaskUtils;
 
 public abstract class B2WKendoTasks extends B2WKendo {
-
+	
+	public String EQUIPMENTSPECS = "Equipment Specs";
+	public String COMPSPECS = "Component Specs";
+	public String FILEATTACH = "File Attachments";
+	public String FINANCIALS = "Financials";
+	public String METERS = "Meters";
+	public String PARTS = "Parts";
+	public String WARRANTIES = "Warranties";
+	public String PROGRAMS = "Programs";
+	public String TAGS = "Tags";
+	public String CREWS = "Crews";
+	public String EVENTS = "Events";
+	public String HISTORY = "History";
+	public String LOCATION = "Location";
+	public String ATTACHMENTS = "Attachments";
+	public String WARRANTY = "Warranty";
+	public String VENDORS = "Vendors";
+	public String INVENTORYHISTORY = "Inventory History";
+	public String PURCHASEORDERHISTORY = "Purchase Order History";
+	public String HOURS = "Hours";
+	public String EXCLUSIONS = "Exclusions";
+	public String DETAILS = "Details";
+	public String INTERVALS = "Intervals";
+	public String COMMENTS = "Comments";
+	
 	Logger log = Logger.getLogger(B2WKendoTasks.class);
 	private int getRandomNumber(int iSize) {
 		Random rand = new Random();
@@ -70,7 +94,7 @@ public abstract class B2WKendoTasks extends B2WKendo {
 		String sRandom = "";
 		dropDownElement.clear();
 		if (WebElementUtils.sendKeys(dropDownElement, "a")) {
-			TaskUtils.sleep(500);
+			TaskUtils.sleep(1000);
 			sRandom =  selectRandomItemFromDropDown();
 		}
 		return sRandom;
@@ -115,7 +139,7 @@ public abstract class B2WKendoTasks extends B2WKendo {
 		return lNew;
 	}
 
-	public boolean getHeaderandExpandOrCollapse(String sText, boolean bExpand){
+	private boolean getHeaderandExpandOrCollapse(String sText, boolean bExpand){
 		List<WebElement> ls = WebElementUtils.findElements(B2WEquipment.getKendoHeadersFromView());
 		WebElement el = WebElementUtils.getElementWithMatchingText(ls, sText, false);
 		// get parent and is it expanded or collapsed
@@ -220,6 +244,7 @@ public abstract class B2WKendoTasks extends B2WKendo {
 			}
 			sText = gridcontent.get(iColumn).getText();
 			sText = sText.trim();
+			System.out.println(sText);
 			if (sText.equals(sItem)) {
 				bReturn = WebElementUtils.clickElement(item);
 				bReturn &= waitForPageNotBusy(WebElementUtils.MEDIUM_TIME_OUT);
@@ -271,6 +296,20 @@ public abstract class B2WKendoTasks extends B2WKendo {
 	protected WebElement getButton(String sDesc){
 		WebElement el = null;
 		List<WebElement> list = WebElementUtils.findElements(B2WMaintain.getKendoButtonAdd());
+		for (WebElement e: list){
+			String sButtonName = WebElementUtils.getParentElement(e).getText();
+			if (sButtonName.contains(sDesc)){
+				el = e;
+				break;
+			}
+		}
+		return el;
+		
+	}
+	
+	protected WebElement getEditButton(String sDesc){
+		WebElement el = null;
+		List<WebElement> list = WebElementUtils.findElements(B2WMaintain.getKendoEditButton());
 		for (WebElement e: list){
 			String sButtonName = WebElementUtils.getParentElement(e).getText();
 			if (sButtonName.contains(sDesc)){
@@ -462,6 +501,250 @@ public abstract class B2WKendoTasks extends B2WKendo {
 					bReturn = WebElementUtils.clickElement(e);
 				}
 			}
+		}
+		return bReturn;
+	}
+	
+	protected ArrayList<String> getItems() {
+		ArrayList<String> al = new ArrayList<String>();
+		WebElement el = WebElementUtils.findElement(B2WMaintain.getB2WWorkOrderItems());
+		Coordinates coordinate = ((Locatable)el).getCoordinates(); 
+		coordinate.onPage(); 
+		coordinate.inViewPort();
+		if (el != null){
+			List<WebElement> list = WebElementUtils.getElementsWithMatchingAttribute(WebElementUtils.getChildElements(el, By.tagName("td")), "role", "gridcell");
+			Iterator<WebElement> iter = list.iterator();
+			while (iter.hasNext()){
+				WebElement e = iter.next();
+				String sText = e.getText();
+				al.add(sText);
+			}
+		}
+		return al;
+	}
+	
+	protected boolean checkBox(WebElement el, boolean bCheck){
+		
+		boolean isChecked = el.isSelected();
+		// if item is checked and need to uncheck
+		if (isChecked && !bCheck){
+			log.debug("Uncheck the checkbox");
+			WebElementUtils.clickElement(el);
+		}
+		// if item is unchecked and need to check
+		if (!isChecked && bCheck){
+			log.debug("Check the checkbox");
+			WebElementUtils.clickElement(el);
+		}
+		return bCheck == el.isSelected();
+	}
+	protected boolean setNewCommentAndSave(String sText){
+		boolean bReturn = false;
+		List<WebElement> list = WebElementUtils.findElements(By.cssSelector("textarea.comments"));
+		Iterator<WebElement> iter = list.iterator();
+		while (iter.hasNext()){
+			WebElement el = iter.next();
+			if (el.isDisplayed()){
+				el.clear();
+				bReturn = WebElementUtils.sendKeys(el, sText);
+				WebElement parent = WebElementUtils.getParentElement(el);
+				TaskUtils.sleep(1000);
+				WebElement save = WebElementUtils.getChildElement(parent, B2WMaintain.getKendoLargeSaveButton());
+				bReturn = WebElementUtils.clickElement(save);
+				bReturn &= WebElementUtils.waitForElementInvisible(el);
+				break;
+			}
+		}
+		return bReturn;
+	}
+	protected List<WebElement> getCommentsRows() {
+		WebElement historyView = WebElementUtils.findElement(By.cssSelector(".comments-view"));
+		WebElement tbody = WebElementUtils.getChildElement(historyView, By.tagName("tbody"));
+		List<WebElement> rows = WebElementUtils.getChildElements(tbody, By.tagName("tr"));
+		return rows;
+	}
+	protected String getComments(int iRow, int iColumn){
+		String sText = "";
+		List<WebElement> rows = getCommentsRows();
+		if (rows.size()>0){
+			sText = WebElementUtils.getChildElements(rows.get(iRow),By.tagName("td")).get(iColumn).getText();
+		}
+		return sText;
+	}
+	
+	protected WebElement getRowByCommentDescription(String sDesc){
+		WebElement row = null;
+		List<WebElement> rows = getCommentsRows();
+		if (rows.size()>0){
+			for (WebElement el: rows){
+				String sText = WebElementUtils.getChildElements(el,By.tagName("td")).get(0).getText();
+				if (sText.equals(sDesc)){
+					row = el;
+				}
+			}
+			
+		}
+		return row;
+	}
+	
+	public boolean expandEquipmentSpecs() {
+		return getHeaderandExpandOrCollapse(EQUIPMENTSPECS, true);
+	}
+	public boolean collapseEquipmentSpecs(){
+		return getHeaderandExpandOrCollapse(EQUIPMENTSPECS, false);
+	}
+	public boolean expandComponentSpecs() {
+		return getHeaderandExpandOrCollapse(COMPSPECS, true);
+	}
+	public boolean collapseComponentSpecs(){
+		return getHeaderandExpandOrCollapse(COMPSPECS, false);
+	}
+	public boolean expandFileAttachments() {
+		return getHeaderandExpandOrCollapse(FILEATTACH, true);
+	}
+	public boolean collapseFileAttachments(){
+		return getHeaderandExpandOrCollapse(FILEATTACH, false);
+	}
+	public boolean expandFinancials() {
+		return getHeaderandExpandOrCollapse(FINANCIALS, true);
+	}
+	
+	public boolean collapseFinancials(){
+		return getHeaderandExpandOrCollapse(FINANCIALS, false);
+	}
+	
+	public boolean expandMeters() {
+		return getHeaderandExpandOrCollapse(METERS, true);
+	}
+	public boolean collapseMeters(){
+		return getHeaderandExpandOrCollapse(METERS, false);
+	}
+	public boolean expandParts() {
+		return getHeaderandExpandOrCollapse(PARTS, true);
+	}
+	public boolean collapseParts(){
+		return getHeaderandExpandOrCollapse(PARTS, false);
+	}
+	public boolean expandWarrenties() {
+		return getHeaderandExpandOrCollapse(WARRANTIES, true);
+	}
+	public boolean collapseWarrenties(){
+		return getHeaderandExpandOrCollapse(WARRANTIES, false);
+	}
+	public boolean expandPrograms() {
+		return getHeaderandExpandOrCollapse(PROGRAMS, true);
+	}
+	public boolean collapsePrograms(){
+		return getHeaderandExpandOrCollapse(PROGRAMS, false);
+	}
+	public boolean expandTags() {
+		return getHeaderandExpandOrCollapse(TAGS, true);
+	}
+	public boolean collapseTags(){
+		return getHeaderandExpandOrCollapse(TAGS, false);
+	}
+	public boolean expandCrews() {
+		return getHeaderandExpandOrCollapse(CREWS, true);
+	}
+	public boolean collapseCrews(){
+		return getHeaderandExpandOrCollapse(CREWS, false);
+	}
+	public boolean expandEvents() {
+		return getHeaderandExpandOrCollapse(EVENTS, true);
+	}
+	public boolean collapseEvents(){
+		return getHeaderandExpandOrCollapse(EVENTS, false);
+	}
+	public boolean expandHistory() {
+		return getHeaderandExpandOrCollapse(HISTORY, true);
+	}
+	public boolean collapseHistory(){
+		return getHeaderandExpandOrCollapse(HISTORY, false);
+	}
+	public boolean expandLocation() {
+		return getHeaderandExpandOrCollapse(LOCATION, true);
+	}
+	public boolean collapseLocation(){
+		return getHeaderandExpandOrCollapse(LOCATION, false);
+	}
+	public boolean expandAttachments() {
+		return getHeaderandExpandOrCollapse(ATTACHMENTS, true);
+	}
+	public boolean collapseAttachments() {
+		return getHeaderandExpandOrCollapse(ATTACHMENTS, false);
+	}
+	public boolean expandVendors() {
+		return getHeaderandExpandOrCollapse(VENDORS, true);
+	}
+	public boolean expandInventoryHistory() {
+		return getHeaderandExpandOrCollapse(INVENTORYHISTORY, true);
+	}
+	public boolean expandPurchaseOrderHistory() {
+		return getHeaderandExpandOrCollapse(PURCHASEORDERHISTORY, true);
+	}
+	public boolean expandWarranty() {
+		return getHeaderandExpandOrCollapse(WARRANTY, true);
+	}
+	public boolean collapseVendors() {
+		return getHeaderandExpandOrCollapse(VENDORS, false);
+	}
+	public boolean collapseInventoryHistory() {
+		return getHeaderandExpandOrCollapse(INVENTORYHISTORY, false);
+	}
+	public boolean collapsePurchaseOrderHistory() {
+		return getHeaderandExpandOrCollapse(PURCHASEORDERHISTORY, false);
+	}
+	public boolean collapseWarranty() {
+		return getHeaderandExpandOrCollapse(WARRANTY, false);
+	}
+	public boolean expandHours() {
+		return getHeaderandExpandOrCollapse(HOURS, true);
+	}
+	public boolean collapseHours() {
+		return getHeaderandExpandOrCollapse(HOURS, false);
+	}
+	public boolean expandExclusions(){
+		return getHeaderandExpandOrCollapse(EXCLUSIONS, true);
+	}
+	public boolean collapseExclusions(){
+		return getHeaderandExpandOrCollapse(EXCLUSIONS, false);
+	}
+	public boolean collapseDetails() {
+		return getHeaderandExpandOrCollapse(DETAILS, false);
+	}
+	public boolean expandDetails() {
+		return getHeaderandExpandOrCollapse(DETAILS, true);
+	}
+	public boolean expandIntervals() {
+		return getHeaderandExpandOrCollapse(INTERVALS, true);
+	}
+	public boolean collapseIntervals() {
+		return getHeaderandExpandOrCollapse(INTERVALS, false);
+	}
+	public boolean expandComments() {
+		return getHeaderandExpandOrCollapse(COMMENTS, true);
+	}
+	public boolean collapseComments() {
+		return getHeaderandExpandOrCollapse(COMMENTS, false);
+	}
+	public boolean clickNewCommentButton() {
+		boolean bReturn = false;
+		List<WebElement> comments = WebElementUtils.findElements(B2WMaintain.getB2WNewMaintanceRequestNewCommentButton());
+		if (comments.size()>0){
+			WebElement comment = WebElementUtils.getVisibleElementFromListofElements(comments);
+			if (comment != null){
+				bReturn = WebElementUtils.clickElement(comment);
+			}
+		}
+		return bReturn;
+	}
+	
+	public boolean searchText(String sText){
+		boolean bReturn = false;
+		WebElement el = WebElementUtils.findElement(B2WMaintain.getMaintainSearchFilterList());
+		if (el != null){
+			bReturn = WebElementUtils.sendKeys(el, sText);
+			waitForPageNotBusy(WebElementUtils.MEDIUM_TIME_OUT);
 		}
 		return bReturn;
 	}

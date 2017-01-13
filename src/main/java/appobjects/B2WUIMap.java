@@ -1155,4 +1155,13 @@ public class B2WUIMap {
 	public static final String b2w_maintainpartwarrantydurationlist = "div#DurationList";
 	//
 	public static final String b2w_requestdetailview = "div#request_detail_view";
+	public static final String b2w_searchfilterlist = "input.search-filter.list-filter.k-textbox";
+	
+	public static final String b2w_vendorlistview = "div#vendors_list_view";
+	public static final String b2w_vendoreditrow = "tr.k-grid-edit-row";
+	public static final String b2w_partsinventoryhistoryview = "div#inventory_history_list_view";
+	//public static final String b2w_partspurchaseorderdetails = "div.purchase-order-details";
+	public static final String b2w_partspurchaseorderdetails = "div#purchase_order_detail_view";
+	public static final String b2w_partspurchaselineitemcontainer = "div#lineItemsContainer";
+	
 }

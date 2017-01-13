@@ -1,6 +1,6 @@
 package tasks.maintain;
 
-import java.util.Iterator;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.openqa.selenium.By;
@@ -11,8 +11,6 @@ import appobjects.resources.B2WEquipment;
 import tasks.WebElementUtils;
 
 public class B2WMaintainProgramsTasks extends B2WMaintainTasks {
-
-	private final String ADDITEM = "Add Item";
 
 	//private final String SCHEDULEOCCURANCES = "Schedule the subsequent occurrences";
 	
@@ -62,20 +60,11 @@ public class B2WMaintainProgramsTasks extends B2WMaintainTasks {
 
 	public boolean clickAddItem() {
 		boolean bReturn = false;
-		WebElement el = WebElementUtils.findElement(B2WMaintain.getB2WMaintainButtonsContainer());
-		List<WebElement> items = el.findElements(By.tagName("a"));
-		Iterator<WebElement> iter = items.iterator();
-		while (iter.hasNext()) {
-			WebElement button = iter.next();
-			if (button.getText().startsWith(ADDITEM)) {
-				bReturn = WebElementUtils.clickElement(button);
-				WebElementUtils.switchToFrame(B2WMaintain.getB2WMaintainAddItemDialog(),
-						WebElementUtils.SHORT_TIME_OUT);
-
-			}
+		WebElement el = getButton("Add Item");
+		if (el != null) {
+			bReturn = WebElementUtils.clickElement(el);
 		}
-		return bReturn;
-	}
+		return bReturn;}
 
 
 	
@@ -172,25 +161,7 @@ public class B2WMaintainProgramsTasks extends B2WMaintainTasks {
 		}
 		return bReturn;
 	}
-	public boolean expandExclusions(){
-		return getHeaderandExpandOrCollapse("Exclusions", true);
-	}
-	public boolean collapseExclusions(){
-		return getHeaderandExpandOrCollapse("Exclusions", false);
-	}
-	public boolean expandParts() {
-		return getHeaderandExpandOrCollapse("Parts", true);
-	}
-	public boolean collapseParts() {
-		return getHeaderandExpandOrCollapse("Parts", false);
-	}
-	public boolean expandHours() {
-		return getHeaderandExpandOrCollapse("Hours", true);
-	}
-	public boolean collapseHours() {
-		return getHeaderandExpandOrCollapse("Hours", false);
-	}
-	
+
 	public boolean excludeJanuary() {
 		return excludeMonth("January");
 		
@@ -251,6 +222,10 @@ public class B2WMaintainProgramsTasks extends B2WMaintainTasks {
 		
 	}
 	
+	public ArrayList<String> getItemsFromProgram() {
+		return getItems();
+	}
+	
 	public boolean setMaintainanceProgramNotes(String sText) {
 		return super.setNotes(sText);
 	}
@@ -261,6 +236,9 @@ public class B2WMaintainProgramsTasks extends B2WMaintainTasks {
 	
 	public String getValueOfItem(String sItem) {
 		return getValueOfItem(sItem, B2WMaintain.getMaintainProgramDetailView());
+	}
+	public String getProgramHeadline() {
+		return WebElementUtils.waitAndFindDisplayedElement(B2WEquipment.getEquipmentHeadline()).getText();
 	}
 	
 }
