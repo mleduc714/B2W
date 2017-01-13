@@ -458,10 +458,6 @@ public class B2WCrewTemplateTasks extends B2WKendoTasks {
         if (parent != null && result != null) {
             WebElement child = WebElementUtils.getChildElement(parent, By.cssSelector("em"));
             bReturn &= logCompare(true, dragAndDropWithMouse(result, child, getYOffset()), "Drag&Drop by Robot");
-            new Actions(BrowserUtils.getDriver()).dragAndDrop(result, child).perform();
-            logCompare(true, false, "Drag&Drop by one method");
-            new Actions(BrowserUtils.getDriver()).clickAndHold(result).moveToElement(child).release().perform();
-            logCompare(true, false, "Drag&Drop by sequence of methods");
         }
         return bReturn;
     }
