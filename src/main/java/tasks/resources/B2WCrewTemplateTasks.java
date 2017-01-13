@@ -574,7 +574,6 @@ public class B2WCrewTemplateTasks extends B2WKendoTasks {
         boolean bReturn = false;
         List<WebElement> list = WebElementUtils.findElements(B2WCrewTemplates.getItemsFromCrewDetails());
         if (list != null) {
-            //bReturn = logCompare(true, WebElementUtils.getElementWithMatchingStartsWithText(list, sValue) != null, "Check that '" + sValue + "' in the Details.");
             for (WebElement item: list) {
                 if (item.getText().contains(sValue)) {
                     logCompare(true, true, "Check that '" + sValue + "' in the Details.");
