@@ -265,7 +265,22 @@ public class B2WNavigationTasks implements Navigation {
 		return openResources("Accounts","Production Accounts");
 	}
 	public boolean openCrewTemplates() {
-		return openResources("Crew Templates","Crew Templates");
+		boolean bReturn = false;
+		if (openResources()) {
+			WebElementUtils.switchToFrame(B2WNavigationPanel.getB2WSetupNavigationPanel(), 1);
+			List<WebElement> items = BrowserUtils.getDriver()
+					.findElements(B2WNavigationPanel.getB2WSetupPopupItem());
+			WebElement item = WebElementUtils.getElementWithMatchingText(items, "Crew Templates", true);
+			if (item != null) {
+				item.click();
+				WebElement panel = WebElementUtils.waitAndFindDisplayedElement(B2WCommonObjects.getB2WPageProductPanel());
+				String sText = panel.findElement(By.tagName("h1")).getText();
+				bReturn = sText.equals("Crew Templates");
+			}
+		} else {
+			log.debug("Resource menu could not be opened.");
+		}
+		return bReturn;
 	}
 	public boolean openEmployees() {
 		return openResources("Employees","Employees");

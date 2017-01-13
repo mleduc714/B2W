@@ -39,7 +39,6 @@ public abstract class B2WKendo {
 		}else{
 				log.debug("Could not select item #"+i);
 		}
-		
 		return bReturn;
 	}
 	protected boolean selectItemFromDropDown(String sItem){
@@ -53,7 +52,7 @@ public abstract class B2WKendo {
 			}else{
 				log.debug("Item with could not be found matching "+sItem);
 			}
-	
+		
 		}catch (StaleElementReferenceException e){
 			return selectItemFromDropDown(sItem);
 		}

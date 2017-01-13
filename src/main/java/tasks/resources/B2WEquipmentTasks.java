@@ -936,7 +936,7 @@ public class B2WEquipmentTasks extends B2WKendoTasks {
 		String sText = "";
 		List<WebElement> rows = getHistoryRows();
 		if (rows.size()>0){
-			sText = WebElementUtils.getChildElements(rows.get(iRow),By.tagName("td")).get(iColumn).getText();
+			sText = WebElementUtils.getChildElements(rows.get(iRow),By.tagName("td")).get(iColumn).getText().trim();
 			
 		}
 		return sText;
@@ -946,7 +946,7 @@ public class B2WEquipmentTasks extends B2WKendoTasks {
 		String sText = "";
 		List<WebElement> rows = getMeterRows();
 		if (rows.size()>0){
-			sText = WebElementUtils.getChildElements(rows.get(iRow),By.tagName("td")).get(iColumn).getText();
+			sText = WebElementUtils.getChildElements(rows.get(iRow),By.tagName("td")).get(iColumn).getText().trim();
 			
 		}
 		return sText;
@@ -956,7 +956,9 @@ public class B2WEquipmentTasks extends B2WKendoTasks {
 		ArrayList<String> al = new ArrayList<String>();
 		Iterator<WebElement> iter = getMeterRows().iterator();
 		while (iter.hasNext()){
-			al.add(WebElementUtils.getChildElements(iter.next(),By.tagName("td")).get(0).getText());
+			WebElement el = iter.next();
+			List<WebElement> list = WebElementUtils.getChildElements(el, By.tagName("td"));
+			al.add(list.get(0).getText().trim());
 		}
 		return al;
 	}
@@ -964,7 +966,7 @@ public class B2WEquipmentTasks extends B2WKendoTasks {
 		ArrayList<String> al = new ArrayList<String>();
 		Iterator<WebElement> iter = getPartsRows().iterator();
 		while (iter.hasNext()){
-			al.add(WebElementUtils.getChildElements(iter.next(),By.tagName("td")).get(0).getText());
+			al.add(WebElementUtils.getChildElements(iter.next(),By.tagName("td")).get(0).getText().trim());
 		}
 		return al;
 	}
@@ -973,7 +975,7 @@ public class B2WEquipmentTasks extends B2WKendoTasks {
 		ArrayList<String> al = new ArrayList<String>();
 		Iterator<WebElement> iter = getWarrantyRows().iterator();
 		while (iter.hasNext()){
-			al.add(WebElementUtils.getChildElements(iter.next(),By.tagName("td")).get(0).getText());
+			al.add(WebElementUtils.getChildElements(iter.next(),By.tagName("td")).get(0).getText().trim());
 		}
 		return al;
 	}
@@ -982,7 +984,7 @@ public class B2WEquipmentTasks extends B2WKendoTasks {
 		ArrayList<String> al = new ArrayList<String>();
 		Iterator<WebElement> iter = getEquipmentEventsRows().iterator();
 		while (iter.hasNext()){
-			al.add(WebElementUtils.getChildElements(iter.next(),By.tagName("td")).get(0).getText());
+			al.add(WebElementUtils.getChildElements(iter.next(),By.tagName("td")).get(0).getText().trim());
 		}
 		return al;
 	}
@@ -1125,6 +1127,7 @@ public class B2WEquipmentTasks extends B2WKendoTasks {
 		int iRow = getMeters().indexOf(sMeter);
 		List<WebElement> rows = getMeterRows();
 		if (rows.size()>0){
+			
 			WebElement edit = WebElementUtils.getChildElement(rows.get(iRow), B2WMaintain.getKendoEditButton());
 			bReturn = WebElementUtils.clickElement(edit);
 		}
@@ -1166,7 +1169,7 @@ public class B2WEquipmentTasks extends B2WKendoTasks {
 	}
 	private List<WebElement> getMeterRows() {
 		WebElement header = getHeader(METERS);
-		WebElement historyView = WebElementUtils.getChildElement(header, B2WMaintain.getMaintainEquipmentMetersView());
+		WebElement historyView = WebElementUtils.getChildElement(header, By.className("meter-list"));
 		WebElement tbody = WebElementUtils.getChildElement(historyView, By.tagName("tbody"));
 		List<WebElement> rows = WebElementUtils.getChildElements(tbody, By.tagName("tr"));
 		return rows;
