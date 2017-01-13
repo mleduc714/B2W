@@ -281,7 +281,10 @@ public class B2WUIMap {
 	public static final String b2w_crewtemplates_expandAllGroupsBtn = "span.btn-expand[title='Expand All']";
 	public static final String b2w_crewtemplates_sortingIcon = "th[data-title='replace']";
 	public static final String b2w_crewtemplates_inactiveCheckbox = ".middle-align";
-
+	public static final String b2w_crewtemplates_splitbars = ".k-splitbar";
+	public static final String b2w_crewtemplates_panels = ".k-pane";
+	public static final String b2w_crewtemplates_collapsePrevBtn = ".k-icon.k-collapse-prev";
+	public static final String b2w_crewtemplates_expandPrevBtn = ".k-icon.k-expand-prev";
 
 	// places
 	public static final String b2w_createnewplacebutton = "a#PageContent_CreateNewPlaceButton";

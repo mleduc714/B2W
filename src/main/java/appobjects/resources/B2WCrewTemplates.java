@@ -37,6 +37,10 @@ public class B2WCrewTemplates {
     public static By getResourceTableGroups() { return By.cssSelector(B2WUIMap.b2w_crewtemplates_resourceTableGroups); }
     public static By getGroupCollapseIcon() { return By.cssSelector(B2WUIMap.b2w_crewtemplates_groupCollapseIcon); }
     public static By getGroupExpandIcon() { return By.cssSelector(B2WUIMap.b2w_crewtemplates_groupExpandIcon); }
+    public static By getSplitBars() { return By.cssSelector(B2WUIMap.b2w_crewtemplates_splitbars); }
+    public static By getPanels() { return By.cssSelector(B2WUIMap.b2w_crewtemplates_panels); }
+    public static By getPanelCollapsBtn() { return By.cssSelector(B2WUIMap.b2w_crewtemplates_collapsePrevBtn); }
+    public static By getPanelExpandBtn() { return By.cssSelector(B2WUIMap.b2w_crewtemplates_expandPrevBtn); }
     public static By getCollapseAllGroupsBtn() { return By.cssSelector(B2WUIMap.b2w_crewtemplates_collapseAllGroupsBtn); }
     public static By getExpandAllGroupsBtn() { return By.cssSelector(B2WUIMap.b2w_crewtemplates_expandAllGroupsBtn); }
     public static By getCrewTemplateListInactiveCheckbox() { return By.cssSelector(B2WUIMap.b2w_crewtemplates_inactiveCheckbox); }

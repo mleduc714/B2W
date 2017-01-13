@@ -4,7 +4,6 @@ import com.b2w.test.B2WTestCase;
 import tasks.B2WNavigationTasks;
 import tasks.resources.B2WCrewTemplate;
 import tasks.resources.B2WCrewTemplateTasks;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -129,6 +128,8 @@ public class B2WCrewTemplateTest extends B2WTestCase {
         // Check that Crew Details are displayed correctly.
         verifyDetails(productionCrewTemplate);
         verifyDetails(transportCrewTemplate);
+        verifyPageSections();
+        verifyCrewTemplateSorting();
 
         // Update Crew Templates
         updateCrew(productionCrewTemplate, productionCrewTemplateUpdate);
@@ -153,7 +154,6 @@ public class B2WCrewTemplateTest extends B2WTestCase {
 
         deleteCrew(transportCrewTemplate);
         if (copyTransportCrewTemplate != null) { deleteCrew(copyTransportCrewTemplate); }
-
     }
 
     // Private Test Methods
@@ -177,6 +177,18 @@ public class B2WCrewTemplateTest extends B2WTestCase {
         logCompare(true, true, "====== Start Verify Crew Template inactive checkbox: " + crewTemplate.getName());
         logCompare(true, crewTemplateTasks.verifyInactiveCheckbox(crewTemplate.getName()), "Verify Crew Templates inactive checkbox for '" + crewTemplate.getName());
         logCompare(true, true, "====== Stop Verify Crew Template inactive checkbox: " + crewTemplate.getName());
+    }
+
+    private void verifyCrewTemplateSorting() {
+        logCompare(true, true, "====== Start Verify Crew Template Sorting.");
+        logCompare(true, crewTemplateTasks.verifyCrewTemplateSorting(), "Verify that Crew Templates can be sorted properly.");
+        logCompare(true, true, "====== Stop Verify Crew Template Sorting.");
+    }
+
+    private void verifyPageSections() {
+        logCompare(true, true, "====== Start Verify Crew Template Page Sections.");
+        logCompare(true, crewTemplateTasks.verifyPageSections(), "Verify Crew Templates Page Sections.");
+        logCompare(true, true, "====== Stop Verify Crew Template Page Sections.");
     }
 
     private void updateCrew(B2WCrewTemplate crewTemplate, B2WCrewTemplate crewTemplateUPD) {
