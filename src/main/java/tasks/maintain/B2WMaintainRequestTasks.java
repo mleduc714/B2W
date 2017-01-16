@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
+import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.WebElement;
 
 import appobjects.maintain.B2WMaintain;
@@ -64,6 +65,7 @@ public class B2WMaintainRequestTasks extends B2WKendoTasks {
 		boolean bReturn = false;
 		WebElement equipment = getFormElement("Request Description", B2WMaintain.getKendoInputTextBox());
 		if (equipment != null){
+			equipment.clear();
 			bReturn = WebElementUtils.sendKeys(equipment, sText);
 		}
 		return bReturn;
@@ -73,6 +75,7 @@ public class B2WMaintainRequestTasks extends B2WKendoTasks {
 		boolean bReturn = false;
 		WebElement equipment = getFormElement("Alternate ID", B2WMaintain.getKendoInputTextBox());
 		if (equipment != null){
+			equipment.clear();
 			bReturn = WebElementUtils.sendKeys(equipment, sText);
 		}
 		return bReturn;
@@ -161,8 +164,8 @@ public class B2WMaintainRequestTasks extends B2WKendoTasks {
 	
 	public boolean clickSaveButton() {
 		boolean bReturn = false;
-		WebElement parent = WebElementUtils.findElement(B2WMaintain.getB2WMaintainRequestCreateView());
-		WebElement el = WebElementUtils.waitForChildElement(parent, B2WMaintain.getKendoLargeSaveButton(),1);
+		//WebElement parent = WebElementUtils.findElement(B2WMaintain.getB2WMaintainRequestCreateView());
+		WebElement el = WebElementUtils.waitAndFindDisplayedElement(B2WMaintain.getKendoLargeSaveButton(),1);
 		if (el != null){
 			bReturn = WebElementUtils.clickElement(el);
 			bReturn &= waitForPageNotBusy(WebElementUtils.MEDIUM_TIME_OUT);
@@ -193,7 +196,13 @@ public class B2WMaintainRequestTasks extends B2WKendoTasks {
 		boolean bReturn = false;
 		WebElement el = WebElementUtils.findElement(B2WMaintain.getKendoEditButton());
 		if (el != null){
-			bReturn = WebElementUtils.clickElement(el);
+			try {
+				el.click();
+				bReturn = WebElementUtils.waitAndFindDisplayedElement(B2WMaintain.getB2WMaintainEditFormContent()) != null;
+				bReturn &= true;
+			}catch (WebDriverException e){
+				log.debug("Edit is not available");
+			}
 		}
 		return bReturn;
 	}

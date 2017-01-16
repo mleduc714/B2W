@@ -1204,5 +1204,10 @@ public class B2WEquipmentTasks extends B2WKendoTasks {
 		return rows;
 	}
 	
-	
+	public boolean createEquipment(String sEquipment, String sID, String sBusinessUnit) {
+		setEquipmentDescription(sEquipment);
+		setEquipmentID(sID);
+		selectNewEquipmentBusinessUnitFromDropDown(sBusinessUnit);
+		return saveNewEquipment();
+	}
 }
