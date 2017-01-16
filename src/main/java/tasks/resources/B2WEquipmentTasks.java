@@ -655,7 +655,7 @@ public class B2WEquipmentTasks extends B2WKendoTasks {
 			coordinate.onPage();
 			coordinate.inViewPort();
 			if (WebElementUtils.clickElement(button)) {
-				bReturn &= waitForPageNotBusy(WebElementUtils.MEDIUM_TIME_OUT);
+				bReturn = waitForPageNotBusy(WebElementUtils.MEDIUM_TIME_OUT);
 			}
 		}
 		return bReturn;
