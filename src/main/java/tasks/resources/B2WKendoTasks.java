@@ -93,8 +93,8 @@ public abstract class B2WKendoTasks extends B2WKendo {
 	public String sendTextAndSelectAnyValueFromKendoFDD(WebElement dropDownElement){
 		String sRandom = "";
 		dropDownElement.clear();
+		dropDownElement.click();
 		if (WebElementUtils.sendKeys(dropDownElement, "a")) {
-			TaskUtils.sleep(1000);
 			sRandom =  selectRandomItemFromDropDown();
 		}
 		return sRandom;
@@ -390,7 +390,6 @@ public abstract class B2WKendoTasks extends B2WKendo {
 		WebElement grid = WebElementUtils.findElement(B2WEquipment.getKendoGridContent());
 		List<WebElement> items = WebElementUtils.getChildElements(grid,  By.tagName("tr"));
 
-		TaskUtils.sleep(5000);
 		for (WebElement el: items){
 			
 			List<WebElement> columns = WebElementUtils.getChildElements(el, By.tagName("td"));
@@ -428,33 +427,21 @@ public abstract class B2WKendoTasks extends B2WKendo {
 	public String selectRandomItemFromDropDown() {
 		WebElement item = null;
 		String sText = "";
-		// when we click we need to find the visible list
-		List<WebElement> list = WebElementUtils.findElements(B2WEquipment.getKendoLists());
-		Iterator<WebElement> iter = list.iterator();
-		log.debug("There are " + list.size() + " to find the correct drop down");
-		while (iter.hasNext()) {
-			WebElement els = iter.next();
-			String hidden = els.getAttribute("aria-hidden");
-			if (hidden != null && hidden.equals("false")) {
-				List<WebElement> items = els.findElements(B2WEquipment.getKendoDropDownItem());
-				log.debug("There are "+items.size() + " items in the drop down");
-				// potential infinate loop here...but oh well
-				while (sText.length() < 1){
-					item = items.get(getRandomNumber(items.size()));
-					sText = item.getText();
-				}
-				if (item != null) {
-					if (WebElementUtils.clickElement(item)) {
-						WebElementUtils.waitForElementHasAttributeWithValue(els, "aria-hidden", "true", true,
-								WebElementUtils.MEDIUM_TIME_OUT);
-						waitForPageNotBusy(WebElementUtils.SHORT_TIME_OUT);
-						
-						log.debug("Selected an item");
-						break;
-					}else{
-						log.debug("The item was not clickable in dropdown");
-					}
-				} 
+		List<WebElement> items = new ArrayList<WebElement>();
+		while (items.size() == 0) {
+			items = getKendoDropDownItems();
+		}
+		log.debug("There are " + items.size() + " items in the drop down");
+		while (sText.length() < 1) {
+			item = items.get(getRandomNumber(items.size()));
+			sText = item.getText();
+		}
+		if (item != null) {
+			if (WebElementUtils.clickElement(item)) {
+				waitForPageNotBusy(WebElementUtils.SHORT_TIME_OUT);
+				log.debug("Selected an item");
+			} else {
+				log.debug("The item was not clickable in dropdown");
 			}
 		}
 		return sText;

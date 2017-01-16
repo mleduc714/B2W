@@ -61,7 +61,6 @@ public class B2WWorkOrdersTasks extends B2WKendoTasks {
 	
 	public String selectAnyEquipment() {
 		String sText = "";
-		TaskUtils.sleep(1000);
 		WebElement equipment = getFormElement("Equipment", B2WMaintain.getKendoDropDown());
 		if (equipment != null) {
 			sText = sendTextAndSelectAnyValueFromKendoFDD(equipment);
