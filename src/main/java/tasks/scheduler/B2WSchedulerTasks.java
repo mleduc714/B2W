@@ -9,7 +9,6 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.support.ui.Select;
 import tasks.BrowserUtils;
 import tasks.WebElementUtils;
 import tasks.resources.B2WKendoTasks;
@@ -18,7 +17,6 @@ import tasks.util.TaskUtils;
 
 import java.util.*;
 
-import static com.b2w.test.BaseAssert.assertFalse;
 import static com.b2w.test.BaseAssert.logCompare;
 
 public class B2WSchedulerTasks extends B2WKendoTasks {
@@ -860,28 +858,28 @@ public class B2WSchedulerTasks extends B2WKendoTasks {
             WebElement eResourceWarningIcon = null;
             switch (assignment.getAssignmentType()) {
                 case B2WAssignmentType.EMPLOYEE_TYPE :
-                    eResourceWarningIcon = WebElementUtils.getChildElement(parent, B2WScheduleAssignments.getResourceWarningIcon_i152());
+                    eResourceWarningIcon = WebElementUtils.getChildElement(parent, B2WScheduleAssignments.getResourceIconModifierAlert());
                     break;
                 case B2WAssignmentType.EQUIPMENT_TYPE :
-                    eResourceWarningIcon = WebElementUtils.getChildElement(parent, B2WScheduleAssignments.getResourceWarningIcon_i152());
+                    eResourceWarningIcon = WebElementUtils.getChildElement(parent, B2WScheduleAssignments.getResourceIconModifierAlert());
                     break;
                 case B2WAssignmentType.CREW_TYPE :
-                    eResourceWarningIcon = WebElementUtils.getChildElement(parent, B2WScheduleAssignments.getResourceWarningIcon_i152());
+                    eResourceWarningIcon = WebElementUtils.getChildElement(parent, B2WScheduleAssignments.getResourceIconModifierAlert());
                     if (eResourceWarningIcon == null) {
-                        eResourceWarningIcon = WebElementUtils.getChildElement(parent, B2WScheduleAssignments.getResourceWarningIcon_i228());
+                        eResourceWarningIcon = WebElementUtils.getChildElement(parent, B2WScheduleAssignments.getResourceIconModifierCaution());
                     }
                     break;
                 case B2WAssignmentType.MOVE_ASSIGNMENT_TYPE :
-                    eResourceWarningIcon = WebElementUtils.getChildElement(parent, B2WScheduleAssignments.getResourceWarningIcon_i152());
+                    eResourceWarningIcon = WebElementUtils.getChildElement(parent, B2WScheduleAssignments.getResourceIconModifierAlert());
                     break;
                 case B2WAssignmentType.EMPLOYEE_EVENT_TYPE :
-                    eResourceWarningIcon = WebElementUtils.getChildElement(parent, B2WScheduleAssignments.getResourceWarningIcon_i152());
+                    eResourceWarningIcon = WebElementUtils.getChildElement(parent, B2WScheduleAssignments.getResourceIconModifierAlert());
                     break;
                 case B2WAssignmentType.EQUIPMENT_EVENT_TYPE :
-                    eResourceWarningIcon = WebElementUtils.getChildElement(parent, B2WScheduleAssignments.getResourceWarningIcon_i152());
+                    eResourceWarningIcon = WebElementUtils.getChildElement(parent, B2WScheduleAssignments.getResourceIconModifierAlert());
                     break;
                 case B2WAssignmentType.LOCATION_EVENT_TYPE :
-                    eResourceWarningIcon = WebElementUtils.getChildElement(parent, B2WScheduleAssignments.getResourceWarningIcon_i152());
+                    eResourceWarningIcon = WebElementUtils.getChildElement(parent, B2WScheduleAssignments.getResourceIconModifierAlert());
                     break;
                 default : break;
             }
@@ -1004,7 +1002,7 @@ public class B2WSchedulerTasks extends B2WKendoTasks {
         WebElement eResourceLine = getResourceLine(sResourceName);
         if (eResourceLine != null) {
             WebElement parent = WebElementUtils.getParentElement(eResourceLine);
-            WebElement eResourceWarningIcon = WebElementUtils.getChildElement(parent, B2WScheduleAssignments.getResourceWarningIcon_Need_i228());
+            WebElement eResourceWarningIcon = WebElementUtils.getChildElement(parent, B2WScheduleAssignments.getResourcesIconNeed());
             if (eResourceWarningIcon != null && WebElementUtils.getParentElement(eResourceWarningIcon).isDisplayed()) {
                 bReturn = WebElementUtils.clickElement(eResourceWarningIcon);
                 WebElement eTooltip = WebElementUtils.waitAndFindDisplayedElement(B2WScheduleAssignments.getTooltip());

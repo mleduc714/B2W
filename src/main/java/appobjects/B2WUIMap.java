@@ -827,12 +827,12 @@ public class B2WUIMap {
 	public static final String b2w_schedule_collapseicon = ".Icon.i119-double-angle-up";
 	public static final String b2w_schedule_assignmentrightedge = ".Assignment__handle.Assignment__handle--right.active";
 	public static final String b2w_schedule_assignmentleftedge = ".Assignment__handle.Assignment__handle--left.active";
-	public static final String b2w_schedule_resourcewarningicon_i152 = ".Icon.clickable.ng-isolate-scope.i152-warning";
-	public static final String b2w_schedule_resourcewarningicon_i228 = ".Icon.clickable.ng-isolate-scope.i228-conflict-round";
-	public static final String b2w_schedule_resourcewarningicon_need_i228 = ".Icon.clickable.ng-isolate-scope.i218-need";
+	public static final String b2w_schedule_iconModifierAlert = "i.clickable.ng-isolate-scope.Icon__modifier--alert";
+	public static final String b2w_schedule_iconModifierCaution = "i.clickable.ng-isolate-scope.Icon__modifier--caution";
+	public static final String b2w_schedule_resourcesIconNeed = "i.clickable.ng-isolate-scope.Icon__resources--need";
 	public static final String b2w_schedule_tooltip = ".k-tooltip-content.ng-scope";
-	public static final String b2w_schedule_conflictpanelbutton = ".Icon.Icon--lg.i152-warning";
-	public static final String b2w_schedule_orderpaneltbutton = ".Icon.Icon--lg.i218-need";
+	public static final String b2w_schedule_conflictpanelbutton = ".Icon--lg.Icon__modifier--alert";
+	public static final String b2w_schedule_orderpaneltbutton = ".Icon--lg.Icon__resources--need";
 	public static final String b2w_schedule_conflictspanel = "b2w-conflicts-panel";
 	public static final String b2w_schedule_orderspanel = "b2w-needs-panel";
 	public static final String b2w_schedule_conflicblock = "b2w-conflict-block";
@@ -846,7 +846,6 @@ public class B2WUIMap {
 	public static final String b2w_schedule_cancelbtn = "button.Button.Button--large[ng-click='cancel()']";
 	public static final String b2w_schedule_collapsecalendaricon = ".Icon.Icon--xl.Panel--left-sched-button.i102-angle-left";
 	public static final String b2w_schedule_expandcalendaricon = ".Icon.Icon--xl.Panel--left-sched-button.i103-angle-right";
-
 
 	public static final String b2w_schedule_useritem = "ul#user-select_taglist";
 	public static final String b2w_schedule_fillwith = "span.Toolbar__input--fill-need";

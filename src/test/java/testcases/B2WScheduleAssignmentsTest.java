@@ -1581,73 +1581,94 @@ public class B2WScheduleAssignmentsTest extends B2WTestCase {
         selectView(employeeScheduleView);
         logCompare(true, b2wScheduler.collapseCalendarPanel(), "Collapse Calendar Panel.");
 
-        logCompare(true, b2wScheduler.setSearchValue(copyEmployeeAssignment.getResourceName()), "Set Quick Filter to " + copyEmployeeAssignment.getResourceName());
-        logCompare(true, true, "====== Start resolving Employee Conflicts for " + copyEmployeeAssignment.getResourceName());
-        logCompare(true, b2wScheduler.conflictIconIsDisplayed(copyEmployeeAssignment), "Check that Conflict Icon is displayed.");
-        logCompare(true, b2wScheduler.openConflictPanel(), "Open conflict panel.");
-        logCompare(true, b2wScheduler.resolveConflict(copyEmployeeAssignment), "Resolve conflict.");
-        logCompare(true, b2wScheduler.expandCalendarPanel(), "Expand Calendar Panel.");
-        logCompare(true, true, "====== Complete resolving Employee Conflicts for " + copyEmployeeAssignment.getResourceName());
+        if (copyEmployeeAssignment != null) {
+            logCompare(true, b2wScheduler.setSearchValue(copyEmployeeAssignment.getResourceName()), "Set Quick Filter to " + copyEmployeeAssignment.getResourceName());
+            logCompare(true, true, "====== Start resolving Employee Conflicts for " + copyEmployeeAssignment.getResourceName());
+            logCompare(true, b2wScheduler.conflictIconIsDisplayed(copyEmployeeAssignment), "Check that Conflict Icon is displayed.");
+            logCompare(true, b2wScheduler.openConflictPanel(), "Open conflict panel.");
+            logCompare(true, b2wScheduler.resolveConflict(copyEmployeeAssignment), "Resolve conflict.");
+            logCompare(true, b2wScheduler.expandCalendarPanel(), "Expand Calendar Panel.");
+            logCompare(true, true, "====== Complete resolving Employee Conflicts for " + copyEmployeeAssignment.getResourceName());
+        } else {
+            logCompare(true, false, "copyEmployeeAssignment is NULL.");
+        }
     }
     private void resolveEquipmentConflict() {
         selectView(equipmentScheduleView);
         logCompare(true, b2wScheduler.collapseCalendarPanel(), "Collapse Calendar Panel.");
 
-        logCompare(true, b2wScheduler.setSearchValue(copyEquipmentAssignment.getResourceName()), "Set Quick Filter to " + copyEquipmentAssignment.getResourceName());
-        logCompare(true, true, "====== Start resolving Equipment Conflicts for " + copyEquipmentAssignment.getResourceName());
-        logCompare(true, b2wScheduler.conflictIconIsDisplayed(copyEquipmentAssignment), "Check that Conflict Icon is displayed.");
-        logCompare(true, b2wScheduler.openConflictPanel(), "Open conflict panel.");
-        logCompare(true, b2wScheduler.resolveConflict(copyEquipmentAssignment), "Resolve Equipment conflicts.");
-        logCompare(true, b2wScheduler.expandCalendarPanel(), "Expand Calendar Panel.");
-        logCompare(true, true, "====== Complete resolving Equipment Conflicts for " + copyEquipmentAssignment.getResourceName());
+        if (copyEquipmentAssignment != null) {
+            logCompare(true, b2wScheduler.setSearchValue(copyEquipmentAssignment.getResourceName()), "Set Quick Filter to " + copyEquipmentAssignment.getResourceName());
+            logCompare(true, true, "====== Start resolving Equipment Conflicts for " + copyEquipmentAssignment.getResourceName());
+            logCompare(true, b2wScheduler.conflictIconIsDisplayed(copyEquipmentAssignment), "Check that Conflict Icon is displayed.");
+            logCompare(true, b2wScheduler.openConflictPanel(), "Open conflict panel.");
+            logCompare(true, b2wScheduler.resolveConflict(copyEquipmentAssignment), "Resolve Equipment conflicts.");
+            logCompare(true, b2wScheduler.expandCalendarPanel(), "Expand Calendar Panel.");
+            logCompare(true, true, "====== Complete resolving Equipment Conflicts for " + copyEquipmentAssignment.getResourceName());
+        } else {
+            logCompare(true, false, "copyEquipmentAssignment is NULL.");
+        }
     }
     private void resolveCrewConflict() {
         selectView(crewsScheduleView);
         logCompare(true, b2wScheduler.collapseCalendarPanel(), "Collapse Calendar Panel.");
-
-        logCompare(true, b2wScheduler.setSearchValue(copyCrewAssignment.getResourceName()), "Set Quick Filter to " + copyCrewAssignment.getResourceName());
-        logCompare(true, true, "====== Start resolving Crew Conflicts for " + copyCrewAssignment.getResourceName());
-        logCompare(true, b2wScheduler.conflictIconIsDisplayed(copyCrewAssignment), "Check that Conflict Icon is displayed.");
-        logCompare(true, b2wScheduler.openConflictPanel(), "Open conflict panel.");
-        logCompare(true, b2wScheduler.resolveConflict(copyCrewAssignment), "Resolve Crews Conflict.");
-        logCompare(true, b2wScheduler.expandCalendarPanel(), "Expand Calendar Panel.");
-        logCompare(true, true, "====== Complete resolving Crew Conflicts for " + copyCrewAssignment.getResourceName());
+        if (copyCrewAssignment != null) {
+            logCompare(true, b2wScheduler.setSearchValue(copyCrewAssignment.getResourceName()), "Set Quick Filter to " + copyCrewAssignment.getResourceName());
+            logCompare(true, true, "====== Start resolving Crew Conflicts for " + copyCrewAssignment.getResourceName());
+            logCompare(true, b2wScheduler.conflictIconIsDisplayed(copyCrewAssignment), "Check that Conflict Icon is displayed.");
+            logCompare(true, b2wScheduler.openConflictPanel(), "Open conflict panel.");
+            logCompare(true, b2wScheduler.resolveConflict(copyCrewAssignment), "Resolve Crews Conflict.");
+            logCompare(true, b2wScheduler.expandCalendarPanel(), "Expand Calendar Panel.");
+            logCompare(true, true, "====== Complete resolving Crew Conflicts for " + copyCrewAssignment.getResourceName());
+        } else {
+            logCompare(true, false, "copyCrewAssignment is NULL.");
+        }
     }
     private void resolveMoveAssignmentsConflict() {
         selectView(equipmentScheduleView);
         logCompare(true, b2wScheduler.collapseCalendarPanel(), "Collapse Calendar Panel.");
-
-        logCompare(true, b2wScheduler.setSearchValue(copyMoveAssignment.getResourceName()), "Set Quick Filter to " + copyMoveAssignment.getResourceName());
-        logCompare(true, true, "====== Start resolving Move Assignment Conflicts for " + copyMoveAssignment.getResourceName());
-        logCompare(true, b2wScheduler.conflictIconIsDisplayed(copyMoveAssignment), "Check that Conflict Icon is displayed.");
-        logCompare(true, b2wScheduler.openConflictPanel(), "Open conflict panel.");
-        logCompare(true, b2wScheduler.resolveConflict(copyMoveAssignment), "Resolve Move Assignments Conflict");
-        logCompare(true, b2wScheduler.expandCalendarPanel(), "Expand Calendar Panel.");
-        logCompare(true, true, "====== Complete resolving Move Assignment Conflicts for " + copyMoveAssignment.getResourceName());
+        if (copyMoveAssignment != null) {
+            logCompare(true, b2wScheduler.setSearchValue(copyMoveAssignment.getResourceName()), "Set Quick Filter to " + copyMoveAssignment.getResourceName());
+            logCompare(true, true, "====== Start resolving Move Assignment Conflicts for " + copyMoveAssignment.getResourceName());
+            logCompare(true, b2wScheduler.conflictIconIsDisplayed(copyMoveAssignment), "Check that Conflict Icon is displayed.");
+            logCompare(true, b2wScheduler.openConflictPanel(), "Open conflict panel.");
+            logCompare(true, b2wScheduler.resolveConflict(copyMoveAssignment), "Resolve Move Assignments Conflict");
+            logCompare(true, b2wScheduler.expandCalendarPanel(), "Expand Calendar Panel.");
+            logCompare(true, true, "====== Complete resolving Move Assignment Conflicts for " + copyMoveAssignment.getResourceName());
+        } else {
+            logCompare(true, false, "copyMoveAssignment is NULL.");
+        }
     }
     private void resolveEmployeeEventConflict() {
         selectView(employeeDefaultScheduleView);
         logCompare(true, b2wScheduler.collapseCalendarPanel(), "Collapse Calendar Panel.");
-
-        logCompare(true, b2wScheduler.setSearchValue(copyEmployeeEvent.getResourceName()), "Set Quick Filter to " + copyEmployeeEvent.getResourceName());
-        logCompare(true, true, "====== Start resolving Employee Event Conflicts for " + copyEmployeeEvent.getResourceName());
-        logCompare(true, b2wScheduler.conflictIconIsDisplayed(copyEmployeeEvent), "Check that Conflict Icon is displayed.");
-        logCompare(true, b2wScheduler.openConflictPanel(), "Open conflict panel.");
-        logCompare(true, b2wScheduler.resolveConflict(copyEmployeeEvent), "Resolve Employee Events Conflict");
-        logCompare(true, b2wScheduler.expandCalendarPanel(), "Expand Calendar Panel.");
-        logCompare(true, true, "====== Complete resolving Employee Event Conflicts for " + copyEmployeeEvent.getResourceName());
+        if (copyEmployeeEvent != null) {
+            logCompare(true, b2wScheduler.setSearchValue(copyEmployeeEvent.getResourceName()), "Set Quick Filter to " + copyEmployeeEvent.getResourceName());
+            logCompare(true, true, "====== Start resolving Employee Event Conflicts for " + copyEmployeeEvent.getResourceName());
+            logCompare(true, b2wScheduler.conflictIconIsDisplayed(copyEmployeeEvent), "Check that Conflict Icon is displayed.");
+            logCompare(true, b2wScheduler.openConflictPanel(), "Open conflict panel.");
+            logCompare(true, b2wScheduler.resolveConflict(copyEmployeeEvent), "Resolve Employee Events Conflict");
+            logCompare(true, b2wScheduler.expandCalendarPanel(), "Expand Calendar Panel.");
+            logCompare(true, true, "====== Complete resolving Employee Event Conflicts for " + copyEmployeeEvent.getResourceName());
+        } else {
+            logCompare(true, false, "copyEmployeeEvent is NULL.");
+        }
     }
     private void resolveEquipmentEventConflict() {
         selectView(equipmentDefaultScheduleView);
         logCompare(true, b2wScheduler.collapseCalendarPanel(), "Collapse Calendar Panel.");
 
-        logCompare(true, b2wScheduler.setSearchValue(copyEquipmentEvent.getResourceName()), "Set Quick Filter to " + copyEquipmentEvent.getResourceName());
-        logCompare(true, true, "====== Start resolving Equipment Event Conflicts for " + copyEquipmentEvent.getResourceName());
-        logCompare(true, b2wScheduler.conflictIconIsDisplayed(copyEquipmentEvent), "Check that Conflict Icon is displayed.");
-        logCompare(true, b2wScheduler.openConflictPanel(), "Open conflict panel.");
-        logCompare(true, b2wScheduler.resolveConflict(copyEquipmentEvent), "Resolve Equipment Events conflict.");
-        logCompare(true, b2wScheduler.expandCalendarPanel(), "Expand Calendar Panel.");
-        logCompare(true, true, "====== Complete resolving Equipment Event Conflicts for " + copyEquipmentEvent.getResourceName());
+        if (copyEquipmentEvent != null) {
+            logCompare(true, b2wScheduler.setSearchValue(copyEquipmentEvent.getResourceName()), "Set Quick Filter to " + copyEquipmentEvent.getResourceName());
+            logCompare(true, true, "====== Start resolving Equipment Event Conflicts for " + copyEquipmentEvent.getResourceName());
+            logCompare(true, b2wScheduler.conflictIconIsDisplayed(copyEquipmentEvent), "Check that Conflict Icon is displayed.");
+            logCompare(true, b2wScheduler.openConflictPanel(), "Open conflict panel.");
+            logCompare(true, b2wScheduler.resolveConflict(copyEquipmentEvent), "Resolve Equipment Events conflict.");
+            logCompare(true, b2wScheduler.expandCalendarPanel(), "Expand Calendar Panel.");
+            logCompare(true, true, "====== Complete resolving Equipment Event Conflicts for " + copyEquipmentEvent.getResourceName());
+        } else {
+            logCompare(true, false, "copyEquipmentEvent is NULL.");
+        }
     }
 
     //=== Order Panel
