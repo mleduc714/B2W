@@ -286,15 +286,19 @@ public class B2WPurchasingTasks extends B2WKendoTasks {
 	public boolean selectPurchaseOrderByID(String sItem) {
 		return selectItemFromView(sItem, 1);
 	}
-	private WebElement getPurchasingElement(String sContainer){
+
+	private WebElement getPurchasingElement(String sContainer) {
 		WebElement vendor = null;
 		WebElement listView = WebElementUtils.findElement(B2WMaintain.getMaintainPurchaseOrderDetails());
-		if (listView != null){
+		if (listView != null) {
 			WebElement elementRow = WebElementUtils.getChildElement(listView, B2WMaintain.getMaintainEditRow());
-			List<WebElement> gridcells = WebElementUtils.getChildElements(elementRow, By.tagName("td"));
-			WebElement el = WebElementUtils.getElementWithMatchingAttribute(gridcells, "data-container-for", sContainer);
-			if (el != null){
-				vendor = el;
+			if (elementRow != null) {
+				List<WebElement> gridcells = WebElementUtils.getChildElements(elementRow, By.tagName("td"));
+				WebElement el = WebElementUtils.getElementWithMatchingAttribute(gridcells, "data-container-for",
+						sContainer);
+				if (el != null) {
+					vendor = el;
+				}
 			}
 		}
 		return vendor;
@@ -347,7 +351,10 @@ public class B2WPurchasingTasks extends B2WKendoTasks {
 		boolean bReturn = false;
 		WebElement listView = WebElementUtils.findElement(B2WMaintain.getMaintainPurchaseOrderDetails());
 		if (listView != null){
-			bReturn = WebElementUtils.clickElement(WebElementUtils.getChildElement(listView, By.cssSelector(".k-grid-update")));
+			WebElement save = WebElementUtils.getChildElement(listView, By.cssSelector(".k-grid-update"));
+			if (save != null){
+				bReturn = WebElementUtils.clickElement(save);
+			}
 		}
 		return bReturn;
 	}

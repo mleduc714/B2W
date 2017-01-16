@@ -491,7 +491,12 @@ public class B2WMaintainPartsTasks extends B2WKendoTasks {
 					WebElementUtils.getChildElements(listView, By.tagName("tbody")), "role", "rowgroup");
 			if (rowgroup != null) {
 				List<WebElement> rows = WebElementUtils.getChildElements(rowgroup, By.tagName("tr"));
-				al = rows.get(iRow).findElements(By.tagName("td")).get(iColumn).getText();
+				if (rows.size()>=iRow){
+					List<WebElement> columns =  rows.get(iRow).findElements(By.tagName("td"));
+					if (columns.size()>=iColumn){
+						al = columns.get(iColumn).getText();
+					}
+				}
 
 			}
 
@@ -515,9 +520,92 @@ public class B2WMaintainPartsTasks extends B2WKendoTasks {
 		return i;
 	}
 	
+	public int getPurchaseOrderHistoryRows() {
+		int i = 0;
+		WebElement listView = WebElementUtils.findElement(By.id("PurchaseOrderGrid"));
+		if (listView != null) {
+			WebElement rowgroup = WebElementUtils.getElementWithMatchingAttribute(
+					WebElementUtils.getChildElements(listView, By.tagName("tbody")), "role", "rowgroup");
+			if (rowgroup != null) {
+				List<WebElement> rows = WebElementUtils.getChildElements(rowgroup, By.tagName("tr"));
+				i = rows.size();
+
+			}
+
+		}
+		return i;
+	}
+
+	public ArrayList<String> getPurchaseOrderDate() {
+		
+		return getPurchaseOrderByColumn(0);
+	}
+	public ArrayList<String> getPurchaseOrderNumber() {
+		
+		return getPurchaseOrderByColumn(1);
+	}
+	public ArrayList<String> getPurchaseOrderVendor() {
+		
+		return getPurchaseOrderByColumn(2);
+	}
+	public ArrayList<String> getPurchaseOrderBuyer() {
+		
+		return getPurchaseOrderByColumn(3);
+		
+	}
+	private ArrayList<String> getPurchaseOrderByColumn(int iColumn){
+		ArrayList<String> al = new ArrayList<String>();
+		WebElement listView = WebElementUtils.findElement(By.id("PurchaseOrderGrid"));
+		if (listView != null){
+			WebElement rowgroup = WebElementUtils.getElementWithMatchingAttribute(WebElementUtils.getChildElements(listView, By.tagName("tbody")),"role","rowgroup");
+			if (rowgroup != null){
+				List<WebElement> rows = WebElementUtils.getChildElements(rowgroup, By.tagName("tr"));
+				Iterator<WebElement> iter = rows.iterator();
+				while (iter.hasNext()) {
+					WebElement row = iter.next();
+					List<WebElement> ls = row.findElements(By.tagName("td"));
+					al.add(ls.get(iColumn).getText());
+				}
+			}
+		
+		}
+		return al;
+	}
+	
+	public String getPurchaseOrderText(int iRow, int iColumn) {
+		String al = "";
+		WebElement listView = WebElementUtils.findElement(By.id("PurchaseOrderGrid"));
+		if (listView != null) {
+			WebElement rowgroup = WebElementUtils.getElementWithMatchingAttribute(
+					WebElementUtils.getChildElements(listView, By.tagName("tbody")), "role", "rowgroup");
+			if (rowgroup != null) {
+				List<WebElement> rows = WebElementUtils.getChildElements(rowgroup, By.tagName("tr"));
+				al = rows.get(iRow).findElements(By.tagName("td")).get(iColumn).getText();
+
+			}
+
+		}
+		return al;
+	}
 	public boolean clickOnLink(int iRow){
 		boolean bReturn = false;
 		WebElement listView = WebElementUtils.findElement(B2WMaintain.getMaintainPartsInventoryHistoryListView());
+		if (listView != null){
+			WebElement rowgroup = WebElementUtils.getElementWithMatchingAttribute(WebElementUtils.getChildElements(listView, By.tagName("tbody")),"role","rowgroup");
+			if (rowgroup != null){
+				List<WebElement> rows = WebElementUtils.getChildElements(rowgroup, By.tagName("tr"));
+				if (rows.size() > iRow){
+					WebElement row = rows.get(iRow);
+					WebElement column = row.findElements(By.tagName("td")).get(0);
+					bReturn = WebElementUtils.clickElement(WebElementUtils.getChildElement(column, By.tagName("a")));
+				}
+			}
+		}
+		return bReturn;
+	}
+	public boolean clickOnPONumberLink(int iRow){
+		boolean bReturn = false;
+		WebElement listView = WebElementUtils.findElement(By.id("PurchaseOrderGrid"));
 		if (listView != null){
 			WebElement rowgroup = WebElementUtils.getElementWithMatchingAttribute(WebElementUtils.getChildElements(listView, By.tagName("tbody")),"role","rowgroup");
 			if (rowgroup != null){

@@ -75,19 +75,6 @@ public abstract class B2WKendoDialog extends B2WKendo {
 		return bReturn;
 	}
 	
-	public WebElement getDisplayedWindow() {
-		WebElement window = null;
-		List<WebElement> windows = WebElementUtils.findElements(B2WMaintain.getKendoWindow());
-		Iterator<WebElement> iter = windows.iterator();
-		while (iter.hasNext()){
-			WebElement temp = iter.next();
-			if (temp.isDisplayed()){
-				window = temp;
-				break;
-			}
-		}
-		return window;
-	}
 
 	protected boolean clickNext() {
 
@@ -207,26 +194,26 @@ public abstract class B2WKendoDialog extends B2WKendo {
 	protected String selectRandomItemFromDropDown() {
 		WebElement item = null;
 		String sText = "";
-		List<WebElement> list = WebElementUtils.findElements(B2WEquipment.getKendoLists());
-		Iterator<WebElement> iter = list.iterator();
-		log.debug("There are " + list.size() + " to find the correct drop down");
-		while (iter.hasNext()) {
-			WebElement els = iter.next();
-			String hidden = els.getAttribute("aria-hidden");
-			if (hidden != null && hidden.equals("false")) {
-				List<WebElement> items = els.findElements(B2WEquipment.getKendoDropDownItem());
-				while (sText.length() < 2) {
-					item = items.get(getRandomNumber(items.size()));
-					sText = item.getText();
-				}
-				if (item != null) {
-					sText = item.getText();
-					WebElementUtils.clickElement(item);
-				} else {
-					log.debug("Could not select item");
-				}
+		List<WebElement> items = new ArrayList<WebElement>();
+		int iTimeOut = 0;
+		while (items.size() == 0 && iTimeOut < 50) {
+			items = getKendoDropDownItems();
+			iTimeOut++;
+			TaskUtils.sleep(100);
+		}
+		if (items.size() > 0) {
+			while (sText.length() < 2) {
+				item = items.get(getRandomNumber(items.size()));
+				sText = item.getText();
+			}
+			if (item != null) {
+				sText = item.getText();
+				WebElementUtils.clickElement(item);
+			} else {
+				log.debug("Could not select item");
 			}
 		}
+
 		return sText;
 	}
 
