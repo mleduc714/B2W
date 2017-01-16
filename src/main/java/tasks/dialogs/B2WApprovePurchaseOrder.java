@@ -5,7 +5,6 @@ import org.openqa.selenium.WebElement;
 
 import appobjects.maintain.B2WMaintain;
 import tasks.WebElementUtils;
-import tasks.util.TaskUtils;
 
 public class B2WApprovePurchaseOrder extends B2WKendoDialog {
 	
@@ -15,7 +14,6 @@ public class B2WApprovePurchaseOrder extends B2WKendoDialog {
 		if (parent != null){
 			WebElement el = WebElementUtils.getChildElement(parent, B2WMaintain.getKendoDropDown());
 			WebElementUtils.sendKeys(el, sText);
-			TaskUtils.sleep(1000);
 			bReturn = selectItemFromDropDown(0);
 		}
 		return bReturn;

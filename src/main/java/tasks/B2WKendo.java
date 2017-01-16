@@ -28,16 +28,22 @@ public abstract class B2WKendo {
 		boolean bReturn = false;
 		// when we click we need to find the visible list
 		List<WebElement> items = new ArrayList<WebElement>();
-		while (items.size() == 0){
+		int iTimeout = 0;
+		while (items.size() == 0 && iTimeout < 50){
 			items = getKendoDropDownItems();
+			iTimeout++;
+			TaskUtils.sleep(100);
 		}
-
-		WebElement item = items.get(i);
-		WebElementUtils.waitForElementIsDisplayed(item, WebElementUtils.SHORT_TIME_OUT);
-		if (item != null) {
+		if (items.size() != 0) {
+			WebElement item = items.get(i);
+			WebElementUtils.waitForElementIsDisplayed(item, WebElementUtils.SHORT_TIME_OUT);
+			if (item != null) {
 				bReturn = WebElementUtils.clickElement(item);
+			} else {
+				log.debug("Could not select item #" + i);
+			}
 		}else{
-				log.debug("Could not select item #"+i);
+			log.debug("Could not find a visible drop down menu");
 		}
 		return bReturn;
 	}
@@ -189,7 +195,7 @@ public abstract class B2WKendo {
 				log.debug("Wait for Ajax done");
 				break;
 			}
-			log.debug("Wait for Ajax");
+			log.debug("Wait for Ajax "+iTimeout);
 			iTimeout++;
 			TaskUtils.sleep(500);
 		}
@@ -321,6 +327,21 @@ public abstract class B2WKendo {
 		}
 		return dropdown;
 		
+	}
+	public WebElement getDisplayedWindow() {
+		WebElement window = null;
+		List<WebElement> windows = WebElementUtils.findElements(B2WMaintain.getKendoWindow());
+		Iterator<WebElement> iter = windows.iterator();
+		while (iter.hasNext()){
+			WebElement temp = iter.next();
+			if (temp.isDisplayed()){
+				WebElement el = WebElementUtils.getChildElement(temp, B2WMaintain.getKendoWindowTitle());
+				log.debug("Displayed window -> "+el.getText());
+				window = temp;
+				break;
+			}
+		}
+		return window;
 	}
 
 }
