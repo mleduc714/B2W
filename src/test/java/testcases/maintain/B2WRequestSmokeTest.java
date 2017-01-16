@@ -173,6 +173,8 @@ public class B2WRequestSmokeTest extends B2WTestCase {
 		logCompare(true,b2wRequests.clickSaveButton(),"Save");
 		logCompare(true,b2wRequests.selectWorkOrderRequestByDescription(sEditDesc),"Edit description");
 		TaskUtils.sleep(3400);
+		logCompare(true,b2wRequests.deleteRequest(), "Delete this Request");
+		
 	}
 	
 }
