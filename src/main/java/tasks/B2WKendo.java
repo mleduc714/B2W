@@ -39,6 +39,7 @@ public abstract class B2WKendo {
 			WebElementUtils.waitForElementIsDisplayed(item, WebElementUtils.SHORT_TIME_OUT);
 			if (item != null) {
 				bReturn = WebElementUtils.clickElement(item);
+				WebElementUtils.waitForElementInvisible(item);
 			} else {
 				log.debug("Could not select item #" + i);
 			}
