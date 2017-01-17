@@ -164,8 +164,8 @@ public class B2WMaintainRequestTasks extends B2WKendoTasks {
 	
 	public boolean clickSaveButton() {
 		boolean bReturn = false;
-		//WebElement parent = WebElementUtils.findElement(B2WMaintain.getB2WMaintainRequestCreateView());
-		WebElement el = WebElementUtils.waitAndFindDisplayedElement(B2WMaintain.getKendoLargeSaveButton(),1);
+		List<WebElement> list = WebElementUtils.findElements(B2WMaintain.getKendoLargeSaveButton());
+		WebElement el = WebElementUtils.getVisibleElementFromListofElements(list);
 		if (el != null){
 			bReturn = WebElementUtils.clickElement(el);
 			bReturn &= waitForPageNotBusy(WebElementUtils.MEDIUM_TIME_OUT);
@@ -318,6 +318,6 @@ public class B2WMaintainRequestTasks extends B2WKendoTasks {
 		return bReturn;
 	}
 
-	
+
 	
 }

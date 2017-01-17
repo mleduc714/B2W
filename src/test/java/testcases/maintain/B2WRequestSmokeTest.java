@@ -74,7 +74,7 @@ public class B2WRequestSmokeTest extends B2WTestCase {
 		sID = getProperty("sID")+iRandom;
 		sBusinessUnit = getProperty("sBusinessUnit");
 		sRequestDescription=getProperty("sRequestDescription");
-		sAltID=getProperty("sAltID");
+		sAltID=getProperty("sAltID")+iRandom;
 		sRequestNotes=getProperty("sRequestNotes");
 		sRequestComment=getProperty("sRequestComment");
 		sRequestNumber=getProperty("sRequestNumber");
@@ -123,7 +123,7 @@ public class B2WRequestSmokeTest extends B2WTestCase {
 	@Override
 	public void testMain() throws Throwable {
 		//Create New Requests
-		//createRequest();
+		createRequest();
 		editRequest();
 		//•Edit existing Requests (should only be able to edit requests with a status of Requested)
 		
@@ -145,11 +145,11 @@ public class B2WRequestSmokeTest extends B2WTestCase {
 		b2wMaintain.openEquipment();
 		b2wEquip.createNewEquipment();
 		assertTrue("Create Equipment", b2wEquip.createEquipment(sEquipment, sID, sBusinessUnit));
-		b2wMaintain.openRequests();
+		logCompare(true,b2wMaintain.openRequests(),"Open Requests");
 		logCompare(true,b2wRequests.clickCreateNewRequestButton(), "Click Create New Request");
-		b2wRequests.selectEquipment(sEquipment);
-		b2wRequests.setRequestDescription(sRequestDescription);
-		b2wRequests.setAlternativeID(sAltID);
+		logCompare(true,b2wRequests.selectEquipment(sEquipment),"Equipment");
+		logCompare(true,b2wRequests.setRequestDescription(sRequestDescription),"Request Desc");
+		logCompare(true,b2wRequests.setAlternativeID(sAltID),"Alt ID");
 		sRequestType = b2wRequests.selectAnyTypeFromDD();
 		sProblemCode = b2wRequests.selectAnyProblemCodeFromDD();
 		sRequestedBy = b2wRequests.selectRequestedByFromDD();
@@ -172,7 +172,9 @@ public class B2WRequestSmokeTest extends B2WTestCase {
 		logCompare(true,b2wRequests.setRequestNotes(sEditNotes),"Changed Notes");
 		logCompare(true,b2wRequests.clickSaveButton(),"Save");
 		logCompare(true,b2wRequests.selectWorkOrderRequestByDescription(sEditDesc),"Edit description");
-		TaskUtils.sleep(3400);
+		TaskUtils.sleep(500);
+		logCompare(true,b2wRequests.deleteRequest(), "Delete this Request");
+		TaskUtils.sleep(1000);
 	}
 	
 }

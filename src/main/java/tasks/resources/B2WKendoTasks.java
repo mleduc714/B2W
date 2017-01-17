@@ -441,6 +441,7 @@ public abstract class B2WKendoTasks extends B2WKendo {
 			}
 			if (item != null) {
 				if (WebElementUtils.clickElement(item)) {
+					WebElementUtils.waitForElementInvisible(item);
 					waitForPageNotBusy(WebElementUtils.SHORT_TIME_OUT);
 					log.debug("Selected an item");
 				} else {
@@ -758,5 +759,14 @@ public abstract class B2WKendoTasks extends B2WKendo {
 		return bReturn;
 	}
 
+	protected String getSelectedStatus() {
+		String sStatus = "";
+		WebElement el = WebElementUtils.waitAndFindDisplayedElement(B2WMaintain.getB2WWorkItemTable());
+		if (el != null){
+			WebElement item = WebElementUtils.getChildElement(el, B2WMaintain.getB2WWorkOrderStatus());
+			sStatus = item.getText();
+		}
+		return sStatus;
+	}
 	
 }
