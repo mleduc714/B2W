@@ -1,4 +1,4 @@
-package testcases;
+package testcases.maintain;
 
 import java.util.Random;
 
