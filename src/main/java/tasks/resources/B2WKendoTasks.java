@@ -93,12 +93,11 @@ public abstract class B2WKendoTasks extends B2WKendo {
 	public String sendTextAndSelectAnyValueFromKendoFDD(WebElement dropDownElement){
 		String sRandom = "";
 		dropDownElement.clear();
-		dropDownElement.click();
+		WebElementUtils.clickElement(dropDownElement);
 		if (WebElementUtils.sendKeys(dropDownElement, "a")) {
 			sRandom =  selectRandomItemFromDropDown();
 		}
 		return sRandom;
-		
 	}
 	
 	public boolean selectItemFromFDD(String sItem) {
@@ -244,7 +243,6 @@ public abstract class B2WKendoTasks extends B2WKendo {
 			}
 			sText = gridcontent.get(iColumn).getText();
 			sText = sText.trim();
-			System.out.println(sText);
 			if (sText.equals(sItem)) {
 				bReturn = WebElementUtils.clickElement(item);
 				bReturn &= waitForPageNotBusy(WebElementUtils.MEDIUM_TIME_OUT);
@@ -299,6 +297,7 @@ public abstract class B2WKendoTasks extends B2WKendo {
 		for (WebElement e: list){
 			String sButtonName = WebElementUtils.getParentElement(e).getText();
 			if (sButtonName.contains(sDesc)){
+				log.debug("Found Button: "+sDesc);
 				el = e;
 				break;
 			}
@@ -428,20 +427,26 @@ public abstract class B2WKendoTasks extends B2WKendo {
 		WebElement item = null;
 		String sText = "";
 		List<WebElement> items = new ArrayList<WebElement>();
-		while (items.size() == 0) {
+		int iTimeOut = 0;
+		while (items.size() == 0 && iTimeOut < 50) {
 			items = getKendoDropDownItems();
+			iTimeOut++;
+			TaskUtils.sleep(100);
 		}
 		log.debug("There are " + items.size() + " items in the drop down");
-		while (sText.length() < 1) {
-			item = items.get(getRandomNumber(items.size()));
-			sText = item.getText();
-		}
-		if (item != null) {
-			if (WebElementUtils.clickElement(item)) {
-				waitForPageNotBusy(WebElementUtils.SHORT_TIME_OUT);
-				log.debug("Selected an item");
-			} else {
-				log.debug("The item was not clickable in dropdown");
+		if (items.size() > 0) {
+			while (sText.length() < 1) {
+				item = items.get(getRandomNumber(items.size()));
+				sText = item.getText();
+			}
+			if (item != null) {
+				if (WebElementUtils.clickElement(item)) {
+					WebElementUtils.waitForElementInvisible(item);
+					waitForPageNotBusy(WebElementUtils.SHORT_TIME_OUT);
+					log.debug("Selected an item");
+				} else {
+					log.debug("The item was not clickable in dropdown");
+				}
 			}
 		}
 		return sText;
@@ -470,6 +475,7 @@ public abstract class B2WKendoTasks extends B2WKendo {
 		if (el != null) {
 			List<WebElement> inputs = WebElementUtils.getChildElements(el, B2WMaintain.getKendoDropDown());
 			bReturn = WebElementUtils.clickElement(inputs.get(0));
+			inputs.get(1).clear();
 			bReturn &= WebElementUtils.sendKeys(inputs.get(1), sText);
 		}
 
@@ -735,4 +741,32 @@ public abstract class B2WKendoTasks extends B2WKendo {
 		}
 		return bReturn;
 	}
+	
+	public boolean clickBusinessRuleError() {
+		boolean bReturn = false;
+		String sErrorMessage = "Business Rule Error";
+		WebElement el = getDisplayedWindow();
+		if (el != null) {
+			WebElement dialog = WebElementUtils
+					.getVisibleElementFromListofElements(WebElementUtils.findElements(By.className("k-window-title")));
+			if (dialog != null) {
+				if (dialog.getText().equals(sErrorMessage)) {
+					bReturn = true;
+					clickConfirmYes();
+				}
+			}
+		}
+		return bReturn;
+	}
+
+	protected String getSelectedStatus() {
+		String sStatus = "";
+		WebElement el = WebElementUtils.waitAndFindDisplayedElement(B2WMaintain.getB2WWorkItemTable());
+		if (el != null){
+			WebElement item = WebElementUtils.getChildElement(el, B2WMaintain.getB2WWorkOrderStatus());
+			sStatus = item.getText();
+		}
+		return sStatus;
+	}
+	
 }
