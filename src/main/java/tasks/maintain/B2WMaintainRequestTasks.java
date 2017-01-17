@@ -279,7 +279,7 @@ public class B2WMaintainRequestTasks extends B2WKendoTasks {
 	}
 	public String getSelectedRequestStatus() {
 		String sText = "";
-		WebElement el = WebElementUtils.findElement(B2WMaintain.getB2WMaintainRequestOrderStatus());
+		WebElement el = WebElementUtils.waitAndFindDisplayedElement(B2WMaintain.getB2WMaintainRequestOrderStatus());
 		if (el != null){
 			sText = el.getText().trim();
 		}
@@ -332,5 +332,14 @@ public class B2WMaintainRequestTasks extends B2WKendoTasks {
 	}
 	public boolean deleteComment(String sComment){
 		return super.deleteComment(sComment);
+	}
+	public boolean clickOnEquipmentLink() {
+		boolean bReturn = false;
+		List<WebElement> list = WebElementUtils.findElements(B2WMaintain.getMaintainSubhead());
+		if (list.size()>1){
+			WebElement link = WebElementUtils.getChildElement(list.get(1), By.tagName("a"));
+			bReturn = WebElementUtils.clickElement(link);
+		}
+		return bReturn;
 	}
 }

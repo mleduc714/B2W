@@ -919,6 +919,7 @@ public class B2WUIMap {
 	// work orders
 	public static final String b2w_maintainworkorderslistview = "div#work_order_list_view";
 	public static final String b2w_maintainworkorderdisplaystatus = "td.subhead.right";
+	public static final String b2w_maintainworkordersubheadlink = "td.subhead";
 	public static final String b2w_maintainworkordersview = "div#work_order_create_view";
 	public static final String b2w_maintainworkorderseditview = "div#work_order_edit_view";
 	public static final String b2w_maintainworkorderadditembutton = "a.btn-orig.add-item";
