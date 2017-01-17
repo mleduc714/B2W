@@ -105,20 +105,12 @@ public class B2WSchedulerTasks extends B2WKendoTasks {
         try {
             boolean bReturn = false;
             WebElement eSearchBox = WebElementUtils.findElement(B2WScheduleAssignments.getSearchBox());
-            //log.debug("eSearchBox: " + eSearchBox.toString());
             if (eSearchBox != null) {
                 eSearchBox.clear();
-                //log.debug("Perform eSearchBox.clear();");
                 bReturn = WebElementUtils.sendKeys(eSearchBox, sValue);
-                //log.debug("Perform sendKeys. Result: " + bReturn);
                 WebElementUtils.waitAndFindDisplayedElement(B2WEquipment.getKendoPageLoading(), WebElementUtils.SHORT_TIME_OUT);
-                //log.debug("Stop waiting... ");
-                //ToDo replace sleep to correct waiting
-                //TaskUtils.sleep(1000);
                 waitForSchedulesPageNoBusy();
-                //log.debug("Stop waiting loading page... ");
                 bReturn &= WebElementUtils.waitAndFindDisplayedElement(B2WScheduleAssignments.getGrid(), WebElementUtils.LONG_TIME_OUT) != null;
-                //log.debug("Return final result: " + bReturn);
             } else {
                 log.debug("Search box could not be found on the page.");
             }
@@ -236,7 +228,6 @@ public class B2WSchedulerTasks extends B2WKendoTasks {
         bReturn &= logCompare(true, setEmployeeNeed(assignment.getResourceName()), "Set Resource: " + assignment.getResourceName());
 
         if (setGeneralFields(assignment)) {
-            //ToDo: Issue
             bReturn = saveGeneralAssignment(initialCount, assignment, true);
         } else {
             cancelAssignment();
@@ -301,7 +292,6 @@ public class B2WSchedulerTasks extends B2WKendoTasks {
         bReturn &= logCompare(true, setEquipmentNeed(assignment.getResourceName()), "Set Resource: " + assignment.getResourceName());
 
         if (setGeneralFields(assignment)) {
-            //ToDo: Issue
             bReturn = saveGeneralAssignment(initialCount, assignment, true);
         } else {
             cancelAssignment();
@@ -361,7 +351,6 @@ public class B2WSchedulerTasks extends B2WKendoTasks {
         bReturn &= logCompare(true, selectNewCrewNeed(), "Select New -> Crew Need menu");
         bReturn &= logCompare(true, setCrewNeed(assignment.getResourceName()), "Set Crew Resource");
         if (setGeneralFields(assignment)) {
-            //ToDo: Issue
             bReturn = saveGeneralAssignment(initialCount, assignment, true);
         } else {
             cancelAssignment();
@@ -2043,15 +2032,6 @@ public class B2WSchedulerTasks extends B2WKendoTasks {
         } else {
             return true;
         }
-        /*
-        bReturn &= WebElementUtils.waitAndFindElement(B2WScheduleAssignments.getFillNeedToolbar()) != null;
-        WebElement table = WebElementUtils.findElement(B2WScheduleAssignments.getFirstTableInOrderList());
-        if (table != null) {
-            WebElement firstItem = WebElementUtils.getChildElement(table, B2WScheduleAssignments.getFirstItemInOrderList());
-            String actualValue = firstItem.getAttribute("title");
-            String expectedValue = eOrder.getText();
-            bReturn &= expectedValue.contains(actualValue);
-        } */
         return bReturn;
     }
     private boolean setFillWith(String sValue) {

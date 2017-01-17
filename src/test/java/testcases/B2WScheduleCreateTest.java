@@ -25,7 +25,6 @@ public class B2WScheduleCreateTest extends B2WTestCase{
 
 	@Override
 	public void testSetUp() throws Throwable {
-		// TODO Auto-generated method stub
 		super.testSetUp();
 
 		// === Setup Schedules View
@@ -44,7 +43,6 @@ public class B2WScheduleCreateTest extends B2WTestCase{
 
 	@Override
 	public void testMain() throws Throwable {
-		// TODO Auto-generated method stub
 		super.testMain();
 		//createScheduleOld();
 		createScheduleNew();
@@ -52,13 +50,11 @@ public class B2WScheduleCreateTest extends B2WTestCase{
 
 	@Override
 	public void testTearDown() throws Throwable {
-		// TODO Auto-generated method stub
 		super.testTearDown();
 	}
 
 	@Override
 	public String getAuthor() {
-		// TODO Auto-generated method stub
 		return "mleduc";
 	}
 

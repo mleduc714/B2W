@@ -128,6 +128,7 @@ public class B2WUIMap {
 	public static final String b2w_schedules_notes = "textarea[name='notes']";
 	public static final String b2w_schedules_scheduleformat = "input[name='scheduleFormat']";
 	public static final String b2w_schedules_input = "input";
+	public static final String b2w_schedules_span = ".//span";
 	public static final String b2w_schedules_groupitemsby = "select.grouping-dropdown[data-bind *= 'scheduledGrouping1DataSource']";
 	public static final String b2w_schedules_secondarygrouping = "select.grouping-dropdown[data-bind *= 'scheduledGrouping2DataSource']";
 	public static final String b2w_schedules_savebtn = ".btn-form.large.save";
@@ -135,6 +136,10 @@ public class B2WUIMap {
 	public static final String b2w_schedules_addfilter = ".add-filter";
 	public static final String b2w_schedules_filterlabel = "label";
 	public static final String b2w_schedules_deletebtn = ".btn-delete";
+	public static final String b2w_schedules_copybtn = ".btn-copy";
+	public static final String b2w_schedules_editbtn = ".btn-edit";
+	public static final String b2w_schedules_removeFilterLink = ".js-remove.left-expanding-row__right.filter__remove";
+	public static final String b2w_schedules_removeItemBtn = ".k-icon.k-i-close";
 	public static final String b2w_schedules_deletepopupwindow = ".k-widget.k-window";
 	public static final String b2w_schedules_popupwindow_yesbtn = ".btn-form.dialog-button.large.confirm";
 	public static final String b2w_schedules_previewlocation = ".preview-location";

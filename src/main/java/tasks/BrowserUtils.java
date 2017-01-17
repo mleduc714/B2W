@@ -24,6 +24,7 @@ import org.openqa.selenium.security.UserAndPassword;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import tasks.util.TaskUtils;
 
 public class BrowserUtils {
 	
@@ -63,6 +64,7 @@ public class BrowserUtils {
 				break;
 			}
 			driver.get(url);
+			TaskUtils.sleep(5000);
 			maximize();
 			log.debug("Waiting for page to load after URL navigation: " + waitForPageLoaded());
 			return true;

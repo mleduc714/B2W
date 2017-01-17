@@ -244,16 +244,18 @@ public class B2WNavigationTasks implements Navigation {
 	}
 	public boolean openSchedules() {
 		boolean bReturn = false;
-		if (openSetup()){
-			WebElementUtils.switchToFrame(B2WNavigationPanel.getB2WSetupNavigationPanel(), 1);
-			List<WebElement> items = BrowserUtils.getDriver().findElements(B2WNavigationPanel.getB2WSetupPopupItem());
-			WebElement item = WebElementUtils.getElementWithMatchingText(items, "Schedules", true);
-			if (item != null){
-				item.click();
-				bReturn = new B2WSchedulerTasks().waitForSchedulesPageNoBusy();
-				bReturn &= new TaskUtils().waitForProductPanel("Schedules");
+		if (!new TaskUtils().waitForProductPanel("Schedules")) {
+			if (openSetup()) {
+				WebElementUtils.switchToFrame(B2WNavigationPanel.getB2WSetupNavigationPanel(), 1);
+				List<WebElement> items = BrowserUtils.getDriver().findElements(B2WNavigationPanel.getB2WSetupPopupItem());
+				WebElement item = WebElementUtils.getElementWithMatchingText(items, "Schedules", true);
+				if (item != null) {
+					item.click();
+					bReturn = new B2WSchedulerTasks().waitForSchedulesPageNoBusy();
+					bReturn &= new TaskUtils().waitForProductPanel("Schedules");
+				}
 			}
-		}
+		} else bReturn = true;
 		return bReturn;
 	}
 	public boolean openSecurityRoles() {

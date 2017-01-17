@@ -135,7 +135,6 @@ public class B2WCategoriesTasks extends B2WSetupTasks {
 	@Override
 	public boolean enterTextAndClickSearch(String sText) {
 		boolean bReturn = false;
-		// TODO Auto-generated method stub
 		WebElement el = WebElementUtils.findElement(B2WCommonObjects.getB2WPageContentGrid());
 		bReturn = super.enterTextAndClickSearch(sText);
 		bReturn &= WebElementUtils.waitForElementStale(el, WebElementUtils.MEDIUM_TIME_OUT);

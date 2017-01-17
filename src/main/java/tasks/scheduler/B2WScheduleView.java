@@ -24,7 +24,6 @@ public class B2WScheduleView implements Cloneable {
     private Date endDate;
     private String sStartDate;
     private String duration;
-    private String quickSearch;
 
     // === Setters
     public void setName(String name) {
@@ -43,9 +42,6 @@ public class B2WScheduleView implements Cloneable {
             this.endDate = DateUtils.addDays(this.startDate, getDurationCount());
         }
     }
-    public void setQuickSearch(String quickSearch) {
-        this.quickSearch = quickSearch;
-    }
     public void setBusinessUnit(String businessUnit) {
         this.businessUnit = businessUnit;
     }
@@ -53,7 +49,7 @@ public class B2WScheduleView implements Cloneable {
         this.notes = notes;
     }
     public void setScheduleItems(ArrayList<B2WScheduleItem> scheduleItems) {
-        this.scheduleItems = scheduleItems;
+        this.scheduleItems = new ArrayList<>(scheduleItems);
     }
     public void setResourceGrouping(String resourceGrouping) {
         this.resourceGrouping = resourceGrouping;
@@ -62,13 +58,13 @@ public class B2WScheduleView implements Cloneable {
         this.secondaryGrouping = secondaryGrouping;
     }
     public void setFilters(ArrayList<String[]> filters) {
-        this.filters = filters;
+        this.filters = new ArrayList<>(filters);
     }
     public void setRoles(ArrayList<String> roles) {
-        this.roles = roles;
+        this.roles = new ArrayList<>(roles);
     }
     public void setUsers(ArrayList<String> users) {
-        this.users = users;
+        this.users = new ArrayList<>(users);
     }
 
     // === Getters
@@ -81,9 +77,6 @@ public class B2WScheduleView implements Cloneable {
     public String getStartDateAsSting() { return sStartDate; }
     public String getDuration() {
         return duration;
-    }
-    public String getQuickSearch() {
-        return quickSearch;
     }
     public String getBusinessUnit() {
         return businessUnit;
@@ -126,19 +119,29 @@ public class B2WScheduleView implements Cloneable {
                            String resourceGrouping, String secondaryGrouping, ArrayList<String[]> filters,
                            ArrayList<String> roles, ArrayList<String> users) {
 
-        this.name = name;
-        this.businessUnit = businessUnit;
-        this.notes = notes;
-        this.scheduleItems = new ArrayList<B2WScheduleItem>(scheduleItems);
-        this.resourceGrouping = resourceGrouping;
-        this.secondaryGrouping = secondaryGrouping;
-        this.filters = new ArrayList<String[]>(filters);
-        this.roles = new ArrayList<String>(roles);
-        this.users = new ArrayList<String>(users);
+        setName(name);
+        setBusinessUnit(businessUnit);
+        setNotes(notes);
+        setScheduleItems(scheduleItems);
+        setResourceGrouping(resourceGrouping);
+        setSecondaryGrouping(secondaryGrouping);
+        setFilters(filters);
+        setRoles(roles);
+        setUsers(users);
     }
 
-    public B2WScheduleView clone() throws CloneNotSupportedException {
-        return (B2WScheduleView)super.clone();
+    public B2WScheduleView clone() {
+        B2WScheduleView oReturn;
+        try {
+            oReturn = (B2WScheduleView) super.clone();
+            oReturn.setFilters(this.getFilters());
+            oReturn.setRoles(this.getRoles());
+            oReturn.setUsers(this.getUsers());
+            oReturn.setScheduleItems(this.getScheduleItems());
+        } catch (CloneNotSupportedException ex) {
+            oReturn = null;
+        }
+        return oReturn;
     }
 }
 
