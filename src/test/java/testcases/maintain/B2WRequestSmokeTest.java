@@ -243,6 +243,7 @@ public class B2WRequestSmokeTest extends B2WTestCase {
 		logCompare(sRequestComment,b2wRequests.getComment(),"Verify Comments");
 		logCompare(true,b2wRequests.deleteComment(sRequestComment),"Delete Comments");
 		logCompare("",b2wRequests.getComment(),"Verify Comments");
+		
 	
 	}
 }
