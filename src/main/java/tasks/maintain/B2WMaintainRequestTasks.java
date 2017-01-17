@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.WebElement;
 
@@ -188,6 +189,7 @@ public class B2WMaintainRequestTasks extends B2WKendoTasks {
 		WebElement el = WebElementUtils.findElement(B2WMaintain.getB2WMaintainRequestsAddToWorkOrder());
 		if (el != null){
 			bReturn = WebElementUtils.clickElement(el);
+			WebElementUtils.waitAndFindDisplayedElement(B2WMaintain.getB2WMaintainNewWorkOrderView());
 		}
 		return bReturn;
 	}
@@ -279,19 +281,35 @@ public class B2WMaintainRequestTasks extends B2WKendoTasks {
 		String sText = "";
 		WebElement el = WebElementUtils.findElement(B2WMaintain.getB2WMaintainRequestOrderStatus());
 		if (el != null){
-			sText = el.getText();
+			sText = el.getText().trim();
 		}
 		return sText;
+	}
+	
+	public boolean clickOnLinkInStatus() {
+		boolean bReturn = false;
+		List<WebElement> list = WebElementUtils.findElements(B2WMaintain.getB2WWorkOrderStatus());
+		if (list.size()>0){
+			WebElement el = WebElementUtils.getVisibleElementFromListofElements(list);
+			WebElement link = WebElementUtils.getChildElement(el, By.tagName("a"));
+			bReturn = WebElementUtils.clickElement(link);
+		}
+		return bReturn;
 	}
 	public boolean setRequestNotes(String sText){
 		return setNotes(sText);
 	}
-	public boolean deleteRequest(){
+
+	public boolean deleteRequest() {
 		boolean bReturn = false;
-		WebElement delete = WebElementUtils.findElement(B2WMaintain.getKendoDeleteButton());
-		if (delete != null){
-			bReturn = WebElementUtils.clickElement(delete);
-			bReturn &= clickConfirmYes();
+		try {
+			WebElement delete = WebElementUtils.findElement(B2WMaintain.getKendoDeleteButton());
+			if (delete != null) {
+				delete.click();
+				bReturn = clickConfirmYes();
+			}
+		} catch (WebDriverException e) {
+			log.debug("Delete not available");
 		}
 		return bReturn;
 	}
@@ -308,16 +326,11 @@ public class B2WMaintainRequestTasks extends B2WKendoTasks {
 	public String getComment() {
 		return getComments(0,0);
 	}
-	public boolean deleteComment(String sComment){
-		boolean bReturn = false;
-		WebElement el = getRowByCommentDescription(sComment);
-		if (el != null){
-			WebElement delete = WebElementUtils.getChildElement(el, B2WMaintain.getKendoDeleteButton());
-			bReturn = WebElementUtils.clickElement(delete);
-		}
-		return bReturn;
+
+	public boolean editComment(String s){
+		return super.editComment(s);
 	}
-
-
-	
+	public boolean deleteComment(String sComment){
+		return super.deleteComment(sComment);
+	}
 }

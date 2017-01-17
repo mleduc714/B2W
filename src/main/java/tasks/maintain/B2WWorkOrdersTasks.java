@@ -186,12 +186,13 @@ public class B2WWorkOrdersTasks extends B2WKendoTasks {
 	
 	public boolean clickSaveButton() {
 		boolean bReturn = false;
-		
+		WebElement visible = WebElementUtils.findElement(B2WMaintain.getB2WMaintainEditFormContent());
 		WebElement el = WebElementUtils.findElement(B2WMaintain.getKendoLargeSaveButton());
 		if (el != null){
 			bReturn = WebElementUtils.clickElement(el);
 			bReturn &= WebElementUtils.waitForElementInvisible(WebElementUtils.findElement(B2WMaintain.getKendoFakeSaveButton()), WebElementUtils.LONG_TIME_OUT, true);
 			bReturn &= waitForPageNotBusy(WebElementUtils.MEDIUM_TIME_OUT);
+			bReturn &= WebElementUtils.waitForElementInvisible(visible);
 			//bReturn &= WebElementUtils.waitAndFindDisplayedElement(B2WMaintain.getB2WMaintainItemActions(), WebElementUtils.MEDIUM_TIME_OUT) != null;
 		}
 		return bReturn;
@@ -693,23 +694,11 @@ public class B2WWorkOrdersTasks extends B2WKendoTasks {
 		return getComments(0,0);
 	}
 	public boolean deleteComment(String sComment){
-		boolean bReturn = false;
-		WebElement el = getRowByCommentDescription(sComment);
-		if (el != null){
-			WebElement delete = WebElementUtils.getChildElement(el, B2WMaintain.getKendoDeleteButton());
-			bReturn = WebElementUtils.clickElement(delete);
-		}
-		return bReturn;
+		return super.deleteComment(sComment);
 	}
 	
-	public boolean editComment(String sComment){
-		boolean bReturn = false;
-		WebElement el = getRowByCommentDescription(sComment);
-		if (el != null){
-			WebElement delete = WebElementUtils.getChildElement(el, B2WMaintain.getKendoEditButton());
-			bReturn = WebElementUtils.clickElement(delete);
-		}
-		return bReturn;
+	public boolean editComment(String s){
+		return super.editComment(s);
 	}
 
 

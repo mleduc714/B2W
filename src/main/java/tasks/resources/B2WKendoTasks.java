@@ -768,5 +768,22 @@ public abstract class B2WKendoTasks extends B2WKendo {
 		}
 		return sStatus;
 	}
-	
+	protected boolean editComment(String sComment){
+		boolean bReturn = false;
+		WebElement el = getRowByCommentDescription(sComment);
+		if (el != null){
+			WebElement delete = WebElementUtils.getChildElement(el, B2WMaintain.getKendoEditButton());
+			bReturn = WebElementUtils.clickElement(delete);
+		}
+		return bReturn;
+	}
+	protected boolean deleteComment(String sComment){
+		boolean bReturn = false;
+		WebElement el = getRowByCommentDescription(sComment);
+		if (el != null){
+			WebElement delete = WebElementUtils.getChildElement(el, B2WMaintain.getKendoDeleteButton());
+			bReturn = WebElementUtils.clickElement(delete);
+		}
+		return bReturn;
+	}
 }
