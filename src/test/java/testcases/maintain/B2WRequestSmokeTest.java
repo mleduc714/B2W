@@ -1,5 +1,9 @@
 package testcases.maintain;
 
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+
 import com.b2w.test.B2WTestCase;
 
 import tasks.B2WNavigationTasks;
@@ -61,8 +65,9 @@ public class B2WRequestSmokeTest extends B2WTestCase {
 	B2WPurchasingTasks purch = new B2WPurchasingTasks();
 	B2WEquipmentTasks b2wEquip = new B2WEquipmentTasks();
 	String sEquipment,sID,sBusinessUnit, sRequestDescription, sAltID, sRequestNotes, sRequestComment, sRequestType,
-	sProblemCode, sRequestedBy, sRequestNumber, sEditRequestNumber, sEditRequestType, sEditNotes, sEditDesc;
-	
+	sProblemCode, sRequestedBy, sRequestNumber, sEditRequestNumber, sEditRequestType, sEditNotes, sEditDesc,
+	sWorkOrderDescription;
+	Timestamp timestamp = new Timestamp(System.currentTimeMillis());
 	int iRandom;
 
 	@Override
@@ -73,7 +78,7 @@ public class B2WRequestSmokeTest extends B2WTestCase {
 		sEquipment = getProperty("sEquipment")+iRandom;
 		sID = getProperty("sID")+iRandom;
 		sBusinessUnit = getProperty("sBusinessUnit");
-		sRequestDescription=getProperty("sRequestDescription");
+		sRequestDescription=getProperty("sRequestDescription")+iRandom;
 		sAltID=getProperty("sAltID")+iRandom;
 		sRequestNotes=getProperty("sRequestNotes");
 		sRequestComment=getProperty("sRequestComment");
@@ -82,6 +87,7 @@ public class B2WRequestSmokeTest extends B2WTestCase {
 		sEditRequestType=getProperty("sEditRequestType");
 		sEditNotes=getProperty("sEditNotes");
 		sEditDesc=getProperty("sEditDesc");
+		sWorkOrderDescription=getProperty("sWorkOrderDescription")+iRandom;
 		super.testSetUp();
 	}
 
@@ -125,10 +131,10 @@ public class B2WRequestSmokeTest extends B2WTestCase {
 		//Create New Requests
 		createRequest();
 		editRequest();
-		//•Edit existing Requests (should only be able to edit requests with a status of Requested)
+		addRequestToWorkOrder();
+		deleteRequest();
+		comments();
 		
-		
-//		•Delete a Request (based on status and users security role permissions)
 //		•Add/Edit/Delete Comments on a Request
 //		•Add/Edit/Delete Attachments on a Request
 //		•Adding a Request to a Work Order
@@ -160,21 +166,83 @@ public class B2WRequestSmokeTest extends B2WTestCase {
 	}
 
 	public void editRequest() {
-		b2wNav.openMaintain();
-		b2wMaintain.openRequests();
-		b2wRequests.selectWorkOrderRequestByID(sRequestNumber);
-		logCompare(false,b2wRequests.clickEditRequest(),"Cannot edit request");
+		String sRequest = selectByStatus("Requested");
+		b2wRequests.selectWorkOrderRequestByDescription(sRequest);
+		TaskUtils.sleep(1000);
+		logCompare(true,b2wRequests.clickEditRequest(),"Edit request");
 		TaskUtils.sleep(500);
-		logCompare(true,b2wRequests.selectWorkOrderRequestByID(sEditRequestNumber), "Select Request that can be edited");
-		logCompare(true,b2wRequests.clickEditRequest(),"Edit Request");
-		logCompare(true,b2wRequests.setRequestDescription(sEditDesc), "Edit Desc");
+	
+		logCompare(true,b2wRequests.setRequestDescription(this.sEditDesc), "Edit Desc");
 		logCompare(true,b2wRequests.selectTypeFromDD(sEditRequestType), "Edit Type");
 		logCompare(true,b2wRequests.setRequestNotes(sEditNotes),"Changed Notes");
 		logCompare(true,b2wRequests.clickSaveButton(),"Save");
-		logCompare(true,b2wRequests.selectWorkOrderRequestByDescription(sEditDesc),"Edit description");
-		TaskUtils.sleep(500);
-		logCompare(true,b2wRequests.deleteRequest(), "Delete this Request");
-		TaskUtils.sleep(1000);
+		logCompare(true,b2wRequests.selectWorkOrderRequestByDescription(sEditDesc),"Select with new description");
+		sRequest = selectByStatus("Assigned:");
+		b2wRequests.selectWorkOrderRequestByDescription(sRequest);
+		logCompare(false,b2wRequests.clickEditRequest(),"Cannot edit request");
+		sRequest = selectByStatus("Scheduled:");
+		b2wRequests.selectWorkOrderRequestByDescription(sRequest);
+		logCompare(false,b2wRequests.clickEditRequest(),"Cannot edit request");
+		sRequest = selectByStatus("Completed:");
+		b2wRequests.selectWorkOrderRequestByDescription(sRequest);
+		logCompare(false,b2wRequests.clickEditRequest(),"Cannot edit request");
+		
 	}
 	
+	public void deleteRequest() {
+
+		
+		String sSelected = selectByStatus("Requested");
+		logCompare(true,b2wRequests.deleteRequest(),"Delete Request");
+		logCompare(false,b2wRequests.selectWorkOrderRequestByDescription(sSelected), "Item Deleted");
+		selectByStatus("Assigned:");
+		logCompare(false,b2wRequests.deleteRequest(),"Attempt to delete");
+		TaskUtils.sleep(1000);
+		selectByStatus("Scheduled:");
+		logCompare(false,b2wRequests.deleteRequest(),"Attempt to delete");
+		TaskUtils.sleep(1000);
+		selectByStatus("Completed:");
+		logCompare(false,b2wRequests.deleteRequest(),"Attempt to delete");
+	}
+	
+	public String selectByStatus(String s) {
+		int iRequests = b2wRequests.getTheNumberOfRequestsInView();
+		String sStatus = "";
+		String sSelected = "";
+		int i = 0;
+		while (!sStatus.equals(s) && i < iRequests){
+			b2wRequests.selectRequest(i);
+			sStatus = b2wRequests.getSelectedRequestStatus();
+			sSelected = b2wRequests.getSelectedItemDescription();
+			i++;
+		}
+		return sSelected;
+	}
+	
+	public void addRequestToWorkOrder() {
+		SimpleDateFormat sd = new SimpleDateFormat("M/d/yyyy");
+		Calendar cal = Calendar.getInstance();
+		cal.add(Calendar.DAY_OF_YEAR, 14);
+		logCompare(true,b2wRequests.selectWorkOrderRequestByDescription(sRequestDescription),"Select Request "+sRequestDescription);
+		logCompare(true,b2wRequests.clickAddToWorkOrderButton(), "Add To Work Order");
+		logCompare(true,b2wWork.setWorkOrderDescription(sWorkOrderDescription), "Set Description");
+		b2wWork.selectAnyPlannedWorkLocation();
+		b2wWork.selectAnyLaborRateClass();
+		logCompare(true,b2wWork.setWorkOrderNotes("Automation Work Order Notes"), "Work Order Notes");
+		logCompare(true,b2wWork.setDueDate(sd.format(cal.getTime())), "Due Date");
+		assertTrue("Save Work Order",b2wWork.clickSaveButton());
+		logCompare("Assigned",b2wRequests.getSelectedRequestStatus(),"Request is Assigned");
+		
+	}
+	
+	public void comments() {
+		b2wRequests.selectWorkOrderRequestByDescription(sRequestDescription);
+		b2wRequests.editComment(this.sRequestComment);
+		sRequestComment += timestamp.getTime();
+		logCompare(true,b2wRequests.setNewCommentAndSave(sRequestComment), "Set New Comment");
+		logCompare(sRequestComment,b2wRequests.getComment(),"Verify Comments");
+		logCompare(true,b2wRequests.deleteComment(sRequestComment),"Delete Comments");
+		logCompare("",b2wRequests.getComment(),"Verify Comments");
+	
+	}
 }
