@@ -1171,4 +1171,5 @@ public class B2WUIMap {
 	public static final String b2w_kendogridheader = "div.k-grid-header-wrap";
 
 	public static final String b2w_kendolistheightfix = "div.list-height-fix";
+	public static final String b2w_kendokbutton = ".k-button";
 }

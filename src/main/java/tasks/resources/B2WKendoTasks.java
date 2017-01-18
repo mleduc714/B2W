@@ -49,8 +49,8 @@ public abstract class B2WKendoTasks extends B2WKendo {
 	public String INTERVALS = "Intervals";
 	public String COMMENTS = "Comments";
 	
-	public enum COLUMNS {
-		ID, DESCRIPTION, PRIORITY, EQUIPMENT
+	public enum COLUMN {
+		ID, DESCRIPTION, PRIORITY, EQUIPMENT, VENDOR, CREATED, EMPLOYEE, DATE, STATUS
 	};
 	
 	Logger log = Logger.getLogger(B2WKendoTasks.class);
@@ -229,9 +229,11 @@ public abstract class B2WKendoTasks extends B2WKendo {
 		return child;
 	}
 	
-	protected boolean selectItemFromView(String sItem, int iColumn) {
+	protected boolean selectItemFromView(String sItem, COLUMN col) {
 		boolean bReturn = false;
+		int iColumn = 0;
 		try {
+			iColumn = getColumn(col);
 			WebElement grid = WebElementUtils.findElement(B2WEquipment.getKendoGridContent());
 			List<WebElement> items = WebElementUtils.getChildElements(grid, By.tagName("tr"));
 			Iterator<WebElement> iter = items.iterator();
@@ -239,24 +241,25 @@ public abstract class B2WKendoTasks extends B2WKendo {
 			while (iter.hasNext()) {
 				WebElement item = iter.next();
 				List<WebElement> gridcontent = WebElementUtils.getChildElements(item, By.tagName("td"));
-				
-				String sText = gridcontent.get(iColumn).getText();
-				// when it's a empty string we need to get into view
-				if (sText.equals("")) {
-					Coordinates coordinate = ((Locatable) item).getCoordinates();
-					coordinate.onPage();
-					coordinate.inViewPort();
-				}
-				sText = gridcontent.get(iColumn).getText();
-				sText = sText.trim();
-				if (sText.equals(sItem)) {
-					bReturn = WebElementUtils.clickElement(item);
-					bReturn &= waitForPageNotBusy(WebElementUtils.MEDIUM_TIME_OUT);
-					break;
+				if (iColumn < gridcontent.size()) {
+					String sText = gridcontent.get(iColumn).getText();
+					// when it's a empty string we need to get into view
+					if (sText.equals("")) {
+						Coordinates coordinate = ((Locatable) item).getCoordinates();
+						coordinate.onPage();
+						coordinate.inViewPort();
+					}
+					sText = gridcontent.get(iColumn).getText();
+					sText = sText.trim();
+					if (sText.equals(sItem)) {
+						bReturn = WebElementUtils.clickElement(item);
+						bReturn &= waitForPageNotBusy(WebElementUtils.MEDIUM_TIME_OUT);
+						break;
+					}
 				}
 			}
 		} catch (StaleElementReferenceException e) {
-			return selectItemFromView(sItem, iColumn);
+			return selectItemFromView(sItem, col);
 		}
 		return bReturn;
 	}
@@ -795,11 +798,59 @@ public abstract class B2WKendoTasks extends B2WKendo {
 		}
 		return bReturn;
 	}
+	
+	protected boolean closeFilter(String sFilter){
+		boolean bReturn = false;
+		
+		List<WebElement> list = WebElementUtils.findElements(B2WMaintain.getB2WKendoKButton());
+		for (WebElement el: list){
+			if (el.getText().contains(sFilter)){
+				WebElement close = WebElementUtils.getChildElement(el, B2WMaintain.getB2WKendoRemoveItemBtn());
+				bReturn = WebElementUtils.clickElement(close);
+			}
+		}
+		
+		return bReturn;
+	}
 
-	protected int getColumn(COLUMNS col){
+	public int getColumn(COLUMN col){
+		int iCol = 0;
+		WebElement header = WebElementUtils.findElement(B2WMaintain.getKendoGridHeader());
+		List<WebElement> columns = WebElementUtils.getChildElements(header, By.tagName("th"));
+		String s = "";
+		switch (col){
+		case ID:
+			s = "ID";
+			break;
+		case DESCRIPTION:
+			s = "Description";
+			break;
+		case PRIORITY:
+			s ="Priority";
+			break;
+		case EQUIPMENT:
+			s = "Equipment";
+			break;
+		case EMPLOYEE:
+			s = "Employee";
+		case DATE:
+			s = "Date";
+		case STATUS:
+			s = "STATUS";
+		case VENDOR:
+			s = "Vendor";
+		case CREATED:
+			s = "Created";
+		}
 		
-		
-		
-		return 0;
+		for (WebElement el: columns){
+			String sHeader = el.getAttribute("data-title");
+			if (sHeader != null && sHeader.equals(s)){
+				
+				break;
+			}
+			iCol++;
+		}
+		return iCol;	
 	}
 }

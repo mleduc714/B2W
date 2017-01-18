@@ -281,10 +281,10 @@ public class B2WPurchasingTasks extends B2WKendoTasks {
 		
 	}
 	public boolean selectPurchaseOrderByVendor(String sItem) {
-		return selectItemFromView(sItem, 2);
+		return selectItemFromView(sItem, COLUMN.VENDOR);
 	}
 	public boolean selectPurchaseOrderByID(String sItem) {
-		return selectItemFromView(sItem, 1);
+		return selectItemFromView(sItem, COLUMN.ID);
 	}
 
 	private WebElement getPurchasingElement(String sContainer) {

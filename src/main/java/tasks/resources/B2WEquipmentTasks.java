@@ -595,11 +595,11 @@ public class B2WEquipmentTasks extends B2WKendoTasks {
 	
 	}
 	public boolean selectEquipmentFromViewByID(String sID){
-		return selectItemFromView(sID,0);
+		return selectItemFromView(sID,COLUMN.ID);
 	}
 	
 	public boolean selectEquipmentFromViewByDescription(String sDesc) {
-		return selectItemFromView(sDesc,1);
+		return selectItemFromView(sDesc,COLUMN.DESCRIPTION);
 	}
 	
 	public String getEquipmentHeadline() {
@@ -1120,7 +1120,7 @@ public class B2WEquipmentTasks extends B2WKendoTasks {
 		boolean bReturn = false;
 		int iRow = getWarranties().indexOf(sWarranty);
 		List<WebElement> rows = getWarrantyRows();
-		if (rows.size()>0){
+		if (rows.size()>0 && iRow >= 0){
 			WebElement delete = WebElementUtils.getChildElement(rows.get(iRow), B2WMaintain.getKendoDeleteButton());
 			bReturn = WebElementUtils.clickElement(delete);
 		}
@@ -1224,5 +1224,8 @@ public class B2WEquipmentTasks extends B2WKendoTasks {
 		setEquipmentID(sID);
 		selectNewEquipmentBusinessUnitFromDropDown(sBusinessUnit);
 		return saveNewEquipment();
+	}
+	public boolean closeEquipmentFilter(String sFilter){
+		return closeFilter(sFilter);
 	}
 }

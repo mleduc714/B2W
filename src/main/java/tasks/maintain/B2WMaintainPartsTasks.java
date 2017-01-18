@@ -174,10 +174,10 @@ public class B2WMaintainPartsTasks extends B2WKendoTasks {
 	}
 	
 	public boolean selectPartByID(String sID){
-		return selectItemFromView(sID, 0);
+		return selectItemFromView(sID, COLUMN.ID);
 	}
 	public boolean selectPartByDescription(String sText){
-		return selectItemFromView(sText, 1);
+		return selectItemFromView(sText, COLUMN.DESCRIPTION);
 	}
 
 	private boolean selectViewFromDropDown(String sText){

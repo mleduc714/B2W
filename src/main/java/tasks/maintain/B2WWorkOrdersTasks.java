@@ -222,15 +222,15 @@ public class B2WWorkOrdersTasks extends B2WKendoTasks {
 	}
 	
 	public boolean selectWorkOrderByID(String sText){
-		return selectItemFromView(sText, 0);
+		return selectItemFromView(sText, COLUMN.ID);
 	}
 
 	public boolean selectWorkOrderByDescription(String sText) {
-		return selectItemFromView(sText, 1);
+		return selectItemFromView(sText, COLUMN.DESCRIPTION);
 	}
 	
 	public boolean selectWorkOrderByPriority(String sText){
-		return selectItemFromView(sText, 2);
+		return selectItemFromView(sText, COLUMN.PRIORITY);
 	}
 	
 	public String getSelectWorkOrderID() {
