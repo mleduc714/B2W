@@ -303,7 +303,7 @@ public class B2WWorkOrderSmokeTest extends B2WTestCase {
 		logCompare(true,b2wWork.selectCompletedWorkOrders(),"Completed Work Order Items");
 		TaskUtils.sleep(1000);
 		logCompare(true, b2wWork.selectWorkOrderByDescription(sWorkOrderDescription), "Select Work Order");
-		
+		logCompare(true,b2wWork.selectAllWorkOrders(),"Select All Work Orders");
 		
 	}
 }

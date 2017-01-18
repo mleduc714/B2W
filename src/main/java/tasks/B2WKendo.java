@@ -1,5 +1,6 @@
 package tasks;
 
+import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -190,16 +191,17 @@ public abstract class B2WKendo {
 	}
 	private void waitForAjax() {
 		int iTimeout = 0;
-		while (true) {
-			Boolean ajaxIsComplete = (Boolean) ((JavascriptExecutor) BrowserUtils.getDriver()).executeScript("return jQuery.active == 0");
-			if (ajaxIsComplete && iTimeout < 20) {
-				log.debug("Wait for Ajax done");
-				break;
-			}
-			log.debug("Wait for Ajax "+iTimeout);
+		boolean ajaxIsComplete = false;
+		while (!ajaxIsComplete && iTimeout < 100) {
+			ajaxIsComplete = (Boolean) ((JavascriptExecutor) BrowserUtils.getDriver()).executeScript("return jQuery.active == 0");
+			log.debug("**Waiting for ajax to complete**");
 			iTimeout++;
-			TaskUtils.sleep(500);
+			TaskUtils.sleep(100);
 		}
+		double iHowLong = (iTimeout * .1);
+		DecimalFormat twoDForm = new DecimalFormat("#.##");
+		log.debug("Waited "+Double.valueOf(twoDForm.format(iHowLong))+ " seconds for ajax to complete");
+		
 	}
 	
 	protected boolean setTextArea(WebElement el, String sLabel, String sText){
@@ -344,5 +346,9 @@ public abstract class B2WKendo {
 		}
 		return window;
 	}
+	double roundTwoDecimals(double d) {
+        DecimalFormat twoDForm = new DecimalFormat("#.##");
+    return Double.valueOf(twoDForm.format(d));
+}
 
 }
