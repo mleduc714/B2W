@@ -176,10 +176,10 @@ public class B2WMaintainRequestTasks extends B2WKendoTasks {
 	}
 	
 	public boolean selectWorkOrderRequestByDescription(String sDesc){
-		return selectItemFromView(sDesc, 1);
+		return selectItemFromView(sDesc, COLUMN.DESCRIPTION);
 	}
 	public boolean selectWorkOrderRequestByID(String sID){
-		return selectItemFromView(sID, 0);
+		return selectItemFromView(sID, COLUMN.ID);
 	}
 	public boolean selectRequest(int i){
 		return selectItemFromView(i);

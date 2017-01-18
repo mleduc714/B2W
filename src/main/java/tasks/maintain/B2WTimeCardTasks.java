@@ -75,7 +75,7 @@ public class B2WTimeCardTasks extends B2WKendoTasks {
 
 	
 	public boolean selectTimeCardByEmployeeName(String sName){
-		return selectItemFromView(sName, 0);
+		return selectItemFromView(sName, COLUMN.ID);
 	}
 
 	public boolean clickReportEquipmentHoursButton() {
@@ -122,7 +122,7 @@ public class B2WTimeCardTasks extends B2WKendoTasks {
 	}
 	
 	public boolean selectEmployee(String sItem) {
-		return selectItemFromView(sItem, 0);
+		return selectItemFromView(sItem, COLUMN.ID);
 	}
 	
 }
