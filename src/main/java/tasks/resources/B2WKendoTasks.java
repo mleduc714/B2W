@@ -833,14 +833,19 @@ public abstract class B2WKendoTasks extends B2WKendo {
 			break;
 		case EMPLOYEE:
 			s = "Employee";
+			break;
 		case DATE:
 			s = "Date";
+			break;
 		case STATUS:
 			s = "STATUS";
+			break;
 		case VENDOR:
 			s = "Vendor";
+			break;
 		case CREATED:
 			s = "Created";
+			break;
 		}
 		
 		for (WebElement el: columns){

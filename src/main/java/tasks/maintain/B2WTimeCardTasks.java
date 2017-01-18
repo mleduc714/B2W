@@ -122,7 +122,7 @@ public class B2WTimeCardTasks extends B2WKendoTasks {
 	}
 	
 	public boolean selectEmployee(String sItem) {
-		return selectItemFromView(sItem, COLUMN.ID);
+		return selectItemFromView(sItem, COLUMN.EMPLOYEE);
 	}
 	
 }
