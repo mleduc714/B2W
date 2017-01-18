@@ -2,6 +2,13 @@ package testcases.maintain;
 
 import com.b2w.test.B2WTestCase;
 
+import tasks.B2WNavigationTasks;
+import tasks.dialogs.B2WAddInterval;
+import tasks.dialogs.B2WAddItemMaintenanceProgram;
+import tasks.maintain.B2WMaintainProgramsTasks;
+import tasks.maintain.B2WMaintainTasks;
+import tasks.util.TaskUtils;
+
 public class B2WProgramsSmokeTest extends B2WTestCase {
 	
 
@@ -15,6 +22,8 @@ public class B2WProgramsSmokeTest extends B2WTestCase {
 	public void testTearDown() throws Throwable {
 		// code here for code after the test complete. 
 		// cleanup
+		
+		
 		super.testTearDown();
 	}
 
@@ -50,8 +59,8 @@ public class B2WProgramsSmokeTest extends B2WTestCase {
 	public void testMain() throws Throwable {
 		/*	Create a New Maintenance Program
 		•Add Item(s)
-		•Enter Intervals
-		•Enter Exclusions
+		•Enter Intervals V
+		•Enter Exclusions V
 		•Enter Planned Hours
 		•Enter Parts to be used with the Maintenance Program
 		•Save
@@ -73,6 +82,69 @@ public class B2WProgramsSmokeTest extends B2WTestCase {
 		•Navigation options to Programs page
 	*/
 		
+		B2WNavigationTasks navigation = new B2WNavigationTasks();
+		
+		B2WMaintainTasks b2wMain = new B2WMaintainTasks();
+		
+		B2WMaintainProgramsTasks b2wMainPrograms = new B2WMaintainProgramsTasks();
+		
+		B2WAddItemMaintenanceProgram b2wAddItem = new B2WAddItemMaintenanceProgram();
+		
+		B2WAddInterval addInterval = new B2WAddInterval();	
+
+		
+		logCompare(true, navigation.openMaintain(), "Open Equipment Page");
+		
+		b2wMain.openPrograms();
+		
+		b2wMainPrograms.createNewMaintenanceProgram();
+		b2wMainPrograms.setMaintenanceProgramDescription("This is a newly created program");
+		b2wMainPrograms.selectBusinessUnit("Hauling");
+		b2wMainPrograms.selectLaborRateClass("New Hampshire Rates");
+		
+		b2wMainPrograms.clickAddItem();
+		b2wAddItem.setAddItemDescription("This is a new item");
+		b2wAddItem.selectAddItemPriority("High");
+		b2wAddItem.selectAddItemTypeFromDD("Inspection");
+		b2wAddItem.setAddItemLevel("55");
+		b2wAddItem.saveItem();
+		
+		b2wMainPrograms.expandIntervals();
+		b2wMainPrograms.clickAddInterval();
+		addInterval.setIntervalDescription("This is a new interval");
+		addInterval.selectCalendarBasedInterval();
+		addInterval.selectMeterTypeFromDD("Odometer");
+		addInterval.selectDailyBasedInterval();
+		addInterval.setIntervalOccursEvery("1");
+		addInterval.saveInterval();
+		b2wMainPrograms.collapseIntervals();
+		
+		b2wMainPrograms.clickAddItem();
+		b2wAddItem.setAddItemDescription("This is another item");
+		b2wAddItem.selectAddItemTypeFromDD("Winter");
+		b2wAddItem.selectAddItemPriority("Low");
+		b2wAddItem.setAddItemLevel("33");
+		b2wAddItem.saveItem();
+		
+		b2wMainPrograms.expandIntervals();
+		b2wMainPrograms.clickAddInterval();
+		addInterval.setIntervalDescription("This is another interval");
+		addInterval.selectMeterTypeFromDD("Odometer");
+		addInterval.selectMeterTypeFromDD("Hour Interval");
+		addInterval.selectMeterEvery("100");
+		addInterval.setGenerateRepairRequestsForThisItem("10");
+		addInterval.saveInterval();
+		
+		b2wMainPrograms.expandExclusions();
+		b2wMainPrograms.excludeAugust();
+		b2wMainPrograms.excludeJanuary();
+		b2wMainPrograms.excludeDecemeber();
+		b2wMainPrograms.excludeMarch();
+		
+		b2wMainPrograms.saveMaintenanceProgram();
+		
+		TaskUtils.sleep(5000);
+
 	}
 
 }

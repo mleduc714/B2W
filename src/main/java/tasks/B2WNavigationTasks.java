@@ -287,6 +287,27 @@ public class B2WNavigationTasks implements Navigation {
 		}
 		return bReturn;
 	}
+	
+	//THIS MIGHT NOT WORK
+	public boolean openPrograms() {
+		boolean bReturn = false;
+		if (openResources()) {
+			WebElementUtils.switchToFrame(B2WNavigationPanel.getB2WSetupNavigationPanel(), 1);
+			List<WebElement> items = BrowserUtils.getDriver().findElements(B2WNavigationPanel.getB2WSetupPopupItem());
+			WebElement item = WebElementUtils.getElementWithMatchingText(items, "Programs", true);
+			if (item != null) {
+				item.click();
+				WebElement el = WebElementUtils.waitAndFindDisplayedElement(B2WEquipment.getKendoButton());
+				if (el != null) {
+					bReturn = true;
+					bReturn &= new B2WEquipmentTasks().waitForEquipmentPageNoBusy();
+				}
+			}
+		}
+		return bReturn;
+	}
+	//THIS MIGHT NOT WORK
+	
 	public boolean openEquipmentRateClasses() {
 		return openResources("Equipment Rate Classes","Equipment Rate Classes");
 	}

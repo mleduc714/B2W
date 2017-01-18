@@ -271,10 +271,6 @@ public class B2WEquipmentSmokeTest extends B2WTestCase {
 
 		logCompare(true, equipmentTasks.selectEquipmentFromViewByDescription(description), "Select Equipment by Description");
 
-		logCompare(true, equipmentTasks.clickEdit(), "Click Edit");
-		
-		//Edit and Delete Warranty
-		
 		logCompare(true, equipmentTasks.expandWarrenties(), "Expand Waranties");
 
 		logCompare(true, equipmentTasks.editWarranty(warrantyDescription), "Select and Edit Warranty");
