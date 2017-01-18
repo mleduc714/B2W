@@ -11,6 +11,9 @@ public class B2WAddPartsToEquipment extends B2WKendoDialog {
 		return clickSave();
 	}
 	
+	public String selectAnyPartToAdd() {
+		return selectAnyItemFromDialog();
+	}
 	
 
 	

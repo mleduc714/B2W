@@ -97,7 +97,7 @@ public class B2WWorkOrderSmokeTest extends B2WTestCase {
 	@Override
 	public String getTestDescription() {
 		// enter the description for the testcase
-		return "Testcase description";
+		return "Work Order Smoke Test";
 	}
 
 	@Override

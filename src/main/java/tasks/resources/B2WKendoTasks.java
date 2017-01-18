@@ -9,6 +9,7 @@ import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.internal.Coordinates;
 import org.openqa.selenium.internal.Locatable;
@@ -47,6 +48,10 @@ public abstract class B2WKendoTasks extends B2WKendo {
 	public String DETAILS = "Details";
 	public String INTERVALS = "Intervals";
 	public String COMMENTS = "Comments";
+	
+	public enum COLUMNS {
+		ID, DESCRIPTION, PRIORITY, EQUIPMENT
+	};
 	
 	Logger log = Logger.getLogger(B2WKendoTasks.class);
 	private int getRandomNumber(int iSize) {
@@ -226,28 +231,32 @@ public abstract class B2WKendoTasks extends B2WKendo {
 	
 	protected boolean selectItemFromView(String sItem, int iColumn) {
 		boolean bReturn = false;
-
-		WebElement grid = WebElementUtils.findElement(B2WEquipment.getKendoGridContent());
-		List<WebElement> items = WebElementUtils.getChildElements(grid, By.tagName("tr"));
-		Iterator<WebElement> iter = items.iterator();
-		log.debug("Looking for item "+sItem);
-		while (iter.hasNext()) {
-			WebElement item = iter.next();
-			List<WebElement> gridcontent = WebElementUtils.getChildElements(item, By.tagName("td"));
-			String sText = gridcontent.get(iColumn).getText();
-			// when it's a empty string we need to get into view
-			if (sText.equals("")) {
-				Coordinates coordinate = ((Locatable) item).getCoordinates();
-				coordinate.onPage();
-				coordinate.inViewPort();
+		try {
+			WebElement grid = WebElementUtils.findElement(B2WEquipment.getKendoGridContent());
+			List<WebElement> items = WebElementUtils.getChildElements(grid, By.tagName("tr"));
+			Iterator<WebElement> iter = items.iterator();
+			log.debug("Looking for item " + sItem);
+			while (iter.hasNext()) {
+				WebElement item = iter.next();
+				List<WebElement> gridcontent = WebElementUtils.getChildElements(item, By.tagName("td"));
+				
+				String sText = gridcontent.get(iColumn).getText();
+				// when it's a empty string we need to get into view
+				if (sText.equals("")) {
+					Coordinates coordinate = ((Locatable) item).getCoordinates();
+					coordinate.onPage();
+					coordinate.inViewPort();
+				}
+				sText = gridcontent.get(iColumn).getText();
+				sText = sText.trim();
+				if (sText.equals(sItem)) {
+					bReturn = WebElementUtils.clickElement(item);
+					bReturn &= waitForPageNotBusy(WebElementUtils.MEDIUM_TIME_OUT);
+					break;
+				}
 			}
-			sText = gridcontent.get(iColumn).getText();
-			sText = sText.trim();
-			if (sText.equals(sItem)) {
-				bReturn = WebElementUtils.clickElement(item);
-				bReturn &= waitForPageNotBusy(WebElementUtils.MEDIUM_TIME_OUT);
-				break;
-			}
+		} catch (StaleElementReferenceException e) {
+			return selectItemFromView(sItem, iColumn);
 		}
 		return bReturn;
 	}
@@ -785,5 +794,12 @@ public abstract class B2WKendoTasks extends B2WKendo {
 			bReturn = WebElementUtils.clickElement(delete);
 		}
 		return bReturn;
+	}
+
+	protected int getColumn(COLUMNS col){
+		
+		
+		
+		return 0;
 	}
 }

@@ -539,7 +539,22 @@ public class B2WEquipmentTasks extends B2WKendoTasks {
 	public boolean selectAllEquipmentByTypeView() {
 		boolean bReturn = false;
 		String sItem = "All Equipment By Type";
-		if (WebElementUtils.clickElement(B2WEquipment.getKendoDropDownItem())) {
+		WebElement el = WebElementUtils.findElement(B2WMaintain.getB2WKendoListHeightFix());
+		WebElement dd = WebElementUtils.getChildElement(el, B2WEquipment.getKendoDropDown());
+		if (WebElementUtils.clickElement(dd)) {
+			// when we click we need to find the visible list
+			bReturn = findAndSelectItemFromDD(sItem);
+		}
+		return bReturn;
+				
+	}
+	
+	public boolean selectAllEquipmentView() {
+		boolean bReturn = false;
+		String sItem = "All Equipment";
+		WebElement el = WebElementUtils.findElement(B2WMaintain.getB2WKendoListHeightFix());
+		WebElement dd = WebElementUtils.getChildElement(el, B2WEquipment.getKendoDropDown());
+		if (WebElementUtils.clickElement(dd)) {
 			// when we click we need to find the visible list
 			bReturn = findAndSelectItemFromDD(sItem);
 		}

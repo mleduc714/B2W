@@ -49,7 +49,6 @@ public abstract class B2WKendoDialog extends B2WKendo {
 
 		boolean bReturn = false;
 		WebElement savebutton = null;
-		TaskUtils.sleep(500);
 		WebElement window = getDisplayedWindow();
 		if (window != null) {
 			savebutton = WebElementUtils.getChildElement(window, B2WEquipment.getKendoLargeSaveButton());
