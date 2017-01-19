@@ -178,13 +178,13 @@ public class B2WRequestSmokeTest extends B2WTestCase {
 		logCompare(true,b2wRequests.clickSaveButton(),"Save");
 		logCompare(true,b2wRequests.selectWorkOrderRequestByDescription(sEditDesc),"Select with new description");
 		sRequest = selectByStatus("Assigned:");
-		b2wRequests.selectWorkOrderRequestByDescription(sRequest);
+		logCompare(true,b2wRequests.selectWorkOrderRequestByDescription(sRequest), "Work Order Assigned");
 		logCompare(false,b2wRequests.clickEditRequest(),"Cannot edit request");
 		sRequest = selectByStatus("Scheduled:");
-		b2wRequests.selectWorkOrderRequestByDescription(sRequest);
+		logCompare(true,b2wRequests.selectWorkOrderRequestByDescription(sRequest), "Work Order Scheduled");
 		logCompare(false,b2wRequests.clickEditRequest(),"Cannot edit request");
 		sRequest = selectByStatus("Completed:");
-		b2wRequests.selectWorkOrderRequestByDescription(sRequest);
+		logCompare(true,b2wRequests.selectWorkOrderRequestByDescription(sRequest), "Work Order Completed");
 		logCompare(false,b2wRequests.clickEditRequest(),"Cannot edit request");
 		
 	}
