@@ -198,9 +198,7 @@ public abstract class B2WKendo {
 			iTimeout++;
 			TaskUtils.sleep(100);
 		}
-		double iHowLong = (iTimeout * .1);
-		DecimalFormat twoDForm = new DecimalFormat("#.##");
-		log.debug("Waited "+Double.valueOf(twoDForm.format(iHowLong))+ " seconds for ajax to complete");
+		log.debug("Waited "+ iTimeout +" trys for ajax to complete");
 		
 	}
 	
