@@ -132,7 +132,7 @@ public class B2WSchedulesTasks extends B2WKendoTasks {
     // === Private Methods
     private boolean clickCreateScheduleView() {
         boolean bReturn = false;
-        WebElement eNewScheduleBtn = WebElementUtils.findElement(B2WSchedules.createScheduleViewBtn());
+        WebElement eNewScheduleBtn = WebElementUtils.waitAndFindDisplayedElement(B2WSchedules.createScheduleViewBtn());
         WebElementUtils.waitForElementClickable(eNewScheduleBtn);
         if (eNewScheduleBtn != null) {
             bReturn = WebElementUtils.clickElement(eNewScheduleBtn);

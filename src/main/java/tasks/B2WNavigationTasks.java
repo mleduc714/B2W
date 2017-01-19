@@ -15,6 +15,7 @@ import appobjects.resources.B2WEquipment;
 import appobjects.resources.B2WTMPriceSheets;
 import appobjects.scheduler.B2WScheduleAssignments;
 import tasks.maintain.B2WMaintainTasks;
+import tasks.resources.B2WCrewTemplateTasks;
 import tasks.resources.B2WEquipmentTasks;
 import tasks.scheduler.B2WSchedulerTasks;
 import tasks.setup.B2WSchedulesTasks;
@@ -278,6 +279,7 @@ public class B2WNavigationTasks implements Navigation {
 				WebElement panel = WebElementUtils.waitAndFindDisplayedElement(B2WCommonObjects.getB2WPageProductPanel());
 				String sText = panel.findElement(By.tagName("h1")).getText();
 				bReturn = sText.equals("Crew Templates");
+				new B2WCrewTemplateTasks().waitForSchedulesPageNoBusy();
 			}
 		} else {
 			log.debug("Resource menu could not be opened.");

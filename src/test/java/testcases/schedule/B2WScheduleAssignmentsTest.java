@@ -1,4 +1,4 @@
-package testcases;
+package testcases.schedule;
 
 import com.b2w.test.B2WTestCase;
 import org.apache.commons.lang3.time.DateUtils;
