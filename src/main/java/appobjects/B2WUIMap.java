@@ -146,6 +146,7 @@ public class B2WUIMap {
 	public static final String b2w_schedules_searchField = ".list-filter.k-textbox";
 	public static final String b2w_schedules_deleteSearchIcon = ".b2wicon.i140-rejected";
 	public static final String b2w_schedules_tbody = "tbody[role='rowgroup']";
+	public static final String b2w_schedules_sortingIcon = "th[data-title='replace']";
 
 	// page filter
 	public static final String b2w_page_filter_letterA = "a#PageContent_FilterControl_AButton";

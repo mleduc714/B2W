@@ -917,23 +917,6 @@ public class WebElementUtils {
 	public static WebElement getKendoFDDElementByLabel(String sText) {
 		List<WebElement> inputList = WebElementUtils.findElements(By.cssSelector("label"));
 		return getKendoFddFromList(inputList, sText);
-		/*
-		try {
-			List<WebElement> inputList = WebElementUtils.findElements(By.cssSelector("label"));
-			WebElement el = getElementWithMatchingText(inputList, sText, false);
-			if (el != null) {
-				WebElement parent = getParentElement(el);
-				WebElement elResult = getChildElement(parent, KendoUI.getKendoDropDown());
-				return elResult;
-			} else {
-				log.debug(sText + " could not be found on the Page.");
-				return null;
-			}
-		} catch (TimeoutException e) {
-			log.warn("Could not find element with text " + sText);
-			return null;
-		}
-		*/
 	}
 	public static WebElement getKendoFDDElementByTag(String sText, String tagName) {
 		List<WebElement> inputList = WebElementUtils.findElements(By.cssSelector(tagName));

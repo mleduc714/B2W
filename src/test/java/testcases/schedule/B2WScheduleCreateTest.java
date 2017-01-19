@@ -75,6 +75,7 @@ public class B2WScheduleCreateTest extends B2WTestCase{
 		// Schedule Tests
 		createScheduleViews();
 		searchScheduleViews();
+		sortingScheduleView();
 		copyScheduleViews();
 		updateScheduleView();
 
@@ -540,6 +541,9 @@ public class B2WScheduleCreateTest extends B2WTestCase{
 		b2wSchedulesTasks.searchScheduleView(equipmentScheduleView);
 		b2wSchedulesTasks.searchScheduleView(crewsScheduleView);
 		b2wSchedulesTasks.searchScheduleView(locationScheduleView);
+	}
+	private void sortingScheduleView() {
+		b2wSchedulesTasks.sortingScheduleView();
 	}
 	private void copyScheduleViews() {
 		copyEmployeeScheduleView = b2wSchedulesTasks.copyScheduleView(employeeScheduleView);
