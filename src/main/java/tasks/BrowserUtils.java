@@ -64,7 +64,7 @@ public class BrowserUtils {
 				break;
 			}
 			driver.get(url);
-			TaskUtils.sleep(10000);
+			//TaskUtils.sleep(20000);
 			maximize();
 			log.debug("Waiting for page to load after URL navigation: " + waitForPageLoaded());
 			return true;
