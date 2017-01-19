@@ -485,21 +485,23 @@ public class B2WMaintainPartsTasks extends B2WKendoTasks {
 	
 	public String getInventoryText(int iRow, int iColumn) {
 		String al = "";
-		WebElement listView = WebElementUtils.findElement(B2WMaintain.getMaintainPartsInventoryHistoryListView());
-		if (listView != null) {
-			WebElement rowgroup = WebElementUtils.getElementWithMatchingAttribute(
-					WebElementUtils.getChildElements(listView, By.tagName("tbody")), "role", "rowgroup");
-			if (rowgroup != null) {
-				List<WebElement> rows = WebElementUtils.getChildElements(rowgroup, By.tagName("tr"));
-				if (rows.size()>=iRow){
-					List<WebElement> columns =  rows.get(iRow).findElements(By.tagName("td"));
-					if (columns.size()>=iColumn){
-						al = columns.get(iColumn).getText();
+		if (iRow > -1 && iColumn > -1) {
+			WebElement listView = WebElementUtils.findElement(B2WMaintain.getMaintainPartsInventoryHistoryListView());
+			if (listView != null) {
+				WebElement rowgroup = WebElementUtils.getElementWithMatchingAttribute(
+						WebElementUtils.getChildElements(listView, By.tagName("tbody")), "role", "rowgroup");
+				if (rowgroup != null) {
+					List<WebElement> rows = WebElementUtils.getChildElements(rowgroup, By.tagName("tr"));
+					if (rows.size() > 0) {
+						List<WebElement> columns = rows.get(iRow).findElements(By.tagName("td"));
+						if (columns.size() > 0) {
+							al = columns.get(iColumn).getText();
+						}
 					}
+
 				}
 
 			}
-
 		}
 		return al;
 	}
