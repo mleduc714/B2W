@@ -1,7 +1,9 @@
 package tasks.maintain;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
 import appobjects.maintain.B2WMaintain;
@@ -125,4 +127,39 @@ public class B2WTimeCardTasks extends B2WKendoTasks {
 		return selectItemFromView(sItem, COLUMN.EMPLOYEE);
 	}
 	
+	public ArrayList<String> getEmployeeLaborTypes() {
+		return getEmployeeTimeCardInfo(0);
+	}
+	
+	public ArrayList<String> getEmployeeLaborRateClass() {
+		return getEmployeeTimeCardInfo(1);
+	}
+	public ArrayList<String> getEmployeeChargeTo() {
+		return getEmployeeTimeCardInfo(2);
+	}
+	public ArrayList<String> getEmployeeHours() {
+		return getEmployeeTimeCardInfo(3);
+	}
+	public ArrayList<String> getEmployeeTimeCardInfo(int iColumn) {
+		ArrayList<String> al = new ArrayList<String>();
+		WebElement el = WebElementUtils.findElement(By.cssSelector("div#employeeHoursGrid"));
+		WebElement tbody = WebElementUtils.getChildElement(el, By.tagName("tbody"));
+		List<WebElement> rows = WebElementUtils.getChildElements(tbody, By.tagName("tr"));
+		for (WebElement tr: rows){
+			al.add(WebElementUtils.getChildElements(tr, By.tagName("td")).get(iColumn).getText());
+		}
+		return al;
+	}
+	
+	public String getTotalHours() {
+		String s = "";
+		WebElement el = WebElementUtils.findElement(By.cssSelector("div#employeeHoursGrid"));
+		if (el != null){
+			WebElement footer = WebElementUtils.getChildElement(el, By.className("k-footer-template"));
+			s = WebElementUtils.getChildElements(footer, By.tagName("td")).get(3).getText();
+		}
+		return s;
+		
+		
+	}
 }

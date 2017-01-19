@@ -277,18 +277,18 @@ public class B2WReportHours extends B2WKendoDialog {
 		return bReturn;
 	}
 	
-	public boolean selectAnyJob(){
-		boolean bReturn = false;
+	public String selectAnyJob(){
+		String s = "";
 		WebElement el = getWebElementFromJobChargedDialog(0);
 		if (el != null){
 			WebElementUtils.clickElement(el);
-			bReturn = WebElementUtils.sendKeys(el, "a");
+			WebElementUtils.sendKeys(el, "a");
 			TaskUtils.sleep(500);
-			selectRandomItemFromDropDown();
-			bReturn &= waitForPageNotBusy(WebElementUtils.LONG_TIME_OUT);
+			s = selectRandomItemFromDropDown();
+			waitForPageNotBusy(WebElementUtils.LONG_TIME_OUT);
 			TaskUtils.sleep(500);
 		}
-		return bReturn;
+		return s;
 	}
 	
 	public boolean setEmployeeEquipment(String sText){
@@ -302,6 +302,17 @@ public class B2WReportHours extends B2WKendoDialog {
 		}
 		return bReturn;
 	}
+	
+	public String  selectEmployeeAnyEquipment() {
+		String s = "";
+		WebElement el = getWebElementFromEquipmentChargedDialog(0);
+		if (el != null){
+			WebElementUtils.clickElement(el);
+			WebElementUtils.sendKeys(el, "a");
+			s = selectRandomItemFromDropDown();
+		}
+		return s;
+	}
 	public boolean selectEmployeeWorkOrder(String sText){
 		boolean bReturn = false;
 		WebElement el = getWebElementFromEquipmentChargedDialog(1);
@@ -311,6 +322,16 @@ public class B2WReportHours extends B2WKendoDialog {
 		}
 		return bReturn;
 	}
+	public String selectEmployeeAnyWorkOrder() {
+		String s = "";
+		WebElement el = getWebElementFromEquipmentChargedDialog(1);
+		if (el != null){
+			WebElementUtils.clickElement(el);
+			s = selectRandomItemFromDropDown();
+		}
+		return s;
+	}
+	
 	public boolean selectEmployeeWorkOrderItem(String sText){
 		boolean bReturn = false;
 		WebElement el = getWebElementFromEquipmentChargedDialog(2);
@@ -319,6 +340,16 @@ public class B2WReportHours extends B2WKendoDialog {
 			bReturn = selectItemFromDropDown(sText);
 		}
 		return bReturn;
+	}
+	
+	public String selectEmployeeAnyWorkOrderItem() {
+		String s = "";
+		WebElement el = getWebElementFromEquipmentChargedDialog(2);
+		if (el != null){
+			WebElementUtils.clickElement(el);
+			s = selectRandomItemFromDropDown();
+		}
+		return s;
 	}
 	
 	public boolean selectOverheadAccount(String sText){
@@ -330,6 +361,17 @@ public class B2WReportHours extends B2WKendoDialog {
 			selectItemFromDropDown(sText);
 		}
 		return bReturn;
+	}
+	
+	public String selectAnyOverheadAccount() {
+		String s = "";
+		WebElement el = getWebElementFromisChargeTypeAccount(0);
+		if (el != null){
+			WebElementUtils.clickElement(el);
+			s = selectRandomItemFromDropDown();
+			
+		}
+		return s;
 	}
 	
 	public boolean saveReportedHours() {
@@ -344,6 +386,16 @@ public class B2WReportHours extends B2WKendoDialog {
 			selectItemFromDropDown(sText);
 		}
 		return bReturn;
+	}
+	
+	public String selectEmployeeHoursAnyJobTrackingAccount(){
+		String s = "";
+		WebElement el = getWebElementFromJobChargedDialog(1);
+		if (el != null){
+			WebElementUtils.clickElement(el);
+			s = this.selectRandomItemFromDropDown();
+		}
+		return s;
 	}
 
 	public boolean setEmployeeWorkHoursDescription(String sText) {
@@ -365,6 +417,17 @@ public class B2WReportHours extends B2WKendoDialog {
 		}
 		return bReturn;
 	}
+	
+	public String selectEmployeeAnyLaborRateClass() {
+		String s = "";
+
+		WebElement el = getWebElementFromIsChargedTypeSelected(6);
+		if (el != null){
+			WebElementUtils.clickElement(el);
+			s = selectRandomItemFromDropDown();
+		}
+		return s;
+	}
 	public boolean selectEmployeeLaborType(String sText) {
 		boolean bReturn = false;
 		WebElement el = getFormElement("Labor Type", B2WMaintain.getKendoDropDown());
@@ -373,6 +436,16 @@ public class B2WReportHours extends B2WKendoDialog {
 			bReturn = selectItemFromDropDown(sText);
 		}
 		return bReturn;
+	}
+	
+	public String selectEmployeeAnyLaborType() {
+		String s = "";
+		WebElement el = getFormElement("Labor Type", B2WMaintain.getKendoDropDown());
+		if (el != null){
+			WebElementUtils.clickElement(el);
+			s = this.selectRandomItemFromDropDown();
+		}
+		return s;
 	}
 	public boolean setEmployeeRegularHours(String sText){
 		boolean bReturn = false;
