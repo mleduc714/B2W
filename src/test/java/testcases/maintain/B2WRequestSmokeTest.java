@@ -191,7 +191,7 @@ public class B2WRequestSmokeTest extends B2WTestCase {
 	
 	public void deleteRequest() {
 
-		
+		b2wMaintain.openRequests();
 		String sSelected = selectByStatus("Requested");
 		logCompare(true,b2wRequests.deleteRequest(),"Delete Request");
 		logCompare(false,b2wRequests.selectWorkOrderRequestByDescription(sSelected), "Item Deleted");
@@ -231,8 +231,11 @@ public class B2WRequestSmokeTest extends B2WTestCase {
 		logCompare(true,b2wWork.setWorkOrderNotes("Automation Work Order Notes"), "Work Order Notes");
 		logCompare(true,b2wWork.setDueDate(sd.format(cal.getTime())), "Due Date");
 		assertTrue("Save Work Order",b2wWork.clickSaveButton());
-		logCompare("Assigned",b2wRequests.getSelectedRequestStatus(),"Request is Assigned");
-		
+		b2wMaintain.openRequests();
+		b2wRequests.selectWorkOrderRequestByDescription(sRequestDescription);
+		logCompare("Assigned:",b2wRequests.getSelectedRequestStatus(),"Request is Assigned");
+		logCompare(true,b2wRequests.clickOnEquipmentLink(),"Click on Equipment ");
+		logCompare(true,b2wEquip.getEquipmentHeadline().contains(sEquipment), "Equipment link is accurate");
 	}
 	
 	public void comments() {
@@ -242,6 +245,7 @@ public class B2WRequestSmokeTest extends B2WTestCase {
 		logCompare(true,b2wRequests.setNewCommentAndSave(sRequestComment), "Set New Comment");
 		logCompare(sRequestComment,b2wRequests.getComment(),"Verify Comments");
 		logCompare(true,b2wRequests.deleteComment(sRequestComment),"Delete Comments");
+		logCompare(true,b2wRequests.clickConfirmYes(),"Confirm Yes");
 		logCompare("",b2wRequests.getComment(),"Verify Comments");
 		
 	

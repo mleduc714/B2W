@@ -1168,5 +1168,8 @@ public class B2WUIMap {
 	//public static final String b2w_partspurchaseorderdetails = "div.purchase-order-details";
 	public static final String b2w_partspurchaseorderdetails = "div#purchase_order_detail_view";
 	public static final String b2w_partspurchaselineitemcontainer = "div#lineItemsContainer";
-	
+	public static final String b2w_kendogridheader = "div.k-grid-header-wrap";
+
+	public static final String b2w_kendolistheightfix = "div.list-height-fix";
+	public static final String b2w_kendokbutton = ".k-button";
 }

@@ -176,10 +176,10 @@ public class B2WMaintainRequestTasks extends B2WKendoTasks {
 	}
 	
 	public boolean selectWorkOrderRequestByDescription(String sDesc){
-		return selectItemFromView(sDesc, 1);
+		return selectItemFromView(sDesc, COLUMN.DESCRIPTION);
 	}
 	public boolean selectWorkOrderRequestByID(String sID){
-		return selectItemFromView(sID, 0);
+		return selectItemFromView(sID, COLUMN.ID);
 	}
 	public boolean selectRequest(int i){
 		return selectItemFromView(i);
@@ -339,6 +339,7 @@ public class B2WMaintainRequestTasks extends B2WKendoTasks {
 		if (list.size()>1){
 			WebElement link = WebElementUtils.getChildElement(list.get(1), By.tagName("a"));
 			bReturn = WebElementUtils.clickElement(link);
+			WebElementUtils.waitAndFindDisplayedElement(B2WMaintain.getMaintainEquipmentDetailView());
 		}
 		return bReturn;
 	}

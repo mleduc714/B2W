@@ -52,10 +52,10 @@ public class B2WMaintainDashboardTasks extends B2WMaintainTasks {
 		WebElement el = WebElementUtils.findElement(B2WMaintain.getB2WMaintainDashboardNewRequests());
 		if (el != null) {
 			if (WebElementUtils.clickElement(el)) {
-				bReturn = waitForPageNotBusy(WebElementUtils.MEDIUM_TIME_OUT);
-				bReturn &= new TaskUtils().waitForProductPanel("Requests");
-				bReturn &= WebElementUtils.waitAndFindDisplayedElement(B2WMaintain.getKendoGridContent()) != null;
 
+				bReturn = new TaskUtils().waitForProductPanel("Requests");
+				bReturn &= WebElementUtils.waitAndFindDisplayedElement(B2WMaintain.getKendoGridContent()) != null;
+				bReturn &= waitForPageNotBusy(WebElementUtils.MEDIUM_TIME_OUT);
 			}
 		}
 		return bReturn;

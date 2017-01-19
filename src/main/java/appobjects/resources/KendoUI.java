@@ -141,5 +141,17 @@ public abstract class KendoUI {
 	public static By getKendoMasterRow() {
 		return By.cssSelector(B2WUIMap.b2w_kendomasterrow);
 	}
+	public static By getKendoGridHeader() {
+		return By.cssSelector(B2WUIMap.b2w_kendogridheader);
+	}
+	public static By getB2WKendoListHeightFix() {
+		return By.cssSelector(B2WUIMap.b2w_kendolistheightfix);
+	}
+	public static By getB2WKendoKButton() {
+		return By.cssSelector(B2WUIMap.b2w_kendokbutton);
+	}
+	 public static By getB2WKendoRemoveItemBtn() { 
+		 return By.cssSelector(B2WUIMap.b2w_schedules_removeItemBtn);
+	}
 
 }

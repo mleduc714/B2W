@@ -9,6 +9,7 @@ import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.internal.Coordinates;
 import org.openqa.selenium.internal.Locatable;
@@ -47,6 +48,10 @@ public abstract class B2WKendoTasks extends B2WKendo {
 	public String DETAILS = "Details";
 	public String INTERVALS = "Intervals";
 	public String COMMENTS = "Comments";
+	
+	public enum COLUMN {
+		ID, DESCRIPTION, PRIORITY, EQUIPMENT, VENDOR, CREATED, EMPLOYEE, DATE, STATUS
+	};
 	
 	Logger log = Logger.getLogger(B2WKendoTasks.class);
 	private int getRandomNumber(int iSize) {
@@ -224,30 +229,37 @@ public abstract class B2WKendoTasks extends B2WKendo {
 		return child;
 	}
 	
-	protected boolean selectItemFromView(String sItem, int iColumn) {
+	protected boolean selectItemFromView(String sItem, COLUMN col) {
 		boolean bReturn = false;
-
-		WebElement grid = WebElementUtils.findElement(B2WEquipment.getKendoGridContent());
-		List<WebElement> items = WebElementUtils.getChildElements(grid, By.tagName("tr"));
-		Iterator<WebElement> iter = items.iterator();
-		log.debug("Looking for item "+sItem);
-		while (iter.hasNext()) {
-			WebElement item = iter.next();
-			List<WebElement> gridcontent = WebElementUtils.getChildElements(item, By.tagName("td"));
-			String sText = gridcontent.get(iColumn).getText();
-			// when it's a empty string we need to get into view
-			if (sText.equals("")) {
-				Coordinates coordinate = ((Locatable) item).getCoordinates();
-				coordinate.onPage();
-				coordinate.inViewPort();
+		int iColumn = 0;
+		try {
+			iColumn = getColumn(col);
+			WebElement grid = WebElementUtils.findElement(B2WEquipment.getKendoGridContent());
+			List<WebElement> items = WebElementUtils.getChildElements(grid, By.tagName("tr"));
+			Iterator<WebElement> iter = items.iterator();
+			log.debug("Looking for item " + sItem);
+			while (iter.hasNext()) {
+				WebElement item = iter.next();
+				List<WebElement> gridcontent = WebElementUtils.getChildElements(item, By.tagName("td"));
+				if (iColumn < gridcontent.size()) {
+					String sText = gridcontent.get(iColumn).getText();
+					// when it's a empty string we need to get into view
+					if (sText.equals("")) {
+						Coordinates coordinate = ((Locatable) item).getCoordinates();
+						coordinate.onPage();
+						coordinate.inViewPort();
+					}
+					sText = gridcontent.get(iColumn).getText();
+					sText = sText.trim();
+					if (sText.equals(sItem)) {
+						bReturn = WebElementUtils.clickElement(item);
+						bReturn &= waitForPageNotBusy(WebElementUtils.MEDIUM_TIME_OUT);
+						break;
+					}
+				}
 			}
-			sText = gridcontent.get(iColumn).getText();
-			sText = sText.trim();
-			if (sText.equals(sItem)) {
-				bReturn = WebElementUtils.clickElement(item);
-				bReturn &= waitForPageNotBusy(WebElementUtils.MEDIUM_TIME_OUT);
-				break;
-			}
+		} catch (StaleElementReferenceException e) {
+			return selectItemFromView(sItem, col);
 		}
 		return bReturn;
 	}
@@ -785,5 +797,65 @@ public abstract class B2WKendoTasks extends B2WKendo {
 			bReturn = WebElementUtils.clickElement(delete);
 		}
 		return bReturn;
+	}
+	
+	protected boolean closeFilter(String sFilter){
+		boolean bReturn = false;
+		
+		List<WebElement> list = WebElementUtils.findElements(B2WMaintain.getB2WKendoKButton());
+		for (WebElement el: list){
+			if (el.getText().contains(sFilter)){
+				WebElement close = WebElementUtils.getChildElement(el, B2WMaintain.getB2WKendoRemoveItemBtn());
+				bReturn = WebElementUtils.clickElement(close);
+			}
+		}
+		
+		return bReturn;
+	}
+
+	public int getColumn(COLUMN col){
+		int iCol = 0;
+		WebElement header = WebElementUtils.findElement(B2WMaintain.getKendoGridHeader());
+		List<WebElement> columns = WebElementUtils.getChildElements(header, By.tagName("th"));
+		String s = "";
+		switch (col){
+		case ID:
+			s = "ID";
+			break;
+		case DESCRIPTION:
+			s = "Description";
+			break;
+		case PRIORITY:
+			s ="Priority";
+			break;
+		case EQUIPMENT:
+			s = "Equipment";
+			break;
+		case EMPLOYEE:
+			s = "Employee";
+			break;
+		case DATE:
+			s = "Date";
+			break;
+		case STATUS:
+			s = "STATUS";
+			break;
+		case VENDOR:
+			s = "Vendor";
+			break;
+		case CREATED:
+			s = "Created";
+			break;
+		}
+		
+		for (WebElement el: columns){
+			String sHeader = el.getAttribute("data-title");
+			if (sHeader != null && sHeader.equals(s)){
+				
+				break;
+			}
+			iCol++;
+		}
+		return iCol;	
 	}
 }

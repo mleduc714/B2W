@@ -66,7 +66,7 @@ public class B2WAddMeterToEquipment extends B2WKendoDialog {
 	}
 	
 	public boolean clickCancelAddMeter() {
-		return clickSave();
+		return clickCancel();
 	}
 
 	
