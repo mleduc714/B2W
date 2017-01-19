@@ -48,6 +48,18 @@ public class B2WSchedulesTasks extends B2WKendoTasks {
         bReturn &= logCompare(true, true, "====== End Schedule View Creation: " + scheduleView.getName());
         return bReturn;
     }
+    public boolean searchScheduleView(B2WScheduleView scheduleView) {
+        boolean bReturn;
+        logCompare(true, true, "====== Start Schedule View Search: " + scheduleView.getName());
+        bReturn = logCompare(true, b2wNav.openSchedules(), "Navigate to Setup -> Schedules");
+        int iInitialCount = getScheduleViewCount();
+        bReturn &= logCompare(true, setSearchText(scheduleView.getName()), "Set '" + scheduleView.getName() + "' to the search field.");
+        bReturn &= logCompare(true, getScheduleViewCount() == 1, "Check that Schedule List contains 1 record.");
+        bReturn &= logCompare(true, clickDeleteSearchBtn(), "Clear Search field.");
+        bReturn &= logCompare(true, getScheduleViewCount() == iInitialCount, "Check that Schedule List displays all records.");
+        logCompare(true, true, "====== End Schedule View Search: " + scheduleView.getName());
+        return bReturn;
+    }
     public long createScheduleView_Performance(B2WScheduleView scheduleView) {
         Timer timer = new Timer();
         clickCreateScheduleView();
@@ -163,6 +175,16 @@ public class B2WSchedulesTasks extends B2WKendoTasks {
         }
         return bReturn;
     }
+    private boolean clickDeleteSearchBtn() {
+        boolean bReturn = false;
+        WebElement deleteSearchBtn = WebElementUtils.waitAndFindDisplayedElement(B2WSchedules.deleteSearchBtn());
+        if (deleteSearchBtn != null) {
+            bReturn = WebElementUtils.clickElement(deleteSearchBtn);
+            waitForSchedulesPageNoBusy();
+            WebElementUtils.waitForElementInvisible(deleteSearchBtn);
+        }
+        return bReturn;
+    }
 
     private boolean disableAllResources() {
         boolean bReturn = false;
@@ -263,6 +285,10 @@ public class B2WSchedulesTasks extends B2WKendoTasks {
             }
         }
         return sReturn;
+    }
+    private int getScheduleViewCount() {
+        WebElement tbody = WebElementUtils.waitAndFindElement(B2WSchedules.getTBody());
+        return WebElementUtils.getChildElements(tbody, By.cssSelector("tr")).size();
     }
 
     private boolean setName(String sValue) {
@@ -489,6 +515,15 @@ public class B2WSchedulesTasks extends B2WKendoTasks {
             bReturn &= selectItemFromDropDown(sValue);
         } else {
             log.debug("'Security Role' dropdown could not be found on the page.");
+        }
+        return bReturn;
+    }
+    private boolean setSearchText(String sValue) {
+        boolean bReturn = false;
+        WebElement searchField = WebElementUtils.waitAndFindDisplayedElement(B2WSchedules.searchField());
+        if (searchField != null) {
+            bReturn = WebElementUtils.sendKeys(searchField, sValue);
+            bReturn &= WebElementUtils.waitAndFindDisplayedElement(B2WSchedules.deleteSearchBtn()) != null;
         }
         return bReturn;
     }
