@@ -258,17 +258,17 @@ public class B2WPartsSmokeTest extends B2WTestCase {
 		logCompare(true,addParts.partsNext(),"");
 		logCompare(true,addParts.setEstimatedQty(sPartDesc,sEstQty),"");
 		logCompare(true,addParts.setReportedQty(sPartDesc, sReportedQty),"");
-		String sInventoryChange = "("+sReportedQty+" EACH)";
+		//String sInventoryChange = "("+sReportedQty+" EACH)";
 		logCompare(true,addParts.saveParts(), "Save Parts");
 		logCompare(true,b2wWork.clickSaveButton(),"Click Save");
 		b2wWork.selectWorkOrderByDescription(sWorkOrderDescription);
-		String sID = b2wWork.getSelectWorkOrderID();
+		//String sID = b2wWork.getSelectWorkOrderID();
 		logCompare(true,b2wMaintain.openParts(),"Open Parts");
 		logCompare(true,parts.selectPartByDescription(sPartDesc), "Select Desc");
 		logCompare(true,parts.expandInventoryHistory(),"Expand History");
 		logCompare(2,parts.getInventoryHistoryRows(), "Inventory History rows should be 2");
-		int i = parts.getInventorySource().indexOf("Work Order "+sID);
-		logCompare(sInventoryChange,parts.getInventoryText(i, 4),"Inventory Changed");
+		//int i = parts.getInventorySource().indexOf("Work Order "+sID);
+		//logCompare(sInventoryChange,parts.getInventoryText(i, 4),"Inventory Changed");
 
 	}
 	
