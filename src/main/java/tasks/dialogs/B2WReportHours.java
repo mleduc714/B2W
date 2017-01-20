@@ -215,6 +215,17 @@ public class B2WReportHours extends B2WKendoDialog {
 		}
 		return bReturn;
 	}
+	
+	public String selectEquipmentAnyWorkOrder() {
+		String s = "";
+		WebElement el = getWebElementFromReportHoursByEquipment(1);
+		if (el != null){
+			WebElementUtils.clickElement(el);
+			s = selectRandomItemFromDropDown();
+		}
+		return s;
+	}
+	
 	public boolean selectEquipmentWorkOrderItem(String sText) {
 		boolean bReturn = false;
 		WebElement el = getWebElementFromReportHoursByEquipment(2);
@@ -225,6 +236,16 @@ public class B2WReportHours extends B2WKendoDialog {
 		return bReturn;
 	}
 
+	public String selectEquipmentAnyWorkOrderItem() {
+		String s = "";
+		WebElement el = getWebElementFromReportHoursByEquipment(2);
+		if (el != null){
+			WebElementUtils.clickElement(el);
+			s = selectRandomItemFromDropDown();
+		}
+		return s;
+	}
+	
 	public boolean selectEquipmentRateClass(String sText) {
 		boolean bReturn = false;
 		WebElement window = getDisplayedWindow();
@@ -234,6 +255,17 @@ public class B2WReportHours extends B2WKendoDialog {
 		}
 		return bReturn;
 	}
+	
+	public String selectEquipmentAnyRateClass() {
+		String s = "";
+		WebElement window = getDisplayedWindow();
+		if (window != null){
+			openDropDownMenu(window, "Equipment Rate Class");
+			s = selectRandomItemFromDropDown();
+		}
+		return s;
+	}
+	
 	
 	public boolean selectEquipmentUsed(String sText){
 		boolean bReturn = false;
@@ -291,7 +323,7 @@ public class B2WReportHours extends B2WKendoDialog {
 		return s;
 	}
 	
-	public boolean setEmployeeEquipment(String sText){
+	public boolean selectEmployeeEquipment(String sText){
 		boolean bReturn = false;
 		WebElement el = getWebElementFromEquipmentChargedDialog(0);
 		if (el != null){

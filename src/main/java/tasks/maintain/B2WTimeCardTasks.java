@@ -151,6 +151,13 @@ public class B2WTimeCardTasks extends B2WKendoTasks {
 		return al;
 	}
 	
+	public void clickIconByRow(int iRow) {
+		WebElement el = WebElementUtils.findElement(By.cssSelector("div#employeeHoursGrid"));
+		WebElement tbody = WebElementUtils.getChildElement(el, By.tagName("tbody"));
+		List<WebElement> rows = WebElementUtils.getChildElements(tbody, By.tagName("tr"));
+		WebElementUtils.getChildElement(rows.get(iRow), By.cssSelector("a.btn-icon")).click();
+	}
+	
 	public String getTotalHours() {
 		String s = "";
 		WebElement el = WebElementUtils.findElement(By.cssSelector("div#employeeHoursGrid"));
