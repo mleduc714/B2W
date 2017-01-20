@@ -250,10 +250,10 @@ public class MaintainDashboardSmokeTest_1 extends B2WTestCase {
 		String sEmployee = b2wReport.selectRandomEmployee();
 		if (logCompare(true, b2wtimecards.clickAddTimeButton(), "Click Add Time Button")) {
 
-			logCompare(true, b2wReport.selectChargeToJob(), "Charge to Job");
+			logCompare(true,b2wReport.selectChargeToJob(),"Charge to Job");
 			logCompare(true, b2wReport.setEmployeeWorkHoursDescription("This time card is a load of laughs"),
 					"Time card desc");
-			logCompare(true, b2wReport.selectAnyJob(), "Select Any Job");
+			b2wReport.selectAnyJob();
 
 			b2wReport.selectRandomEmployeeLaborType();
 			logCompare(true, b2wReport.setEmployeeRegularHours("10"), "Regular Hours");
