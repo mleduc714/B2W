@@ -58,17 +58,17 @@ public class B2WProgramsSmokeTest extends B2WTestCase {
 	@Override
 	public void testMain() throws Throwable {
 		/*	Create a New Maintenance Program
-		•Add Item(s)
-		•Enter Intervals V
-		•Enter Exclusions V
-		•Enter Planned Hours
-		•Enter Parts to be used with the Maintenance Program
-		•Save
+		•Add Item(s): V
+		•Enter Intervals: V
+		•Enter Exclusions: V
+		•Enter Planned Hours: !
+		•Enter Parts to be used with the Maintenance Program: !
+		•Save: V
 
-		•Attachments•CRUD
+		•Attachments•CRUD: !
 
-		•Copy a Maintenance Program
-		•Edit a Maintenance Program•Add/Remove Items
+		•Copy a Maintenance Program: !
+		•Edit a Maintenance Program•Add/Remove Items: !
 
 		•Equipment on a program•Add equipment
 		•Search for equipment within entity
@@ -141,10 +141,58 @@ public class B2WProgramsSmokeTest extends B2WTestCase {
 		b2wMainPrograms.excludeDecemeber();
 		b2wMainPrograms.excludeMarch();
 		
+		
+		
+		//b2wMainPrograms.expandHours();
+		//b2wMainPrograms.clickAddHours();
+		
+		//MISSING:
+		//
+		//•Add Hours Description
+		//•Hours Labor Type
+		//•Enter Planned Hours
+		//•Save Hours
+		
+		
+		
+		//b2wMainPrograms.expandParts();
+		//b2wMainPrograms.clickAddParts();
+		
+		//MISSING:
+		//
+		//•Select Parts by ID
+		//•Search for Parts
+		//•Set Estimated Quantity
+		//•Save Parts
+		
 		b2wMainPrograms.saveMaintenanceProgram();
 		
 		TaskUtils.sleep(5000);
-
+		
+		b2wMainPrograms.expandAttachments();
+		b2wMainPrograms.collapseAttachments();
+		
+		//MISSING:
+		//
+		//•Add Attachments button
+		//•Set Attachment Description
+		//•Save Attachment
+		//•Edit Attachment
+		//•Delete Attachment
+		
+		
+		//MISSING:
+		//	
+		//•Copy Program
+		
+		
+		//MISSING:
+		//	
+		//•Edit Program
+		
+		
+		
+		
 	}
 
 }
