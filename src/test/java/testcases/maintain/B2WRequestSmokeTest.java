@@ -166,6 +166,8 @@ public class B2WRequestSmokeTest extends B2WTestCase {
 	}
 
 	public void editRequest() {
+		b2wRequests.selectAllRequests();
+		
 		String sRequest = selectByStatus("Requested");
 		b2wRequests.selectWorkOrderRequestByDescription(sRequest);
 		TaskUtils.sleep(1000);
@@ -195,6 +197,7 @@ public class B2WRequestSmokeTest extends B2WTestCase {
 	public void deleteRequest() {
 
 		b2wMaintain.openRequests();
+		b2wRequests.selectAllRequests();
 		String sSelected = selectByStatus("Requested");
 		logCompare(true,b2wRequests.deleteRequest(),"Delete Request");
 		logCompare(false,b2wRequests.selectWorkOrderRequestByDescription(sSelected), "Item Deleted");
