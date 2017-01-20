@@ -28,4 +28,8 @@ public class B2WSchedules {
     public static By removeItemBtn() { return By.cssSelector(B2WUIMap.b2w_schedules_removeItemBtn); }
     public static By yesBtnOnPopupWindow() { return By.cssSelector(B2WUIMap.b2w_schedules_popupwindow_yesbtn); }
     public static By previewLocation() { return By.cssSelector(B2WUIMap.b2w_schedules_previewlocation); }
+    public static By searchField() { return By.cssSelector(B2WUIMap.b2w_schedules_searchField); }
+    public static By deleteSearchBtn() { return By.cssSelector(B2WUIMap.b2w_schedules_deleteSearchIcon); }
+    public static By getTBody() { return By.cssSelector(B2WUIMap.b2w_schedules_tbody); }
+    public static By getSortingColumnName(String sName) { return By.cssSelector(B2WUIMap.b2w_crewtemplates_sortingIcon.replace("replace", sName)); }
 }

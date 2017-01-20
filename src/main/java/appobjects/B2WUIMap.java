@@ -143,6 +143,10 @@ public class B2WUIMap {
 	public static final String b2w_schedules_deletepopupwindow = ".k-widget.k-window";
 	public static final String b2w_schedules_popupwindow_yesbtn = ".btn-form.dialog-button.large.confirm";
 	public static final String b2w_schedules_previewlocation = ".preview-location";
+	public static final String b2w_schedules_searchField = ".list-filter.k-textbox";
+	public static final String b2w_schedules_deleteSearchIcon = ".b2wicon.i140-rejected";
+	public static final String b2w_schedules_tbody = "tbody[role='rowgroup']";
+	public static final String b2w_schedules_sortingIcon = "th[data-title='replace']";
 
 	// page filter
 	public static final String b2w_page_filter_letterA = "a#PageContent_FilterControl_AButton";
