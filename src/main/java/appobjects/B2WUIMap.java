@@ -1178,6 +1178,8 @@ public class B2WUIMap {
 	public static final String b2w_kendolistheightfix = "div.list-height-fix";
 	public static final String b2w_kendokbutton = ".k-button";
 	public static final String b2w_timecardemployeehourgrid = "div#employeeHoursGrid";
+	public static final String b2w_timecardequipmenthourgrid = "div#equipmentHoursGrid";
+
 	public static final String b2w_kendofootertemplate = "k-footer-template";
 	public static final String b2w_kendobuttonicon = "a.btn-icon";
 	

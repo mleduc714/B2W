@@ -96,11 +96,12 @@ public class TestSetup extends B2WTestCase {
 
 		assertTrue("open Maintain", b2wNav.openMaintain());
 		b2wMaintain.openTimeCards();
-		this.b2wtimecards.clickIconByRow(1);
+		TaskUtils.sleep(1000);
+		b2wtimecards.selectEmployee("Automation User [9501]");
+		b2wtimecards.clickEquipmentIconByRow(0);
 		TaskUtils.sleep(1000);
 		System.out.println(new B2WReportedHoursToolTip().getTitle());
-		System.out.println(new B2WReportedHoursToolTip().clickOnWorkOrder());
-		
+		new B2WReportedHoursToolTip().clickOnEquipment();
 		
 //		b2wE.createNewEquipment();
 //		b2wE.expandComponentSpecs();
