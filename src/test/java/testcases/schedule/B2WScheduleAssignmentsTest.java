@@ -22,77 +22,67 @@ public class B2WScheduleAssignmentsTest extends B2WTestCase {
 
     // Property
     // Schedule Views
-    B2WScheduleView employeeDefaultScheduleView;
-    B2WScheduleView equipmentDefaultScheduleView;
-    B2WScheduleView crewsDefaultScheduleView;
-    B2WScheduleView locationDefaultScheduleView;
+    private B2WScheduleView employeeDefaultScheduleView;
+    private     B2WScheduleView equipmentDefaultScheduleView;
+    private B2WScheduleView crewsDefaultScheduleView;
+    private B2WScheduleView locationDefaultScheduleView;
 
-    B2WScheduleView employeeScheduleView;
-    B2WScheduleView equipmentScheduleView;
-    B2WScheduleView crewsScheduleView;
-    B2WScheduleView locationScheduleView;
-
-    B2WScheduleView copyEmployeeScheduleView;
-    B2WScheduleView copyEquipmentScheduleView;
-    B2WScheduleView copyCrewsScheduleView;
-    B2WScheduleView copyLocationScheduleView;
-
-    B2WScheduleView updateEmployeeScheduleView;
-    B2WScheduleView updateEquipmentScheduleView;
-    B2WScheduleView updateCrewsScheduleView;
-    B2WScheduleView updateLocationScheduleView;
+    private B2WScheduleView employeeScheduleView;
+    private B2WScheduleView equipmentScheduleView;
+    private B2WScheduleView crewsScheduleView;
+    private B2WScheduleView locationScheduleView;
 
     // Employee Assignments
-    B2WAssignment employeeAssignment;
-    B2WAssignment copyEmployeeAssignment;
-    B2WAssignment employeeAssignmentForSubstitution;
+    private B2WAssignment employeeAssignment;
+    private B2WAssignment copyEmployeeAssignment;
+    private B2WAssignment employeeAssignmentForSubstitution;
 
     // Employee Substitution
-    B2WAssignment employeeSubstitution;
+    private B2WAssignment employeeSubstitution;
 
     // Employee Need
-    B2WAssignment employeeNeed;
-    B2WAssignment copyEmployeeNeed;
-    B2WAssignment employeeNeed1;
+    private B2WAssignment employeeNeed;
+    private B2WAssignment copyEmployeeNeed;
+    private B2WAssignment employeeNeed1;
 
     // Employee Event
-    B2WAssignment employeeEvent;
-    B2WAssignment copyEmployeeEvent;
+    private B2WAssignment employeeEvent;
+    private B2WAssignment copyEmployeeEvent;
 
     // Equipment Assignment
-    B2WAssignment equipmentAssignment;
-    B2WAssignment copyEquipmentAssignment;
+    private B2WAssignment equipmentAssignment;
+    private B2WAssignment copyEquipmentAssignment;
 
     // Equipment Need
-    B2WAssignment equipmentNeed;
-    B2WAssignment copyEquipmentNeed;
-    B2WAssignment equipmentNeed1;
+    private B2WAssignment equipmentNeed;
+    private B2WAssignment copyEquipmentNeed;
+    private B2WAssignment equipmentNeed1;
 
     // Equipment Event
-    B2WAssignment equipmentEvent;
-    B2WAssignment copyEquipmentEvent;
+    private B2WAssignment equipmentEvent;
+    private B2WAssignment copyEquipmentEvent;
 
     // Crews Assignments
-    B2WAssignment crewAssignment;
-    B2WAssignment copyCrewAssignment;
+    private B2WAssignment crewAssignment;
+    private B2WAssignment copyCrewAssignment;
 
     // Crews Needs
-    B2WAssignment crewNeed;
-    B2WAssignment copyCrewNeed;
-    B2WAssignment crewNeed1;
+    private B2WAssignment crewNeed;
+    private B2WAssignment copyCrewNeed;
+    private B2WAssignment crewNeed1;
 
     // Move Assignment
-    B2WAssignment moveAssignment;
-    B2WAssignment copyMoveAssignment;
+    private B2WAssignment moveAssignment;
+    private B2WAssignment copyMoveAssignment;
 
     // Move Order
-    B2WAssignment moveOrder;
-    B2WAssignment copyMoveOrder;
-    B2WAssignment copyMoveOrder1;
+    private B2WAssignment moveOrder;
+    private B2WAssignment copyMoveOrder;
+    private B2WAssignment copyMoveOrder1;
 
     // Location Event
-    B2WAssignment locationEvent;
-    B2WAssignment copyLocationEvent;
+    private B2WAssignment locationEvent;
+    private B2WAssignment copyLocationEvent;
 
     @Override
     public String getAuthor() {
@@ -161,7 +151,7 @@ public class B2WScheduleAssignmentsTest extends B2WTestCase {
         String sEmployeeAssignmentDuration = getProperty("sEmployeeAssignmentDuration");
         // === Complete reading properties
 
-        ArrayList<Date> dateList = new ArrayList<Date>();
+        ArrayList<Date> dateList = new ArrayList<>();
         dateList.add(employeeScheduleView.getStartDate()); //Start Date
         dateList.add(employeeScheduleView.getStartDate()); //End Date
 
@@ -219,7 +209,7 @@ public class B2WScheduleAssignmentsTest extends B2WTestCase {
         String sEquipmentAssignmentDuration = getProperty("sEquipmentAssignmentDuration");
         // === Complete reading properties
 
-        dateList = new ArrayList<Date>();
+        dateList = new ArrayList<>();
         dateList.add(equipmentScheduleView.getStartDate()); //Start Date
         dateList.add(equipmentScheduleView.getStartDate()); //End Date
 
@@ -264,7 +254,7 @@ public class B2WScheduleAssignmentsTest extends B2WTestCase {
         String sCrewAssignmentStartTime = getProperty("sCrewAssignmentStartTime");
         // === Complete reading properties
 
-        dateList = new ArrayList<Date>();
+        dateList = new ArrayList<>();
         dateList.add(crewsScheduleView.getStartDate()); //Start Date
         dateList.add(crewsScheduleView.getStartDate()); //End Date
 
@@ -315,7 +305,7 @@ public class B2WScheduleAssignmentsTest extends B2WTestCase {
         String sMoveAssignmentNotesText = getProperty("sMoveAssignmentNotesText");
         String sMoveAssignmentTransportationCrewName = getProperty("sMoveAssignmentTransportationCrewName");
 
-        dateList = new ArrayList<Date>();
+        dateList = new ArrayList<>();
         dateList.add(equipmentScheduleView.getStartDate()); //Start Date
         dateList.add(equipmentScheduleView.getStartDate()); //End Date
         // === Complete reading properties
@@ -357,7 +347,7 @@ public class B2WScheduleAssignmentsTest extends B2WTestCase {
         String sEmployeeEventNotesText = getProperty("sEmployeeEventNotesText");
         // === Complete reading properties
 
-        dateList = new ArrayList<Date>();
+        dateList = new ArrayList<>();
         dateList.add(employeeDefaultScheduleView.getStartDate()); //Start Date
         dateList.add(employeeDefaultScheduleView.getStartDate()); //End Date
 
@@ -372,7 +362,7 @@ public class B2WScheduleAssignmentsTest extends B2WTestCase {
         String sEquipmentEventNotesText = getProperty("sEquipmentEventNotesText");
         // === Complete reading properties
 
-        dateList = new ArrayList<Date>();
+        dateList = new ArrayList<>();
         dateList.add(equipmentDefaultScheduleView.getStartDate()); //Start Date
         dateList.add(equipmentDefaultScheduleView.getStartDate()); //End Date
 
@@ -387,7 +377,7 @@ public class B2WScheduleAssignmentsTest extends B2WTestCase {
         String sLocationEventNotesText = getProperty("sLocationEventNotesText");
         // === Complete reading properties
 
-        dateList = new ArrayList<Date>();
+        dateList = new ArrayList<>();
         dateList.add(locationDefaultScheduleView.getStartDate()); //Start Date
         dateList.add(locationDefaultScheduleView.getStartDate()); //End Date
 
@@ -399,8 +389,6 @@ public class B2WScheduleAssignmentsTest extends B2WTestCase {
     public void testMain() throws Throwable {
         // Schedule Tests
         createScheduleViews();
-        copyScheduleViews();
-        updateScheduleView();
 
         logCompare(true, b2wNav.openSchedule(), "Open Schedule View");
 
@@ -522,14 +510,14 @@ public class B2WScheduleAssignmentsTest extends B2WTestCase {
         // === Complete reading properties
 
         // === Prepare Schedule Items based on Schedule Format
-        ArrayList<B2WScheduleItem> itemList = new ArrayList<B2WScheduleItem>();
+        ArrayList<B2WScheduleItem> itemList = new ArrayList<>();
         B2WScheduleItem item = new B2WScheduleItem();
         item.setScheduleFormat("Resource Listing");
         item.setResourceName("Employees");
         itemList.add(item);
 
         // === Prepare Filters List
-        ArrayList<String[]> filters = new ArrayList<String[]>();
+        ArrayList<String[]> filters = new ArrayList<>();
         String[] filterItem = new String[2];
         if (!sFilterType.equals("")) {
             filterItem[0] = sFilterType;
@@ -538,13 +526,13 @@ public class B2WScheduleAssignmentsTest extends B2WTestCase {
         }
 
         // === Prepare Roles list
-        ArrayList<String> roles = new ArrayList<String>();
+        ArrayList<String> roles = new ArrayList<>();
         if (!sSecurityRole.equals("")){
             roles.add(sSecurityRole);
         }
 
         // === Prepare Users list
-        ArrayList<String> users = new ArrayList<String>();
+        ArrayList<String> users = new ArrayList<>();
         if (!sUser.equals("")) {
             users.add(sUser);
         }
@@ -574,14 +562,14 @@ public class B2WScheduleAssignmentsTest extends B2WTestCase {
         // === Complete reading properties
 
         // Prepare Schedule Items based on Schedule Format
-        ArrayList<B2WScheduleItem> itemList = new ArrayList<B2WScheduleItem>();
+        ArrayList<B2WScheduleItem> itemList = new ArrayList<>();
         B2WScheduleItem item = new B2WScheduleItem();
         item.setScheduleFormat("Resource Listing");
         item.setResourceName("Equipment");
         itemList.add(item);
 
         // Prepare Filters List
-        ArrayList<String[]> filters = new ArrayList<String[]>();
+        ArrayList<String[]> filters = new ArrayList<>();
         String[] filterItem = new String[2];
         if (!sFilterType.equals("")) {
             filterItem[0] = sFilterType;
@@ -590,13 +578,13 @@ public class B2WScheduleAssignmentsTest extends B2WTestCase {
         }
 
         // === Prepare Roles list
-        ArrayList<String> roles = new ArrayList<String>();
+        ArrayList<String> roles = new ArrayList<>();
         if (!sSecurityRole.equals("")){
             roles.add(sSecurityRole);
         }
 
         // === Prepare Users list
-        ArrayList<String> users = new ArrayList<String>();
+        ArrayList<String> users = new ArrayList<>();
         if (!sUser.equals("")) {
             users.add(sUser);
         }
@@ -625,7 +613,7 @@ public class B2WScheduleAssignmentsTest extends B2WTestCase {
         // === Complete reading properties
 
         // Prepare Schedule Items based on Schedule Format
-        ArrayList<B2WScheduleItem> itemList = new ArrayList<B2WScheduleItem>();
+        ArrayList<B2WScheduleItem> itemList = new ArrayList<>();
         B2WScheduleItem item = new B2WScheduleItem();
         item.setScheduleFormat("Crew View");
         item.setResourceName("Production Crews");
@@ -636,7 +624,7 @@ public class B2WScheduleAssignmentsTest extends B2WTestCase {
         itemList.add(item1);
 
         // Prepare Filters List
-        ArrayList<String[]> filters = new ArrayList<String[]>();
+        ArrayList<String[]> filters = new ArrayList<>();
         String[] filterItem = new String[2];
         if (!sFilterType.equals("")) {
             filterItem[0] = sFilterType;
@@ -645,13 +633,13 @@ public class B2WScheduleAssignmentsTest extends B2WTestCase {
         }
 
         // === Prepare Roles list
-        ArrayList<String> roles = new ArrayList<String>();
+        ArrayList<String> roles = new ArrayList<>();
         if (!sSecurityRole.equals("")){
             roles.add(sSecurityRole);
         }
 
         // === Prepare Users list
-        ArrayList<String> users = new ArrayList<String>();
+        ArrayList<String> users = new ArrayList<>();
         if (!sUser.equals("")) {
             users.add(sUser);
         }
@@ -680,223 +668,8 @@ public class B2WScheduleAssignmentsTest extends B2WTestCase {
         // === Complete reading properties
 
         // Prepare Schedule Items based on Schedule Format
-        ArrayList<B2WScheduleItem> itemList = new ArrayList<B2WScheduleItem>();
-        B2WScheduleItem item = new B2WScheduleItem();
-        item.setScheduleFormat("Location View");
-        item.setResourceName("Job Sites");
-        itemList.add(item);
-
-        B2WScheduleItem item1 = new B2WScheduleItem();
-        item1.setScheduleFormat("Location View");
-        item1.setResourceName("Places");
-        itemList.add(item1);
-
-        // Prepare Filters List
-        ArrayList<String[]> filters = new ArrayList<String[]>();
-        String[] filterItem = new String[2];
-        if (!sFilterType.equals("")) {
-            filterItem[0] = sFilterType;
-            filterItem[1] = sFilterValue;
-            filters.add(filterItem);
-        }
-
-        // === Prepare Roles list
-        ArrayList<String> roles = new ArrayList<String>();
-        if (!sSecurityRole.equals("")){
-            roles.add(sSecurityRole);
-        }
-
-        // === Prepare Users list
-        ArrayList<String> users = new ArrayList<String>();
-        if (!sUser.equals("")) {
-            users.add(sUser);
-        }
-
-        oReturn = new B2WScheduleView(sScheduleName, sBU, sSchedulesNotes, itemList, sGroupingLevel1, sGroupingLevel2,
-                filters, roles, users);
-        oReturn.setStartDate(StringUtils.getDateFromStringWithPattern(sCalendarStartDate, "M/d/yyyy"));
-        oReturn.setDuration(sCalendarDateRange);
-
-        return oReturn;
-    }
-    private B2WScheduleView setupUpdateEmployeeScheduleView(B2WScheduleView scheduleView) {
-        B2WScheduleView oReturn;
-
-        // === Read Properties
-        String sBU = getProperty("sEmployeeScheduleView_BU_UPD");
-        String sSchedulesNotes = getProperty("sEmployeeScheduleView_Notes_UPD");
-        String sGroupingLevel1 = getProperty("sEmployeeScheduleView_GroupingLevel1_UPD");
-        String sGroupingLevel2 = getProperty("sEmployeeScheduleView_GroupingLevel2_UPD");
-        String sFilterType = getProperty("sEmployeeScheduleView_FilterType_UPD");
-        String sFilterValue = getProperty("sEmployeeScheduleView_FilterValue_UPD");
-        String sSecurityRole = getProperty("sEmployeeScheduleView_SecurityRole_UPD");
-        String sUser = getProperty("sEmployeeScheduleView_User_UPD");
-        // === Complete reading properties
-
-        // === Prepare Schedule Items based on Schedule Format
         ArrayList<B2WScheduleItem> itemList = new ArrayList<>();
         B2WScheduleItem item = new B2WScheduleItem();
-        item.setScheduleFormat("Resource Listing");
-        item.setResourceName("Employees");
-        item.setEvents(false);
-        item.setNeeds(false);
-        itemList.add(item);
-
-        // === Prepare Filters List
-        ArrayList<String[]> filters = new ArrayList<String[]>();
-        String[] filterItem = new String[2];
-        if (!sFilterType.equals("")) {
-            filterItem[0] = sFilterType;
-            filterItem[1] = sFilterValue;
-            filters.add(filterItem);
-        }
-
-        // === Prepare Roles list
-        ArrayList<String> roles = new ArrayList<String>();
-        if (!sSecurityRole.equals("")){
-            roles.add(sSecurityRole);
-        }
-
-        // === Prepare Users list
-        ArrayList<String> users = new ArrayList<String>();
-        if (!sUser.equals("")) {
-            users.add(sUser);
-        }
-
-        oReturn = new B2WScheduleView(scheduleView.getName() + "_UPD", sBU, sSchedulesNotes, itemList, sGroupingLevel1, sGroupingLevel2,
-                filters, roles, users);
-
-        oReturn.setStartDate(scheduleView.getStartDate());
-        oReturn.setDuration(scheduleView.getDuration());
-
-        return oReturn;
-    }
-    private B2WScheduleView setupUpdateEquipmentScheduleView(B2WScheduleView scheduleView) {
-        B2WScheduleView oReturn;
-
-        // === Read Properties
-        String sBU = getProperty("sEquipmentScheduleView_BU_UPD");
-        String sSchedulesNotes = getProperty("sEquipmentScheduleView_Notes_UPD");
-        String sGroupingLevel1 = getProperty("sEquipmentScheduleView_GroupingLevel1_UPD");
-        String sGroupingLevel2 = getProperty("sEquipmentScheduleView_GroupingLevel2_UPD");
-        String sFilterType = getProperty("sEquipmentScheduleView_FilterType_UPD");
-        String sFilterValue = getProperty("sEquipmentScheduleView_FilterValue_UPD");
-        String sSecurityRole = getProperty("sEquipmentScheduleView_SecurityRole_UPD");
-        String sUser = getProperty("sEquipmentScheduleView_User_UPD");
-        // === Complete reading properties
-
-        // Prepare Schedule Items based on Schedule Format
-        ArrayList<B2WScheduleItem> itemList = new ArrayList<B2WScheduleItem>();
-        B2WScheduleItem item = new B2WScheduleItem();
-        item.setScheduleFormat("Resource Listing");
-        item.setResourceName("Equipment");
-        item.setNeeds(false);
-        item.setEvents(false);
-        itemList.add(item);
-
-        // Prepare Filters List
-        ArrayList<String[]> filters = new ArrayList<String[]>();
-        String[] filterItem = new String[2];
-        if (!sFilterType.equals("")) {
-            filterItem[0] = sFilterType;
-            filterItem[1] = sFilterValue;
-            filters.add(filterItem);
-        }
-
-        // === Prepare Roles list
-        ArrayList<String> roles = new ArrayList<String>();
-        if (!sSecurityRole.equals("")){
-            roles.add(sSecurityRole);
-        }
-
-        // === Prepare Users list
-        ArrayList<String> users = new ArrayList<String>();
-        if (!sUser.equals("")) {
-            users.add(sUser);
-        }
-
-        oReturn = new B2WScheduleView(scheduleView.getName() + "_UPD", sBU, sSchedulesNotes, itemList, sGroupingLevel1, sGroupingLevel2,
-                filters, roles, users);
-        oReturn.setStartDate(scheduleView.getStartDate());
-        oReturn.setDuration(scheduleView.getDuration());
-
-        return oReturn;
-    }
-    private B2WScheduleView setupUpdateCrewsScheduleView(B2WScheduleView scheduleView) {
-        B2WScheduleView oReturn;
-
-        // === Read Properties
-        String sBU = getProperty("sCrewsScheduleView_BU_UPD");
-        String sSchedulesNotes = getProperty("sCrewsScheduleView_Notes_UPD");
-        String sGroupingLevel1 = getProperty("sCrewsScheduleView_GroupingLevel1_UPD");
-        String sGroupingLevel2 = getProperty("sCrewsScheduleView_GroupingLevel2_UPD");
-        String sFilterType = getProperty("sCrewsScheduleView_FilterType_UPD");
-        String sFilterValue = getProperty("sCrewsScheduleView_FilterValue_UPD");
-        String sSecurityRole = getProperty("sCrewsScheduleView_SecurityRole_UPD");
-        String sUser = getProperty("sCrewsScheduleView_User_UPD");
-        // === Complete reading properties
-
-        // Prepare Schedule Items based on Schedule Format
-        ArrayList<B2WScheduleItem> itemList = new ArrayList<B2WScheduleItem>();
-        B2WScheduleItem item = new B2WScheduleItem();
-        item.setScheduleFormat("Crew View");
-        item.setResourceName("Production Crews");
-        itemList.add(item);
-        B2WScheduleItem item1 = new B2WScheduleItem();
-        item1.setScheduleFormat("Crew View");
-        item1.setResourceName("Transport Crews");
-        itemList.add(item1);
-
-        item1 = new B2WScheduleItem();
-        item1.setScheduleFormat("Crew View");
-        item1.setResourceName("Production Crews");
-        itemList.add(item1);
-
-        // Prepare Filters List
-        ArrayList<String[]> filters = new ArrayList<String[]>();
-        String[] filterItem = new String[2];
-        if (!sFilterType.equals("")) {
-            filterItem[0] = sFilterType;
-            filterItem[1] = sFilterValue;
-            filters.add(filterItem);
-        }
-
-        // === Prepare Roles list
-        ArrayList<String> roles = new ArrayList<String>();
-        if (!sSecurityRole.equals("")){
-            roles.add(sSecurityRole);
-        }
-
-        // === Prepare Users list
-        ArrayList<String> users = new ArrayList<String>();
-        if (!sUser.equals("")) {
-            users.add(sUser);
-        }
-
-        oReturn = new B2WScheduleView(scheduleView.getName() + "_UPD", sBU, sSchedulesNotes, itemList, sGroupingLevel1, sGroupingLevel2,
-                filters, roles, users);
-        oReturn.setStartDate(scheduleView.getStartDate());
-        oReturn.setDuration(scheduleView.getDuration());
-
-        return oReturn;
-    }
-    private B2WScheduleView setupUpdateLocationScheduleView(B2WScheduleView scheduleView) {
-        B2WScheduleView oReturn;
-
-        // === Read Properties
-        String sBU = getProperty("sLocationScheduleView_BU_UPD");
-        String sSchedulesNotes = getProperty("sLocationScheduleView_Notes_UPD");
-        String sGroupingLevel1 = getProperty("sLocationScheduleView_GroupingLevel1_UPD");
-        String sGroupingLevel2 = getProperty("sLocationScheduleView_GroupingLevel2_UPD");
-        String sFilterType = getProperty("sLocationScheduleView_FilterType_UPD");
-        String sFilterValue = getProperty("sLocationScheduleView_FilterValue_UPD");
-        String sSecurityRole = getProperty("sLocationScheduleView_SecurityRole_UPD");
-        String sUser = getProperty("sLocationScheduleView_User_UPD");
-        // === Complete reading properties
-
-        // Prepare Schedule Items based on Schedule Format
-        ArrayList<B2WScheduleItem> itemList = new ArrayList<B2WScheduleItem>();
-        B2WScheduleItem item = new B2WScheduleItem();
         item.setScheduleFormat("Location View");
         item.setResourceName("Job Sites");
         itemList.add(item);
@@ -904,21 +677,6 @@ public class B2WScheduleAssignmentsTest extends B2WTestCase {
         B2WScheduleItem item1 = new B2WScheduleItem();
         item1.setScheduleFormat("Location View");
         item1.setResourceName("Places");
-        itemList.add(item1);
-
-        item1 = new B2WScheduleItem();
-        item1.setScheduleFormat("Location View");
-        item1.setResourceName("Production Crews");
-        itemList.add(item1);
-
-        item1 = new B2WScheduleItem();
-        item1.setScheduleFormat("Location View");
-        item1.setResourceName("Equipment");
-        itemList.add(item1);
-
-        item1 = new B2WScheduleItem();
-        item1.setScheduleFormat("Location View");
-        item1.setResourceName("Employees");
         itemList.add(item1);
 
         // Prepare Filters List
@@ -942,11 +700,10 @@ public class B2WScheduleAssignmentsTest extends B2WTestCase {
             users.add(sUser);
         }
 
-        oReturn = new B2WScheduleView(scheduleView.getName() + "_UPD", sBU, sSchedulesNotes, itemList, sGroupingLevel1, sGroupingLevel2,
+        oReturn = new B2WScheduleView(sScheduleName, sBU, sSchedulesNotes, itemList, sGroupingLevel1, sGroupingLevel2,
                 filters, roles, users);
-
-        oReturn.setStartDate(scheduleView.getStartDate());
-        oReturn.setDuration(scheduleView.getDuration());
+        oReturn.setStartDate(StringUtils.getDateFromStringWithPattern(sCalendarStartDate, "M/d/yyyy"));
+        oReturn.setDuration(sCalendarDateRange);
 
         return oReturn;
     }
@@ -958,38 +715,11 @@ public class B2WScheduleAssignmentsTest extends B2WTestCase {
         b2wSchedulesTasks.createScheduleView(crewsScheduleView);
         b2wSchedulesTasks.createScheduleView(locationScheduleView);
     }
-    private void copyScheduleViews() {
-        copyEmployeeScheduleView = b2wSchedulesTasks.copyScheduleView(employeeScheduleView);
-        copyEquipmentScheduleView = b2wSchedulesTasks.copyScheduleView(equipmentScheduleView);
-        copyCrewsScheduleView = b2wSchedulesTasks.copyScheduleView(crewsScheduleView);
-        copyLocationScheduleView = b2wSchedulesTasks.copyScheduleView(locationScheduleView);
-    }
-    private void updateScheduleView() {
-        updateEmployeeScheduleView = setupUpdateEmployeeScheduleView(copyEmployeeScheduleView);
-        b2wSchedulesTasks.updateScheduleView(copyEmployeeScheduleView, updateEmployeeScheduleView);
-        copyEmployeeScheduleView = updateEmployeeScheduleView;
-
-        updateEquipmentScheduleView = setupUpdateEquipmentScheduleView(copyEquipmentScheduleView);
-        b2wSchedulesTasks.updateScheduleView(copyEquipmentScheduleView, updateEquipmentScheduleView);
-        copyEquipmentScheduleView = updateEquipmentScheduleView;
-
-        updateCrewsScheduleView = setupUpdateCrewsScheduleView(copyCrewsScheduleView);
-        b2wSchedulesTasks.updateScheduleView(copyCrewsScheduleView, updateCrewsScheduleView);
-        copyCrewsScheduleView = updateCrewsScheduleView;
-
-        updateLocationScheduleView = setupUpdateLocationScheduleView(copyLocationScheduleView);
-        b2wSchedulesTasks.updateScheduleView(copyLocationScheduleView, updateLocationScheduleView);
-        copyLocationScheduleView = updateLocationScheduleView;
-    }
     private void deleteScheduleViews() {
         b2wSchedulesTasks.deleteScheduleView(employeeScheduleView);
-        b2wSchedulesTasks.deleteScheduleView(copyEmployeeScheduleView);
         b2wSchedulesTasks.deleteScheduleView(equipmentScheduleView);
-        b2wSchedulesTasks.deleteScheduleView(copyEquipmentScheduleView);
         b2wSchedulesTasks.deleteScheduleView(crewsScheduleView);
-        b2wSchedulesTasks.deleteScheduleView(copyCrewsScheduleView);
         b2wSchedulesTasks.deleteScheduleView(locationScheduleView);
-        b2wSchedulesTasks.deleteScheduleView(copyLocationScheduleView);
     }
     private void selectView(B2WScheduleView scheduleView) {
         logCompare(true, b2wScheduler.navigateTo(scheduleView), "Open '" + scheduleView.getName() + "' Schedule View");
