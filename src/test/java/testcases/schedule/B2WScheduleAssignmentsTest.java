@@ -3,6 +3,7 @@ package testcases.schedule;
 import com.b2w.test.B2WTestCase;
 import org.apache.commons.lang3.time.DateUtils;
 import tasks.B2WNavigationTasks;
+import tasks.resources.B2WCrewTemplate;
 import tasks.scheduler.B2WAssignment;
 import tasks.scheduler.B2WAssignmentType;
 import tasks.scheduler.B2WScheduleView;
@@ -23,7 +24,7 @@ public class B2WScheduleAssignmentsTest extends B2WTestCase {
     // Property
     // Schedule Views
     private B2WScheduleView employeeDefaultScheduleView;
-    private     B2WScheduleView equipmentDefaultScheduleView;
+    private B2WScheduleView equipmentDefaultScheduleView;
     private B2WScheduleView crewsDefaultScheduleView;
     private B2WScheduleView locationDefaultScheduleView;
 
@@ -65,6 +66,11 @@ public class B2WScheduleAssignmentsTest extends B2WTestCase {
     // Crews Assignments
     private B2WAssignment crewAssignment;
     private B2WAssignment copyCrewAssignment;
+    private B2WAssignment customCrewAssignment;
+
+
+    // Custom Crew
+    private B2WCrewTemplate customCrew;
 
     // Crews Needs
     private B2WAssignment crewNeed;
@@ -83,6 +89,8 @@ public class B2WScheduleAssignmentsTest extends B2WTestCase {
     // Location Event
     private B2WAssignment locationEvent;
     private B2WAssignment copyLocationEvent;
+
+    private ArrayList<Date> dateList;
 
     @Override
     public String getAuthor() {
@@ -140,250 +148,15 @@ public class B2WScheduleAssignmentsTest extends B2WTestCase {
         locationDefaultScheduleView = locationScheduleView.clone();
         locationDefaultScheduleView.setName(sDefaultLocationView);
 
-        // ==== Setup Employee Assignments =============================================================================
-        // === Reading Properties
-        String sEmployeeName = getProperty("sEmployeeName");
-
-        String sEmployeeJobSiteName = getProperty("sEmployeeJobSiteName");
-        String sEmployeeRequestedBy = getProperty("sEmployeeRequestedBy");
-        String sEmployeeNotesText = getProperty("sEmployeeNotesText");
-        String sEmployeeAssignmentStartTime = getProperty("sEmployeeAssignmentStartTime");
-        String sEmployeeAssignmentDuration = getProperty("sEmployeeAssignmentDuration");
-        // === Complete reading properties
-
-        ArrayList<Date> dateList = new ArrayList<>();
+        dateList = new ArrayList<>();
         dateList.add(employeeScheduleView.getStartDate()); //Start Date
         dateList.add(employeeScheduleView.getStartDate()); //End Date
 
-        employeeAssignment = new B2WAssignment(B2WAssignmentType.EMPLOYEE_TYPE, sEmployeeName, sEmployeeJobSiteName,
-                sEmployeeRequestedBy, sEmployeeNotesText, dateList, sEmployeeAssignmentStartTime, sEmployeeAssignmentDuration);
-
-        // ==== Setup Employee Assignments Substitution ================================================================
-        // === Reading Properties
-        String sEmployeeNameForSubstitution = getProperty("sEmployeeNameForSubstitution");
-
-        String sSubstitutionJobSiteName = getProperty("sSubstitutionJobSiteName");
-        String sSubstitutionRequestedBy = getProperty("sSubstitutionRequestedBy");
-        String sSubstitutionNotesText = getProperty("sSubstitutionNotesText");
-        String sSubstitutionAssignmentStartTime = getProperty("sSubstitutionAssignmentStartTime");
-        String sSubstitutionAssignmentDuration = getProperty("sSubstitutionAssignmentDuration");
-        // === Complete reading properties
-
-        employeeAssignmentForSubstitution = new B2WAssignment(B2WAssignmentType.EMPLOYEE_TYPE, sEmployeeNameForSubstitution,
-                sSubstitutionJobSiteName, sSubstitutionRequestedBy, sSubstitutionNotesText, dateList, sSubstitutionAssignmentStartTime, sSubstitutionAssignmentDuration);
-
-        // ==== Setup Employee Need ====================================================================================
-        // === Reading Properties
-        String sEmployeeNeedName = getProperty("sEmployeeNeedName");
-
-        String sEmployeeNeedJobSiteName = getProperty("sEmployeeNeedJobSiteName");
-        String sEmployeeNeedRequestedBy = getProperty("sEmployeeNeedRequestedBy");
-        String sEmployeeNeedNotesText = getProperty("sEmployeeNeedNotesText");
-        String sEmployeeNeedAssignmentStartTime = getProperty("sEmployeeNeedAssignmentStartTime");
-        String sEmployeeNeedAssignmentDuration = getProperty("sEmployeeNeedAssignmentDuration");
-        // === Complete reading properties
-        employeeNeed = new B2WAssignment(B2WAssignmentType.EMPLOYEE_NEED_TYPE, sEmployeeNeedName, sEmployeeNeedJobSiteName,
-                sEmployeeNeedRequestedBy, sEmployeeNeedNotesText, dateList, sEmployeeNeedAssignmentStartTime, sEmployeeNeedAssignmentDuration);
-
-        // === Reading Properties
-        String sEmployeeNeedName1 = getProperty("sEmployeeNeedName1");
-
-        String sEmployeeNeedJobSiteName1 = getProperty("sEmployeeNeedJobSiteName1");
-        String sEmployeeNeedRequestedBy1 = getProperty("sEmployeeNeedRequestedBy1");
-        String sEmployeeNeedNotesText1 = getProperty("sEmployeeNeedNotesText1");
-        String sEmployeeNeedAssignmentStartTime1 = getProperty("sEmployeeNeedAssignmentStartTime1");
-        String sEmployeeNeedAssignmentDuration1 = getProperty("sEmployeeNeedAssignmentDuration1");
-        // === Complete reading properties
-        employeeNeed1 = new B2WAssignment(B2WAssignmentType.EMPLOYEE_NEED_TYPE, sEmployeeNeedName1, sEmployeeNeedJobSiteName1,
-                sEmployeeNeedRequestedBy1, sEmployeeNeedNotesText1, dateList, sEmployeeNeedAssignmentStartTime1, sEmployeeNeedAssignmentDuration1);
-        // ==== Complete Employees =====================================================================================
-
-        // ==== Setup Equipment Assignments ============================================================================
-        // === Reading Properties
-        String sEquipmentName = getProperty("sEquipmentName");
-
-        String sEquipmentJobSiteName = getProperty("sEquipmentJobSiteName");
-        String sEquipmentRequestedBy = getProperty("sEquipmentRequestedBy");
-        String sEquipmentNotesText = getProperty("sEquipmentNotesText");
-        String sEquipmentAssignmentStartTime = getProperty("sEquipmentAssignmentStartTime");
-        String sEquipmentAssignmentDuration = getProperty("sEquipmentAssignmentDuration");
-        // === Complete reading properties
-
-        dateList = new ArrayList<>();
-        dateList.add(equipmentScheduleView.getStartDate()); //Start Date
-        dateList.add(equipmentScheduleView.getStartDate()); //End Date
-
-        equipmentAssignment = new B2WAssignment(B2WAssignmentType.EQUIPMENT_TYPE, sEquipmentName, sEquipmentJobSiteName, sEquipmentRequestedBy, sEquipmentNotesText,
-                dateList, sEquipmentAssignmentStartTime, sEquipmentAssignmentDuration);
-
-        // ==== Setup Equipment Need ===================================================================================
-        // === Reading Properties
-        String sEquipmentNeedName = getProperty("sEquipmentNeedName");
-        String sEquipmentNeedJobSiteName = getProperty("sEquipmentNeedJobSiteName");
-        String sEquipmentNeedRequestedBy = getProperty("sEquipmentNeedRequestedBy");
-        String sEquipmentNeedNotesText = getProperty("sEquipmentNeedNotesText");
-        String sEquipmentNeedAssignmentStartTime = getProperty("sEquipmentNeedAssignmentStartTime");
-        String sEquipmentNeedAssignmentDuration = getProperty("sEquipmentNeedAssignmentDuration");
-        // === Complete reading properties
-
-        equipmentNeed = new B2WAssignment(B2WAssignmentType.EQUIPMENT_NEED_TYPE, sEquipmentNeedName, sEquipmentNeedJobSiteName, sEquipmentNeedRequestedBy, sEquipmentNeedNotesText,
-                dateList, sEquipmentNeedAssignmentStartTime, sEquipmentNeedAssignmentDuration);
-
-        // === Reading Properties
-        String sEquipmentNeedName1 = getProperty("sEquipmentNeedName1");
-        String sEquipmentNeedJobSiteName1 = getProperty("sEquipmentNeedJobSiteName1");
-        String sEquipmentNeedRequestedBy1 = getProperty("sEquipmentNeedRequestedBy1");
-        String sEquipmentNeedNotesText1 = getProperty("sEquipmentNeedNotesText1");
-        String sEquipmentNeedAssignmentStartTime1 = getProperty("sEquipmentNeedAssignmentStartTime1");
-        String sEquipmentNeedAssignmentDuration1 = getProperty("sEquipmentNeedAssignmentDuration1");
-        // === Complete reading properties
-
-        equipmentNeed1 = new B2WAssignment(B2WAssignmentType.EQUIPMENT_NEED_TYPE, sEquipmentNeedName1, sEquipmentNeedJobSiteName1, sEquipmentNeedRequestedBy1, sEquipmentNeedNotesText1,
-                dateList, sEquipmentNeedAssignmentStartTime1, sEquipmentNeedAssignmentDuration1);
-
-        // ==== Complete Equipment =====================================================================================
-
-        // ==== Setup Crews Assignments ================================================================================
-        // === Reading Properties
-        String sCrewName = getProperty("sCrewName");
-
-        String sCrewJobSiteName = getProperty("sCrewJobSiteName");
-        String sCrewRequestedBy = getProperty("sCrewRequestedBy");
-        String sCrewNotesText = getProperty("sCrewNotesText");
-        String sCrewAssignmentDuration = getProperty("sCrewAssignmentDuration");
-        String sCrewAssignmentStartTime = getProperty("sCrewAssignmentStartTime");
-        // === Complete reading properties
-
-        dateList = new ArrayList<>();
-        dateList.add(crewsScheduleView.getStartDate()); //Start Date
-        dateList.add(crewsScheduleView.getStartDate()); //End Date
-
-        crewAssignment = new B2WAssignment(B2WAssignmentType.CREW_TYPE, sCrewName, sCrewJobSiteName, sCrewRequestedBy, sCrewNotesText,
-                dateList, sCrewAssignmentStartTime, sCrewAssignmentDuration);
-
-        // ==== Setup Crews Needs ======================================================================================
-        // === Reading Properties
-        String sCrewNeedName = getProperty("sCrewNeedName");
-        String sCrewNeedJobSiteName = getProperty("sCrewNeedJobSiteName");
-        String sCrewNeedRequestedBy = getProperty("sCrewNeedRequestedBy");
-        String sCrewNeedNotesText = getProperty("sCrewNeedNotesText");
-        String sCrewNeedAssignmentDuration = getProperty("sCrewNeedAssignmentDuration");
-        String sCrewNeedAssignmentStartTime = getProperty("sCrewNeedAssignmentStartTime");
-        // === Complete reading properties
-
-        crewNeed = new B2WAssignment(B2WAssignmentType.CREW_NEED_TYPE, sCrewNeedName, sCrewNeedJobSiteName, sCrewNeedRequestedBy, sCrewNeedNotesText,
-                dateList, sCrewNeedAssignmentStartTime, sCrewNeedAssignmentDuration);
-
-        // === Reading Properties
-        String sCrewNeedName1 = getProperty("sCrewNeedName1");
-        String sCrewNeedJobSiteName1 = getProperty("sCrewNeedJobSiteName1");
-        String sCrewNeedRequestedBy1 = getProperty("sCrewNeedRequestedBy1");
-        String sCrewNeedNotesText1 = getProperty("sCrewNeedNotesText1");
-        String sCrewNeedAssignmentDuration1 = getProperty("sCrewNeedAssignmentDuration1");
-        String sCrewNeedAssignmentStartTime1 = getProperty("sCrewNeedAssignmentStartTime1");
-        // === Complete reading properties
-
-        crewNeed1 = new B2WAssignment(B2WAssignmentType.CREW_NEED_TYPE, sCrewNeedName1, sCrewNeedJobSiteName1, sCrewNeedRequestedBy1, sCrewNeedNotesText1,
-                dateList, sCrewNeedAssignmentStartTime1, sCrewNeedAssignmentDuration1);
-
-        // ==== Complete Crews =========================================================================================
-
-        // ==== Setup Move Assignment ==================================================================================
-        // === Reading Properties
-        String sMoveAssignmentEquipmentName = getProperty("sMoveAssignmentEquipmentName");
-        String sMoveAssignmentPickupLocationType = getProperty("sMoveAssignmentPickupLocationType");
-        String sMoveAssignmentPickupLocationName = getProperty("sMoveAssignmentPickupLocationName");
-        String sMoveAssignmentDropoffLocationType = getProperty("sMoveAssignmentDropoffLocationType");
-        String sMoveAssignmentDropoffLocationName = getProperty("sMoveAssignmentDropoffLocationName");
-        String sMoveAssignmentPickupDate = getProperty("sMoveAssignmentPickupDate");
-        Date dMoveAssignmentPickupDate = StringUtils.getDateFromStringWithPattern(sMoveAssignmentPickupDate, "M/d/yyyy");
-        String sMoveAssignmentPickupTime = getProperty("sMoveAssignmentPickupTime");
-        String sMoveAssignmentDropoffDate = getProperty("sMoveAssignmentDropoffDate");
-        Date dMoveAssignmentDropoffDate = StringUtils.getDateFromStringWithPattern(sMoveAssignmentDropoffDate, "M/d/yyyy");
-        String sMoveAssignmentDropoffTime = getProperty("sMoveAssignmentDropoffTime");
-        String sMoveAssignmentRequestedBy = getProperty("sMoveAssignmentRequestedBy");
-        String sMoveAssignmentNotesText = getProperty("sMoveAssignmentNotesText");
-        String sMoveAssignmentTransportationCrewName = getProperty("sMoveAssignmentTransportationCrewName");
-
-        dateList = new ArrayList<>();
-        dateList.add(equipmentScheduleView.getStartDate()); //Start Date
-        dateList.add(equipmentScheduleView.getStartDate()); //End Date
-        // === Complete reading properties
-
-        moveAssignment = new B2WAssignment(B2WAssignmentType.MOVE_ASSIGNMENT_TYPE, sMoveAssignmentEquipmentName,
-                sMoveAssignmentPickupLocationType, sMoveAssignmentPickupLocationName, dMoveAssignmentPickupDate, sMoveAssignmentPickupTime,
-                sMoveAssignmentDropoffLocationType, sMoveAssignmentDropoffLocationName, dMoveAssignmentDropoffDate, sMoveAssignmentDropoffTime,
-                sMoveAssignmentRequestedBy, sMoveAssignmentNotesText, sMoveAssignmentTransportationCrewName);
-        // ==== Complete Move Assignments ==============================================================================
-
-        // ==== Setup Move Order =======================================================================================
-        // === Reading Properties
-        String sMoveOrderEquipmentName = getProperty("sMoveOrderEquipmentName");
-        String sMoveOrderPickupLocationType = getProperty("sMoveOrderPickupLocationType");
-        String sMoveOrderPickupLocationName = getProperty("sMoveOrderPickupLocationName");
-        String sMoveOrderPickupDate = getProperty("sMoveOrderPickupDate");
-        Date dMoveOrderPickupDate = StringUtils.getDateFromStringWithPattern(sMoveOrderPickupDate, "M/d/yyyy");
-        String sMoveOrderPickupTime = getProperty("sMoveOrderPickupTime");
-        String sMoveOrderDropoffLocationType = getProperty("sMoveOrderDropoffLocationType");
-        String sMoveOrderDropoffLocationName = getProperty("sMoveOrderDropoffLocationName");
-        String sMoveOrderDropoffDate = getProperty("sMoveOrderDropoffDate");
-        Date dMoveOrderDropoffDate = StringUtils.getDateFromStringWithPattern(sMoveOrderDropoffDate, "M/d/yyyy");
-        String sMoveOrderDropoffTime = getProperty("sMoveOrderDropoffTime");
-        String sMoveOrderRequestedBy = getProperty("sMoveOrderRequestedBy");
-        String sMoveOrderNotesText = getProperty("sMoveOrderNotesText");
-        String sMoveOrderTransportationCrewName = "";
-        // === Complete reading properties
-
-        moveOrder = new B2WAssignment(B2WAssignmentType.MOVE_ORDER_TYPE, sMoveOrderEquipmentName,
-                sMoveOrderPickupLocationType, sMoveOrderPickupLocationName, dMoveOrderPickupDate, sMoveOrderPickupTime,
-                sMoveOrderDropoffLocationType, sMoveOrderDropoffLocationName, dMoveOrderDropoffDate, sMoveOrderDropoffTime,
-                sMoveOrderRequestedBy, sMoveOrderNotesText, sMoveOrderTransportationCrewName);
-        // ==== Complete Move Order ====================================================================================
-
-        // ==== Setup Employee Event ===================================================================================
-        // === Reading Properties
-        String sEmployeeEventName = getProperty("sEmployeeEventName");
-        String sEmployeeEventType = getProperty("sEmployeeEventType");
-        String sEmployeeEventNotesText = getProperty("sEmployeeEventNotesText");
-        // === Complete reading properties
-
-        dateList = new ArrayList<>();
-        dateList.add(employeeDefaultScheduleView.getStartDate()); //Start Date
-        dateList.add(employeeDefaultScheduleView.getStartDate()); //End Date
-
-        employeeEvent = new B2WAssignment(B2WAssignmentType.EMPLOYEE_EVENT_TYPE, sEmployeeEventName,
-                sEmployeeEventType, sEmployeeEventNotesText, dateList);
-        // ==== Complete Employee Event ================================================================================
-
-        // ==== Setup Equipment Event ==================================================================================
-        // === Reading Properties
-        String sEquipmentEventName = getProperty("sEquipmentEventName");
-        String sEquipmentEventType = getProperty("sEquipmentEventType");
-        String sEquipmentEventNotesText = getProperty("sEquipmentEventNotesText");
-        // === Complete reading properties
-
-        dateList = new ArrayList<>();
-        dateList.add(equipmentDefaultScheduleView.getStartDate()); //Start Date
-        dateList.add(equipmentDefaultScheduleView.getStartDate()); //End Date
-
-        equipmentEvent = new B2WAssignment(B2WAssignmentType.EQUIPMENT_EVENT_TYPE, sEquipmentEventName,
-                sEquipmentEventType, sEquipmentEventNotesText, dateList);
-        // ==== Complete Equipment Event ===============================================================================
-
-        // ==== Setup Location Event ==================================================================================
-        // === Reading Properties
-        String sLocationEventName = getProperty("sLocationEventName");
-        String sLocationEventType = getProperty("sLocationEventType");
-        String sLocationEventNotesText = getProperty("sLocationEventNotesText");
-        // === Complete reading properties
-
-        dateList = new ArrayList<>();
-        dateList.add(locationDefaultScheduleView.getStartDate()); //Start Date
-        dateList.add(locationDefaultScheduleView.getStartDate()); //End Date
-
-        locationEvent = new B2WAssignment(B2WAssignmentType.LOCATION_EVENT_TYPE, sLocationEventName,
-                sLocationEventType, sLocationEventNotesText, dateList);
-        // ==== Complete Location Event ===============================================================================
+        setupEmployeeItems();
+        setupEquipmentItems();
+        setupCrewItems();
+        setupMoveItems();
+        setupEventsItems();
     }
 
     public void testMain() throws Throwable {
@@ -707,6 +480,273 @@ public class B2WScheduleAssignmentsTest extends B2WTestCase {
 
         return oReturn;
     }
+    private void setupEmployeeItems() {
+        // ==== Setup Employee Assignments =============================================================================
+        // === Reading Properties
+        String sEmployeeName = getProperty("sEmployeeName");
+
+        String sEmployeeJobSiteName = getProperty("sEmployeeJobSiteName");
+        String sEmployeeRequestedBy = getProperty("sEmployeeRequestedBy");
+        String sEmployeeNotesText = getProperty("sEmployeeNotesText");
+        String sEmployeeAssignmentStartTime = getProperty("sEmployeeAssignmentStartTime");
+        String sEmployeeAssignmentDuration = getProperty("sEmployeeAssignmentDuration");
+        // === Complete reading properties
+
+        employeeAssignment = new B2WAssignment(B2WAssignmentType.EMPLOYEE_TYPE, sEmployeeName, sEmployeeJobSiteName,
+                sEmployeeRequestedBy, sEmployeeNotesText, dateList, sEmployeeAssignmentStartTime, sEmployeeAssignmentDuration);
+
+        // ==== Setup Employee Assignments Substitution ================================================================
+        // === Reading Properties
+        String sEmployeeNameForSubstitution = getProperty("sEmployeeNameForSubstitution");
+
+        String sSubstitutionJobSiteName = getProperty("sSubstitutionJobSiteName");
+        String sSubstitutionRequestedBy = getProperty("sSubstitutionRequestedBy");
+        String sSubstitutionNotesText = getProperty("sSubstitutionNotesText");
+        String sSubstitutionAssignmentStartTime = getProperty("sSubstitutionAssignmentStartTime");
+        String sSubstitutionAssignmentDuration = getProperty("sSubstitutionAssignmentDuration");
+        // === Complete reading properties
+
+        employeeAssignmentForSubstitution = new B2WAssignment(B2WAssignmentType.EMPLOYEE_TYPE, sEmployeeNameForSubstitution,
+                sSubstitutionJobSiteName, sSubstitutionRequestedBy, sSubstitutionNotesText, dateList, sSubstitutionAssignmentStartTime, sSubstitutionAssignmentDuration);
+
+        // ==== Setup Employee Need ====================================================================================
+        // === Reading Properties
+        String sEmployeeNeedName = getProperty("sEmployeeNeedName");
+
+        String sEmployeeNeedJobSiteName = getProperty("sEmployeeNeedJobSiteName");
+        String sEmployeeNeedRequestedBy = getProperty("sEmployeeNeedRequestedBy");
+        String sEmployeeNeedNotesText = getProperty("sEmployeeNeedNotesText");
+        String sEmployeeNeedAssignmentStartTime = getProperty("sEmployeeNeedAssignmentStartTime");
+        String sEmployeeNeedAssignmentDuration = getProperty("sEmployeeNeedAssignmentDuration");
+        // === Complete reading properties
+        employeeNeed = new B2WAssignment(B2WAssignmentType.EMPLOYEE_NEED_TYPE, sEmployeeNeedName, sEmployeeNeedJobSiteName,
+                sEmployeeNeedRequestedBy, sEmployeeNeedNotesText, dateList, sEmployeeNeedAssignmentStartTime, sEmployeeNeedAssignmentDuration);
+
+        // === Reading Properties
+        String sEmployeeNeedName1 = getProperty("sEmployeeNeedName1");
+
+        String sEmployeeNeedJobSiteName1 = getProperty("sEmployeeNeedJobSiteName1");
+        String sEmployeeNeedRequestedBy1 = getProperty("sEmployeeNeedRequestedBy1");
+        String sEmployeeNeedNotesText1 = getProperty("sEmployeeNeedNotesText1");
+        String sEmployeeNeedAssignmentStartTime1 = getProperty("sEmployeeNeedAssignmentStartTime1");
+        String sEmployeeNeedAssignmentDuration1 = getProperty("sEmployeeNeedAssignmentDuration1");
+        // === Complete reading properties
+        employeeNeed1 = new B2WAssignment(B2WAssignmentType.EMPLOYEE_NEED_TYPE, sEmployeeNeedName1, sEmployeeNeedJobSiteName1,
+                sEmployeeNeedRequestedBy1, sEmployeeNeedNotesText1, dateList, sEmployeeNeedAssignmentStartTime1, sEmployeeNeedAssignmentDuration1);
+        // ==== Complete Employees =====================================================================================
+    }
+    private void setupEquipmentItems() {
+        // ==== Setup Equipment Assignments ============================================================================
+        // === Reading Properties
+        String sEquipmentName = getProperty("sEquipmentName");
+
+        String sEquipmentJobSiteName = getProperty("sEquipmentJobSiteName");
+        String sEquipmentRequestedBy = getProperty("sEquipmentRequestedBy");
+        String sEquipmentNotesText = getProperty("sEquipmentNotesText");
+        String sEquipmentAssignmentStartTime = getProperty("sEquipmentAssignmentStartTime");
+        String sEquipmentAssignmentDuration = getProperty("sEquipmentAssignmentDuration");
+        // === Complete reading properties
+
+        dateList = new ArrayList<>();
+        dateList.add(equipmentScheduleView.getStartDate()); //Start Date
+        dateList.add(equipmentScheduleView.getStartDate()); //End Date
+
+        equipmentAssignment = new B2WAssignment(B2WAssignmentType.EQUIPMENT_TYPE, sEquipmentName, sEquipmentJobSiteName, sEquipmentRequestedBy, sEquipmentNotesText,
+                dateList, sEquipmentAssignmentStartTime, sEquipmentAssignmentDuration);
+
+        // ==== Setup Equipment Need ===================================================================================
+        // === Reading Properties
+        String sEquipmentNeedName = getProperty("sEquipmentNeedName");
+        String sEquipmentNeedJobSiteName = getProperty("sEquipmentNeedJobSiteName");
+        String sEquipmentNeedRequestedBy = getProperty("sEquipmentNeedRequestedBy");
+        String sEquipmentNeedNotesText = getProperty("sEquipmentNeedNotesText");
+        String sEquipmentNeedAssignmentStartTime = getProperty("sEquipmentNeedAssignmentStartTime");
+        String sEquipmentNeedAssignmentDuration = getProperty("sEquipmentNeedAssignmentDuration");
+        // === Complete reading properties
+
+        equipmentNeed = new B2WAssignment(B2WAssignmentType.EQUIPMENT_NEED_TYPE, sEquipmentNeedName, sEquipmentNeedJobSiteName, sEquipmentNeedRequestedBy, sEquipmentNeedNotesText,
+                dateList, sEquipmentNeedAssignmentStartTime, sEquipmentNeedAssignmentDuration);
+
+        // === Reading Properties
+        String sEquipmentNeedName1 = getProperty("sEquipmentNeedName1");
+        String sEquipmentNeedJobSiteName1 = getProperty("sEquipmentNeedJobSiteName1");
+        String sEquipmentNeedRequestedBy1 = getProperty("sEquipmentNeedRequestedBy1");
+        String sEquipmentNeedNotesText1 = getProperty("sEquipmentNeedNotesText1");
+        String sEquipmentNeedAssignmentStartTime1 = getProperty("sEquipmentNeedAssignmentStartTime1");
+        String sEquipmentNeedAssignmentDuration1 = getProperty("sEquipmentNeedAssignmentDuration1");
+        // === Complete reading properties
+
+        equipmentNeed1 = new B2WAssignment(B2WAssignmentType.EQUIPMENT_NEED_TYPE, sEquipmentNeedName1, sEquipmentNeedJobSiteName1, sEquipmentNeedRequestedBy1, sEquipmentNeedNotesText1,
+                dateList, sEquipmentNeedAssignmentStartTime1, sEquipmentNeedAssignmentDuration1);
+
+        // ==== Complete Equipment =====================================================================================
+    }
+    private void setupCrewItems() {
+        // ==== Setup Crews Assignments ================================================================================
+        // === Setup Custom Crew
+        customCrew = setupCustomCrew();
+
+        // === Reading Properties
+        String sCrewName = getProperty("sCrewName");
+
+        String sCrewJobSiteName = getProperty("sCrewJobSiteName");
+        String sCrewRequestedBy = getProperty("sCrewRequestedBy");
+        String sCrewNotesText = getProperty("sCrewNotesText");
+        String sCrewAssignmentDuration = getProperty("sCrewAssignmentDuration");
+        String sCrewAssignmentStartTime = getProperty("sCrewAssignmentStartTime");
+        // === Complete reading properties
+
+        dateList = new ArrayList<>();
+        dateList.add(crewsScheduleView.getStartDate()); //Start Date
+        dateList.add(crewsScheduleView.getStartDate()); //End Date
+
+        crewAssignment = new B2WAssignment(B2WAssignmentType.CREW_TYPE, sCrewName, sCrewJobSiteName, sCrewRequestedBy, sCrewNotesText,
+                dateList, sCrewAssignmentStartTime, sCrewAssignmentDuration);
+
+        // === Reading Properties
+        sCrewName = getProperty("sCrewNameWithCustomCrew");
+
+        sCrewJobSiteName = getProperty("sCrewJobSiteNameWithCustomCrew");
+        sCrewNotesText = getProperty("sCrewNotesTextWithCustomCrew");
+        // === Complete reading properties
+
+        customCrewAssignment = new B2WAssignment(B2WAssignmentType.CREW_TYPE, sCrewName, sCrewJobSiteName, sCrewRequestedBy, sCrewNotesText,
+                dateList, sCrewAssignmentStartTime, sCrewAssignmentDuration);
+
+        // ==== Setup Crews Needs ======================================================================================
+        // === Reading Properties
+        String sCrewNeedName = getProperty("sCrewNeedName");
+        String sCrewNeedJobSiteName = getProperty("sCrewNeedJobSiteName");
+        String sCrewNeedRequestedBy = getProperty("sCrewNeedRequestedBy");
+        String sCrewNeedNotesText = getProperty("sCrewNeedNotesText");
+        String sCrewNeedAssignmentDuration = getProperty("sCrewNeedAssignmentDuration");
+        String sCrewNeedAssignmentStartTime = getProperty("sCrewNeedAssignmentStartTime");
+        // === Complete reading properties
+
+        crewNeed = new B2WAssignment(B2WAssignmentType.CREW_NEED_TYPE, sCrewNeedName, sCrewNeedJobSiteName, sCrewNeedRequestedBy, sCrewNeedNotesText,
+                dateList, sCrewNeedAssignmentStartTime, sCrewNeedAssignmentDuration);
+
+        // === Reading Properties
+        String sCrewNeedName1 = getProperty("sCrewNeedName1");
+        String sCrewNeedJobSiteName1 = getProperty("sCrewNeedJobSiteName1");
+        String sCrewNeedRequestedBy1 = getProperty("sCrewNeedRequestedBy1");
+        String sCrewNeedNotesText1 = getProperty("sCrewNeedNotesText1");
+        String sCrewNeedAssignmentDuration1 = getProperty("sCrewNeedAssignmentDuration1");
+        String sCrewNeedAssignmentStartTime1 = getProperty("sCrewNeedAssignmentStartTime1");
+        // === Complete reading properties
+
+        crewNeed1 = new B2WAssignment(B2WAssignmentType.CREW_NEED_TYPE, sCrewNeedName1, sCrewNeedJobSiteName1, sCrewNeedRequestedBy1, sCrewNeedNotesText1,
+                dateList, sCrewNeedAssignmentStartTime1, sCrewNeedAssignmentDuration1);
+
+        // ==== Complete Crews =========================================================================================
+    }
+    private B2WCrewTemplate setupCustomCrew() {
+        B2WCrewTemplate oReturn = new B2WCrewTemplate();
+        customCrew.setEmployees(new B2WCrewTemplateTest().parseString(getProperty("customCrewEmployeesList")));
+        customCrew.setEquipments(new B2WCrewTemplateTest().parseString(getProperty("customCrewEquipmentList")));
+        customCrew.setLaborTypes(new B2WCrewTemplateTest().parseString(getProperty("customCrewLaborTypeList")));
+        customCrew.setEquipmentTypes(new B2WCrewTemplateTest().parseString(getProperty("customCrewEquipmentTypeList")));
+        return oReturn;
+    }
+    private void setupMoveItems() {
+        // ==== Setup Move Assignment ==================================================================================
+        // === Reading Properties
+        String sMoveAssignmentEquipmentName = getProperty("sMoveAssignmentEquipmentName");
+        String sMoveAssignmentPickupLocationType = getProperty("sMoveAssignmentPickupLocationType");
+        String sMoveAssignmentPickupLocationName = getProperty("sMoveAssignmentPickupLocationName");
+        String sMoveAssignmentDropoffLocationType = getProperty("sMoveAssignmentDropoffLocationType");
+        String sMoveAssignmentDropoffLocationName = getProperty("sMoveAssignmentDropoffLocationName");
+        String sMoveAssignmentPickupDate = getProperty("sMoveAssignmentPickupDate");
+        Date dMoveAssignmentPickupDate = StringUtils.getDateFromStringWithPattern(sMoveAssignmentPickupDate, "M/d/yyyy");
+        String sMoveAssignmentPickupTime = getProperty("sMoveAssignmentPickupTime");
+        String sMoveAssignmentDropoffDate = getProperty("sMoveAssignmentDropoffDate");
+        Date dMoveAssignmentDropoffDate = StringUtils.getDateFromStringWithPattern(sMoveAssignmentDropoffDate, "M/d/yyyy");
+        String sMoveAssignmentDropoffTime = getProperty("sMoveAssignmentDropoffTime");
+        String sMoveAssignmentRequestedBy = getProperty("sMoveAssignmentRequestedBy");
+        String sMoveAssignmentNotesText = getProperty("sMoveAssignmentNotesText");
+        String sMoveAssignmentTransportationCrewName = getProperty("sMoveAssignmentTransportationCrewName");
+
+        dateList = new ArrayList<>();
+        dateList.add(equipmentScheduleView.getStartDate()); //Start Date
+        dateList.add(equipmentScheduleView.getStartDate()); //End Date
+        // === Complete reading properties
+
+        moveAssignment = new B2WAssignment(B2WAssignmentType.MOVE_ASSIGNMENT_TYPE, sMoveAssignmentEquipmentName,
+                sMoveAssignmentPickupLocationType, sMoveAssignmentPickupLocationName, dMoveAssignmentPickupDate, sMoveAssignmentPickupTime,
+                sMoveAssignmentDropoffLocationType, sMoveAssignmentDropoffLocationName, dMoveAssignmentDropoffDate, sMoveAssignmentDropoffTime,
+                sMoveAssignmentRequestedBy, sMoveAssignmentNotesText, sMoveAssignmentTransportationCrewName);
+        // ==== Complete Move Assignments ==============================================================================
+
+        // ==== Setup Move Order =======================================================================================
+        // === Reading Properties
+        String sMoveOrderEquipmentName = getProperty("sMoveOrderEquipmentName");
+        String sMoveOrderPickupLocationType = getProperty("sMoveOrderPickupLocationType");
+        String sMoveOrderPickupLocationName = getProperty("sMoveOrderPickupLocationName");
+        String sMoveOrderPickupDate = getProperty("sMoveOrderPickupDate");
+        Date dMoveOrderPickupDate = StringUtils.getDateFromStringWithPattern(sMoveOrderPickupDate, "M/d/yyyy");
+        String sMoveOrderPickupTime = getProperty("sMoveOrderPickupTime");
+        String sMoveOrderDropoffLocationType = getProperty("sMoveOrderDropoffLocationType");
+        String sMoveOrderDropoffLocationName = getProperty("sMoveOrderDropoffLocationName");
+        String sMoveOrderDropoffDate = getProperty("sMoveOrderDropoffDate");
+        Date dMoveOrderDropoffDate = StringUtils.getDateFromStringWithPattern(sMoveOrderDropoffDate, "M/d/yyyy");
+        String sMoveOrderDropoffTime = getProperty("sMoveOrderDropoffTime");
+        String sMoveOrderRequestedBy = getProperty("sMoveOrderRequestedBy");
+        String sMoveOrderNotesText = getProperty("sMoveOrderNotesText");
+        String sMoveOrderTransportationCrewName = "";
+        // === Complete reading properties
+
+        moveOrder = new B2WAssignment(B2WAssignmentType.MOVE_ORDER_TYPE, sMoveOrderEquipmentName,
+                sMoveOrderPickupLocationType, sMoveOrderPickupLocationName, dMoveOrderPickupDate, sMoveOrderPickupTime,
+                sMoveOrderDropoffLocationType, sMoveOrderDropoffLocationName, dMoveOrderDropoffDate, sMoveOrderDropoffTime,
+                sMoveOrderRequestedBy, sMoveOrderNotesText, sMoveOrderTransportationCrewName);
+        // ==== Complete Move Order ====================================================================================
+    }
+    private void setupEventsItems() {
+        // ==== Setup Employee Event ===================================================================================
+        // === Reading Properties
+        String sEmployeeEventName = getProperty("sEmployeeEventName");
+        String sEmployeeEventType = getProperty("sEmployeeEventType");
+        String sEmployeeEventNotesText = getProperty("sEmployeeEventNotesText");
+        // === Complete reading properties
+
+        dateList = new ArrayList<>();
+        dateList.add(employeeDefaultScheduleView.getStartDate()); //Start Date
+        dateList.add(employeeDefaultScheduleView.getStartDate()); //End Date
+
+        employeeEvent = new B2WAssignment(B2WAssignmentType.EMPLOYEE_EVENT_TYPE, sEmployeeEventName,
+                sEmployeeEventType, sEmployeeEventNotesText, dateList);
+        // ==== Complete Employee Event ================================================================================
+
+        // ==== Setup Equipment Event ==================================================================================
+        // === Reading Properties
+        String sEquipmentEventName = getProperty("sEquipmentEventName");
+        String sEquipmentEventType = getProperty("sEquipmentEventType");
+        String sEquipmentEventNotesText = getProperty("sEquipmentEventNotesText");
+        // === Complete reading properties
+
+        dateList = new ArrayList<>();
+        dateList.add(equipmentDefaultScheduleView.getStartDate()); //Start Date
+        dateList.add(equipmentDefaultScheduleView.getStartDate()); //End Date
+
+        equipmentEvent = new B2WAssignment(B2WAssignmentType.EQUIPMENT_EVENT_TYPE, sEquipmentEventName,
+                sEquipmentEventType, sEquipmentEventNotesText, dateList);
+        // ==== Complete Equipment Event ===============================================================================
+
+        // ==== Setup Location Event ==================================================================================
+        // === Reading Properties
+        String sLocationEventName = getProperty("sLocationEventName");
+        String sLocationEventType = getProperty("sLocationEventType");
+        String sLocationEventNotesText = getProperty("sLocationEventNotesText");
+        // === Complete reading properties
+
+        dateList = new ArrayList<>();
+        dateList.add(locationDefaultScheduleView.getStartDate()); //Start Date
+        dateList.add(locationDefaultScheduleView.getStartDate()); //End Date
+
+        locationEvent = new B2WAssignment(B2WAssignmentType.LOCATION_EVENT_TYPE, sLocationEventName,
+                sLocationEventType, sLocationEventNotesText, dateList);
+        // ==== Complete Location Event ===============================================================================
+    }
 
     // Tests
     private void createScheduleViews() {
@@ -774,6 +814,10 @@ public class B2WScheduleAssignmentsTest extends B2WTestCase {
 
         logCompare(true, b2wScheduler.setSearchValue(crewAssignment.getResourceName()), "Set Filter by " + crewAssignment.getResourceName());
         logCompare(true, b2wScheduler.createCrewAssignment(crewAssignment), "Create Assignment for: " + crewAssignment.getResourceName());
+        logCompare(true, b2wScheduler.setSearchValue(customCrewAssignment.getResourceName()), "Set Filter by " + customCrewAssignment.getResourceName());
+        logCompare(true, b2wScheduler.createCrewAssignmentwithCustomCrew(customCrewAssignment, customCrew),
+                "Create Assignment with Custom Crew for: " + customCrewAssignment.getResourceName());
+
     }
     private void createCrewsNeeds() {
         selectView(crewsScheduleView);

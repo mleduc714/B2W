@@ -71,7 +71,8 @@ public class B2WScheduleAssignments extends KendoUI {
     public static By getFillWith() { return By.cssSelector(B2WUIMap.b2w_schedule_fillwith); }
     public static By getCollapseCalendarIcon() { return By.cssSelector(B2WUIMap.b2w_schedule_collapsecalendaricon); }
     public static By getExpandCalendarIcon() { return By.cssSelector(B2WUIMap.b2w_schedule_expandcalendaricon); }
-
-
-
+    public static By getViewCrewBtn() { return By.cssSelector(B2WUIMap.b2w_schedule_viewcrewbtn); }
+    public static By getHideCrewBtn() { return By.cssSelector(B2WUIMap.b2w_schedule_hidecrewbtn); }
+    public static By getAddCrewResourceBtn() { return By.cssSelector(B2WUIMap.b2w_schedule_addcrewresourcebtn); }
+    public static By getAddToCrewDialog() { return By.cssSelector(B2WUIMap.b2w_schedule_addtocrewdialog); }
 }
