@@ -1177,4 +1177,26 @@ public class B2WUIMap {
 
 	public static final String b2w_kendolistheightfix = "div.list-height-fix";
 	public static final String b2w_kendokbutton = ".k-button";
+	public static final String b2w_timecardemployeehourgrid = "div#employeeHoursGrid";
+	public static final String b2w_kendofootertemplate = "k-footer-template";
+	public static final String b2w_kendobuttonicon = "a.btn-icon";
+	
+	//tags
+	public static final String b2w_kendotbody = "tbody";
+	public static final String b2w_kendotd = "td";
+	public static final String b2w_kendotr = "tr";
+	public static final String b2w_kendouinputtag = "input";
+	public static final String b2w_kendolabeltag = "label";
+	public static final String b2w_kendospantag = "span";
+	public static final String b2w_kendotextareatage = "textarea";
+	public static final String b2w_kendoiframetag = "iframe";
+	public static final String b2w_kendobodytag = "body";
+	public static final String b2w_kendodivtag = "div";
+	public static final String b2w_kendooptiontag = "option";
+	public static final String b2w_kendolinktag = "a";
+	public static final String b2w_kendoptag = "p";
+	public static final String b2w_kendolitage = "li";
+	public static final String b2w_kendotexttage = "text";
+	public static final String b2w_kendostrongtag = "strong";
+	
 }
