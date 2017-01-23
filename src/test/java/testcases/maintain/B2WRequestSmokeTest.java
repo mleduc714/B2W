@@ -229,7 +229,7 @@ public class B2WRequestSmokeTest extends B2WTestCase {
 		SimpleDateFormat sd = new SimpleDateFormat("M/d/yyyy");
 		Calendar cal = Calendar.getInstance();
 		cal.add(Calendar.DAY_OF_YEAR, 14);
-		logCompare(true,b2wRequests.selectWorkOrderRequestByDescription(sRequestDescription),"Select Request "+sRequestDescription);
+		assertTrue("Select Request "+sRequestDescription,b2wRequests.selectWorkOrderRequestByDescription(sRequestDescription));
 		logCompare(true,b2wRequests.clickAddToWorkOrderButton(), "Add To Work Order");
 		logCompare(true,b2wWork.setWorkOrderDescription(sWorkOrderDescription), "Set Description");
 		b2wWork.selectAnyPlannedWorkLocation();

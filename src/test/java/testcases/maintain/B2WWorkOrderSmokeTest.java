@@ -224,16 +224,16 @@ public class B2WWorkOrderSmokeTest extends B2WTestCase {
 
 		logCompare(true,b2wWork.expandHours(), "Expanded Hours");
 		logCompare(true,b2wWork.clickAddPlannedHours(), "Add Planned Hours");
-		logCompare(true,b2wPlannedHours.setDescription(this.sWorkOrderPlannedHoursDesc), "");
-		logCompare(true,b2wPlannedHours.setPlannedHours(this.sWorkOrderPlannedHours), "");
-		logCompare(true,b2wPlannedHours.selectLaborType(this.sWorkOrderPlannedLaborType), "");
+		logCompare(true,b2wPlannedHours.setDescription(this.sWorkOrderPlannedHoursDesc), "Set Planned Hours Desc");
+		logCompare(true,b2wPlannedHours.setPlannedHours(this.sWorkOrderPlannedHours), "Set Planned Hours");
+		logCompare(true,b2wPlannedHours.selectLaborType(this.sWorkOrderPlannedLaborType), "Set Work Order Planned Labor Type");
 		logCompare(true,b2wPlannedHours.savePlannedHours(), "Save Planned Hours");
 		logCompare(true,b2wWork.clickAddReportedHours(), "Add Reported Hours");
-		logCompare(true,b2wReportHours.setEmployeeWorkHoursDescription(this.sWorkOrderReportHoursDesc), "");
-		logCompare(true,b2wReportHours.selectEmployeeLaborType(this.sWorkOrderReportLaborType), "Select Labor Type");
+		logCompare(true,b2wReportHours.setEmployeeWorkHoursDescription(this.sWorkOrderReportHoursDesc), "Set Work Order Report Hours Desc");
 		logCompare(true,b2wReportHours.setDate(format.format(cal.getTime())), "Set the Date");
 		b2wReportHours.selectRandomEmployee();
-		logCompare(true,b2wReportHours.setEmployeeRegularHours(this.sWorkOrderReportRegularHours), "");
+		logCompare(true,b2wReportHours.setEmployeeRegularHours(this.sWorkOrderReportRegularHours), "Set Regular Hours");
+		logCompare(true,b2wReportHours.selectEmployeeLaborType(this.sWorkOrderReportLaborType), "Select Labor Type");
 		logCompare(true,b2wReportHours.saveReportedHours(), "Save Reported Hours");
 		TaskUtils.sleep(1000);
 		logCompare(true,b2wWork.clickAddItemButton(), "Click Add Item");

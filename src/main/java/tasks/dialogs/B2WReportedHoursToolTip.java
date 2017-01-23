@@ -5,12 +5,13 @@ import org.openqa.selenium.WebElement;
 
 import tasks.WebElementUtils;
 
-public class B2WReportedHoursToolTip {
+public class B2WReportedHoursToolTip extends B2WKendoDialog {
 	
 
 	private WebElement getReportedHoursPopup() {
 		WebElement tooltip = null;
-		tooltip = WebElementUtils.waitAndFindDisplayedElement(By.className("reportedhours-tooltip"));
+
+		tooltip = WebElementUtils.getVisibleElementFromListofElements(WebElementUtils.findElements(By.className("reportedhours-tooltip")));
 		return tooltip;
 			
 	}
@@ -59,8 +60,18 @@ public class B2WReportedHoursToolTip {
 		WebElement el = getReportedHoursPopup();
 		if (el != null){
 			bReturn = WebElementUtils.clickElement(WebElementUtils.getChildElements(el, By.tagName("a")).get(0));
+			waitForPageNotBusy(WebElementUtils.MEDIUM_TIME_OUT);
 		}
 		return bReturn;
+	}
+	
+	public String getEquipmentLinkText(){
+		String s = "";
+		WebElement el = getReportedHoursPopup();
+		if (el != null){
+			s = WebElementUtils.getChildElements(el, By.tagName("a")).get(0).getText();
+		}
+		return s;
 	}
 	
 	public boolean clickOnWorkOrder() {
@@ -68,6 +79,7 @@ public class B2WReportedHoursToolTip {
 		WebElement el = getReportedHoursPopup();
 		if (el != null){
 			bReturn = WebElementUtils.clickElement(WebElementUtils.getChildElements(el, By.tagName("a")).get(1));
+			waitForPageNotBusy(WebElementUtils.MEDIUM_TIME_OUT);
 		}
 		return bReturn;
 	}

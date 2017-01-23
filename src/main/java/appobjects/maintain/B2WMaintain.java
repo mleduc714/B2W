@@ -678,7 +678,12 @@ public class B2WMaintain extends KendoUI {
 	public static By getMaintainSubhead() {
 		return By.className("subhead");
 	}
-
+	public static By getMaintainEmployeeHoursGrid() {
+		return By.cssSelector(B2WUIMap.b2w_timecardemployeehourgrid);
+	}
+	public static By getMaintainEquipmentHoursGrid() {
+		return By.cssSelector(B2WUIMap.b2w_timecardequipmenthourgrid);
+	}
 
 		
 }
