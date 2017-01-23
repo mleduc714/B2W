@@ -24,6 +24,7 @@ public class B2WSchedules {
     public static By deletePopUpWindow() { return By.cssSelector(B2WUIMap.b2w_schedules_deletepopupwindow); }
     public static By copyBtn() { return By.cssSelector(B2WUIMap.b2w_schedules_copybtn); }
     public static By editBtn() { return By.cssSelector(B2WUIMap.b2w_schedules_editbtn); }
+    public static By openBtn() { return By.cssSelector(B2WUIMap.b2w_schedules_openbtn); }
     public static By removeFilterLink() { return By.cssSelector(B2WUIMap.b2w_schedules_removeFilterLink); }
     public static By removeItemBtn() { return By.cssSelector(B2WUIMap.b2w_schedules_removeItemBtn); }
     public static By yesBtnOnPopupWindow() { return By.cssSelector(B2WUIMap.b2w_schedules_popupwindow_yesbtn); }

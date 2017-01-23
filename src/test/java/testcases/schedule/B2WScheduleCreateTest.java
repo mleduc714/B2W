@@ -3,32 +3,30 @@ package testcases.schedule;
 import java.util.ArrayList;
 import com.b2w.test.B2WTestCase;
 import tasks.scheduler.B2WScheduleView;
-import tasks.scheduler.B2WSchedulerTasks;
 import tasks.setup.B2WSchedulesTasks;
 import tasks.util.B2WScheduleItem;
 import tasks.util.StringUtils;
 
 public class B2WScheduleCreateTest extends B2WTestCase{
 
-	private final B2WSchedulerTasks b2wScheduler = new B2WSchedulerTasks();
 	private final B2WSchedulesTasks b2wSchedulesTasks = new B2WSchedulesTasks();
 
 	// Property
 	// Schedule Views
-	B2WScheduleView employeeScheduleView;
-	B2WScheduleView equipmentScheduleView;
-	B2WScheduleView crewsScheduleView;
-	B2WScheduleView locationScheduleView;
+	private B2WScheduleView employeeScheduleView;
+	private B2WScheduleView equipmentScheduleView;
+	private B2WScheduleView crewsScheduleView;
+	private B2WScheduleView locationScheduleView;
 
-	B2WScheduleView copyEmployeeScheduleView;
-	B2WScheduleView copyEquipmentScheduleView;
-	B2WScheduleView copyCrewsScheduleView;
-	B2WScheduleView copyLocationScheduleView;
+	private B2WScheduleView copyEmployeeScheduleView;
+	private B2WScheduleView copyEquipmentScheduleView;
+	private B2WScheduleView copyCrewsScheduleView;
+	private B2WScheduleView copyLocationScheduleView;
 
-	B2WScheduleView updateEmployeeScheduleView;
-	B2WScheduleView updateEquipmentScheduleView;
-	B2WScheduleView updateCrewsScheduleView;
-	B2WScheduleView updateLocationScheduleView;
+	private B2WScheduleView updateEmployeeScheduleView;
+	private B2WScheduleView updateEquipmentScheduleView;
+	private B2WScheduleView updateCrewsScheduleView;
+	private B2WScheduleView updateLocationScheduleView;
 
 	@Override
 	public String getAuthor() {
@@ -78,6 +76,7 @@ public class B2WScheduleCreateTest extends B2WTestCase{
 		sortingScheduleView();
 		copyScheduleViews();
 		updateScheduleView();
+		openScheduleView();
 
 		// Delete Schedule Views
 		deleteScheduleViews();
@@ -100,14 +99,14 @@ public class B2WScheduleCreateTest extends B2WTestCase{
 		// === Complete reading properties
 
 		// === Prepare Schedule Items based on Schedule Format
-		ArrayList<B2WScheduleItem> itemList = new ArrayList<B2WScheduleItem>();
+		ArrayList<B2WScheduleItem> itemList = new ArrayList<>();
 		B2WScheduleItem item = new B2WScheduleItem();
 		item.setScheduleFormat("Resource Listing");
 		item.setResourceName("Employees");
 		itemList.add(item);
 
 		// === Prepare Filters List
-		ArrayList<String[]> filters = new ArrayList<String[]>();
+		ArrayList<String[]> filters = new ArrayList<>();
 		String[] filterItem = new String[2];
 		if (!sFilterType.equals("")) {
 			filterItem[0] = sFilterType;
@@ -116,13 +115,13 @@ public class B2WScheduleCreateTest extends B2WTestCase{
 		}
 
 		// === Prepare Roles list
-		ArrayList<String> roles = new ArrayList<String>();
+		ArrayList<String> roles = new ArrayList<>();
 		if (!sSecurityRole.equals("")){
 			roles.add(sSecurityRole);
 		}
 
 		// === Prepare Users list
-		ArrayList<String> users = new ArrayList<String>();
+		ArrayList<String> users = new ArrayList<>();
 		if (!sUser.equals("")) {
 			users.add(sUser);
 		}
@@ -152,14 +151,14 @@ public class B2WScheduleCreateTest extends B2WTestCase{
 		// === Complete reading properties
 
 		// Prepare Schedule Items based on Schedule Format
-		ArrayList<B2WScheduleItem> itemList = new ArrayList<B2WScheduleItem>();
+		ArrayList<B2WScheduleItem> itemList = new ArrayList<>();
 		B2WScheduleItem item = new B2WScheduleItem();
 		item.setScheduleFormat("Resource Listing");
 		item.setResourceName("Equipment");
 		itemList.add(item);
 
 		// Prepare Filters List
-		ArrayList<String[]> filters = new ArrayList<String[]>();
+		ArrayList<String[]> filters = new ArrayList<>();
 		String[] filterItem = new String[2];
 		if (!sFilterType.equals("")) {
 			filterItem[0] = sFilterType;
@@ -168,13 +167,13 @@ public class B2WScheduleCreateTest extends B2WTestCase{
 		}
 
 		// === Prepare Roles list
-		ArrayList<String> roles = new ArrayList<String>();
+		ArrayList<String> roles = new ArrayList<>();
 		if (!sSecurityRole.equals("")){
 			roles.add(sSecurityRole);
 		}
 
 		// === Prepare Users list
-		ArrayList<String> users = new ArrayList<String>();
+		ArrayList<String> users = new ArrayList<>();
 		if (!sUser.equals("")) {
 			users.add(sUser);
 		}
@@ -203,7 +202,7 @@ public class B2WScheduleCreateTest extends B2WTestCase{
 		// === Complete reading properties
 
 		// Prepare Schedule Items based on Schedule Format
-		ArrayList<B2WScheduleItem> itemList = new ArrayList<B2WScheduleItem>();
+		ArrayList<B2WScheduleItem> itemList = new ArrayList<>();
 		B2WScheduleItem item = new B2WScheduleItem();
 		item.setScheduleFormat("Crew View");
 		item.setResourceName("Production Crews");
@@ -214,7 +213,7 @@ public class B2WScheduleCreateTest extends B2WTestCase{
 		itemList.add(item1);
 
 		// Prepare Filters List
-		ArrayList<String[]> filters = new ArrayList<String[]>();
+		ArrayList<String[]> filters = new ArrayList<>();
 		String[] filterItem = new String[2];
 		if (!sFilterType.equals("")) {
 			filterItem[0] = sFilterType;
@@ -223,13 +222,13 @@ public class B2WScheduleCreateTest extends B2WTestCase{
 		}
 
 		// === Prepare Roles list
-		ArrayList<String> roles = new ArrayList<String>();
+		ArrayList<String> roles = new ArrayList<>();
 		if (!sSecurityRole.equals("")){
 			roles.add(sSecurityRole);
 		}
 
 		// === Prepare Users list
-		ArrayList<String> users = new ArrayList<String>();
+		ArrayList<String> users = new ArrayList<>();
 		if (!sUser.equals("")) {
 			users.add(sUser);
 		}
@@ -258,7 +257,7 @@ public class B2WScheduleCreateTest extends B2WTestCase{
 		// === Complete reading properties
 
 		// Prepare Schedule Items based on Schedule Format
-		ArrayList<B2WScheduleItem> itemList = new ArrayList<B2WScheduleItem>();
+		ArrayList<B2WScheduleItem> itemList = new ArrayList<>();
 		B2WScheduleItem item = new B2WScheduleItem();
 		item.setScheduleFormat("Location View");
 		item.setResourceName("Job Sites");
@@ -270,7 +269,7 @@ public class B2WScheduleCreateTest extends B2WTestCase{
 		itemList.add(item1);
 
 		// Prepare Filters List
-		ArrayList<String[]> filters = new ArrayList<String[]>();
+		ArrayList<String[]> filters = new ArrayList<>();
 		String[] filterItem = new String[2];
 		if (!sFilterType.equals("")) {
 			filterItem[0] = sFilterType;
@@ -279,13 +278,13 @@ public class B2WScheduleCreateTest extends B2WTestCase{
 		}
 
 		// === Prepare Roles list
-		ArrayList<String> roles = new ArrayList<String>();
+		ArrayList<String> roles = new ArrayList<>();
 		if (!sSecurityRole.equals("")){
 			roles.add(sSecurityRole);
 		}
 
 		// === Prepare Users list
-		ArrayList<String> users = new ArrayList<String>();
+		ArrayList<String> users = new ArrayList<>();
 		if (!sUser.equals("")) {
 			users.add(sUser);
 		}
@@ -321,7 +320,7 @@ public class B2WScheduleCreateTest extends B2WTestCase{
 		itemList.add(item);
 
 		// === Prepare Filters List
-		ArrayList<String[]> filters = new ArrayList<String[]>();
+		ArrayList<String[]> filters = new ArrayList<>();
 		String[] filterItem = new String[2];
 		if (!sFilterType.equals("")) {
 			filterItem[0] = sFilterType;
@@ -330,13 +329,13 @@ public class B2WScheduleCreateTest extends B2WTestCase{
 		}
 
 		// === Prepare Roles list
-		ArrayList<String> roles = new ArrayList<String>();
+		ArrayList<String> roles = new ArrayList<>();
 		if (!sSecurityRole.equals("")){
 			roles.add(sSecurityRole);
 		}
 
 		// === Prepare Users list
-		ArrayList<String> users = new ArrayList<String>();
+		ArrayList<String> users = new ArrayList<>();
 		if (!sUser.equals("")) {
 			users.add(sUser);
 		}
@@ -364,7 +363,7 @@ public class B2WScheduleCreateTest extends B2WTestCase{
 		// === Complete reading properties
 
 		// Prepare Schedule Items based on Schedule Format
-		ArrayList<B2WScheduleItem> itemList = new ArrayList<B2WScheduleItem>();
+		ArrayList<B2WScheduleItem> itemList = new ArrayList<>();
 		B2WScheduleItem item = new B2WScheduleItem();
 		item.setScheduleFormat("Resource Listing");
 		item.setResourceName("Equipment");
@@ -373,7 +372,7 @@ public class B2WScheduleCreateTest extends B2WTestCase{
 		itemList.add(item);
 
 		// Prepare Filters List
-		ArrayList<String[]> filters = new ArrayList<String[]>();
+		ArrayList<String[]> filters = new ArrayList<>();
 		String[] filterItem = new String[2];
 		if (!sFilterType.equals("")) {
 			filterItem[0] = sFilterType;
@@ -382,13 +381,13 @@ public class B2WScheduleCreateTest extends B2WTestCase{
 		}
 
 		// === Prepare Roles list
-		ArrayList<String> roles = new ArrayList<String>();
+		ArrayList<String> roles = new ArrayList<>();
 		if (!sSecurityRole.equals("")){
 			roles.add(sSecurityRole);
 		}
 
 		// === Prepare Users list
-		ArrayList<String> users = new ArrayList<String>();
+		ArrayList<String> users = new ArrayList<>();
 		if (!sUser.equals("")) {
 			users.add(sUser);
 		}
@@ -415,7 +414,7 @@ public class B2WScheduleCreateTest extends B2WTestCase{
 		// === Complete reading properties
 
 		// Prepare Schedule Items based on Schedule Format
-		ArrayList<B2WScheduleItem> itemList = new ArrayList<B2WScheduleItem>();
+		ArrayList<B2WScheduleItem> itemList = new ArrayList<>();
 		B2WScheduleItem item = new B2WScheduleItem();
 		item.setScheduleFormat("Crew View");
 		item.setResourceName("Production Crews");
@@ -431,7 +430,7 @@ public class B2WScheduleCreateTest extends B2WTestCase{
 		itemList.add(item1);
 
 		// Prepare Filters List
-		ArrayList<String[]> filters = new ArrayList<String[]>();
+		ArrayList<String[]> filters = new ArrayList<>();
 		String[] filterItem = new String[2];
 		if (!sFilterType.equals("")) {
 			filterItem[0] = sFilterType;
@@ -440,13 +439,13 @@ public class B2WScheduleCreateTest extends B2WTestCase{
 		}
 
 		// === Prepare Roles list
-		ArrayList<String> roles = new ArrayList<String>();
+		ArrayList<String> roles = new ArrayList<>();
 		if (!sSecurityRole.equals("")){
 			roles.add(sSecurityRole);
 		}
 
 		// === Prepare Users list
-		ArrayList<String> users = new ArrayList<String>();
+		ArrayList<String> users = new ArrayList<>();
 		if (!sUser.equals("")) {
 			users.add(sUser);
 		}
@@ -473,7 +472,7 @@ public class B2WScheduleCreateTest extends B2WTestCase{
 		// === Complete reading properties
 
 		// Prepare Schedule Items based on Schedule Format
-		ArrayList<B2WScheduleItem> itemList = new ArrayList<B2WScheduleItem>();
+		ArrayList<B2WScheduleItem> itemList = new ArrayList<>();
 		B2WScheduleItem item = new B2WScheduleItem();
 		item.setScheduleFormat("Location View");
 		item.setResourceName("Job Sites");
@@ -544,6 +543,9 @@ public class B2WScheduleCreateTest extends B2WTestCase{
 	}
 	private void sortingScheduleView() {
 		b2wSchedulesTasks.sortingScheduleView();
+	}
+	private void openScheduleView() {
+		b2wSchedulesTasks.openScheduleView(employeeScheduleView);
 	}
 	private void copyScheduleViews() {
 		copyEmployeeScheduleView = b2wSchedulesTasks.copyScheduleView(employeeScheduleView);

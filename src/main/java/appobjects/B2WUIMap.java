@@ -138,6 +138,7 @@ public class B2WUIMap {
 	public static final String b2w_schedules_deletebtn = ".btn-delete";
 	public static final String b2w_schedules_copybtn = ".btn-copy";
 	public static final String b2w_schedules_editbtn = ".btn-edit";
+	public static final String b2w_schedules_openbtn = ".btn-export";
 	public static final String b2w_schedules_removeFilterLink = ".js-remove.left-expanding-row__right.filter__remove";
 	public static final String b2w_schedules_removeItemBtn = ".k-icon.k-i-close";
 	public static final String b2w_schedules_deletepopupwindow = ".k-widget.k-window";
