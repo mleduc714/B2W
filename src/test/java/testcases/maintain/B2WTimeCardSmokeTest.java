@@ -14,6 +14,7 @@ import tasks.dialogs.B2WApprovePurchaseOrder;
 import tasks.dialogs.B2WCompleteWorkOrder;
 import tasks.dialogs.B2WEditScheduleMaintenance;
 import tasks.dialogs.B2WReportHours;
+import tasks.dialogs.B2WReportedHoursToolTip;
 import tasks.dialogs.B2WScheduleMaintenance;
 import tasks.jobs.B2WJobsTasks;
 import tasks.maintain.B2WInventoryTasks;
@@ -28,6 +29,7 @@ import tasks.maintain.B2WTimeCardTasks;
 import tasks.maintain.B2WWorkOrdersTasks;
 import tasks.resources.B2WEmployeeTasks;
 import tasks.resources.B2WEquipmentTasks;
+import tasks.util.TaskUtils;
 
 public class B2WTimeCardSmokeTest extends B2WTestCase {
 	B2WNavigationTasks b2wNav = new B2WNavigationTasks();
@@ -57,6 +59,7 @@ public class B2WTimeCardSmokeTest extends B2WTestCase {
 	B2WEmployeeTasks b2wEmp = new B2WEmployeeTasks();
 	B2WApprovePurchaseOrder approve = new B2WApprovePurchaseOrder();	
 	B2WPurchasingTasks purch = new B2WPurchasingTasks();
+	B2WReportedHoursToolTip hoursToolTip = new B2WReportedHoursToolTip();
 	
 	String sEmployeeFirstName,sEmployeeLastName,sEmployeeID,sEmployeeLaborType,sEmployeeLaborTypeClass,sEmployeeChargeTo,
 	sEmployeeEquipment, sEmployeeWorkOrder, sEmployeeWorkItem,sEmployeeEquipmentLaborType,
@@ -67,7 +70,7 @@ public class B2WTimeCardSmokeTest extends B2WTestCase {
 	sEmployeeChargeToJob,sEmployeeChargeToLaborRateClass,sEmployeeChargeToLaborType,
 	sEmployeeOverheadAccount,sEmployeeOverheadLaborRateClass,sEmployeeOverheadLaborType,sEmployee, sEquipment, sEquipmentID, sEquipmentBU,
 	sEmployeeHourDescriptionD, sEquipmentWorkOrder, sEquipmentWorkItem, sEquipmentWorkLaborClass, sEquipmentRegularHoursC,sEquipmentRegularMinsC,
-	sEquipmentNameID, sEmployeeLaborTypeA, sEmployeeLaborTypeB, sEmployeeLaborTypeC;
+	sEquipmentNameID, sEquipmentNameID2,sEmployeeLaborTypeA, sEmployeeLaborTypeB, sEmployeeLaborTypeC;
 	int iRandom = 0;
 	@Override
 	public void testSetUp() throws Throwable {
@@ -170,6 +173,7 @@ public class B2WTimeCardSmokeTest extends B2WTestCase {
 		•Navigation options to Time Cards page*/
 		sEmployee = this.sEmployeeFirstName+ " "+this.sEmployeeLastName + " ["+ this.sEmployeeID+ "]";
 		sEquipmentNameID = this.sEquipmentID+ " " + "[" + this.sEquipment + "]";
+		sEquipmentNameID2 = this.sEquipment+ " " + "[" + this.sEquipmentID + "]";
 
 		createEmployee();
 		createEquipment();
@@ -182,9 +186,11 @@ public class B2WTimeCardSmokeTest extends B2WTestCase {
 	
 	public void createEquipment() {
 		b2wNav.openMaintain();
-		b2wMaintain.openEquipment();
-		b2wE.createNewEquipment();
-		b2wE.createEquipment(sEquipment, sEquipmentID, sEquipmentBU);
+		assertTrue("Open Equipment",b2wMaintain.openEquipment());
+		
+		assertTrue("Create New Equipment",b2wE.createNewEquipment());
+		assertTrue("Create Equipment ",b2wE.createEquipment(sEquipment, sEquipmentID, sEquipmentBU));
+		
 	}
 	
 	public void createEmployee() {
@@ -203,13 +209,14 @@ public class B2WTimeCardSmokeTest extends B2WTestCase {
 	public void createTimeCard() {
 		logCompare(true,b2wNav.openMaintain(),"Open Maintain");
 		logCompare(true,b2wMaintain.openTimeCards(),"Open Time Cards");
-		b2wtimecards.clickCreateNewTimeCard();
-		b2wReport.selectEmployee(sEmployee);
-		b2wReport.saveReportedHours();
+		logCompare(true,b2wtimecards.clickCreateNewTimeCard(), "Create New Card");
+		logCompare(true,b2wReport.selectEmployee(sEmployee), "Select "+sEmployee);
+		logCompare(true,b2wReport.saveReportedHours(), "Save Reported Hours");
 	}
 	
 	public void employeeHoursChargeToJob() {
 		
+
 		logCompare(true,b2wtimecards.selectEmployee(sEmployee), "Select Employee");
 		logCompare(true,b2wtimecards.clickReportEmployeeHoursButton(), "Employee Hours");
 		logCompare(true,b2wReport.selectTypeofHoursEmployee(), "Select Type Hours");
@@ -223,9 +230,18 @@ public class B2WTimeCardSmokeTest extends B2WTestCase {
 		b2wReport.setEmployeeOvertimeHours(sEmployeeOvertimeHoursA);
 		b2wReport.setEmployeeOvertimeMins(sEmployeeOvertimeMinsA);
 		b2wReport.saveReportedHours();
-		
-		
-		
+		String sHours = "Charge\n"+sEmployeeRegularHoursA+":"+sEmployeeRegularMinsA + " RT, "+this.sEmployeeOvertimeHoursA+":"+this.sEmployeeOvertimeMinsA+ " OT\n"+
+		"on job "+sEmployeeChargeToJob;
+		sEmployeeChargeToLaborRateClass = sEmployeeChargeToLaborRateClass.substring(0, sEmployeeChargeToLaborRateClass.indexOf("[")).trim();
+		logCompare(true,b2wtimecards.getEmployeeLaborTypes().contains(sEmployeeLaborTypeA),"Verify Employee Labor Type "+sEmployeeLaborTypeA);
+		logCompare(true,b2wtimecards.getEmployeeLaborRateClass().contains(sEmployeeChargeToLaborRateClass), "Employee Labor Rate Class "+sEmployeeChargeToLaborRateClass);
+		logCompare(true,b2wtimecards.getEmployeeChargeTo().contains(sEmployeeChargeToJob), "Employee Charge to Job "+sEmployeeChargeToJob);
+		logCompare(sEmployeeRegularHoursA+":"+sEmployeeRegularMinsA + " RT", b2wtimecards.getEmployeeRegularHoursByRow(0), "Verify Regular Hours");
+		logCompare(this.sEmployeeOvertimeHoursA+":"+this.sEmployeeOvertimeMinsA+ " OT",b2wtimecards.getEmployeeOvertimeHoursByRow(0), "Verify Overtime Hours");
+		b2wtimecards.clickEmployeeIconByRow(0);
+		logCompare(sEmployeeHourDescriptionA,hoursToolTip.getTitle(), "Title of Tool Tip");
+		logCompare(sEmployeeLaborTypeA + " with labor rate class of "+sEmployeeChargeToLaborRateClass, hoursToolTip.getLaborTypeAndLaborRateClassText(), "Labor Rate and Type");
+		logCompare(sHours, hoursToolTip.getChargeToText(), "Verify Charge To text");
 	}
 	
 	public void employeeHoursChargeToOverheadAccount() {
@@ -242,6 +258,19 @@ public class B2WTimeCardSmokeTest extends B2WTestCase {
 		b2wReport.setEmployeeOvertimeHours(sEmployeeOvertimeHoursB);
 		b2wReport.setEmployeeOvertimeMins(sEmployeeOvertimeMinsB);
 		b2wReport.saveReportedHours();
+		sEmployeeOverheadLaborRateClass = sEmployeeOverheadLaborRateClass.substring(0, sEmployeeOverheadLaborRateClass.indexOf("[")).trim();
+		String sHours = "Charge\n"+sEmployeeRegularHoursB+":"+sEmployeeRegularMinsB + " RT, "+this.sEmployeeOvertimeHoursB+":"+this.sEmployeeOvertimeMinsB+ " OT\n"+
+				"to "+sEmployeeOverheadAccount + " overhead account";
+		logCompare(true,b2wtimecards.getEmployeeLaborTypes().contains(sEmployeeLaborTypeB),"Verify Employee Labor Type "+sEmployeeLaborTypeB);
+		logCompare(true,b2wtimecards.getEmployeeLaborRateClass().contains(sEmployeeOverheadLaborRateClass), "Employee Labor Rate Class "+sEmployeeOverheadLaborRateClass);
+		logCompare(true,b2wtimecards.getEmployeeChargeTo().contains(sEmployeeOverheadAccount), "Employee Charge to Job "+sEmployeeOverheadAccount);
+		logCompare(sEmployeeRegularHoursB+":"+sEmployeeRegularMinsB + " RT", b2wtimecards.getEmployeeRegularHoursByRow(2), "Verify Regular Hours");
+		logCompare(this.sEmployeeOvertimeHoursB+":"+this.sEmployeeOvertimeMinsB+ " OT",b2wtimecards.getEmployeeOvertimeHoursByRow(2), "Verify Overtime Hours");
+		b2wtimecards.clickEmployeeIconByRow(2);
+		logCompare(sEmployeeHourDescriptionB,hoursToolTip.getTitle(), "Title of Tool Tip");
+		logCompare(sEmployeeLaborTypeB + " with labor rate class of "+sEmployeeOverheadLaborRateClass, hoursToolTip.getLaborTypeAndLaborRateClassText(), "Labor Rate and Type");
+		logCompare(sHours, hoursToolTip.getChargeToText(), "Verify Charge To text");
+
 	}
 	
 	public void employeeHoursChargeToEquipment() {
@@ -260,7 +289,22 @@ public class B2WTimeCardSmokeTest extends B2WTestCase {
 		b2wReport.setEmployeeOvertimeHours(sEmployeeOvertimeHoursC);
 		b2wReport.setEmployeeOvertimeMins(sEmployeeOvertimeMinsC);
 		b2wReport.saveReportedHours();
-	
+		
+		logCompare(true,b2wtimecards.getEmployeeLaborTypes().contains(sEmployeeLaborTypeC),"Verify Employee Labor Type "+sEmployeeLaborTypeC);
+		//logCompare(true,b2wtimecards.getEmployeeChargeTo().contains(sEmployeeWorkOrder), "Employee Charge to Work Order "+sEmployeeWorkOrder);
+		logCompare(sEmployeeRegularHoursC+":"+sEmployeeRegularMinsC + " RT", b2wtimecards.getEmployeeRegularHoursByRow(1), "Verify Regular Hours");
+		logCompare(this.sEmployeeOvertimeHoursC+":"+this.sEmployeeOvertimeMinsC+ " OT",b2wtimecards.getEmployeeOvertimeHoursByRow(1), "Verify Overtime Hours");
+		b2wtimecards.clickEmployeeIconByRow(1);
+		logCompare(sEmployeeHourDescriptionC,hoursToolTip.getTitle(), "Title of Tool Tip");
+		logCompare(true,this.hoursToolTip.clickOnEquipment(), "Open Equipment");
+		logCompare(sEmployeeEquipment,b2wE.getEquipmentHeadline(), "Equipment Match");
+		logCompare(true,b2wMaintain.openTimeCards(), "Go Back to TimeCards");
+		logCompare(true,b2wtimecards.selectEmployee(sEmployee), "Select Employee");
+		b2wtimecards.clickEmployeeIconByRow(1);
+		logCompare(true,this.hoursToolTip.clickOnWorkOrder(), "Open Work Order");
+		logCompare(sEmployeeWorkOrder,b2wWork.getWorkOrderHeadline(), "Work Order Match");
+		logCompare(true,b2wMaintain.openTimeCards(), "Go Back to TimeCards");
+		logCompare(true,b2wtimecards.selectEmployee(sEmployee), "Select Employee");
 		
 	}
 	
@@ -275,9 +319,23 @@ public class B2WTimeCardSmokeTest extends B2WTestCase {
 		logCompare(true,b2wReport.setEquipmentRegularHours(sEquipmentRegularHoursC), "Equipment Hours");
 		logCompare(true,b2wReport.setEquipmentRegularMins(sEquipmentRegularMinsC), "Equipment Mins");
 		logCompare(true,b2wReport.saveReportedHours(), "Reported Hours");
-
-
-	
+		logCompare(true,b2wtimecards.getEquipmentUsed().contains(sEquipmentNameID2), "Verify "+sEquipment);
+		logCompare(true,b2wtimecards.getEquipmentRateClass().contains(sEquipmentWorkLaborClass), "Verify "+sEquipmentWorkLaborClass);
+		logCompare(sEquipmentRegularHoursC+":"+sEquipmentRegularMinsC + " RT", b2wtimecards.getEquipmentRegularHoursByRow(0), "Verify Equipment Hours");
+		b2wtimecards.clickEquipmentIconByRow(0);
+		TaskUtils.sleep(1000);
+		logCompare(sEmployeeHourDescriptionD,hoursToolTip.getTitle(), "Title of Tool Tip");
+		String sEquipmentLinkText = hoursToolTip.getEquipmentLinkText();
+		logCompare(true,this.hoursToolTip.clickOnEquipment(), "Open Equipment");
+		logCompare(sEquipmentLinkText,b2wE.getEquipmentHeadline(), "Equipment Match");
+		logCompare(true,b2wMaintain.openTimeCards(), "Go Back to TimeCards");
+		logCompare(true,b2wtimecards.selectEmployee(sEmployee), "Select Employee");
+		b2wtimecards.clickEquipmentIconByRow(0);
+		logCompare(true, this.hoursToolTip.clickOnWorkOrder(), "Open Work Order");
+		logCompare(sEquipmentWorkOrder,b2wWork.getWorkOrderHeadline(), "Work Order Match");
+		logCompare(true,b2wMaintain.openTimeCards(), "Go Back to TimeCards");
+		logCompare(true,b2wtimecards.selectEmployee(sEmployee), "Select Employee");
+		
 	}
 	
 	

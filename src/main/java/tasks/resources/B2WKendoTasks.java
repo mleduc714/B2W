@@ -392,7 +392,9 @@ public abstract class B2WKendoTasks extends B2WKendo {
 		WebElement grid = WebElementUtils.findElement(B2WEquipment.getKendoGridContent());
 		WebElement selected = WebElementUtils.getChildElement(grid, B2WMaintain.getKendoSelected());
 		List<WebElement> gridcontent = WebElementUtils.getChildElements(selected, By.tagName("td"));
-		sText = gridcontent.get(iColumn).getText();
+		if (gridcontent.size() > iColumn){
+			sText = gridcontent.get(iColumn).getText();
+		}
 		return sText;
 	}
 	

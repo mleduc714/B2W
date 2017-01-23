@@ -3,7 +3,6 @@ package tasks.maintain;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
 import appobjects.maintain.B2WMaintain;
@@ -140,33 +139,123 @@ public class B2WTimeCardTasks extends B2WKendoTasks {
 	public ArrayList<String> getEmployeeHours() {
 		return getEmployeeTimeCardInfo(3);
 	}
+	
+	public String getEmployeeRegularHoursByRow(int iRow){
+		String s = "";
+		ArrayList<String> al = getEmployeeHours();
+		if (al.size()>iRow){
+			String hrs = al.get(iRow);
+			s = hrs.substring(0, hrs.indexOf("\n"));
+		}
+		return s;
+	}
+	
+	public String getEmployeeOvertimeHoursByRow(int iRow){
+		String s = "";
+		ArrayList<String> al = getEmployeeHours();
+		if (al.size()>iRow){
+			String hrs = al.get(iRow);
+			s = hrs.substring(hrs.indexOf("\n")+1, hrs.length());
+		}
+		return s;
+	}
+	
+	
 	public ArrayList<String> getEmployeeTimeCardInfo(int iColumn) {
 		ArrayList<String> al = new ArrayList<String>();
-		WebElement el = WebElementUtils.findElement(By.cssSelector("div#employeeHoursGrid"));
-		WebElement tbody = WebElementUtils.getChildElement(el, By.tagName("tbody"));
-		List<WebElement> rows = WebElementUtils.getChildElements(tbody, By.tagName("tr"));
+		WebElement el = WebElementUtils.findElement(B2WMaintain.getMaintainEmployeeHoursGrid());
+		WebElement tbody = WebElementUtils.getChildElement(el, B2WMaintain.getB2WKendotbodyTag());
+		List<WebElement> rows = WebElementUtils.getChildElements(tbody, B2WMaintain.getB2WKendotrTag());
 		for (WebElement tr: rows){
-			al.add(WebElementUtils.getChildElements(tr, By.tagName("td")).get(iColumn).getText());
+			al.add(WebElementUtils.getChildElements(tr, B2WMaintain.getB2WKendotdTag()).get(iColumn).getText());
 		}
 		return al;
 	}
 	
-	public void clickIconByRow(int iRow) {
-		WebElement el = WebElementUtils.findElement(By.cssSelector("div#employeeHoursGrid"));
-		WebElement tbody = WebElementUtils.getChildElement(el, By.tagName("tbody"));
-		List<WebElement> rows = WebElementUtils.getChildElements(tbody, By.tagName("tr"));
-		WebElementUtils.getChildElement(rows.get(iRow), By.cssSelector("a.btn-icon")).click();
+	public ArrayList<String> getEquipmentUsedHours(int iColumn){
+		ArrayList<String> al = new ArrayList<String>();
+		WebElement el = WebElementUtils.findElement(B2WMaintain.getMaintainEquipmentHoursGrid());
+		WebElement tbody = WebElementUtils.getChildElement(el, B2WMaintain.getB2WKendotbodyTag());
+		List<WebElement> rows = WebElementUtils.getChildElements(tbody, B2WMaintain.getB2WKendotrTag());
+		for (WebElement tr: rows){
+			al.add(WebElementUtils.getChildElements(tr, B2WMaintain.getB2WKendotdTag()).get(iColumn).getText());
+		}
+		return al;
 	}
 	
-	public String getTotalHours() {
+	public boolean clickEmployeeIconByRow(int iRow) {
+		boolean bReturn = false;
+		WebElement el = WebElementUtils.findElement(B2WMaintain.getMaintainEmployeeHoursGrid());
+		if (el != null) {
+			WebElement tbody = WebElementUtils.getChildElement(el, B2WMaintain.getB2WKendotbodyTag());
+			if (tbody != null) {
+				List<WebElement> rows = WebElementUtils.getChildElements(tbody, B2WMaintain.getB2WKendotrTag());
+				if (rows.size() > iRow) {
+					bReturn = WebElementUtils.clickElement(
+							WebElementUtils.getChildElement(rows.get(iRow), B2WMaintain.getB2WKendoIcon()));
+				}
+			}
+		}
+		return bReturn;
+	}
+
+	public boolean clickEquipmentIconByRow(int iRow) {
+
+		boolean bReturn = false;
+		WebElement el = WebElementUtils.findElement(B2WMaintain.getMaintainEquipmentHoursGrid());
+		if (el != null) {
+			WebElement tbody = WebElementUtils.getChildElement(el, B2WMaintain.getB2WKendotbodyTag());
+			if (tbody != null) {
+				List<WebElement> rows = WebElementUtils.getChildElements(tbody, B2WMaintain.getB2WKendotrTag());
+				if (rows.size() > iRow) {
+					bReturn = WebElementUtils.clickElement(
+							WebElementUtils.getChildElement(rows.get(iRow), B2WMaintain.getB2WKendoIcon()));
+				}
+			}
+		}
+		return bReturn;
+	}
+	
+	public String getEmployeeTotalHours() {
 		String s = "";
-		WebElement el = WebElementUtils.findElement(By.cssSelector("div#employeeHoursGrid"));
+		WebElement el = WebElementUtils.findElement(B2WMaintain.getMaintainEmployeeHoursGrid());
 		if (el != null){
-			WebElement footer = WebElementUtils.getChildElement(el, By.className("k-footer-template"));
-			s = WebElementUtils.getChildElements(footer, By.tagName("td")).get(3).getText();
+			WebElement footer = WebElementUtils.getChildElement(el, B2WMaintain.getB2WKendoFooterTemplate());
+			s = WebElementUtils.getChildElements(footer, B2WMaintain.getB2WKendotdTag()).get(3).getText();
 		}
 		return s;
-		
-		
 	}
+	public String getEquipmentTotalHours() {
+		String s = "";
+		WebElement el = WebElementUtils.findElement(B2WMaintain.getMaintainEquipmentHoursGrid());
+		if (el != null){
+			WebElement footer = WebElementUtils.getChildElement(el, B2WMaintain.getB2WKendoFooterTemplate());
+			s = WebElementUtils.getChildElements(footer, B2WMaintain.getB2WKendotdTag()).get(3).getText();
+		}
+		return s;
+	}
+	public ArrayList<String> getEquipmentUsed() {
+		return getEquipmentUsedHours(0);
+	}
+	
+	public ArrayList<String> getEquipmentRateClass() {
+		return getEquipmentUsedHours(1);
+	}
+	public ArrayList<String> getEquipmentChargeTo() {
+		return getEquipmentUsedHours(2);
+	}
+	public ArrayList<String> getEquipmentHours() {
+		return getEquipmentUsedHours(3);
+	}
+	
+	public String getEquipmentRegularHoursByRow(int iRow){
+		String s = "";
+		ArrayList<String> al = getEquipmentHours();
+		if (al.size()>iRow){
+			s = al.get(iRow);
+		}
+		return s;
+	}
+	
+
 }
