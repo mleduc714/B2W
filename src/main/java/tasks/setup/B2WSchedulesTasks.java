@@ -4,21 +4,18 @@ import appobjects.resources.KendoUI;
 import appobjects.scheduler.B2WScheduleAssignments;
 import appobjects.setup.B2WSchedules;
 import org.apache.log4j.Logger;
-import org.jfree.data.time.DateRange;
 import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import tasks.B2WNavigationTasks;
+import tasks.BrowserUtils;
 import tasks.WebElementUtils;
 import tasks.resources.B2WKendoTasks;
 import tasks.scheduler.B2WScheduleView;
 import tasks.util.B2WScheduleItem;
-import tasks.util.StringUtils;
 import tasks.util.TaskUtils;
 import tasks.util.Timer;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
@@ -46,6 +43,18 @@ public class B2WSchedulesTasks extends B2WKendoTasks {
         bReturn &= logCompare(true, saveSchedule(), "Save " + scheduleView.getName() + " Schedule View");
         bReturn &= logCompare(true, isScheduleExist(scheduleView.getName()), "Check that " + scheduleView.getName() + " Schedule View has been created.");
         bReturn &= logCompare(true, true, "====== End Schedule View Creation: " + scheduleView.getName());
+        return bReturn;
+    }
+    public boolean searchScheduleView(B2WScheduleView scheduleView) {
+        boolean bReturn;
+        logCompare(true, true, "====== Start Schedule View Search: " + scheduleView.getName());
+        bReturn = logCompare(true, b2wNav.openSchedules(), "Navigate to Setup -> Schedules");
+        int iInitialCount = getScheduleViewCount();
+        bReturn &= logCompare(true, setSearchText(scheduleView.getName()), "Set '" + scheduleView.getName() + "' to the search field.");
+        bReturn &= logCompare(true, getScheduleViewCount() == 1, "Check that Schedule List contains 1 record.");
+        bReturn &= logCompare(true, clickDeleteSearchBtn(), "Clear Search field.");
+        bReturn &= logCompare(true, getScheduleViewCount() == iInitialCount, "Check that Schedule List displays all records.");
+        logCompare(true, true, "====== End Schedule View Search: " + scheduleView.getName());
         return bReturn;
     }
     public long createScheduleView_Performance(B2WScheduleView scheduleView) {
@@ -80,18 +89,115 @@ public class B2WSchedulesTasks extends B2WKendoTasks {
          * 3. Delete Schedule View
          * 4. Check that Schedule View has been deleted.
          */
-        boolean bReturn = logCompare(true, true, "====== Start Schedule View Creation: " + scheduleView.getName());
+        boolean bReturn;
+        if (scheduleView != null) {
+            logCompare(true, true, "====== Start Schedule View Deletion: " + scheduleView.getName());
+            bReturn = logCompare(true, b2wNav.openSchedules(), "Navigate to Setup -> Schedules");
+            bReturn &= logCompare(true, selectScheduleView(scheduleView.getName()), "Select specific Schedule View");
+            if (bReturn) {
+                bReturn = logCompare(true, deleteSchedule(), "Delete Schedule View");
+            }
+            bReturn &= logCompare(false, isScheduleExist(scheduleView.getName()), "Check that Schedule View has been deleted.");
+            logCompare(true, true, "====== Stop Schedule View Deletion: " + scheduleView.getName());
+        } else {
+            bReturn = true;
+            log.warn("Parameter is NULL.");
+        }
+        return bReturn;
+    }
+    public B2WScheduleView copyScheduleView(B2WScheduleView scheduleView) {
+        B2WScheduleView oReturn = null;
+        boolean bReturn = logCompare(true, true, "====== Start Schedule View Copy: " + scheduleView.getName());
         bReturn &= logCompare(true, b2wNav.openSchedules(), "Navigate to Setup -> Schedules");
-        bReturn &= logCompare(true, selectScheduleView(scheduleView.getName()), "Select specific Schedule View");
-        bReturn &= logCompare(true, deleteSchedule(), "Delete Schedule View");
-        bReturn &= logCompare(false, isScheduleExist(scheduleView.getName()), "Check that Schedule View has been deleted.");
+        bReturn &= logCompare(true, selectScheduleView(scheduleView.getName()), "Select Schedule View '" + scheduleView.getName() + "' in the list.");
+        bReturn &= logCompare(true, clickCopyScheduleView(), "Click 'Copy' button.");
+        bReturn &= logCompare(true, saveSchedule(), "Save 'Copy of " + scheduleView.getName() + "' Schedule View");
+        bReturn &= logCompare(true, isScheduleExist("Copy of " + scheduleView.getName()), "Check that 'Copy of " + scheduleView.getName() + "' Schedule View has been created.");
+        if (bReturn) {
+            oReturn = scheduleView.clone();
+            oReturn.setName("Copy of " + scheduleView.getName());
+        }
+        logCompare(true, true, "====== End Schedule View Copy: " + scheduleView.getName());
+        return oReturn;
+    }
+    public boolean updateScheduleView(B2WScheduleView scheduleView, B2WScheduleView updateScheduleView) {
+        boolean bReturn;
+        logCompare(true, true, "====== Start Schedule View Update: " + scheduleView.getName());
+        bReturn = logCompare(true, b2wNav.openSchedules(), "Navigate to Setup -> Schedules");
+        bReturn &= logCompare(true, selectScheduleView(scheduleView.getName()), "Select Schedule View '" + scheduleView.getName() + "' in the list.");
+        bReturn &= logCompare(true, clickEditScheduleView(), "Click 'Edit' button.");
+        bReturn &= logCompare(true, deleteAllSelectedItems(), "Delete All selected Items from FDD.");
+        bReturn &= logCompare(true, setName(updateScheduleView.getName()), "Set Name");
+        bReturn &= logCompare(true, setBU(updateScheduleView.getBusinessUnit()), "Select BU");
+        bReturn &= logCompare(true, setScheduleNotes(updateScheduleView.getNotes()), "Set Notes");
+        bReturn &= logCompare(true, setScheduleItems(updateScheduleView.getScheduleItems()), "Select Schedule Format");
+        bReturn &= logCompare(true, setGrouping("Resource Grouping", updateScheduleView.getResourceGrouping()), "Select Resource Grouping item by");
+        bReturn &= logCompare(true, setGrouping("Secondary grouping", updateScheduleView.getSecondaryGrouping()), "Select Secondary grouping item by");
+        bReturn &= logCompare(true, setFilters(updateScheduleView.getFilters()), "Set Filter");
+        bReturn &= logCompare(true, setSecurityRoles(updateScheduleView.getRoles()), "Select Security Role");
+        bReturn &= logCompare(true, setSecurityUsers(updateScheduleView.getUsers()), "Select Security Users");
+        bReturn &= logCompare(true, saveSchedule(), "Save " + updateScheduleView.getName() + " Schedule View");
+        bReturn &= logCompare(true, isScheduleExist(updateScheduleView.getName()), "Check that '" + scheduleView.getName() +
+                "' Schedule View has been updated to '" + updateScheduleView.getName() + "'.");
+        logCompare(true, true, "====== End Schedule View Update: " + scheduleView.getName());
+        return bReturn;
+    }
+    public boolean sortingScheduleView() {
+        boolean bReturn;
+        logCompare(true, true, "====== Start Schedule View Sorting");
+        bReturn = logCompare(true, b2wNav.openSchedules(), "Navigate to Setup -> Schedules");
+        bReturn &= logCompare(true, sortListAsc("Name"), "Sort list by 'Name' by ASC.");
+        String firstSchedule = getFirstValueFromList("Name");
+        bReturn &= logCompare(true, sortListDesc("Name"), "Sort list by 'Name' by Desc.");
+        String secondSchedule = getFirstValueFromList("Name");
+        log.debug(firstSchedule.compareTo(secondSchedule));
+        bReturn &= logCompare(true, firstSchedule.compareTo(secondSchedule) > 0, "Check that Schedule List was sorted correctly by 'Name'.");
+
+        bReturn &= logCompare(true, sortListAsc("Date"), "Sort list by 'Date' by ASC.");
+        firstSchedule = getFirstValueFromList("Date");
+        bReturn &= logCompare(true, sortListDesc("Date"), "Sort list by 'Date' by Desc.");
+        secondSchedule = getFirstValueFromList("Date");
+        bReturn &= logCompare(true, firstSchedule.compareTo(secondSchedule) <= 0, "Check that Schedule List was sorted correctly by 'Date'.");
+
+        bReturn &= logCompare(true, sortListAsc("Created By"), "Sort list by 'Created By' by ASC.");
+        firstSchedule = getFirstValueFromList("Created By");
+        bReturn &= logCompare(true, sortListDesc("Created By"), "Sort list by 'Created By' by Desc.");
+        secondSchedule = getFirstValueFromList("Created By");
+        bReturn &= logCompare(true, firstSchedule.compareTo(secondSchedule) <= 0, "Check that Schedule List was sorted correctly by 'Created By'.");
+
+        bReturn &= logCompare(true, sortListAsc("Name"), "Sort list by 'Name' by ASC.");
+        logCompare(true, true, "====== End Schedule View Sorting");
+        return bReturn;
+    }
+    public boolean openScheduleView(B2WScheduleView scheduleView) {
+        boolean bReturn;
+        logCompare(true, true, "====== Start Schedule View Opening");
+        bReturn = logCompare(true, b2wNav.openSchedules(), "Navigate to Setup -> Schedules");
+        bReturn &= logCompare(true, selectScheduleView(scheduleView.getName()), "Select Schedule View '" + scheduleView.getName() + "' in the list.");
+
+        String originalHandle = BrowserUtils.getDriver().getWindowHandle();
+        bReturn &= logCompare(true, clickOpenScheduleView(), "Click 'Open' button.");
+        for(String handle : BrowserUtils.getDriver().getWindowHandles()) {
+            if (!handle.equals(originalHandle)) {
+                BrowserUtils.getDriver().switchTo().window(handle);
+            }
+        }
+        bReturn &= new TaskUtils().waitForProductPanel(scheduleView.getName());
+        for(String handle : BrowserUtils.getDriver().getWindowHandles()) {
+            if (!handle.equals(originalHandle)) {
+                BrowserUtils.getDriver().switchTo().window(handle);
+                BrowserUtils.getDriver().close();
+            }
+        }
+        BrowserUtils.getDriver().switchTo().window(originalHandle);
+        logCompare(true, true, "====== Stop Schedule View Opening");
         return bReturn;
     }
 
     // === Private Methods
     private boolean clickCreateScheduleView() {
         boolean bReturn = false;
-        WebElement eNewScheduleBtn = WebElementUtils.findElement(B2WSchedules.createScheduleViewBtn());
+        WebElement eNewScheduleBtn = WebElementUtils.waitAndFindDisplayedElement(B2WSchedules.createScheduleViewBtn());
         WebElementUtils.waitForElementClickable(eNewScheduleBtn);
         if (eNewScheduleBtn != null) {
             bReturn = WebElementUtils.clickElement(eNewScheduleBtn);
@@ -101,6 +207,79 @@ public class B2WSchedulesTasks extends B2WKendoTasks {
             log.debug("'New Schedule' button could not be found on the page.");
         }
         return bReturn;
+    }
+    private boolean clickCopyScheduleView() {
+        boolean bReturn = false;
+        WebElement btnCopy = WebElementUtils.waitAndFindDisplayedElement(B2WSchedules.copyBtn());
+        if (btnCopy != null) {
+            bReturn = WebElementUtils.clickElement(btnCopy);
+            waitForSchedulesPageNoBusy();
+            bReturn &= getTextFromVisibleHeadline().equals("New Schedule");
+        }
+        return bReturn;
+    }
+    private boolean clickEditScheduleView() {
+        boolean bReturn = false;
+        WebElement btnEdit = WebElementUtils.waitAndFindDisplayedElement(B2WSchedules.editBtn());
+        if (btnEdit != null) {
+            bReturn = WebElementUtils.clickElement(btnEdit);
+            waitForSchedulesPageNoBusy();
+            bReturn &= WebElementUtils.waitAndFindDisplayedElement(B2WSchedules.saveBtn()) != null;
+        }
+        return bReturn;
+    }
+    private boolean clickOpenScheduleView() {
+        boolean bReturn = false;
+        WebElement btnOpen = WebElementUtils.waitAndFindDisplayedElement(B2WSchedules.openBtn());
+        if (btnOpen != null) {
+            bReturn = WebElementUtils.clickElement(btnOpen);
+            waitForSchedulesPageNoBusy();
+        }
+        return bReturn;
+    }
+    private boolean clickDeleteSearchBtn() {
+        boolean bReturn = false;
+        WebElement deleteSearchBtn = WebElementUtils.waitAndFindDisplayedElement(B2WSchedules.deleteSearchBtn());
+        if (deleteSearchBtn != null) {
+            bReturn = WebElementUtils.clickElement(deleteSearchBtn);
+            waitForSchedulesPageNoBusy();
+            WebElementUtils.waitForElementInvisible(deleteSearchBtn);
+        }
+        return bReturn;
+    }
+
+    // Sorting Methods
+    private boolean sortAsc(WebElement eFieldName) {
+        boolean bReturn = false;
+        if (eFieldName != null) {
+            WebElementUtils.clickElement(eFieldName);
+            if (!eFieldName.getAttribute("data-dir").equals("asc")) {
+                bReturn = WebElementUtils.clickElement(eFieldName);
+            } else {
+                bReturn = true;
+            }
+        }
+        return bReturn;
+    }
+    private boolean sortDesc(WebElement eFieldName) {
+        boolean bReturn = false;
+        if (eFieldName != null) {
+            WebElementUtils.clickElement(eFieldName);
+            if (!eFieldName.getAttribute("data-dir").equals("desc")) {
+                bReturn = WebElementUtils.clickElement(eFieldName);
+            } else {
+                bReturn = true;
+            }
+        }
+        return bReturn;
+    }
+    private boolean sortListAsc(String sFieldName) {
+        WebElement sortLink = WebElementUtils.waitAndFindDisplayedElement(B2WSchedules.getSortingColumnName(sFieldName));
+        return sortAsc(sortLink);
+    }
+    private boolean sortListDesc(String sFieldName) {
+        WebElement sortLink = WebElementUtils.waitAndFindDisplayedElement(B2WSchedules.getSortingColumnName(sFieldName));
+        return sortDesc(sortLink);
     }
 
     private boolean disableAllResources() {
@@ -118,29 +297,63 @@ public class B2WSchedulesTasks extends B2WKendoTasks {
         bReturn &= bTmp;
         return bReturn;
     }
+    private boolean deleteAllFilters() {
+        boolean bReturn = true;
+        List<WebElement> removeFilterLinks = WebElementUtils.findElements(B2WSchedules.removeFilterLink());
+        if (removeFilterLinks != null) {
+            for (WebElement item: removeFilterLinks) {
+                bReturn &= WebElementUtils.clickElement(item);
+            }
+        }
+        return bReturn;
+    }
+    private boolean deleteAllSelectedItems() {
+        boolean bReturn = true;
+        List<WebElement> itemsList = WebElementUtils.findElements(B2WSchedules.removeItemBtn());
+        if (itemsList != null) {
+            for (WebElement item : itemsList) {
+                bReturn &= WebElementUtils.clickElement(item);
+            }
+        }
+        return bReturn;
+    }
     private boolean disableResource(WebElement parent, String sValue) {
         boolean bResult = false;
         WebElement el = WebElementUtils.getChildElement(parent, B2WSchedules.scheduleResourceBtn(sValue));
         if (el != null) {
-            if (el.getAttribute("class").toString().contains("checked")) {
-                bResult = WebElementUtils.clickElement(el);
-            } else {
-                bResult = true;
+            WebElement p = WebElementUtils.getParentElement(el);
+            try {
+                if (p.getAttribute("class").contains("Button--selected")) {
+                    bResult = WebElementUtils.clickElement(el);
+                } else {
+                    bResult = true;
+                }
+            } catch (Exception e) {
+                log.warn("Element doesn't contain attribute 'Class'");
+                bResult = false;
             }
+
         }
         return bResult;
     }
     private boolean deleteSchedule() {
         boolean bReturn = false;
-        WebElement eDeleteBtn = WebElementUtils.findElement(B2WSchedules.deleteBtn());
+        WebElement eDeleteBtn = WebElementUtils.waitAndFindDisplayedElement(B2WSchedules.deleteBtn());
         if (eDeleteBtn != null) {
             bReturn = WebElementUtils.clickElement(eDeleteBtn);
-            WebElement eDeleteWindow = WebElementUtils.waitAndFindDisplayedElement(B2WSchedules.deletePopUpWindow());
-            WebElement eYesBtn = WebElementUtils.getChildElement(eDeleteWindow, B2WSchedules.yesBtnOnPopupWindow());
-            bReturn &= WebElementUtils.clickElement(eYesBtn);
             waitForSchedulesPageNoBusy();
-        } else {
-            log.debug("Delete button could not be found on the page.");
+            WebElement eDeleteWindow = WebElementUtils.waitAndFindDisplayedElement(B2WSchedules.deletePopUpWindow());
+            if (eDeleteWindow != null) {
+                WebElement eYesBtn = WebElementUtils.getChildElement(eDeleteWindow, B2WSchedules.yesBtnOnPopupWindow());
+                if (eYesBtn != null) {
+                    if (WebElementUtils.clickElement(eYesBtn)) {
+                        bReturn = true;
+                    } else {
+                        TaskUtils.sleep(500);
+                        bReturn = WebElementUtils.clickElement(eYesBtn);
+                    }
+                }
+            }
         }
         return bReturn;
     }
@@ -149,23 +362,6 @@ public class B2WSchedulesTasks extends B2WKendoTasks {
         waitForSchedulesPageNoBusy();
         return WebElementUtils.findElement(B2WSchedules.schedulesRowOnGrid(sValue));
     }
-
-    private String getTextFromVisibleHeadline() {
-        String sReturn = "";
-        List<WebElement> list = WebElementUtils.findElements(B2WSchedules.headline());
-        Iterator<WebElement> iterator = list.iterator();
-        boolean bResult = false;
-        while (iterator.hasNext() && !bResult) {
-            WebElement item = iterator.next();
-            String attribute = item.getAttribute("data-bind");
-            if (attribute.split(":")[0].equals("visible")) {
-                bResult = true;
-                sReturn = item.getText();
-            }
-        }
-        return sReturn;
-    }
-
     private boolean isScheduleExist(String sValue) {
         boolean bReturn = false;
         try {
@@ -178,10 +374,60 @@ public class B2WSchedulesTasks extends B2WKendoTasks {
         return bReturn;
     }
 
+    private String getTextFromVisibleHeadline() {
+        String sReturn = "";
+        List<WebElement> list = WebElementUtils.findElements(B2WSchedules.headline());
+        try {
+            Iterator<WebElement> iterator = list.iterator();
+            boolean bResult = false;
+            while (iterator.hasNext() && !bResult) {
+                WebElement item = iterator.next();
+                String attribute = item.getAttribute("data-bind");
+                if (attribute.split(":")[0].equals("visible")) {
+                    bResult = true;
+                    sReturn = item.getText();
+                }
+            }
+        } catch (Exception e) {
+            log.warn("getTextFromVisibleHeadline trow exception." + e.toString());
+        }
+        return sReturn;
+    }
+    private int getScheduleViewCount() {
+        WebElement tbody = WebElementUtils.waitAndFindElement(B2WSchedules.getTBody());
+        return WebElementUtils.getChildElements(tbody, By.cssSelector("tr")).size();
+    }
+    private String getFirstValueFromList(String sFieldName) {
+        WebElement tbody = WebElementUtils.waitAndFindElement(B2WSchedules.getTBody());
+        if (tbody != null) {
+                List<WebElement> crewTemplatesList = WebElementUtils.getChildElements(tbody, By.cssSelector("tr"));
+                WebElement td = null;
+                switch (sFieldName) {
+                    case "Name":
+                        td = WebElementUtils.getChildElements(crewTemplatesList.get(0), By.cssSelector("td")).get(0);
+                        break;
+                    case "Date":
+                        td = WebElementUtils.getChildElements(crewTemplatesList.get(0), By.cssSelector("td")).get(1);
+                        break;
+                    case "Created By":
+                        td = WebElementUtils.getChildElements(crewTemplatesList.get(0), By.cssSelector("td")).get(2);
+                        break;
+                    default:
+                        log.warn("Incorrect method parameter.");
+                        break;
+                }
+                return td.getText();
+        } else {
+            log.warn("Resource Tree could not be found on the page.");
+        }
+        return "";
+    }
+
     private boolean setName(String sValue) {
         boolean bReturn = false;
         WebElement eName = WebElementUtils.findElement(B2WSchedules.nameField());
         if (eName != null) {
+            eName.clear();
             bReturn = WebElementUtils.sendKeys(eName, sValue);
         } else {
             log.debug("Element " + B2WSchedules.nameField() + " could not be found on the page.");
@@ -203,6 +449,7 @@ public class B2WSchedulesTasks extends B2WKendoTasks {
         boolean bReturn = false;
         WebElement eNotes = WebElementUtils.findElement(B2WSchedules.notes());
         if (eNotes != null) {
+            eNotes.clear();
             bReturn = WebElementUtils.sendKeys(eNotes, sValue);
         } else {
             log.debug("Element " + B2WSchedules.notes() + " could not be found on the page.");
@@ -212,7 +459,7 @@ public class B2WSchedulesTasks extends B2WKendoTasks {
     private boolean setScheduleItems(ArrayList<B2WScheduleItem> scheduleItemsList) {
         boolean bReturn = true;
         if (!scheduleItemsList.isEmpty()) {
-            bReturn &= setScheduleFormat(scheduleItemsList.get(0).getScheduleFormat());
+            bReturn = setScheduleFormat(scheduleItemsList.get(0).getScheduleFormat());
             disableAllResources();
         }
         for (B2WScheduleItem item : scheduleItemsList) {
@@ -225,14 +472,19 @@ public class B2WSchedulesTasks extends B2WKendoTasks {
         List<WebElement> eList = WebElementUtils.findElements(B2WSchedules.scheduleFormat());
         if (eList != null && eList.size()>0) {
             WebElement eItem;
-            if (sValue.equals("Resource Listing")) {
-                eItem = WebElementUtils.findElement(B2WSchedules.scheduleFormatItem("1"));
-            } else if (sValue.equals("Location View")) {
-                eItem = WebElementUtils.findElement(B2WSchedules.scheduleFormatItem("2"));
-            } else if (sValue.equals("Crew View")) {
-                eItem = WebElementUtils.findElement(B2WSchedules.scheduleFormatItem("3"));
-            } else {
-                eItem = null;
+            switch (sValue) {
+                case "Resource Listing":
+                    eItem = WebElementUtils.findElement(B2WSchedules.scheduleFormatItem("1"));
+                    break;
+                case "Location View":
+                    eItem = WebElementUtils.findElement(B2WSchedules.scheduleFormatItem("2"));
+                    break;
+                case "Crew View":
+                    eItem = WebElementUtils.findElement(B2WSchedules.scheduleFormatItem("3"));
+                    break;
+                default:
+                    eItem = null;
+                    break;
             }
             if (eItem != null) {
                 bReturn = WebElementUtils.clickElement(eItem);
@@ -246,7 +498,18 @@ public class B2WSchedulesTasks extends B2WKendoTasks {
     }
     private boolean setItem(B2WScheduleItem item) {
         boolean bResult = false;
-        WebElement element = WebElementUtils.findElement(B2WSchedules.scheduleCheckBox(item.getResourceName()));
+        WebElement element = WebElementUtils.waitAndFindDisplayedElement(B2WSchedules.scheduleCheckBox(item.getResourceName()));
+        if (element == null) {
+            List<WebElement> elementList = WebElementUtils.findElements(B2WSchedules.scheduleCheckBox(item.getResourceName()));
+            if (elementList != null) {
+                for (WebElement it : elementList) {
+                    if (it.isDisplayed()) {
+                        element = it;
+                        break;
+                    }
+                }
+            }
+        }
         if (element != null) {
             WebElement parent = WebElementUtils.getParentElement(element);
             parent = WebElementUtils.getParentElement(parent);
@@ -298,9 +561,12 @@ public class B2WSchedulesTasks extends B2WKendoTasks {
     }
     private boolean setFilters(ArrayList<String[]> filters) {
         boolean bReturn = true;
-        for (String[] item : filters) {
-            bReturn &= setFilter(item[0], item[1]);
-            waitForSchedulesPageNoBusy();
+        if (filters != null) {
+            bReturn = deleteAllFilters();
+            for (String[] item : filters) {
+                bReturn &= setFilter(item[0], item[1]);
+                waitForSchedulesPageNoBusy();
+            }
         }
         return bReturn;
     }
@@ -322,9 +588,13 @@ public class B2WSchedulesTasks extends B2WKendoTasks {
     private boolean setSecurityRoles(ArrayList<String> roles) {
         boolean bReturn = true;
         if (!roles.isEmpty()) {
-            bReturn = setRestrictedAccess();
-            for (String item : roles) {
-                bReturn &= setSecurityRole(item);
+            if (roles.get(0).equals("No Restrictions")) {
+                bReturn = setRestrictedAccess(false);
+            } else {
+                bReturn = setRestrictedAccess(true);
+                for (String item : roles) {
+                    bReturn &= setSecurityRole(item);
+                }
             }
         }
         return bReturn;
@@ -332,7 +602,7 @@ public class B2WSchedulesTasks extends B2WKendoTasks {
     private boolean setSecurityUsers(ArrayList<String> users) {
         boolean bReturn = true;
         if (!users.isEmpty()) {
-            bReturn = setRestrictedAccess();
+            bReturn = setRestrictedAccess(true);
             for (String item : users) {
                 bReturn &= setUser(item);
             }
@@ -357,14 +627,18 @@ public class B2WSchedulesTasks extends B2WKendoTasks {
         }
         return bReturn;
     }
-    private boolean setRestrictedAccess() {
+    private boolean setRestrictedAccess(boolean flag) {
         boolean bReturn = false;
         WebElement ePreviewLocation = WebElementUtils.findElement(B2WSchedules.previewLocation());
         if (ePreviewLocation != null) {
             WebElement parent = WebElementUtils.getParentElement(ePreviewLocation);
             WebElement eSelect = WebElementUtils.getChildElement(parent, KendoUI.getKendoDropDown());
             bReturn = WebElementUtils.clickElement(eSelect);
-            bReturn &= selectItemFromDropDown("Restricted Access");
+            if (flag) {
+                bReturn &= selectItemFromDropDown("Restricted Access");
+            } else {
+                bReturn &= selectItemFromDropDown("No Restrictions");
+            }
         }
         return bReturn;
     }
@@ -372,12 +646,22 @@ public class B2WSchedulesTasks extends B2WKendoTasks {
         boolean bReturn = false;
         WebElement eSecurityRole = WebElementUtils.getKendoFDDElementByLabel(SECURITY_ROLE);
         if (eSecurityRole != null) {
-            WebElementUtils.moveVirtualMouseOverElement(eSecurityRole);
-            WebElementUtils.waitForElementClickable(eSecurityRole);
             bReturn = WebElementUtils.clickElement(eSecurityRole);
+            //ToDo: Remove after fix performance
+            TaskUtils.sleep(1000);
             bReturn &= selectItemFromDropDown(sValue);
+            log.debug("Select from FDD." + bReturn);
         } else {
             log.debug("'Security Role' dropdown could not be found on the page.");
+        }
+        return bReturn;
+    }
+    private boolean setSearchText(String sValue) {
+        boolean bReturn = false;
+        WebElement searchField = WebElementUtils.waitAndFindDisplayedElement(B2WSchedules.searchField());
+        if (searchField != null) {
+            bReturn = WebElementUtils.sendKeys(searchField, sValue);
+            bReturn &= WebElementUtils.waitAndFindDisplayedElement(B2WSchedules.deleteSearchBtn()) != null;
         }
         return bReturn;
     }
@@ -394,7 +678,6 @@ public class B2WSchedulesTasks extends B2WKendoTasks {
         }
         return bReturn;
     }
-
     private boolean saveSchedule() {
         boolean bReturn = false;
         WebElement eSaveBtn = WebElementUtils.findElement(B2WSchedules.saveBtn());
@@ -406,7 +689,6 @@ public class B2WSchedulesTasks extends B2WKendoTasks {
         }
         return bReturn;
     }
-
     private boolean waitForSchedulesPageNoBusy() {
         return waitForPageNotBusy(WebElementUtils.LONG_TIME_OUT);
     }

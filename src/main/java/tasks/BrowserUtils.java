@@ -24,6 +24,7 @@ import org.openqa.selenium.security.UserAndPassword;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import tasks.util.TaskUtils;
 
 public class BrowserUtils {
 	
@@ -63,6 +64,7 @@ public class BrowserUtils {
 				break;
 			}
 			driver.get(url);
+			//TaskUtils.sleep(20000);
 			maximize();
 			log.debug("Waiting for page to load after URL navigation: " + waitForPageLoaded());
 			return true;
@@ -105,18 +107,35 @@ public class BrowserUtils {
 		}
 	}
 	
-	 public static void setChromeDriver(){
-		    sDriverName = "chromedriver.exe";
-		    file = new File(libDir+webdriverDir+sDriverName);
-			System.setProperty(chromeDriverLocationProp, file.getAbsolutePath());
-			ChromeOptions options = new ChromeOptions();
-			List<String> ls = new ArrayList<String>();
-			ls.add("--start-maximized");
-			ls.add("disable-infobars");
-			ls.add("test-type");
-			ls.add("disable-extensions");
-			options.addArguments(ls);
-			driver = new ChromeDriver(options);
+	 public static void setChromeDriver() {
+		 String os = System.getProperty("os.name").toLowerCase();
+		 if (os.contains("win")) {
+			 sDriverName = "chromedriver.exe";
+			 file = new File(libDir+webdriverDir+sDriverName);
+			 System.setProperty(chromeDriverLocationProp, file.getAbsolutePath());
+			 ChromeOptions options = new ChromeOptions();
+			 List<String> ls = new ArrayList<String>();
+			 ls.add("--start-maximized");
+			 ls.add("disable-infobars");
+			 ls.add("test-type");
+			 ls.add("disable-extensions");
+			 options.addArguments(ls);
+			 driver = new ChromeDriver(options);
+		 } else if (os.contains("nux") || os.contains("nix")) {
+			 // Implement for Linux
+		 }else if (os.contains("mac")) {
+			 sDriverName = "chromedriver";
+			 file = new File(libDir+webdriverDir+sDriverName);
+			 System.setProperty(chromeDriverLocationProp, file.getAbsolutePath());
+			 ChromeOptions options = new ChromeOptions();
+			 List<String> ls = new ArrayList<String>();
+			 ls.add("--start-maximized");
+			 ls.add("disable-infobars");
+			 ls.add("test-type");
+			 ls.add("disable-extensions");
+			 options.addArguments(ls);
+			 driver = new ChromeDriver(options);
+		 }
 	 }
 	 
 	public static void setExplorerDriver() {

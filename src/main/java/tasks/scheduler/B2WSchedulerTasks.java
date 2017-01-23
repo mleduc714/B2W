@@ -9,7 +9,6 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.support.ui.Select;
 import tasks.BrowserUtils;
 import tasks.WebElementUtils;
 import tasks.resources.B2WKendoTasks;
@@ -18,7 +17,6 @@ import tasks.util.TaskUtils;
 
 import java.util.*;
 
-import static com.b2w.test.BaseAssert.assertFalse;
 import static com.b2w.test.BaseAssert.logCompare;
 
 public class B2WSchedulerTasks extends B2WKendoTasks {
@@ -107,20 +105,12 @@ public class B2WSchedulerTasks extends B2WKendoTasks {
         try {
             boolean bReturn = false;
             WebElement eSearchBox = WebElementUtils.findElement(B2WScheduleAssignments.getSearchBox());
-            //log.debug("eSearchBox: " + eSearchBox.toString());
             if (eSearchBox != null) {
                 eSearchBox.clear();
-                //log.debug("Perform eSearchBox.clear();");
                 bReturn = WebElementUtils.sendKeys(eSearchBox, sValue);
-                //log.debug("Perform sendKeys. Result: " + bReturn);
                 WebElementUtils.waitAndFindDisplayedElement(B2WEquipment.getKendoPageLoading(), WebElementUtils.SHORT_TIME_OUT);
-                //log.debug("Stop waiting... ");
-                //ToDo replace sleep to correct waiting
-                //TaskUtils.sleep(1000);
                 waitForSchedulesPageNoBusy();
-                //log.debug("Stop waiting loading page... ");
                 bReturn &= WebElementUtils.waitAndFindDisplayedElement(B2WScheduleAssignments.getGrid(), WebElementUtils.LONG_TIME_OUT) != null;
-                //log.debug("Return final result: " + bReturn);
             } else {
                 log.debug("Search box could not be found on the page.");
             }
@@ -238,7 +228,6 @@ public class B2WSchedulerTasks extends B2WKendoTasks {
         bReturn &= logCompare(true, setEmployeeNeed(assignment.getResourceName()), "Set Resource: " + assignment.getResourceName());
 
         if (setGeneralFields(assignment)) {
-            //ToDo: Issue
             bReturn = saveGeneralAssignment(initialCount, assignment, true);
         } else {
             cancelAssignment();
@@ -303,7 +292,6 @@ public class B2WSchedulerTasks extends B2WKendoTasks {
         bReturn &= logCompare(true, setEquipmentNeed(assignment.getResourceName()), "Set Resource: " + assignment.getResourceName());
 
         if (setGeneralFields(assignment)) {
-            //ToDo: Issue
             bReturn = saveGeneralAssignment(initialCount, assignment, true);
         } else {
             cancelAssignment();
@@ -363,7 +351,6 @@ public class B2WSchedulerTasks extends B2WKendoTasks {
         bReturn &= logCompare(true, selectNewCrewNeed(), "Select New -> Crew Need menu");
         bReturn &= logCompare(true, setCrewNeed(assignment.getResourceName()), "Set Crew Resource");
         if (setGeneralFields(assignment)) {
-            //ToDo: Issue
             bReturn = saveGeneralAssignment(initialCount, assignment, true);
         } else {
             cancelAssignment();
@@ -860,28 +847,28 @@ public class B2WSchedulerTasks extends B2WKendoTasks {
             WebElement eResourceWarningIcon = null;
             switch (assignment.getAssignmentType()) {
                 case B2WAssignmentType.EMPLOYEE_TYPE :
-                    eResourceWarningIcon = WebElementUtils.getChildElement(parent, B2WScheduleAssignments.getResourceWarningIcon_i152());
+                    eResourceWarningIcon = WebElementUtils.getChildElement(parent, B2WScheduleAssignments.getResourceIconModifierAlert());
                     break;
                 case B2WAssignmentType.EQUIPMENT_TYPE :
-                    eResourceWarningIcon = WebElementUtils.getChildElement(parent, B2WScheduleAssignments.getResourceWarningIcon_i152());
+                    eResourceWarningIcon = WebElementUtils.getChildElement(parent, B2WScheduleAssignments.getResourceIconModifierAlert());
                     break;
                 case B2WAssignmentType.CREW_TYPE :
-                    eResourceWarningIcon = WebElementUtils.getChildElement(parent, B2WScheduleAssignments.getResourceWarningIcon_i152());
+                    eResourceWarningIcon = WebElementUtils.getChildElement(parent, B2WScheduleAssignments.getResourceIconModifierAlert());
                     if (eResourceWarningIcon == null) {
-                        eResourceWarningIcon = WebElementUtils.getChildElement(parent, B2WScheduleAssignments.getResourceWarningIcon_i228());
+                        eResourceWarningIcon = WebElementUtils.getChildElement(parent, B2WScheduleAssignments.getResourceIconModifierCaution());
                     }
                     break;
                 case B2WAssignmentType.MOVE_ASSIGNMENT_TYPE :
-                    eResourceWarningIcon = WebElementUtils.getChildElement(parent, B2WScheduleAssignments.getResourceWarningIcon_i152());
+                    eResourceWarningIcon = WebElementUtils.getChildElement(parent, B2WScheduleAssignments.getResourceIconModifierAlert());
                     break;
                 case B2WAssignmentType.EMPLOYEE_EVENT_TYPE :
-                    eResourceWarningIcon = WebElementUtils.getChildElement(parent, B2WScheduleAssignments.getResourceWarningIcon_i152());
+                    eResourceWarningIcon = WebElementUtils.getChildElement(parent, B2WScheduleAssignments.getResourceIconModifierAlert());
                     break;
                 case B2WAssignmentType.EQUIPMENT_EVENT_TYPE :
-                    eResourceWarningIcon = WebElementUtils.getChildElement(parent, B2WScheduleAssignments.getResourceWarningIcon_i152());
+                    eResourceWarningIcon = WebElementUtils.getChildElement(parent, B2WScheduleAssignments.getResourceIconModifierAlert());
                     break;
                 case B2WAssignmentType.LOCATION_EVENT_TYPE :
-                    eResourceWarningIcon = WebElementUtils.getChildElement(parent, B2WScheduleAssignments.getResourceWarningIcon_i152());
+                    eResourceWarningIcon = WebElementUtils.getChildElement(parent, B2WScheduleAssignments.getResourceIconModifierAlert());
                     break;
                 default : break;
             }
@@ -1004,7 +991,7 @@ public class B2WSchedulerTasks extends B2WKendoTasks {
         WebElement eResourceLine = getResourceLine(sResourceName);
         if (eResourceLine != null) {
             WebElement parent = WebElementUtils.getParentElement(eResourceLine);
-            WebElement eResourceWarningIcon = WebElementUtils.getChildElement(parent, B2WScheduleAssignments.getResourceWarningIcon_Need_i228());
+            WebElement eResourceWarningIcon = WebElementUtils.getChildElement(parent, B2WScheduleAssignments.getResourcesIconNeed());
             if (eResourceWarningIcon != null && WebElementUtils.getParentElement(eResourceWarningIcon).isDisplayed()) {
                 bReturn = WebElementUtils.clickElement(eResourceWarningIcon);
                 WebElement eTooltip = WebElementUtils.waitAndFindDisplayedElement(B2WScheduleAssignments.getTooltip());
@@ -1818,7 +1805,6 @@ public class B2WSchedulerTasks extends B2WKendoTasks {
         return bReturn;
     }
 
-
     // === Date methods
     private String correctDate(String sValue) {
         String sResult = "";
@@ -2001,8 +1987,6 @@ public class B2WSchedulerTasks extends B2WKendoTasks {
         return bReturn;
     }
 
-
-
     // Order Panel
     private boolean fillNeedDialog(B2WAssignment order, String employeeName) {
         boolean bReturn = false;
@@ -2048,15 +2032,6 @@ public class B2WSchedulerTasks extends B2WKendoTasks {
         } else {
             return true;
         }
-        /*
-        bReturn &= WebElementUtils.waitAndFindElement(B2WScheduleAssignments.getFillNeedToolbar()) != null;
-        WebElement table = WebElementUtils.findElement(B2WScheduleAssignments.getFirstTableInOrderList());
-        if (table != null) {
-            WebElement firstItem = WebElementUtils.getChildElement(table, B2WScheduleAssignments.getFirstItemInOrderList());
-            String actualValue = firstItem.getAttribute("title");
-            String expectedValue = eOrder.getText();
-            bReturn &= expectedValue.contains(actualValue);
-        } */
         return bReturn;
     }
     private boolean setFillWith(String sValue) {

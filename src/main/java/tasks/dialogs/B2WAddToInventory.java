@@ -18,7 +18,6 @@ public class B2WAddToInventory extends B2WKendoDialog {
 		WebElement part = getFormElement("Part", B2WMaintain.getKendoDropDown());
 		if (part != null){
 			WebElementUtils.sendKeys(part, sPart);
-			TaskUtils.sleep(2000);
 			bReturn = selectItemFromDropDown(0);
 		}
 		return bReturn;

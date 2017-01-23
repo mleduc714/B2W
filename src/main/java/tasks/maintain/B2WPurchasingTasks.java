@@ -68,27 +68,20 @@ public class B2WPurchasingTasks extends B2WKendoTasks {
 	}
 	public boolean clickAddCustomPart() {
 		boolean bReturn = false;
-		WebElement el = getButton("Add Part");
+		WebElement el = getButton("Add Custom Part");
 		if (el != null){
 			bReturn = WebElementUtils.clickElement(el);
 		}
 		return bReturn;
 	}
 	
-	public String getSubtotal(){
-		String sText = "";
-		WebElement purchase = WebElementUtils.findElement(By.cssSelector("div.purchase-order-details-totals"));
-		if (purchase != null){
-			List<WebElement> data = WebElementUtils.getChildElements(purchase, By.className("data"));
-			for (WebElement e: data){
-				System.out.println(e.getText());
-			}
-		}
-		return null;
+	public String getSubtotal() {
+		return getTotals(0);
+
 	}
 	
 	public String getFreight() {
-		return getTotals(0);
+		return getTotals(1);
 		
 	}
 	public String getTax() {
@@ -97,10 +90,24 @@ public class B2WPurchasingTasks extends B2WKendoTasks {
 	public String getTotal() {
 		return getTotals(4);
 	}
-	public void getPODueDate() {
-		
+	public String  getPODueDate() {
+		WebElement el = getFormElementByLabelClass("PO Due Date", By.className("data"));
+		if (el != null){
+			return el.getText();
+		}else{
+			return "";
+		}
 	}
+	public String getTaxRate(){
+
+		WebElement el = getFormElementByLabelClass("Tax %", By.className("data"));
+		if (el != null){
+			return el.getText();
+		}else{
+			return "";
+		}
 	
+	}
 	public void savePart() {
 		
 	}
@@ -274,20 +281,24 @@ public class B2WPurchasingTasks extends B2WKendoTasks {
 		
 	}
 	public boolean selectPurchaseOrderByVendor(String sItem) {
-		return selectItemFromView(sItem, 2);
+		return selectItemFromView(sItem, COLUMN.VENDOR);
 	}
 	public boolean selectPurchaseOrderByID(String sItem) {
-		return selectItemFromView(sItem, 1);
+		return selectItemFromView(sItem, COLUMN.ID);
 	}
-	private WebElement getPurchasingElement(String sContainer){
+
+	private WebElement getPurchasingElement(String sContainer) {
 		WebElement vendor = null;
 		WebElement listView = WebElementUtils.findElement(B2WMaintain.getMaintainPurchaseOrderDetails());
-		if (listView != null){
+		if (listView != null) {
 			WebElement elementRow = WebElementUtils.getChildElement(listView, B2WMaintain.getMaintainEditRow());
-			List<WebElement> gridcells = WebElementUtils.getChildElements(elementRow, By.tagName("td"));
-			WebElement el = WebElementUtils.getElementWithMatchingAttribute(gridcells, "data-container-for", sContainer);
-			if (el != null){
-				vendor = el;
+			if (elementRow != null) {
+				List<WebElement> gridcells = WebElementUtils.getChildElements(elementRow, By.tagName("td"));
+				WebElement el = WebElementUtils.getElementWithMatchingAttribute(gridcells, "data-container-for",
+						sContainer);
+				if (el != null) {
+					vendor = el;
+				}
 			}
 		}
 		return vendor;
@@ -340,7 +351,10 @@ public class B2WPurchasingTasks extends B2WKendoTasks {
 		boolean bReturn = false;
 		WebElement listView = WebElementUtils.findElement(B2WMaintain.getMaintainPurchaseOrderDetails());
 		if (listView != null){
-			bReturn = WebElementUtils.clickElement(WebElementUtils.getChildElement(listView, By.cssSelector(".k-grid-update")));
+			WebElement save = WebElementUtils.getChildElement(listView, By.cssSelector(".k-grid-update"));
+			if (save != null){
+				bReturn = WebElementUtils.clickElement(save);
+			}
 		}
 		return bReturn;
 	}

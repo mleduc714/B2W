@@ -66,7 +66,8 @@ public class B2WPartsSmokeTest extends B2WTestCase {
 	String sPartID, sPartUnitOfMeasure, sPartDesc, sPartStandardUnitCost,
 	sPartMinInventory, sPartReorderQTY, sPartBusinessUnit, sPartManufacturer, sPartNotes, sPartInventory,
 	sPartCategory, sPartLocation, sPartBin, sWorkOrderDescription, sWorkOrderItemDescription,
-	sEstQty, sReportedQty, sPartsVendor, sEmployeeFirstNameB,sEmployeeLastNameB,sEmployeeIDB;
+	sEstQty, sReportedQty, sPartsVendor, sEmployeeFirstNameB,sEmployeeLastNameB,sEmployeeIDB,
+	sPartUpdateReorderQTY,sPartUpdateMinInventory, sPartUpdateStandardUnitCost;
 	
 	static SimpleDateFormat format = new SimpleDateFormat("M/d/yyyy");
 	Calendar cal = Calendar.getInstance();
@@ -96,7 +97,9 @@ public class B2WPartsSmokeTest extends B2WTestCase {
 		sEmployeeFirstNameB = getProperty("sEmployeeFirstNameB");
 		sEmployeeLastNameB = getProperty("sEmployeeLastNameB");
 		sEmployeeIDB = getProperty("sEmployeeIDB")+iRandom;
-
+		sPartUpdateStandardUnitCost = getProperty("sPartUpdateStandardUnitCost");
+		sPartUpdateMinInventory =getProperty("sPartUpdateMinInventory");
+		sPartUpdateReorderQTY =getProperty("sPartUpdateReorderQTY");
 		cal.add(Calendar.DAY_OF_YEAR,14);
 		
 	}
@@ -146,7 +149,8 @@ public class B2WPartsSmokeTest extends B2WTestCase {
 		addToInventory();
 		createWorkOrder();
 		createPurchaseOrder();
-		TaskUtils.sleep(5000);
+		editPart();
+		deletePart();
 		/*	
 		•Add a Primary Vendor
 		•Add the new part to Inventory, Create Request, Work Order,and Purchase Order to create Part history for these entities
@@ -173,7 +177,6 @@ public class B2WPartsSmokeTest extends B2WTestCase {
 		logCompare(true, b2wEmp.setDriverCheckBox(true), "Set Driver Checkbox");
 		logCompare(true, b2wEmp.setPurchaseOrderApproverCheckBox(true), "Approver");
 		logCompare(true, b2wEmp.clickTopSaveButton(), "Click Top Save Button");
-
 
 	}
 	public void addPart() {
@@ -231,8 +234,9 @@ public class B2WPartsSmokeTest extends B2WTestCase {
 	public void createWorkOrder() {
 		logCompare(true,b2wMaintain.openWorkOrders(),"Open Work Orders");
 		logCompare(true,b2wWork.clickCreateNewWorkOrderButton(),"Create New Work Order");
-		b2wWork.selectAnyEquipment();
+		TaskUtils.sleep(1000);
 		logCompare(true,b2wWork.selectPriorityFromDD("Medium"), "Select Medium");
+		assertTrue("Make sure we get a piece of equipment",b2wWork.selectAnyEquipment().length() > 1);
 		logCompare(true,b2wWork.setWorkOrderDescription(sWorkOrderDescription),"Work Order Desc");
 		b2wWork.selectAnyPlannedWorkLocation();
 		logCompare(true,b2wWork.clickAddItemButton(), "New Item");
@@ -246,25 +250,25 @@ public class B2WPartsSmokeTest extends B2WTestCase {
 		b2wAddToWorkOrder.selectAnyAddItemSubCodeFromDD();
 		b2wAddToWorkOrder.selectAnyAddItemFailureCodeFromDD();
 		b2wAddToWorkOrder.selectAnyAddItemActionCodeFromDD();
-		TaskUtils.sleep(1000);
 		b2wAddToWorkOrder.selectAnyAddItemRequestedByFromDD();
-		TaskUtils.sleep(1000);
 		logCompare(true,b2wAddToWorkOrder.clickCreateAddItemButton(),"Add Item");
-		TaskUtils.sleep(1000);
 		logCompare(true,b2wWork.expandParts(), "Expand Parts");
 		logCompare(true,b2wWork.clickAddParts(), "Add Parts");
 		logCompare(true,addParts.selectPartToAddToWorkItemByDescription(sPartDesc),"");
 		logCompare(true,addParts.partsNext(),"");
 		logCompare(true,addParts.setEstimatedQty(sPartDesc,sEstQty),"");
 		logCompare(true,addParts.setReportedQty(sPartDesc, sReportedQty),"");
-		String sInventoryChange = "("+sReportedQty+" EACH)";
+		//String sInventoryChange = "("+sReportedQty+" EACH)";
 		logCompare(true,addParts.saveParts(), "Save Parts");
 		logCompare(true,b2wWork.clickSaveButton(),"Click Save");
+		b2wWork.selectWorkOrderByDescription(sWorkOrderDescription);
+		//String sID = b2wWork.getSelectWorkOrderID();
 		logCompare(true,b2wMaintain.openParts(),"Open Parts");
 		logCompare(true,parts.selectPartByDescription(sPartDesc), "Select Desc");
 		logCompare(true,parts.expandInventoryHistory(),"Expand History");
 		logCompare(2,parts.getInventoryHistoryRows(), "Inventory History rows should be 2");
-		logCompare(sInventoryChange,parts.getInventoryText(1, 4),"Inventory Changed");
+		//int i = parts.getInventorySource().indexOf("Work Order "+sID);
+		//logCompare(sInventoryChange,parts.getInventoryText(i, 4),"Inventory Changed");
 
 	}
 	
@@ -289,11 +293,41 @@ public class B2WPartsSmokeTest extends B2WTestCase {
 		logCompare(true,purch.setPart(sPartDesc), "Set Part");
 		logCompare(true,purch.savePartOrder(), "Save Part Order");
 		logCompare(true,purch.clickApproveButton(), "Approve");
-		TaskUtils.sleep(500);
-		logCompare(true,approve.selectApprover("D"), "First Name");
-		logCompare(true,approve.clickApproveButton(), "Click Approve");
+		TaskUtils.sleep(1000);
+		logCompare(true,approve.selectApprover(sEmployeeFirstNameB), "First Name");
+		assertTrue("Click Approve",approve.clickApproveButton());
+		logCompare(true,b2wMaintain.openParts(),"Open Parts");
+		logCompare(true,parts.selectPartByDescription(sPartDesc), "Select Desc");
+		logCompare(true,parts.expandPurchaseOrderHistory(),"Expand Purchase Order History");
+		logCompare(1,parts.getPurchaseOrderHistoryRows(), "Purchase Order History rows should be 1");
+		logCompare(sPartsVendor.substring(0,  sPartsVendor.indexOf("[")).trim(), parts.getPurchaseOrderText(0, 2), "Purchase Order History");
+				
+	}
+	
+	public void editPart() {
+		
+		logCompare(true,b2wMaintain.openParts(),"Open Parts");
+		logCompare(true,parts.selectPartByDescription(sPartDesc), "Select Desc");
+		logCompare(true,parts.clickEditPart(),"Edit Part");
+		logCompare(true,parts.setStandardUnitCost(this.sPartUpdateStandardUnitCost), "Update Cost");
+		logCompare(true,parts.setMinimumInventory(this.sPartUpdateMinInventory),"Update Inventory");
+		logCompare(true,parts.setReorderQuantity(sPartUpdateReorderQTY),"Reorder QTY");
+		logCompare(true,parts.clickSavePart(),"Save Updated Part");
+		parts.selectPartByDescription(sPartDesc);
+		logCompare("$"+sPartUpdateStandardUnitCost,parts.getValueOfPartItem("Standard Unit Cost"),"Standard Unit Cost");
+		logCompare(sPartUpdateMinInventory+".00",parts.getValueOfPartItem("Minimum Inventory"),"Min Inventory");
+		logCompare(sPartUpdateReorderQTY+".00",parts.getValueOfPartItem("Reorder Quantity"),"Reorder Quantity");
+		TaskUtils.sleep(1000);
+		
 		
 	}
 	
+	public void deletePart() {
+		logCompare(true,b2wMaintain.openParts(),"Open Parts");
+		logCompare(true,parts.selectPartByDescription(sPartDesc), "Select Desc");
+		logCompare(true,parts.clickDeletePart(), "Delete Button");
+		logCompare(true,parts.clickConfirmYes(),"Confirm");
+		logCompare(true,parts.clickBusinessRuleError(), "Business Rule Error");
+	}
 
 }

@@ -128,6 +128,7 @@ public class B2WUIMap {
 	public static final String b2w_schedules_notes = "textarea[name='notes']";
 	public static final String b2w_schedules_scheduleformat = "input[name='scheduleFormat']";
 	public static final String b2w_schedules_input = "input";
+	public static final String b2w_schedules_span = ".//span";
 	public static final String b2w_schedules_groupitemsby = "select.grouping-dropdown[data-bind *= 'scheduledGrouping1DataSource']";
 	public static final String b2w_schedules_secondarygrouping = "select.grouping-dropdown[data-bind *= 'scheduledGrouping2DataSource']";
 	public static final String b2w_schedules_savebtn = ".btn-form.large.save";
@@ -135,9 +136,18 @@ public class B2WUIMap {
 	public static final String b2w_schedules_addfilter = ".add-filter";
 	public static final String b2w_schedules_filterlabel = "label";
 	public static final String b2w_schedules_deletebtn = ".btn-delete";
+	public static final String b2w_schedules_copybtn = ".btn-copy";
+	public static final String b2w_schedules_editbtn = ".btn-edit";
+	public static final String b2w_schedules_openbtn = ".btn-export";
+	public static final String b2w_schedules_removeFilterLink = ".js-remove.left-expanding-row__right.filter__remove";
+	public static final String b2w_schedules_removeItemBtn = ".k-icon.k-i-close";
 	public static final String b2w_schedules_deletepopupwindow = ".k-widget.k-window";
 	public static final String b2w_schedules_popupwindow_yesbtn = ".btn-form.dialog-button.large.confirm";
 	public static final String b2w_schedules_previewlocation = ".preview-location";
+	public static final String b2w_schedules_searchField = ".list-filter.k-textbox";
+	public static final String b2w_schedules_deleteSearchIcon = ".b2wicon.i140-rejected";
+	public static final String b2w_schedules_tbody = "tbody[role='rowgroup']";
+	public static final String b2w_schedules_sortingIcon = "th[data-title='replace']";
 
 	// page filter
 	public static final String b2w_page_filter_letterA = "a#PageContent_FilterControl_AButton";
@@ -245,8 +255,46 @@ public class B2WUIMap {
 	// ====== Resources -> Crew Templates
 	public static final String b2w_crewtemplates_addbtn = ".btn-add";
 	public static final String b2w_crewtemplates_crewtypeslist = "span.k-link";
-	public static final String getB2w_crewtemplates_headline = ".headline>span";
-	public static final String getB2w_crewtemplates_name = ".k-textbox[name='Name']";
+	public static final String b2w_crewtemplates_headline = ".headline>span";
+	public static final String b2w_crewtemplates_name = ".k-textbox[name='Name']";
+	public static final String b2w_crewtemplates_id = ".k-textbox[name='ID']";
+	public static final String b2w_crewtemplates_inactive = "input[name='Inactive']";
+	public static final String b2w_crewtemplates_notes = ".short-notes";
+	public static final String b2w_crewtemplates_searchvalue = ".list-filter.k-textbox[placeholder='Search']";
+	public static final String b2w_crewtemplates_searchresults = "tr[data-role='draggable']";
+	public static final String b2w_crewtemplates_resourcetree = "#resourcesTreeview";
+	public static final String b2w_crewtemplates_resourcetreeitems = "div[class='tree-text']";
+	public static final String b2w_crewtemplates_resourcedeleteicons = ".btn-remove";
+
+	public static final String b2w_crewtemplates_savebtn = ".btn-form.save";
+	public static final String b2w_crewtemplates_deletebtn = ".btn-delete";
+	public static final String b2w_crewtemplates_updatebtn = ".btn-edit";
+	public static final String b2w_crewtemplates_copybtn = ".btn-copy";
+	public static final String b2w_crewtemplates_listpanel = ".crew-template-list";
+	public static final String b2w_crewtemplates_listtable = "tbody[role=\"rowgroup\"]";
+	public static final String b2w_crewtemplates_button = ".//div";
+	public static final String b2w_crewtemplates_popupwindow = ".k-widget.k-window";
+	public static final String b2w_crewtemplates_transportfunction = "input[name='transportFunctionType']";
+	public static final String b2w_crewtemplates_searchfield = "input[type='text']";
+	public static final String b2w_crewtemplates_deletesearchfield = ".b2wicon.i140-rejected";
+	public static final String b2w_crewtemplates_generalInformationItems = ".namevalue-pair";
+	public static final String b2w_crewtemplates_crewDetailsItems = "div[class='tree-text']";
+	public static final String b2w_crewtemplates_resourceList = ".resource-list";
+	public static final String b2w_crewtemplates_resourceListContainer = ".resource-list-container";
+	public static final String b2w_crewtemplates_resourceTable = "tbody[role='rowgroup']";
+	public static final String b2w_crewtemplates_resourceTableVisibleMembers = "tr[role='row'][data-role='draggable'][style='display: table-row;']";
+	public static final String b2w_crewtemplates_resourceTableInvisibleMembers = "tr[role='row'][data-role='draggable'][style='display: none;']";
+	public static final String b2w_crewtemplates_resourceTableGroups = "tr.k-grouping-row";
+	public static final String b2w_crewtemplates_groupCollapseIcon = "a.k-icon.k-i-collapse";
+	public static final String b2w_crewtemplates_groupExpandIcon = "a.k-icon.k-i-expand";
+	public static final String b2w_crewtemplates_collapseAllGroupsBtn = "span.btn-collapse[title='Collapse All']";
+	public static final String b2w_crewtemplates_expandAllGroupsBtn = "span.btn-expand[title='Expand All']";
+	public static final String b2w_crewtemplates_sortingIcon = "th[data-title='replace']";
+	public static final String b2w_crewtemplates_inactiveCheckbox = ".middle-align";
+	public static final String b2w_crewtemplates_splitbars = ".k-splitbar";
+	public static final String b2w_crewtemplates_panels = ".k-pane";
+	public static final String b2w_crewtemplates_collapsePrevBtn = ".k-icon.k-collapse-prev";
+	public static final String b2w_crewtemplates_expandPrevBtn = ".k-icon.k-expand-prev";
 
 	// places
 	public static final String b2w_createnewplacebutton = "a#PageContent_CreateNewPlaceButton";
@@ -789,12 +837,12 @@ public class B2WUIMap {
 	public static final String b2w_schedule_collapseicon = ".Icon.i119-double-angle-up";
 	public static final String b2w_schedule_assignmentrightedge = ".Assignment__handle.Assignment__handle--right.active";
 	public static final String b2w_schedule_assignmentleftedge = ".Assignment__handle.Assignment__handle--left.active";
-	public static final String b2w_schedule_resourcewarningicon_i152 = ".Icon.clickable.ng-isolate-scope.i152-warning";
-	public static final String b2w_schedule_resourcewarningicon_i228 = ".Icon.clickable.ng-isolate-scope.i228-conflict-round";
-	public static final String b2w_schedule_resourcewarningicon_need_i228 = ".Icon.clickable.ng-isolate-scope.i218-need";
+	public static final String b2w_schedule_iconModifierAlert = "i.clickable.ng-isolate-scope.Icon__modifier--alert";
+	public static final String b2w_schedule_iconModifierCaution = "i.clickable.ng-isolate-scope.Icon__modifier--caution";
+	public static final String b2w_schedule_resourcesIconNeed = "i.clickable.ng-isolate-scope.Icon__resources--need";
 	public static final String b2w_schedule_tooltip = ".k-tooltip-content.ng-scope";
-	public static final String b2w_schedule_conflictpanelbutton = ".Icon.Icon--lg.i152-warning";
-	public static final String b2w_schedule_orderpaneltbutton = ".Icon.Icon--lg.i218-need";
+	public static final String b2w_schedule_conflictpanelbutton = ".Icon--lg.Icon__modifier--alert";
+	public static final String b2w_schedule_orderpaneltbutton = ".Icon--lg.Icon__resources--need";
 	public static final String b2w_schedule_conflictspanel = "b2w-conflicts-panel";
 	public static final String b2w_schedule_orderspanel = "b2w-needs-panel";
 	public static final String b2w_schedule_conflicblock = "b2w-conflict-block";
@@ -808,7 +856,6 @@ public class B2WUIMap {
 	public static final String b2w_schedule_cancelbtn = "button.Button.Button--large[ng-click='cancel()']";
 	public static final String b2w_schedule_collapsecalendaricon = ".Icon.Icon--xl.Panel--left-sched-button.i102-angle-left";
 	public static final String b2w_schedule_expandcalendaricon = ".Icon.Icon--xl.Panel--left-sched-button.i103-angle-right";
-
 
 	public static final String b2w_schedule_useritem = "ul#user-select_taglist";
 	public static final String b2w_schedule_fillwith = "span.Toolbar__input--fill-need";
@@ -877,6 +924,7 @@ public class B2WUIMap {
 	// work orders
 	public static final String b2w_maintainworkorderslistview = "div#work_order_list_view";
 	public static final String b2w_maintainworkorderdisplaystatus = "td.subhead.right";
+	public static final String b2w_maintainworkordersubheadlink = "td.subhead";
 	public static final String b2w_maintainworkordersview = "div#work_order_create_view";
 	public static final String b2w_maintainworkorderseditview = "div#work_order_edit_view";
 	public static final String b2w_maintainworkorderadditembutton = "a.btn-orig.add-item";
@@ -1125,5 +1173,30 @@ public class B2WUIMap {
 	//public static final String b2w_partspurchaseorderdetails = "div.purchase-order-details";
 	public static final String b2w_partspurchaseorderdetails = "div#purchase_order_detail_view";
 	public static final String b2w_partspurchaselineitemcontainer = "div#lineItemsContainer";
+	public static final String b2w_kendogridheader = "div.k-grid-header-wrap";
+
+	public static final String b2w_kendolistheightfix = "div.list-height-fix";
+	public static final String b2w_kendokbutton = ".k-button";
+	public static final String b2w_timecardemployeehourgrid = "div#employeeHoursGrid";
+	public static final String b2w_kendofootertemplate = "k-footer-template";
+	public static final String b2w_kendobuttonicon = "a.btn-icon";
+	
+	//tags
+	public static final String b2w_kendotbody = "tbody";
+	public static final String b2w_kendotd = "td";
+	public static final String b2w_kendotr = "tr";
+	public static final String b2w_kendouinputtag = "input";
+	public static final String b2w_kendolabeltag = "label";
+	public static final String b2w_kendospantag = "span";
+	public static final String b2w_kendotextareatage = "textarea";
+	public static final String b2w_kendoiframetag = "iframe";
+	public static final String b2w_kendobodytag = "body";
+	public static final String b2w_kendodivtag = "div";
+	public static final String b2w_kendooptiontag = "option";
+	public static final String b2w_kendolinktag = "a";
+	public static final String b2w_kendoptag = "p";
+	public static final String b2w_kendolitage = "li";
+	public static final String b2w_kendotexttage = "text";
+	public static final String b2w_kendostrongtag = "strong";
 	
 }

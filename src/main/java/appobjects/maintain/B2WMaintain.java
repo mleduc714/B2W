@@ -675,5 +675,10 @@ public class B2WMaintain extends KendoUI {
 	public static By getMaintainPurchaseItemsContainer() {
 		return By.cssSelector(B2WUIMap.b2w_partspurchaselineitemcontainer);
 	}
-	
+	public static By getMaintainSubhead() {
+		return By.className("subhead");
+	}
+
+
+		
 }

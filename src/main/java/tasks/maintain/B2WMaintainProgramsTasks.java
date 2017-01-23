@@ -94,7 +94,7 @@ public class B2WMaintainProgramsTasks extends B2WMaintainTasks {
 	}
 	
 	public boolean selectMaintenanceProgram(String sItem) {
-		return selectItemFromView(sItem, 1);
+		return selectItemFromView(sItem, COLUMN.DESCRIPTION);
 	}
 	public boolean selectMaintenanceProgram(int i) {
 		return selectItemFromView(i);

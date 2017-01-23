@@ -1,5 +1,6 @@
 package tasks;
 
+import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -26,48 +27,40 @@ public abstract class B2WKendo {
 	
 	protected boolean selectItemFromDropDown(int i){
 		boolean bReturn = false;
-		// when we click we need to find the visble list
-		List<WebElement> list = WebElementUtils.findElements(B2WEquipment.getKendoLists());
-		Iterator<WebElement> iter = list.iterator();
-		log.debug("There are "+list.size() + " to find the correct drop down");
-		while (iter.hasNext()) {
-			WebElement els = iter.next();
-			String hidden = els.getAttribute("aria-hidden");
-			if (hidden != null && hidden.equals("false")) {
-				List<WebElement> items = els.findElements(B2WEquipment.getKendoDropDownItem());
-				WebElement item = items.get(i);
-				WebElementUtils.waitForElementIsDisplayed(item, WebElementUtils.SHORT_TIME_OUT);
-				if (item != null) {
-					bReturn = WebElementUtils.clickElement(item);
-				}else{
-					log.debug("Could not select item #"+i);
-				}
+		// when we click we need to find the visible list
+		List<WebElement> items = new ArrayList<WebElement>();
+		int iTimeout = 0;
+		while (items.size() == 0 && iTimeout < 50){
+			items = getKendoDropDownItems();
+			iTimeout++;
+			TaskUtils.sleep(100);
+		}
+		if (items.size() != 0) {
+			WebElement item = items.get(i);
+			WebElementUtils.waitForElementIsDisplayed(item, WebElementUtils.SHORT_TIME_OUT);
+			if (item != null) {
+				bReturn = WebElementUtils.clickElement(item);
+				WebElementUtils.waitForElementInvisible(item);
+			} else {
+				log.debug("Could not select item #" + i);
 			}
+		}else{
+			log.debug("Could not find a visible drop down menu");
 		}
 		return bReturn;
 	}
 	protected boolean selectItemFromDropDown(String sItem){
 		boolean bReturn = false;
 		try {
-
-		// when we click we need to find the visble list
-		List<WebElement> list = WebElementUtils.findElements(B2WEquipment.getKendoLists());
-		Iterator<WebElement> iter = list.iterator();
-		log.debug("Looking for item "+sItem);
-		while (iter.hasNext()) {
-			WebElement els = iter.next();
-			String hidden = els.getAttribute("aria-hidden");
-			if (hidden != null && hidden.equals("false")) {
-				List<WebElement> items = els.findElements(B2WEquipment.getKendoDropDownItem());
-				WebElement item = WebElementUtils.getElementWithMatchingStartsWithText(items, sItem);
-				if (item != null) {
-					bReturn = WebElementUtils.clickElement(item);
-					bReturn &= WebElementUtils.waitForElementInvisible(item);
-				}else{
-					log.debug("Item with could not be found matching "+sItem);
-				}
+			List<WebElement> items = getKendoDropDownItems();
+			WebElement item = WebElementUtils.getElementWithMatchingStartsWithText(items, sItem);
+			if (item != null) {
+				bReturn = WebElementUtils.clickElement(item);
+				bReturn &= WebElementUtils.waitForElementInvisible(item);
+			}else{
+				log.debug("Item with could not be found matching "+sItem);
 			}
-		}
+		
 		}catch (StaleElementReferenceException e){
 			return selectItemFromDropDown(sItem);
 		}
@@ -198,16 +191,15 @@ public abstract class B2WKendo {
 	}
 	private void waitForAjax() {
 		int iTimeout = 0;
-		while (true) {
-			Boolean ajaxIsComplete = (Boolean) ((JavascriptExecutor) BrowserUtils.getDriver()).executeScript("return jQuery.active == 0");
-			if (ajaxIsComplete && iTimeout < 20) {
-				log.debug("Wait for Ajax done");
-				break;
-			}
-			log.debug("Wait for Ajax");
+		boolean ajaxIsComplete = false;
+		while (!ajaxIsComplete && iTimeout < 100) {
+			ajaxIsComplete = (Boolean) ((JavascriptExecutor) BrowserUtils.getDriver()).executeScript("return jQuery.active == 0");
+			log.debug("**Waiting for ajax to complete**");
 			iTimeout++;
-			TaskUtils.sleep(500);
+			TaskUtils.sleep(100);
 		}
+		log.debug("Waited "+ iTimeout +" trys for ajax to complete");
+		
 	}
 	
 	protected boolean setTextArea(WebElement el, String sLabel, String sText){
@@ -308,24 +300,53 @@ public abstract class B2WKendo {
 
 		return bReturn;
 	}
+
 	public ArrayList<String> getItemsFromDropDown() {
-		 ArrayList<String> al = new ArrayList<String>();
-		// when we click we need to find the visble list
-		List<WebElement> list = WebElementUtils.findElements(B2WEquipment.getKendoLists());
-		Iterator<WebElement> iter = list.iterator();
-		while (iter.hasNext()) {
-			WebElement els = iter.next();
-			String hidden = els.getAttribute("aria-hidden");
-			if (hidden != null && hidden.equals("false")) {
-				List<WebElement> items = els.findElements(B2WEquipment.getKendoDropDownItem());
-				Iterator<WebElement> iterElements = items.iterator();
-				while (iterElements.hasNext()){
-					WebElement ddItem = iterElements.next(); 
-					al.add(ddItem.getText());
-				}
-			}
+		ArrayList<String> al = new ArrayList<String>();
+		List<WebElement> items = getKendoDropDownItems();
+		Iterator<WebElement> iterElements = items.iterator();
+		while (iterElements.hasNext()) {
+			WebElement ddItem = iterElements.next();
+			al.add(ddItem.getText());
 		}
 		return al;
 	}
+	
+	public List<WebElement> getKendoDropDownItems() {
+		List<WebElement> dropdown = new ArrayList<WebElement>();
+		List<WebElement> list = WebElementUtils.findElements(B2WEquipment.getKendoLists());
+		log.debug("There are "+list.size() + " to find the correct drop down");
+		Iterator<WebElement> iter = list.iterator();
+		while (iter.hasNext()) {
+			WebElement e = iter.next();
+			String hidden = e.getAttribute("aria-hidden");
+			if (hidden != null && hidden.equals("false")) {
+				dropdown = e.findElements(B2WEquipment.getKendoDropDownItem());
+				break;
+			}
+			
+		}
+		return dropdown;
+		
+	}
+	public WebElement getDisplayedWindow() {
+		WebElement window = null;
+		List<WebElement> windows = WebElementUtils.findElements(B2WMaintain.getKendoWindow());
+		Iterator<WebElement> iter = windows.iterator();
+		while (iter.hasNext()){
+			WebElement temp = iter.next();
+			if (temp.isDisplayed()){
+				WebElement el = WebElementUtils.getChildElement(temp, B2WMaintain.getKendoWindowTitle());
+				log.debug("Displayed window -> "+el.getText());
+				window = temp;
+				break;
+			}
+		}
+		return window;
+	}
+	double roundTwoDecimals(double d) {
+        DecimalFormat twoDForm = new DecimalFormat("#.##");
+    return Double.valueOf(twoDForm.format(d));
+}
 
 }

@@ -539,7 +539,22 @@ public class B2WEquipmentTasks extends B2WKendoTasks {
 	public boolean selectAllEquipmentByTypeView() {
 		boolean bReturn = false;
 		String sItem = "All Equipment By Type";
-		if (WebElementUtils.clickElement(B2WEquipment.getKendoDropDownItem())) {
+		WebElement el = WebElementUtils.findElement(B2WMaintain.getB2WKendoListHeightFix());
+		WebElement dd = WebElementUtils.getChildElement(el, B2WEquipment.getKendoDropDown());
+		if (WebElementUtils.clickElement(dd)) {
+			// when we click we need to find the visible list
+			bReturn = findAndSelectItemFromDD(sItem);
+		}
+		return bReturn;
+				
+	}
+	
+	public boolean selectAllEquipmentView() {
+		boolean bReturn = false;
+		String sItem = "All Equipment";
+		WebElement el = WebElementUtils.findElement(B2WMaintain.getB2WKendoListHeightFix());
+		WebElement dd = WebElementUtils.getChildElement(el, B2WEquipment.getKendoDropDown());
+		if (WebElementUtils.clickElement(dd)) {
 			// when we click we need to find the visible list
 			bReturn = findAndSelectItemFromDD(sItem);
 		}
@@ -580,11 +595,11 @@ public class B2WEquipmentTasks extends B2WKendoTasks {
 	
 	}
 	public boolean selectEquipmentFromViewByID(String sID){
-		return selectItemFromView(sID,0);
+		return selectItemFromView(sID,COLUMN.ID);
 	}
 	
 	public boolean selectEquipmentFromViewByDescription(String sDesc) {
-		return selectItemFromView(sDesc,1);
+		return selectItemFromView(sDesc,COLUMN.DESCRIPTION);
 	}
 	
 	public String getEquipmentHeadline() {
@@ -655,7 +670,7 @@ public class B2WEquipmentTasks extends B2WKendoTasks {
 			coordinate.onPage();
 			coordinate.inViewPort();
 			if (WebElementUtils.clickElement(button)) {
-				bReturn &= waitForPageNotBusy(WebElementUtils.MEDIUM_TIME_OUT);
+				bReturn = waitForPageNotBusy(WebElementUtils.MEDIUM_TIME_OUT);
 			}
 		}
 		return bReturn;
@@ -936,7 +951,7 @@ public class B2WEquipmentTasks extends B2WKendoTasks {
 		String sText = "";
 		List<WebElement> rows = getHistoryRows();
 		if (rows.size()>0){
-			sText = WebElementUtils.getChildElements(rows.get(iRow),By.tagName("td")).get(iColumn).getText();
+			sText = WebElementUtils.getChildElements(rows.get(iRow),By.tagName("td")).get(iColumn).getText().trim();
 			
 		}
 		return sText;
@@ -946,7 +961,7 @@ public class B2WEquipmentTasks extends B2WKendoTasks {
 		String sText = "";
 		List<WebElement> rows = getMeterRows();
 		if (rows.size()>0){
-			sText = WebElementUtils.getChildElements(rows.get(iRow),By.tagName("td")).get(iColumn).getText();
+			sText = WebElementUtils.getChildElements(rows.get(iRow),By.tagName("td")).get(iColumn).getText().trim();
 			
 		}
 		return sText;
@@ -956,7 +971,9 @@ public class B2WEquipmentTasks extends B2WKendoTasks {
 		ArrayList<String> al = new ArrayList<String>();
 		Iterator<WebElement> iter = getMeterRows().iterator();
 		while (iter.hasNext()){
-			al.add(WebElementUtils.getChildElements(iter.next(),By.tagName("td")).get(0).getText());
+			WebElement el = iter.next();
+			List<WebElement> list = WebElementUtils.getChildElements(el, By.tagName("td"));
+			al.add(list.get(0).getText().trim());
 		}
 		return al;
 	}
@@ -964,7 +981,7 @@ public class B2WEquipmentTasks extends B2WKendoTasks {
 		ArrayList<String> al = new ArrayList<String>();
 		Iterator<WebElement> iter = getPartsRows().iterator();
 		while (iter.hasNext()){
-			al.add(WebElementUtils.getChildElements(iter.next(),By.tagName("td")).get(0).getText());
+			al.add(WebElementUtils.getChildElements(iter.next(),By.tagName("td")).get(0).getText().trim());
 		}
 		return al;
 	}
@@ -973,7 +990,7 @@ public class B2WEquipmentTasks extends B2WKendoTasks {
 		ArrayList<String> al = new ArrayList<String>();
 		Iterator<WebElement> iter = getWarrantyRows().iterator();
 		while (iter.hasNext()){
-			al.add(WebElementUtils.getChildElements(iter.next(),By.tagName("td")).get(0).getText());
+			al.add(WebElementUtils.getChildElements(iter.next(),By.tagName("td")).get(0).getText().trim());
 		}
 		return al;
 	}
@@ -982,7 +999,7 @@ public class B2WEquipmentTasks extends B2WKendoTasks {
 		ArrayList<String> al = new ArrayList<String>();
 		Iterator<WebElement> iter = getEquipmentEventsRows().iterator();
 		while (iter.hasNext()){
-			al.add(WebElementUtils.getChildElements(iter.next(),By.tagName("td")).get(0).getText());
+			al.add(WebElementUtils.getChildElements(iter.next(),By.tagName("td")).get(0).getText().trim());
 		}
 		return al;
 	}
@@ -1103,7 +1120,7 @@ public class B2WEquipmentTasks extends B2WKendoTasks {
 		boolean bReturn = false;
 		int iRow = getWarranties().indexOf(sWarranty);
 		List<WebElement> rows = getWarrantyRows();
-		if (rows.size()>0){
+		if (rows.size()>0 && iRow >= 0){
 			WebElement delete = WebElementUtils.getChildElement(rows.get(iRow), B2WMaintain.getKendoDeleteButton());
 			bReturn = WebElementUtils.clickElement(delete);
 		}
@@ -1125,6 +1142,7 @@ public class B2WEquipmentTasks extends B2WKendoTasks {
 		int iRow = getMeters().indexOf(sMeter);
 		List<WebElement> rows = getMeterRows();
 		if (rows.size()>0){
+			
 			WebElement edit = WebElementUtils.getChildElement(rows.get(iRow), B2WMaintain.getKendoEditButton());
 			bReturn = WebElementUtils.clickElement(edit);
 		}
@@ -1166,7 +1184,7 @@ public class B2WEquipmentTasks extends B2WKendoTasks {
 	}
 	private List<WebElement> getMeterRows() {
 		WebElement header = getHeader(METERS);
-		WebElement historyView = WebElementUtils.getChildElement(header, B2WMaintain.getMaintainEquipmentMetersView());
+		WebElement historyView = WebElementUtils.getChildElement(header, By.className("meter-list"));
 		WebElement tbody = WebElementUtils.getChildElement(historyView, By.tagName("tbody"));
 		List<WebElement> rows = WebElementUtils.getChildElements(tbody, By.tagName("tr"));
 		return rows;
@@ -1201,5 +1219,13 @@ public class B2WEquipmentTasks extends B2WKendoTasks {
 		return rows;
 	}
 	
-	
+	public boolean createEquipment(String sEquipment, String sID, String sBusinessUnit) {
+		setEquipmentDescription(sEquipment);
+		setEquipmentID(sID);
+		selectNewEquipmentBusinessUnitFromDropDown(sBusinessUnit);
+		return saveNewEquipment();
+	}
+	public boolean closeEquipmentFilter(String sFilter){
+		return closeFilter(sFilter);
+	}
 }

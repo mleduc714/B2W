@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.WebElement;
 
 import appobjects.maintain.B2WMaintain;
@@ -64,6 +66,7 @@ public class B2WMaintainRequestTasks extends B2WKendoTasks {
 		boolean bReturn = false;
 		WebElement equipment = getFormElement("Request Description", B2WMaintain.getKendoInputTextBox());
 		if (equipment != null){
+			equipment.clear();
 			bReturn = WebElementUtils.sendKeys(equipment, sText);
 		}
 		return bReturn;
@@ -73,6 +76,7 @@ public class B2WMaintainRequestTasks extends B2WKendoTasks {
 		boolean bReturn = false;
 		WebElement equipment = getFormElement("Alternate ID", B2WMaintain.getKendoInputTextBox());
 		if (equipment != null){
+			equipment.clear();
 			bReturn = WebElementUtils.sendKeys(equipment, sText);
 		}
 		return bReturn;
@@ -161,8 +165,8 @@ public class B2WMaintainRequestTasks extends B2WKendoTasks {
 	
 	public boolean clickSaveButton() {
 		boolean bReturn = false;
-		WebElement parent = WebElementUtils.findElement(B2WMaintain.getB2WMaintainRequestCreateView());
-		WebElement el = WebElementUtils.waitForChildElement(parent, B2WMaintain.getKendoLargeSaveButton(),1);
+		List<WebElement> list = WebElementUtils.findElements(B2WMaintain.getKendoLargeSaveButton());
+		WebElement el = WebElementUtils.getVisibleElementFromListofElements(list);
 		if (el != null){
 			bReturn = WebElementUtils.clickElement(el);
 			bReturn &= waitForPageNotBusy(WebElementUtils.MEDIUM_TIME_OUT);
@@ -172,10 +176,10 @@ public class B2WMaintainRequestTasks extends B2WKendoTasks {
 	}
 	
 	public boolean selectWorkOrderRequestByDescription(String sDesc){
-		return selectItemFromView(sDesc, 1);
+		return selectItemFromView(sDesc, COLUMN.DESCRIPTION);
 	}
 	public boolean selectWorkOrderRequestByID(String sID){
-		return selectItemFromView(sID, 0);
+		return selectItemFromView(sID, COLUMN.ID);
 	}
 	public boolean selectRequest(int i){
 		return selectItemFromView(i);
@@ -185,6 +189,7 @@ public class B2WMaintainRequestTasks extends B2WKendoTasks {
 		WebElement el = WebElementUtils.findElement(B2WMaintain.getB2WMaintainRequestsAddToWorkOrder());
 		if (el != null){
 			bReturn = WebElementUtils.clickElement(el);
+			WebElementUtils.waitAndFindDisplayedElement(B2WMaintain.getB2WMaintainNewWorkOrderView());
 		}
 		return bReturn;
 	}
@@ -193,7 +198,13 @@ public class B2WMaintainRequestTasks extends B2WKendoTasks {
 		boolean bReturn = false;
 		WebElement el = WebElementUtils.findElement(B2WMaintain.getKendoEditButton());
 		if (el != null){
-			bReturn = WebElementUtils.clickElement(el);
+			try {
+				el.click();
+				bReturn = WebElementUtils.waitAndFindDisplayedElement(B2WMaintain.getB2WMaintainEditFormContent()) != null;
+				bReturn &= true;
+			}catch (WebDriverException e){
+				log.debug("Edit is not available");
+			}
 		}
 		return bReturn;
 	}
@@ -205,6 +216,9 @@ public class B2WMaintainRequestTasks extends B2WKendoTasks {
 		return getSelectedItemFromView(0);
 	}
 
+	public boolean selectAllRequests() {
+		return selectViewFromDropDown("All Requests");
+	}
 	public boolean selectOpenRequests() {
 		return selectViewFromDropDown("Open Requests");
 	}
@@ -268,21 +282,37 @@ public class B2WMaintainRequestTasks extends B2WKendoTasks {
 	}
 	public String getSelectedRequestStatus() {
 		String sText = "";
-		WebElement el = WebElementUtils.findElement(B2WMaintain.getB2WMaintainRequestOrderStatus());
+		WebElement el = WebElementUtils.waitAndFindDisplayedElement(B2WMaintain.getB2WMaintainRequestOrderStatus());
 		if (el != null){
-			sText = el.getText();
+			sText = el.getText().trim();
 		}
 		return sText;
+	}
+	
+	public boolean clickOnLinkInStatus() {
+		boolean bReturn = false;
+		List<WebElement> list = WebElementUtils.findElements(B2WMaintain.getB2WWorkOrderStatus());
+		if (list.size()>0){
+			WebElement el = WebElementUtils.getVisibleElementFromListofElements(list);
+			WebElement link = WebElementUtils.getChildElement(el, By.tagName("a"));
+			bReturn = WebElementUtils.clickElement(link);
+		}
+		return bReturn;
 	}
 	public boolean setRequestNotes(String sText){
 		return setNotes(sText);
 	}
-	public boolean deleteRequest(){
+
+	public boolean deleteRequest() {
 		boolean bReturn = false;
-		WebElement delete = WebElementUtils.findElement(B2WMaintain.getKendoDeleteButton());
-		if (delete != null){
-			bReturn = WebElementUtils.clickElement(delete);
-			bReturn &= clickConfirmYes();
+		try {
+			WebElement delete = WebElementUtils.findElement(B2WMaintain.getKendoDeleteButton());
+			if (delete != null) {
+				delete.click();
+				bReturn = clickConfirmYes();
+			}
+		} catch (WebDriverException e) {
+			log.debug("Delete not available");
 		}
 		return bReturn;
 	}
@@ -299,16 +329,21 @@ public class B2WMaintainRequestTasks extends B2WKendoTasks {
 	public String getComment() {
 		return getComments(0,0);
 	}
+
+	public boolean editComment(String s){
+		return super.editComment(s);
+	}
 	public boolean deleteComment(String sComment){
+		return super.deleteComment(sComment);
+	}
+	public boolean clickOnEquipmentLink() {
 		boolean bReturn = false;
-		WebElement el = getRowByCommentDescription(sComment);
-		if (el != null){
-			WebElement delete = WebElementUtils.getChildElement(el, B2WMaintain.getKendoDeleteButton());
-			bReturn = WebElementUtils.clickElement(delete);
+		List<WebElement> list = WebElementUtils.findElements(B2WMaintain.getMaintainSubhead());
+		if (list.size()>1){
+			WebElement link = WebElementUtils.getChildElement(list.get(1), By.tagName("a"));
+			bReturn = WebElementUtils.clickElement(link);
+			WebElementUtils.waitAndFindDisplayedElement(B2WMaintain.getMaintainEquipmentDetailView());
 		}
 		return bReturn;
 	}
-
-	
-	
 }

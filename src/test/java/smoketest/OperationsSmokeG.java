@@ -216,10 +216,8 @@ public class OperationsSmokeG extends B2WTestCase {
 		logCompare(true,addInterval.setGenerateRepairRequestsForThisItem("10"), "Generate Requests for this item");
 		logCompare(true,addInterval.saveInterval(), "Save interval");
 		logCompare(true,b2wMainPrograms.saveMaintenanceProgram(), "Save Maintenance Program");
-		
-		
-
 	}
+
 	public void addParts() {
 		assertTrue("Open Equipment",b2wMain.openEquipment());
 		logCompare(true, b2wEquip.selectEquipmentFromViewByID(sEquipmentIDD),"Select: "+sEquipmentIDD+" Equipment");

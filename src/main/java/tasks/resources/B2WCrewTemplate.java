@@ -3,15 +3,8 @@ package tasks.resources;
 import java.util.ArrayList;
 
 public class B2WCrewTemplate implements Cloneable {
-    public enum CrewType {ProductionCrew("Production Crew"), TransportCrew("Transport Crew");
-        private String type;
-
-        CrewType(String s) {
-            this.type = s;
-        }
-    }
-
-    private CrewType type;
+    // General Fields
+    private String type;
     private String name;
     private String ID;
     private String workType;
@@ -20,10 +13,14 @@ public class B2WCrewTemplate implements Cloneable {
     private boolean inactive;
     private String notes;
     private String foreman;
-    private ArrayList<String> employees;
-    private ArrayList<String> equipments;
-    private ArrayList<String> laborTypes;
-    private ArrayList<String> equipmentTypes;
+    private ArrayList<String> employees = new ArrayList<>();
+    private ArrayList<String> equipments = new ArrayList<>();
+    private ArrayList<String> laborTypes = new ArrayList<>();
+    private ArrayList<String> equipmentTypes = new ArrayList<>();
+    private ArrayList<String> equipmentThatMoves = new ArrayList<>();
+
+    // Transport Crew Fields
+    private String transportType;
 
     public boolean isInactive() {
         return inactive;
@@ -55,7 +52,7 @@ public class B2WCrewTemplate implements Cloneable {
     public String getNotes() {
         return notes;
     }
-    public CrewType getType() {
+    public String getType() {
         return type;
     }
     public String getWorkSubType() {
@@ -63,6 +60,12 @@ public class B2WCrewTemplate implements Cloneable {
     }
     public String getWorkType() {
         return workType;
+    }
+    public String getTransportType() {
+        return transportType;
+    }
+    public ArrayList<String> getEquipmentThatMoves() {
+        return equipmentThatMoves;
     }
 
     public void setBusinessUnit(String businessUnit) {
@@ -80,6 +83,9 @@ public class B2WCrewTemplate implements Cloneable {
     public void setLaborTypes(ArrayList<String> laborTypes) {
         this.laborTypes = new ArrayList<>(laborTypes);
     }
+    public void setEquipmentThatMoves(ArrayList<String> equipmentThatMoves) {
+        this.equipmentThatMoves = new ArrayList<>(equipmentThatMoves);
+    }
     public void setForeman(String foreman) {
         this.foreman = foreman;
     }
@@ -95,7 +101,7 @@ public class B2WCrewTemplate implements Cloneable {
     public void setNotes(String notes) {
         this.notes = notes;
     }
-    public void setType(CrewType type) {
+    public void setType(String type) {
         this.type = type;
     }
     public void setWorkSubType(String workSubType) {
@@ -103,6 +109,9 @@ public class B2WCrewTemplate implements Cloneable {
     }
     public void setWorkType(String workType) {
         this.workType = workType;
+    }
+    public void setTransportType(String transportType) {
+        this.transportType = transportType;
     }
 
     public void addEmployeesMembers(ArrayList<String> crew) {
@@ -134,12 +143,16 @@ public class B2WCrewTemplate implements Cloneable {
     }
 
     @Override
-    protected Object clone() throws CloneNotSupportedException {
-        B2WCrewTemplate oReturn = (B2WCrewTemplate) super.clone();
-        oReturn.setEmployees(this.getEmployees());
-        oReturn.setEquipments(this.getEquipments());
-        oReturn.setLaborTypes(this.getLaborTypes());
-        oReturn.setEquipmentTypes(this.getEquipmentTypes());
-        return oReturn;
+    public B2WCrewTemplate clone() {
+        try {
+            B2WCrewTemplate oReturn = (B2WCrewTemplate) super.clone();
+            oReturn.setEmployees(this.getEmployees());
+            oReturn.setEquipments(this.getEquipments());
+            oReturn.setLaborTypes(this.getLaborTypes());
+            oReturn.setEquipmentTypes(this.getEquipmentTypes());
+            return oReturn;
+        } catch (CloneNotSupportedException e) {
+            return null;
+        }
     }
 }

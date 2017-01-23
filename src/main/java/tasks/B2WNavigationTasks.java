@@ -15,6 +15,7 @@ import appobjects.resources.B2WEquipment;
 import appobjects.resources.B2WTMPriceSheets;
 import appobjects.scheduler.B2WScheduleAssignments;
 import tasks.maintain.B2WMaintainTasks;
+import tasks.resources.B2WCrewTemplateTasks;
 import tasks.resources.B2WEquipmentTasks;
 import tasks.scheduler.B2WSchedulerTasks;
 import tasks.setup.B2WSchedulesTasks;
@@ -244,16 +245,18 @@ public class B2WNavigationTasks implements Navigation {
 	}
 	public boolean openSchedules() {
 		boolean bReturn = false;
-		if (openSetup()){
-			WebElementUtils.switchToFrame(B2WNavigationPanel.getB2WSetupNavigationPanel(), 1);
-			List<WebElement> items = BrowserUtils.getDriver().findElements(B2WNavigationPanel.getB2WSetupPopupItem());
-			WebElement item = WebElementUtils.getElementWithMatchingText(items, "Schedules", true);
-			if (item != null){
-				item.click();
-				bReturn = new B2WSchedulerTasks().waitForSchedulesPageNoBusy();
-				bReturn &= new TaskUtils().waitForProductPanel("Schedules");
+		if (!new TaskUtils().waitForProductPanel("Schedules")) {
+			if (openSetup()) {
+				WebElementUtils.switchToFrame(B2WNavigationPanel.getB2WSetupNavigationPanel(), 1);
+				List<WebElement> items = BrowserUtils.getDriver().findElements(B2WNavigationPanel.getB2WSetupPopupItem());
+				WebElement item = WebElementUtils.getElementWithMatchingText(items, "Schedules", true);
+				if (item != null) {
+					item.click();
+					bReturn = new B2WSchedulerTasks().waitForSchedulesPageNoBusy();
+					bReturn &= new TaskUtils().waitForProductPanel("Schedules");
+				}
 			}
-		}
+		} else bReturn = true;
 		return bReturn;
 	}
 	public boolean openSecurityRoles() {
@@ -265,7 +268,23 @@ public class B2WNavigationTasks implements Navigation {
 		return openResources("Accounts","Production Accounts");
 	}
 	public boolean openCrewTemplates() {
-		return openResources("Crew Templates","Crew Templates");
+		boolean bReturn = false;
+		if (openResources()) {
+			WebElementUtils.switchToFrame(B2WNavigationPanel.getB2WSetupNavigationPanel(), 1);
+			List<WebElement> items = BrowserUtils.getDriver()
+					.findElements(B2WNavigationPanel.getB2WSetupPopupItem());
+			WebElement item = WebElementUtils.getElementWithMatchingText(items, "Crew Templates", true);
+			if (item != null) {
+				item.click();
+				WebElement panel = WebElementUtils.waitAndFindDisplayedElement(B2WCommonObjects.getB2WPageProductPanel());
+				String sText = panel.findElement(By.tagName("h1")).getText();
+				bReturn = sText.equals("Crew Templates");
+				new B2WCrewTemplateTasks().waitForSchedulesPageNoBusy();
+			}
+		} else {
+			log.debug("Resource menu could not be opened.");
+		}
+		return bReturn;
 	}
 	public boolean openEmployees() {
 		return openResources("Employees","Employees");
