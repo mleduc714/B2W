@@ -182,6 +182,7 @@ public class B2WTimeCardSmokeTest extends B2WTestCase {
 		employeeHoursChargeToEquipment();
 		employeeHoursChargeToOverheadAccount();
 		equipmentHours();
+		submittimecards();
 	}
 	
 	public void createEquipment() {
@@ -309,6 +310,7 @@ public class B2WTimeCardSmokeTest extends B2WTestCase {
 	}
 	
 	public void equipmentHours() {
+		
 		logCompare(true,b2wtimecards.selectEmployee(sEmployee), "Select Employee");
 		b2wtimecards.clickReportEquipmentHoursButton();
 		logCompare(true,b2wReport.setEquipmentHoursDescription(this.sEmployeeHourDescriptionD), "Employee Desc");
@@ -336,6 +338,29 @@ public class B2WTimeCardSmokeTest extends B2WTestCase {
 		logCompare(true,b2wMaintain.openTimeCards(), "Go Back to TimeCards");
 		logCompare(true,b2wtimecards.selectEmployee(sEmployee), "Select Employee");
 		
+	}
+	
+	public void submittimecards() {
+		
+		assertTrue("open Maintain", b2wNav.openMaintain());
+		logCompare(true, b2wMaintain.openTimeCards(), "Open Time Cards");
+		logCompare(true, b2wtimecards.selectEmployee(sEmployee), "Select Employee");
+		logCompare(true, b2wtimecards.submitTimeCard(),"Submit Time Card");
+		logCompare(true, b2wtimecards.setComments("Submitted Time Card"), "Time Cards");
+		logCompare(true, b2wtimecards.clickConfirmYes(), "Confirm Yes");
+		logCompare("Submitted Time Card",b2wtimecards.getTimeCardNotes().get(0), "Status");
+		logCompare("Submitted",b2wtimecards.getTimeCardHistoryStatus().get(0), "Status");
+		logCompare(true, b2wtimecards.submitApproved(), "Approve");
+		logCompare(true, b2wtimecards.setComments("Approved Time Card"), "Time Cards");
+		logCompare(true, b2wtimecards.clickConfirmYes(), "Confirm Yes");
+		logCompare("Approved Time Card",b2wtimecards.getTimeCardNotes().get(1), "Status");
+		logCompare("Approved",b2wtimecards.getTimeCardHistoryStatus().get(1), "Status");
+		logCompare(true, b2wtimecards.rejectTimeCard(), "Rejected");
+		logCompare(true, b2wtimecards.setComments("Rejected Time Card"), "Time Cards");
+		logCompare(true, b2wtimecards.clickConfirmYes(), "Confirm Yes");
+		logCompare("Rejected Time Card",b2wtimecards.getTimeCardNotes().get(2), "Status");
+		logCompare("Rejected",b2wtimecards.getTimeCardHistoryStatus().get(2), "Status");
+
 	}
 	
 	
