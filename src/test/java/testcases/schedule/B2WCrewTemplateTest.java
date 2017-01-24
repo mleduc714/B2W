@@ -225,7 +225,7 @@ public class B2WCrewTemplateTest extends B2WTestCase {
     }
 
     // Support functions
-    private ArrayList<String> parseString(String sValue) {
+    public ArrayList<String> parseString(String sValue) {
         return new ArrayList<>(Arrays.asList(sValue.split(", ")));
     }
 }
