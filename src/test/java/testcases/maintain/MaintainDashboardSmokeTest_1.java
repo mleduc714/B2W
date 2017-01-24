@@ -136,7 +136,7 @@ public class MaintainDashboardSmokeTest_1 extends B2WTestCase {
 		logCompare(true,sAnyType.length()>1,"Verify Selection: "+sAnyType);
 		logCompare(true, b2wRequests.setRequestDescription(sMaintenanceRequestDescription), "Set Description");
 		logCompare(true, b2wRequests.clickNewCommentButton(), "Create comments");
-		logCompare(true, b2wRequests.setNewCommentAndSave(sMaintenanceRequestComments), "Comments");
+		logCompare(true, b2wRequests.setComments(sMaintenanceRequestComments), "Comments");
 		logCompare(true, b2wRequests.setRequestNotes(sMaintenanceRequestNotes), "Set Notes");
 		assertTrue("Save request", b2wRequests.clickSaveButton());
 		assertTrue("Open Dashboard",b2wMaintain.openDashboard());

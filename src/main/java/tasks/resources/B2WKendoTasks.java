@@ -545,7 +545,7 @@ public abstract class B2WKendoTasks extends B2WKendo {
 		}
 		return bCheck == el.isSelected();
 	}
-	protected boolean setNewCommentAndSave(String sText){
+	protected boolean setComments(String sText, boolean bSave){
 		boolean bReturn = false;
 		List<WebElement> list = WebElementUtils.findElements(By.cssSelector("textarea.comments"));
 		Iterator<WebElement> iter = list.iterator();
@@ -556,9 +556,11 @@ public abstract class B2WKendoTasks extends B2WKendo {
 				bReturn = WebElementUtils.sendKeys(el, sText);
 				WebElement parent = WebElementUtils.getParentElement(el);
 				TaskUtils.sleep(1000);
-				WebElement save = WebElementUtils.getChildElement(parent, B2WMaintain.getKendoLargeSaveButton());
-				bReturn = WebElementUtils.clickElement(save);
-				bReturn &= WebElementUtils.waitForElementInvisible(el);
+				if (bSave) {
+					WebElement save = WebElementUtils.getChildElement(parent, B2WMaintain.getKendoLargeSaveButton());
+					bReturn &= WebElementUtils.clickElement(save);
+					bReturn &= WebElementUtils.waitForElementInvisible(el);
+				}
 				break;
 			}
 		}

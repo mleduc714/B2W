@@ -152,7 +152,7 @@ public class B2WWorkOrderSmokeTest extends B2WTestCase {
 		logCompare(true, b2wRequest.selectPriorityFromDD("High"), "Select Priority");
 		logCompare(true,b2wRequest.setRequestNotes(sRequestNotes), "Set Request Notes");
 		logCompare(true,b2wRequest.clickNewCommentButton(), "click new comment");
-		logCompare(true,b2wRequest.setNewCommentAndSave(sRequestComments), "Save comments");
+		logCompare(true,b2wRequest.setComments(sRequestComments), "Save comments");
 		logCompare(true,b2wRequest.clickSaveButton(), "Save Request");
 		logCompare(true,b2wRequest.selectWorkOrderRequestByDescription(sRequestEquipmentDesc), "Select Request");
 		sRequestID = b2wRequest.getSelectedItemID();

@@ -122,6 +122,15 @@ public class B2WTimeCardTasks extends B2WKendoTasks {
 		return bReturn;
 	}
 	
+	public boolean rejectTimeCard() {
+		boolean bReturn = false;
+		WebElement el = WebElementUtils.waitAndFindDisplayedElement(B2WMaintain.getMaintainTimeCardReject());
+		if (el != null){
+			bReturn = WebElementUtils.clickElement(el);
+		}
+		return bReturn;
+	}
+	
 	public boolean selectEmployee(String sItem) {
 		return selectItemFromView(sItem, COLUMN.EMPLOYEE);
 	}
@@ -257,5 +266,34 @@ public class B2WTimeCardTasks extends B2WKendoTasks {
 		return s;
 	}
 	
-
+	public boolean setComments(String sText){
+		return super.setComments(sText, false);
+	}
+	
+	public ArrayList<String> getTimeCardHistoryStatus() {
+		return getTimeCardHistory(0);
+	}
+	public ArrayList<String> getTimeCardUpdatedBy() {
+		return getTimeCardHistory(1);
+	}
+	public ArrayList<String> getTimeCardUpdatedOn() {
+		return getTimeCardHistory(2);
+	}
+	public ArrayList<String> getTimeCardNotes() {
+		return getTimeCardHistory(3);
+	}
+	
+	private ArrayList<String> getTimeCardHistory(int iCol) {
+		ArrayList<String> al = new ArrayList<String>();
+		WebElement el = WebElementUtils.findElement(B2WMaintain.getMaintainTimeCardHistory());
+		if (el != null){
+			WebElement tbody = WebElementUtils.getChildElement(el, B2WMaintain.getB2WKendotbodyTag());
+			List<WebElement> list = WebElementUtils.getChildElements(tbody, B2WMaintain.getB2WKendotrTag());
+			for (WebElement e: list){
+				al.add(WebElementUtils.getChildElements(e, B2WMaintain.getB2WKendotdTag()).get(iCol).getText());
+			}
+		}
+		return al;
+	}
+	
 }

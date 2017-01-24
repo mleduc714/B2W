@@ -158,9 +158,9 @@ public class B2WMaintainRequestTasks extends B2WKendoTasks {
 		return bReturn;
 	}
 	
-	public boolean setNewCommentAndSave(String sText){
+	public boolean setComments(String sText){
 		
-		return super.setNewCommentAndSave(sText);
+		return super.setComments(sText, true);
 	}
 	
 	public boolean clickSaveButton() {
