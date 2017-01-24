@@ -33,8 +33,62 @@ public class B2WAddToInventory extends B2WKendoDialog {
 		}
 		return bReturn;
 		
+	}
 	
+	public boolean selectTypeOfUpdateAdjustInventory() {
+
+		boolean bReturn = false;
+		WebElement part = getFormElement("Type of Update", B2WMaintain.getKendoDropDown());
+		if (part != null){
+			bReturn = WebElementUtils.clickElement(part);
+			
+			bReturn &= selectItemFromDropDown("Adjust Inventory");
+		}
+		return bReturn;
 		
+	}
+	
+	public boolean setNewQuantity(String s){
+		return setNumericField("New Quantity", s);
+	}
+	public boolean setQuantityToMove(String s){
+		return setNumericField("Quantity To Move", s);
+	}
+	public boolean selectNewLocation(String s){
+
+		boolean bReturn = false;
+		WebElement part = getFormElement("New Location", B2WMaintain.getKendoDropDown());
+		if (part != null){
+			bReturn = WebElementUtils.clickElement(part);
+			
+			bReturn &= selectItemFromDropDown(s);
+		}
+		return bReturn;
+		
+	}
+	
+	public String selectNewBin(){
+
+		String sRandomItem = "";
+		WebElement part = getFormElement("Bin", B2WMaintain.getKendoDropDown());
+		if (part != null){
+			WebElementUtils.clickElement(part);
+			sRandomItem = selectRandomItemFromDropDown();
+			log.debug("Item Selected is "+sRandomItem);
+		}
+		return sRandomItem;
+	}
+	
+	public boolean selectTypeOfUpdateLocation() {
+
+		boolean bReturn = false;
+		WebElement part = getFormElement("Type of Update", B2WMaintain.getKendoDropDown());
+		if (part != null){
+			bReturn = WebElementUtils.clickElement(part);
+			
+			bReturn &= selectItemFromDropDown("Update Location");
+		}
+		return bReturn;
 		
 	}
 	public boolean selectBin(String sBin){
