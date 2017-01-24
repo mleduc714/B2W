@@ -331,7 +331,7 @@ public class B2WSchedulerTasks extends B2WKendoTasks {
         logCompare(true, true, "====== Complete Assignment Creation for " + assignment.getResourceName());
         return bReturn;
     }
-    public boolean createCrewAssignmentwithCustomCrew(B2WAssignment assignment, B2WCrewTemplate customCrew) {
+    public boolean createCrewAssignmentWithCustomCrew(B2WAssignment assignment, B2WCrewTemplate customCrew) {
         boolean bReturn = false;
         logCompare(true, true, "====== Start Assignment Creation for " + assignment.getResourceName());
         int initialCount = getAssignmentsCount(assignment);
@@ -340,7 +340,10 @@ public class B2WSchedulerTasks extends B2WKendoTasks {
         bReturn &= logCompare(true, clickViewCrew(), "Click 'View Crew' link");
         bReturn &= logCompare(true, clickAddCrewResource(), "Click '+Add Resource/Need' button");
         bReturn &= logCompare(true, setResourceName("Equipment", customCrew.getEquipments()), "Add Equipment");
-
+        bReturn &= logCompare(true, setResourceName("Equipment Needs", customCrew.getEquipmentTypes()), "Add Equipment Needs");
+        bReturn &= logCompare(true, setResourceName("Employees", customCrew.getEmployees()), "Add Employees");
+        bReturn &= logCompare(true, setResourceName("Employee Needs", customCrew.getLaborTypes()), "Add Employee Needs");
+        bReturn &= logCompare(true, clickAddToCrew(), "Click 'Add to Crew' button.");
         bReturn &= logCompare(true, clickHideCrew(), "Click 'Hide Crew' link");
         if (setGeneralFields(assignment)) {
             bReturn = saveGeneralAssignment(initialCount, assignment, false);
@@ -1563,6 +1566,16 @@ public class B2WSchedulerTasks extends B2WKendoTasks {
             bReturn = WebElementUtils.clickElement(hideBtn);
             waitForSchedulesPageNoBusy();
             bReturn &= WebElementUtils.waitAndFindDisplayedElement(B2WScheduleAssignments.getAddToCrewDialog()) != null;
+        }
+        return bReturn;
+    }
+    private boolean clickAddToCrew() {
+        boolean bReturn = false;
+        WebElement saveBtn = WebElementUtils.waitAndFindDisplayedElement(B2WScheduleAssignments.getAddToCrewBtn());
+        if (saveBtn != null) {
+            bReturn = WebElementUtils.clickElement(saveBtn);
+            waitForSchedulesPageNoBusy();
+            bReturn &= WebElementUtils.waitAndFindDisplayedElement(B2WScheduleAssignments.getHideCrewBtn()) != null;
         }
         return bReturn;
     }

@@ -13,6 +13,7 @@ import tasks.util.B2WScheduleItem;
 import tasks.util.StringUtils;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 
 public class B2WScheduleAssignmentsTest extends B2WTestCase {
@@ -244,8 +245,7 @@ public class B2WScheduleAssignmentsTest extends B2WTestCase {
         // Order Panel
         verifyEmployeeNeedOrder();
         verifyEquipmentNeedOrder();
-        //ToDo: Remove after fixing SCHED-4041
-        //verifyCrewNeedOrder();
+        verifyCrewNeedOrder();
         verifyMoveOrderOrder();
 
         // Delete Assignments
@@ -264,6 +264,15 @@ public class B2WScheduleAssignmentsTest extends B2WTestCase {
 
         // Delete Schedule Views
         deleteScheduleViews();
+    }
+
+    private void test() {
+        selectView(crewsDefaultScheduleView);
+
+        logCompare(true, b2wScheduler.setSearchValue(customCrewAssignment.getResourceName()), "Set Filter by " + customCrewAssignment.getResourceName());
+        logCompare(true, b2wScheduler.createCrewAssignmentWithCustomCrew(customCrewAssignment, customCrew),
+                "Create Assignment with Custom Crew for: " + customCrewAssignment.getResourceName());
+
     }
 
     private B2WScheduleView setupEmployeeScheduleView(String sScheduleName) {
@@ -642,10 +651,10 @@ public class B2WScheduleAssignmentsTest extends B2WTestCase {
     }
     private B2WCrewTemplate setupCustomCrew() {
         B2WCrewTemplate oReturn = new B2WCrewTemplate();
-        customCrew.setEmployees(new B2WCrewTemplateTest().parseString(getProperty("customCrewEmployeesList")));
-        customCrew.setEquipments(new B2WCrewTemplateTest().parseString(getProperty("customCrewEquipmentList")));
-        customCrew.setLaborTypes(new B2WCrewTemplateTest().parseString(getProperty("customCrewLaborTypeList")));
-        customCrew.setEquipmentTypes(new B2WCrewTemplateTest().parseString(getProperty("customCrewEquipmentTypeList")));
+        oReturn.setEmployees(parseString(getProperty("customCrewEmployeesList")));
+        oReturn.setEquipments(parseString(getProperty("customCrewEquipmentList")));
+        oReturn.setLaborTypes(parseString(getProperty("customCrewLaborTypeList")));
+        oReturn.setEquipmentTypes(parseString(getProperty("customCrewEquipmentTypeList")));
         return oReturn;
     }
     private void setupMoveItems() {
@@ -815,7 +824,7 @@ public class B2WScheduleAssignmentsTest extends B2WTestCase {
         logCompare(true, b2wScheduler.setSearchValue(crewAssignment.getResourceName()), "Set Filter by " + crewAssignment.getResourceName());
         logCompare(true, b2wScheduler.createCrewAssignment(crewAssignment), "Create Assignment for: " + crewAssignment.getResourceName());
         logCompare(true, b2wScheduler.setSearchValue(customCrewAssignment.getResourceName()), "Set Filter by " + customCrewAssignment.getResourceName());
-        logCompare(true, b2wScheduler.createCrewAssignmentwithCustomCrew(customCrewAssignment, customCrew),
+        logCompare(true, b2wScheduler.createCrewAssignmentWithCustomCrew(customCrewAssignment, customCrew),
                 "Create Assignment with Custom Crew for: " + customCrewAssignment.getResourceName());
 
     }
@@ -1875,6 +1884,9 @@ public class B2WScheduleAssignmentsTest extends B2WTestCase {
         logCompare(true, b2wScheduler.setSearchValue(crewAssignment.getResourceName()), "Set Filter by " + crewAssignment.getResourceName());
         logCompare(true, b2wScheduler.deleteAssignment(crewAssignment), "Delete Crew Assignment for: " + crewAssignment.getResourceName());
         crewAssignment = null;
+        logCompare(true, b2wScheduler.setSearchValue(customCrewAssignment.getResourceName()), "Set Filter by " + customCrewAssignment.getResourceName());
+        logCompare(true, b2wScheduler.deleteAssignment(customCrewAssignment), "Delete Crew Assignment for: " + customCrewAssignment.getResourceName());
+        customCrewAssignment = null;
     }
     private void deleteCrewNeeds() {
         selectView(crewsScheduleView);
@@ -1928,5 +1940,10 @@ public class B2WScheduleAssignmentsTest extends B2WTestCase {
         logCompare(true, b2wScheduler.setSearchValue(copyLocationEvent.getResourceName()), "Set Filter by " + copyLocationEvent.getResourceName());
         logCompare(true, b2wScheduler.deleteAssignment(copyLocationEvent), "Delete Location Event for: " + copyLocationEvent.getResourceName());
         copyLocationEvent = null;
+    }
+
+    // Support functions
+    public ArrayList<String> parseString(String sValue) {
+        return new ArrayList<>(Arrays.asList(sValue.split(", ")));
     }
 }

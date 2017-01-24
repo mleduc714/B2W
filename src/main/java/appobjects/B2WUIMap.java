@@ -860,7 +860,9 @@ public class B2WUIMap {
 	public static final String b2w_schedule_collapsecalendaricon = ".Icon.Icon--xl.Panel--left-sched-button.i102-angle-left";
 	public static final String b2w_schedule_expandcalendaricon = ".Icon.Icon--xl.Panel--left-sched-button.i103-angle-right";
 	public static final String b2w_schedule_addtocrewdialog = "div[ng-controller='b2wAddToCrewDialog']";
-
+	public static final String b2w_schedule_addtocrewbtn = ".//button[text()='Add to Crew']";
+	public static final String b2w_schedule_crewpanel = "b2w-crew-edit-panel";
+	public static final String b2w_schedule_crewitemonpanel = "span[title='replace']";
 
 	public static final String b2w_schedule_useritem = "ul#user-select_taglist";
 	public static final String b2w_schedule_fillwith = "span.Toolbar__input--fill-need";
