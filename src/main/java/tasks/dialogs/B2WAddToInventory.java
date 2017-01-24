@@ -7,7 +7,6 @@ import org.openqa.selenium.WebElement;
 
 import appobjects.maintain.B2WMaintain;
 import tasks.WebElementUtils;
-import tasks.util.TaskUtils;
 
 public class B2WAddToInventory extends B2WKendoDialog {
 	

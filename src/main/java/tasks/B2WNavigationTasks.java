@@ -18,7 +18,6 @@ import tasks.maintain.B2WMaintainTasks;
 import tasks.resources.B2WCrewTemplateTasks;
 import tasks.resources.B2WEquipmentTasks;
 import tasks.scheduler.B2WSchedulerTasks;
-import tasks.setup.B2WSchedulesTasks;
 import tasks.util.TaskUtils;
 
 public class B2WNavigationTasks implements Navigation {

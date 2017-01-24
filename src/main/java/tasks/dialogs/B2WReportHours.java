@@ -4,6 +4,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebElement;
 
 import appobjects.maintain.B2WMaintain;
@@ -63,8 +64,9 @@ public class B2WReportHours extends B2WKendoDialog {
 
 	public WebElement getReportEquipmentHoursDialog(String sBind) {
 
-
+		
 		WebElement item = null;
+		try{
 		WebElement dialog = WebElementUtils.findElement(B2WMaintain.getB2WMaintainReportHoursDialog());
 		List<WebElement> items = WebElementUtils.getChildElements(dialog, By.tagName("div"));
 		Iterator<WebElement> iterB = items.iterator();
@@ -77,6 +79,9 @@ public class B2WReportHours extends B2WKendoDialog {
 				item = el;
 				break;
 			}
+		}
+		}catch (StaleElementReferenceException e){
+			return getReportEquipmentHoursDialog(sBind);
 		}
 		return item;
 	
