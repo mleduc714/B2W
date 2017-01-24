@@ -101,7 +101,7 @@ public class B2WPartsSmokeTest extends B2WTestCase {
 		sPartUpdateStandardUnitCost = getProperty("sPartUpdateStandardUnitCost");
 		sPartUpdateMinInventory =getProperty("sPartUpdateMinInventory");
 		sPartUpdateReorderQTY =getProperty("sPartUpdateReorderQTY");
-		sEquipmentName = getProperty("sEquipmentName");
+		sEquipmentName = getProperty("sEquipmentName")+iRandom;
 		sEquipmentBU = getProperty("sEquipmentBU");
 		cal.add(Calendar.DAY_OF_YEAR,14);
 		sEquipmentWithID = iRandom + " ["+sEquipmentName+"]";
