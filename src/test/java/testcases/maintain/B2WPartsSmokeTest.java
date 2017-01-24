@@ -67,16 +67,17 @@ public class B2WPartsSmokeTest extends B2WTestCase {
 	sPartMinInventory, sPartReorderQTY, sPartBusinessUnit, sPartManufacturer, sPartNotes, sPartInventory,
 	sPartCategory, sPartLocation, sPartBin, sWorkOrderDescription, sWorkOrderItemDescription,
 	sEstQty, sReportedQty, sPartsVendor, sEmployeeFirstNameB,sEmployeeLastNameB,sEmployeeIDB,
-	sPartUpdateReorderQTY,sPartUpdateMinInventory, sPartUpdateStandardUnitCost;
+	sPartUpdateReorderQTY,sPartUpdateMinInventory, sPartUpdateStandardUnitCost, sEquipmentName, sEquipmentBU, sEquipmentWithID;
 	
 	static SimpleDateFormat format = new SimpleDateFormat("M/d/yyyy");
 	Calendar cal = Calendar.getInstance();
+	int iRandom;
 	
 	@Override
 	public void testSetUp() throws Throwable {
 		// code here for setting up the test
 		super.testSetUp();
-		int iRandom = getRandomNumber();
+		iRandom = getRandomNumber();
 		int iEstQty = getRandomNumber(25);
 		sEstQty = Integer.toString(iEstQty);
 		sReportedQty = Integer.toString(iEstQty-1);
@@ -100,7 +101,10 @@ public class B2WPartsSmokeTest extends B2WTestCase {
 		sPartUpdateStandardUnitCost = getProperty("sPartUpdateStandardUnitCost");
 		sPartUpdateMinInventory =getProperty("sPartUpdateMinInventory");
 		sPartUpdateReorderQTY =getProperty("sPartUpdateReorderQTY");
+		sEquipmentName = getProperty("sEquipmentName");
+		sEquipmentBU = getProperty("sEquipmentBU");
 		cal.add(Calendar.DAY_OF_YEAR,14);
+		sEquipmentWithID = iRandom + " ["+sEquipmentName+"]";
 		
 	}
 
@@ -142,9 +146,8 @@ public class B2WPartsSmokeTest extends B2WTestCase {
 	@Override
 	public void testMain() throws Throwable {
 		createEmployee();
-		
+		createEquipment();
 		b2wNav.openMaintain();
-
 		addPart();
 		addToInventory();
 		createWorkOrder();
@@ -236,7 +239,7 @@ public class B2WPartsSmokeTest extends B2WTestCase {
 		logCompare(true,b2wWork.clickCreateNewWorkOrderButton(),"Create New Work Order");
 		TaskUtils.sleep(1000);
 		logCompare(true,b2wWork.selectPriorityFromDD("Medium"), "Select Medium");
-		assertTrue("Make sure we get a piece of equipment",b2wWork.selectAnyEquipment().length() > 1);
+		assertTrue("Make sure we get a piece of equipment",b2wWork.selectEquipment(sEquipmentWithID));
 		logCompare(true,b2wWork.setWorkOrderDescription(sWorkOrderDescription),"Work Order Desc");
 		b2wWork.selectAnyPlannedWorkLocation();
 		logCompare(true,b2wWork.clickAddItemButton(), "New Item");
@@ -329,5 +332,12 @@ public class B2WPartsSmokeTest extends B2WTestCase {
 		logCompare(true,parts.clickConfirmYes(),"Confirm");
 		logCompare(true,parts.clickBusinessRuleError(), "Business Rule Error");
 	}
-
+	public void createEquipment() {
+		b2wNav.openMaintain();
+		assertTrue("Open Equipment",b2wMaintain.openEquipment());
+		
+		assertTrue("Create New Equipment",b2wE.createNewEquipment());
+		assertTrue("Create Equipment ",b2wE.createEquipment(sEquipmentName, Integer.toString(iRandom), sEquipmentBU));
+		
+	}
 }
