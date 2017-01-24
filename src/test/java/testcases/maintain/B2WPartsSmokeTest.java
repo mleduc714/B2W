@@ -77,7 +77,7 @@ public class B2WPartsSmokeTest extends B2WTestCase {
 	public void testSetUp() throws Throwable {
 		// code here for setting up the test
 		super.testSetUp();
-		iRandom = getRandomNumber();
+		iRandom = getRandomNumber() + 1;
 		int iEstQty = getRandomNumber(25);
 		sEstQty = Integer.toString(iEstQty);
 		sReportedQty = Integer.toString(iEstQty-1);
