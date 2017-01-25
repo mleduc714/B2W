@@ -81,6 +81,7 @@ public class B2WInventorySmokeTest extends B2WTestCase {
 		addToInventory();
 		editInventory();
 		moveInventory();
+		deleteInventory();
 /*		 Add to Inventory
 		•Edit Inventory•Adjust Inventory
 		•Change Location
@@ -134,6 +135,8 @@ public class B2WInventorySmokeTest extends B2WTestCase {
 	}
 	
 	public void deleteInventory() {
+		inventory.deleteInventory(0);
+		inventory.clickConfirmYes();
 		
 	}
 	
