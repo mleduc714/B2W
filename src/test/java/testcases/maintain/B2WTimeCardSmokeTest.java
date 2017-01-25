@@ -76,7 +76,7 @@ public class B2WTimeCardSmokeTest extends B2WTestCase {
 	public void testSetUp() throws Throwable {
 		// code here for setting up the test
 		iRandom = getRandomNumber();
-		sEmployeeID = Integer.toString(iRandom);
+		sEmployeeID = "Auto"+iRandom;
 		sEmployeeFirstName = getProperty("sEmployeeFirstName");
 		sEmployeeLastName = getProperty("sEmployeeLastName");
 		sEmployeeHourDescriptionA = getProperty("sEmployeeHourDescriptionA");
