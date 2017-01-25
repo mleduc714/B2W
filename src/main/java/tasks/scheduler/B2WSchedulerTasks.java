@@ -430,6 +430,57 @@ public class B2WSchedulerTasks extends B2WKendoTasks {
         logCompare(true, true, "====== Complete Assignment Creation for " + assignment.getResourceName());
         return bReturn;
     }
+    public boolean createMoveAssignmentWithCustomCrew(B2WAssignment assignment, B2WCrewTemplate customCrew) {
+        boolean bReturn = false;
+        if (assignment != null || customCrew != null) {
+            logCompare(true, true, "====== Start Assignment Creation for " + assignment.getResourceName());
+            int initialCount = getAssignmentsCount(assignment);
+
+            bReturn = logCompare(true, selectNewMoveAssignment(), "Select New ->  Move Assignment");
+            bReturn &= logCompare(true, setEquipment(assignment.getResourceName()), "Set Equipment");
+            bReturn &= logCompare(true, setPickupDate(assignment.getPickupDate()), "Set Pickup Date");
+            bReturn &= logCompare(true, setPickupTime(assignment.getPickupTime()), "Set Pickup Time");
+            bReturn &= logCompare(true, setDropoffDate(assignment.getDropoffDate()), "Set Dropoff Date");
+            bReturn &= logCompare(true, setDropoffTime(assignment.getDropoffTime()), "Set Dropoff Time");
+            bReturn &= logCompare(true, setPickupLocation(assignment.getPickupLocationType(), assignment.getPickupLocation()), "Set Pickup Location");
+            bReturn &= logCompare(true, setDropoffLocation(assignment.getDropoffLocationType(), assignment.getDropoffLocation()), "Set Drop-off Location");
+            bReturn &= logCompare(true, clickSelectCrewBtn(), "Open Select Crew Dialog");
+            bReturn &= logCompare(true, setCrew(assignment.getTransportationCrew()), "Set Crew");
+            bReturn &= logCompare(true, clickAddCrewResource(), "Click '+Add Resource/Need' button");
+            ArrayList<String> aDriver = new ArrayList<>();
+            aDriver.add(customCrew.getForeman());
+            bReturn &= logCompare(true, setResourceName("Driver", aDriver), "Add Driver");
+            bReturn &= logCompare(true, setResourceName("Equipment", customCrew.getEquipments()), "Add Equipment");
+            bReturn &= logCompare(true, setResourceName("Equipment Needs", customCrew.getEquipmentTypes()), "Add Equipment Needs");
+            bReturn &= logCompare(true, setResourceName("Employees", customCrew.getEmployees()), "Add Employees");
+            bReturn &= logCompare(true, setResourceName("Employee Needs", customCrew.getLaborTypes()), "Add Employee Needs");
+            bReturn &= logCompare(true, clickAddToCrew(), "Click 'Add to Crew' button.");
+
+            bReturn &= logCompare(true, setRequestedBy(assignment.getRequestedBy()), "Set Requested By");
+            bReturn &= logCompare(true, setAssignmentNotes(assignment.getNotes()), "Set Notes");
+
+            if (bReturn) {
+                bReturn &= logCompare(true, saveAssignment(), "Save New Move Assignment with Custom Crew");
+
+                int actualCount = getAssignmentsCount(assignment);
+                bReturn &= logCompare(true, actualCount == initialCount + 1, "Verification that number of Assignment has been increased by 1.");
+                WebElement result = getAssignment(assignment);
+                bReturn &= logCompare(true, result != null, "Verification that specific Assignment has been created.");
+                B2WAssignment autoMoveAssignment = assignment.clone();
+                autoMoveAssignment.setResourceName(customCrew.getEquipments().get(0));
+                autoMoveAssignment.setAssignmentType(B2WAssignmentType.EQUIPMENT_TYPE);
+                result = getAssignment(autoMoveAssignment);
+                bReturn &= logCompare(true, result != null, "Verification that specific Assignment has been created.");
+            } else {
+                cancelAssignment();
+                selectButtonOption("Yes");
+            }
+            logCompare(true, true, "====== Complete Assignment Creation for " + assignment.getResourceName());
+        } else {
+            log.error("Assignment or customCrew is NULL.");
+        }
+        return bReturn;
+    }
     public boolean createMoveOrder(B2WAssignment assignment) {
         /*
          * 1. Open Schedule View with Equipment Schedule
@@ -1422,7 +1473,7 @@ public class B2WSchedulerTasks extends B2WKendoTasks {
         boolean bReturn = false;
         WebElement addResourceDialog = WebElementUtils.waitAndFindElement(B2WScheduleAssignments.getAddToCrewDialog());
         WebElementUtils.switchToFrame(B2WScheduleAssignments.getAddToCrewDialog(), 1);
-        WebElement resourceSection = WebElementUtils.getKendoFDDElementByLabel(sFieldName);
+        WebElement resourceSection = WebElementUtils.getKendoFDDElementByLabel(addResourceDialog, sFieldName);
         if (resourceSection != null && addResourceDialog != null) {
             for (String item: list) {
                 bReturn = sendTextAndSelectValueFromKendoFDD(resourceSection, item);
@@ -1575,7 +1626,7 @@ public class B2WSchedulerTasks extends B2WKendoTasks {
         if (saveBtn != null) {
             bReturn = WebElementUtils.clickElement(saveBtn);
             waitForSchedulesPageNoBusy();
-            bReturn &= WebElementUtils.waitAndFindDisplayedElement(B2WScheduleAssignments.getHideCrewBtn()) != null;
+            bReturn &= WebElementUtils.waitAndFindDisplayedElement(B2WScheduleAssignments.getAddToScheduleBtn()) != null;
         }
         return bReturn;
     }

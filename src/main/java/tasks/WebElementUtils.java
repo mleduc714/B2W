@@ -918,6 +918,10 @@ public class WebElementUtils {
 		List<WebElement> inputList = WebElementUtils.findElements(By.cssSelector("label"));
 		return getKendoFddFromList(inputList, sText);
 	}
+	public static WebElement getKendoFDDElementByLabel(WebElement parent, String sText) {
+		List<WebElement> inputList = WebElementUtils.getChildElements(parent, By.cssSelector("label"));
+		return getKendoFddFromList(inputList, sText);
+	}
 	public static WebElement getKendoFDDElementByTag(String sText, String tagName) {
 		List<WebElement> inputList = WebElementUtils.findElements(By.cssSelector(tagName));
 		return 	getKendoFddFromList(inputList, sText);
