@@ -163,10 +163,10 @@ public class B2WScheduleAssignmentsTest extends B2WTestCase {
 
     public void testMain() throws Throwable {
         // Schedule Tests
-        //createScheduleViews();
+        createScheduleViews();
 
         logCompare(true, b2wNav.openSchedule(), "Open Schedule View");
-/*
+
         // Create All Types of Assignments
         createEmployeeAssignments();
         createEmployeeSubstitution();
@@ -176,9 +176,7 @@ public class B2WScheduleAssignmentsTest extends B2WTestCase {
         createCrewsAssignments();
         createCrewsNeeds();
         createMoveAssignment();
-*/
         createMoveAssignmentWithCustomCrew();
-/*
         createMoveOrder();
         createEmployeeEvent();
         createEquipmentEvent();
@@ -268,16 +266,6 @@ public class B2WScheduleAssignmentsTest extends B2WTestCase {
 
         // Delete Schedule Views
         deleteScheduleViews();
-*/
-    }
-
-    private void test() {
-        selectView(crewsDefaultScheduleView);
-
-        logCompare(true, b2wScheduler.setSearchValue(customCrewAssignment.getResourceName()), "Set Filter by " + customCrewAssignment.getResourceName());
-        logCompare(true, b2wScheduler.createCrewAssignmentWithCustomCrew(customCrewAssignment, customCrew),
-                "Create Assignment with Custom Crew for: " + customCrewAssignment.getResourceName());
-
     }
 
     private B2WScheduleView setupEmployeeScheduleView(String sScheduleName) {
