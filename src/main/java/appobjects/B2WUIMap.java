@@ -13,7 +13,7 @@ public class B2WUIMap {
 	public static final String b2w_dispatch = "li#nDispatch";
 	public static final String b2w_maintain = "li#nMaintain";
 	public static final String b2w_badge_estimate = "li.badge-estimate";
-	public static final String b2w_badge_dispatch = "li.badge_dispatch";
+	public static final String b2w_badge_schedule = "li.badge-schedule";
 	public static final String b2w_badge_track = "li.badge-track";
 	public static final String b2w_badge_maintain = "li.badge-maintain";
 	public static final String b2w_badge_inform = "li.badge-inform";
@@ -34,11 +34,10 @@ public class B2WUIMap {
 	public static final String b2w_home_track_viewfieldlogs = "a#PageContent_TrackingModule_ModuleNavigationList_ModuleNavigationLink_1";
 	public static final String b2w_home_track_viewjobs = "a#PageContent_TrackingModule_ModuleNavigationList_ModuleNavigationLink_2";
 	// home page dispatch
-	public static final String b2w_home_dispatch_viewjobboard = "a#PageContent_DispatchModule_ModuleNavigationList_ModuleNavigationLink_0";
-	public static final String b2w_home_dispatch_equipmentmoves = "a#PageContent_DispatchModule_ModuleNavigationList_ModuleNavigationLink_1";
-	public static final String b2w_home_dispatch_truckingorders = "a#PageContent_DispatchModule_ModuleNavigationList_ModuleNavigationLink_2";
-	public static final String b2w_home_dispatch_deliveryorders = "a#PageContent_DispatchModule_ModuleNavigationList_ModuleNavigationLink_3";
-	public static final String b2w_home_dispatch_viewmap = "a#PageContent_DispatchModule_ModuleNavigationList_ModuleNavigationLink_4";
+	public static final String b2w_home_view_schedules = "a#PageContent_ScheduleModule_ModuleNavigationList_ModuleNavigationLink_0";
+	public static final String b2w_home_setup_schedules = "a#PageContent_ScheduleModule_ModuleNavigationList_ModuleNavigationLink_1";
+	public static final String b2w_home_setup_crew_templates = "a#PageContent_ScheduleModule_ModuleNavigationList_ModuleNavigationLink_2";
+
 	// homr page mantain
 	public static final String b2w_home_maintain_viewmaintainrequests = "a#PageContent_MaintenanceModule_ModuleNavigationList_ModuleNavigationLink_0";
 	public static final String b2w_home_maintain_viewworkorders = "a#PageContent_MaintenanceModule_ModuleNavigationList_ModuleNavigationLink_1";
@@ -64,6 +63,7 @@ public class B2WUIMap {
 	public static final String b2w_setup_panel = "div#HeaderPanel";
 	public static final String b2w_navigation_panel = "div#NavigationMenuPanel";
 	public static final String b2w_setup_item = "li.nav-popup-item";
+	public static final String b2w_navigation_menu = "ul#NavigationMenu";
 
 	public static final String b2w_setup_clearsearchbutton = "a#PageContent_SearchControl_ClearSearchButton";
 	public static final String b2w_setup_searchbutton = "a[id$='earchControl_SearchButton']";
@@ -1209,5 +1209,16 @@ public class B2WUIMap {
 	public static final String b2w_kendolitage = "li";
 	public static final String b2w_kendotexttage = "text";
 	public static final String b2w_kendostrongtag = "strong";
-	
+
+	public static final String b2w_navigationchevron = "div#PageContent_MarketingArea";
+	public static final String b2w_marketingshowhide = "a.marketing-show-hide";
+
+	public static final String b2w_changedashboardbutton  = "a#PageContent_ChangeDashboardButton";
+	public static final String b2w_usersettingbodypanel = "div#PageContent_UserSettings_BodyPanel";
+
+	public static final String b2w_adddashboardokbutton = "a#PageContent_UserSettings_OKButton";
+	public static final String b2w_dashboardmanagerhomepagecost = "div#VisibleReportContentctl00_PageContent_HomePageDashboard_ReportViewer_ctl09";
+	public static final String b2w_dashboardmanagerhomepageproduction = "div#VisibleReportContentctl00_PageContent_HomePageDashboard_ReportViewer_ctl09";
+	public static final String b2w_dashboardforemanhomepagecost = "div#VisibleReportContentctl00_PageContent_HomePageDashboard_ReportViewer_ctl09";
+
 }

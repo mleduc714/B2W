@@ -10,6 +10,9 @@ import tasks.util.TaskUtils;
 
 public class B2WHomeTasks {
 
+	String sDashboardA = "Foreman Home Page Production Dashboard";
+	String sDashboardB = "Manager Home Page Cost Dashboard";
+	String sDashboardC = "Manager Home Page Production Dashboard";
 	Logger log = Logger.getLogger(B2WHomeTasks.class);
 
 	public boolean openAdminReports() {
@@ -114,7 +117,7 @@ public class B2WHomeTasks {
 
 	public boolean openDispatchJobBoard() {
 		boolean bReturn = false;
-		WebElement el = WebElementUtils.findElement(B2WHomePage.getB2WHomeDispatchViewJobBoard());
+		WebElement el = WebElementUtils.findElement(B2WHomePage.getB2WHomeViewSchedules());
 		if (el != null) {
 			if (WebElementUtils.clickElement(el)) {
 				bReturn = new TaskUtils().waitForProductPanel("Job Board");
@@ -127,7 +130,7 @@ public class B2WHomeTasks {
 	public boolean openDispatchEquipmentMoves() {
 
 		boolean bReturn = false;
-		WebElement el = WebElementUtils.findElement(B2WHomePage.getB2WHomeDispatchEquipmentMoves());
+		WebElement el = WebElementUtils.findElement(B2WHomePage.getB2WHomeSetupSchedules());
 		if (el != null) {
 			if (WebElementUtils.clickElement(el)) {
 				bReturn = new TaskUtils().waitForProductPanel("Moves");
@@ -140,7 +143,7 @@ public class B2WHomeTasks {
 
 	public boolean openDispatchTruckingOrders() {
 		boolean bReturn = false;
-		WebElement el = WebElementUtils.findElement(B2WHomePage.getB2WHomeDispatchTruckingOrders());
+		WebElement el = WebElementUtils.findElement(B2WHomePage.getB2WHomeSetupCrewTemplates());
 		if (el != null) {
 			if (WebElementUtils.clickElement(el)) {
 				bReturn = new TaskUtils().waitForProductPanel("Trucking");
@@ -150,36 +153,36 @@ public class B2WHomeTasks {
 		return bReturn;
 	}
 
-	public boolean openDispatchDeliveryOrders() {
+	public boolean openSetupCrewTemplates() {
 		boolean bReturn = false;
-		WebElement el = WebElementUtils.findElement(B2WHomePage.getB2WHomeDispatchDeliveryOrders());
+		WebElement el = WebElementUtils.findElement(B2WHomePage.getB2WHomeSetupCrewTemplates());
 		if (el != null) {
 			if (WebElementUtils.clickElement(el)) {
-				bReturn = new TaskUtils().waitForProductPanel("Deliveries");
+				bReturn = new TaskUtils().waitForProductPanel("Crew Templates");
 			}
 		}
 
 		return bReturn;
 	}
 
-	public boolean openDispatchMapOrders() {
+	public boolean openViewSchedules() {
 		boolean bReturn = false;
-		WebElement el = WebElementUtils.findElement(B2WHomePage.getB2WHomeDispatchViewMapOrders());
+		WebElement el = WebElementUtils.findElement(B2WHomePage.getB2WHomeViewSchedules());
 		if (el != null) {
 			if (WebElementUtils.clickElement(el)) {
-				bReturn = new TaskUtils().waitForProductPanel("Map");
+				bReturn = new TaskUtils().waitForProductPanel("All Employees");
 			}
 		}
 
 		return bReturn;
 	}
 
-	public boolean openMaintainMaintenanceRequests() {
+	public boolean openSetupSchedules() {
 		boolean bReturn = false;
-		WebElement el = WebElementUtils.findElement(B2WHomePage.getB2WHomeMaintainViewMaintenanceRequests());
+		WebElement el = WebElementUtils.findElement(B2WHomePage.getB2WHomeSetupSchedules());
 		if (el != null) {
 			if (WebElementUtils.clickElement(el)) {
-				bReturn = new TaskUtils().waitForProductPanel("Requests");
+				bReturn = new TaskUtils().waitForProductPanel("Schedules");
 			}
 		}
 
@@ -196,7 +199,17 @@ public class B2WHomeTasks {
 
 		return bReturn;
 	}
-	
+	public boolean openMaintainMaintenanceRequests() {
+		boolean bReturn = false;
+		WebElement el = WebElementUtils.findElement(B2WHomePage.getB2WHomeMaintainViewMaintenanceRequests());
+		if (el != null) {
+			if (WebElementUtils.clickElement(el)) {
+				bReturn = new TaskUtils().waitForProductPanel("Requests");
+			}
+		}
+
+		return bReturn;
+	}
 	public boolean openMaintainViewScheduleWorkOrders() {
 		boolean bReturn = false;
 		WebElement el = WebElementUtils.findElement(B2WHomePage.getB2WHomeMaintainScheduleWorkOrders());
@@ -218,6 +231,53 @@ public class B2WHomeTasks {
 			}
 		}
 
+		return bReturn;
+	}
+	public boolean addDashboardManagerHomePageCost() {
+		boolean bReturn = false;
+		WebElement el = WebElementUtils.findElement(B2WHomePage.getAddDashboardButton());
+		if (el != null){
+			WebElementUtils.clickElement(el);
+			WebElementUtils.waitAndFindDisplayedElement(B2WHomePage.getUserSettingsBodyPanel());
+			bReturn = WebElementUtils.selectItemFromOpsDropDownMenu(B2WHomePage.getUserSettingsBodyPanel(), sDashboardB);
+			bReturn &= WebElementUtils.clickElement(WebElementUtils.findElement(B2WHomePage.getAddDashboardOKButton()));
+			bReturn &= WebElementUtils.waitAndFindDisplayedElement(B2WHomePage.getManagerHomePageCostDashboard(), WebElementUtils.LONG_TIME_OUT) != null;
+		}
+		return bReturn;
+	}
+	public boolean addDashboardManagerHomePageProduction() {
+		boolean bReturn = false;
+		WebElement el = WebElementUtils.findElement(B2WHomePage.getAddDashboardButton());
+		if (el != null){
+			WebElementUtils.clickElement(el);
+			WebElementUtils.waitAndFindDisplayedElement(B2WHomePage.getUserSettingsBodyPanel());
+			bReturn = WebElementUtils.selectItemFromOpsDropDownMenu(B2WHomePage.getUserSettingsBodyPanel(), sDashboardC);
+			bReturn &= WebElementUtils.clickElement(WebElementUtils.findElement(B2WHomePage.getAddDashboardOKButton()));
+			bReturn &= WebElementUtils.waitAndFindDisplayedElement(B2WHomePage.getManagerHomePageProductionDashboard(), WebElementUtils.LONG_TIME_OUT) != null;
+		}
+		return bReturn;
+	}
+	public boolean addDashboardForemanHomePageProduction() {
+		boolean bReturn = false;
+		WebElement el = WebElementUtils.findElement(B2WHomePage.getAddDashboardButton());
+		if (el != null){
+			WebElementUtils.clickElement(el);
+			WebElementUtils.waitAndFindDisplayedElement(B2WHomePage.getUserSettingsBodyPanel());
+			bReturn = WebElementUtils.selectItemFromOpsDropDownMenu(B2WHomePage.getUserSettingsBodyPanel(), sDashboardA);
+			bReturn &= WebElementUtils.clickElement(WebElementUtils.findElement(B2WHomePage.getAddDashboardOKButton()));
+			bReturn &= WebElementUtils.waitAndFindDisplayedElement(B2WHomePage.getForemanHomePageProductionDashboard(), WebElementUtils.LONG_TIME_OUT) != null;
+		}
+		return bReturn;
+	}
+	public boolean removeDashboard() {
+		boolean bReturn = false;
+		WebElement el = WebElementUtils.findElement(B2WHomePage.getAddDashboardButton());
+		if (el != null){
+			WebElementUtils.clickElement(el);
+			WebElementUtils.waitAndFindDisplayedElement(B2WHomePage.getUserSettingsBodyPanel());
+			WebElementUtils.selectItemFromOpsDropDownMenuByNumber(B2WHomePage.getUserSettingsBodyPanel(),0);
+			bReturn = WebElementUtils.clickElement(WebElementUtils.findElement(B2WHomePage.getAddDashboardOKButton()));
+		}
 		return bReturn;
 	}
 }
