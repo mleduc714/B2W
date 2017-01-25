@@ -161,7 +161,7 @@ public class B2WRequestSmokeTest extends B2WTestCase {
 		sRequestedBy = b2wRequests.selectRequestedByFromDD();
 		logCompare(true,b2wRequests.setRequestNotes(sRequestNotes), "Request Notes");
 		logCompare(true,b2wRequests.clickNewCommentButton(), "Click New Comment");
-		logCompare(true,b2wRequests.setNewCommentAndSave(sRequestComment), "Set New Comment");
+		logCompare(true,b2wRequests.setComments(sRequestComment), "Set New Comment");
 		logCompare(true,b2wRequests.clickSaveButton(), "Click Save Button");
 	}
 
@@ -248,7 +248,7 @@ public class B2WRequestSmokeTest extends B2WTestCase {
 		b2wRequests.selectWorkOrderRequestByDescription(sRequestDescription);
 		b2wRequests.editComment(this.sRequestComment);
 		sRequestComment += timestamp.getTime();
-		logCompare(true,b2wRequests.setNewCommentAndSave(sRequestComment), "Set New Comment");
+		logCompare(true,b2wRequests.setComments(sRequestComment), "Set New Comment");
 		logCompare(sRequestComment,b2wRequests.getComment(),"Verify Comments");
 		logCompare(true,b2wRequests.deleteComment(sRequestComment),"Delete Comments");
 		logCompare(true,b2wRequests.clickConfirmYes(),"Confirm Yes");

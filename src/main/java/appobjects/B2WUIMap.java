@@ -1189,6 +1189,8 @@ public class B2WUIMap {
 
 	public static final String b2w_kendofootertemplate = "k-footer-template";
 	public static final String b2w_kendobuttonicon = "a.btn-icon";
+	public static final String b2w_timecardhistory = "div.time-card-history";
+	public static final String b2w_timecardreject = "span.btn-reject";
 	
 	//tags
 	public static final String b2w_kendotbody = "tbody";

@@ -260,7 +260,7 @@ public class OperationsSmokeG extends B2WTestCase {
 		logCompare(true, b2wRequests.selectTypeFromDD(sCategoryD), "Select Auto corrective");
 		logCompare(true, b2wRequests.setRequestNotes("This Request was generated with selenium automation"), "Set Notes");
 		logCompare(true, b2wRequests.clickNewCommentButton(), "Create a comments");
-		logCompare(true, b2wRequests.setNewCommentAndSave(sMaintenanceRequestComments), "Comments");
+		logCompare(true, b2wRequests.setComments(sMaintenanceRequestComments), "Comments");
 		logCompare(true, b2wRequests.clickSaveButton(), "Save request");
 		
 	}

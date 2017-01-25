@@ -688,7 +688,7 @@ public class B2WWorkOrdersTasks extends B2WKendoTasks {
 		return WebElementUtils.clickElement(getEditButton("Edit Quantities"));
 	}
 	public boolean setCommentAndSave(String sText){
-		return super.setNewCommentAndSave(sText);
+		return super.setComments(sText, true);
 	}
 	public String getComment() {
 		return getComments(0,0);
