@@ -113,9 +113,8 @@ public class B2WInventorySmokeTest extends B2WTestCase {
 	
 	public void editInventory() {
 		inventory.editInventory(0);
-		addInventory.selectTypeOfUpdateAdjustInventory();
-		addInventory.setNewQuantity(sPartAdjustedInventory);
-		addInventory.saveAddToInventory();
+		logCompare(true,addInventory.setNewQuantity(sPartAdjustedInventory),"Set New Quantity");
+		logCompare(true,addInventory.saveAddToInventory(),"Save Add To Inventory");
 		logCompare(sPartAdjustedInventory,inventory.getPartCurrentInventory(sPartDesc), "Verify Adjusted Inventory");
 
 	}
@@ -123,11 +122,11 @@ public class B2WInventorySmokeTest extends B2WTestCase {
 	public void moveInventory() {
 		inventory.editInventory(0);
 		TaskUtils.sleep(1000);
-		addInventory.selectTypeOfUpdateLocation();
-		addInventory.setQuantityToMove(sPartMovedInventory);
-		addInventory.selectNewLocation("Main Shop");
+		logCompare(true,addInventory.selectTypeOfUpdateLocation(),"Select Update Location");
+		logCompare(true,addInventory.setQuantityToMove(sPartMovedInventory), "Quantity to Move");
+		logCompare(true,addInventory.selectNewLocation("Main Shop"), "Select New Location");
 		String sNewBin = addInventory.selectNewBin();
-		addInventory.saveAddToInventory();
+		logCompare(true,addInventory.saveAddToInventory(),"Save Add Inventory");
 		logCompare(sNewBin, inventory.getPartBins().get(1), "New Bin Added");
 		logCompare(sPartMovedInventory, inventory.getCurrentInventory().get(1), "Inventory moved");
 		logCompare(sPartAdjustedInventory,inventory.getPartCurrentInventory(sPartDesc), "Verify Inventory not changed");
@@ -139,7 +138,7 @@ public class B2WInventorySmokeTest extends B2WTestCase {
 	}
 	
 	public void addPart() {
-		b2wMain.openParts();
+		logCompare(true,b2wMain.openParts(),"Open Parts");
 		logCompare(true,parts.clickAddPart(),"");
 		logCompare(true,parts.setPartID(sPartID),"Set Part ID");
 		logCompare(true,parts.setPartDescription(sPartDesc),"Set Part Desc");
