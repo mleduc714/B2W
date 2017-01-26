@@ -58,7 +58,7 @@ public abstract class B2WKendo {
 				bReturn = WebElementUtils.clickElement(item);
 				bReturn &= WebElementUtils.waitForElementInvisible(item);
 			}else{
-				log.debug("Item with could not be found matching "+sItem);
+				log.debug("Item could not be found matching "+sItem);
 			}
 		
 		}catch (StaleElementReferenceException e){
