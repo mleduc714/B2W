@@ -695,7 +695,7 @@ public class B2WSchedulerTasks extends B2WKendoTasks {
 
     public boolean resizeAssignment(B2WAssignment assignment, String sEdge, Date dMoveDate) {
         boolean bReturn = false;
-        logCompare(true, true, "====== Start Resize " + sEdge + " side of Assignments" + assignment.getResourceName() + " to " + dMoveDate);
+        logCompare(true, true, "====== Start Resize " + sEdge + " side of Assignments " + assignment.getResourceName() + " to " + dMoveDate);
         WebElement eAssignment = getAssignment(assignment);
         if (eAssignment != null) {
 
@@ -705,13 +705,14 @@ public class B2WSchedulerTasks extends B2WKendoTasks {
             } else if (sEdge.toLowerCase().equals("left")) {
                 bReturn = logCompare(true, resizeAssignmentLeftToDate(eAssignment, dMoveDate), "Resize Assignment to the specific date");
             }
+            waitForSchedulesPageNoBusy();
             assignment.resizeTo(sEdge, dMoveDate);
             WebElement result = getAssignment(assignment);
             bReturn &= logCompare(true, result != null, "Verification that specific Assignment has been resized.");
         } else {
             logCompare(true, false, "Assignment for " + assignment.getResourceName() + " could not be found on the page.");
         }
-        logCompare(true, true, "====== Complete Resize " + sEdge + " side of Assignments" + assignment.getResourceName() + " to " + dMoveDate);
+        logCompare(true, true, "====== Complete Resize " + sEdge + " side of Assignments " + assignment.getResourceName() + " to " + dMoveDate);
         return bReturn;
     }
     public boolean updateAssignment(B2WAssignment existsAssignment, B2WAssignment updatedAssignment) {
