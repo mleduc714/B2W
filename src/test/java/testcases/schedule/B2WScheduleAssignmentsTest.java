@@ -69,7 +69,6 @@ public class B2WScheduleAssignmentsTest extends B2WTestCase {
     private B2WAssignment copyCrewAssignment;
     private B2WAssignment customCrewAssignment;
 
-
     // Custom Crew
     private B2WCrewTemplate customCrew;
 
@@ -81,6 +80,8 @@ public class B2WScheduleAssignmentsTest extends B2WTestCase {
     // Move Assignment
     private B2WAssignment moveAssignment;
     private B2WAssignment copyMoveAssignment;
+    private B2WAssignment moveAssignmentWithCustomCrew;
+    private B2WCrewTemplate customTransportCrew;
 
     // Move Order
     private B2WAssignment moveOrder;
@@ -175,6 +176,7 @@ public class B2WScheduleAssignmentsTest extends B2WTestCase {
         createCrewsAssignments();
         createCrewsNeeds();
         createMoveAssignment();
+        createMoveAssignmentWithCustomCrew();
         createMoveOrder();
         createEmployeeEvent();
         createEquipmentEvent();
@@ -264,15 +266,6 @@ public class B2WScheduleAssignmentsTest extends B2WTestCase {
 
         // Delete Schedule Views
         deleteScheduleViews();
-    }
-
-    private void test() {
-        selectView(crewsDefaultScheduleView);
-
-        logCompare(true, b2wScheduler.setSearchValue(customCrewAssignment.getResourceName()), "Set Filter by " + customCrewAssignment.getResourceName());
-        logCompare(true, b2wScheduler.createCrewAssignmentWithCustomCrew(customCrewAssignment, customCrew),
-                "Create Assignment with Custom Crew for: " + customCrewAssignment.getResourceName());
-
     }
 
     private B2WScheduleView setupEmployeeScheduleView(String sScheduleName) {
@@ -657,6 +650,15 @@ public class B2WScheduleAssignmentsTest extends B2WTestCase {
         oReturn.setEquipmentTypes(parseString(getProperty("customCrewEquipmentTypeList")));
         return oReturn;
     }
+    private B2WCrewTemplate setupTransportCustomCrew() {
+        B2WCrewTemplate oReturn = new B2WCrewTemplate();
+        oReturn.setForeman(getProperty("sAutCrewDriver"));
+        oReturn.setEmployees(parseString(getProperty("sAutCrewEmployees")));
+        oReturn.setEquipments(parseString(getProperty("sAutCrewEquipment")));
+        oReturn.setLaborTypes(parseString(getProperty("sAutCrewEmployeeNeeds")));
+        oReturn.setEquipmentTypes(parseString(getProperty("sAutCrewEquipmentNeeds")));
+        return oReturn;
+    }
     private void setupMoveItems() {
         // ==== Setup Move Assignment ==================================================================================
         // === Reading Properties
@@ -685,6 +687,35 @@ public class B2WScheduleAssignmentsTest extends B2WTestCase {
                 sMoveAssignmentDropoffLocationType, sMoveAssignmentDropoffLocationName, dMoveAssignmentDropoffDate, sMoveAssignmentDropoffTime,
                 sMoveAssignmentRequestedBy, sMoveAssignmentNotesText, sMoveAssignmentTransportationCrewName);
         // ==== Complete Move Assignments ==============================================================================
+        // ==== Setup Move Assignment with Custom Crew =================================================================
+        // === Reading Properties
+        sMoveAssignmentEquipmentName = getProperty("sAutMoveAssignmentEquipmentName");
+        sMoveAssignmentPickupLocationType = getProperty("sAutMoveAssignmentPickupLocationType");
+        sMoveAssignmentPickupLocationName = getProperty("sAutMoveAssignmentPickupLocationName");
+        sMoveAssignmentDropoffLocationType = getProperty("sAutMoveAssignmentDropoffLocationType");
+        sMoveAssignmentDropoffLocationName = getProperty("sAutMoveAssignmentDropoffLocationName");
+        sMoveAssignmentPickupDate = getProperty("sAutMoveAssignmentPickupDate");
+        dMoveAssignmentPickupDate = StringUtils.getDateFromStringWithPattern(sMoveAssignmentPickupDate, "M/d/yyyy");
+        sMoveAssignmentPickupTime = getProperty("sAutMoveAssignmentPickupTime");
+        sMoveAssignmentDropoffDate = getProperty("sAutMoveAssignmentDropoffDate");
+        dMoveAssignmentDropoffDate = StringUtils.getDateFromStringWithPattern(sMoveAssignmentDropoffDate, "M/d/yyyy");
+        sMoveAssignmentDropoffTime = getProperty("sAutMoveAssignmentDropoffTime");
+        sMoveAssignmentRequestedBy = getProperty("sAutMoveAssignmentRequestedBy");
+        sMoveAssignmentNotesText = getProperty("sAutMoveAssignmentNotesText");
+        sMoveAssignmentTransportationCrewName = getProperty("sAutMoveAssignmentTransportationCrewName");
+
+        dateList = new ArrayList<>();
+        dateList.add(equipmentScheduleView.getStartDate()); //Start Date
+        dateList.add(equipmentScheduleView.getStartDate()); //End Date
+        // === Complete reading properties
+
+        moveAssignmentWithCustomCrew = new B2WAssignment(B2WAssignmentType.MOVE_ASSIGNMENT_TYPE, sMoveAssignmentEquipmentName,
+                sMoveAssignmentPickupLocationType, sMoveAssignmentPickupLocationName, dMoveAssignmentPickupDate, sMoveAssignmentPickupTime,
+                sMoveAssignmentDropoffLocationType, sMoveAssignmentDropoffLocationName, dMoveAssignmentDropoffDate, sMoveAssignmentDropoffTime,
+                sMoveAssignmentRequestedBy, sMoveAssignmentNotesText, sMoveAssignmentTransportationCrewName);
+
+        customTransportCrew = setupTransportCustomCrew();
+        // ==== Complete Move Assignments with Custom Crew =============================================================
 
         // ==== Setup Move Order =======================================================================================
         // === Reading Properties
@@ -842,6 +873,15 @@ public class B2WScheduleAssignmentsTest extends B2WTestCase {
 
         logCompare(true, b2wScheduler.setSearchValue(moveAssignment.getResourceName()), "Set Filter by " + moveAssignment.getResourceName());
         logCompare(true, b2wScheduler.createMoveAssignment(moveAssignment), "Create Move Assignment for: " + moveAssignment.getResourceName());
+
+    }
+    private void createMoveAssignmentWithCustomCrew() {
+        selectView(equipmentDefaultScheduleView);
+
+        logCompare(true, b2wScheduler.clearSearchValue(), "Clear Filter");
+        logCompare(true, b2wScheduler.createMoveAssignmentWithCustomCrew(moveAssignmentWithCustomCrew, customTransportCrew),
+                "Create Move Assignment with Custom Crew for: " + moveAssignmentWithCustomCrew.getResourceName());
+
     }
     private void createMoveOrder() {
         selectView(equipmentScheduleView);
