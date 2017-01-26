@@ -112,6 +112,28 @@ public class B2WJobsTasks extends B2WResourceTasks {
 		}
 		return bReturn;
 	}
+	
+	public ArrayList<String> getJobsByJobTitle() {
+		ArrayList<String> al = new ArrayList<String>();
+		List<WebElement> jobTitles = WebElementUtils.findElements(B2WJobs.getB2WListViewJobTitle());
+		Iterator<WebElement> iter = jobTitles.iterator();
+		while (iter.hasNext()){
+			WebElement e = iter.next();
+			al.add(e.getText());
+		}
+		return al;
+	}
+	
+	public ArrayList<String> getJobsByJobNumber() {
+		ArrayList<String> al = new ArrayList<String>();
+		List<WebElement> jobTitles = WebElementUtils.findElements(B2WJobs.getB2WListViewJobNunber());
+		Iterator<WebElement> iter = jobTitles.iterator();
+		while (iter.hasNext()){
+			WebElement e = iter.next();
+			al.add(e.getText());
+		}
+		return al;
+	}
 
 	public boolean openEstimateItemByItemID(String b2w_jobsestimateitemid) {
 		boolean bReturn = false;
@@ -752,5 +774,91 @@ public class B2WJobsTasks extends B2WResourceTasks {
 				sText = el.getText();
 			}
 		return sText;
+	}
+	
+	public boolean clickJobNumberHeader() {
+		boolean bReturn = false;
+		WebElement el = getColumnHeader("Job Number");
+		if (el != null){
+			bReturn = WebElementUtils.clickElement(el);
+			bReturn &= waitForProcessingDialogToClear();
+		}
+		return bReturn;
+	}
+	public String getJobHeaderSortOrder() {
+		String s = "";
+		WebElement el = getColumnHeader("Job Number");
+		if (el != null){
+			s = el.getAttribute("class");
+		}
+		return s;
+	}
+	public boolean clickJobTitleHeader() {
+		boolean bReturn = false;
+		WebElement el = getColumnHeader("Job Title");
+		if (el != null){
+			bReturn = WebElementUtils.clickElement(el);
+			bReturn &= waitForProcessingDialogToClear();
+		}
+		return bReturn;
+	}
+	public String getJobTitleSortOrder() {
+		String s = "";
+		WebElement el = getColumnHeader("Job Title");
+		if (el != null){
+			s = el.getAttribute("class");
+		}
+		return s;
+	}
+	public boolean clickJobBusinessUnitHeader() {
+		boolean bReturn = false;
+		WebElement el = getColumnHeader("Business Unit");
+		if (el != null){
+			bReturn = WebElementUtils.clickElement(el);
+			bReturn &= waitForProcessingDialogToClear();
+		}
+		return bReturn;
+	}
+	public String getJobBusinessUnitSortOrder() {
+		String s = "";
+		WebElement el = getColumnHeader("Business Unit");
+		if (el != null){
+			s = el.getAttribute("class");
+		}
+		return s;
+	}
+	public boolean clickJobProjectManagerHeader() {
+		boolean bReturn = false;
+		WebElement el = getColumnHeader("Project Manager");
+		if (el != null){
+			bReturn = WebElementUtils.clickElement(el);
+			bReturn &= waitForProcessingDialogToClear();
+		}
+		return bReturn;
+	}
+	public String getJobProjectManagerSortOrder() {
+		String s = "";
+		WebElement el = getColumnHeader("Project Manager");
+		if (el != null){
+			s = el.getAttribute("class");
+		}
+		return s;
+	}
+	public boolean clickJobStatusHeader() {
+		boolean bReturn = false;
+		WebElement el = getColumnHeader("Job Status");
+		if (el != null){
+			bReturn = WebElementUtils.clickElement(el);
+			bReturn &= waitForProcessingDialogToClear();
+		}
+		return bReturn;
+	}
+	public String getJobStatusSortOrder() {
+		String s = "";
+		WebElement el = getColumnHeader("Job Status");
+		if (el != null){
+			s = el.getAttribute("class");
+		}
+		return s;
 	}
 }

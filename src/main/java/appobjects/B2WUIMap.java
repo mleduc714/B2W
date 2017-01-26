@@ -51,6 +51,7 @@ public class B2WUIMap {
 	public static final String b2w_pagecontentdetailpanel = "div#PageContent_DetailPanel";
 	public static final String b2w_pageproductpanel = "div#ProductPanel";
 	public static final String b2w_pagecontentcontentdetailpanel = "div#PageContent_PageContent_DetailPanel";
+	public static final String b2w_gridheader = "td.gridHeader";
 
 	// maintain
 	public static final String b2w_maintain_grid_content = "div.k-grid-content";
@@ -1221,4 +1222,5 @@ public class B2WUIMap {
 	public static final String b2w_dashboardmanagerhomepageproduction = "div#VisibleReportContentctl00_PageContent_HomePageDashboard_ReportViewer_ctl09";
 	public static final String b2w_dashboardforemanhomepagecost = "div#VisibleReportContentctl00_PageContent_HomePageDashboard_ReportViewer_ctl09";
 
+	public static final String b2w_resourcedgridpager = "tr.gridPager";
 }

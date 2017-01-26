@@ -156,5 +156,8 @@ public class B2WSetup {
 	public static By getGenInfoNameValueLabel() {
 		return By.cssSelector(B2WUIMap.b2w_accountinfonamevaluelabel);
 	}
+	public static By getB2WGridPager() {
+		return By.cssSelector(B2WUIMap.b2w_resourcedgridpager);
+	}
 
 }

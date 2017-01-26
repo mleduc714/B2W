@@ -19,8 +19,8 @@ public class B2WInventorySmokeTest extends B2WTestCase {
 	
 	String sPartID, sPartUnitOfMeasure, sPartDesc, sPartStandardUnitCost,
 	sPartMinInventory, sPartReorderQTY, sPartBusinessUnit, sPartManufacturer, sPartNotes, sPartInventory,
-	sPartCategory, sPartLocation, sPartBin, sWorkOrderDescription, sWorkOrderItemDescription, sPartAdjustedInventory, sPartMovedInventory;
-	int iRandom;
+	sPartCategory, sPartLocation, sPartBin, sWorkOrderDescription, sWorkOrderItemDescription, sPartAdjustedInventory, sPartMovedInventory, sAfter;
+	int iRandom, iPos;
 
 	@Override
 	public void testSetUp() throws Throwable {
@@ -41,6 +41,12 @@ public class B2WInventorySmokeTest extends B2WTestCase {
 		sPartLocation = getProperty("sPartLocation");
 		sPartAdjustedInventory = getProperty("sPartAdjustedInventory");
 		sPartMovedInventory = getProperty("sPartMovedInventory");
+		
+		int iAdjustedInventory = Integer.parseInt(sPartAdjustedInventory);
+		int iMovedInventory = Integer.parseInt(sPartMovedInventory);
+		int iAfterDelete = iAdjustedInventory - iMovedInventory;
+		sAfter = Integer.toString(iAfterDelete);
+		
 	}
 
 	@Override
@@ -128,15 +134,17 @@ public class B2WInventorySmokeTest extends B2WTestCase {
 		logCompare(true,addInventory.selectNewLocation("Main Shop"), "Select New Location");
 		String sNewBin = addInventory.selectNewBin();
 		logCompare(true,addInventory.saveAddToInventory(),"Save Add Inventory");
-		logCompare(sNewBin, inventory.getPartBins().get(1), "New Bin Added");
-		logCompare(sPartMovedInventory, inventory.getCurrentInventory().get(1), "Inventory moved");
+		iPos = inventory.getPartBins().indexOf(sNewBin);
+		logCompare(sNewBin, inventory.getPartBins().get(iPos), "New Bin Added");
+		logCompare(sPartMovedInventory, inventory.getCurrentInventory().get(iPos), "Inventory moved");
 		logCompare(sPartAdjustedInventory,inventory.getPartCurrentInventory(sPartDesc), "Verify Inventory not changed");
 
 	}
 	
 	public void deleteInventory() {
-		inventory.deleteInventory(0);
-		inventory.clickConfirmYes();
+		logCompare(true,inventory.deleteInventory(iPos), "Delete moved inventory");
+		logCompare(true,inventory.clickConfirmYes(),"Click Confirm Yes");
+		logCompare(sAfter, inventory.getPartCurrentInventory(sPartDesc), "Inventory changed");
 		
 	}
 	

@@ -1,5 +1,7 @@
 package tasks;
 
+import java.util.List;
+
 import org.apache.log4j.Logger;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
@@ -434,5 +436,40 @@ public class B2WSetupTasks {
 		}
 		return sText;
 	}
+
+	public int getTotalPages() {
+		int iPages = 1;
+		WebElement el = WebElementUtils.findElement(B2WSetup.getB2WGridPager());
+		if (el != null) {
+			WebElement last = WebElementUtils.getChildElement(el, By.className("last"));
+			List<WebElement> pages = WebElementUtils.getChildElements(last, By.tagName("a"));
+			iPages += pages.size();
+		}
+		return iPages;
+	}
+
+	public boolean clickPage(int iPage) {
+		boolean bReturn = false;
+		WebElement el = WebElementUtils.findElement(B2WSetup.getB2WGridPager());
+		if (el != null) {
+			WebElement last = WebElementUtils.getChildElement(el, By.className("last"));
+			WebElement page = WebElementUtils.getChildElementContainsText(last, By.tagName("a"),
+					Integer.toString(iPage));
+			if (page != null) {
+				bReturn = WebElementUtils.clickElement(page);
+				WebElementUtils.waitForElementStale(page, WebElementUtils.SHORT_TIME_OUT);
+			}
+		}
+		return bReturn;
+	}
 	
+	public WebElement getColumnHeader(String sHeader){
+		WebElement el = null;
+		WebElement listinggrid = WebElementUtils.findElement(B2WCommonObjects.getB2WPageContentGrid());
+		if (listinggrid != null){
+			el = WebElementUtils.getChildElementContainsText(listinggrid, By.tagName("a"), sHeader);
+		}
+		return el;
+		
+	}
 }
