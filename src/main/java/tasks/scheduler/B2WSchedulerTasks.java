@@ -1110,19 +1110,22 @@ public class B2WSchedulerTasks extends B2WKendoTasks {
                 switch (assignment.getAssignmentType()) {
                     case B2WAssignmentType.EMPLOYEE_NEED_TYPE:
                         bReturn &= selectOptionFromContextMenu("Fill Need");
-                        bReturn &= logCompare(true, fillNeedDialog(assignment, sFillResourceName), "Fill Need to " + sFillResourceName);
+                        //bReturn &= logCompare(true, fillNeedDialog(assignment, sFillResourceName), "Fill Need to " + sFillResourceName);
+                        bReturn &= logCompare(true, fillNeedDialog(sFillResourceName), "Fill Need to " + sFillResourceName);
                         assignment.setAssignmentType(B2WAssignmentType.EMPLOYEE_TYPE);
                         assignment.setResourceName(sFillResourceName);
                         break;
                     case B2WAssignmentType.EQUIPMENT_NEED_TYPE:
                         bReturn &= selectOptionFromContextMenu("Fill Need");
-                        bReturn &= logCompare(true, fillNeedDialog(assignment, sFillResourceName), "Fill Need to " + sFillResourceName);
+                        //bReturn &= logCompare(true, fillNeedDialog(assignment, sFillResourceName), "Fill Need to " + sFillResourceName);
+                        bReturn &= logCompare(true, fillNeedDialog(sFillResourceName), "Fill Need to " + sFillResourceName);
                         assignment.setAssignmentType(B2WAssignmentType.EQUIPMENT_TYPE);
                         assignment.setResourceName(sFillResourceName);
                         break;
                     case B2WAssignmentType.CREW_NEED_TYPE:
                         bReturn &= selectOptionFromContextMenu("Fill Need");
-                        bReturn &= logCompare(true, fillNeedDialog(assignment, sFillResourceName), "Fill Need to " + sFillResourceName);
+                        //bReturn &= logCompare(true, fillNeedDialog(assignment, sFillResourceName), "Fill Need to " + sFillResourceName);
+                        bReturn &= logCompare(true, fillNeedDialog(sFillResourceName), "Fill Need to " + sFillResourceName);
                         assignment.setAssignmentType(B2WAssignmentType.CREW_TYPE);
                         assignment.setResourceName(sFillResourceName);
                         break;
@@ -1197,6 +1200,45 @@ public class B2WSchedulerTasks extends B2WKendoTasks {
     }
     public boolean isOrderPanelEmpty() { return getAllOrdersFromPanel().size() == 0; }
     public int getOrdersCount() { return getAllOrdersFromPanel().size(); }
+    public boolean markAsComplete(B2WAssignment assignment) {
+        boolean bReturn = false;
+        if (assignment != null) {
+            logCompare(true, true, "====== Start Mark Assignment as Complete.");
+            bReturn = logCompare(false, isAssignmentComplete(assignment), "Check that assignment '" + assignment.getResourceName() + "' is Incomplete.");
+            bReturn &= logCompare(true, openContextMenu(assignment), "Open Assignment's Context Menu");
+            bReturn &= logCompare(true, selectOptionFromContextMenu("Mark as Complete"), "Select 'Mark as Complete' from Context Menu.");
+            bReturn &= logCompare(true, isAssignmentComplete(assignment), "Check that assignment '" + assignment.getResourceName() + "' is Complete.");
+            logCompare(true, true, "====== Stop Mark Assignment as Complete.");
+        }
+        return bReturn;
+    }
+    public boolean markAsIncomplete(B2WAssignment assignment) {
+        boolean bReturn = false;
+        if (assignment != null) {
+            logCompare(true, true, "====== Start Mark Assignment as Incomplete.");
+            bReturn = logCompare(true, isAssignmentComplete(assignment), "Check that assignment '" + assignment.getResourceName() + "' is Complete.");
+            bReturn &= logCompare(true, openContextMenu(assignment), "Open Assignment's Context Menu");
+            bReturn &= logCompare(true, selectOptionFromContextMenu("Mark as Incomplete"), "Select 'Mark as Incomplete' from Context Menu.");
+            bReturn &= logCompare(false, isAssignmentComplete(assignment), "Check that assignment '" + assignment.getResourceName() + "' is Incomplete.");
+            logCompare(true, true, "====== Stop Mark Assignment as Incomplete.");
+        }
+        return bReturn;
+    }
+    public boolean unassignMove(B2WAssignment assignment) {
+        boolean bReturn = false;
+        if (assignment != null) {
+            logCompare(true, true, "====== Start Unassign Move Assignment.");
+            bReturn = logCompare(true, openContextMenu(assignment), "Open Assignment's Context Menu");
+            bReturn &= logCompare(true, selectOptionFromContextMenu("Unassign Move"), "Select 'Unassign Move' from Context Menu.");
+            bReturn &= logCompare(true, selectButtonOption("Yes"), "Select 'Unassign Move' from Context Menu.");
+            assignment.setAssignmentType(B2WAssignmentType.MOVE_ORDER_TYPE);
+            WebElement result = getAssignment(assignment);
+            bReturn &= logCompare(true,  result != null, "Verification that specific Assignment has been converted to Move Assignment.");
+            logCompare(true, true, "====== Stop Unassign Move Assignment.");
+        }
+        return bReturn;
+    }
+
 
     // ==== Private Methods ============================================================================================
     // === Menu for Creation
@@ -1279,6 +1321,9 @@ public class B2WSchedulerTasks extends B2WKendoTasks {
             bReturn &= WebElementUtils.waitAndFindDisplayedElement(B2WScheduleAssignments.getContextMenu()) != null;
         }
         return bReturn;
+    }
+    private boolean openContextMenu(B2WAssignment assignment) {
+        return openContextMenu(getAssignment(assignment));
     }
     private boolean selectCreateSubstitution() {
         return selectOptionFromContextMenu("Create Substitution");
@@ -2119,7 +2164,8 @@ public class B2WSchedulerTasks extends B2WKendoTasks {
     }
 
     // Order Panel
-    private boolean fillNeedDialog(B2WAssignment order, String employeeName) {
+    //private boolean fillNeedDialog(B2WAssignment order, String employeeName) {
+    private boolean fillNeedDialog(String employeeName) {
         boolean bReturn = false;
         WebElement dialog = WebElementUtils.findElement(B2WScheduleAssignments.getAssignmentWindow());
         if (dialog != null) {
@@ -2174,6 +2220,19 @@ public class B2WSchedulerTasks extends B2WKendoTasks {
             waitForSchedulesPageNoBusy();
         } else {
             log.debug("Could not find 'Fill With' field on the page.");
+        }
+        return bReturn;
+    }
+    private boolean isAssignmentComplete(B2WAssignment assignment) {
+        boolean bReturn = false;
+        WebElement eAssignment = getAssignment(assignment);
+        List<WebElement> iconsList = WebElementUtils.getChildElements(WebElementUtils.getParentElement(eAssignment), B2WScheduleAssignments.getAssignmentIcon());
+        for (WebElement item : iconsList) {
+            if (item.isDisplayed()) {
+                if (item.getAttribute("class").contains("complete-icon")) {
+                    return true;
+                }
+            }
         }
         return bReturn;
     }
