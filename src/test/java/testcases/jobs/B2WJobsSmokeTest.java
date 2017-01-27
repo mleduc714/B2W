@@ -1,23 +1,45 @@
 package testcases.jobs;
 
-import java.util.ArrayList;
-import java.util.Collections;
-
 import com.b2w.test.B2WTestCase;
 
 import tasks.B2WNavigationTasks;
+import tasks.jobs.B2WCreateJobTasks;
 import tasks.jobs.B2WJobsTasks;
-import tasks.util.TaskUtils;
 
 public class B2WJobsSmokeTest extends B2WTestCase {
 	
 	B2WJobsTasks b2wJobs = new B2WJobsTasks();
 	B2WNavigationTasks b2wNav = new B2WNavigationTasks();
+	B2WCreateJobTasks b2wCreate = new B2WCreateJobTasks();
+	
+	String sJobNumberA, sJobTitleA, sJobBusinssUnitA, sJobStatusA, sJobNumberB, sJobTitleB, sJobBusinssUnitB,
+			sJobStatusB, sJobNumberC, sJobTitleC, sJobBusinssUnitC, sJobStatusC, sJobNumberD, sJobTitleD,
+			sJobBusinssUnitD, sJobStatusD, sJobNumberE, sJobTitleE, sJobBusinssUnitE, sJobStatusE;
 	
 	@Override
 	public void testSetUp() throws Throwable {
 		// code here for setting up the test
 		super.testSetUp();
+		sJobNumberA= getProperty("sJobNumberA");
+		sJobTitleA= getProperty("sJobTitleA");
+		sJobBusinssUnitA= getProperty("sJobBusinssUnitA");
+		sJobStatusA= getProperty("sJobStatusA");
+		sJobNumberB= getProperty("sJobNumberB");
+		sJobTitleB= getProperty("sJobTitleB");
+		sJobBusinssUnitB= getProperty("sJobBusinssUnitB");
+		sJobStatusB= getProperty("sJobStatusB");
+		sJobNumberC= getProperty("sJobNumberC");
+		sJobTitleC= getProperty("sJobTitleC");
+		sJobBusinssUnitC= getProperty("sJobBusinssUnitC");
+		sJobStatusC= getProperty("sJobStatusC");
+		sJobNumberD= getProperty("sJobNumberD");
+		sJobTitleD= getProperty("sJobTitleD");
+		sJobBusinssUnitD= getProperty("sJobBusinssUnitD");
+		sJobStatusD= getProperty("sJobStatusD");
+		sJobNumberE= getProperty("sJobNumberE");
+		sJobTitleE= getProperty("sJobTitleE");
+		sJobBusinssUnitE= getProperty("sJobBusinssUnitE");
+		sJobStatusE = getProperty("sJobStatusE");
 	}
 
 	@Override
@@ -60,11 +82,15 @@ public class B2WJobsSmokeTest extends B2WTestCase {
 
 //		Jobs Exploratory Testing Guide
 //		Job Listing Page
-		b2wNav.openJobs();
-		b2wJobs.clickJobNumberHeader();
-		b2wJobs.clickJobTitleHeader();
-		getAllJobsByTitle();
-		TaskUtils.sleep(3000);
+		logCompare(true,b2wNav.openJobs(),"Open Jobs");
+		logCompare(true,b2wJobs.clickCreateNewJob(), "Create new job");
+		logCompare(true, b2wCreate.setJobTitle(sJobNumberA), "Set Job Title");
+		logCompare(true, b2wCreate.setProjectManagerFromDD("Abigail Mitchell"), "Set Project Manager from Dropdown");
+		logCompare(true, b2wCreate.setJobProjectName("This is a New Job Project"), "Set Project Name");
+		logCompare(true, b2wCreate.setJobProjectStatusFromDD("Complete"), "Set Project Status from Dropdowm");
+		logCompare(true, b2wCreate.setJobProjectCustomerFromDD("Agnerson Construction"), "Set Project Customer from Dropdown");
+		logCompare(true, b2wCreate.setJobDefaultLaborRateClassFromDD("New Hampshire Rates"), "Set Default Labor Rate Class from Dropdown");
+		logCompare(true, b2wCreate.setJobEquipmentRateClassFromDD("Do Not Use Active Rates"), "Set Equipment Rate Class from Dropdown");
 //		Search
 		
 //		Column Sort
@@ -134,28 +160,5 @@ public class B2WJobsSmokeTest extends B2WTestCase {
 
 		
 	}
-		
-	public ArrayList<String> getAllJobsByTitle() {
-		ArrayList<String> al = new ArrayList<String>();
-		int iPages = b2wJobs.getTotalPages();
-		for (int i = 1; i < iPages; i++){
-			b2wJobs.clickPage(i);
-			TaskUtils.sleep(1000);
-			al.addAll(b2wJobs.getJobsByJobTitle());
-		}
-		Collections.sort(al);
-		return al;
-	}
 
-	public ArrayList<String> getAllJobsByNumber() {
-		ArrayList<String> al = new ArrayList<String>();
-		int iPages = b2wJobs.getTotalPages();
-		for (int i = 1; i < iPages; i++){
-			b2wJobs.clickPage(i);
-			TaskUtils.sleep(1000);
-			al.addAll(b2wJobs.getJobsByJobNumber());
-		}
-		Collections.sort(al);
-		return al;
-	}
 }

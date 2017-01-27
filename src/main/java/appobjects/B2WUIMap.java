@@ -151,32 +151,32 @@ public class B2WUIMap {
 	public static final String b2w_schedules_sortingIcon = "th[data-title='replace']";
 
 	// page filter
-	public static final String b2w_page_filter_letterA = "a#PageContent_FilterControl_AButton";
-	public static final String b2w_page_filter_letterB = "a#PageContent_FilterControl_BButton";
-	public static final String b2w_page_filter_letterC = "a#PageContent_FilterControl_CButton";
-	public static final String b2w_page_filter_letterD = "a#PageContent_FilterControl_DButton";
-	public static final String b2w_page_filter_letterE = "a#PageContent_FilterControl_EButton";
-	public static final String b2w_page_filter_letterF = "a#PageContent_FilterControl_FButton";
-	public static final String b2w_page_filter_letterG = "a#PageContent_FilterControl_GButton";
-	public static final String b2w_page_filter_letterH = "a#PageContent_FilterControl_HButton";
-	public static final String b2w_page_filter_letterI = "a#PageContent_FilterControl_IButton";
-	public static final String b2w_page_filter_letterJ = "a#PageContent_FilterControl_JButton";
-	public static final String b2w_page_filter_letterK = "a#PageContent_FilterControl_KButton";
-	public static final String b2w_page_filter_letterL = "a#PageContent_FilterControl_LButton";
-	public static final String b2w_page_filter_letterM = "a#PageContent_FilterControl_MButton";
-	public static final String b2w_page_filter_letterN = "a#PageContent_FilterControl_NButton";
-	public static final String b2w_page_filter_letterO = "a#PageContent_FilterControl_OButton";
-	public static final String b2w_page_filter_letterP = "a#PageContent_FilterControl_PButton";
-	public static final String b2w_page_filter_letterQ = "a#PageContent_FilterControl_QButton";
-	public static final String b2w_page_filter_letterR = "a#PageContent_FilterControl_RButton";
-	public static final String b2w_page_filter_letterS = "a#PageContent_FilterControl_SButton";
-	public static final String b2w_page_filter_letterT = "a#PageContent_FilterControl_TButton";
-	public static final String b2w_page_filter_letterU = "a#PageContent_FilterControl_UButton";
-	public static final String b2w_page_filter_letterV = "a#PageContent_FilterControl_VButton";
-	public static final String b2w_page_filter_letterW = "a#PageContent_FilterControl_WButton";
-	public static final String b2w_page_filter_letterX = "a#PageContent_FilterControl_XButton";
-	public static final String b2w_page_filter_letterY = "a#PageContent_FilterControl_YButton";
-	public static final String b2w_page_filter_letterZ = "a#PageContent_FilterControl_ZButton";
+	public static final String b2w_page_filter_letterA = "a[id$='_AButton']";
+	public static final String b2w_page_filter_letterB = "a[id$='_BButton']";
+	public static final String b2w_page_filter_letterC = "a[id$='_CButton']";
+	public static final String b2w_page_filter_letterD = "a[id$='_DButton']";
+	public static final String b2w_page_filter_letterE = "a[id$='_EButton']";
+	public static final String b2w_page_filter_letterF = "a[id$='_FButton']";
+	public static final String b2w_page_filter_letterG = "a[id$='_GButton']";
+	public static final String b2w_page_filter_letterH = "a[id$='_HButton']";
+	public static final String b2w_page_filter_letterI = "a[id$='_IButton']";
+	public static final String b2w_page_filter_letterJ = "a[id$='_JButton']";
+	public static final String b2w_page_filter_letterK = "a[id$='_KButton']";
+	public static final String b2w_page_filter_letterL = "a[id$='_LButton']";
+	public static final String b2w_page_filter_letterM = "a[id$='_MButton']";
+	public static final String b2w_page_filter_letterN = "a[id$='_NButton']";
+	public static final String b2w_page_filter_letterO = "a[id$='_OButton']";
+	public static final String b2w_page_filter_letterP = "a[id$='_PButton']";
+	public static final String b2w_page_filter_letterQ = "a[id$='_QButton']";
+	public static final String b2w_page_filter_letterR = "a[id$='_RButton']";
+	public static final String b2w_page_filter_letterS = "a[id$='_SButton']";
+	public static final String b2w_page_filter_letterT = "a[id$='_TButton']";
+	public static final String b2w_page_filter_letterU = "a[id$='_UButton']";
+	public static final String b2w_page_filter_letterV = "a[id$='_VButton']";
+	public static final String b2w_page_filter_letterW = "a[id$='_WButton']";
+	public static final String b2w_page_filter_letterX = "a[id$='_XButton']";
+	public static final String b2w_page_filter_letterY = "a[id$='_YButton']";
+	public static final String b2w_page_filter_letterZ = "a[id$='_ZButton']";
 
 	public static final String b2w_page_processing = "div#ProcessingMessage1";
 

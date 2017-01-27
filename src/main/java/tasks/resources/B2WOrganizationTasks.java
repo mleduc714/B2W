@@ -1,7 +1,12 @@
 package tasks.resources;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
 import org.openqa.selenium.WebElement;
 
+import appobjects.resources.B2WEmployees;
 import appobjects.resources.B2WOrganization;
 import tasks.WebElementUtils;
 
@@ -216,5 +221,16 @@ public class B2WOrganizationTasks extends B2WResourceTasks {
 			sText = el.getText();
 		}
 		return sText;
+	}
+	
+	public ArrayList<String> getAllVendorsByID() {
+		ArrayList<String> al = new ArrayList<String>();
+		List<WebElement> organizationID = WebElementUtils.findElements(B2WEmployees.getEmployeeByIDGrid());
+		Iterator<WebElement> iter = organizationID.iterator();
+		while (iter.hasNext()){
+			WebElement e = iter.next();
+			al.add(e.getText());
+		}
+		return al;
 	}
 }
