@@ -33,6 +33,10 @@ public class B2WCreateJobTasks {
 	public boolean setProjectManagerFromDD(String sText) {
 		return WebElementUtils.selectItemFromOpsDropDownMenu(B2WJobs.getB2WJobprojectmanagerdd(), sText);
 	}
+	
+	public String selectProjectManagerFromDD() {
+		return WebElementUtils.selectAnyItemFromOpsDropDownMenu(B2WJobs.getB2WJobprojectmanagerdd());
+	}
 
 	public boolean setJobTitle(String sText) {
 		boolean bReturn = false;
@@ -46,14 +50,24 @@ public class B2WCreateJobTasks {
 	public boolean setJobProjectCustomerFromDD(String sText) {
 		return WebElementUtils.selectItemFromOpsDropDownMenu(B2WJobs.getB2WJobcustomerdd(), sText);
 	}
+	public String setJobProjectCustomerFromDD() {
+		return WebElementUtils.selectAnyItemFromOpsDropDownMenu(B2WJobs.getB2WJobcustomerdd());
+	}
 
 	public boolean setJobDefaultLaborRateClassFromDD(String sLaborRate) {
 		return WebElementUtils.selectItemFromOpsDropDownMenu(B2WJobs.getB2WJobdefaultlaborrateclassdd(), sLaborRate);
 	}
-
+	
+	public String selectJobDefaultLaborRateClassFromDD() {
+		return WebElementUtils.selectAnyItemFromOpsDropDownMenu(B2WJobs.getB2WJobdefaultlaborrateclassdd());
+	}
 	public boolean setJobEquipmentRateClassFromDD(String sEquipmentRate) {
 		return WebElementUtils.selectItemFromOpsDropDownMenu(B2WJobs.getB2WJobdefaultequipmentrateclass(),
 				sEquipmentRate);
+	}
+	
+	public String setJobEquipmentRateClassFromDD() {
+		return WebElementUtils.selectAnyItemFromOpsDropDownMenu(B2WJobs.getB2WJobdefaultequipmentrateclass());
 	}
 
 	public boolean selectBusinessUnitFromDD(String sText) {

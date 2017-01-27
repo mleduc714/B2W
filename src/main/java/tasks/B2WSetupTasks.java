@@ -1,8 +1,11 @@
 package tasks;
 
+import java.util.List;
+
 import org.apache.log4j.Logger;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 
 import com.b2w.test.BaseAssert;
@@ -22,263 +25,263 @@ public class B2WSetupTasks {
 	}
 
 	public boolean clickSortByLetterA() {
+		boolean bReturn = false;
 		WebElement el = WebElementUtils.findElement(B2WSetup.getB2WPageListA());
 		if (el != null) {
-			el.click();
-			return true;
-		} else {
-			return false;
+			bReturn = WebElementUtils.clickElement(el);
+			bReturn &= waitForProcessingDialogToClear();
 		}
+		return bReturn;
 	}
 
 	public boolean clickSortByLetterB() {
+		boolean bReturn = false;
 		WebElement el = WebElementUtils.findElement(B2WSetup.getB2WPageListB());
 		if (el != null) {
-			el.click();
-			return true;
-		} else {
-			return false;
+			bReturn = WebElementUtils.clickElement(el);
+			bReturn &= waitForProcessingDialogToClear();
 		}
+		return bReturn;
 	}
 
 	public boolean clickSortByLetterC() {
+		boolean bReturn = false;
 		WebElement el = WebElementUtils.findElement(B2WSetup.getB2WPageListC());
 		if (el != null) {
-			el.click();
-			return true;
-		} else {
-			return false;
+			bReturn = WebElementUtils.clickElement(el);
+			bReturn &= waitForProcessingDialogToClear();
 		}
+		return bReturn;
 	}
 
 	public boolean clickSortByLetterD() {
+		boolean bReturn = false;
 		WebElement el = WebElementUtils.findElement(B2WSetup.getB2WPageListD());
 		if (el != null) {
-			el.click();
-			return true;
-		} else {
-			return false;
+			bReturn = WebElementUtils.clickElement(el);
+			bReturn &= waitForProcessingDialogToClear();
 		}
+		return bReturn;
 	}
 
 	public boolean clickSortByLetterE() {
+		boolean bReturn = false;
 		WebElement el = WebElementUtils.findElement(B2WSetup.getB2WPageListE());
 		if (el != null) {
-			el.click();
-			return true;
-		} else {
-			return false;
+			bReturn = WebElementUtils.clickElement(el);
+			bReturn &= waitForProcessingDialogToClear();
 		}
+		return bReturn;
 	}
 
 	public boolean clickSortByLetterF() {
+		boolean bReturn = false;
 		WebElement el = WebElementUtils.findElement(B2WSetup.getB2WPageListF());
 		if (el != null) {
-			el.click();
-			return true;
-		} else {
-			return false;
+			bReturn = WebElementUtils.clickElement(el);
+			bReturn &= waitForProcessingDialogToClear();
 		}
+		return bReturn;
 	}
 
 	public boolean clickSortByLetterG() {
+		boolean bReturn = false;
 		WebElement el = WebElementUtils.findElement(B2WSetup.getB2WPageListG());
 		if (el != null) {
-			el.click();
-			return true;
-		} else {
-			return false;
+			bReturn = WebElementUtils.clickElement(el);
+			bReturn &= waitForProcessingDialogToClear();
 		}
+		return bReturn;
 	}
 
 	public boolean clickSortByLetterH() {
+		boolean bReturn = false;
 		WebElement el = WebElementUtils.findElement(B2WSetup.getB2WPageListH());
 		if (el != null) {
-			el.click();
-			return true;
-		} else {
-			return false;
+			bReturn = WebElementUtils.clickElement(el);
+			bReturn &= waitForProcessingDialogToClear();
 		}
+		return bReturn;
 	}
 
 	public boolean clickSortByLetterI() {
+		boolean bReturn = false;
 		WebElement el = WebElementUtils.findElement(B2WSetup.getB2WPageListI());
 		if (el != null) {
-			el.click();
-			return true;
-		} else {
-			return false;
+			bReturn = WebElementUtils.clickElement(el);
+			bReturn &= waitForProcessingDialogToClear();
 		}
+		return bReturn;
 	}
 
 	public boolean clickSortByLetterJ() {
+		boolean bReturn = false;
 		WebElement el = WebElementUtils.findElement(B2WSetup.getB2WPageListJ());
 		if (el != null) {
-			el.click();
-			return true;
-		} else {
-			return false;
+			bReturn = WebElementUtils.clickElement(el);
+			bReturn &= waitForProcessingDialogToClear();
 		}
+		return bReturn;
 	}
 
 	public boolean clickSortByLetterK() {
+		boolean bReturn = false;
 		WebElement el = WebElementUtils.findElement(B2WSetup.getB2WPageListK());
 		if (el != null) {
-			el.click();
-			return true;
-		} else {
-			return false;
+			bReturn = WebElementUtils.clickElement(el);
+			bReturn &= waitForProcessingDialogToClear();
 		}
+		return bReturn;
 	}
 
 	public boolean clickSortByLetterL() {
+		boolean bReturn = false;
 		WebElement el = WebElementUtils.findElement(B2WSetup.getB2WPageListL());
 		if (el != null) {
-			el.click();
-			return true;
-		} else {
-			return false;
+			bReturn = WebElementUtils.clickElement(el);
+			bReturn &= waitForProcessingDialogToClear();
 		}
+		return bReturn;
 	}
 
 	public boolean clickSortByLetterM() {
+		boolean bReturn = false;
 		WebElement el = WebElementUtils.findElement(B2WSetup.getB2WPageListM());
 		if (el != null) {
-			el.click();
-			return true;
-		} else {
-			return false;
+			bReturn = WebElementUtils.clickElement(el);
+			bReturn &= waitForProcessingDialogToClear();
 		}
+		return bReturn;
 	}
 
 	public boolean clickSortByLetterN() {
+		boolean bReturn = false;
 		WebElement el = WebElementUtils.findElement(B2WSetup.getB2WPageListN());
 		if (el != null) {
-			el.click();
-			return true;
-		} else {
-			return false;
+			bReturn = WebElementUtils.clickElement(el);
+			bReturn &= waitForProcessingDialogToClear();
 		}
+		return bReturn;
 	}
 
 	public boolean clickSortByLetterO() {
+		boolean bReturn = false;
 		WebElement el = WebElementUtils.findElement(B2WSetup.getB2WPageListO());
 		if (el != null) {
-			el.click();
-			return true;
-		} else {
-			return false;
+			bReturn = WebElementUtils.clickElement(el);
+			bReturn &= waitForProcessingDialogToClear();
 		}
+		return bReturn;
 	}
 
 	public boolean clickSortByLetterP() {
+		boolean bReturn = false;
 		WebElement el = WebElementUtils.findElement(B2WSetup.getB2WPageListP());
 		if (el != null) {
-			el.click();
-			return true;
-		} else {
-			return false;
+			bReturn = WebElementUtils.clickElement(el);
+			bReturn &= waitForProcessingDialogToClear();
 		}
+		return bReturn;
 	}
 
 	public boolean clickSortByLetterQ() {
+		boolean bReturn = false;
 		WebElement el = WebElementUtils.findElement(B2WSetup.getB2WPageListQ());
 		if (el != null) {
-			el.click();
-			return true;
-		} else {
-			return false;
+			bReturn = WebElementUtils.clickElement(el);
+			bReturn &= waitForProcessingDialogToClear();
 		}
+		return bReturn;
 	}
 
 	public boolean clickSortByLetterR() {
+		boolean bReturn = false;
 		WebElement el = WebElementUtils.findElement(B2WSetup.getB2WPageListR());
 		if (el != null) {
-			el.click();
-			return true;
-		} else {
-			return false;
+			bReturn = WebElementUtils.clickElement(el);
+			bReturn &= waitForProcessingDialogToClear();
 		}
+		return bReturn;
 	}
 
 	public boolean clickSortByLetterS() {
+		boolean bReturn = false;
 		WebElement el = WebElementUtils.findElement(B2WSetup.getB2WPageListS());
 		if (el != null) {
-			el.click();
-			return true;
-		} else {
-			return false;
+			bReturn = WebElementUtils.clickElement(el);
+			bReturn &= waitForProcessingDialogToClear();
 		}
+		return bReturn;
 	}
 
 	public boolean clickSortByLetterT() {
+		boolean bReturn = false;
 		WebElement el = WebElementUtils.findElement(B2WSetup.getB2WPageListT());
 		if (el != null) {
-			el.click();
-			return true;
-		} else {
-			return false;
+			bReturn = WebElementUtils.clickElement(el);
+			bReturn &= waitForProcessingDialogToClear();
 		}
+		return bReturn;
 	}
 
 	public boolean clickSortByLetterU() {
+		boolean bReturn = false;
 		WebElement el = WebElementUtils.findElement(B2WSetup.getB2WPageListU());
 		if (el != null) {
-			el.click();
-			return true;
-		} else {
-			return false;
+			bReturn = WebElementUtils.clickElement(el);
+			bReturn &= waitForProcessingDialogToClear();
 		}
+		return bReturn;
 	}
 
 	public boolean clickSortByLetterV() {
+		boolean bReturn = false;
 		WebElement el = WebElementUtils.findElement(B2WSetup.getB2WPageListV());
 		if (el != null) {
-			el.click();
-			return true;
-		} else {
-			return false;
+			bReturn = WebElementUtils.clickElement(el);
+			bReturn &= waitForProcessingDialogToClear();
 		}
+		return bReturn;
 	}
 
 	public boolean clickSortByLetterW() {
+		boolean bReturn = false;
 		WebElement el = WebElementUtils.findElement(B2WSetup.getB2WPageListW());
 		if (el != null) {
-			el.click();
-			return true;
-		} else {
-			return false;
+			bReturn = WebElementUtils.clickElement(el);
+			bReturn &= waitForProcessingDialogToClear();
 		}
+		return bReturn;
 	}
 
 	public boolean clickSortByLetterX() {
+		boolean bReturn = false;
 		WebElement el = WebElementUtils.findElement(B2WSetup.getB2WPageListX());
 		if (el != null) {
-			el.click();
-			return true;
-		} else {
-			return false;
+			bReturn = WebElementUtils.clickElement(el);
+			bReturn &= waitForProcessingDialogToClear();
 		}
+		return bReturn;
 	}
 
 	public boolean clickSortByLetterY() {
+		boolean bReturn = false;
 		WebElement el = WebElementUtils.findElement(B2WSetup.getB2WPageListY());
 		if (el != null) {
-			el.click();
-			return true;
-		} else {
-			return false;
+			bReturn = WebElementUtils.clickElement(el);
+			bReturn &= waitForProcessingDialogToClear();
 		}
+		return bReturn;
 	}
 
 	public boolean clickSortByLetterZ() {
+		boolean bReturn = false;
 		WebElement el = WebElementUtils.findElement(B2WSetup.getB2WPageListZ());
 		if (el != null) {
-			el.click();
-			return true;
-		} else {
-			return false;
+			bReturn = WebElementUtils.clickElement(el);
+			bReturn &= waitForProcessingDialogToClear();
 		}
+		return bReturn;
 	}
 	
 	public boolean enterSearchText(String sText) {
@@ -300,8 +303,22 @@ public class B2WSetupTasks {
 	public boolean waitForProcessingDialogToClear() {
 		boolean bReturn = false;
 		bReturn = WebElementUtils.waitForElementHasAttributeWithValue(B2WSetup.getProcessingPanel(), "class", "hidden", true, WebElementUtils.LONG_TIME_OUT);
+		waitForAjax();
 		return bReturn;
 	}
+	private void waitForAjax() {
+		int iTimeout = 0;
+		boolean ajaxIsComplete = false;
+		while (!ajaxIsComplete && iTimeout < 100) {
+			ajaxIsComplete = (Boolean) ((JavascriptExecutor) BrowserUtils.getDriver()).executeScript("return jQuery.active == 0");
+			log.debug("**Waiting for ajax to complete**");
+			iTimeout++;
+			TaskUtils.sleep(100);
+		}
+		log.debug("Waited "+ iTimeout +" trys for ajax to complete");
+		
+	}
+	
 	protected boolean checkBox(By by, boolean bCheck){
 		
 		boolean isChecked = WebElementUtils.isCheckboxChecked(by);
@@ -434,5 +451,40 @@ public class B2WSetupTasks {
 		}
 		return sText;
 	}
+
+	public int getTotalPages() {
+		int iPages = 1;
+		WebElement el = WebElementUtils.findElement(B2WSetup.getB2WGridPager());
+		if (el != null) {
+			WebElement last = WebElementUtils.getChildElement(el, By.className("last"));
+			List<WebElement> pages = WebElementUtils.getChildElements(last, By.tagName("a"));
+			iPages += pages.size();
+		}
+		return iPages;
+	}
+
+	public boolean clickPage(int iPage) {
+		boolean bReturn = false;
+		WebElement el = WebElementUtils.findElement(B2WSetup.getB2WGridPager());
+		if (el != null) {
+			WebElement last = WebElementUtils.getChildElement(el, By.className("last"));
+			WebElement page = WebElementUtils.getChildElementContainsText(last, By.tagName("a"),
+					Integer.toString(iPage));
+			if (page != null) {
+				bReturn = WebElementUtils.clickElement(page);
+				WebElementUtils.waitForElementStale(page, WebElementUtils.SHORT_TIME_OUT);
+			}
+		}
+		return bReturn;
+	}
 	
+	public WebElement getColumnHeader(String sHeader){
+		WebElement el = null;
+		WebElement listinggrid = WebElementUtils.findElement(B2WCommonObjects.getB2WPageContentGrid());
+		if (listinggrid != null){
+			el = WebElementUtils.getChildElementContainsText(listinggrid, By.tagName("a"), sHeader);
+		}
+		return el;
+		
+	}
 }
