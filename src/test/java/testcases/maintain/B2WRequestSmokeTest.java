@@ -84,7 +84,7 @@ public class B2WRequestSmokeTest extends B2WTestCase {
 		sRequestComment=getProperty("sRequestComment");
 		sRequestNumber=getProperty("sRequestNumber");
 		sEditRequestNumber=getProperty("sEditRequestNumber")+iRandom;
-		sEditRequestType=getProperty("sEditRequestType")+iRandom;
+		sEditRequestType=getProperty("sEditRequestType");
 		sEditNotes=getProperty("sEditNotes");
 		sEditDesc=getProperty("sEditDesc")+iRandom;
 		sWorkOrderDescription=getProperty("sWorkOrderDescription")+iRandom;
