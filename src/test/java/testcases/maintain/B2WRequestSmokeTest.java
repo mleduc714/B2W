@@ -83,10 +83,10 @@ public class B2WRequestSmokeTest extends B2WTestCase {
 		sRequestNotes=getProperty("sRequestNotes");
 		sRequestComment=getProperty("sRequestComment");
 		sRequestNumber=getProperty("sRequestNumber");
-		sEditRequestNumber=getProperty("sEditRequestNumber");
-		sEditRequestType=getProperty("sEditRequestType");
+		sEditRequestNumber=getProperty("sEditRequestNumber")+iRandom;
+		sEditRequestType=getProperty("sEditRequestType")+iRandom;
 		sEditNotes=getProperty("sEditNotes");
-		sEditDesc=getProperty("sEditDesc");
+		sEditDesc=getProperty("sEditDesc")+iRandom;
 		sWorkOrderDescription=getProperty("sWorkOrderDescription")+iRandom;
 		super.testSetUp();
 	}
