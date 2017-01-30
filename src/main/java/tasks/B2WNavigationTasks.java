@@ -1,5 +1,6 @@
 package tasks;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -147,10 +148,22 @@ public class B2WNavigationTasks implements Navigation {
 		return bReturn;
 	}
 	
+	public String getResourceTitle() {
+		return WebElementUtils.findElement(B2WNavigationPanel.getB2WResourcesLink()).findElement(By.tagName("img")).getAttribute("title");
+	}
+	public String getReportsTitle() {
+		return WebElementUtils.findElement(B2WNavigationPanel.getB2WReportsLink()).findElement(By.tagName("img")).getAttribute("title");
+	}
+	public String getSetupTitle() {
+		return WebElementUtils.findElement(B2WNavigationPanel.getB2WSetupLink()).findElement(By.tagName("img")).getAttribute("title");
+	}
+	public String getHelpTitle() {
+		return WebElementUtils.findElement(B2WNavigationPanel.getB2WNavigationHelp()).findElement(By.tagName("img")).getAttribute("title");
+	}
 	public boolean openReports() {
 		boolean bReturn = false;
 		if (WebElementUtils.clickElement(B2WNavigationPanel.getB2WReportsLink())){
-			bReturn = true;
+			bReturn = new TaskUtils().waitForProductPanel("Reports and Dashboards");
 		}
 		return bReturn;
 	}
@@ -368,6 +381,105 @@ public class B2WNavigationTasks implements Navigation {
 		return bReturn;
 	}
 
+	public ArrayList<String> getNavigatonPanelItems() {
+		ArrayList<String> al = new ArrayList<String>();
+		WebElement el = WebElementUtils.findElement(B2WNavigationPanel.getB2WNavigationMenu());
+		List<WebElement> items = WebElementUtils.getChildElements(el, By.tagName("a"));
+		for (WebElement e: items){
+			al.add(e.getText());
+		}
+		return al;
+		
+	}
+	
+	public ArrayList<String> getResourceItems() {
+		ArrayList<String> al = new ArrayList<String>();
+		if (openResources()) {
 
+			List<WebElement> list = WebElementUtils.getChildElements(
+					WebElementUtils.findElement(B2WNavigationPanel.getB2WSetupNavigationPanel()),
+					By.className("nav-popup-item"));
+			for (WebElement e : list) {
+				al.add(WebElementUtils.getChildElement(e, By.tagName("a")).getText());
+			}
 
+		}
+		return al;
+	}
+	public ArrayList<String> getSetupItems() {
+		ArrayList<String> al = new ArrayList<String>();
+		if (openSetup()) {
+
+			List<WebElement> list = WebElementUtils.getChildElements(
+					WebElementUtils.findElement(B2WNavigationPanel.getB2WSetupNavigationPanel()),
+					By.className("nav-popup-item"));
+			for (WebElement e : list) {
+				al.add(WebElementUtils.getChildElement(e, By.tagName("a")).getText());
+			}
+
+		}
+		return al;
+	}
+	
+	public boolean clickChevron() {
+		WebElement el = WebElementUtils.findElement(B2WNavigationPanel.getB2WNavigationChevron());
+		WebElement button = WebElementUtils.getChildElement(el, B2WNavigationPanel.getB2WNavigationMarketing());
+		return WebElementUtils.clickElement(button);
+	}
+	
+	public boolean isMarketingAreaOpen() {
+		boolean bReturn = false;
+		WebElement el = WebElementUtils.findElement(B2WNavigationPanel.getB2WNavigationChevron());
+		if (el.getAttribute("class").equals("open")){
+			bReturn = true;
+		}
+		return bReturn;
+	}
+	
+	public boolean isBadgeEstimateVisible() {
+		boolean bReturn = false;
+		WebElement el = WebElementUtils.findElement(B2WNavigationPanel.getB2wBadgeEstimate());
+		if (el != null){
+		 bReturn = el.isDisplayed();
+		}
+		return bReturn;
+		
+	}
+	public boolean isBadgeScheduleVisible() {
+		boolean bReturn = false;
+		WebElement el = WebElementUtils.findElement(B2WNavigationPanel.getB2wBadgeSchedule());
+		if (el != null){
+		 bReturn = el.isDisplayed();
+		}
+		return bReturn;
+		
+	}
+	public boolean isBadgeTrackVisible() {
+		boolean bReturn = false;
+		WebElement el = WebElementUtils.findElement(B2WNavigationPanel.getB2wBadgeTrack());
+		if (el != null){
+		 bReturn = el.isDisplayed();
+		}
+		return bReturn;
+		
+	}
+	public boolean isBadgeMaintainVisible() {
+		boolean bReturn = false;
+		WebElement el = WebElementUtils.findElement(B2WNavigationPanel.getB2wBadgeMaintain());
+		if (el != null){
+		 bReturn = el.isDisplayed();
+		}
+		return bReturn;
+		
+	}
+	public boolean isBadgeInformVisible() {
+		boolean bReturn = false;
+		WebElement el = WebElementUtils.findElement(B2WNavigationPanel.getB2wBadgeInform());
+		if (el != null){
+		 bReturn = el.isDisplayed();
+		}
+		return bReturn;
+		
+	}
+	
 }

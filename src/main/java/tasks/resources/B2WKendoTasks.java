@@ -237,7 +237,7 @@ public abstract class B2WKendoTasks extends B2WKendo {
 			WebElement grid = WebElementUtils.findElement(B2WEquipment.getKendoGridContent());
 			List<WebElement> items = WebElementUtils.getChildElements(grid, By.tagName("tr"));
 			Iterator<WebElement> iter = items.iterator();
-			log.debug("Looking for item " + sItem);
+			log.debug("find " + sItem +" to select from "+items.size() +" items's" );
 			while (iter.hasNext()) {
 				WebElement item = iter.next();
 				List<WebElement> gridcontent = WebElementUtils.getChildElements(item, By.tagName("td"));

@@ -21,4 +21,7 @@ public class B2WCommonObjects {
 	 public static By getB2WPagePanelError() {
 		 return By.cssSelector(B2WUIMap.b2w_pagecontentcontentdetailpanel);
 	 }
+	 public static By getB2WGridHeader() {
+		 return By.cssSelector(B2WUIMap.b2w_gridheader);
+	 }
 }

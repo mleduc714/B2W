@@ -1,5 +1,6 @@
 package tasks.maintain;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -103,39 +104,32 @@ public class B2WInventoryTasks extends B2WKendoTasks {
 		}
 		return sText;
 	}
-	public String getPartLocation(String sPart){
-		String sText = "";
-		WebElement el = WebElementUtils.findElement(B2WMaintain.getMaintainInventoryDetails());
-		if (el != null){
-			List<WebElement> columns = WebElementUtils.getChildElements(el, By.tagName("td"));
-			sText = columns.get(0).getText();
-		}
-		return sText;
+
+	public ArrayList<String> getPartLocations() {
+		return getInventoryDetails(0);
 	}
-	public String getPartBin(String sPart){
-		String sText = "";
-		WebElement el = WebElementUtils.findElement(B2WMaintain.getMaintainInventoryDetails());
-		if (el != null){
-			List<WebElement> columns = WebElementUtils.getChildElements(el, By.tagName("td"));
-			sText = columns.get(1).getText();
-		}
-		return sText;
+
+	public ArrayList<String> getPartBins() {
+		return getInventoryDetails(1);
 	}
-	public boolean editInventory(){
+	public ArrayList<String> getCurrentInventory(){
+		return getInventoryDetails(2);
+		}
+	public boolean editInventory(int iItem){
 		boolean bReturn = false;
 		WebElement el = WebElementUtils.findElement(B2WMaintain.getMaintainInventoryDetails());
 		if (el != null){
-			WebElement edit = WebElementUtils.getChildElement(el, B2WMaintain.getKendoEditButton());
+			WebElement edit = WebElementUtils.getChildElements(el, B2WMaintain.getKendoEditButton()).get(iItem);
 			bReturn = WebElementUtils.clickElement(edit);
 		}
 		return bReturn;
 		
 	}
-	public boolean deleteInventory(){
+	public boolean deleteInventory(int iItem){
 		boolean bReturn = false;
 		WebElement el = WebElementUtils.findElement(B2WMaintain.getMaintainInventoryDetails());
 		if (el != null){
-			WebElement delete = WebElementUtils.getChildElement(el, B2WMaintain.getKendoDeleteButton());
+			WebElement delete = WebElementUtils.getChildElements(el, B2WMaintain.getKendoDeleteButton()).get(iItem);
 			bReturn = WebElementUtils.clickElement(delete);
 		}
 		return bReturn;
@@ -217,6 +211,26 @@ public class B2WInventoryTasks extends B2WKendoTasks {
 		return bReturn;
 	}
 	
+	private ArrayList<String> getInventoryDetails(int iColumn){
+
+		ArrayList<String> al = new ArrayList<String>();
+		WebElement el = WebElementUtils.findElement(B2WMaintain.getMaintainInventoryDetails());
+		if (el != null) {
+			WebElement grid = WebElementUtils.getChildElement(el, B2WMaintain.getB2WMaintainGrid());
+			if (grid != null) {
+				List<WebElement> rows = WebElementUtils.getChildElements(grid, B2WMaintain.getB2WKendotrTag());
+
+				if (rows.size() > 0) {
+					for (WebElement td : rows) {
+						List<WebElement> columns = WebElementUtils.getChildElements(td, By.tagName("td"));
+						al.add(columns.get(iColumn).getText());
+					}
+				}
+			}
+		}
+		return al;
+	
+	}
 	
 	
 }

@@ -81,10 +81,8 @@ public class OperationsSmokeA extends B2WTestCase {
 
 		//dispatch
 		assertFalse("Should not see dispatch link to job board", b2wHome.openDispatchJobBoard());
-		assertFalse("Should not see dispatch link to Delivery Orders",b2wHome.openDispatchDeliveryOrders());
-		assertFalse("Should not see dispatch link to Equipment Moves",b2wHome.openDispatchEquipmentMoves());
-		assertFalse("Should not see dispatch link to Trucking Orders",b2wHome.openDispatchTruckingOrders());
-		assertFalse("Should not see dispatch link to Map Orders",b2wHome.openDispatchMapOrders());
+		assertFalse("Should not see dispatch link to Delivery Orders",b2wHome.openSetupCrewTemplates());
+
 		//maintain
 		assertFalse("Should not see link to maintenance requests",b2wHome.openMaintainMaintenanceRequests());
 		assertFalse("Should not see link to view work orders",b2wHome.openMaintainViewWorkOrders());
@@ -160,7 +158,6 @@ public class OperationsSmokeA extends B2WTestCase {
 		assertTrue("Save the user", userTasks.clickTopSaveButton());
 		assertTrue("Go back to home screen", b2wNav.clickHome());	
 		
-		assertTrue("Open Maintenance requests",b2wHome.openMaintainMaintenanceRequests());
 		assertTrue("Go back to home screen", b2wNav.clickHome());	
 		assertTrue("Open Maintain work orders",b2wHome.openMaintainViewWorkOrders());
 		assertTrue("Go back to home screen", b2wNav.clickHome());	
