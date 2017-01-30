@@ -966,7 +966,7 @@ public class B2WSchedulerTasks extends B2WKendoTasks {
     }
     public boolean openConflictPanel() {
         boolean bReturn = false;
-        WebElement eConflictBtn = WebElementUtils.findElement(B2WScheduleAssignments.getConflictButton());
+        WebElement eConflictBtn = WebElementUtils.waitAndFindDisplayedElement(B2WScheduleAssignments.getConflictButton());
         if (eConflictBtn != null) {
             WebElement parent = WebElementUtils.getParentElement(eConflictBtn);
             if (!parent.getAttribute("class").contains("Toolbar__toggle-button--checked")) {
@@ -983,12 +983,13 @@ public class B2WSchedulerTasks extends B2WKendoTasks {
     }
     public boolean closeConflictPanel() {
         boolean bReturn = false;
-        WebElement eConflictPanel = WebElementUtils.findElement(B2WScheduleAssignments.getConflictsPanel());
-        WebElement eConflictBtn = WebElementUtils.findElement(B2WScheduleAssignments.getCheckedBtn());
+        //WebElement eConflictPanel = WebElementUtils.findElement(B2WScheduleAssignments.getConflictsPanel());
+        WebElement eConflictPanel = WebElementUtils.waitAndFindDisplayedElement(B2WScheduleAssignments.getConflictsPanel());
+        WebElement eConflictBtn = WebElementUtils.waitAndFindDisplayedElement(B2WScheduleAssignments.getCheckedBtn());
         if (eConflictBtn != null && eConflictPanel != null) {
             bReturn = WebElementUtils.clickElement(eConflictBtn);
             if (!bReturn) {
-                eConflictBtn = WebElementUtils.findElement(B2WScheduleAssignments.getCheckedBtn());
+                eConflictBtn = WebElementUtils.waitAndFindDisplayedElement(B2WScheduleAssignments.getCheckedBtn());
                 if (eConflictBtn != null) {
                     TaskUtils.sleep(500);
                     waitForSchedulesPageNoBusy();
@@ -1008,8 +1009,6 @@ public class B2WSchedulerTasks extends B2WKendoTasks {
         if (conflict != null) {
             bReturn = logCompare(true, selectConflict(conflict), "Select Conflict on the panel..");
             bReturn &= logCompare(true, deleteAssignment(assignment), "Delete Assignment");
-            bReturn &= logCompare(false, conflictIconIsDisplayed(assignment), "Check that Conflict Icon is not displayed anymore.");
-            bReturn &= logCompare(true, closeConflictPanel(), "Check that Conflict Panel is closed.");
         } else {
             bReturn = logCompare(true, false, "Conflict for " + assignment.getResourceName() + " could not be found on the page.");
         }
@@ -1938,16 +1937,18 @@ public class B2WSchedulerTasks extends B2WKendoTasks {
         boolean bResult = false;
         WebElement assignmentWindow = WebElementUtils.waitAndFindElement(B2WScheduleAssignments.getAssignmentWindow());
         WebElementUtils.switchToFrame(B2WScheduleAssignments.getAssignmentWindow(), 1);
-        WebElement saveBtn = WebElementUtils.getChildElement(assignmentWindow, B2WScheduleAssignments.getAddToScheduleBtn());
+        if (assignmentWindow != null) {
+            WebElement saveBtn = WebElementUtils.getChildElement(assignmentWindow, B2WScheduleAssignments.getAddToScheduleBtn());
 
-        if (saveBtn != null && WebElementUtils.waitForElementClickable(saveBtn)) {
-            bResult = WebElementUtils.clickElement(saveBtn);
-            WebElementUtils.waitForElementInvisible(saveBtn);
-            waitForSchedulesPageNoBusy();
-            WebElementUtils.switchToFrame(B2WScheduleAssignments.getScheduleProductPageIcon(), 1);
-            bResult &= WebElementUtils.waitAndFindElement(B2WScheduleAssignments.getGrid()) != null;
-        } else {
-            log.debug("Add to Schedule button could not be found.");
+            if (saveBtn != null && WebElementUtils.waitForElementClickable(saveBtn)) {
+                bResult = WebElementUtils.clickElement(saveBtn);
+                WebElementUtils.waitForElementInvisible(saveBtn);
+                waitForSchedulesPageNoBusy();
+                WebElementUtils.switchToFrame(B2WScheduleAssignments.getScheduleProductPageIcon(), 1);
+                bResult &= WebElementUtils.waitAndFindElement(B2WScheduleAssignments.getGrid()) != null;
+            } else {
+                log.debug("Add to Schedule button could not be found.");
+            }
         }
         return bResult;
     }
@@ -2153,13 +2154,24 @@ public class B2WSchedulerTasks extends B2WKendoTasks {
         return WebElementUtils.getElementWithContainsChildElementText(getAllConflictsFromPanel(), By.cssSelector("div.ng-binding"), sResourceName);
     }
     private boolean selectConflict(WebElement eConflict) {
-        boolean bReturn = WebElementUtils.clickElement(eConflict);
-        waitForSchedulesPageNoBusy();
-        bReturn &= WebElementUtils.waitAndFindElement(B2WScheduleAssignments.getFillNeedToolbar()) != null;
-        WebElement firstItem = WebElementUtils.findElement(B2WScheduleAssignments.getFirstResourceNameInList());
-        String actualValue = firstItem.getAttribute("title");
-        String expectedValue = eConflict.getText();
-        bReturn &= expectedValue.contains(actualValue);
+        boolean bReturn = false;
+        try {
+            String expectedValue = eConflict.getText();
+
+            bReturn = WebElementUtils.clickElement(eConflict);
+            waitForSchedulesPageNoBusy();
+            bReturn &= WebElementUtils.waitAndFindElement(B2WScheduleAssignments.getFillNeedToolbar()) != null;
+            List<WebElement> firstItemDescList = WebElementUtils.findElements(B2WScheduleAssignments.getResourceDescription());
+            if (firstItemDescList.size() > 0) {
+                WebElement firstItem = WebElementUtils.getChildElement(firstItemDescList.get(0), B2WScheduleAssignments.getResourceDescriptionName());
+                if (firstItem != null) {
+                    String actualValue = firstItem.getAttribute("title");
+                    bReturn &= expectedValue.contains(actualValue);
+                }
+            }
+        } catch (Exception e) {
+            log.warn("Exception: " + e.toString());
+        }
         return bReturn;
     }
 

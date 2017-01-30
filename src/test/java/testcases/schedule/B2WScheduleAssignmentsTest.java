@@ -1648,8 +1648,14 @@ public class B2WScheduleAssignmentsTest extends B2WTestCase {
             logCompare(true, b2wScheduler.setSearchValue(copyEmployeeAssignment.getResourceName()), "Set Quick Filter to " + copyEmployeeAssignment.getResourceName());
             logCompare(true, true, "====== Start resolving Employee Conflicts for " + copyEmployeeAssignment.getResourceName());
             logCompare(true, b2wScheduler.conflictIconIsDisplayed(copyEmployeeAssignment), "Check that Conflict Icon is displayed.");
-            logCompare(true, b2wScheduler.openConflictPanel(), "Open conflict panel.");
-            logCompare(true, b2wScheduler.resolveConflict(copyEmployeeAssignment), "Resolve conflict.");
+            if (logCompare(true, b2wScheduler.openConflictPanel(), "Open conflict panel."))
+            {
+                logCompare(true, b2wScheduler.resolveConflict(copyEmployeeAssignment), "Resolve conflict.");
+                logCompare(false, b2wScheduler.conflictIconIsDisplayed(copyEmployeeAssignment), "Check that Conflict Icon is not displayed anymore.");
+                logCompare(true, b2wScheduler.closeConflictPanel(), "Check that Conflict Panel is closed.");
+            } else {
+                log.error("Resolve Employee Conflicts tests were skipped.");
+            }
             logCompare(true, b2wScheduler.expandCalendarPanel(), "Expand Calendar Panel.");
             logCompare(true, true, "====== Complete resolving Employee Conflicts for " + copyEmployeeAssignment.getResourceName());
         } else {
@@ -1664,8 +1670,13 @@ public class B2WScheduleAssignmentsTest extends B2WTestCase {
             logCompare(true, b2wScheduler.setSearchValue(copyEquipmentAssignment.getResourceName()), "Set Quick Filter to " + copyEquipmentAssignment.getResourceName());
             logCompare(true, true, "====== Start resolving Equipment Conflicts for " + copyEquipmentAssignment.getResourceName());
             logCompare(true, b2wScheduler.conflictIconIsDisplayed(copyEquipmentAssignment), "Check that Conflict Icon is displayed.");
-            logCompare(true, b2wScheduler.openConflictPanel(), "Open conflict panel.");
-            logCompare(true, b2wScheduler.resolveConflict(copyEquipmentAssignment), "Resolve Equipment conflicts.");
+            if (logCompare(true, b2wScheduler.openConflictPanel(), "Open conflict panel.")) {
+                logCompare(true, b2wScheduler.resolveConflict(copyEquipmentAssignment), "Resolve Equipment conflicts.");
+                logCompare(false, b2wScheduler.conflictIconIsDisplayed(copyEquipmentAssignment), "Check that Conflict Icon is not displayed anymore.");
+                logCompare(true, b2wScheduler.closeConflictPanel(), "Check that Conflict Panel is closed.");
+            } else {
+                log.error("Resolve Equipment Conflicts tests were skipped.");
+            }
             logCompare(true, b2wScheduler.expandCalendarPanel(), "Expand Calendar Panel.");
             logCompare(true, true, "====== Complete resolving Equipment Conflicts for " + copyEquipmentAssignment.getResourceName());
         } else {
@@ -1679,8 +1690,13 @@ public class B2WScheduleAssignmentsTest extends B2WTestCase {
             logCompare(true, b2wScheduler.setSearchValue(copyCrewAssignment.getResourceName()), "Set Quick Filter to " + copyCrewAssignment.getResourceName());
             logCompare(true, true, "====== Start resolving Crew Conflicts for " + copyCrewAssignment.getResourceName());
             logCompare(true, b2wScheduler.conflictIconIsDisplayed(copyCrewAssignment), "Check that Conflict Icon is displayed.");
-            logCompare(true, b2wScheduler.openConflictPanel(), "Open conflict panel.");
-            logCompare(true, b2wScheduler.resolveConflict(copyCrewAssignment), "Resolve Crews Conflict.");
+            if (logCompare(true, b2wScheduler.openConflictPanel(), "Open conflict panel.")) {
+                logCompare(true, b2wScheduler.resolveConflict(copyCrewAssignment), "Resolve Crews Conflict.");
+                logCompare(false, b2wScheduler.conflictIconIsDisplayed(copyCrewAssignment), "Check that Conflict Icon is not displayed anymore.");
+                logCompare(true, b2wScheduler.closeConflictPanel(), "Check that Conflict Panel is closed.");
+            } else {
+                log.error("Resolve Crew Conflicts tests were skipped.");
+            }
             logCompare(true, b2wScheduler.expandCalendarPanel(), "Expand Calendar Panel.");
             logCompare(true, true, "====== Complete resolving Crew Conflicts for " + copyCrewAssignment.getResourceName());
         } else {
@@ -1694,8 +1710,13 @@ public class B2WScheduleAssignmentsTest extends B2WTestCase {
             logCompare(true, b2wScheduler.setSearchValue(copyMoveAssignment.getResourceName()), "Set Quick Filter to " + copyMoveAssignment.getResourceName());
             logCompare(true, true, "====== Start resolving Move Assignment Conflicts for " + copyMoveAssignment.getResourceName());
             logCompare(true, b2wScheduler.conflictIconIsDisplayed(copyMoveAssignment), "Check that Conflict Icon is displayed.");
-            logCompare(true, b2wScheduler.openConflictPanel(), "Open conflict panel.");
-            logCompare(true, b2wScheduler.resolveConflict(copyMoveAssignment), "Resolve Move Assignments Conflict");
+            if (logCompare(true, b2wScheduler.openConflictPanel(), "Open conflict panel.")) {
+                logCompare(true, b2wScheduler.resolveConflict(copyMoveAssignment), "Resolve Move Assignments Conflict");
+                logCompare(false, b2wScheduler.conflictIconIsDisplayed(copyMoveAssignment), "Check that Conflict Icon is not displayed anymore.");
+                logCompare(true, b2wScheduler.closeConflictPanel(), "Check that Conflict Panel is closed.");
+            } else {
+                log.error("Resolve Move Assignment Conflicts tests were skipped.");
+            }
             logCompare(true, b2wScheduler.expandCalendarPanel(), "Expand Calendar Panel.");
             logCompare(true, true, "====== Complete resolving Move Assignment Conflicts for " + copyMoveAssignment.getResourceName());
         } else {
@@ -1709,8 +1730,13 @@ public class B2WScheduleAssignmentsTest extends B2WTestCase {
             logCompare(true, b2wScheduler.setSearchValue(copyEmployeeEvent.getResourceName()), "Set Quick Filter to " + copyEmployeeEvent.getResourceName());
             logCompare(true, true, "====== Start resolving Employee Event Conflicts for " + copyEmployeeEvent.getResourceName());
             logCompare(true, b2wScheduler.conflictIconIsDisplayed(copyEmployeeEvent), "Check that Conflict Icon is displayed.");
-            logCompare(true, b2wScheduler.openConflictPanel(), "Open conflict panel.");
-            logCompare(true, b2wScheduler.resolveConflict(copyEmployeeEvent), "Resolve Employee Events Conflict");
+            if (logCompare(true, b2wScheduler.openConflictPanel(), "Open conflict panel.")) {
+                logCompare(true, b2wScheduler.resolveConflict(copyEmployeeEvent), "Resolve Employee Events Conflict");
+                logCompare(false, b2wScheduler.conflictIconIsDisplayed(copyEmployeeEvent), "Check that Conflict Icon is not displayed anymore.");
+                logCompare(true, b2wScheduler.closeConflictPanel(), "Check that Conflict Panel is closed.");
+            } else {
+                log.error("Resolve Employee Events Conflicts tests were skipped.");
+            }
             logCompare(true, b2wScheduler.expandCalendarPanel(), "Expand Calendar Panel.");
             logCompare(true, true, "====== Complete resolving Employee Event Conflicts for " + copyEmployeeEvent.getResourceName());
         } else {
@@ -1725,8 +1751,13 @@ public class B2WScheduleAssignmentsTest extends B2WTestCase {
             logCompare(true, b2wScheduler.setSearchValue(copyEquipmentEvent.getResourceName()), "Set Quick Filter to " + copyEquipmentEvent.getResourceName());
             logCompare(true, true, "====== Start resolving Equipment Event Conflicts for " + copyEquipmentEvent.getResourceName());
             logCompare(true, b2wScheduler.conflictIconIsDisplayed(copyEquipmentEvent), "Check that Conflict Icon is displayed.");
-            logCompare(true, b2wScheduler.openConflictPanel(), "Open conflict panel.");
-            logCompare(true, b2wScheduler.resolveConflict(copyEquipmentEvent), "Resolve Equipment Events conflict.");
+            if (logCompare(true, b2wScheduler.openConflictPanel(), "Open conflict panel.")) {
+                logCompare(true, b2wScheduler.resolveConflict(copyEquipmentEvent), "Resolve Equipment Events conflict.");
+                logCompare(false, b2wScheduler.conflictIconIsDisplayed(copyEquipmentEvent), "Check that Conflict Icon is not displayed anymore.");
+                logCompare(true, b2wScheduler.closeConflictPanel(), "Check that Conflict Panel is closed.");
+            } else {
+                log.error("Resolve Equipment Events Conflicts tests were skipped.");
+            }
             logCompare(true, b2wScheduler.expandCalendarPanel(), "Expand Calendar Panel.");
             logCompare(true, true, "====== Complete resolving Equipment Event Conflicts for " + copyEquipmentEvent.getResourceName());
         } else {

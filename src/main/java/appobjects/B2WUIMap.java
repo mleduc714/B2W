@@ -849,6 +849,9 @@ public class B2WUIMap {
 	public static final String b2w_schedule_orderblock = "b2w-assignment-block";
 	public static final String b2w_schedule_conflictoolbar = ".Toolbar__fill-need.ng-binding";
 	public static final String b2w_schedule_firstitem = ".//*[@class='k-grid-content']/table/tbody/tr[1]/td[1]/b2w-resource-description/div/div";
+	public static final String b2w_schedule_itemdescription = "b2w-resource-description";
+	public static final String b2w_schedule_itemresourcedescription = "div.ResourceDescription__resource-name";
+
 	public static final String b2w_schedule_orderlistfirstitemtable = ".js--Table__tr--active-need.Table__tr--active-need.level0.level0";
 	public static final String b2w_schedule_orderlistfirstitem = ".ResourceDescription__resource-name.level0.notify-icon";
 	//public static final String b2w_schedule_checkedbtn = ".Toolbar__toggle-button--checked";
@@ -858,8 +861,8 @@ public class B2WUIMap {
 	public static final String b2w_schedule_viewcrewbtn = "a[ng-click='modifyCrew()']";
 	public static final String b2w_schedule_hidecrewbtn = "a[ng-click='hideCrew()']";
 	public static final String b2w_schedule_addcrewresourcebtn = "a[ng-click='addResource()']";
-	public static final String b2w_schedule_collapsecalendaricon = ".Icon.Icon--xl.Panel--left-sched-button.i102-angle-left";
-	public static final String b2w_schedule_expandcalendaricon = ".Icon.Icon--xl.Panel--left-sched-button.i103-angle-right";
+	public static final String b2w_schedule_collapsecalendaricon = ".Icon--xl.Panel--left-sched-button.Icon__arrow--single-left";
+	public static final String b2w_schedule_expandcalendaricon = ".Icon--xl.Panel--left-sched-button.Icon__arrow--single-right";
 	public static final String b2w_schedule_addtocrewdialog = "div[ng-controller='b2wAddToCrewDialog']";
 	public static final String b2w_schedule_addtocrewbtn = ".//button[text()='Add to Crew']";
 	public static final String b2w_schedule_crewpanel = "b2w-crew-edit-panel";
