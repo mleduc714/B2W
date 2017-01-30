@@ -151,6 +151,7 @@ public class B2WUIMap {
 	public static final String b2w_schedules_sortingIcon = "th[data-title='replace']";
 
 	// page filter
+	public static final String b2w_page_folter_all = "a#PageContent_filterControl_AllButton";
 	public static final String b2w_page_filter_letterA = "a[id$='_AButton']";
 	public static final String b2w_page_filter_letterB = "a[id$='_BButton']";
 	public static final String b2w_page_filter_letterC = "a[id$='_CButton']";

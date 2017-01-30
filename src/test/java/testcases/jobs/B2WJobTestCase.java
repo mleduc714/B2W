@@ -42,15 +42,16 @@ public class B2WJobTestCase extends B2WTestCase {
 			sJobStatusB, sJobNumberC, sJobTitleC, sJobBusinssUnitC, sJobStatusC, sJobNumberD, sJobTitleD,
 			sJobBusinssUnitD, sJobStatusD, sJobNumberE, sJobTitleE, sJobBusinssUnitE, sJobStatusE, sJobProjectNameA,
 			sJobToExploreID, sJobToExploreSite;
+	int iRandom = 0;
 
 	@Override
 	public void testSetUp() throws Throwable {
 		// TODO Auto-generated method stub
 		super.testSetUp();
-
+		iRandom = getRandomNumber();
 		cal.add(Calendar.DAY_OF_YEAR, 120);
-		sJobNumberA = getProperty("sJobNumberA");
-		sJobTitleA = getProperty("sJobTitleA");
+		sJobNumberA = getProperty("sJobNumberA")+iRandom;
+		sJobTitleA = getProperty("sJobTitleA")+iRandom;
 		sJobBusinssUnitA = getProperty("sJobBusinssUnitA");
 		sJobStatusA = getProperty("sJobStatusA");
 		sJobProjectNameA = getProperty("sJobProjectNameA");
@@ -78,14 +79,44 @@ public class B2WJobTestCase extends B2WTestCase {
 	public void testMain() throws Throwable {
 		// TODO Auto-generated method stub
 		super.testMain();
-		//getAllJobsByNumber();
-		b2wNav.openJobs();
-		jobsTasks.enterTextAndClickSearch(sJobToExploreID);
-		jobsTasks.getJobsByJobNumber();
-		jobsTasks.clickClearSearchButton();
-		jobsTasks.clickSortByLetterM();
 		getAllJobsByNumber();
-
+		getAllMaterialsByID();
+		b2wNav.openJobs();
+		createJob();
+		createJobSite();
+		addMaterials();
+		addVendor();
+		addJobProductionAccount();
+		deleteJob();
+		
+		
+	}
+	
+	public void deleteJob() {
+		logCompare(true,b2wNav.openJobs(), "Open Jobs");
+		logCompare(true,jobsTasks.enterTextAndClickSearch(sJobNumberA), "Enter Text Search");
+		logCompare(true,jobsTasks.openJobByJobNumber(sJobNumberA), "Open Job");
+		logCompare(true,jobsTasks.deleteJob(), "Delete Job");
+		logCompare(true,jobsTasks.enterTextAndClickSearch(sJobNumberA), "Search again");
+		logCompare(false,jobsTasks.openJobByJobNumber(sJobNumberA), "Should be not opened");
+		
+		
+	}
+	
+	public void testSearchSort() {
+		assertTrue("Open Jobs",b2wNav.openJobs());
+		logCompare(true,jobsTasks.enterTextAndClickSearch(sJobToExploreID), "Enter Text And Search");
+		TaskUtils.sleep(500);
+		logCompare(sJobToExploreID,jobsTasks.getJobsByJobNumber().get(0), "Get Jobs");
+		logCompare(true,jobsTasks.clickClearSearchButton(), "Clear Search Button");
+		TaskUtils.sleep(500);
+		logCompare(true,jobsTasks.clickJobTitleHeader(), "Sort by Job Title");
+		TaskUtils.sleep(500);
+		logCompare(true,jobsTasks.clickSortByLetterM(),"Click Sort By Letter M");
+		TaskUtils.sleep(500);
+		logCompare(this.sJobToExploreSite, jobsTasks.getJobsByJobTitle().get(0), "Job Title");
+		logCompare(true,jobsTasks.clickSortByAll(),"Sort By All");
+		TaskUtils.sleep(500);
 	}
 
 	public void createJob() {
@@ -115,7 +146,6 @@ public class B2WJobTestCase extends B2WTestCase {
 		logCompare(true, b2wJobSite.setJobSiteNonWorkingDayFriday(true), "Set Job Site Non Working Day Friday");
 		logCompare(true, b2wJobSite.setJobSiteNonWorkingDaySaturday(true), "Set Job Site Non Working Day Saturday");
 		logCompare(true, b2wJobSite.setJobSiteNonWorkingDaySunday(false), "Set Job Site Non Working Day Sunday");
-		logCompare(true, b2wJobSite.setShowOnJobBoard(true), "Set Show on Board");
 		logCompare(true, b2wJobSite.setJobSiteAddress("99 Bow Street"), "Set Job Site Address");
 		logCompare(true, b2wJobSite.setJobSiteCity("Portsmouth"), "Set Job Site City");
 		logCompare(true, b2wJobSite.setJobSiteState("New Hampshire"), "Set Job Site State");
@@ -136,13 +166,9 @@ public class B2WJobTestCase extends B2WTestCase {
 	}
 
 	public void addVendor() {
-		String s = this.getRandomItem(vendorID);
 		jobsTasks.clickSubsVendorsTab();
 		jobsTasks.clickAddVendors();
-		logCompare(true, addToJobs.setSearchText(s), "Set Search Text");
-		addToVendors.clickSearchButton();
-		addToVendors.setIDText(s);
-		addToVendors.clickSelectButton();
+		addToVendors.selectItem(3);
 		addToVendors.clickAddButton();
 
 	}
@@ -182,17 +208,6 @@ public class B2WJobTestCase extends B2WTestCase {
 			TaskUtils.sleep(1000);
 			jobNumber.addAll(jobsTasks.getJobsByJobNumber());
 		}
-	}
-
-	public void getAllVendors() {
-		b2wNav.openOrganizations();
-		int iPages = jobsTasks.getTotalPages();
-		for (int i = 1; iPages >= i; i++) {
-			jobsTasks.clickPage(i);
-			TaskUtils.sleep(1000);
-			vendorID.addAll(b2wOrg.getAllVendorsByID());
-		}
-
 	}
 
 	public void getAllMaterialsByID() {

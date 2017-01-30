@@ -96,6 +96,16 @@ public class B2WAddToJobs {
 		}
 		return bReturn;
 	}
+	
+	public boolean selectItem(int i){
+		boolean bReturn = false;
+		List<WebElement> checkbox = WebElementUtils.findElements(gridcheckbox);
+		if (checkbox.size()> 0 && checkbox.size() > i){
+			WebElement el = checkbox.get(i);
+			bReturn = WebElementUtils.clickElement(el);
+		}
+		return bReturn;
+	}
 
 	public boolean clickSelectButton() {
 		boolean bReturn = false;

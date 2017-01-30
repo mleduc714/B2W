@@ -23,6 +23,16 @@ public class B2WSetupTasks {
 
 		return bReturn;
 	}
+	
+	public boolean clickSortByAll() {
+		boolean bReturn = false;
+		WebElement el = WebElementUtils.findElement(B2WSetup.getB2WPageListAll());
+		if (el != null) {
+			bReturn = WebElementUtils.clickElement(el);
+			bReturn &= waitForProcessingDialogToClear();
+		}
+		return bReturn;
+	}
 
 	public boolean clickSortByLetterA() {
 		boolean bReturn = false;
@@ -149,6 +159,7 @@ public class B2WSetupTasks {
 		WebElement el = WebElementUtils.findElement(B2WSetup.getB2WPageListM());
 		if (el != null) {
 			bReturn = WebElementUtils.clickElement(el);
+			TaskUtils.sleep(1000);
 			bReturn &= waitForProcessingDialogToClear();
 		}
 		return bReturn;
@@ -436,6 +447,7 @@ public class B2WSetupTasks {
 		boolean bReturn = false;
 		if (enterSearchText(sText)){
 			this.clickSearchButton();
+			TaskUtils.sleep(500);
 			bReturn = waitForProcessingDialogToClear();
 		}
 		return bReturn;
@@ -487,4 +499,5 @@ public class B2WSetupTasks {
 		return el;
 		
 	}
+	
 }
