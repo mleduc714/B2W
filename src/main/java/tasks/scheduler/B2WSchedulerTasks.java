@@ -914,7 +914,84 @@ public class B2WSchedulerTasks extends B2WKendoTasks {
         logCompare(true, bReturn, "====== Complete Assignment Deletion for " + assignment.getResourceName());
         return bReturn;
     }
+    public boolean markAsComplete(B2WAssignment assignment) {
+        boolean bReturn = false;
+        if (assignment != null) {
+            logCompare(true, true, "====== Start Mark Assignment as Complete.");
+            bReturn = logCompare(false, isAssignmentComplete(assignment), "Check that assignment '" + assignment.getResourceName() + "' is Incomplete.");
+            bReturn &= logCompare(true, openContextMenu(assignment), "Open Assignment's Context Menu");
+            bReturn &= logCompare(true, selectOptionFromContextMenu("Mark as Complete"), "Select 'Mark as Complete' from Context Menu.");
+            bReturn &= logCompare(true, isAssignmentComplete(assignment), "Check that assignment '" + assignment.getResourceName() + "' is Complete.");
+            logCompare(true, true, "====== Stop Mark Assignment as Complete.");
+        }
+        return bReturn;
+    }
+    public boolean markAsIncomplete(B2WAssignment assignment) {
+        boolean bReturn = false;
+        if (assignment != null) {
+            logCompare(true, true, "====== Start Mark Assignment as Incomplete.");
+            bReturn = logCompare(true, isAssignmentComplete(assignment), "Check that assignment '" + assignment.getResourceName() + "' is Complete.");
+            bReturn &= logCompare(true, openContextMenu(assignment), "Open Assignment's Context Menu");
+            bReturn &= logCompare(true, selectOptionFromContextMenu("Mark as Incomplete"), "Select 'Mark as Incomplete' from Context Menu.");
+            bReturn &= logCompare(false, isAssignmentComplete(assignment), "Check that assignment '" + assignment.getResourceName() + "' is Incomplete.");
+            logCompare(true, true, "====== Stop Mark Assignment as Incomplete.");
+        }
+        return bReturn;
+    }
+    public boolean unassignMove(B2WAssignment assignment) {
+        boolean bReturn = false;
+        if (assignment != null) {
+            logCompare(true, true, "====== Start Unassign Move Assignment.");
+            bReturn = logCompare(true, openContextMenu(assignment), "Open Assignment's Context Menu");
+            bReturn &= logCompare(true, selectOptionFromContextMenu("Unassign Move"), "Select 'Unassign Move' from Context Menu.");
+            bReturn &= logCompare(true, selectButtonOption("Yes"), "Select 'Unassign Move' from Context Menu.");
+            assignment.setAssignmentType(B2WAssignmentType.MOVE_ORDER_TYPE);
+            WebElement result = getAssignment(assignment);
+            bReturn &= logCompare(true,  result != null, "Verification that specific Assignment has been converted to Move Assignment.");
+            logCompare(true, true, "====== Stop Unassign Move Assignment.");
+        }
+        return bReturn;
+    }
 
+    public boolean openConflictPanel() {
+        boolean bReturn = false;
+        WebElement eConflictBtn = WebElementUtils.waitAndFindDisplayedElement(B2WScheduleAssignments.getConflictButton());
+        if (eConflictBtn != null) {
+            WebElement parent = WebElementUtils.getParentElement(eConflictBtn);
+            if (!parent.getAttribute("class").contains("Toolbar__toggle-button--checked")) {
+                bReturn = WebElementUtils.clickElement(eConflictBtn);
+                waitForSchedulesPageNoBusy();
+                bReturn &= WebElementUtils.waitAndFindDisplayedElement(B2WScheduleAssignments.getConflictsPanel(), WebElementUtils.LONG_TIME_OUT) != null;
+            } else {
+                bReturn = true;
+            }
+        } else {
+            log.debug("Conflict button could not be found on the page.");
+        }
+        return bReturn;
+    }
+    public boolean closeConflictPanel() {
+        boolean bReturn = false;
+        //WebElement eConflictPanel = WebElementUtils.findElement(B2WScheduleAssignments.getConflictsPanel());
+        WebElement eConflictPanel = WebElementUtils.waitAndFindDisplayedElement(B2WScheduleAssignments.getConflictsPanel());
+        WebElement eConflictBtn = WebElementUtils.waitAndFindDisplayedElement(B2WScheduleAssignments.getCheckedBtn());
+        if (eConflictBtn != null && eConflictPanel != null) {
+            bReturn = WebElementUtils.clickElement(eConflictBtn);
+            if (!bReturn) {
+                eConflictBtn = WebElementUtils.waitAndFindDisplayedElement(B2WScheduleAssignments.getCheckedBtn());
+                if (eConflictBtn != null) {
+                    TaskUtils.sleep(500);
+                    waitForSchedulesPageNoBusy();
+                    bReturn = WebElementUtils.clickElement(eConflictBtn);
+                }
+            }
+            waitForSchedulesPageNoBusy();
+            bReturn &= WebElementUtils.waitForElementInvisible(eConflictPanel);
+        } else {
+            log.debug("Conflict button could not be found on the page.");
+        }
+        return bReturn;
+    }
     public boolean conflictIconIsDisplayed(B2WAssignment assignment) {
         boolean bReturn = false;
         WebElement eResourceLine = getResourceLine(assignment.getResourceName());
@@ -964,45 +1041,6 @@ public class B2WSchedulerTasks extends B2WKendoTasks {
         }
         return bReturn;
     }
-    public boolean openConflictPanel() {
-        boolean bReturn = false;
-        WebElement eConflictBtn = WebElementUtils.waitAndFindDisplayedElement(B2WScheduleAssignments.getConflictButton());
-        if (eConflictBtn != null) {
-            WebElement parent = WebElementUtils.getParentElement(eConflictBtn);
-            if (!parent.getAttribute("class").contains("Toolbar__toggle-button--checked")) {
-                bReturn = WebElementUtils.clickElement(eConflictBtn);
-                waitForSchedulesPageNoBusy();
-                bReturn &= WebElementUtils.waitAndFindDisplayedElement(B2WScheduleAssignments.getConflictsPanel(), WebElementUtils.LONG_TIME_OUT) != null;
-            } else {
-                bReturn = true;
-            }
-        } else {
-            log.debug("Conflict button could not be found on the page.");
-        }
-        return bReturn;
-    }
-    public boolean closeConflictPanel() {
-        boolean bReturn = false;
-        //WebElement eConflictPanel = WebElementUtils.findElement(B2WScheduleAssignments.getConflictsPanel());
-        WebElement eConflictPanel = WebElementUtils.waitAndFindDisplayedElement(B2WScheduleAssignments.getConflictsPanel());
-        WebElement eConflictBtn = WebElementUtils.waitAndFindDisplayedElement(B2WScheduleAssignments.getCheckedBtn());
-        if (eConflictBtn != null && eConflictPanel != null) {
-            bReturn = WebElementUtils.clickElement(eConflictBtn);
-            if (!bReturn) {
-                eConflictBtn = WebElementUtils.waitAndFindDisplayedElement(B2WScheduleAssignments.getCheckedBtn());
-                if (eConflictBtn != null) {
-                    TaskUtils.sleep(500);
-                    waitForSchedulesPageNoBusy();
-                    bReturn = WebElementUtils.clickElement(eConflictBtn);
-                }
-            }
-            waitForSchedulesPageNoBusy();
-            bReturn &= WebElementUtils.waitForElementInvisible(eConflictPanel);
-        } else {
-            log.debug("Conflict button could not be found on the page.");
-        }
-        return bReturn;
-    }
     public boolean resolveConflict(B2WAssignment assignment) {
         boolean bReturn;
         WebElement conflict = getConflictForResource(assignment.getResourceName());
@@ -1014,29 +1052,10 @@ public class B2WSchedulerTasks extends B2WKendoTasks {
         }
         return bReturn;
     }
-    public boolean collapseCalendarPanel() {
-        boolean bReturn = true;
-        WebElement item = WebElementUtils.findElement(B2WScheduleAssignments.getCollapseCalendarIcon());
-        WebElement tmp = WebElementUtils.findElement(B2WScheduleAssignments.getCalendarActiveDateRange());
-        if (item != null) {
-            bReturn = WebElementUtils.clickElement(item);
-            WebElementUtils.waitForElementInvisible(tmp);
-        }
-        return bReturn;
-    }
-    public boolean expandCalendarPanel() {
-        boolean bReturn = true;
-        WebElement item = WebElementUtils.findElement(B2WScheduleAssignments.getExpandCalendarIcon());
-        if (item != null) {
-            bReturn = WebElementUtils.clickElement(item);
-            WebElementUtils.waitAndFindDisplayedElement(B2WScheduleAssignments.getCalendarActiveDateRange());
-        }
-        return bReturn;
-    }
 
     public boolean openOrderPanel() {
         boolean bReturn = false;
-        WebElement eOrderPanelBtn = WebElementUtils.findElement(B2WScheduleAssignments.getOrderPanelButton());
+        WebElement eOrderPanelBtn = WebElementUtils.waitAndFindDisplayedElement(B2WScheduleAssignments.getOrderPanelButton());
         if (eOrderPanelBtn != null) {
             bReturn = WebElementUtils.clickElement(eOrderPanelBtn);
             waitForSchedulesPageNoBusy();
@@ -1199,45 +1218,26 @@ public class B2WSchedulerTasks extends B2WKendoTasks {
     }
     public boolean isOrderPanelEmpty() { return getAllOrdersFromPanel().size() == 0; }
     public int getOrdersCount() { return getAllOrdersFromPanel().size(); }
-    public boolean markAsComplete(B2WAssignment assignment) {
-        boolean bReturn = false;
-        if (assignment != null) {
-            logCompare(true, true, "====== Start Mark Assignment as Complete.");
-            bReturn = logCompare(false, isAssignmentComplete(assignment), "Check that assignment '" + assignment.getResourceName() + "' is Incomplete.");
-            bReturn &= logCompare(true, openContextMenu(assignment), "Open Assignment's Context Menu");
-            bReturn &= logCompare(true, selectOptionFromContextMenu("Mark as Complete"), "Select 'Mark as Complete' from Context Menu.");
-            bReturn &= logCompare(true, isAssignmentComplete(assignment), "Check that assignment '" + assignment.getResourceName() + "' is Complete.");
-            logCompare(true, true, "====== Stop Mark Assignment as Complete.");
-        }
-        return bReturn;
-    }
-    public boolean markAsIncomplete(B2WAssignment assignment) {
-        boolean bReturn = false;
-        if (assignment != null) {
-            logCompare(true, true, "====== Start Mark Assignment as Incomplete.");
-            bReturn = logCompare(true, isAssignmentComplete(assignment), "Check that assignment '" + assignment.getResourceName() + "' is Complete.");
-            bReturn &= logCompare(true, openContextMenu(assignment), "Open Assignment's Context Menu");
-            bReturn &= logCompare(true, selectOptionFromContextMenu("Mark as Incomplete"), "Select 'Mark as Incomplete' from Context Menu.");
-            bReturn &= logCompare(false, isAssignmentComplete(assignment), "Check that assignment '" + assignment.getResourceName() + "' is Incomplete.");
-            logCompare(true, true, "====== Stop Mark Assignment as Incomplete.");
-        }
-        return bReturn;
-    }
-    public boolean unassignMove(B2WAssignment assignment) {
-        boolean bReturn = false;
-        if (assignment != null) {
-            logCompare(true, true, "====== Start Unassign Move Assignment.");
-            bReturn = logCompare(true, openContextMenu(assignment), "Open Assignment's Context Menu");
-            bReturn &= logCompare(true, selectOptionFromContextMenu("Unassign Move"), "Select 'Unassign Move' from Context Menu.");
-            bReturn &= logCompare(true, selectButtonOption("Yes"), "Select 'Unassign Move' from Context Menu.");
-            assignment.setAssignmentType(B2WAssignmentType.MOVE_ORDER_TYPE);
-            WebElement result = getAssignment(assignment);
-            bReturn &= logCompare(true,  result != null, "Verification that specific Assignment has been converted to Move Assignment.");
-            logCompare(true, true, "====== Stop Unassign Move Assignment.");
-        }
-        return bReturn;
-    }
 
+    public boolean collapseCalendarPanel() {
+        boolean bReturn = true;
+        WebElement item = WebElementUtils.findElement(B2WScheduleAssignments.getCollapseCalendarIcon());
+        WebElement tmp = WebElementUtils.findElement(B2WScheduleAssignments.getCalendarActiveDateRange());
+        if (item != null) {
+            bReturn = WebElementUtils.clickElement(item);
+            WebElementUtils.waitForElementInvisible(tmp);
+        }
+        return bReturn;
+    }
+    public boolean expandCalendarPanel() {
+        boolean bReturn = true;
+        WebElement item = WebElementUtils.findElement(B2WScheduleAssignments.getExpandCalendarIcon());
+        if (item != null) {
+            bReturn = WebElementUtils.clickElement(item);
+            WebElementUtils.waitAndFindDisplayedElement(B2WScheduleAssignments.getCalendarActiveDateRange());
+        }
+        return bReturn;
+    }
 
     // ==== Private Methods ============================================================================================
     // === Menu for Creation
