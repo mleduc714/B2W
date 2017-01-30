@@ -217,7 +217,7 @@ public class B2WMaintainRequestTasks extends B2WKendoTasks {
 	}
 
 	public boolean selectAllRequests() {
-		return selectViewFromDropDown("All Requests");
+		return selectViewFromDropDown(0);
 	}
 	public boolean selectOpenRequests() {
 		return selectViewFromDropDown("Open Requests");
@@ -258,6 +258,16 @@ public class B2WMaintainRequestTasks extends B2WKendoTasks {
 		if (dd != null){
 			WebElementUtils.clickElement(dd);
 			bReturn = selectItemFromDropDown(sText);
+		}
+		return bReturn;
+	}
+	private boolean selectViewFromDropDown(int i){
+		boolean bReturn = false;
+		WebElement listView = WebElementUtils.waitAndFindDisplayedElement(B2WMaintain.getB2WMaintainRequestListView());
+		WebElement dd = WebElementUtils.getChildElement(listView, B2WMaintain.getKendoDropDown());
+		if (dd != null){
+			WebElementUtils.clickElement(dd);
+			bReturn = selectItemFromDropDown(i);
 		}
 		return bReturn;
 	}
