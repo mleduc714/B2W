@@ -1,4 +1,4 @@
-#testcases.maintain.B2WRequestSmokeTest
+testcases.maintain.B2WRequestSmokeTest
 testcases.maintain.B2WWorkOrderSmokeTest
 testcases.maintain.B2WPartsSmokeTest
 testcases.maintain.B2WEquipmentSmokeTest
