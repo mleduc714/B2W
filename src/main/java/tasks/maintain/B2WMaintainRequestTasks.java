@@ -217,7 +217,7 @@ public class B2WMaintainRequestTasks extends B2WKendoTasks {
 	}
 
 	public boolean selectAllRequests() {
-		return selectViewFromDropDown("All Requests");
+		return selectItemFromDropDown(0);
 	}
 	public boolean selectOpenRequests() {
 		return selectViewFromDropDown("Open Requests");
