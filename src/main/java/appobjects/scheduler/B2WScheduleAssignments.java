@@ -62,6 +62,8 @@ public class B2WScheduleAssignments extends KendoUI {
     public static By getOrderFromPanel() { return By.cssSelector(B2WUIMap.b2w_schedule_orderblock); }
     public static By getFillNeedToolbar() { return By.cssSelector(B2WUIMap.b2w_schedule_conflictoolbar); }
     public static By getFirstResourceNameInList() { return By.xpath(B2WUIMap.b2w_schedule_firstitem); }
+    public static By getResourceDescription() { return By.cssSelector(B2WUIMap.b2w_schedule_itemdescription); }
+    public static By getResourceDescriptionName() { return By.cssSelector(B2WUIMap.b2w_schedule_itemresourcedescription); }
     public static By getFirstTableInOrderList() { return By.cssSelector(B2WUIMap.b2w_schedule_orderlistfirstitemtable); }
     public static By getFirstItemInOrderList() { return By.cssSelector(B2WUIMap.b2w_schedule_orderlistfirstitem); }
     public static By getFirstEmployeeCheckbox() { return By.cssSelector(B2WUIMap.b2w_schedule_employeecheckbox); }
@@ -75,7 +77,7 @@ public class B2WScheduleAssignments extends KendoUI {
     public static By getHideCrewBtn() { return By.cssSelector(B2WUIMap.b2w_schedule_hidecrewbtn); }
     public static By getAddCrewResourceBtn() { return By.cssSelector(B2WUIMap.b2w_schedule_addcrewresourcebtn); }
     public static By getAddToCrewDialog() { return By.cssSelector(B2WUIMap.b2w_schedule_addtocrewdialog); }
+    public static By getAssignmentIcon() { return By.cssSelector(B2WUIMap.b2w_schedule_assignmenticon); }
     public static By getAddToCrewBtn() { return By.xpath(B2WUIMap.b2w_schedule_addtocrewbtn); }
-    public static By getEditPanel() { return By.cssSelector(B2WUIMap.b2w_schedule_crewpanel); }
-    public static By getCrewItemOnPanel(String sValue) { return By.xpath(B2WUIMap.b2w_schedule_crewitemonpanel.replace("replace", sValue)); }
+
 }
