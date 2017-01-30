@@ -166,10 +166,10 @@ public class B2WRequestSmokeTest extends B2WTestCase {
 	}
 
 	public void editRequest() {
-		b2wRequests.selectAllRequests();
+		logCompare(true,b2wRequests.selectAllRequests(), "Select All Requests View");
 		
 		String sRequest = selectByStatus("Requested");
-		b2wRequests.selectWorkOrderRequestByDescription(sRequest);
+		logCompare(true,b2wRequests.selectWorkOrderRequestByDescription(sRequest),"Select Work Order By Desc "+sRequest);
 		TaskUtils.sleep(1000);
 		logCompare(true,b2wRequests.clickEditRequest(),"Edit request");
 		TaskUtils.sleep(500);
@@ -178,7 +178,7 @@ public class B2WRequestSmokeTest extends B2WTestCase {
 		logCompare(true,b2wRequests.selectTypeFromDD(sEditRequestType), "Edit Type");
 		logCompare(true,b2wRequests.setRequestNotes(sEditNotes),"Changed Notes");
 		logCompare(true,b2wRequests.clickSaveButton(),"Save");
-		logCompare(true,b2wRequests.selectWorkOrderRequestByDescription(sEditDesc),"Select with new description");
+		logCompare(true,b2wRequests.selectWorkOrderRequestByDescription(sEditDesc),"Select with new description "+sEditDesc);
 		sRequest = selectByStatus("Assigned:");
 		logCompare(true,b2wRequests.selectWorkOrderRequestByDescription(sRequest), "Work Order Assigned "+sRequest);
 		TaskUtils.sleep(500);
@@ -197,18 +197,18 @@ public class B2WRequestSmokeTest extends B2WTestCase {
 	public void deleteRequest() {
 
 		b2wMaintain.openRequests();
-		b2wRequests.selectAllRequests();
+		logCompare(true, b2wRequests.selectAllRequests(), "Select All Requests ");
 		String sSelected = selectByStatus("Requested");
-		logCompare(true,b2wRequests.deleteRequest(),"Delete Request");
-		logCompare(false,b2wRequests.selectWorkOrderRequestByDescription(sSelected), "Item Deleted");
-		selectByStatus("Assigned:");
-		logCompare(false,b2wRequests.deleteRequest(),"Attempt to delete");
+		logCompare(true,b2wRequests.deleteRequest(),"Delete Request "+sSelected);
+		logCompare(false,b2wRequests.selectWorkOrderRequestByDescription(sSelected), "Item Deleted "+sSelected);
+		sSelected = selectByStatus("Assigned:");
+		logCompare(false,b2wRequests.deleteRequest(),"Attempt to delete "+sSelected);
 		TaskUtils.sleep(1000);
-		selectByStatus("Scheduled:");
-		logCompare(false,b2wRequests.deleteRequest(),"Attempt to delete");
+		sSelected =selectByStatus("Scheduled:");
+		logCompare(false,b2wRequests.deleteRequest(),"Attempt to delete "+sSelected);
 		TaskUtils.sleep(1000);
-		selectByStatus("Completed:");
-		logCompare(false,b2wRequests.deleteRequest(),"Attempt to delete");
+		sSelected = selectByStatus("Completed:");
+		logCompare(false,b2wRequests.deleteRequest(),"Attempt to delete "+sSelected);
 	}
 	
 	public String selectByStatus(String s) {
