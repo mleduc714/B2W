@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Random;
 
 import org.openqa.selenium.Alert;
+import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebElement;
 
 import appobjects.B2WCommonObjects;
@@ -126,11 +127,17 @@ public class B2WJobsTasks extends B2WResourceTasks {
 	
 	public ArrayList<String> getJobsByJobNumber() {
 		ArrayList<String> al = new ArrayList<String>();
+		try{
+		
 		List<WebElement> jobTitles = WebElementUtils.findElements(B2WJobs.getB2WListViewJobNunber());
 		Iterator<WebElement> iter = jobTitles.iterator();
 		while (iter.hasNext()){
 			WebElement e = iter.next();
 			al.add(e.getText());
+		}
+		}
+		catch (StaleElementReferenceException e){
+			return getJobsByJobNumber();
 		}
 		return al;
 	}
@@ -795,10 +802,14 @@ public class B2WJobsTasks extends B2WResourceTasks {
 	}
 	public boolean clickJobTitleHeader() {
 		boolean bReturn = false;
+		try{
 		WebElement el = getColumnHeader("Job Title");
 		if (el != null){
 			bReturn = WebElementUtils.clickElement(el);
 			bReturn &= waitForProcessingDialogToClear();
+		}
+		}catch (StaleElementReferenceException e){
+			clickJobTitleHeader();
 		}
 		return bReturn;
 	}
@@ -860,5 +871,15 @@ public class B2WJobsTasks extends B2WResourceTasks {
 			s = el.getAttribute("class");
 		}
 		return s;
+	}
+	public boolean deleteJob() {
+		boolean bReturn = false;
+		if (clickTopDeleteButton()){
+			Alert alert = WebElementUtils.waitForAndGetAlertDialog(WebElementUtils.MEDIUM_TIME_OUT);
+			alert.accept();
+			TaskUtils.sleep(500);
+			bReturn =waitForProcessingDialogToClear();
+		}
+		return bReturn;
 	}
 }

@@ -21,6 +21,9 @@ public class B2WSetup {
 	public static By getB2WSearchButton() {
 		return By.cssSelector(B2WUIMap.b2w_setup_searchbutton);
 	}
+	public static By getB2WPageListAll() {
+		return By.cssSelector(B2WUIMap.b2w_page_folter_all);
+	}
 
 	public static By getB2WPageListA() {
 		return By.cssSelector(B2WUIMap.b2w_page_filter_letterA);

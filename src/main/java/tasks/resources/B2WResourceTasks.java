@@ -199,7 +199,12 @@ public abstract class B2WResourceTasks extends B2WSetupTasks {
 //	
 	public boolean clickClearSearchButton() {
 		boolean bReturn = false;
-		bReturn = WebElementUtils.clickElement(WebElementUtils.findElement(B2WMaterials.getResourcesClearSearchButton()));
+		WebElement el = WebElementUtils.findElement(B2WMaterials.getResourcesClearSearchButton());
+		if (el != null){
+			while (!WebElementUtils.waitForElementStale(el, 1)){
+				bReturn = WebElementUtils.clickElement(el);
+			}
+		}
 		
 		return bReturn;
 	}
