@@ -126,7 +126,7 @@ public class MaintainDashboardSmokeTest_2 extends B2WTestCase {
 		logCompare(true,b2wMaintain.openDashboard(),"Open Dashboard");
 		//verifyFilters();
 		verifyScheduledWorkOrders();
-		verifyWorkOrdersPriorityChart();
+		//verifyWorkOrdersPriorityChart();
 		verifyWorkOrderItemHours();
 
 	}
