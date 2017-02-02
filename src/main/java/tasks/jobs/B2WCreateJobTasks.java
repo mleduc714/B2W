@@ -5,6 +5,7 @@ import org.openqa.selenium.WebElement;
 import appobjects.jobs.B2WJobs;
 import appobjects.resources.B2WResources;
 import tasks.WebElementUtils;
+import tasks.util.TaskUtils;
 
 public class B2WCreateJobTasks {
 
@@ -12,6 +13,7 @@ public class B2WCreateJobTasks {
 		boolean bReturn = false;
 		WebElement el = WebElementUtils.findElement(B2WJobs.getB2WJobnumber());
 		if (el != null) {
+			el.clear();
 			bReturn = WebElementUtils.sendKeys(el, sText);
 		}
 		return bReturn;
@@ -21,6 +23,7 @@ public class B2WCreateJobTasks {
 		boolean bReturn = false;
 		WebElement el = WebElementUtils.findElement(B2WJobs.getB2WJobprojectname());
 		if (el != null) {
+			el.clear();
 			bReturn = WebElementUtils.sendKeys(el, sProjectName);
 		}
 		return bReturn;
@@ -42,6 +45,7 @@ public class B2WCreateJobTasks {
 		boolean bReturn = false;
 		WebElement el = WebElementUtils.findElement(B2WJobs.getB2WJobtitle());
 		if (el != null) {
+			el.clear();
 			bReturn = WebElementUtils.sendKeys(el, sText);
 		}
 		return bReturn;
@@ -51,6 +55,7 @@ public class B2WCreateJobTasks {
 		return WebElementUtils.selectItemFromOpsDropDownMenu(B2WJobs.getB2WJobcustomerdd(), sText);
 	}
 	public String setJobProjectCustomerFromDD() {
+		WebElementUtils.clickElement(B2WJobs.getB2WJobcustomerdd());
 		return WebElementUtils.selectAnyItemFromOpsDropDownMenu(B2WJobs.getB2WJobcustomerdd());
 	}
 
@@ -59,6 +64,7 @@ public class B2WCreateJobTasks {
 	}
 	
 	public String selectJobDefaultLaborRateClassFromDD() {
+		WebElementUtils.clickElement(B2WJobs.getB2WJobdefaultlaborrateclassdd());
 		return WebElementUtils.selectAnyItemFromOpsDropDownMenu(B2WJobs.getB2WJobdefaultlaborrateclassdd());
 	}
 	public boolean setJobEquipmentRateClassFromDD(String sEquipmentRate) {
@@ -73,6 +79,15 @@ public class B2WCreateJobTasks {
 	public boolean selectBusinessUnitFromDD(String sText) {
 		WebElementUtils.selectItemFromOpsDropDownMenu(B2WResources.getBusinessUnitDropDown(), sText);
 		return sText.equals(WebElementUtils.getSelectedTextFromDropDown(B2WResources.getBusinessUnitDropDown()));
+	}
+	public boolean clickAddLaborRateButton() {
+		boolean bReturn = false;
+		WebElement el = WebElementUtils.findElement(B2WJobs.getB2WJobaddlaborrateclassesbutton());
+		if (el != null){
+			bReturn = WebElementUtils.clickElement(el);
+			bReturn &= WebElementUtils.waitAndFindDisplayedElement(B2WJobs.getB2WLaborrateclassdialogpanel()) != null;
+		}
+		return bReturn;
 	}
 	
 }

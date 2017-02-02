@@ -10,7 +10,9 @@ import java.util.Random;
 import com.b2w.test.B2WTestCase;
 
 import tasks.B2WNavigationTasks;
+import tasks.dialogs.B2WAddLaborRateClass;
 import tasks.jobs.B2WAddToJobs;
+import tasks.jobs.B2WCreateEstimateItemTasks;
 import tasks.jobs.B2WCreateJobProductionAccountTasks;
 import tasks.jobs.B2WCreateJobSiteTasks;
 import tasks.jobs.B2WCreateJobTasks;
@@ -30,8 +32,10 @@ public class B2WJobTestCase extends B2WTestCase {
 	B2WAddToJobs addToJobs = new B2WAddToJobs(JOBSDIALOG.ADDMATERIALS);
 	B2WAddToJobs addToVendors = new B2WAddToJobs(JOBSDIALOG.ADDVENDORS);
 	B2WCreateJobProductionAccountTasks jobProd = new B2WCreateJobProductionAccountTasks();
+	B2WCreateEstimateItemTasks estimate = new B2WCreateEstimateItemTasks();
 	B2WOrganizationTasks b2wOrg = new B2WOrganizationTasks();
 	B2WMaterialsTasks b2wMaterial = new B2WMaterialsTasks();
+	B2WAddLaborRateClass laborRate = new B2WAddLaborRateClass();
 	LinkedList<String> jobNumber = new LinkedList<String>();
 	LinkedList<String> materialID = new LinkedList<String>();
 	LinkedList<String> vendorID = new LinkedList<String>();
@@ -41,7 +45,10 @@ public class B2WJobTestCase extends B2WTestCase {
 	String sJobNumberA, sJobTitleA, sJobBusinssUnitA, sJobStatusA, sJobNumberB, sJobTitleB, sJobBusinssUnitB,
 			sJobStatusB, sJobNumberC, sJobTitleC, sJobBusinssUnitC, sJobStatusC, sJobNumberD, sJobTitleD,
 			sJobBusinssUnitD, sJobStatusD, sJobNumberE, sJobTitleE, sJobBusinssUnitE, sJobStatusE, sJobProjectNameA,
-			sJobToExploreID, sJobToExploreSite;
+			sJobToExploreID, sJobToExploreSite, sJobSiteA, sJobSiteB, sJobSiteC, sJobSiteASupervisor,
+			sJobToExploreIDA, sJobToExploreSiteA, sJobEstimateItemA, sJobEstimateItemB,
+			sJobEstimateItemNumber,sJobEstimateQuantity,sJobEstimateItemID,sJobEstimateChangeOrderQuantity,sJobEstimateDescription,
+			sJobEstimateUniOfM,sJobEstimateUnitBidPrice, sAutomationRates;
 	int iRandom = 0;
 
 	@Override
@@ -73,54 +80,32 @@ public class B2WJobTestCase extends B2WTestCase {
 		sJobStatusE = getProperty("sJobStatusE");
 		sJobToExploreID = getProperty("sJobToExploreID");
 		sJobToExploreSite = getProperty("sJobToExploreSite");
+		sJobSiteA = getProperty("sJobSiteA");
+		sJobSiteB = getProperty("sJobSiteB");
+		sJobSiteC = getProperty("sJobSiteC");
+		sJobSiteASupervisor = getProperty("sJobSiteASupervisor");
+		sJobToExploreIDA = getProperty("sJobToExploreIDA");
+		sJobToExploreSiteA = getProperty("sJobToExploreSiteA");
+		sJobEstimateItemA = getProperty("sJobEstimateItemA");
+		sJobEstimateItemB = getProperty("sJobEstimateItemB");
+		
+		sJobEstimateItemNumber = getProperty("sJobEstimateItemNumber")+iRandom;
+		sJobEstimateQuantity = getProperty("sJobEstimateQuantity");
+		sJobEstimateItemID = getProperty("sJobEstimateItemID")+iRandom;
+		sJobEstimateChangeOrderQuantity = getProperty("sJobEstimateChangeOrderQuantity");
+		sJobEstimateDescription = getProperty("sJobEstimateDescription")+iRandom;
+		sJobEstimateUniOfM = getProperty("sJobEstimateUniOfM");
+		sJobEstimateUnitBidPrice = getProperty("sJobEstimateUnitBidPrice");
+		sAutomationRates = "Automation Rates";
 	}
 
-	@Override
-	public void testMain() throws Throwable {
-		// TODO Auto-generated method stub
-		super.testMain();
+
+	
+	public void createJob() {
 		getAllJobsByNumber();
 		getAllMaterialsByID();
-		b2wNav.openJobs();
-		createJob();
-		createJobSite();
-		addMaterials();
-		addVendor();
-		addJobProductionAccount();
-		deleteJob();
-		
-		
-	}
-	
-	public void deleteJob() {
 		logCompare(true,b2wNav.openJobs(), "Open Jobs");
-		logCompare(true,jobsTasks.enterTextAndClickSearch(sJobNumberA), "Enter Text Search");
-		logCompare(true,jobsTasks.openJobByJobNumber(sJobNumberA), "Open Job");
-		logCompare(true,jobsTasks.deleteJob(), "Delete Job");
-		logCompare(true,jobsTasks.enterTextAndClickSearch(sJobNumberA), "Search again");
-		logCompare(false,jobsTasks.openJobByJobNumber(sJobNumberA), "Should be not opened");
-		
-		
-	}
-	
-	public void testSearchSort() {
-		assertTrue("Open Jobs",b2wNav.openJobs());
-		logCompare(true,jobsTasks.enterTextAndClickSearch(sJobToExploreID), "Enter Text And Search");
-		TaskUtils.sleep(500);
-		logCompare(sJobToExploreID,jobsTasks.getJobsByJobNumber().get(0), "Get Jobs");
-		logCompare(true,jobsTasks.clickClearSearchButton(), "Clear Search Button");
-		TaskUtils.sleep(500);
-		logCompare(true,jobsTasks.clickJobTitleHeader(), "Sort by Job Title");
-		TaskUtils.sleep(500);
-		logCompare(true,jobsTasks.clickSortByLetterM(),"Click Sort By Letter M");
-		TaskUtils.sleep(500);
-		logCompare(this.sJobToExploreSite, jobsTasks.getJobsByJobTitle().get(0), "Job Title");
-		logCompare(true,jobsTasks.clickSortByAll(),"Sort By All");
-		TaskUtils.sleep(500);
-	}
-
-	public void createJob() {
-		jobsTasks.clickCreateNewJob();
+		logCompare(true,jobsTasks.clickCreateNewJob(),"Create New Job");
 		// a.Populate the General Information
 		logCompare(true, b2wCreate.setJobNumber(sJobNumberA), "Add Job Number");
 		logCompare(true, b2wCreate.setJobTitle(sJobTitleA), "Set Job Title");
@@ -128,10 +113,27 @@ public class B2WJobTestCase extends B2WTestCase {
 		logCompare(true, b2wCreate.setJobProjectName(sJobProjectNameA), "Set Project Name");
 		logCompare(true, b2wCreate.setJobProjectStatusFromDD(sJobStatusA), "Set Project Status from Dropdowm");
 		b2wCreate.setJobProjectCustomerFromDD();
-		b2wCreate.selectJobDefaultLaborRateClassFromDD();
+		b2wCreate.setJobDefaultLaborRateClassFromDD("Automation Rates");
 		b2wCreate.setJobEquipmentRateClassFromDD();
-		jobsTasks.clickBottomSaveButton();
+		b2wCreate.clickAddLaborRateButton();
+		laborRate.selectItem(sAutomationRates);
+		laborRate.clickAdd();
+		logCompare(true,jobsTasks.clickBottomSaveButton(), "SAVE");
 	}
+	
+	public void deleteJob() {
+		
+		logCompare(true,b2wNav.openJobs(), "Open Jobs");
+		logCompare(true,jobsTasks.enterTextAndClickSearch(sJobNumberA), "Enter Text Search");
+		logCompare(true,jobsTasks.openJobByJobNumber(sJobNumberA), "Open Job");
+		logCompare(true,jobsTasks.deleteJob(), "Delete Job");
+		logCompare(true,jobsTasks.enterTextAndClickSearch(sJobNumberA), "Search again");
+		logCompare(false,jobsTasks.openJobByJobNumber(sJobNumberA), "Should be not opened");
+		
+	}
+
+	
+
 
 	public void createJobSite() {
 		jobsTasks.clickAddJobSiteButton();
@@ -152,6 +154,8 @@ public class B2WJobTestCase extends B2WTestCase {
 		logCompare(true, b2wJobSite.setJobSiteZip("03801"), "Set Job Site Zip");
 		logCompare(true, b2wJobSite.setJobCountry("USA"), "Set Job Country");
 		jobsTasks.clickBottomSaveButton();
+		
+
 	}
 
 	public void addMaterials() {
@@ -265,6 +269,21 @@ public class B2WJobTestCase extends B2WTestCase {
 	public boolean isSupported() {
 		// TODO Auto-generated method stub
 		return true;
+	}
+	
+	@Override
+	public void testMain() throws Throwable {
+		// TODO Auto-generated method stub
+		super.testMain();
+		createJob();
+		createJobSite();
+		addMaterials();
+		addVendor();
+		addJobProductionAccount();
+		deleteJob();
+		//editJob();
+		//workWithEstimates();
+
 	}
 
 }

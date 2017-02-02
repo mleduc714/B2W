@@ -1,9 +1,11 @@
 package tasks.jobs;
 
 import org.apache.log4j.Logger;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
 import appobjects.jobs.B2WJobs;
+import appobjects.setup.B2WSetup;
 import tasks.WebElementUtils;
 import tasks.resources.B2WPlaceTasks;
 
@@ -87,5 +89,16 @@ public class B2WCreateJobSiteTasks extends B2WJobsTasks{
 	public boolean saveJobSite() {
 		return b2wPlace.clickSaveBin();
 	}
+	public boolean clickLinkToJob() {
+		boolean bReturn = false;
+		WebElement el = WebElementUtils.findElement(B2WJobs.getB2WJobSiteMapPathControl());
+		if (el != null){
+			bReturn = WebElementUtils.clickElement(WebElementUtils.getChildElement(el, By.tagName("a")));
+			WebElementUtils.waitAndFindDisplayedElement(B2WSetup.getBottomDeleteButton());
+		}
+		return bReturn;
+		
+	}
+	
 
 }

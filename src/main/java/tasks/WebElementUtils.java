@@ -738,7 +738,7 @@ public class WebElementUtils {
 				List<WebElement> els = el.findElements(By.tagName("option"));
 				Random rand = new Random();
 
-				int randnumber = rand.nextInt(els.size()-1);
+				int randnumber = rand.nextInt(els.size()-2)+1;
 				WebElement item = els.get(randnumber);
 				if (item != null) {
 					WebElementUtils.clickElement(item);
