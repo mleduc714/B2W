@@ -1,6 +1,8 @@
 package tasks.util;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 
@@ -157,5 +159,15 @@ public class TaskUtils extends BaseAssert {
 		}
 		return al;
 
+	}
+	
+	public static ArrayList<String> sortArray(ArrayList<String> al, boolean asc){
+		
+		Collections.sort(al);
+		if (!asc){
+			Comparator<String> cmp = Collections.reverseOrder(); 
+			Collections.sort(al,cmp);
+		}
+		return al;
 	}
 }

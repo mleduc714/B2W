@@ -201,6 +201,12 @@ public class B2WJobs extends KendoUI {
 	public static By getB2WJobssitedesc() {
 		return By.cssSelector(B2WUIMap.b2w_jobssitedesc);
 	}
+	public static By getB2WJobssitelistedit() {
+		return By.cssSelector(B2WUIMap.b2w_jobssiteedit);
+	}
+	public static By getB2WJobssitelistdelete() {
+		return By.cssSelector(B2WUIMap.b2w_jobssitedelete);
+	}
 	public static By getB2wJobssitesitesupervisor() {
 		return By.cssSelector(B2WUIMap.b2w_jobssitesitesupervisor);
 	}
@@ -372,6 +378,9 @@ public class B2WJobs extends KendoUI {
 	public static By getB2WJobProductionListAccountTrackingID() {
 		return By.cssSelector(B2WUIMap.b2w_jobstrackacctstrackingid);
 	}
+	public static By getB2WJobProductionListAccountEstimatedUnitCost() {
+		return By.cssSelector(B2WUIMap.b2w_jobstrackacctsestunitcost);
+	}
 	public static By getB2WJobProductionListAccountDescription() {
 		return By.cssSelector(B2WUIMap.b2w_jobstrackacctsdesc);
 	}
@@ -475,14 +484,34 @@ public class B2WJobs extends KendoUI {
 	public static By getB2WJobschangeordertotalprice() {
 		return By.cssSelector(B2WUIMap.b2w_jobschangeordertotalprice);
 	}
-
 	public static By getB2WJobschangeorderedit() {
 		return By.cssSelector(B2WUIMap.b2w_jobschangeorderedit);
 	}
-
 	public static By getB2WJobschangeorderdelete() {
 		return By.cssSelector(B2WUIMap.b2w_jobschangeorderdelete);
 	}
-	
-
+	public static By getB2WJobSiteMapPathControl() {
+		return By.cssSelector(B2WUIMap.b2w_jobsitemappathcontrol);
+	}
+	public static By getB2WLaborrateclasses() {
+		return By.cssSelector(B2WUIMap.b2w_laborrateclasses);
+	}
+	public static By getB2WLaborrateclassesaddbutton() {
+		return By.cssSelector(B2WUIMap.b2w_laborrateclassesaddbutton);
+	}
+	public static By getB2WLaborrateclassescancelbutton() {
+		return By.cssSelector(B2WUIMap.b2w_laborrateclassescancelbutton);
+	}
+	public static By getB2WLaborrateclassgridcheckbox() {
+		return By.cssSelector(B2WUIMap.b2w_laborrateclassgridcheckbox);
+	}
+	public static By getB2WLaborrateclassdialogpanel() {
+		return By.cssSelector(B2WUIMap.b2w_laborrateclassdialogpanel);
+	}
+	public static By getB2WLaborrateclassgridview() {
+		return By.cssSelector(B2WUIMap.b2w_laborrateclassgridview);
+	}
+	public static By getB2WEstimateItemView() {
+		return By.cssSelector(B2WUIMap.b2w_estimateitemview);
+	}
 }

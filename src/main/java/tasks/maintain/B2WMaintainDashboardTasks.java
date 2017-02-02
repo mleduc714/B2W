@@ -312,34 +312,31 @@ public class B2WMaintainDashboardTasks extends B2WMaintainTasks {
 	}
 	
 	public int getLowPriorityPercentage() {
-		int iPercentage = 0;
-		WebElement dashboard = WebElementUtils.findElement(B2WMaintain.getB2WDashboardWorkOrderChart());
-		if (dashboard != null){
-			String sText = WebElementUtils.getChildElements(dashboard, By.tagName("text")).get(1).getText();
-			sText.substring(0,sText.indexOf("%"));
-			iPercentage = new Integer(sText.substring(0,sText.indexOf("%")).trim()).intValue();
-		}
-		return iPercentage;
+		return getPercentage(1);
 	}
 
 	public int getMediumPriorityPercentage() {
-		int iPercentage = 0;
-		WebElement dashboard = WebElementUtils.findElement(B2WMaintain.getB2WDashboardWorkOrderChart());
-		if (dashboard != null){
-			String sText = WebElementUtils.getChildElements(dashboard, By.tagName("text")).get(2).getText();
-			iPercentage = new Integer(sText.substring(0,sText.indexOf("%")).trim()).intValue();
-		}
-		return iPercentage;
+		return getPercentage(2);
 	}
 
 	public int getHighPriorityPercentage() {
+		return getPercentage(3);
+	}
+	
+	private int getPercentage(int i) {
 		int iPercentage = 0;
 		WebElement dashboard = WebElementUtils.findElement(B2WMaintain.getB2WDashboardWorkOrderChart());
-		if (dashboard != null){
-			String sText = WebElementUtils.getChildElements(dashboard, By.tagName("text")).get(3).getText();
-			iPercentage = new Integer(sText.substring(0,sText.indexOf("%")).trim()).intValue();
+		if (dashboard != null) {
+			try {
+				String sText = WebElementUtils.getChildElements(dashboard, By.tagName("text")).get(i).getText();
+				sText.substring(0, sText.indexOf("%"));
+				iPercentage = new Integer(sText.substring(0, sText.indexOf("%")).trim()).intValue();
+			} catch (IndexOutOfBoundsException e) {
+				log.debug("The Pie Chart does not have three slices");
+			}
 		}
 		return iPercentage;
+
 	}
 	
 	public ArrayList<String> getMechanicsFromChart() {

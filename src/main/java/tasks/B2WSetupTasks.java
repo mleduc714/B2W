@@ -1,5 +1,6 @@
 package tasks;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -99,6 +100,7 @@ public class B2WSetupTasks {
 		WebElement el = WebElementUtils.findElement(B2WSetup.getB2WPageListG());
 		if (el != null) {
 			bReturn = WebElementUtils.clickElement(el);
+			TaskUtils.sleep(500);
 			bReturn &= waitForProcessingDialogToClear();
 		}
 		return bReturn;
@@ -498,6 +500,23 @@ public class B2WSetupTasks {
 		}
 		return el;
 		
+	}
+	
+	public ArrayList<String> getColumnText(int iCol) {
+		ArrayList<String> al = new ArrayList<String>();
+		WebElement listinggrid = WebElementUtils.findElement(B2WCommonObjects.getB2WPageContentGrid());
+		if (listinggrid != null){
+			WebElement tbody = WebElementUtils.getChildElement(listinggrid, By.tagName("tbody"));
+			List<WebElement> list = WebElementUtils.getChildElements(tbody, By.tagName("tr"));
+			for (WebElement e: list){
+				List<WebElement> td = WebElementUtils.getChildElements(e, By.tagName("td"));
+				al.add(td.get(iCol).getText());
+				if (e.getAttribute("class").equals("last")){
+					break;
+				}
+			}
+		}
+		return al;
 	}
 	
 }
