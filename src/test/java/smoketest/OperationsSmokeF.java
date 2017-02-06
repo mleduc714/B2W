@@ -8,7 +8,7 @@ import tasks.jobs.B2WAddToJobs;
 import tasks.jobs.B2WCreateChangeOrderTasks;
 import tasks.jobs.B2WEstimateItemTasks;
 import tasks.jobs.B2WCreateJobOverheadAccountTasks;
-import tasks.jobs.B2WCreateJobProductionAccountTasks;
+import tasks.jobs.B2WJobProductionAccountTasks;
 import tasks.jobs.B2WCreateJobSiteTasks;
 import tasks.jobs.B2WCreateJobTasks;
 import tasks.jobs.B2WJobsTasks;
@@ -23,7 +23,7 @@ public class OperationsSmokeF extends B2WTestCase {
 	B2WJobsTasks b2wJobs = new B2WJobsTasks();
 	B2WCreateJobTasks b2wCreate = new B2WCreateJobTasks();
 	B2WCreateJobSiteTasks b2wJobSite = new B2WCreateJobSiteTasks();
-	B2WCreateJobProductionAccountTasks jobProd = new B2WCreateJobProductionAccountTasks();
+	B2WJobProductionAccountTasks jobProd = new B2WJobProductionAccountTasks();
 	B2WCreateJobOverheadAccountTasks jobOver = new B2WCreateJobOverheadAccountTasks();
 	B2WEstimateItemTasks b2wEstimate = new B2WEstimateItemTasks();
 	B2WCreateChangeOrderTasks b2wChangeOrder = new B2WCreateChangeOrderTasks();

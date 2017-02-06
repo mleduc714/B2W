@@ -4,6 +4,7 @@ import java.text.SimpleDateFormat;
 
 import com.b2w.test.B2WTestCase;
 
+import tasks.B2WHomeTasks;
 import tasks.B2WNavigationTasks;
 import tasks.dialogs.B2WAddEquipmentToMainProgram;
 import tasks.dialogs.B2WAddInterval;
@@ -14,8 +15,9 @@ import tasks.dialogs.B2WAddToInventory;
 import tasks.dialogs.B2WCompleteWorkOrder;
 import tasks.dialogs.B2WEditScheduleMaintenance;
 import tasks.dialogs.B2WReportHours;
-import tasks.dialogs.B2WReportedHoursToolTip;
 import tasks.dialogs.B2WScheduleMaintenance;
+import tasks.jobs.B2WAddToJobs;
+import tasks.jobs.B2WCreateJobTasks;
 import tasks.jobs.B2WJobsTasks;
 import tasks.maintain.B2WInventoryTasks;
 import tasks.maintain.B2WMaintainDashboardTasks;
@@ -56,6 +58,9 @@ public class TestSetup extends B2WTestCase {
 	B2WAddToInventory addInventory = new B2WAddToInventory();
 	B2WMaintainPartsTasks parts = new B2WMaintainPartsTasks();
 	B2WEquipmentTasks b2wE = new B2WEquipmentTasks();
+	B2WHomeTasks b2wHome = new B2WHomeTasks();
+	B2WCreateJobTasks b2wCreate = new B2WCreateJobTasks();
+
 
 
 	SimpleDateFormat format = new SimpleDateFormat("M/d/yyyy");
@@ -93,15 +98,29 @@ public class TestSetup extends B2WTestCase {
 	}
 
 	public void testMain() throws Throwable {
+		b2wNav.openJobs();
+		TaskUtils.sleep(1000);
+		b2wJob.clickCreateNewJob();
+		b2wCreate.setJobProjectCustomerFromDD();
+		b2wCreate.setJobDefaultLaborRateClassFromDD("Automation Rates");
+		b2wCreate.setJobEquipmentRateClassFromDD();
+		//TaskUtils.sleep(5000);
+		
 
-		assertTrue("open Maintain", b2wNav.openMaintain());
-		b2wMaintain.openTimeCards();
+
+/*		assertTrue("open Maintain", b2wNav.openMaintain());
+		b2wMaintain.openInventory();
+		inventory.expandPart("AutoPartInv8577 [InventoryPart8577]");
+		inventory.editInventory(0);
 		TaskUtils.sleep(1000);
-		b2wtimecards.selectEmployee("Automation User [9501]");
-		b2wtimecards.clickEquipmentIconByRow(0);
-		TaskUtils.sleep(1000);
-		System.out.println(new B2WReportedHoursToolTip().getTitle());
-		new B2WReportedHoursToolTip().clickOnEquipment();
+		addInventory.selectTypeOfUpdateLocation();
+		addInventory.selectNewLocation("Main Shop");
+		addInventory.selectNewBin();
+		addInventory.setQuantityToMove("100");
+		addInventory.saveAddToInventory();*/
+
+
+		
 		
 //		b2wE.createNewEquipment();
 //		b2wE.expandComponentSpecs();
@@ -129,7 +148,7 @@ public class TestSetup extends B2WTestCase {
 		new B2WAddPartsToWorkItem().setEstimatedQty("Seat belt", "10");
 		new B2WAddPartsToWorkItem().saveParts();
 		TaskUtils.sleep(5000);*/
-		TaskUtils.sleep(5000);
+		//TaskUtils.sleep(5000);
 	}
 
 	@Override

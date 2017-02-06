@@ -8,10 +8,10 @@ import com.b2w.test.B2WTestCase;
 import tasks.B2WNavigationTasks;
 import tasks.dialogs.B2WAddLaborRateClass;
 import tasks.jobs.B2WAddToJobs;
-import tasks.jobs.B2WEstimateItemTasks;
-import tasks.jobs.B2WCreateJobProductionAccountTasks;
 import tasks.jobs.B2WCreateJobSiteTasks;
 import tasks.jobs.B2WCreateJobTasks;
+import tasks.jobs.B2WEstimateItemTasks;
+import tasks.jobs.B2WJobProductionAccountTasks;
 import tasks.jobs.B2WJobsTasks;
 import tasks.jobs.B2WJobsTasks.JOBSDIALOG;
 import tasks.resources.B2WMaterialsTasks;
@@ -29,7 +29,7 @@ public class B2WJobsTestPart2 extends B2WTestCase {
 	B2WCreateJobSiteTasks b2wJobSite = new B2WCreateJobSiteTasks();
 	B2WAddToJobs addToJobs = new B2WAddToJobs(JOBSDIALOG.ADDMATERIALS);
 	B2WAddToJobs addToVendors = new B2WAddToJobs(JOBSDIALOG.ADDVENDORS);
-	B2WCreateJobProductionAccountTasks jobProd = new B2WCreateJobProductionAccountTasks();
+	B2WJobProductionAccountTasks jobProd = new B2WJobProductionAccountTasks();
 	B2WEstimateItemTasks estimate = new B2WEstimateItemTasks();
 	B2WOrganizationTasks b2wOrg = new B2WOrganizationTasks();
 	B2WMaterialsTasks b2wMaterial = new B2WMaterialsTasks();
@@ -148,7 +148,7 @@ public class B2WJobsTestPart2 extends B2WTestCase {
 	@Override
 	public void testMain() throws Throwable {
 		
-		B2WJobsTCS.getIDs("2007-0001");
+		//B2WJobsTCS.test1("2007-0001");
 		
 		//editJobWithProductionAccounts();
 		//logCompare(true,openJob(),"Open A existing Job");

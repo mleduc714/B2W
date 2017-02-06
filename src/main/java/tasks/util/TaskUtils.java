@@ -170,4 +170,23 @@ public class TaskUtils extends BaseAssert {
 		}
 		return al;
 	}
+	
+
+	public void getAllIDS() {
+		WebElement parent = WebElementUtils.findElement(By.cssSelector("div#PageContent_EstimatedCostsPanel"));
+		List<WebElement> ids = WebElementUtils.getChildElements(parent, By.tagName("input"));
+		for (WebElement e: ids){
+			String sID = e.getAttribute("id");
+
+			if (sID.endsWith("numVal")){
+				int start = sID.indexOf("_")+1;
+				int end = sID.indexOf("num")-1;
+				
+				String sWoo = sID.substring(start, end).toLowerCase();
+				System.out.println("public static final String b2w_estcost"+sWoo + " = \"input#"+sID+"\";");
+			}
+		}
+	}
+	
+	
 }

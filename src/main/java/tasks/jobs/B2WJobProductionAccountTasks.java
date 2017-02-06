@@ -3,12 +3,13 @@ package tasks.jobs;
 import java.util.List;
 
 import org.openqa.selenium.Alert;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
 import appobjects.jobs.B2WJobs;
 import tasks.WebElementUtils;
 
-public class B2WCreateJobProductionAccountTasks extends B2WJobsTasks {
+public class B2WJobProductionAccountTasks extends B2WJobsTasks {
 	
 	public boolean setJobProductionAccountTrackingIDText(String sText){
 		boolean bReturn = false;
@@ -140,5 +141,115 @@ public class B2WCreateJobProductionAccountTasks extends B2WJobsTasks {
 		}
 		return bReturn;
 	}
+	
+	public String getTrackingID() {
+		return getJobProductionAccountView(0);
+	}
+	public String getSupervisorProjectedUnitCost() {
+		return getJobProductionAccountView(1);
+	}
+	public String getAccountID() {
+		return getJobProductionAccountView(2);
+	}
+	public String getManagerProjectedUnitCost () {
+		return getJobProductionAccountView(3);
+	}
+	public String getDescription() {
+		return getJobProductionAccountView(4);
+	}
+	public String getEstimatedQuantity () {
+		return getJobProductionAccountView(5);
+	}
+	public String getUnitOfMeasure() {
+		return getJobProductionAccountView(6);
+	}
+	public String getChangeOrderQuantity(){
+		return getJobProductionAccountView(7);
+	}
+	public String getEstimatedProductionRate(){
+		return getJobProductionAccountView(8);
+	}
+	public String getTotalEstimatedQuantity(){
+		return getJobProductionAccountView(9);
+	}
+	public String getComplete(){
+		return getJobProductionAccountView(10);
+	}
+	public String getTotalReportedQuantity(){
+		return getJobProductionAccountView(11);
+	}
+	
+	
+	public String getJobProductionAccountView(int i){
+		String s = "";
+		WebElement el = WebElementUtils.findElement(B2WJobs.getB2WEstimateTrackingAccountsVerification());
+		if (el != null){
+				List<WebElement> trs = WebElementUtils.getChildElements(el, By.cssSelector("td.contentCell"));
+				if (i < trs.size()){
+					s = trs.get(i).getText();
+				}
+		}
+		
+		return s;
+	}
+	
+	public String getEstimatedUnitCost() {
+		return getEstimatedSummary(0);
+	}
+	public String getChangeOrderUnitCost() {
+		return getEstimatedSummary(1);
+	}
+	public String getTotalEstimatedUnitCost() {
+		return getEstimatedSummary(2);
+	}
+	public String getEstimatedTotalCost() {
+		return getEstimatedSummary(3);
+	}
+	public String getChangeOrderTotalCost() {
+		return getEstimatedSummary(4);
+	}
+	public String getTotalEstimatedTotalCost() {
+		return getEstimatedSummary(5);
+	}
+	
 
+	public String getEstimatedSummary(int i){
+		String s = "";
+		WebElement el = WebElementUtils.findElement(B2WJobs.getB2WEstimateItemView());
+		if (el != null){
+			WebElement box = WebElementUtils.getChildElements(el, By.cssSelector("div.box")).get(1);
+			if (box != null){
+				List<WebElement> trs = WebElementUtils.getChildElements(box, By.cssSelector("td.contentCell"));
+//				for (int z = 0; z < trs.size(); z++){
+//					System.out.println(z + " "+trs.get(z).getText());
+//				}
+				
+				if (i < trs.size()){
+					s = trs.get(i).getText();
+				}
+			}
+		}
+		
+		return s;
+	}
+
+	public String getReportedSummary(int i){
+		String s = "";
+		WebElement el = WebElementUtils.findElement(B2WJobs.getB2WEstimateItemView());
+		if (el != null){
+			WebElement box = WebElementUtils.getChildElements(el, By.cssSelector("div.box")).get(2);
+			if (box != null){
+				List<WebElement> trs = WebElementUtils.getChildElements(box, By.cssSelector("td.contentCell"));
+				for (int z = 0; z < trs.size(); z++){
+					System.out.println(z + " "+trs.get(z).getText());
+				}
+				
+				if (i < trs.size()){
+					s = trs.get(i).getText();
+				}
+			}
+		}
+		
+		return s;
+	}
 }
