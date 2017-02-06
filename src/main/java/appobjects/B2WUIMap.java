@@ -1243,4 +1243,48 @@ public class B2WUIMap {
 	public static final String b2w_laborrateclassgridview = "table#PageContent_AddLaborRateClassesDialog_GridView";
 	public static final String b2w_estimateitemview = "fieldset#generalInformation";
 	
+	//estimate item cost breakdowns
+	public static final String b2w_estimateitemcostbreakdownid = "span[id$='PageContent_EstimateItemCostBreakdownGridView_CostBreakdownElementID']";
+	public static final String b2w_estimateitemcostbreakdowndelete = "a[id$='PageContent_EstimateItemCostBreakdownGridView_Delete']";
+	public static final String b2w_estimateitemcostbreakdowngrid = "table#PageContent_EstimateItemCostBreakdownGridView";
+	public static final String b2w_estimateitemcostbreakdowngridview = "table#PageContent_CostBreakdownGridView";
+	public static final String b2w_estimateitemcostbreakdowndescription = "span[id$='PageContent_EstimateItemCostBreakdownGridView_Description']";
+	
+	public static final String b2w_createnewcostbreakdownelement = "a#PageContent_AddCostBreakdownButton";
+	public static final String b2w_createnewcostbreaddownid = "input#PageContent_CostBreakdownIDTextBox";
+	public static final String b2w_createnewcostbreakdowncostid = "input#PageContent_CostIDTextBox";
+	public static final String b2w_createnewcostbreakdowntrackaccountdd = "select#PageContent_TrackingAccountDropDownList";
+	public static final String b2w_createnewcostbreakdownestimateitemdropdown = "select#PageContent_EstimateItemDropDownList";
+	public static final String b2w_createnewcostbreakdowndescription =  "input#PageContent_DescriptionTextBox";
+	public static final String b2w_createnewcostbreakdownestquantity = "input#PageContent_EstimatedQuantityTextBox_numVal";
+
+	public static final String b2w_costbreakdownelementview = "table#PageContent_CostBreakdownGridView";
+	public static final String b2w_estcostlaborunitcosttextbox = "input#PageContent_LaborUnitCostTextBox_numVal";
+	public static final String b2w_estcostlabortotalcosttextbox = "input#PageContent_LaborTotalCostTextBox_numVal";
+	public static final String b2w_estcostregularhourstextbox = "input#PageContent_RegularHoursTextBox_numVal";
+	public static final String b2w_estcostovertimehourstextbox = "input#PageContent_OvertimeHoursTextBox_numVal";
+	public static final String b2w_estcostdoubletimehourstextbox = "input#PageContent_DoubletimeHoursTextBox_numVal";
+	public static final String b2w_estcostequipmentownedunitcosttextbox = "input#PageContent_EquipmentOwnedUnitCostTextBox_numVal";
+	public static final String b2w_estcostequipmentownedtotalcosttextbox = "input#PageContent_EquipmentOwnedTotalCostTextBox_numVal";
+	public static final String b2w_estcostequipmentownedhourstextbox = "input#PageContent_EquipmentOwnedHoursTextBox_numVal";
+	public static final String b2w_estcostequipmentrentedunitcosttextbox = "input#PageContent_EquipmentRentedUnitCostTextBox_numVal";
+	public static final String b2w_estcostequipmentrentedtotalcosttextbox = "input#PageContent_EquipmentRentedTotalCostTextBox_numVal";
+	public static final String b2w_estcostequipmentrentedhourstextbox = "input#PageContent_EquipmentRentedHoursTextBox_numVal";
+	public static final String b2w_estcostsubcontractedunitcosttextbox = "input#PageContent_SubcontractedUnitCostTextBox_numVal";
+	public static final String b2w_estcostsubcontractedtotalcosttextbox = "input#PageContent_SubcontractedTotalCostTextBox_numVal";
+	public static final String b2w_estcosttruckingunitcosttextbox = "input#PageContent_TruckingUnitCostTextBox_numVal";
+	public static final String b2w_estcosttruckingtotalcosttextbox = "input#PageContent_TruckingTotalCostTextBox_numVal";
+	public static final String b2w_estcostmiscellaneousunitcosttextbox = "input#PageContent_MiscellaneousUnitCostTextBox_numVal";
+	public static final String b2w_estcostmiscellaneoustotalcosttextbox = "input#PageContent_MiscellaneousTotalCostTextBox_numVal";
+	
+	
+	public static final String b2w_estcostmaterialsownedunitcost = "span#PageContent_MaterialsOwnedUnitCostLabel";
+	public static final String b2w_estcostmaterialsownedtotalcost = "span#PageContent_MaterialsOwnedTotalCostLabel";
+	public static final String b2w_estcostmaterialspurchasedunitcost = "span#PageContent_MaterialsPurchasedUnitCostLabel";
+	public static final String b2w_estcostmaterialspurchasedtotalcost = "span#PageContent_MaterialsPurchasedTotalCostLabel";
+
+	public static final String b2w_estimatedunitcostlabel = "span#PageContent_EstimatedUnitCostLabel";
+
+	public static final String b2w_estimatedtotalcostlabel = "span#PageContent_EstimatedTotalCostLabel";
+	
 }

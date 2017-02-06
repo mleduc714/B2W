@@ -219,6 +219,7 @@ public class B2WRequestSmokeTest extends B2WTestCase {
 		while (!sStatus.equals(s) && i < iRequests){
 			b2wRequests.selectRequest(i);
 			sStatus = b2wRequests.getSelectedRequestStatus();
+			log.debug("Selected Status is "+sStatus);
 			sSelected = b2wRequests.getSelectedItemDescription();
 			i++;
 		}

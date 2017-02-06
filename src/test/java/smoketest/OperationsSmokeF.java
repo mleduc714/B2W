@@ -6,7 +6,7 @@ import tasks.B2WNavigationTasks;
 import tasks.BrowserUtils;
 import tasks.jobs.B2WAddToJobs;
 import tasks.jobs.B2WCreateChangeOrderTasks;
-import tasks.jobs.B2WCreateEstimateItemTasks;
+import tasks.jobs.B2WEstimateItemTasks;
 import tasks.jobs.B2WCreateJobOverheadAccountTasks;
 import tasks.jobs.B2WCreateJobProductionAccountTasks;
 import tasks.jobs.B2WCreateJobSiteTasks;
@@ -25,7 +25,7 @@ public class OperationsSmokeF extends B2WTestCase {
 	B2WCreateJobSiteTasks b2wJobSite = new B2WCreateJobSiteTasks();
 	B2WCreateJobProductionAccountTasks jobProd = new B2WCreateJobProductionAccountTasks();
 	B2WCreateJobOverheadAccountTasks jobOver = new B2WCreateJobOverheadAccountTasks();
-	B2WCreateEstimateItemTasks b2wEstimate = new B2WCreateEstimateItemTasks();
+	B2WEstimateItemTasks b2wEstimate = new B2WEstimateItemTasks();
 	B2WCreateChangeOrderTasks b2wChangeOrder = new B2WCreateChangeOrderTasks();
 	
 	String sJobNumberID, sJobTitle, sProjectManager, sProjectName, sJobStatus, sJobCustomer, sBusinessUnit, sLaborRateClass, sEquipRateClass, sNotes;

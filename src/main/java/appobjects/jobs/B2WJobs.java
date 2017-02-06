@@ -514,4 +514,110 @@ public class B2WJobs extends KendoUI {
 	public static By getB2WEstimateItemView() {
 		return By.cssSelector(B2WUIMap.b2w_estimateitemview);
 	}
+	public static By getB2WEstimateItemCostBreakdownsGrid() {
+		return By.cssSelector(B2WUIMap.b2w_estimateitemcostbreakdowngrid);
+	}
+	public static By getB2WEstimateItemCostBreakdownGridView() {
+		return By.cssSelector(B2WUIMap.b2w_estimateitemcostbreakdowngridview);
+	}
+	public static By getB2WEstimateItemCostBreakdownID() {
+		return By.cssSelector(B2WUIMap.b2w_estimateitemcostbreakdownid);
+	}
+	public static By getB2WEstimateItemCostItemDelete() {
+		return By.cssSelector(B2WUIMap.b2w_estimateitemcostbreakdowndelete);
+	}
+	public static By getB2WEstimateItemCostItemDescription() {
+		return By.cssSelector(B2WUIMap.b2w_estimateitemcostbreakdowndescription);
+	}
+	public static By getB2WCreatenewcostbreakdownelement() {
+		return By.cssSelector(B2WUIMap.b2w_createnewcostbreakdownelement);
+	}
+	public static By getB2WCreatenewcostbreaddownid() {
+		return By.cssSelector(B2WUIMap.b2w_createnewcostbreaddownid);
+	}
+	public static By getB2WCreatenewcostbreakdowncostid() {
+		return By.cssSelector(B2WUIMap.b2w_createnewcostbreakdowncostid);
+	}
+	public static By getB2WCreatenewcostbreakdowntrackaccountdd() {
+		return By.cssSelector(B2WUIMap.b2w_createnewcostbreakdowntrackaccountdd);
+	}
+	public static By getB2WCreatenewcostbreakdownestimateitemdropdown() {
+		return By.cssSelector(B2WUIMap.b2w_createnewcostbreakdownestimateitemdropdown);
+	}
+	public static By getB2WCreatenewcostbreakdowndescription() {
+		return By.cssSelector(B2WUIMap.b2w_createnewcostbreakdowndescription);
+	}
+	public static By getB2WCreatenewcostbreakdownestquantity() {
+		return By.cssSelector(B2WUIMap.b2w_createnewcostbreakdownestquantity);
+	}
+	
+	public static By getB2WEstcostlaborunitcosttextbox() {
+		return By.cssSelector(B2WUIMap.b2w_estcostlaborunitcosttextbox);
+	}
+	public static By getB2WEstcostlabortotalcosttextbox() {
+		return By.cssSelector(B2WUIMap.b2w_estcostlabortotalcosttextbox);
+	}
+	public static By getB2WEstcostregularhourstextbox() {
+		return By.cssSelector(B2WUIMap.b2w_estcostregularhourstextbox);
+	}
+	public static By getB2WEstcostovertimehourstextbox() {
+		return By.cssSelector(B2WUIMap.b2w_estcostovertimehourstextbox);
+	}
+	public static By getB2WEstcostdoubletimehourstextbox() {
+		return By.cssSelector(B2WUIMap.b2w_estcostdoubletimehourstextbox);
+	}
+	public static By getB2WEstcostequipmentownedunitcosttextbox() {
+		return By.cssSelector(B2WUIMap.b2w_estcostequipmentownedunitcosttextbox);
+	}
+	public static By getB2WEstcostequipmentownedtotalcosttextbox() {
+		return By.cssSelector(B2WUIMap.b2w_estcostequipmentownedtotalcosttextbox);
+	}
+	public static By getB2WEstcostequipmentownedhourstextbox() {
+		return By.cssSelector(B2WUIMap.b2w_estcostequipmentownedhourstextbox);
+	}
+	public static By getB2WEstcostequipmentrentedunitcosttextbox() {
+		return By.cssSelector(B2WUIMap.b2w_estcostequipmentrentedunitcosttextbox);
+	}
+	public static By getB2WEstcostequipmentrentedtotalcosttextbox() {
+		return By.cssSelector(B2WUIMap.b2w_estcostequipmentrentedtotalcosttextbox);
+	}
+	public static By getB2WEstcostequipmentrentedhourstextbox() {
+		return By.cssSelector(B2WUIMap.b2w_estcostequipmentrentedhourstextbox);
+	}
+	public static By getB2WEstcostsubcontractedunitcosttextbox() {
+		return By.cssSelector(B2WUIMap.b2w_estcostsubcontractedunitcosttextbox);
+	}
+	public static By getB2WEstcostsubcontractedtotalcosttextbox() {
+		return By.cssSelector(B2WUIMap.b2w_estcostsubcontractedtotalcosttextbox);
+	}
+	public static By getB2WEstcosttruckingunitcosttextbox() {
+		return By.cssSelector(B2WUIMap.b2w_estcosttruckingunitcosttextbox);
+	}
+	public static By getB2WEstcosttruckingtotalcosttextbox() {
+		return By.cssSelector(B2WUIMap.b2w_estcosttruckingtotalcosttextbox);
+	}
+	public static By getB2WEstcostmiscellaneousunitcosttextbox() {
+		return By.cssSelector(B2WUIMap.b2w_estcostmiscellaneousunitcosttextbox);
+	}
+	public static By getB2WEstcostmiscellaneoustotalcosttextbox() {
+		return By.cssSelector(B2WUIMap.b2w_estcostmiscellaneoustotalcosttextbox);
+	}
+	public static By getB2wEstcostmaterialsownedunitcost() {
+		return By.cssSelector(B2WUIMap.b2w_estcostmaterialsownedunitcost);
+	}
+	public static By getB2wEstcostmaterialsownedtotalcost() {
+		return By.cssSelector(B2WUIMap.b2w_estcostmaterialsownedtotalcost);
+	}
+	public static By getB2wEstcostmaterialspurchasedunitcost() {
+		return By.cssSelector(B2WUIMap.b2w_estcostmaterialspurchasedunitcost);
+	}
+	public static By getB2wEstcostmaterialspurchasedtotalcost() {
+		return By.cssSelector(B2WUIMap.b2w_estcostmaterialspurchasedtotalcost);
+	}
+	public static By getB2WEstimateUnitCost() {
+		return By.cssSelector(B2WUIMap.b2w_estimatedunitcostlabel);
+	}
+	public static By getB2WEstimateTotalCost() {
+		return By.cssSelector(B2WUIMap.b2w_estimatedtotalcostlabel);
+	}
 }

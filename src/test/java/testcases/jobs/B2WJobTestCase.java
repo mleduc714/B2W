@@ -12,7 +12,7 @@ import com.b2w.test.B2WTestCase;
 import tasks.B2WNavigationTasks;
 import tasks.dialogs.B2WAddLaborRateClass;
 import tasks.jobs.B2WAddToJobs;
-import tasks.jobs.B2WCreateEstimateItemTasks;
+import tasks.jobs.B2WEstimateItemTasks;
 import tasks.jobs.B2WCreateJobProductionAccountTasks;
 import tasks.jobs.B2WCreateJobSiteTasks;
 import tasks.jobs.B2WCreateJobTasks;
@@ -32,7 +32,7 @@ public class B2WJobTestCase extends B2WTestCase {
 	B2WAddToJobs addToJobs = new B2WAddToJobs(JOBSDIALOG.ADDMATERIALS);
 	B2WAddToJobs addToVendors = new B2WAddToJobs(JOBSDIALOG.ADDVENDORS);
 	B2WCreateJobProductionAccountTasks jobProd = new B2WCreateJobProductionAccountTasks();
-	B2WCreateEstimateItemTasks estimate = new B2WCreateEstimateItemTasks();
+	B2WEstimateItemTasks estimate = new B2WEstimateItemTasks();
 	B2WOrganizationTasks b2wOrg = new B2WOrganizationTasks();
 	B2WMaterialsTasks b2wMaterial = new B2WMaterialsTasks();
 	B2WAddLaborRateClass laborRate = new B2WAddLaborRateClass();
