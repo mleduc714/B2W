@@ -1642,9 +1642,9 @@ public class B2WScheduleAssignmentsTest extends B2WTestCase {
 
     private void resolveEmployeeConflict() {
         selectView(employeeScheduleView);
-        logCompare(true, b2wScheduler.collapseCalendarPanel(), "Collapse Calendar Panel.");
 
         if (copyEmployeeAssignment != null) {
+            logCompare(true, b2wScheduler.collapseCalendarPanel(), "Collapse Calendar Panel.");
             logCompare(true, b2wScheduler.setSearchValue(copyEmployeeAssignment.getResourceName()), "Set Quick Filter to " + copyEmployeeAssignment.getResourceName());
             logCompare(true, true, "====== Start resolving Employee Conflicts for " + copyEmployeeAssignment.getResourceName());
             logCompare(true, b2wScheduler.conflictIconIsDisplayed(copyEmployeeAssignment), "Check that Conflict Icon is displayed.");
@@ -1664,9 +1664,9 @@ public class B2WScheduleAssignmentsTest extends B2WTestCase {
     }
     private void resolveEquipmentConflict() {
         selectView(equipmentScheduleView);
-        logCompare(true, b2wScheduler.collapseCalendarPanel(), "Collapse Calendar Panel.");
 
         if (copyEquipmentAssignment != null) {
+            logCompare(true, b2wScheduler.collapseCalendarPanel(), "Collapse Calendar Panel.");
             logCompare(true, b2wScheduler.setSearchValue(copyEquipmentAssignment.getResourceName()), "Set Quick Filter to " + copyEquipmentAssignment.getResourceName());
             logCompare(true, true, "====== Start resolving Equipment Conflicts for " + copyEquipmentAssignment.getResourceName());
             logCompare(true, b2wScheduler.conflictIconIsDisplayed(copyEquipmentAssignment), "Check that Conflict Icon is displayed.");
@@ -1685,8 +1685,9 @@ public class B2WScheduleAssignmentsTest extends B2WTestCase {
     }
     private void resolveCrewConflict() {
         selectView(crewsScheduleView);
-        logCompare(true, b2wScheduler.collapseCalendarPanel(), "Collapse Calendar Panel.");
+
         if (copyCrewAssignment != null) {
+            logCompare(true, b2wScheduler.collapseCalendarPanel(), "Collapse Calendar Panel.");
             logCompare(true, b2wScheduler.setSearchValue(copyCrewAssignment.getResourceName()), "Set Quick Filter to " + copyCrewAssignment.getResourceName());
             logCompare(true, true, "====== Start resolving Crew Conflicts for " + copyCrewAssignment.getResourceName());
             logCompare(true, b2wScheduler.conflictIconIsDisplayed(copyCrewAssignment), "Check that Conflict Icon is displayed.");
@@ -1705,8 +1706,8 @@ public class B2WScheduleAssignmentsTest extends B2WTestCase {
     }
     private void resolveMoveAssignmentsConflict() {
         selectView(equipmentScheduleView);
-        logCompare(true, b2wScheduler.collapseCalendarPanel(), "Collapse Calendar Panel.");
         if (copyMoveAssignment != null) {
+            logCompare(true, b2wScheduler.collapseCalendarPanel(), "Collapse Calendar Panel.");
             logCompare(true, b2wScheduler.setSearchValue(copyMoveAssignment.getResourceName()), "Set Quick Filter to " + copyMoveAssignment.getResourceName());
             logCompare(true, true, "====== Start resolving Move Assignment Conflicts for " + copyMoveAssignment.getResourceName());
             logCompare(true, b2wScheduler.conflictIconIsDisplayed(copyMoveAssignment), "Check that Conflict Icon is displayed.");
