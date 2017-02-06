@@ -671,8 +671,11 @@ public class B2WUIMap {
 	public static final String b2w_jobsmaterialsspacercolumn = "span[id^='PageContent_JobMaterialGridView_spacerColumn']";
 	public static final String b2w_jobsmaterialsviewdelete = "a[id^='PageContent_JobMaterialGridView_Delete']";
 
+	public static final String b2w_jobsitemappathcontrol = "div#PageContent_SiteMapPathControl";
 	public static final String b2w_jobssitedesc = "a[id^='PageContent_JobSitesGrid_Description']";
-	public static final String b2w_jobssitesitesupervisor = "a[id^='PageContent_JobSitesGrid_SiteSupervisor']";
+	public static final String b2w_jobssiteedit = "a[id^='PageContent_JobSitesGrid_Edit']";
+	public static final String b2w_jobssitedelete = "a[id^='PageContent_JobSitesGrid_Delete']";
+	public static final String b2w_jobssitesitesupervisor = "span[id^='PageContent_JobSitesGrid_SiteSupervisor']";
 	// public static final String b2w_jobssitecategory =
 	// "span[id^='PageContent_JobMaterialGridView_UnitCost']";
 	public static final String b2w_jobssiteaddress = "span[id^='PageContent_JobSitesGrid_Address']";
@@ -1229,4 +1232,15 @@ public class B2WUIMap {
 	public static final String b2w_dashboardforemanhomepagecost = "div#VisibleReportContentctl00_PageContent_HomePageDashboard_ReportViewer_ctl09";
 
 	public static final String b2w_resourcedgridpager = "tr.gridPager";
+	public static final String b2w_modifydialogokbutton = "a#PageContent_NotifyDialog_OKButton";
+	public static final String b2w_notfiydialogheaderpanel = "div#PageContent_NotifyDialog_DialogHeader_HeaderPanel";
+	
+	public static final String b2w_laborrateclasses = "table#PageContent_AddLaborRateClassesDialog_GridView";
+	public static final String b2w_laborrateclassesaddbutton = "a#PageContent_AddLaborRateClassesDialog_AddButton";
+	public static final String b2w_laborrateclassescancelbutton = "a#PageContent_AddLaborRateClassesDialog_CancelButton";
+	public static final String b2w_laborrateclassgridcheckbox = "input[id^='PageContent_AddLaborRateClassesDialog_GridView_SelectedCheckBox']";
+	public static final String b2w_laborrateclassdialogpanel = "div#PageContent_AddLaborRateClassesDialog_DialogPanel";
+	public static final String b2w_laborrateclassgridview = "table#PageContent_AddLaborRateClassesDialog_GridView";
+	public static final String b2w_estimateitemview = "fieldset#generalInformation";
+	
 }

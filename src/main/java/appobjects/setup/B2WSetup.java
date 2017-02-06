@@ -162,5 +162,11 @@ public class B2WSetup {
 	public static By getB2WGridPager() {
 		return By.cssSelector(B2WUIMap.b2w_resourcedgridpager);
 	}
+	public static By getNotifiyDialogOK() {
+		return By.cssSelector(B2WUIMap.b2w_modifydialogokbutton);
+	}
+	public static By getNotifyDialogHeaderPanel() {
+		return By.cssSelector(B2WUIMap.b2w_notfiydialogheaderpanel);
+	}
 
 }

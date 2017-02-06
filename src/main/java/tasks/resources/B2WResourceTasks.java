@@ -7,10 +7,13 @@ import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
+import appobjects.jobs.B2WJobs;
 import appobjects.resources.B2WMaterials;
 import appobjects.resources.B2WResources;
+import appobjects.setup.B2WSetup;
 import tasks.B2WSetupTasks;
 import tasks.WebElementUtils;
+import tasks.util.StringUtils;
 import tasks.util.TaskUtils;
 
 public abstract class B2WResourceTasks extends B2WSetupTasks {
@@ -21,6 +24,7 @@ public abstract class B2WResourceTasks extends B2WSetupTasks {
 		boolean bReturn = false;
 		WebElement el = WebElementUtils.findElement(B2WResources.getAccountDescription());
 		if (el != null){
+			el.clear();
 			bReturn = WebElementUtils.sendKeys(el, sDescription);
 		}
 		return bReturn;
@@ -39,6 +43,7 @@ public abstract class B2WResourceTasks extends B2WSetupTasks {
 		boolean bReturn = false;
 		WebElement el = WebElementUtils.findElement(B2WResources.getAccountID());
 		if (el != null) {
+			el.clear();
 			bReturn = WebElementUtils.sendKeys(el, sText);
 		}
 		return bReturn;
@@ -264,5 +269,22 @@ public abstract class B2WResourceTasks extends B2WSetupTasks {
 		}
 		return sText;
 	}
-	
+	public int getRowID(By by, String sText){
+		int iNumber = -1;
+		WebElement el = WebElementUtils.getElementWithMatchingText(by,sText);
+		if (el != null){
+			iNumber = StringUtils.getNumberFromID(el.getAttribute("id"));
+		}
+		return iNumber;
+	}
+	public boolean clickPathLink() {
+		boolean bReturn = false;
+		WebElement el = WebElementUtils.findElement(B2WJobs.getB2WJobSiteMapPathControl());
+		if (el != null){
+			bReturn = WebElementUtils.clickElement(WebElementUtils.getChildElement(el, By.tagName("a")));
+			WebElementUtils.waitAndFindDisplayedElement(B2WSetup.getBottomDeleteButton());
+		}
+		return bReturn;
+		
+	}
 }

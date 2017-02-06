@@ -126,7 +126,7 @@ public class MaintainDashboardSmokeTest_2 extends B2WTestCase {
 		logCompare(true,b2wMaintain.openDashboard(),"Open Dashboard");
 		//verifyFilters();
 		verifyScheduledWorkOrders();
-		verifyWorkOrdersPriorityChart();
+		//verifyWorkOrdersPriorityChart();
 		verifyWorkOrderItemHours();
 
 	}
@@ -173,7 +173,7 @@ public class MaintainDashboardSmokeTest_2 extends B2WTestCase {
 		
 		int h = b2wDash.getHighPriorityPercentage();
 		int l = b2wDash.getLowPriorityPercentage();
-		int m = b2wDash.getHighPriorityPercentage();
+		int m = b2wDash.getMediumPriorityPercentage();
 		b2wDash.selectWorkOrderByNumber(0);
 		logCompare(true,b2wSchedPopup.clickWorkItemLink(),"Click Work Item");
 		priority = b2wOrder.getPriorityOfItemEnum();

@@ -1,5 +1,6 @@
 package com.b2w.test;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import org.apache.log4j.Level;
@@ -67,6 +68,14 @@ public class BaseAssert {
     	
     	if(bFail)
     		_log.log(LogLevel.IMAGE, "SCREEN CAPTURE");
+    }
+    
+    public static void logCompare(ArrayList<String> expected, ArrayList<String> actual, String sLogMessage){
+    	if (expected.size() == actual.size()){
+    		for (int i = 0; i < expected.size(); i++){
+    			logCompare(expected.get(i), actual.get(i), sLogMessage);
+    		}
+    	}
     }
     
     /**

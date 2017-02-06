@@ -12,6 +12,7 @@ import org.openqa.selenium.WebElement;
 import appobjects.B2WCommonObjects;
 import appobjects.jobs.B2WJobs;
 import appobjects.resources.B2WPlaces;
+import appobjects.setup.B2WSetup;
 import appobjects.setup.B2WSetupUsers;
 import tasks.WebElementUtils;
 import tasks.resources.B2WPlaceTasks;
@@ -147,7 +148,7 @@ public class B2WJobsTasks extends B2WResourceTasks {
 		WebElement el = WebElementUtils.getElementWithMatchingText(B2WJobs.getB2WEstimateItemIDs(), b2w_jobsestimateitemid);
 		if (el != null){
 			WebElementUtils.clickElement(el);
-			WebElement waitForThis = WebElementUtils.waitAndFindDisplayedElement(B2WJobs.getB2WEstimateTableVerification());
+			WebElement waitForThis = WebElementUtils.waitAndFindDisplayedElement(B2WJobs.getB2WEstimateItemView());
 			bReturn = waitForThis != null;
 		}
 		return bReturn;
@@ -158,7 +159,7 @@ public class B2WJobsTasks extends B2WResourceTasks {
 		WebElement el = WebElementUtils.getElementWithMatchingText(B2WJobs.getB2WEstimateItemDescription(), b2w_jobsestimatedescription);
 		if (el != null){
 			WebElementUtils.clickElement(el);
-			WebElement waitForThis = WebElementUtils.waitAndFindDisplayedElement(B2WJobs.getB2WEstimateTableVerification());
+			WebElement waitForThis = WebElementUtils.waitAndFindDisplayedElement(B2WJobs.getB2WEstimateItemView());
 			bReturn = waitForThis != null;
 		}
 		return bReturn;
@@ -562,6 +563,19 @@ public class B2WJobsTasks extends B2WResourceTasks {
 		return al;
 	}
 	
+	public ArrayList<String> getJobProductionAccountsEstimatedUnitCosts() {
+		ArrayList<String> al = new ArrayList<String>();
+		List<WebElement> list = WebElementUtils.findElements(B2WJobs.getB2WJobProductionListAccountEstimatedUnitCost());
+		if (list.size() > 0){
+			Iterator<WebElement> iter = list.iterator();
+			while (iter.hasNext()){
+				al.add(iter.next().getText());
+			}
+		}
+		return al;
+	
+	}
+	
 	public boolean openJobProjectManager() {
 		boolean bReturn = false;
 		WebElement el = WebElementUtils.findElement(B2WJobs.getB2WJopprojectmanagertext());
@@ -586,10 +600,41 @@ public class B2WJobsTasks extends B2WResourceTasks {
 		WebElement el = WebElementUtils.getElementWithMatchingText(B2WJobs.getB2WJobssitedesc(),sDescription);
 		if (el != null){
 			int iNumber = StringUtils.getNumberFromID(el.getAttribute("id"));
-			List<WebElement> edits = WebElementUtils.findElements(B2WSetupUsers.getB2WUserListingEdit());
+			List<WebElement> edits = WebElementUtils.findElements(B2WJobs.getB2WJobssitelistedit());
 			WebElementUtils.clickElement(edits.get(iNumber));
-			WebElement waitForThis = WebElementUtils.waitAndFindDisplayedElement(B2WJobs.getB2WJobssitedesc());
+			WebElement waitForThis = WebElementUtils.waitAndFindDisplayedElement(B2WJobs.getB2WChangeOrdersDescription());
 			bReturn = waitForThis != null;
+		}
+		return bReturn;
+	}
+	
+	public String getJobSiteSupervisor(String sText){
+		String s = "";
+		int i = getRowID(B2WJobs.getB2WJobssitedesc(),sText);
+		if (i != -1){
+			s = WebElementUtils.findElements(B2WJobs.getB2wJobssitesitesupervisor()).get(i).getText();
+		}
+		return s;
+	}
+
+	public boolean deleteJobSite(String sDescription, boolean bInactive){
+		boolean bReturn = false;
+		WebElement el = WebElementUtils.getElementWithMatchingText(B2WJobs.getB2WJobssitedesc(),sDescription);
+		if (el != null){
+			int iNumber = StringUtils.getNumberFromID(el.getAttribute("id"));
+			List<WebElement> edits = WebElementUtils.findElements(B2WJobs.getB2WJobssitelistdelete());
+			WebElementUtils.clickElement(edits.get(iNumber));
+			Alert alert = WebElementUtils.waitForAndGetAlertDialog(WebElementUtils.MEDIUM_TIME_OUT);
+			alert.accept();
+			TaskUtils.sleep(500);
+			bReturn = waitForProcessingDialogToClear();
+			if (!bInactive){
+				if (WebElementUtils.waitAndFindDisplayedElement(B2WSetup.getNotifyDialogHeaderPanel()) != null){
+					WebElement button = WebElementUtils.findElement(B2WSetup.getNotifiyDialogOK());
+					bReturn &= WebElementUtils.clickElement(button);
+					WebElementUtils.waitForElementInvisible(button);
+				}
+			}
 		}
 		return bReturn;
 	}
@@ -620,10 +665,40 @@ public class B2WJobsTasks extends B2WResourceTasks {
 		return bReturn;
 	}
 	
-	public boolean editEstimateItemByID(String s){
+	public boolean deleteEstimateItemByDescription(String s){
 		boolean bReturn = false;
+		WebElement el = WebElementUtils.getElementWithMatchingText(B2WJobs.getB2WEstimateItemDescription(), s);
+		if (el != null){
+			int iNumber = StringUtils.getNumberFromID(el.getAttribute("id"));
+			List<WebElement> edits = WebElementUtils.findElements(B2WSetupUsers.getB2WUserListingDelete());
+			WebElementUtils.clickElement(edits.get(iNumber));
+			Alert alert = TaskUtils.getAlertDialog();
+			if (alert != null){
+				alert.accept();
+				bReturn = true;
+			}
+		}
 		return bReturn;
 	}
+	
+	public boolean deleteEstimateItemByID(String s){
+
+		boolean bReturn = false;
+		WebElement el = WebElementUtils.getElementWithMatchingText(B2WJobs.getB2WEstimateItemIDs(), s);
+		if (el != null){
+			int iNumber = StringUtils.getNumberFromID(el.getAttribute("id"));
+			List<WebElement> edits = WebElementUtils.findElements(B2WSetupUsers.getB2WUserListingDelete());
+			WebElementUtils.clickElement(edits.get(iNumber));
+			Alert alert = TaskUtils.getAlertDialog();
+			if (alert != null){
+				alert.accept();
+				bReturn = true;
+			}
+		}
+		return bReturn;
+	
+	}
+	
 	public boolean editEstimateItemByDescription(String s){
 		boolean bReturn = false;
 		WebElement el = WebElementUtils.getElementWithMatchingText(B2WJobs.getB2WEstimateItemDescription(), s);
@@ -882,4 +957,120 @@ public class B2WJobsTasks extends B2WResourceTasks {
 		}
 		return bReturn;
 	}
+	public boolean clickEstimateItemID() {
+		boolean bReturn = false;
+		WebElement el = getColumnHeader("Item ID");
+		if (el != null){
+			bReturn = WebElementUtils.clickElement(el);
+			bReturn &= waitForProcessingDialogToClear();
+		}
+		return bReturn;
+	}
+	public boolean clickEstimateItemNumber() {
+		boolean bReturn = false;
+		WebElement el = getColumnHeader("Item Number");
+		if (el != null){
+			bReturn = WebElementUtils.clickElement(el);
+			bReturn &= waitForProcessingDialogToClear();
+		}
+		return bReturn;
+	}
+	public boolean clickEstimateDescription() {
+		boolean bReturn = false;
+		WebElement el = getColumnHeader("Description");
+		if (el != null){
+			bReturn = WebElementUtils.clickElement(el);
+			bReturn &= waitForProcessingDialogToClear();
+		}
+		return bReturn;
+	}
+	public boolean clickEstimateEstimatedQuantity() {
+		boolean bReturn = false;
+		WebElement el = getColumnHeader("Estimated\nQuantity");
+		if (el != null){
+			bReturn = WebElementUtils.clickElement(el);
+			bReturn &= waitForProcessingDialogToClear();
+		}
+		return bReturn;
+	}
+	public boolean clickEstimateChangeOrderQuantity() {
+		boolean bReturn = false;
+		WebElement el = getColumnHeader("Change Order\nQuantity");
+		if (el != null){
+			bReturn = WebElementUtils.clickElement(el);
+			bReturn &= waitForProcessingDialogToClear();
+		}
+		return bReturn;
+	}
+	public boolean clickEstimateCurrentQuantity() {
+		boolean bReturn = false;
+		WebElement el = getColumnHeader("Current\nQuantity");
+		if (el != null){
+			bReturn = WebElementUtils.clickElement(el);
+			bReturn &= waitForProcessingDialogToClear();
+		}
+		return bReturn;
+	}
+	public boolean clickEstimateUM() {
+		boolean bReturn = false;
+		WebElement el = getColumnHeader("UM");
+		if (el != null){
+			bReturn = WebElementUtils.clickElement(el);
+			bReturn &= waitForProcessingDialogToClear();
+		}
+		return bReturn;
+	}
+	public boolean clickEstimateReportedQuantity() {
+		boolean bReturn = false;
+		WebElement el = getColumnHeader("Reported\nQuantity");
+		if (el != null){
+			bReturn = WebElementUtils.clickElement(el);
+			bReturn &= waitForProcessingDialogToClear();
+		}
+		return bReturn;
+	}
+	public boolean clickEstimateRemainingQuantity() {
+		boolean bReturn = false;
+		WebElement el = getColumnHeader("Remaining\nQuantity");
+		if (el != null){
+			bReturn = WebElementUtils.clickElement(el);
+			bReturn &= waitForProcessingDialogToClear();
+		}
+		return bReturn;
+	}
+	public boolean clickEstimateUnitPrice() {
+		boolean bReturn = false;
+		WebElement el = getColumnHeader("Unit\nPrice");
+		if (el != null){
+			bReturn = WebElementUtils.clickElement(el);
+			bReturn &= waitForProcessingDialogToClear();
+		}
+		return bReturn;
+	}
+	public boolean clickEstimateTotalPrice() {
+		boolean bReturn = false;
+		WebElement el = getColumnHeader("Total\nPrice");
+		if (el != null){
+			bReturn = WebElementUtils.clickElement(el);
+			bReturn &= waitForProcessingDialogToClear();
+		}
+		return bReturn;
+	}
+	public boolean clickEstimateRevenueToDate() {
+		boolean bReturn = false;
+		WebElement el = getColumnHeader("Revenue\nTo Date");
+		if (el != null){
+			bReturn = WebElementUtils.clickElement(el);
+			bReturn &= waitForProcessingDialogToClear();
+		}
+		return bReturn;
+	}
+	
+	public ArrayList<String> getEstimateDescriptions() {
+		return getColumnText(2);
+		
+	}
+	
+	
+	
 }
