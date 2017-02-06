@@ -270,13 +270,10 @@ public class B2WJobsTestPart2 extends B2WTestCase {
 		
 	}
 	
-	public void editJobProductionAccount() {
-		assertTrue("Open Jobs",b2wNav.openJobs());
-		openJob();
-		logCompare(true,jobsTasks.clickTrackingAccountsTab(), "Open Tracking Accounts Tab");
-	}
 	
 	public void editJobWithProductionAccounts() {
 		openJobWithProductionAccounts();
+		
+		
 	}
 }
