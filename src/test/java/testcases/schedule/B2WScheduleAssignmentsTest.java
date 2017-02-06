@@ -1598,7 +1598,6 @@ public class B2WScheduleAssignmentsTest extends B2WTestCase {
     }
     private void copyMoveAssignment() {
         selectView(equipmentScheduleView);
-
         logCompare(true, b2wScheduler.setSearchValue(moveAssignment.getResourceName()), "Set Quick Filter to " + moveAssignment.getResourceName());
         if (logCompare(true, b2wScheduler.copyAssignment(moveAssignment), "Copy Move Assignment : " + moveAssignment.getResourceName())) {
             copyMoveAssignment = moveAssignment.clone();
@@ -1642,11 +1641,10 @@ public class B2WScheduleAssignmentsTest extends B2WTestCase {
 
     private void resolveEmployeeConflict() {
         selectView(employeeScheduleView);
-        logCompare(true, b2wScheduler.collapseCalendarPanel(), "Collapse Calendar Panel.");
-
         if (copyEmployeeAssignment != null) {
             logCompare(true, b2wScheduler.setSearchValue(copyEmployeeAssignment.getResourceName()), "Set Quick Filter to " + copyEmployeeAssignment.getResourceName());
             logCompare(true, true, "====== Start resolving Employee Conflicts for " + copyEmployeeAssignment.getResourceName());
+            logCompare(true, b2wScheduler.collapseCalendarPanel(), "Collapse Calendar Panel.");
             logCompare(true, b2wScheduler.conflictIconIsDisplayed(copyEmployeeAssignment), "Check that Conflict Icon is displayed.");
             if (logCompare(true, b2wScheduler.openConflictPanel(), "Open conflict panel."))
             {
@@ -1664,11 +1662,10 @@ public class B2WScheduleAssignmentsTest extends B2WTestCase {
     }
     private void resolveEquipmentConflict() {
         selectView(equipmentScheduleView);
-        logCompare(true, b2wScheduler.collapseCalendarPanel(), "Collapse Calendar Panel.");
-
         if (copyEquipmentAssignment != null) {
             logCompare(true, b2wScheduler.setSearchValue(copyEquipmentAssignment.getResourceName()), "Set Quick Filter to " + copyEquipmentAssignment.getResourceName());
             logCompare(true, true, "====== Start resolving Equipment Conflicts for " + copyEquipmentAssignment.getResourceName());
+            logCompare(true, b2wScheduler.collapseCalendarPanel(), "Collapse Calendar Panel.");
             logCompare(true, b2wScheduler.conflictIconIsDisplayed(copyEquipmentAssignment), "Check that Conflict Icon is displayed.");
             if (logCompare(true, b2wScheduler.openConflictPanel(), "Open conflict panel.")) {
                 logCompare(true, b2wScheduler.resolveConflict(copyEquipmentAssignment), "Resolve Equipment conflicts.");
@@ -1685,10 +1682,10 @@ public class B2WScheduleAssignmentsTest extends B2WTestCase {
     }
     private void resolveCrewConflict() {
         selectView(crewsScheduleView);
-        logCompare(true, b2wScheduler.collapseCalendarPanel(), "Collapse Calendar Panel.");
         if (copyCrewAssignment != null) {
             logCompare(true, b2wScheduler.setSearchValue(copyCrewAssignment.getResourceName()), "Set Quick Filter to " + copyCrewAssignment.getResourceName());
             logCompare(true, true, "====== Start resolving Crew Conflicts for " + copyCrewAssignment.getResourceName());
+            logCompare(true, b2wScheduler.collapseCalendarPanel(), "Collapse Calendar Panel.");
             logCompare(true, b2wScheduler.conflictIconIsDisplayed(copyCrewAssignment), "Check that Conflict Icon is displayed.");
             if (logCompare(true, b2wScheduler.openConflictPanel(), "Open conflict panel.")) {
                 logCompare(true, b2wScheduler.resolveConflict(copyCrewAssignment), "Resolve Crews Conflict.");
@@ -1705,10 +1702,10 @@ public class B2WScheduleAssignmentsTest extends B2WTestCase {
     }
     private void resolveMoveAssignmentsConflict() {
         selectView(equipmentScheduleView);
-        logCompare(true, b2wScheduler.collapseCalendarPanel(), "Collapse Calendar Panel.");
         if (copyMoveAssignment != null) {
             logCompare(true, b2wScheduler.setSearchValue(copyMoveAssignment.getResourceName()), "Set Quick Filter to " + copyMoveAssignment.getResourceName());
             logCompare(true, true, "====== Start resolving Move Assignment Conflicts for " + copyMoveAssignment.getResourceName());
+            logCompare(true, b2wScheduler.collapseCalendarPanel(), "Collapse Calendar Panel.");
             logCompare(true, b2wScheduler.conflictIconIsDisplayed(copyMoveAssignment), "Check that Conflict Icon is displayed.");
             if (logCompare(true, b2wScheduler.openConflictPanel(), "Open conflict panel.")) {
                 logCompare(true, b2wScheduler.resolveConflict(copyMoveAssignment), "Resolve Move Assignments Conflict");
@@ -1725,9 +1722,9 @@ public class B2WScheduleAssignmentsTest extends B2WTestCase {
     }
     private void resolveEmployeeEventConflict() {
         selectView(employeeDefaultScheduleView);
-        logCompare(true, b2wScheduler.collapseCalendarPanel(), "Collapse Calendar Panel.");
         if (copyEmployeeEvent != null) {
             logCompare(true, b2wScheduler.setSearchValue(copyEmployeeEvent.getResourceName()), "Set Quick Filter to " + copyEmployeeEvent.getResourceName());
+            logCompare(true, b2wScheduler.collapseCalendarPanel(), "Collapse Calendar Panel.");
             logCompare(true, true, "====== Start resolving Employee Event Conflicts for " + copyEmployeeEvent.getResourceName());
             logCompare(true, b2wScheduler.conflictIconIsDisplayed(copyEmployeeEvent), "Check that Conflict Icon is displayed.");
             if (logCompare(true, b2wScheduler.openConflictPanel(), "Open conflict panel.")) {
@@ -1745,11 +1742,10 @@ public class B2WScheduleAssignmentsTest extends B2WTestCase {
     }
     private void resolveEquipmentEventConflict() {
         selectView(equipmentDefaultScheduleView);
-        logCompare(true, b2wScheduler.collapseCalendarPanel(), "Collapse Calendar Panel.");
-
         if (copyEquipmentEvent != null) {
             logCompare(true, b2wScheduler.setSearchValue(copyEquipmentEvent.getResourceName()), "Set Quick Filter to " + copyEquipmentEvent.getResourceName());
             logCompare(true, true, "====== Start resolving Equipment Event Conflicts for " + copyEquipmentEvent.getResourceName());
+            logCompare(true, b2wScheduler.collapseCalendarPanel(), "Collapse Calendar Panel.");
             logCompare(true, b2wScheduler.conflictIconIsDisplayed(copyEquipmentEvent), "Check that Conflict Icon is displayed.");
             if (logCompare(true, b2wScheduler.openConflictPanel(), "Open conflict panel.")) {
                 logCompare(true, b2wScheduler.resolveConflict(copyEquipmentEvent), "Resolve Equipment Events conflict.");
@@ -1768,117 +1764,133 @@ public class B2WScheduleAssignmentsTest extends B2WTestCase {
     //=== Order Panel
     private void verifyEmployeeNeedOrder() {
         selectView(employeeDefaultScheduleView);
-        logCompare(true, b2wScheduler.collapseCalendarPanel(), "Collapse Calendar Panel.");
 
         String sEmployeeFillNeedName = getProperty("sEmployeeFillNeedName");
         String sEmployeeDragNeedName = getProperty("sEmployeeDragNeedName");
 
         //logCompare(true, b2wScheduler.setSearchValue(copyEmployeeNeed.getResourceName()), "Set Quick Filter to " + copyEmployeeNeed.getResourceName());
         logCompare(true, b2wScheduler.clearSearchValue(), "Clear search box.");
-        logCompare(true, true, "====== Start fill Employee Need " + copyEmployeeNeed.getResourceName() + " from Order Panel");
-        logCompare(true, b2wScheduler.warningIconIsDisplayed(copyEmployeeNeed.getResourceName()), "Verify that Warning Icon is displayed for Resource.");
-        if (logCompare(true, b2wScheduler.openOrderPanel(), "Open Order panel.")) {
-            logCompare(true, b2wScheduler.setOrdersFilter(copyEmployeeNeed.getResourceName()), "Set Filter on the Order panel.");
-            logCompare(true, b2wScheduler.resolveOrderByDelete(copyEmployeeNeed), "Resolve Need on Order Panel by deletion.");
-            logCompare(true, b2wScheduler.setOrdersFilter(employeeNeed.getResourceName()), "Set Filter on the Order panel.");
-            logCompare(true, b2wScheduler.resolveOrderByFill(employeeNeed, sEmployeeFillNeedName), "Resolve Need on Order Panel by Fill Need.");
-            logCompare(true, b2wScheduler.setOrdersFilter(employeeNeed1.getResourceName()), "Set Filter on the Order panel.");
-            logCompare(true, b2wScheduler.resolveOrderByDrag(employeeNeed1, sEmployeeDragNeedName), "Resolve Need on Order Panel by Drag&Drop.");
-            logCompare(true, b2wScheduler.isOrderPanelEmpty(), "Check that there are no more orders in the panel.");
-            logCompare(false, b2wScheduler.warningIconIsDisplayed(copyEmployeeNeed.getResourceName()), "Verify that Warning Icon is not displayed for Resource.");
-            logCompare(true, b2wScheduler.closeConflictPanel(), "Close the Order Panel.");
+        if (copyEmployeeNeed != null) {
+            logCompare(true, true, "====== Start fill Employee Need " + copyEmployeeNeed.getResourceName() + " from Order Panel");
+            logCompare(true, b2wScheduler.collapseCalendarPanel(), "Collapse Calendar Panel.");
+            logCompare(true, b2wScheduler.warningIconIsDisplayed(copyEmployeeNeed.getResourceName()), "Verify that Warning Icon is displayed for Resource.");
+            if (logCompare(true, b2wScheduler.openOrderPanel(), "Open Order panel.")) {
+                logCompare(true, b2wScheduler.setOrdersFilter(copyEmployeeNeed.getResourceName()), "Set Filter on the Order panel.");
+                logCompare(true, b2wScheduler.resolveOrderByDelete(copyEmployeeNeed), "Resolve Need on Order Panel by deletion.");
+                logCompare(true, b2wScheduler.setOrdersFilter(employeeNeed.getResourceName()), "Set Filter on the Order panel.");
+                logCompare(true, b2wScheduler.resolveOrderByFill(employeeNeed, sEmployeeFillNeedName), "Resolve Need on Order Panel by Fill Need.");
+                logCompare(true, b2wScheduler.setOrdersFilter(employeeNeed1.getResourceName()), "Set Filter on the Order panel.");
+                logCompare(true, b2wScheduler.resolveOrderByDrag(employeeNeed1, sEmployeeDragNeedName), "Resolve Need on Order Panel by Drag&Drop.");
+                logCompare(true, b2wScheduler.isOrderPanelEmpty(), "Check that there are no more orders in the panel.");
+                logCompare(false, b2wScheduler.warningIconIsDisplayed(copyEmployeeNeed.getResourceName()), "Verify that Warning Icon is not displayed for Resource.");
+                logCompare(true, b2wScheduler.closeConflictPanel(), "Close the Order Panel.");
+            } else {
+                log.error("Order panel tests for Employee Needs were skipped.");
+            }
+            logCompare(true, b2wScheduler.expandCalendarPanel(), "Expand Calendar Panel.");
+            logCompare(true, true, "====== Complete fill Employee Need for " + copyEmployeeNeed.getResourceName());
         } else {
-            log.error("Order panel tests for Employee Needs were skipped.");
+            log.error("Employee Need Order is NULL");
         }
-        logCompare(true, b2wScheduler.expandCalendarPanel(), "Expand Calendar Panel.");
-        logCompare(true, true, "====== Complete fill Employee Need for " + copyEmployeeNeed.getResourceName());
     }
     private void verifyEquipmentNeedOrder() {
         selectView(equipmentDefaultScheduleView);
-        logCompare(true, b2wScheduler.collapseCalendarPanel(), "Collapse Calendar Panel.");
 
         String sEquipmentFillNeedName = getProperty("sEquipmentFillNeedName");
         String sEquipmentDragNeedName = getProperty("sEquipmentDragNeedName");
 
         logCompare(true, b2wScheduler.clearSearchValue(), "Clear search box.");
-        logCompare(true, true, "====== Start fill Equipment Need " + copyEquipmentNeed.getResourceName() + " from Order Panel");
-        logCompare(true, b2wScheduler.warningIconIsDisplayed(copyEquipmentNeed.getResourceName()), "Verify that Warning Icon is displayed for Resource.");
-        if (logCompare(true, b2wScheduler.openOrderPanel(), "Open Order panel.")) {
-            logCompare(true, b2wScheduler.setOrdersFilter(copyEquipmentNeed.getResourceName()), "Set Filter on the Order panel.");
-            logCompare(true, b2wScheduler.resolveOrderByDelete(copyEquipmentNeed), "Resolve Need on Order Panel by deletion.");
-            logCompare(true, b2wScheduler.setOrdersFilter(equipmentNeed1.getResourceName()), "Set Filter on the Order panel.");
-            logCompare(true, b2wScheduler.resolveOrderByFill(equipmentNeed1, sEquipmentFillNeedName), "Resolve Need on Order Panel by Fill Need.");
-            String tmpResourceName = equipmentNeed.getResourceName();
-            logCompare(true, b2wScheduler.setOrdersFilter(tmpResourceName), "Set Filter on the Order panel.");
-            logCompare(true, b2wScheduler.resolveOrderByDrag(equipmentNeed, sEquipmentDragNeedName), "Resolve Need on Order Panel by Drag&Drop.");
-            logCompare(true, b2wScheduler.setOrdersFilter(copyEquipmentNeed.getResourceName()), "Set Filter on the Order panel.");
-            logCompare(true, b2wScheduler.getOrdersCount() == 3, "Check that there are no more orders in the panel.");
-            logCompare(true, b2wScheduler.setOrdersFilter(tmpResourceName), "Set Filter on the Order panel.");
-            //ToDo: Investigate Why 3 Orders are displayed in the Panel.
-            //logCompare(true, b2wScheduler.isOrderPanelEmpty(), "Check that there are no more orders in the panel.");
-            logCompare(false, b2wScheduler.warningIconIsDisplayed(copyEquipmentNeed.getResourceName()), "Verify that Warning Icon is not displayed for Resource.");
-            logCompare(true, b2wScheduler.closeConflictPanel(), "Close the Order Panel.");
+        if (copyEquipmentNeed != null) {
+            logCompare(true, true, "====== Start fill Equipment Need " + copyEquipmentNeed.getResourceName() + " from Order Panel");
+            logCompare(true, b2wScheduler.collapseCalendarPanel(), "Collapse Calendar Panel.");
+            logCompare(true, b2wScheduler.warningIconIsDisplayed(copyEquipmentNeed.getResourceName()), "Verify that Warning Icon is displayed for Resource.");
+            if (logCompare(true, b2wScheduler.openOrderPanel(), "Open Order panel.")) {
+                logCompare(true, b2wScheduler.setOrdersFilter(copyEquipmentNeed.getResourceName()), "Set Filter on the Order panel.");
+                logCompare(true, b2wScheduler.resolveOrderByDelete(copyEquipmentNeed), "Resolve Need on Order Panel by deletion.");
+                logCompare(true, b2wScheduler.setOrdersFilter(equipmentNeed1.getResourceName()), "Set Filter on the Order panel.");
+                logCompare(true, b2wScheduler.resolveOrderByFill(equipmentNeed1, sEquipmentFillNeedName), "Resolve Need on Order Panel by Fill Need.");
+                String tmpResourceName = equipmentNeed.getResourceName();
+                logCompare(true, b2wScheduler.setOrdersFilter(tmpResourceName), "Set Filter on the Order panel.");
+                logCompare(true, b2wScheduler.resolveOrderByDrag(equipmentNeed, sEquipmentDragNeedName), "Resolve Need on Order Panel by Drag&Drop.");
+                logCompare(true, b2wScheduler.setOrdersFilter(copyEquipmentNeed.getResourceName()), "Set Filter on the Order panel.");
+                logCompare(true, b2wScheduler.getOrdersCount() == 3, "Check that there are no more orders in the panel.");
+                logCompare(true, b2wScheduler.setOrdersFilter(tmpResourceName), "Set Filter on the Order panel.");
+                //ToDo: Investigate Why 3 Orders are displayed in the Panel.
+                //logCompare(true, b2wScheduler.isOrderPanelEmpty(), "Check that there are no more orders in the panel.");
+                logCompare(false, b2wScheduler.warningIconIsDisplayed(copyEquipmentNeed.getResourceName()), "Verify that Warning Icon is not displayed for Resource.");
+                logCompare(true, b2wScheduler.closeConflictPanel(), "Close the Order Panel.");
+            } else {
+                log.error("Order panel tests for Equipment Needs were skipped.");
+            }
+            logCompare(true, b2wScheduler.expandCalendarPanel(), "Expand Calendar Panel.");
+            logCompare(true, true, "====== Complete fill Equipment Need for " + copyEquipmentNeed.getResourceName());
         } else {
-            log.error("Order panel tests for Equipment Needs were skipped.");
+            log.error("Equipment Need Order is NULL.");
         }
-        logCompare(true, b2wScheduler.expandCalendarPanel(), "Expand Calendar Panel.");
-        logCompare(true, true, "====== Complete fill Equipment Need for " + copyEquipmentNeed.getResourceName());
     }
     private void verifyCrewNeedOrder() {
         selectView(crewsDefaultScheduleView);
-        logCompare(true, b2wScheduler.collapseCalendarPanel(), "Collapse Calendar Panel.");
 
         String sCrewFillNeedName = getProperty("sCrewFillNeedName");
         String sCrewDragNeedName = getProperty("sCrewDragNeedName");
 
         logCompare(true, b2wScheduler.clearSearchValue(), "Clear search box.");
-        logCompare(true, true, "====== Start fill Crew Need " + copyCrewNeed.getResourceName() + " from Order Panel");
-        logCompare(true, b2wScheduler.warningIconIsDisplayed(copyCrewNeed.getResourceName()), "Verify that Warning Icon is displayed for Resource.");
-        if (logCompare(true, b2wScheduler.openOrderPanel(), "Open Order panel.")) {
-            logCompare(true, b2wScheduler.setOrdersFilter(copyCrewNeed.getResourceName()), "Set Filter on the Order panel.");
-            logCompare(true, b2wScheduler.resolveOrderByDelete(copyCrewNeed), "Resolve Need on Order Panel by deletion.");
-            logCompare(true, b2wScheduler.setOrdersFilter(crewNeed1.getResourceName()), "Set Filter on the Order panel.");
-            logCompare(true, b2wScheduler.resolveOrderByFill(crewNeed1, sCrewFillNeedName), "Resolve Need on Order Panel by Assign Order.");
-            String tmpResourceName = crewNeed.getResourceName();
-            logCompare(true, b2wScheduler.setOrdersFilter(tmpResourceName), "Set Filter on the Order panel.");
-            logCompare(true, b2wScheduler.resolveOrderByDrag(crewNeed, sCrewDragNeedName), "Resolve Need on Order Panel by Drag&Drop.");
-            logCompare(true, b2wScheduler.setOrdersFilter(copyCrewNeed.getResourceName()), "Set Filter on the Order panel.");
-            logCompare(true, b2wScheduler.isOrderPanelEmpty(), "Check that there are no more orders in the panel.");
-            logCompare(true, b2wScheduler.setOrdersFilter(tmpResourceName), "Set Filter on the Order panel.");
-            logCompare(true, b2wScheduler.isOrderPanelEmpty(), "Check that there are no more orders in the panel.");
-            logCompare(false, b2wScheduler.warningIconIsDisplayed(copyCrewNeed.getResourceName()), "Verify that Warning Icon is not displayed for Resource.");
-            logCompare(true, b2wScheduler.closeConflictPanel(), "Close the Order Panel.");
+        if (copyCrewNeed != null) {
+            logCompare(true, true, "====== Start fill Crew Need " + copyCrewNeed.getResourceName() + " from Order Panel");
+            logCompare(true, b2wScheduler.collapseCalendarPanel(), "Collapse Calendar Panel.");
+            logCompare(true, b2wScheduler.warningIconIsDisplayed(copyCrewNeed.getResourceName()), "Verify that Warning Icon is displayed for Resource.");
+            if (logCompare(true, b2wScheduler.openOrderPanel(), "Open Order panel.")) {
+                logCompare(true, b2wScheduler.setOrdersFilter(copyCrewNeed.getResourceName()), "Set Filter on the Order panel.");
+                logCompare(true, b2wScheduler.resolveOrderByDelete(copyCrewNeed), "Resolve Need on Order Panel by deletion.");
+                logCompare(true, b2wScheduler.setOrdersFilter(crewNeed1.getResourceName()), "Set Filter on the Order panel.");
+                logCompare(true, b2wScheduler.resolveOrderByFill(crewNeed1, sCrewFillNeedName), "Resolve Need on Order Panel by Assign Order.");
+                String tmpResourceName = crewNeed.getResourceName();
+                logCompare(true, b2wScheduler.setOrdersFilter(tmpResourceName), "Set Filter on the Order panel.");
+                logCompare(true, b2wScheduler.resolveOrderByDrag(crewNeed, sCrewDragNeedName), "Resolve Need on Order Panel by Drag&Drop.");
+                logCompare(true, b2wScheduler.setOrdersFilter(copyCrewNeed.getResourceName()), "Set Filter on the Order panel.");
+                logCompare(true, b2wScheduler.isOrderPanelEmpty(), "Check that there are no more orders in the panel.");
+                logCompare(true, b2wScheduler.setOrdersFilter(tmpResourceName), "Set Filter on the Order panel.");
+                logCompare(true, b2wScheduler.isOrderPanelEmpty(), "Check that there are no more orders in the panel.");
+                logCompare(false, b2wScheduler.warningIconIsDisplayed(copyCrewNeed.getResourceName()), "Verify that Warning Icon is not displayed for Resource.");
+                logCompare(true, b2wScheduler.closeConflictPanel(), "Close the Order Panel.");
+                logCompare(true, b2wScheduler.expandCalendarPanel(), "Expand Calendar Panel.");
+                logCompare(true, true, "====== Complete fill Crew Need for " + copyCrewNeed.getResourceName());
+            } else {
+                log.error("Order panel tests for Crew Needs were skipped.");
+            }
         } else {
-            log.error("Order panel tests for Crew Needs were skipped.");
+            log.error("Crew Need Order is NULL.");
         }
-        logCompare(true, b2wScheduler.expandCalendarPanel(), "Expand Calendar Panel.");
-        logCompare(true, true, "====== Complete fill Crew Need for " + copyCrewNeed.getResourceName());
     }
     private void verifyMoveOrderOrder() {
         selectView(equipmentDefaultScheduleView);
-        logCompare(true, b2wScheduler.collapseCalendarPanel(), "Collapse Calendar Panel.");
 
         String sMoveOrderFillNeedName = getProperty("sMoveOrderFillNeedName");
         String sMoveOrderNeedName = getProperty("sMoveOrderNeedName");
 
         logCompare(true, b2wScheduler.clearSearchValue(), "Clear search box.");
-        logCompare(true, true, "====== Start fill Move Order Need " + copyMoveOrder.getResourceName() + " from Order Panel");
-        if (logCompare(true, b2wScheduler.openOrderPanel(), "Open Order panel.")) {
-            logCompare(true, b2wScheduler.setOrdersFilter(copyMoveOrder.getResourceName()), "Set Filter on the Order panel.");
-            logCompare(true, b2wScheduler.resolveOrderByDelete(copyMoveOrder), "Resolve Need on Order Panel by deletion.");
-            logCompare(true, b2wScheduler.setOrdersFilter(copyMoveOrder1.getResourceName()), "Set Filter on the Order panel.");
-            logCompare(true, b2wScheduler.resolveOrderByFill(copyMoveOrder1, sMoveOrderFillNeedName), "Resolve Need on Order Panel by Fill Order.");
-            String tmpResourceName = moveOrder.getResourceName();
-            logCompare(true, b2wScheduler.setOrdersFilter(tmpResourceName), "Set Filter on the Order panel.");
-            logCompare(true, b2wScheduler.resolveOrderByDrag(moveOrder, sMoveOrderNeedName), "Resolve Need on Order Panel by Drag&Drop.");
-            logCompare(true, b2wScheduler.setOrdersFilter(copyMoveOrder.getResourceName()), "Set Filter on the Order panel.");
-            logCompare(true, b2wScheduler.isOrderPanelEmpty(), "Check that there are no more orders in the panel.");
-            logCompare(true, b2wScheduler.closeConflictPanel(), "Close the Order Panel.");
+        if (copyMoveOrder != null) {
+            logCompare(true, true, "====== Start fill Move Order Need " + copyMoveOrder.getResourceName() + " from Order Panel");
+            logCompare(true, b2wScheduler.collapseCalendarPanel(), "Collapse Calendar Panel.");
+            if (logCompare(true, b2wScheduler.openOrderPanel(), "Open Order panel.")) {
+                logCompare(true, b2wScheduler.setOrdersFilter(copyMoveOrder.getResourceName()), "Set Filter on the Order panel.");
+                logCompare(true, b2wScheduler.resolveOrderByDelete(copyMoveOrder), "Resolve Need on Order Panel by deletion.");
+                logCompare(true, b2wScheduler.setOrdersFilter(copyMoveOrder1.getResourceName()), "Set Filter on the Order panel.");
+                logCompare(true, b2wScheduler.resolveOrderByFill(copyMoveOrder1, sMoveOrderFillNeedName), "Resolve Need on Order Panel by Fill Order.");
+                String tmpResourceName = moveOrder.getResourceName();
+                logCompare(true, b2wScheduler.setOrdersFilter(tmpResourceName), "Set Filter on the Order panel.");
+                logCompare(true, b2wScheduler.resolveOrderByDrag(moveOrder, sMoveOrderNeedName), "Resolve Need on Order Panel by Drag&Drop.");
+                logCompare(true, b2wScheduler.setOrdersFilter(copyMoveOrder.getResourceName()), "Set Filter on the Order panel.");
+                logCompare(true, b2wScheduler.isOrderPanelEmpty(), "Check that there are no more orders in the panel.");
+                logCompare(true, b2wScheduler.closeConflictPanel(), "Close the Order Panel.");
+            } else {
+                log.error("Order panel tests for Move Order were skipped.");
+            }
+            logCompare(true, b2wScheduler.expandCalendarPanel(), "Expand Calendar Panel.");
+            logCompare(true, true, "====== Complete fill Move Order Need for " + copyMoveOrder.getResourceName());
         } else {
-            log.error("Order panel tests for Move Order were skipped.");
+            log.error("Move Order is NULL.");
         }
-        logCompare(true, b2wScheduler.expandCalendarPanel(), "Expand Calendar Panel.");
-        logCompare(true, true, "====== Complete fill Move Order Need for " + copyMoveOrder.getResourceName());
     }
 
     private void deleteEmployeeAssignmentSubstitution(){

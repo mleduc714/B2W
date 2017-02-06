@@ -944,7 +944,7 @@ public class B2WSchedulerTasks extends B2WKendoTasks {
             logCompare(true, true, "====== Start Unassign Move Assignment.");
             bReturn = logCompare(true, openContextMenu(assignment), "Open Assignment's Context Menu");
             bReturn &= logCompare(true, selectOptionFromContextMenu("Unassign Move"), "Select 'Unassign Move' from Context Menu.");
-            bReturn &= logCompare(true, selectButtonOption("Yes"), "Select 'Unassign Move' from Context Menu.");
+            bReturn &= logCompare(true, selectButtonOption("Yes"), "Confirm on Dialog.");
             assignment.setAssignmentType(B2WAssignmentType.MOVE_ORDER_TYPE);
             WebElement result = getAssignment(assignment);
             bReturn &= logCompare(true,  result != null, "Verification that specific Assignment has been converted to Move Assignment.");
@@ -960,6 +960,7 @@ public class B2WSchedulerTasks extends B2WKendoTasks {
             WebElement parent = WebElementUtils.getParentElement(eConflictBtn);
             if (!parent.getAttribute("class").contains("Toolbar__toggle-button--checked")) {
                 bReturn = WebElementUtils.clickElement(eConflictBtn);
+                TaskUtils.sleep(1000);
                 waitForSchedulesPageNoBusy();
                 bReturn &= WebElementUtils.waitAndFindDisplayedElement(B2WScheduleAssignments.getConflictsPanel(), WebElementUtils.LONG_TIME_OUT) != null;
             } else {
@@ -980,7 +981,7 @@ public class B2WSchedulerTasks extends B2WKendoTasks {
             if (!bReturn) {
                 eConflictBtn = WebElementUtils.waitAndFindDisplayedElement(B2WScheduleAssignments.getCheckedBtn());
                 if (eConflictBtn != null) {
-                    TaskUtils.sleep(500);
+                    TaskUtils.sleep(1000);
                     waitForSchedulesPageNoBusy();
                     bReturn = WebElementUtils.clickElement(eConflictBtn);
                 }
