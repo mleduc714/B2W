@@ -756,6 +756,7 @@ public class B2WUIMap {
 
 	public static final String b2w_joboverheadaddestimateitemcostbutton = "a#PageContent_AddEstimateItemCostBreakdownButton";
 	public static final String b2w_joboverheadaddchangeordercostbutton = "a#PageContent_AddChangeOrderCostBreakdownButton";
+	
 
 	public static final String b2w_jobtopsavebutton = "a#PageContent_TopSaveButtun";
 
@@ -1286,5 +1287,8 @@ public class B2WUIMap {
 	public static final String b2w_estimatedunitcostlabel = "span#PageContent_EstimatedUnitCostLabel";
 
 	public static final String b2w_estimatedtotalcostlabel = "span#PageContent_EstimatedTotalCostLabel";
+	
+	public static final String b2w_estimatedunitcostbreakdown = "span#PageContent_EstimatedUnitCostTextBox";
+	public static final String b2w_estimatedtotalcostbreakdown = "span#PageContent_EstimatedTotalCostTextBox";
 	
 }

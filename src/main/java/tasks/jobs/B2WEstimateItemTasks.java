@@ -1,12 +1,16 @@
 package tasks.jobs;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 
+import appobjects.B2WCommonObjects;
 import appobjects.jobs.B2WJobs;
+import appobjects.resources.B2WPlaces;
 import appobjects.setup.B2WSetup;
 import appobjects.setup.B2WSetupUsers;
 import tasks.WebElementUtils;
@@ -303,20 +307,128 @@ public class B2WEstimateItemTasks extends B2WResourceTasks {
 		
 		return s;
 	}
-	public boolean openEstimatedByCostBreakdownID(String sID) {
-		boolean bReturn = false;
-		WebElement el = WebElementUtils.findElement(B2WJobs.getB2WEstimateItemCostBreakdownGridView());
-		List<WebElement> ids = WebElementUtils.getChildElements(el, By.tagName("a"));
+	
+	public ArrayList<String> getEstimatedByCostBreakdownIDs() {
+		ArrayList<String> al = new ArrayList<String>();
+		WebElement el = WebElementUtils.findElement(B2WCommonObjects.getB2WPageContentGrid());
+		List<WebElement> ids = WebElementUtils.getChildElements(el, B2WJobs.getB2WEstimateItemIDs());
 		for (int i = 0; i < ids.size(); i++){
 			String sText = ids.get(i).getText();
-			if (sText.equals(sID)){
-				WebElementUtils.clickElement(ids.get(i));
-				break;
-			}
+			al.add(sText);
 		}
-		return bReturn;
+		return al;
+	}
+
+	public ArrayList<String> getEstimatedByDescription() {
+		ArrayList<String> al = new ArrayList<String>();
+		WebElement el = WebElementUtils.findElement(B2WCommonObjects.getB2WPageContentGrid());
+		List<WebElement> ids = WebElementUtils.getChildElements(el, B2WJobs.getB2WEstimateItemDescription());
+		for (int i = 0; i < ids.size(); i++){
+			String sText = ids.get(i).getText();
+			al.add(sText);
+		}
+		return al;
 	}
 	
+	public String getEstimatedQuantity(String sItemID) {
+		String s = "";
+		int iIndex = getEstimatedByCostBreakdownIDs().indexOf(sItemID);
+		if (iIndex != -1) {
+			WebElement el = WebElementUtils.findElements(B2WJobs.getB2WJobsestimateoriginalquantity()).get(iIndex);
+			if (el != null) {
+				s = el.getText();
+			}
+		}
+		return s;
+	}
+	public String getEstimatedChangeOrderQuantity(String sItemID) {
+		String s = "";
+		int iIndex = getEstimatedByCostBreakdownIDs().indexOf(sItemID);
+		if (iIndex != -1) {
+			WebElement el = WebElementUtils.findElements(B2WJobs.getB2WJobestimatechangeorderquanity()).get(iIndex);
+			if (el != null) {
+				s = el.getText();
+			}
+		}
+		return s;
+	}
+	public String getEstimatedCurrentQuantity(String sItemID) {
+		String s = "";
+		int iIndex = getEstimatedByCostBreakdownIDs().indexOf(sItemID);
+		if (iIndex != -1) {
+			WebElement el = WebElementUtils.findElements(B2WJobs.getB2WJobsestimatequantity()).get(iIndex);
+			if (el != null) {
+				s = el.getText();
+			}
+		}
+		return s;
+	}
+	public String getEstimatedUnitOfMeasure(String sItemID) {
+		String s = "";
+		int iIndex = getEstimatedByCostBreakdownIDs().indexOf(sItemID);
+		if (iIndex != -1) {
+			WebElement el = WebElementUtils.findElements(B2WJobs.getB2WJobsestimateunitofmeasure()).get(iIndex);
+			if (el != null) {
+				s = el.getText();
+			}
+		}
+		return s;
+	}
+	public String getEstimatedReportedQuantity(String sItemID) {
+		String s = "";
+		int iIndex = getEstimatedByCostBreakdownIDs().indexOf(sItemID);
+		if (iIndex != -1) {
+			WebElement el = WebElementUtils.findElements(B2WJobs.getB2WJobestimatereportquanity()).get(iIndex);
+			if (el != null) {
+				s = el.getText();
+			}
+		}
+		return s;
+	}
+	public String getEstimatedRemainingQuantity(String sItemID) {
+		String s = "";
+		int iIndex = getEstimatedByCostBreakdownIDs().indexOf(sItemID);
+		if (iIndex != -1) {
+			WebElement el = WebElementUtils.findElements(B2WJobs.getB2WJobsestimateremainingquanity()).get(iIndex);
+			if (el != null) {
+				s = el.getText();
+			}
+		}
+		return s;
+	}
+	public String getEstimatedUnitPrice(String sItemID) {
+		String s = "";
+		int iIndex = getEstimatedByCostBreakdownIDs().indexOf(sItemID);
+		if (iIndex != -1) {
+			WebElement el = WebElementUtils.findElements(B2WJobs.getB2WJobsestimateunitprice()).get(iIndex);
+			if (el != null) {
+				s = el.getText();
+			}
+		}
+		return s;
+	}
+	public String getEstimatedTotalPrice(String sItemID) {
+		String s = "";
+		int iIndex = getEstimatedByCostBreakdownIDs().indexOf(sItemID);
+		if (iIndex != -1) {
+			WebElement el = WebElementUtils.findElements(B2WJobs.getB2WJobsestimatetotalprice()).get(iIndex);
+			if (el != null) {
+				s = el.getText();
+			}
+		}
+		return s;
+	}
+	public String getEstimatedRevenueToDate(String sItemID) {
+		String s = "";
+		int iIndex = getEstimatedByCostBreakdownIDs().indexOf(sItemID);
+		if (iIndex != -1) {
+			WebElement el = WebElementUtils.findElements(B2WJobs.getB2WJobsestimatebillrevenue()).get(iIndex);
+			if (el != null) {
+				s = el.getText();
+			}
+		}
+		return s;
+	}
 	public boolean editEstimatedByCostBreakdownID(String sID){
 		boolean bReturn = false;
 		WebElement el = WebElementUtils.findElement(B2WJobs.getB2WEstimateItemCostBreakdownGridView());
@@ -333,236 +445,37 @@ public class B2WEstimateItemTasks extends B2WResourceTasks {
 		return bReturn;
 	}
 	
-	public boolean setLaborUnitCost(String s) {
+	public boolean deleteEstimatedByCostBreakdownID(String sID){
 		boolean bReturn = false;
-		WebElement el = WebElementUtils.findElement(B2WJobs.getB2WEstcostlaborunitcosttextbox());
-		if (el != null){
-			el.clear();
-			bReturn = WebElementUtils.sendKeys(el, s);
+		WebElement el = WebElementUtils.findElement(B2WJobs.getB2WEstimateItemCostBreakdownGridView());
+		List<WebElement> ids = WebElementUtils.getChildElements(el, By.tagName("a"));
+		for (int i = 0; i < ids.size(); i++){
+			String sText = ids.get(i).getText();
+			if (sText.equals(sID)){
+				WebElement parent = WebElementUtils.getParentElement(WebElementUtils.getParentElement(ids.get(i)));
+				WebElement edit = WebElementUtils.getChildElement(parent, By.className("delete"));
+				bReturn = WebElementUtils.clickElement(WebElementUtils.getChildElement(edit, By.tagName("a")));
+				Alert alert = TaskUtils.getAlertDialog();
+				if (alert != null){
+					alert.accept();
+					bReturn &= true;
+				}
+				break;
+			}
 		}
-			
 		return bReturn;
 	}
 	
-	public boolean setLaborTotalCost(String s) {
+	public boolean saveEstimateItem() {
 		boolean bReturn = false;
-		WebElement el = WebElementUtils.findElement(B2WJobs.getB2WEstcostlabortotalcosttextbox());
+		WebElement el = WebElementUtils.findElement(B2WPlaces.getTopSavePanel());
 		if (el != null){
-			el.clear();
-			bReturn = WebElementUtils.sendKeys(el, s);
+			bReturn = WebElementUtils.clickElement(el);
+			TaskUtils.sleep(500);
+			bReturn &= waitForProcessingDialogToClear();
+			bReturn &= WebElementUtils.waitAndFindDisplayedElement(B2WJobs.getB2WEstimateItemView()) != null;
 		}
-			
 		return bReturn;
-	}
-	
-	public boolean setRegularHours(String s) {
-		boolean bReturn = false;
-		WebElement el = WebElementUtils.findElement(B2WJobs.getB2WEstcostregularhourstextbox());
-		if (el != null){
-			el.clear();
-			bReturn = WebElementUtils.sendKeys(el, s);
-		}
-			
-		return bReturn;
-	}
-	
-	public boolean setOvertimeHours(String s) {
-		boolean bReturn = false;
-		WebElement el = WebElementUtils.findElement(B2WJobs.getB2WEstcostovertimehourstextbox());
-		if (el != null){
-			el.clear();
-			bReturn = WebElementUtils.sendKeys(el, s);
-		}
-			
-		return bReturn;
-	}
-	
-	public boolean setDoubleTimeHours(String s) {
-		boolean bReturn = false;
-		WebElement el = WebElementUtils.findElement(B2WJobs.getB2WEstcostdoubletimehourstextbox());
-		if (el != null){
-			el.clear();
-			bReturn = WebElementUtils.sendKeys(el, s);
-		}
-			
-		return bReturn;
-	}
-	
-	public boolean setEquipmentOwnedHours(String s) {
-		boolean bReturn = false;
-		WebElement el = WebElementUtils.findElement(B2WJobs.getB2WEstcostequipmentownedhourstextbox());
-		if (el != null){
-			el.clear();
-			bReturn = WebElementUtils.sendKeys(el, s);
-		}
-			
-		return bReturn;
-	}
-	
-	
-	public boolean setEquipmentRentedHours(String s) {
-		boolean bReturn = false;
-		WebElement el = WebElementUtils.findElement(B2WJobs.getB2WEstcostequipmentrentedhourstextbox());
-		if (el != null){
-			el.clear();
-			bReturn = WebElementUtils.sendKeys(el, s);
-		}
-			
-		return bReturn;
-	}
-	
-	public boolean setEquipmentOwnedUnitCost(String s) {
-		boolean bReturn = false;
-		WebElement el = WebElementUtils.findElement(B2WJobs.getB2WEstcostequipmentownedunitcosttextbox());
-		if (el != null){
-			el.clear();
-			bReturn = WebElementUtils.sendKeys(el, s);
-		}
-			
-		return bReturn;
-	}
-	public boolean setEquipmentOwnedTotalCost(String s) {
-		boolean bReturn = false;
-		WebElement el = WebElementUtils.findElement(B2WJobs.getB2WEstcostequipmentownedtotalcosttextbox());
-		if (el != null){
-			el.clear();
-			bReturn = WebElementUtils.sendKeys(el, s);
-		}
-			
-		return bReturn;
-	}
-	
-	public boolean setEquipmentRentedUnitCost(String s) {
-		boolean bReturn = false;
-		WebElement el = WebElementUtils.findElement(B2WJobs.getB2WEstcostequipmentrentedunitcosttextbox());
-		if (el != null){
-			el.clear();
-			bReturn = WebElementUtils.sendKeys(el, s);
-		}
-			
-		return bReturn;
-	}
-	public boolean setEquipmentRentedTotalCost(String s) {
-		boolean bReturn = false;
-		WebElement el = WebElementUtils.findElement(B2WJobs.getB2WEstcostequipmentrentedtotalcosttextbox());
-		if (el != null){
-			el.clear();
-			bReturn = WebElementUtils.sendKeys(el, s);
-		}
-			
-		return bReturn;
-	}
-	
-	
-	public boolean setSubcontractedUnitCost(String s) {
-		boolean bReturn = false;
-		WebElement el = WebElementUtils.findElement(B2WJobs.getB2WEstcostsubcontractedunitcosttextbox());
-		if (el != null){
-			el.clear();
-			bReturn = WebElementUtils.sendKeys(el, s);
-		}
-			
-		return bReturn;
-	}
-	public boolean setSubcontractedTotalCost(String s) {
-		boolean bReturn = false;
-		WebElement el = WebElementUtils.findElement(B2WJobs.getB2WEstcostsubcontractedtotalcosttextbox());
-		if (el != null){
-			el.clear();
-			bReturn = WebElementUtils.sendKeys(el, s);
-		}
-			
-		return bReturn;
-	}
-	
-	public boolean setMiscUnitCost(String s) {
-		boolean bReturn = false;
-		WebElement el = WebElementUtils.findElement(B2WJobs.getB2WEstcostmiscellaneousunitcosttextbox());
-		if (el != null){
-			el.clear();
-			bReturn = WebElementUtils.sendKeys(el, s);
-		}
-			
-		return bReturn;
-	}
-	public boolean setMiscTotalCost(String s) {
-		boolean bReturn = false;
-		WebElement el = WebElementUtils.findElement(B2WJobs.getB2WEstcostmiscellaneoustotalcosttextbox());
-		if (el != null){
-			el.clear();
-			bReturn = WebElementUtils.sendKeys(el, s);
-		}
-			
-		return bReturn;
-	}
-	public boolean setTruckingUnitCost(String s) {
-		boolean bReturn = false;
-		WebElement el = WebElementUtils.findElement(B2WJobs.getB2WEstcosttruckingunitcosttextbox());
-		if (el != null){
-			el.clear();
-			bReturn = WebElementUtils.sendKeys(el, s);
-		}
-			
-		return bReturn;
-	}
-	public boolean setTruckingTotalCost(String s) {
-		boolean bReturn = false;
-		WebElement el = WebElementUtils.findElement(B2WJobs.getB2WEstcosttruckingtotalcosttextbox());
-		if (el != null){
-			el.clear();
-			bReturn = WebElementUtils.sendKeys(el, s);
-		}
-			
-		return bReturn;
-	}
-	
-	public String getMaterialsOwnedUnitCost() {
-		String s = "";
-		WebElement e = WebElementUtils.findElement(B2WJobs.getB2wEstcostmaterialsownedunitcost());
-		if (e != null){
-			s = e.getText();
-		}
-		return s;
-	}
-	public String getMaterialsOwnedTotalCost() {
-		String s = "";
-		WebElement e = WebElementUtils.findElement(B2WJobs.getB2wEstcostmaterialsownedtotalcost());
-		if (e != null){
-			s = e.getText();
-		}
-		return s;
-	}
-	public String getMaterialsPurchasedUnitCost() {
-		String s = "";
-		WebElement e = WebElementUtils.findElement(B2WJobs.getB2wEstcostmaterialspurchasedunitcost());
-		if (e != null){
-			s = e.getText();
-		}
-		return s;
-	}
-	public String getMaterialsPurchasedTotalCost() {
-		String s = "";
-		WebElement e = WebElementUtils.findElement(B2WJobs.getB2wEstcostmaterialspurchasedtotalcost());
-		if (e != null){
-			s = e.getText();
-		}
-		return s;
-	}
-	public String getEstimatedUnitCost() {
-		String s = "";
-		WebElement e = WebElementUtils.findElement(B2WJobs.getB2WEstimateUnitCost());
-		if (e != null){
-			s = e.getText();
-		}
-		return s;
-	}
-	public String getEstimatedTotalCost() {
-		String s = "";
-		WebElement e = WebElementUtils.findElement(B2WJobs.getB2WEstimateTotalCost());
-		if (e != null){
-			s = e.getText();
-		}
-		return s;
 	}
 	
 	

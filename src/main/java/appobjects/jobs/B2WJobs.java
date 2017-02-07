@@ -620,4 +620,41 @@ public class B2WJobs extends KendoUI {
 	public static By getB2WEstimateTotalCost() {
 		return By.cssSelector(B2WUIMap.b2w_estimatedtotalcostlabel);
 	}
+
+	
+	public static By getB2WJobsestimateoriginalquantity() {
+		return By.cssSelector(B2WUIMap.b2w_jobsestimateoriginalquantity);
+	}
+	public static By getB2WJobestimatechangeorderquanity() {
+		return By.cssSelector(B2WUIMap.b2w_jobestimatechangeorderquanity);
+	}
+	public static By getB2WJobsestimatequantity() {
+		return By.cssSelector(B2WUIMap.b2w_jobsestimatequantity);
+	}
+	public static By getB2WJobsestimateunitofmeasure() {
+		return By.cssSelector(B2WUIMap.b2w_jobsestimateunitofmeasure);
+	}
+	public static By getB2WJobestimatereportquanity() {
+		return By.cssSelector(B2WUIMap.b2w_jobestimatereportquanity);
+	}
+	public static By getB2WJobsestimateremainingquanity() {
+		return By.cssSelector(B2WUIMap.b2w_jobsestimateremainingquanity);
+	}
+	public static By getB2WJobsestimateunitprice() {
+		return By.cssSelector(B2WUIMap.b2w_jobsestimateunitprice);
+	}
+	public static By getB2WJobsestimatetotalprice() {
+		return By.cssSelector(B2WUIMap.b2w_jobsestimatetotalprice);
+	}
+	public static By getB2WJobsestimatebillrevenue() {
+		return By.cssSelector(B2WUIMap.b2w_jobsestimatebillrevenue);
+	}
+	public static By getB2wEstimatedunitcostbreakdown() {
+		return By.cssSelector(B2WUIMap.b2w_estimatedunitcostbreakdown);
+	}
+	public static By getB2wEstimatedtotalcostbreakdown() {
+		return By.cssSelector(B2WUIMap.b2w_estimatedtotalcostbreakdown);
+	}
+	
+	
 }
