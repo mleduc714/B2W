@@ -31,12 +31,14 @@ public class B2WEstimateItemsTest extends B2WTestCase {
 			sEstimatedUnitCostC, sEstimatedTotalCostC, sEstimatedUnitCurrentCostC, sEstimatedTotalCurrentCostC;
 	String[] sJobs;
 	ArrayList<String> estimateItemIDs = new ArrayList<String>();
+	int iRandom;
 	
 	
 	@Override
 	public void testSetUp() throws Throwable {
 		// code here for setting up the test
 		super.testSetUp();
+		iRandom = getRandomNumber();
 		sJobA= getProperty("sJobA");
 		sJobB= getProperty("sJobB");
 		sJobC= getProperty("sJobC");
@@ -63,7 +65,7 @@ public class B2WEstimateItemsTest extends B2WTestCase {
 		sUnitCostMiscB = getProperty("sUnitCostMiscB");
 		sExpectedTotalCostB = getProperty("sExpectedTotalCostB");
 		sItemIDC = getProperty("sItemDC");
-		sItemCostBreakdownIDC=getProperty("sItemCostBreakdownIDC");
+		sItemCostBreakdownIDC=getProperty("sItemCostBreakdownIDC")+iRandom;
 		sItemCostIDC=getProperty("sItemCostIDC");
 		sTrackingAccountC=getProperty("sTrackingAccountC");
 		sEstimateItemDescC=getProperty("sEstimateItemDescC");
@@ -160,7 +162,9 @@ public class B2WEstimateItemsTest extends B2WTestCase {
 		logCompare(sExpectedTotalCostB, b2wEst.getEstimatedTotalCostEstimated(), "Verify Total Cost");
 		logCompare(sExpectedUnitCostB, b2wEst.getEstimatedUnitCostCurrent(), "Unit Cost Current");
 		logCompare(sExpectedTotalCostB, b2wEst.getEstimatedTotalCostCurrent(), "Verify Current Cost");
-		logCompare(true,b2wEst.openEstimateItemByItemID(sItemIDC),"Open Estimate Item");
+		b2wEstItem.clickPathLink();
+		b2wJob.clickEstimatesItemsTab();
+		assertTrue("Open Estimate Item",b2wEst.openEstimateItemByItemID(sItemIDC));
 		logCompare(true,b2wEst.clickAddCostBreakdownElement(), "Click Cost Breakdown");
 		logCompare(true,b2wEstItem.setCostBreakDownID(sItemCostBreakdownIDC), "Set Cost Breakdown ID");
 		logCompare(true,b2wEstItem.setCostID(sItemCostIDC), "Set Cost ID");
@@ -178,7 +182,7 @@ public class B2WEstimateItemsTest extends B2WTestCase {
 		logCompare(sExpectedTotalCostC, b2wEstItem.getEstimatedItemTotalCostBreakdownUnitCost(), "Verify Total Cost");
 		b2wEstItem.clickPathLink();
 		b2wJob.clickEstimatesItemsTab();
-		logCompare(true,b2wEst.openEstimateItemByItemID(sItemIDC),"Open Estimate Item");
+		assertTrue("Open Estimate Item",b2wEst.openEstimateItemByItemID(sItemIDC));
 		logCompare(sEstimatedUnitCostC, b2wEst.getEstimatedUnitCostEstimated(), "Unit Cost Estimated");
 		logCompare(sEstimatedTotalCostC, b2wEst.getEstimatedTotalCostEstimated(), "Verify Total Cost");
 		logCompare(sEstimatedUnitCurrentCostC, b2wEst.getEstimatedUnitCostCurrent(), "Unit Cost Current");
@@ -187,8 +191,9 @@ public class B2WEstimateItemsTest extends B2WTestCase {
 		b2wCommon.openJob(sJobs);
 		b2wJob.clickEstimatesItemsTab();
 		logCompare(true,b2wEst.openEstimateItemByItemID(sItemIDC),"Open Estimate Item");
-		b2wEst.deleteEstimatedByCostBreakdownID(sItemCostBreakdownIDC);
-		TaskUtils.sleep(5000);
+		logCompare(true,b2wEst.deleteEstimatedByCostBreakdownID(sItemCostBreakdownIDC), "Delete Item Cost Breakdown");
+		TaskUtils.sleep(1000);
+		logCompare(false,b2wEst.editEstimatedByCostBreakdownID(sItemCostBreakdownIDC), "Should be Deleted");
 		// open a job
 		// 
 		
