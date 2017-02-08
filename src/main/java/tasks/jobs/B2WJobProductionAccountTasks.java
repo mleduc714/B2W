@@ -1,5 +1,6 @@
 package tasks.jobs;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.openqa.selenium.Alert;
@@ -7,9 +8,12 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
 import appobjects.jobs.B2WJobs;
+import appobjects.setup.B2WSetup;
 import tasks.WebElementUtils;
+import tasks.resources.B2WResourceTasks;
+import tasks.util.TaskUtils;
 
-public class B2WJobProductionAccountTasks extends B2WJobsTasks {
+public class B2WJobProductionAccountTasks extends B2WResourceTasks {
 	
 	public boolean setJobProductionAccountTrackingIDText(String sText){
 		boolean bReturn = false;
@@ -252,4 +256,87 @@ public class B2WJobProductionAccountTasks extends B2WJobsTasks {
 		
 		return s;
 	}
+	public boolean openJobProductionAccountByTrackingID(String b2w_jobstrackingaccountid) {
+		boolean bReturn = false;
+		WebElement el = WebElementUtils.getElementWithMatchingText(B2WJobs.getB2WJobProductionListAccountTrackingID(), b2w_jobstrackingaccountid);
+		if (el != null){
+			WebElementUtils.clickElement(el);
+			WebElement waitForThis = WebElementUtils.waitAndFindDisplayedElement(B2WJobs.getB2WEstimateTrackingAccountsVerification());
+			bReturn = waitForThis != null;
+		}
+		return bReturn;
+	}
+	
+	public boolean openJobProductionAccountByDescription(String b2w_jobstrackingaccountdescription) {
+		boolean bReturn = false;
+		WebElement el = WebElementUtils.getElementWithMatchingText(B2WJobs.getB2WJobProductionListAccountDescription(), b2w_jobstrackingaccountdescription);
+		if (el != null){
+			WebElementUtils.clickElement(el);
+			WebElement waitForThis = WebElementUtils.waitAndFindDisplayedElement(B2WJobs.getB2WEstimateTrackingAccountsVerification());
+			bReturn = waitForThis != null;
+		}
+		return bReturn;
+	}
+	
+	public boolean saveJobProductionAccount() {
+
+		boolean bReturn = false;
+		WebElement el = WebElementUtils.findElement(B2WSetup.getTopSaveButton());
+		if (el != null){
+			bReturn = WebElementUtils.clickElement(el);
+			TaskUtils.sleep(500);
+			bReturn &= waitForProcessingDialogToClear();
+			bReturn &= WebElementUtils.waitAndFindDisplayedElements(B2WJobs.getB2WEstimateTrackingAccountsVerification()) != null;
+		}
+		return bReturn;
+
+	}
+	
+	public String getEstimatedQuantity(String sItemID) {
+		String s = "";
+		int iIndex = getJobProductionAccountTrackingIDs().indexOf(sItemID);
+		if (iIndex != -1) {
+			WebElement el = WebElementUtils.findElements(B2WJobs.getB2wJobstrackacctsestquanity()).get(iIndex);
+			if (el != null) {
+				s = el.getText();
+			}
+		}
+		return s;
+	}
+	
+	public String getEstimatedUnitCost(String sItemID){
+		String s = "";
+		int iIndex = getJobProductionAccountTrackingIDs().indexOf(sItemID);
+		if (iIndex != -1) {
+			WebElement el = WebElementUtils.findElements(B2WJobs.getB2WJobProductionListAccountEstimatedUnitCost()).get(iIndex);
+			if (el != null) {
+				s = el.getText();
+			}
+		}
+		return s;
+	}
+	
+	public String getChangeOrderQuantity(String sItemID){
+		String s = "";
+		int iIndex = getJobProductionAccountTrackingIDs().indexOf(sItemID);
+		if (iIndex != -1) {
+			WebElement el = WebElementUtils.findElements(B2WJobs.getB2wJobstrackacctschangeorderquanity()).get(iIndex);
+			if (el != null) {
+				s = el.getText();
+			}
+		}
+		return s;
+	}
+	
+	public ArrayList<String> getJobProductionAccountTrackingIDs() {
+		ArrayList<String> al = new ArrayList<String>();
+		List<WebElement> ids = WebElementUtils.findElements(B2WJobs.getB2WJobProductionListAccountTrackingID());
+		for (int i = 0; i < ids.size(); i++){
+			String sText = ids.get(i).getText();
+			al.add(sText);
+		}
+		return al;
+	}
+
+	
 }

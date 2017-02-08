@@ -173,18 +173,18 @@ public class TaskUtils extends BaseAssert {
 	
 
 	public void getAllIDS() {
-		WebElement parent = WebElementUtils.findElement(By.cssSelector("div#PageContent_EstimatedCostsPanel"));
-		List<WebElement> ids = WebElementUtils.getChildElements(parent, By.tagName("input"));
+		WebElement parent = WebElementUtils.findElement(By.cssSelector("table#PageContent_OverheadAccountGridView"));
+		List<WebElement> ids = WebElementUtils.getChildElements(parent, By.tagName("span"));
 		for (WebElement e: ids){
 			String sID = e.getAttribute("id");
 
-			if (sID.endsWith("numVal")){
-				int start = sID.indexOf("_")+1;
-				int end = sID.indexOf("num")-1;
+			//if (sID.endsWith("numVal")){
+				//int start = sID.indexOf("_")+1;
+				//int end = sID.indexOf("num")-1;
 				
-				String sWoo = sID.substring(start, end).toLowerCase();
-				System.out.println("public static final String b2w_estcost"+sWoo + " = \"input#"+sID+"\";");
-			}
+				//String sWoo = sID.substring(start, end).toLowerCase();
+				System.out.println("public static final String b2w_joboverheadlist"+sID+ " = \"span#"+sID+"\";");
+			//}
 		}
 	}
 	

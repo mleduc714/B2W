@@ -1245,7 +1245,7 @@ public class B2WUIMap {
 	public static final String b2w_estimateitemview = "fieldset#generalInformation";
 	
 	//estimate item cost breakdowns
-	public static final String b2w_estimateitemcostbreakdownid = "span[id$='PageContent_EstimateItemCostBreakdownGridView_CostBreakdownElementID']";
+	public static final String b2w_estimateitemcostbreakdownid = "a[id$='PageContent_EstimateItemCostBreakdownGridView_CostBreakdownElementID']";
 	public static final String b2w_estimateitemcostbreakdowndelete = "a[id$='PageContent_EstimateItemCostBreakdownGridView_Delete']";
 	public static final String b2w_estimateitemcostbreakdowngrid = "table#PageContent_EstimateItemCostBreakdownGridView";
 	public static final String b2w_estimateitemcostbreakdowngridview = "table#PageContent_CostBreakdownGridView";
@@ -1290,5 +1290,12 @@ public class B2WUIMap {
 	
 	public static final String b2w_estimatedunitcostbreakdown = "span#PageContent_EstimatedUnitCostTextBox";
 	public static final String b2w_estimatedtotalcostbreakdown = "span#PageContent_EstimatedTotalCostTextBox";
+	public static final String b2w_joboverheadaccountdetails = "table#PageContent_OverheadAccountDetails";
+	
+	public static final String b2w_joboverheadaccountgridviewaccountid = "span#PageContent_OverheadAccountGridView_AccountID";
+	public static final String b2w_joboverheadaccountgridviewoverheadestimated = "span[id$='PageContent_OverheadAccountGridView_OverheadEstimated']";
+	public static final String b2w_joboverheadaccountgridviewoverheadreported = "span[id$='PageContent_OverheadAccountGridView_OverheadReported']";
+	public static final String b2w_joboverheadaccountgridviewoverheadpercentcomplete = "span[id$='PageContent_OverheadAccountGridView_PercentComplete']";
+	public static final String b2w_joboverheadaccountgridviewoverheadcomplete = "span[id$='PageContent_OverheadAccountGridView_Complete']";
 	
 }

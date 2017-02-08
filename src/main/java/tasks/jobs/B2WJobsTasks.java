@@ -144,27 +144,7 @@ public class B2WJobsTasks extends B2WResourceTasks {
 	}
 
 	
-	public boolean openTrackingAccountByTrackingID(String b2w_jobstrackingaccountid) {
-		boolean bReturn = false;
-		WebElement el = WebElementUtils.getElementWithMatchingText(B2WJobs.getB2WJobProductionListAccountTrackingID(), b2w_jobstrackingaccountid);
-		if (el != null){
-			WebElementUtils.clickElement(el);
-			WebElement waitForThis = WebElementUtils.waitAndFindDisplayedElement(B2WJobs.getB2WEstimateTrackingAccountsVerification());
-			bReturn = waitForThis != null;
-		}
-		return bReturn;
-	}
-	
-	public boolean openTrackingAccountByDescription(String b2w_jobstrackingaccountdescription) {
-		boolean bReturn = false;
-		WebElement el = WebElementUtils.getElementWithMatchingText(B2WJobs.getB2WJobProductionListAccountDescription(), b2w_jobstrackingaccountdescription);
-		if (el != null){
-			WebElementUtils.clickElement(el);
-			WebElement waitForThis = WebElementUtils.waitAndFindDisplayedElement(B2WJobs.getB2WEstimateTrackingAccountsVerification());
-			bReturn = waitForThis != null;
-		}
-		return bReturn;
-	}
+
 	
 	public boolean openMaterialByDescription(String b2w_jobsmaterialsdescription) {
 		boolean bReturn = false;
@@ -690,18 +670,7 @@ public class B2WJobsTasks extends B2WResourceTasks {
 		}
 		return bReturn;
 	}
-	public boolean editJobOverheadAccountByTrackingID(String s){
-		boolean bReturn = false;
-		WebElement el = WebElementUtils.getElementWithMatchingText(B2WJobs.getB2WJobOverheadAccountTrackingID(), s);
-		if (el != null){
-			int iNumber = StringUtils.getNumberFromID(el.getAttribute("id"));
-			List<WebElement> edits = WebElementUtils.findElements(B2WJobs.getB2WJobOverheadAccountEdit());
-			WebElementUtils.clickElement(edits.get(iNumber));
-			WebElement waitForThis = WebElementUtils.waitAndFindDisplayedElement(B2WJobs.getB2WJobProductionAccountTrackingID());
-			bReturn = waitForThis != null;
-		}
-		return bReturn;
-	}
+
 	public boolean deleteJobMaterialByDescription(String s){
 		boolean bReturn = false;
 		WebElement el = WebElementUtils.getElementWithMatchingText(B2WJobs.getB2WJobMaterialListDesc(), s);

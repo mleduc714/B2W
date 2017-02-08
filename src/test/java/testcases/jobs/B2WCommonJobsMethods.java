@@ -20,7 +20,7 @@ public class B2WCommonJobsMethods {
 		b2wNav.openJobs();
 		b2wJobs.openJobByJobNumber(sNumber);
 		b2wJobs.clickTrackingAccountsTab();
-		b2wJobs.openTrackingAccountByTrackingID("1100");
+		//b2wJobs.openTrackingAccountByTrackingID("1100");
 		b2wCreateJobProd.getReportedSummary(0);
 //		b2wCreateJobProd.editJobProductionAccount();
 //		b2wCreateJobProd.setJobProductionSupervisorProjectedUnitCost("100");
