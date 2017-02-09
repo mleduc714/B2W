@@ -8,10 +8,10 @@ import com.b2w.test.B2WTestCase;
 import tasks.B2WNavigationTasks;
 import tasks.dialogs.B2WAddLaborRateClass;
 import tasks.jobs.B2WAddToJobs;
-import tasks.jobs.B2WCreateEstimateItemTasks;
-import tasks.jobs.B2WCreateJobProductionAccountTasks;
 import tasks.jobs.B2WCreateJobSiteTasks;
 import tasks.jobs.B2WCreateJobTasks;
+import tasks.jobs.B2WEstimateItemTasks;
+import tasks.jobs.B2WJobProductionAccountTasks;
 import tasks.jobs.B2WJobsTasks;
 import tasks.jobs.B2WJobsTasks.JOBSDIALOG;
 import tasks.resources.B2WMaterialsTasks;
@@ -29,8 +29,8 @@ public class B2WJobsTestPart2 extends B2WTestCase {
 	B2WCreateJobSiteTasks b2wJobSite = new B2WCreateJobSiteTasks();
 	B2WAddToJobs addToJobs = new B2WAddToJobs(JOBSDIALOG.ADDMATERIALS);
 	B2WAddToJobs addToVendors = new B2WAddToJobs(JOBSDIALOG.ADDVENDORS);
-	B2WCreateJobProductionAccountTasks jobProd = new B2WCreateJobProductionAccountTasks();
-	B2WCreateEstimateItemTasks estimate = new B2WCreateEstimateItemTasks();
+	B2WJobProductionAccountTasks jobProd = new B2WJobProductionAccountTasks();
+	B2WEstimateItemTasks estimate = new B2WEstimateItemTasks();
 	B2WOrganizationTasks b2wOrg = new B2WOrganizationTasks();
 	B2WMaterialsTasks b2wMaterial = new B2WMaterialsTasks();
 	B2WAddLaborRateClass laborRate = new B2WAddLaborRateClass();
@@ -147,7 +147,10 @@ public class B2WJobsTestPart2 extends B2WTestCase {
 	
 	@Override
 	public void testMain() throws Throwable {
-		editJobWithProductionAccounts();
+		
+		//B2WJobsTCS.test1("2007-0001");
+		
+		//editJobWithProductionAccounts();
 		//logCompare(true,openJob(),"Open A existing Job");
 		//this.createEstimate();
 		
@@ -210,7 +213,7 @@ public class B2WJobsTestPart2 extends B2WTestCase {
 		
 		logCompare(true,jobsTasks.clickEstimatesItemsTab(), "Click Estimates Items Tab");
 		ArrayList<String> al = jobsTasks.getEstimateDescriptions();
-		logCompare(true,jobsTasks.openEstimateItemByDescription(al.get(0)), "Open Estimate Item");
+		logCompare(true,estimate.openEstimateItemByDescription(al.get(0)), "Open Estimate Item");
 		logCompare(true,estimate.clickEditButton(),"Click Edit Button");
 		logCompare(true,estimate.setEstimateEstimatedQuantity("5"), "Estimated Quantity");
 		logCompare(true,estimate.clickBottomSaveButton(), "Save Button");
@@ -226,14 +229,14 @@ public class B2WJobsTestPart2 extends B2WTestCase {
 		jobsTasks.clickBottomSaveButton();
 		TaskUtils.sleep(1000);
 		logCompare(true,jobsTasks.clickPathLink(), "Click Link");
-		logCompare(true,jobsTasks.editEstimateItemByDescription(sJobEstimateDescription), "Edit Estimate");
+		logCompare(true,estimate.editEstimateItemByDescription(sJobEstimateDescription), "Edit Estimate");
 		this.sJobEstimateDescription = "aaChanged"+iRandom; 
 		logCompare(true,estimate.setEstimateDescription(sJobEstimateDescription), "Set New Desc "+sJobEstimateDescription);
 		jobsTasks.clickBottomSaveButton();
 		logCompare(true,jobsTasks.clickPathLink(), "Click Link");
 		logCompare(true,jobsTasks.deleteEstimateItemByDescription(sJobEstimateDescription), "Delete Estimate Item");
 		TaskUtils.sleep(1000);
-		logCompare(false,jobsTasks.editEstimateItemByDescription(sJobEstimateDescription), "Edit Estimate");
+		logCompare(false,estimate.editEstimateItemByDescription(sJobEstimateDescription), "Edit Estimate");
 		
 	}
 
@@ -270,13 +273,10 @@ public class B2WJobsTestPart2 extends B2WTestCase {
 		
 	}
 	
-	public void editJobProductionAccount() {
-		assertTrue("Open Jobs",b2wNav.openJobs());
-		openJob();
-		logCompare(true,jobsTasks.clickTrackingAccountsTab(), "Open Tracking Accounts Tab");
-	}
 	
 	public void editJobWithProductionAccounts() {
 		openJobWithProductionAccounts();
+		
+		
 	}
 }

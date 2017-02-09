@@ -5,7 +5,6 @@ import org.openqa.selenium.WebElement;
 import appobjects.jobs.B2WJobs;
 import appobjects.resources.B2WResources;
 import tasks.WebElementUtils;
-import tasks.util.TaskUtils;
 
 public class B2WCreateJobTasks {
 
