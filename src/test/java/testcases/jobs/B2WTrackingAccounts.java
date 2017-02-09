@@ -72,7 +72,7 @@ public class B2WTrackingAccounts extends B2WTestCase {
 		b2wNav.openJobs();
 		b2wJob.openJobByJobNumber(sJobC);
 		b2wJob.clickTrackingAccountsTab();
-		new TaskUtils().getAllIDS();
+		//new TaskUtils().getAllIDS();
 /*		prodAccount.openJobProductionAccountByTrackingID(sJobCProductionAccountA);
 		prodAccount.clickTopEditButton();
 		prodAccount.setJobProductionEstimatedQuantity("5");
